@@ -42,7 +42,6 @@ build_libsnes_s9x()
    if [ -d "libsnes-s9x" ]; then
       echo "=== Building SNES9x ==="
       cd libsnes-s9x/unix
-      ./configure || die "Failed to build SNES9x"
       make -j4 || die "Failed to build SNES9x"
       cp libsnes.so ../libsnes-snes9x.so
       cd ../..
