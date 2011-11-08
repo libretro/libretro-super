@@ -53,6 +53,7 @@ fetch_project()
 
 fetch_project_bsnes "Themaister/libsnes.git" "libsnes" "libsnes/bSNES"
 fetch_project "Themaister/snes9x-libsnes.git" "libsnes-s9x" "libsnes/SNES9x"
+fetch_project "twinaphex/snes9x-next.git" "libsnes-s9x-next" "libsnes/SNES9x-Next"
 fetch_project "twinaphex/genesis-next.git" "libsnes-genplus" "libsnes/Genplus GX"
 fetch_project "twinaphex/fba-next-slim.git" "libsnes-fba" "libsnes/FBA"
 fetch_project "twinaphex/vba-next.git" "libsnes-vba" "libsnes/VBA"

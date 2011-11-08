@@ -50,6 +50,19 @@ build_libsnes_s9x()
    fi
 }
 
+build_libsnes_s9x_next()
+{
+   if [ -d "libsnes-s9x-next" ]; then
+      echo "=== Building SNES9x-Next ==="
+      cd libsnes-s9x-next/src/snes9x-next/libsnes
+      make -j4 || die "Failed to build SNES9x-Next"
+      cp libsnes.so ../../../libsnes-snes9x-next.so
+      cd ../../../..
+   else
+      echo "SNES9x-Next not fetched, skipping ..."
+   fi
+}
+
 build_libsnes_genplus()
 {
    if [ -d "libsnes-genplus" ]; then
@@ -134,6 +147,7 @@ build_libsnes_gambatte()
 
 build_libsnes
 build_libsnes_s9x
+build_libsnes_s9x_next
 build_libsnes_genplus
 build_libsnes_fba
 build_libsnes_vba
