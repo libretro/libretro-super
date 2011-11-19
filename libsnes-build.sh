@@ -120,12 +120,12 @@ build_libsnes_fceu()
 {
    if [ -d "libsnes-fceu" ]; then
       echo "=== Building FCEU ==="
-      cd libsnes-fceu/src/libsnes
+      cd libsnes-fceu/src/libsnes-fceumm
       make -j4 || die "Failed to build FCEU"
       cp libsnes.so ../../libsnes-fceu.so
       cd ../../..
    else
-      echo "bNES not fetched, skipping ..."
+      echo "FCEU not fetched, skipping ..."
    fi
 }
 
