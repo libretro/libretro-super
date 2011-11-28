@@ -54,10 +54,10 @@ build_libsnes_s9x_next()
 {
    if [ -d "libsnes-s9x-next" ]; then
       echo "=== Building SNES9x-Next ==="
-      cd libsnes-s9x-next/src/snes9x-next/libsnes
-      make -j4 || die "Failed to build SNES9x-Next"
-      cp libsnes.so ../../../libsnes-snes9x-next.so
-      cd ../../../..
+      cd libsnes-s9x-next/
+      make -f Makefile.libsnes -j4 || die "Failed to build SNES9x-Next"
+      cp libsnes.so ../libsnes-snes9x-next.so
+      cd ..
    else
       echo "SNES9x-Next not fetched, skipping ..."
    fi
@@ -67,10 +67,10 @@ build_libsnes_genplus()
 {
    if [ -d "libsnes-genplus" ]; then
       echo "=== Building Genplus GX ==="
-      cd libsnes-genplus/src/libsnes
-      make -j4 || die "Failed to build Genplus GX"
-      cp libsnes.so ../../libsnes-genplus.so
-      cd ../../..
+      cd libsnes-genplus/
+      make -f Makefile.libsnes -j4 || die "Failed to build Genplus GX"
+      cp libsnes.so ../libsnes-genplus.so
+      cd ..
    else
       echo "Genplus GX not fetched, skipping ..."
    fi
@@ -93,10 +93,10 @@ build_libsnes_vba()
 {
    if [ -d "libsnes-vba" ]; then
       echo "=== Building VBA-Next ==="
-      cd libsnes-vba/trunk/platform/libsnes-gba
-      make -j4 || die "Failed to build VBA-Next"
-      cp libsnes.so ../../../libsnes-vba.so
-      cd ../../../..
+      cd libsnes-vba/
+      make -f Makefile.libsnes -j4 || die "Failed to build VBA-Next"
+      cp libsnes.so ../libsnes-vba.so
+      cd ..
    else
       echo "VBA-Next not fetched, skipping ..."
    fi
@@ -120,10 +120,10 @@ build_libsnes_fceu()
 {
    if [ -d "libsnes-fceu" ]; then
       echo "=== Building FCEU ==="
-      cd libsnes-fceu/src/libsnes-fceumm
-      make -j4 || die "Failed to build FCEU"
-      cp libsnes.so ../../libsnes-fceu.so
-      cd ../../..
+      cd libsnes-fceu
+      make -f Makefile.libsnes-fceumm -j4 || die "Failed to build FCEU"
+      cp libsnes.so ../libsnes-fceu.so
+      cd ..
    else
       echo "FCEU not fetched, skipping ..."
    fi
