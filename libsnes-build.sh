@@ -80,10 +80,10 @@ build_libsnes_fba()
 {
    if [ -d "libsnes-fba" ]; then
       echo "=== Building Final Burn Alpha ==="
-      cd libsnes-fba/src-0.2.97.13/burner/libsnes
-      make -j4 || die "Failed to build Final Burn Alpha"
-      cp libsnes.so ../../../libsnes-fba.so
-      cd ../../../..
+      cd libsnes-fba/
+      make -f Makefile.libsnes -j4 || die "Failed to build Final Burn Alpha"
+      cp libsnes.so libsnes-fba.so
+      cd ..
    else
       echo "Final Burn Alpha not fetched, skipping ..."
    fi
