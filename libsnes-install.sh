@@ -22,6 +22,7 @@ LIBS="$LIBS libsnes-vba/libsnes-vba.so"
 LIBS="$LIBS libsnes-fceu/libsnes-fceu.so"
 LIBS="$LIBS libsnes-bnes/libsnes-bnes.so"
 LIBS="$LIBS libsnes-gambatte/libsnes-gambatte.so"
+LIBS="$LIBS libsnes-meteor/libsnes-meteor.so"
 
 for lib in $LIBS
 do

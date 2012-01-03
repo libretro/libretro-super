@@ -144,6 +144,19 @@ build_libsnes_gambatte()
    fi
 }
 
+build_libsnes_meteor()
+{
+   if [ -d "libsnes-meteor" ]; then
+      echo "=== Building Meteor ==="
+      cd libsnes-meteor/libsnes
+      make -j4 || die "Failed to build Meteor"
+      cp libsnes.so ../libsnes-meteor.so
+      cd ../
+   else
+      echo "Meteor not fetched, skipping ..."
+   fi
+}
+
 
 build_libsnes
 build_libsnes_s9x
@@ -154,4 +167,5 @@ build_libsnes_vba
 build_libsnes_bnes
 build_libsnes_fceu
 build_libsnes_gambatte
+build_libsnes_meteor
 

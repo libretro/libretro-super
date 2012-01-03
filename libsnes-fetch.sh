@@ -1,6 +1,5 @@
 #!/bin/sh
 
-REPO_BASE="git://github.com"
 
 # Keep three copies so we don't have to rebuild stuff all the time.
 fetch_project_bsnes()
@@ -11,7 +10,7 @@ fetch_project_bsnes()
       git pull
       cd ..
    else
-      git clone "$REPO_BASE/$1" "$2"
+      git clone "$1" "$2"
    fi
 
    if [ -d "$2" ]; then
@@ -45,19 +44,21 @@ fetch_project()
       git pull
       cd ..
    else
-      git clone "$REPO_BASE/$1" "$2"
+      git clone "$1" "$2"
    fi
    echo "=== Fetched ==="
 }
 
+REPO_BASE="git://github.com"
 
-fetch_project_bsnes "Themaister/libsnes.git" "libsnes" "libsnes/bSNES"
-fetch_project "Themaister/snes9x-libsnes.git" "libsnes-s9x" "libsnes/SNES9x"
-fetch_project "twinaphex/snes9x-next.git" "libsnes-s9x-next" "libsnes/SNES9x-Next"
-fetch_project "twinaphex/genesis-next.git" "libsnes-genplus" "libsnes/Genplus GX"
-fetch_project "twinaphex/fba-next-slim.git" "libsnes-fba" "libsnes/FBA"
-fetch_project "twinaphex/vba-next.git" "libsnes-vba" "libsnes/VBA"
-fetch_project "Themaister/bnes-libsnes.git" "libsnes-bnes" "libsnes/bNES"
-fetch_project "twinaphex/fceu-next.git" "libsnes-fceu" "libsnes/FCEU"
-fetch_project "Themaister/gambatte-libsnes.git" "libsnes-gambatte" "libsnes/Gambatte"
+fetch_project_bsnes "$REPO_BASE/Themaister/libsnes.git" "libsnes" "libsnes/bSNES"
+fetch_project "$REPO_BASE/Themaister/snes9x-libsnes.git" "libsnes-s9x" "libsnes/SNES9x"
+fetch_project "$REPO_BASE/twinaphex/snes9x-next.git" "libsnes-s9x-next" "libsnes/SNES9x-Next"
+fetch_project "$REPO_BASE/twinaphex/genesis-next.git" "libsnes-genplus" "libsnes/Genplus GX"
+fetch_project "$REPO_BASE/twinaphex/fba-next-slim.git" "libsnes-fba" "libsnes/FBA"
+fetch_project "$REPO_BASE/twinaphex/vba-next.git" "libsnes-vba" "libsnes/VBA"
+fetch_project "$REPO_BASE/Themaister/bnes-libsnes.git" "libsnes-bnes" "libsnes/bNES"
+fetch_project "$REPO_BASE/twinaphex/fceu-next.git" "libsnes-fceu" "libsnes/FCEU"
+fetch_project "$REPO_BASE/Themaister/gambatte-libsnes.git" "libsnes-gambatte" "libsnes/Gambatte"
+fetch_project "git://git.code.sf.net/p/meteorgba/code.git" "libsnes-meteor" "libsnes/Meteor"
 
