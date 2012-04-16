@@ -12,7 +12,7 @@ build_libretro_bsnes()
       echo "=== Building bSNES performance ==="
       cd libretro-bsnes/perf
       make profile=performance -j4 || die "Failed to build bSNES performance core"
-      cp -f out/libretro.so ../libretro-performance.so
+      cp -f out/libretro.so ../libretro-bsnes-performance.so
       cd ../..
    else
       echo "bSNES performance not fetched, skipping ..."
@@ -22,7 +22,7 @@ build_libretro_bsnes()
       echo "=== Building bSNES compatibility ==="
       cd libretro-bsnes/compat
       make profile=compatibility -j4 || die "Failed to build bSNES compatibility core"
-      cp -f out/libretro.so ../libretro-compat.so
+      cp -f out/libretro.so ../libretro-bsnes-compat.so
       cd ../..
    else
       echo "bSNES compat not fetched, skipping ..."
@@ -32,7 +32,7 @@ build_libretro_bsnes()
       echo "=== Building bSNES accuracy ==="
       cd libretro-bsnes
       make profile=accuracy -j4 || die "Failed to build bSNES accuracy core"
-      cp -f out/libretro.so libretro-accuracy.so
+      cp -f out/libretro.so libretro-bsnes-accuracy.so
       cd ..
    fi
 }

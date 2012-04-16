@@ -11,9 +11,9 @@ if [ ! -d "$PREFIX/lib/libretro" ]; then
 fi
 
 LIBS=""
-LIBS="$LIBS libretro-bsnes/libretro-performance.so"
-LIBS="$LIBS libretro-bsnes/libretro-compat.so"
-LIBS="$LIBS libretro-bsnes/libretro-accuracy.so"
+LIBS="$LIBS libretro-bsnes/libretro-bsnes-performance.so"
+LIBS="$LIBS libretro-bsnes/libretro-bsnes-compat.so"
+LIBS="$LIBS libretro-bsnes/libretro-bsnes-accuracy.so"
 LIBS="$LIBS libretro-s9x/libretro-snes9x.so"
 LIBS="$LIBS libretro-s9x-next/libretro-snes9x-next.so"
 LIBS="$LIBS libretro-genplus/libretro-genplus.so"
