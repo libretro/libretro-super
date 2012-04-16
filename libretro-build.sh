@@ -3,154 +3,152 @@
 die()
 {
    echo $1
-   exit 1
+   #exit 1
 }
 
-build_libsnes()
+build_libretro_bsnes()
 {
-   if [ -d "libsnes/perf" ]; then
+   if [ -d "libretro-bsnes/perf" ]; then
       echo "=== Building bSNES performance ==="
-      cd libsnes/perf
+      cd libretro-bsnes/perf
       make profile=performance -j4 || die "Failed to build bSNES performance core"
-      cp -f out/libsnes.so ../libsnes-performance.so
+      cp -f out/libretro.so ../libretro-performance.so
       cd ../..
    else
       echo "bSNES performance not fetched, skipping ..."
    fi
 
-   if [ -d "libsnes/compat" ]; then
+   if [ -d "libretro-bsnes/compat" ]; then
       echo "=== Building bSNES compatibility ==="
-      cd libsnes/compat
+      cd libretro-bsnes/compat
       make profile=compatibility -j4 || die "Failed to build bSNES compatibility core"
-      cp -f out/libsnes.so ../libsnes-compat.so
+      cp -f out/libretro.so ../libretro-compat.so
       cd ../..
    else
       echo "bSNES compat not fetched, skipping ..."
    fi
 
-   if [ -d "libsnes" ]; then
+   if [ -d "libretro-bsnes" ]; then
       echo "=== Building bSNES accuracy ==="
-      cd libsnes
+      cd libretro-bsnes
       make profile=accuracy -j4 || die "Failed to build bSNES accuracy core"
-      cp -f out/libsnes.so libsnes-accuracy.so
+      cp -f out/libretro.so libretro-accuracy.so
       cd ..
    fi
 }
 
-build_libsnes_s9x()
+build_libretro_s9x()
 {
-   if [ -d "libsnes-s9x" ]; then
+   if [ -d "libretro-s9x" ]; then
       echo "=== Building SNES9x ==="
-      cd libsnes-s9x/unix
+      cd libretro-s9x/libretro
       make -j4 || die "Failed to build SNES9x"
-      cp libsnes.so ../libsnes-snes9x.so
+      cp libretro.so ../libretro-snes9x.so
       cd ../..
    else
       echo "SNES9x not fetched, skipping ..."
    fi
 }
 
-build_libsnes_s9x_next()
+build_libretro_s9x_next()
 {
-   if [ -d "libsnes-s9x-next" ]; then
+   if [ -d "libretro-s9x-next" ]; then
       echo "=== Building SNES9x-Next ==="
-      cd libsnes-s9x-next/
-      make -f Makefile.libsnes -j4 || die "Failed to build SNES9x-Next"
-      cp libsnes.so libsnes-snes9x-next.so
+      cd libretro-s9x-next/
+      make -f Makefile.libretro -j4 || die "Failed to build SNES9x-Next"
+      cp libretro.so libretro-snes9x-next.so
       cd ..
    else
       echo "SNES9x-Next not fetched, skipping ..."
    fi
 }
 
-build_libsnes_genplus()
+build_libretro_genplus()
 {
-   if [ -d "libsnes-genplus" ]; then
+   if [ -d "libretro-genplus" ]; then
       echo "=== Building Genplus GX ==="
-      cd libsnes-genplus/
-      make -f Makefile.libsnes -j4 || die "Failed to build Genplus GX"
-      cp libsnes.so libsnes-genplus.so
+      cd libretro-genplus/
+      make -f Makefile.libretro -j4 || die "Failed to build Genplus GX"
+      cp libretro.so libretro-genplus.so
       cd ..
    else
       echo "Genplus GX not fetched, skipping ..."
    fi
 }
 
-build_libsnes_fba()
+build_libretro_fba()
 {
-   if [ -d "libsnes-fba" ]; then
+   if [ -d "libretro-fba" ]; then
       echo "=== Building Final Burn Alpha ==="
-      cd libsnes-fba/
-      ./compile_libsnes.sh make || die "Failed to build Final Burn Alpha"
-      cp src-0.2.97.21/libsnes.so libsnes-fba.so
+      cd libretro-fba/
+      ./compile_libretro.sh make || die "Failed to build Final Burn Alpha"
+      cp src-0.2.97.24/libretro.so libretro-fba.so
       cd ..
    else
       echo "Final Burn Alpha not fetched, skipping ..."
    fi
 }
 
-build_libsnes_vba()
+build_libretro_vba()
 {
-   if [ -d "libsnes-vba" ]; then
+   if [ -d "libretro-vba" ]; then
       echo "=== Building VBA-Next ==="
-      cd libsnes-vba/
-      make -f Makefile.libsnes -j4 || die "Failed to build VBA-Next"
-      cp libsnes.so libsnes-vba.so
+      cd libretro-vba/
+      make -f Makefile.libretro -j4 || die "Failed to build VBA-Next"
+      cp libretro.so libretro-vba.so
       cd ..
    else
       echo "VBA-Next not fetched, skipping ..."
    fi
 }
 
-build_libsnes_bnes()
+build_libretro_bnes()
 {
-   if [ -d "libsnes-bnes" ]; then
+   if [ -d "libretro-bnes" ]; then
       echo "=== Building bNES ==="
-      cd libsnes-bnes
+      cd libretro-bnes
       mkdir -p obj
       make -j4 || die "Failed to build bNES"
-      cp libnes.so libsnes-bnes.so
+      cp libretro.so libretro-bnes.so
       cd ..
    else
       echo "bNES not fetched, skipping ..."
    fi
 }
 
-build_libsnes_fceu()
+build_libretro_fceu()
 {
-   if [ -d "libsnes-fceu" ]; then
+   if [ -d "libretro-fceu" ]; then
       echo "=== Building FCEU ==="
-      cd libsnes-fceu
-      make -f Makefile.libsnes-fceumm -j4 || die "Failed to build FCEU"
-      cp libsnes.so libsnes-fceu.so
+      cd libretro-fceu
+      make -f Makefile.libretro-fceumm -j4 || die "Failed to build FCEU"
+      cp libretro.so libretro-fceu.so
       cd ..
    else
       echo "FCEU not fetched, skipping ..."
    fi
 }
 
-build_libsnes_gambatte()
+build_libretro_gambatte()
 {
-   if [ -d "libsnes-gambatte" ]; then
+   if [ -d "libretro-gambatte" ]; then
       echo "=== Building Gambatte ==="
-      cd libsnes-gambatte/libgambatte
-      make -j4 || die "Failed to build Gambatte"
-      cd libsnes
-      make -j4 || die "Failed to build Gambatte"
-      cp libsnes.so ../../libsnes-gambatte.so
-      cd ../../..
+      cd libretro-gambatte/libgambatte
+      make -f Makefile.libretro -j4 || die "Failed to build Gambatte"
+      cp libretro.so ../libretro-gambatte.so
+      cd ../..
    else
       echo "Gambatte not fetched, skipping ..."
    fi
 }
 
-build_libsnes_meteor()
+build_libretro_meteor()
 {
-   if [ -d "libsnes-meteor" ]; then
+   if [ -d "libretro-meteor" ]; then
       echo "=== Building Meteor ==="
-      cd libsnes-meteor/libsnes
+      cd libretro-meteor/libretro
       make -j4 || die "Failed to build Meteor"
-      cp libsnes.so ../libsnes-meteor.so
+      cp libretro.so ../libretro-meteor.so
       cd ../
    else
       echo "Meteor not fetched, skipping ..."
@@ -158,14 +156,14 @@ build_libsnes_meteor()
 }
 
 
-build_libsnes
-build_libsnes_s9x
-build_libsnes_s9x_next
-build_libsnes_genplus
-build_libsnes_fba
-build_libsnes_vba
-build_libsnes_bnes
-build_libsnes_fceu
-build_libsnes_gambatte
-build_libsnes_meteor
+build_libretro_bsnes
+build_libretro_s9x
+build_libretro_s9x_next
+build_libretro_genplus
+build_libretro_fba
+build_libretro_vba
+build_libretro_bnes
+build_libretro_fceu
+build_libretro_gambatte
+build_libretro_meteor
 
