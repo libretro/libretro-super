@@ -23,6 +23,7 @@ LIBS="$LIBS libretro-fceu/libretro-fceu.so"
 LIBS="$LIBS libretro-bnes/libretro-bnes.so"
 LIBS="$LIBS libretro-gambatte/libretro-gambatte.so"
 LIBS="$LIBS libretro-meteor/libretro-meteor.so"
+LIBS="$LIBS libretro-nx/libretro-nx.so"
 
 for lib in $LIBS
 do

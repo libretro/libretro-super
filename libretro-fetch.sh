@@ -61,4 +61,5 @@ fetch_project "$REPO_BASE/Themaister/bnes-libretro.git" "libretro-bnes" "libretr
 fetch_project "$REPO_BASE/twinaphex/fceu-next.git" "libretro-fceu" "libretro/FCEU"
 fetch_project "$REPO_BASE/Themaister/gambatte-libretro.git" "libretro-gambatte" "libretro/Gambatte"
 fetch_project "$REPO_BASE/Themaister/meteor-libretro.git" "libretro-meteor" "libretro/Meteor"
+fetch_project "$REPO_BASE/twinaphex/nxengine-libretro.git" "libretro-nx" "libretro/NX"
 

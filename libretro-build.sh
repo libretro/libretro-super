@@ -149,12 +149,24 @@ build_libretro_meteor()
       cd libretro-meteor/libretro
       make -j4 || die "Failed to build Meteor"
       cp libretro.so ../libretro-meteor.so
-      cd ../
+      cd ../..
    else
       echo "Meteor not fetched, skipping ..."
    fi
 }
 
+build_libretro_nx()
+{
+   if [ -d "libretro-nx" ]; then
+      echo "=== Building NXEngine ==="
+      cd libretro-nx
+      make -j4 || die "Failed to build NXEngine"
+      cp libretro.so libretro-nx.so
+      cd ../
+   else
+      echo "NXEngine not fetched, skipping ..."
+   fi
+}
 
 build_libretro_bsnes
 build_libretro_s9x
@@ -166,4 +178,5 @@ build_libretro_bnes
 build_libretro_fceu
 build_libretro_gambatte
 build_libretro_meteor
+build_libretro_nx
 
