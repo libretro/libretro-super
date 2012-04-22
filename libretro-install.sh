@@ -6,7 +6,7 @@ else
    LIBRETRO_DIR="$1"
 fi
 
-if [ ! -d "$PREFIX/lib/libretro" ]; then
+if [ ! -d "$LIBRETRO_DIR" ]; then
    mkdir -p "$LIBRETRO_DIR"
 fi
 
