@@ -6,34 +6,38 @@ die()
    #exit 1
 }
 
+if [ -z "$CC" ]; then
+   CC=gcc
+fi
+
 build_libretro_bsnes()
 {
    if [ -d "libretro-bsnes/perf" ]; then
       echo "=== Building bSNES performance ==="
-      cd libretro-bsnes/perf
-      make CC=$CC CXX=$CXX platform=win profile=performance -j4 || die "Failed to build bSNES performance core"
-      cp -f out/retro.dll ../libretro-085-bsnes-performance.dll
-      cd ../..
+      cd libretro-bsnes/perf/bsnes
+      make platform=win compiler="$CC" ui=target-libretro profile=performance -j4 || die "Failed to build bSNES performance core"
+      cp -f out/retro.dll ../../libretro-bsnes-performance.dll
+      cd ../../..
    else
       echo "bSNES performance not fetched, skipping ..."
    fi
 
    if [ -d "libretro-bsnes/compat" ]; then
       echo "=== Building bSNES compatibility ==="
-      cd libretro-bsnes/compat
-      make CC=$CC CXX=$CXX platform=win profile=compatibility -j4 || die "Failed to build bSNES compatibility core"
-      cp -f out/retro.dll ../libretro-085-bsnes-compat.dll
-      cd ../..
+      cd libretro-bsnes/compat/bsnes
+      make platform=win compiler="$CC" ui=target-libretro profile=compatibility -j4 || die "Failed to build bSNES compatibility core"
+      cp -f out/retro.dll ../../libretro-bsnes-compat.dll
+      cd ../../..
    else
       echo "bSNES compat not fetched, skipping ..."
    fi
 
    if [ -d "libretro-bsnes" ]; then
       echo "=== Building bSNES accuracy ==="
-      cd libretro-bsnes
-      make CC=$CC CXX=$CXX platform=win profile=accuracy -j4 || die "Failed to build bSNES accuracy core"
-      cp -f out/retro.dll libretro-085-bsnes-accuracy.dll
-      cd ..
+      cd libretro-bsnes/bsnes
+      make platform=win compiler="$CC" ui=target-libretro profile=accuracy -j4 || die "Failed to build bSNES accuracy core"
+      cp -f out/retro.dll ../libretro-bsnes-accuracy.dll
+      cd ../..
    fi
 }
 

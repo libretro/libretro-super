@@ -10,7 +10,7 @@ fetch_project_bsnes()
       git pull
       cd ..
    else
-      git clone "$1" "$2"
+      git clone $1 "$2"
    fi
 
    if [ -d "$2" ]; then
@@ -51,7 +51,7 @@ fetch_project()
 
 REPO_BASE="git://github.com"
 
-fetch_project_bsnes "$REPO_BASE/Themaister/bsnes-libretro.git" "libretro-bsnes" "libretro/bSNES"
+fetch_project_bsnes "git://gitorious.org/bsnes/bsnes.git --branch libretro" "libretro-bsnes" "libretro/bSNES"
 fetch_project "$REPO_BASE/snes9xgit/snes9x.git" "libretro-s9x" "libretro/SNES9x"
 fetch_project "$REPO_BASE/twinaphex/snes9x-next.git" "libretro-s9x-next" "libretro/SNES9x-Next"
 fetch_project "$REPO_BASE/twinaphex/genesis-next.git" "libretro-genplus" "libretro/Genplus GX"
