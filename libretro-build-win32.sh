@@ -16,7 +16,7 @@ build_libretro_bsnes()
       echo "=== Building bSNES performance ==="
       cd libretro-bsnes/perf/bsnes
       make platform=win compiler="$CC" ui=target-libretro profile=performance -j4 || die "Failed to build bSNES performance core"
-      cp -f out/retro.dll ../../libretro-bsnes-performance.dll
+      cp -f out/retro.dll ../../libretro-088-bsnes-performance.dll
       cd ../../..
    else
       echo "bSNES performance not fetched, skipping ..."
@@ -26,7 +26,7 @@ build_libretro_bsnes()
       echo "=== Building bSNES compatibility ==="
       cd libretro-bsnes/compat/bsnes
       make platform=win compiler="$CC" ui=target-libretro profile=compatibility -j4 || die "Failed to build bSNES compatibility core"
-      cp -f out/retro.dll ../../libretro-bsnes-compat.dll
+      cp -f out/retro.dll ../../libretro-088-bsnes-compat.dll
       cd ../../..
    else
       echo "bSNES compat not fetched, skipping ..."
@@ -36,7 +36,7 @@ build_libretro_bsnes()
       echo "=== Building bSNES accuracy ==="
       cd libretro-bsnes/bsnes
       make platform=win compiler="$CC" ui=target-libretro profile=accuracy -j4 || die "Failed to build bSNES accuracy core"
-      cp -f out/retro.dll ../libretro-bsnes-accuracy.dll
+      cp -f out/retro.dll ../libretro-088-bsnes-accuracy.dll
       cd ../..
    fi
 }

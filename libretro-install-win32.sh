@@ -13,9 +13,9 @@ if [ ! -d "$LIBRETRO_DIR" ]; then
 fi
 
 LIBS=""
-LIBS="$LIBS libretro-bsnes/libretro-085-bsnes-performance.dll"
-LIBS="$LIBS libretro-bsnes/libretro-085-bsnes-compat.dll"
-LIBS="$LIBS libretro-bsnes/libretro-085-bsnes-accuracy.dll"
+LIBS="$LIBS libretro-bsnes/libretro-088-bsnes-performance.dll"
+LIBS="$LIBS libretro-bsnes/libretro-088-bsnes-compat.dll"
+LIBS="$LIBS libretro-bsnes/libretro-088-bsnes-accuracy.dll"
 LIBS="$LIBS libretro-s9x/libretro-git-snes9x.dll"
 LIBS="$LIBS libretro-s9x-next/libretro-git-snes9x-next.dll"
 LIBS="$LIBS libretro-genplus/libretro-git-genplus.dll"
