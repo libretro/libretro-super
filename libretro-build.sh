@@ -172,6 +172,19 @@ build_libretro_nx()
    fi
 }
 
+build_libretro_prboom()
+{
+   if [ -d "libretro-prboom" ]; then
+      echo "=== Building PRBoom ==="
+      cd libretro-prboom
+      make -j4 || die "Failed to build PRBoom"
+      cp libretro.so libretro-prboom.so
+      cd ../
+   else
+      echo "PRBoom not fetched, skipping ..."
+   fi
+}
+
 build_libretro_bsnes
 build_libretro_s9x
 build_libretro_s9x_next
@@ -183,4 +196,5 @@ build_libretro_fceu
 build_libretro_gambatte
 build_libretro_meteor
 build_libretro_nx
+build_libretro_prboom
 
