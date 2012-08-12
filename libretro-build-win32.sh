@@ -85,7 +85,7 @@ build_libretro_fba()
    if [ -d "libretro-fba" ]; then
       echo "=== Building Final Burn Alpha ==="
       cd libretro-fba/src-0.2.97.26
-      make -f makefile.libretro generate
+      make -f makefile.libretro generate-files
       make CC=$CC CXX=$CXX platform=win -f makefile.libretro -j4 || die "Failed to build Final Burn Alpha"
       cp retro.dll ../libretro-git-fba.dll
       cd ../..
