@@ -160,6 +160,34 @@ build_libretro_meteor()
    fi
 }
 
+build_libretro_stella()
+{
+   if [ -d "libretro-stella" ]; then
+      echo "=== Building Stella ==="
+      cd libretro-stella
+      make platform=win CC=$CC CXX=$CXX -j4 || die "Failed to build Stella"
+      cp retro.dll libretro-git-stella.dll
+      cd ../
+   else
+      echo "Stella not fetched, skipping ..."
+   fi
+}
+
+MEDNAFEN_VER=0924
+
+build_libretro_mednafen()
+{
+   if [ -d "libretro-mednafen-${1}" ]; then
+      echo "=== Building Mednafen/${2} ==="
+      cd libretro-mednafen-${1}
+      make platform=win CC=$CC CXX=$CXX -j4 || die "Failed to build Mednafen/${2}"
+      cp retro.dll libretro-${MEDNAFEN_VER}-mednafen-${1}.dll
+      cd ../
+   else
+      echo "Mednafen/${2} not fetched, skipping ..."
+   fi
+}
+
 build_libretro_bsnes
 build_libretro_s9x
 build_libretro_s9x_next
@@ -170,4 +198,9 @@ build_libretro_bnes
 build_libretro_fceu
 build_libretro_gambatte
 build_libretro_meteor
+build_libretro_stella
+build_libretro_mednafen psx PSX
+build_libretro_mednafen pce PCE
+build_libretro_mednafen wswan WSwan
+build_libretro_mednafen ngp NGP
 

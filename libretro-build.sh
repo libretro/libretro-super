@@ -185,16 +185,30 @@ build_libretro_prboom()
    fi
 }
 
-build_libretro_mednafen_psx()
+build_libretro_stella()
 {
-   if [ -d "libretro-mednafen-psx" ]; then
-      echo "=== Building Mednafen/PSX ==="
-      cd libretro-mednafen-psx
-      make -j4 || die "Failed to build Mednafen/PSX"
-      cp libretro.so libretro-mednafen-psx.so
+   if [ -d "libretro-stella" ]; then
+      echo "=== Building Stella ==="
+      cd libretro-stella
+      make -j4 || die "Failed to build Stella"
+      cp libretro.so libretro-stella.so
       cd ../
    else
-      echo "Mednafen/PSX not fetched, skipping ..."
+      echo "Stella not fetched, skipping ..."
+   fi
+}
+
+
+build_libretro_mednafen()
+{
+   if [ -d "libretro-mednafen-${1}" ]; then
+      echo "=== Building Mednafen/${2} ==="
+      cd libretro-mednafen-${1}
+      make -j4 || die "Failed to build Mednafen/${2}"
+      cp libretro.so libretro-mednafen-${1}.so
+      cd ../
+   else
+      echo "Mednafen/${2} not fetched, skipping ..."
    fi
 }
 
@@ -210,5 +224,9 @@ build_libretro_gambatte
 build_libretro_meteor
 build_libretro_nx
 build_libretro_prboom
-build_libretro_mednafen_psx
+build_libretro_stella
+build_libretro_mednafen psx PSX
+build_libretro_mednafen pce PCE
+build_libretro_mednafen wswan WSwan
+build_libretro_mednafen ngp NGP
 
