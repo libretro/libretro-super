@@ -25,6 +25,7 @@ LIBS="$LIBS libretro-gambatte/libretro-gambatte.so"
 LIBS="$LIBS libretro-meteor/libretro-meteor.so"
 LIBS="$LIBS libretro-nx/libretro-nx.so"
 LIBS="$LIBS libretro-prboom/libretro-prboom.so"
+LIBS="$LIBS libretro-mednafen-psx/libretro-mednafen-psx.so"
 
 for lib in $LIBS
 do

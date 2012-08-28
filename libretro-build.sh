@@ -185,6 +185,19 @@ build_libretro_prboom()
    fi
 }
 
+build_libretro_mednafen_psx()
+{
+   if [ -d "libretro-mednafen-psx" ]; then
+      echo "=== Building Mednafen/PSX ==="
+      cd libretro-mednafen-psx
+      make -j4 || die "Failed to build Mednafen/PSX"
+      cp libretro.so libretro-mednafen-psx.so
+      cd ../
+   else
+      echo "Mednafen/PSX not fetched, skipping ..."
+   fi
+}
+
 build_libretro_bsnes
 build_libretro_s9x
 build_libretro_s9x_next
@@ -197,4 +210,5 @@ build_libretro_gambatte
 build_libretro_meteor
 build_libretro_nx
 build_libretro_prboom
+build_libretro_mednafen_psx
 
