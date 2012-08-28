@@ -154,7 +154,7 @@ build_libretro_meteor()
       cd libretro-meteor/libretro
       make platform=win CC=$CC CXX=$CXX -j4 || die "Failed to build Meteor"
       cp retro.dll ../libretro-git-meteor.dll
-      cd ../
+      cd ../..
    else
       echo "Meteor not fetched, skipping ..."
    fi
