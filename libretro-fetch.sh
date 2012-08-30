@@ -25,7 +25,7 @@ fetch_project_bsnes()
       fi
 
       if [ -d "compat" ]; then
-         cd perf
+         cd compat
          git pull ..
          cd ..
       else
