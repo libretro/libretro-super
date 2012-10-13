@@ -12,7 +12,7 @@ if [ ! -d "$LIBRETRO_DIR" ]; then
    mkdir -p "$LIBRETRO_DIR"
 fi
 
-MEDNAFEN_VER=0924
+MEDNAFEN_VER=0925
 
 LIBS=""
 LIBS="$LIBS libretro-bsnes/libretro-089-bsnes-performance.dll"

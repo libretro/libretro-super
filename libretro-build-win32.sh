@@ -172,7 +172,7 @@ build_libretro_stella()
    fi
 }
 
-MEDNAFEN_VER=0924
+MEDNAFEN_VER=0925
 
 build_libretro_mednafen()
 {
