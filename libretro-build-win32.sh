@@ -172,7 +172,20 @@ build_libretro_stella()
    fi
 }
 
-MEDNAFEN_VER=0925
+build_libretro_desmume()
+{
+   if [ -d "libretro-desmume" ]; then
+      echo "=== Building Desmume ==="
+      cd libretro-desmume
+      make platform=win CC=$CC CXX=$CXX -f Makefile.libretro -j4 || die "Failed to build Desmume"
+      cp retro.dll libretro-git-desmume.dll
+      cd ../
+   else
+      echo "Desmume not fetched, skipping ..."
+   fi
+}
+
+MEDNAFEN_VER=0926
 
 build_libretro_mednafen()
 {
@@ -198,6 +211,7 @@ build_libretro_fceu
 build_libretro_gambatte
 build_libretro_meteor
 build_libretro_stella
+build_libretro_desmume
 build_libretro_mednafen psx PSX
 build_libretro_mednafen pce PCE
 build_libretro_mednafen wswan WSwan

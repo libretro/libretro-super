@@ -12,7 +12,7 @@ if [ ! -d "$LIBRETRO_DIR" ]; then
    mkdir -p "$LIBRETRO_DIR"
 fi
 
-MEDNAFEN_VER=0925
+MEDNAFEN_VER=0926
 
 LIBS=""
 LIBS="$LIBS libretro-bsnes/libretro-089-bsnes-performance.dll"
@@ -28,6 +28,7 @@ LIBS="$LIBS libretro-bnes/libretro-git-bnes.dll"
 LIBS="$LIBS libretro-gambatte/libretro-git-gambatte.dll"
 LIBS="$LIBS libretro-meteor/libretro-git-meteor.dll"
 LIBS="$LIBS libretro-stella/libretro-git-stella.dll"
+LIBS="$LIBS libretro-desmume/libretro-git-desmume.dll"
 LIBS="$LIBS libretro-mednafen-psx/libretro-${MEDNAFEN_VER}-mednafen-psx.dll"
 LIBS="$LIBS libretro-mednafen-pce/libretro-${MEDNAFEN_VER}-mednafen-pce.dll"
 LIBS="$LIBS libretro-mednafen-wswan/libretro-${MEDNAFEN_VER}-mednafen-wswan.dll"

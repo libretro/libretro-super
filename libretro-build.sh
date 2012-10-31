@@ -198,6 +198,18 @@ build_libretro_stella()
    fi
 }
 
+build_libretro_desmume()
+{
+   if [ -d "libretro-desmume" ]; then
+      echo "=== Building Desmume ==="
+      cd libretro-desmume
+      make -f Makefile.libretro -j4 || die "Failed to build Desmume"
+      cp libretro.so libretro-desmume.so
+      cd ../
+   else
+      echo "Desmume not fetched, skipping ..."
+   fi
+}
 
 build_libretro_mednafen()
 {
@@ -225,6 +237,7 @@ build_libretro_meteor
 build_libretro_nx
 build_libretro_prboom
 build_libretro_stella
+build_libretro_desmume
 build_libretro_mednafen psx PSX
 build_libretro_mednafen pce PCE
 build_libretro_mednafen wswan WSwan

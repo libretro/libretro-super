@@ -67,5 +67,5 @@ fetch_project "$REPO_BASE/libretro/mednafen-psx-libretro.git" "libretro-mednafen
 fetch_project "$REPO_BASE/libretro/mednafen-pce-libretro.git" "libretro-mednafen-pce" "libretro/mednafen-PCE"
 fetch_project "$REPO_BASE/libretro/mednafen-wswan-libretro.git" "libretro-mednafen-wswan" "libretro/mednafen-WSwan"
 fetch_project "$REPO_BASE/libretro/mednafen-ngp-libretro.git" "libretro-mednafen-ngp" "libretro/mednafen-NGP"
-fetch_project "$REPO_BASE/libretro/stella-libretro.git" "libretro-stella" "libretro/Stella"
+fetch_project "$REPO_BASE/libretro/desmume-libretro.git" "libretro-desmume" "libretro/Desmume"
 
