@@ -41,6 +41,25 @@ build_libretro_bsnes()
    fi
 }
 
+build_libretro_mednafen()
+{
+   if [ -d "libretro-mednafen" ]; then
+      echo "=== Building Mednafen ==="
+      cd libretro-mednafen
+
+      for core in psx pce-fast wswan
+      do
+         cd $core
+         make core=${core} -j4 || die "Failed to build mednafen/${core}"
+         cp mednafen_$(echo ${core} | tr '[\-]' '[_]')_libretro.so ../libretro-mednafen-${core}.so
+         cd ..
+      done
+      cd ../
+   else
+      echo "Mednafen not fetched, skipping ..."
+   fi
+}
+
 build_libretro_s9x()
 {
    if [ -d "libretro-s9x" ]; then
@@ -163,10 +182,10 @@ build_libretro_nx()
 {
    if [ -d "libretro-nx" ]; then
       echo "=== Building NXEngine ==="
-      cd libretro-nx
+      cd libretro-nx/nxengine-1.0.0.4
       make -j4 || die "Failed to build NXEngine"
-      cp libretro.so libretro-nx.so
-      cd ../
+      cp libretro.so ../libretro-nx.so
+      cd ../..
    else
       echo "NXEngine not fetched, skipping ..."
    fi
@@ -211,20 +230,8 @@ build_libretro_desmume()
    fi
 }
 
-build_libretro_mednafen()
-{
-   if [ -d "libretro-mednafen-${1}" ]; then
-      echo "=== Building Mednafen/${2} ==="
-      cd libretro-mednafen-${1}
-      make -j4 || die "Failed to build Mednafen/${2}"
-      cp libretro.so libretro-mednafen-${1}.so
-      cd ../
-   else
-      echo "Mednafen/${2} not fetched, skipping ..."
-   fi
-}
-
 build_libretro_bsnes
+build_libretro_mednafen
 build_libretro_s9x
 build_libretro_s9x_next
 build_libretro_genplus
@@ -238,8 +245,4 @@ build_libretro_nx
 build_libretro_prboom
 build_libretro_stella
 build_libretro_desmume
-build_libretro_mednafen psx PSX
-build_libretro_mednafen pce PCE
-build_libretro_mednafen wswan WSwan
-build_libretro_mednafen ngp NGP
 

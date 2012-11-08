@@ -27,10 +27,9 @@ LIBS="$LIBS libretro-nx/libretro-nx.so"
 LIBS="$LIBS libretro-prboom/libretro-prboom.so"
 LIBS="$LIBS libretro-stella/libretro-stella.so"
 LIBS="$LIBS libretro-desmume/libretro-desmume.so"
-LIBS="$LIBS libretro-mednafen-psx/libretro-mednafen-psx.so"
-LIBS="$LIBS libretro-mednafen-pce/libretro-mednafen-pce.so"
-LIBS="$LIBS libretro-mednafen-wswan/libretro-mednafen-wswan.so"
-LIBS="$LIBS libretro-mednafen-ngp/libretro-mednafen-ngp.so"
+LIBS="$LIBS libretro-mednafen/libretro-mednafen-psx.so"
+LIBS="$LIBS libretro-mednafen/libretro-mednafen-pce-fast.so"
+LIBS="$LIBS libretro-mednafen/libretro-mednafen-wswan.so"
 
 for lib in $LIBS
 do
