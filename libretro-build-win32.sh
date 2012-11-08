@@ -41,6 +41,31 @@ build_libretro_bsnes()
    fi
 }
 
+build_libretro_mednafen()
+{
+   if [ -d "libretro-mednafen" ]; then
+      echo "=== Building Mednafen ==="
+      cd libretro-mednafen
+
+      cd psx
+      make core=psx platform=win CC=$CC CXX=$CXX -j4 || die "Failed to build mednafen/psx"
+      cp retro.dll ../libretro-0926-mednafen-psx.dll
+      cd ..
+
+      cd pce-fast
+      make core=pce-fast platform=win CC=$CC CXX=$CXX -j4 || die "Failed to build mednafen/pce-fast"
+      cp retro.dll ../libretro-0924-mednafen-pce-fast.dll
+      cd ..
+
+      cd wswan
+      make core=wswan platform=win CC=$CC CXX=$CXX -j4 || die "Failed to build mednafen/wswan"
+      cp retro.dll ../libretro-0922-mednafen-wswan.dll
+      cd ..
+   else
+      echo "Mednafen not fetched, skipping ..."
+   fi
+}
+
 build_libretro_s9x()
 {
    if [ -d "libretro-s9x" ]; then
@@ -185,22 +210,8 @@ build_libretro_desmume()
    fi
 }
 
-MEDNAFEN_VER=0926
-
-build_libretro_mednafen()
-{
-   if [ -d "libretro-mednafen-${1}" ]; then
-      echo "=== Building Mednafen/${2} ==="
-      cd libretro-mednafen-${1}
-      make platform=win CC=$CC CXX=$CXX -j4 || die "Failed to build Mednafen/${2}"
-      cp retro.dll libretro-${MEDNAFEN_VER}-mednafen-${1}.dll
-      cd ../
-   else
-      echo "Mednafen/${2} not fetched, skipping ..."
-   fi
-}
-
 build_libretro_bsnes
+build_libretro_mednafen
 build_libretro_s9x
 build_libretro_s9x_next
 build_libretro_genplus
@@ -212,8 +223,4 @@ build_libretro_gambatte
 build_libretro_meteor
 build_libretro_stella
 build_libretro_desmume
-build_libretro_mednafen psx PSX
-build_libretro_mednafen pce PCE
-build_libretro_mednafen wswan WSwan
-build_libretro_mednafen ngp NGP
 
