@@ -54,7 +54,7 @@ build_libretro_mednafen()
          cp mednafen_$(echo ${core} | tr '[\-]' '[_]')_libretro.so ../libretro-mednafen-${core}.so
          cd ..
       done
-      cd ../
+      cd ..
    else
       echo "Mednafen not fetched, skipping ..."
    fi

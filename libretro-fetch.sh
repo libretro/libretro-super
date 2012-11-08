@@ -49,7 +49,7 @@ fetch_project_mednafen()
 
    if [ -d "$2" ]; then
       cd "$2"
-      for core in psx pce_fast wswan
+      for core in psx pce-fast wswan
       do
          if [ -d "$core" ]; then
             cd $core

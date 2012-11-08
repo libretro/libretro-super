@@ -61,6 +61,8 @@ build_libretro_mednafen()
       make core=wswan platform=win CC=$CC CXX=$CXX -j4 || die "Failed to build mednafen/wswan"
       cp retro.dll ../libretro-0922-mednafen-wswan.dll
       cd ..
+
+      cd ..
    else
       echo "Mednafen not fetched, skipping ..."
    fi
