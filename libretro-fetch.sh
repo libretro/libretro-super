@@ -90,5 +90,7 @@ fetch_project "$REPO_BASE/libretro/gambatte-libretro.git" "libretro-gambatte" "l
 fetch_project "$REPO_BASE/libretro/meteor-libretro.git" "libretro-meteor" "libretro/Meteor"
 fetch_project "$REPO_BASE/libretro/nxengine-libretro.git" "libretro-nx" "libretro/NX"
 fetch_project "$REPO_BASE/libretro/libretro-prboom.git" "libretro-prboom" "libretro/PRBoom"
+fetch_project "$REPO_BASE/libretro/stella-libretro.git" "libretro-stella" "libretro/Stella"
+fetch_project "$REPO_BASE/libretro/desmume-libretro.git" "libretro-desmume" "libretro/Desmume"
 fetch_project_mednafen "$REPO_BASE/libretro/mednafen-psx-libretro.git" "libretro-mednafen" "libretro/Mednafen"
 
