@@ -47,7 +47,7 @@ build_libretro_mednafen()
       echo "=== Building Mednafen ==="
       cd libretro-mednafen
 
-      for core in psx pce-fast wswan ngp gba
+      for core in psx pce-fast wswan ngp gba snes vb
       do
          cd $core
          make core=${core} -j4 || die "Failed to build mednafen/${core}"
