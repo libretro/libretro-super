@@ -49,10 +49,12 @@ build_libretro_mednafen()
 
       for core in psx pce-fast wswan ngp gba snes vb
       do
-         cd $core
-         make core=${core} -j4 || die "Failed to build mednafen/${core}"
-         cp mednafen_$(echo ${core} | tr '[\-]' '[_]')_libretro.so ../libretro-mednafen-${core}.so
-         cd ..
+         if [ -d $core ]; then
+            cd $core
+            make core=${core} -j4 || die "Failed to build mednafen/${core}"
+            cp mednafen_$(echo ${core} | tr '[\-]' '[_]')_libretro.so ../libretro-mednafen-${core}.so
+            cd ..
+         fi
       done
       cd ..
    else
