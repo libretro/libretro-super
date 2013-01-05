@@ -28,7 +28,7 @@ LIBS="$LIBS libretro-meteor/libretro-git-meteor.dll"
 LIBS="$LIBS libretro-stella/libretro-git-stella.dll"
 LIBS="$LIBS libretro-desmume/libretro-git-desmume.dll"
 LIBS="$LIBS libretro-mednafen/libretro-0926-mednafen-psx.dll"
-LIBS="$LIBS libretro-mednafen/libretro-0924-mednafen-pce.dll"
+LIBS="$LIBS libretro-mednafen/libretro-0924-mednafen-pce-fast.dll"
 LIBS="$LIBS libretro-mednafen/libretro-0922-mednafen-wswan.dll"
 
 for lib in $LIBS

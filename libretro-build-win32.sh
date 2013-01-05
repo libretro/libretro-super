@@ -111,10 +111,10 @@ build_libretro_fba()
 {
    if [ -d "libretro-fba" ]; then
       echo "=== Building Final Burn Alpha ==="
-      cd libretro-fba/src-0.2.97.27
+      cd libretro-fba/svn-new/trunk
       make CC=$CC CXX=$CXX platform=win -f makefile.libretro -j4 || die "Failed to build Final Burn Alpha"
-      cp retro.dll ../libretro-git-fba.dll
-      cd ../..
+      cp retro.dll ../../libretro-git-fba.dll
+      cd ../../..
    else
       echo "Final Burn Alpha not fetched, skipping ..."
    fi
@@ -152,7 +152,7 @@ build_libretro_fceu()
    if [ -d "libretro-fceu" ]; then
       echo "=== Building FCEU ==="
       cd libretro-fceu
-      make CC=$CC CXX=$CXX platform=win -f src-fceumm/Makefile.libretro-fceumm -j4 || die "Failed to build FCEU"
+      make CC=$CC CXX=$CXX platform=win -C src-fceumm -f Makefile.libretro -j4 || die "Failed to build FCEU"
       cp src-fceumm/retro.dll libretro-git-fceu.dll
       cd ..
    else
