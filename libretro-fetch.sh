@@ -92,5 +92,6 @@ fetch_project "$REPO_BASE/libretro/nxengine-libretro.git" "libretro-nx" "libretr
 fetch_project "$REPO_BASE/libretro/libretro-prboom.git" "libretro-prboom" "libretro/PRBoom"
 fetch_project "$REPO_BASE/libretro/stella-libretro.git" "libretro-stella" "libretro/Stella"
 fetch_project "$REPO_BASE/libretro/desmume-libretro.git" "libretro-desmume" "libretro/Desmume"
+fetch_project "$REPO_BASE/libretro/QuickNES_Core.git" "libretro-quicknes" "libretro/QuickNES"
 fetch_project_mednafen "$REPO_BASE/libretro/mednafen-libretro.git" "libretro-mednafen" "libretro/Mednafen"
 

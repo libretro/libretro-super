@@ -232,6 +232,20 @@ build_libretro_desmume()
    fi
 }
 
+build_libretro_quicknes()
+{
+   if [ -d "libretro-quicknes" ]; then
+      echo "=== Building QuickNES ==="
+      cd libretro-quicknes/libretro
+      make -f Makefile -j4 || die "Failed to build QuickNES"
+      cp libretro.so ../libretro-quicknes.so
+      cd ../..
+   else
+      echo "QuickNES not fetched, skipping ..."
+   fi
+}
+
+
 build_libretro_bsnes
 build_libretro_mednafen
 build_libretro_s9x
@@ -247,4 +261,5 @@ build_libretro_nx
 build_libretro_prboom
 build_libretro_stella
 build_libretro_desmume
+build_libretro_quicknes
 
