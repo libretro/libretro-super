@@ -30,6 +30,7 @@ LIBS="$LIBS libretro-desmume/libretro-git-desmume.dll"
 LIBS="$LIBS libretro-mednafen/libretro-0926-mednafen-psx.dll"
 LIBS="$LIBS libretro-mednafen/libretro-0924-mednafen-pce-fast.dll"
 LIBS="$LIBS libretro-mednafen/libretro-0922-mednafen-wswan.dll"
+LIBS="$LIBS libretro-quicknes/libretro-git-quicknes.dll"
 
 for lib in $LIBS
 do

@@ -237,7 +237,7 @@ build_libretro_quicknes()
    if [ -d "libretro-quicknes" ]; then
       echo "=== Building QuickNES ==="
       cd libretro-quicknes/libretro
-      make -f Makefile -j4 || die "Failed to build QuickNES"
+      make -j4 || die "Failed to build QuickNES"
       cp libretro.so ../libretro-quicknes.so
       cd ../..
    else

@@ -212,6 +212,20 @@ build_libretro_desmume()
    fi
 }
 
+build_libretro_quicknes()
+{
+   if [ -d "libretro-quicknes" ]; then
+      echo "=== Building Desmume ==="
+      cd libretro-quicknes/libretro
+      make platform=win CC=$CC CXX=$CXX -j4 || die "Failed to build QuickNES"
+      cp retro.dll ../libretro-git-quicknes.dll
+      cd ../..
+   else
+      echo "QuickNES not fetched, skipping ..."
+   fi
+}
+
+
 build_libretro_bsnes
 build_libretro_mednafen
 build_libretro_s9x
@@ -225,4 +239,5 @@ build_libretro_gambatte
 build_libretro_meteor
 build_libretro_stella
 build_libretro_desmume
+build_libretro_quicknes
 
