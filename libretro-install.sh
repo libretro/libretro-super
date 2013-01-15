@@ -12,7 +12,7 @@ fi
 
 LIBS=""
 LIBS="$LIBS libretro-bsnes/libretro-bsnes-performance.so"
-LIBS="$LIBS libretro-bsnes/libretro-bsnes-compat.so"
+LIBS="$LIBS libretro-bsnes/libretro-bsnes-balanced.so"
 LIBS="$LIBS libretro-bsnes/libretro-bsnes-accuracy.so"
 LIBS="$LIBS libretro-s9x/libretro-snes9x.so"
 LIBS="$LIBS libretro-s9x-next/libretro-snes9x-next.so"

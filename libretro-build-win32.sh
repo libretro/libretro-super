@@ -14,19 +14,19 @@ build_libretro_bsnes()
 {
    if [ -d "libretro-bsnes/perf" ]; then
       echo "=== Building bSNES performance ==="
-      cd libretro-bsnes/perf/bsnes
+      cd libretro-bsnes/perf/higan
       make platform=win compiler="$CC" ui=target-libretro profile=performance -j4 || die "Failed to build bSNES performance core"
-      cp -f out/retro.dll ../../libretro-089-bsnes-performance.dll
+      cp -f out/retro.dll ../../libretro-092-bsnes-performance.dll
       cd ../../..
    else
       echo "bSNES performance not fetched, skipping ..."
    fi
 
-   if [ -d "libretro-bsnes/compat" ]; then
-      echo "=== Building bSNES compatibility ==="
-      cd libretro-bsnes/compat/bsnes
-      make platform=win compiler="$CC" ui=target-libretro profile=compatibility -j4 || die "Failed to build bSNES compatibility core"
-      cp -f out/retro.dll ../../libretro-089-bsnes-compat.dll
+   if [ -d "libretro-bsnes/balanced" ]; then
+      echo "=== Building bSNES balanced ==="
+      cd libretro-bsnes/compat/higan
+      make platform=win compiler="$CC" ui=target-libretro profile=balanced -j4 || die "Failed to build bSNES balanced core"
+      cp -f out/retro.dll ../../libretro-092-bsnes-balanced.dll
       cd ../../..
    else
       echo "bSNES compat not fetched, skipping ..."
@@ -34,9 +34,9 @@ build_libretro_bsnes()
 
    if [ -d "libretro-bsnes" ]; then
       echo "=== Building bSNES accuracy ==="
-      cd libretro-bsnes/bsnes
+      cd libretro-bsnes/higan
       make platform=win compiler="$CC" ui=target-libretro profile=accuracy -j4 || die "Failed to build bSNES accuracy core"
-      cp -f out/retro.dll ../libretro-089-bsnes-accuracy.dll
+      cp -f out/retro.dll ../libretro-092-bsnes-accuracy.dll
       cd ../..
    fi
 }

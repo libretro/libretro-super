@@ -24,12 +24,12 @@ fetch_project_bsnes()
          git clone . perf
       fi
 
-      if [ -d "compat" ]; then
-         cd compat
+      if [ -d "balanced" ]; then
+         cd balanced
          git pull ..
          cd ..
       else
-         git clone . compat
+         git clone . balanced
       fi
 
       cd ..
