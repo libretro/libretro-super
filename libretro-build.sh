@@ -245,6 +245,18 @@ build_libretro_quicknes()
    fi
 }
 
+build_libretro_nestopia()
+{
+   if [ -d "libretro-nestopia" ]; then
+      echo "=== Building Nestopia ==="
+      cd libretro-nestopia/libretro
+      make -j4 || die "Failed to build Nestopia"
+      cp libretro.so ../libretro-nestopia.so
+      cd ../..
+   else
+      echo "Nestopia not fetched, skipping ..."
+   fi
+}
 
 build_libretro_bsnes
 build_libretro_mednafen
@@ -262,4 +274,5 @@ build_libretro_prboom
 build_libretro_stella
 build_libretro_desmume
 build_libretro_quicknes
+build_libretro_nestopia
 
