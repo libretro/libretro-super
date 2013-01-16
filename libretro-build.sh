@@ -184,10 +184,10 @@ build_libretro_nx()
 {
    if [ -d "libretro-nx" ]; then
       echo "=== Building NXEngine ==="
-      cd libretro-nx/nxengine-1.0.0.4
+      cd libretro-nx
       make -j4 || die "Failed to build NXEngine"
-      cp libretro.so ../libretro-nx.so
-      cd ../..
+      cp libretro.so libretro-nx.so
+      cd ..
    else
       echo "NXEngine not fetched, skipping ..."
    fi
