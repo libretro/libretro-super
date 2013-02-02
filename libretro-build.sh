@@ -81,7 +81,7 @@ build_libretro_s9x_next()
       echo "=== Building SNES9x-Next ==="
       cd libretro-s9x-next/
       make -f Makefile.libretro -j4 || die "Failed to build SNES9x-Next"
-      cp libretro.so libretro-snes9x-next.so
+      cp snes9x_next_libretro.so libretro-snes9x-next.so
       cd ..
    else
       echo "SNES9x-Next not fetched, skipping ..."
@@ -94,7 +94,7 @@ build_libretro_genplus()
       echo "=== Building Genplus GX ==="
       cd libretro-genplus/
       make -f Makefile.libretro -j4 || die "Failed to build Genplus GX"
-      cp libretro.so libretro-genplus.so
+      cp genesis_plus_gx_libretro.so libretro-genplus.so
       cd ..
    else
       echo "Genplus GX not fetched, skipping ..."
@@ -107,7 +107,7 @@ build_libretro_fba()
       echo "=== Building Final Burn Alpha ==="
       cd libretro-fba/
       ./compile_libretro.sh make || die "Failed to build Final Burn Alpha"
-      cp svn-current/trunk/libretro.so libretro-fba.so
+      cp svn-current/trunk/fb_alpha_libretro.so libretro-fba.so
       cd ..
    else
       echo "Final Burn Alpha not fetched, skipping ..."
@@ -120,7 +120,7 @@ build_libretro_vba()
       echo "=== Building VBA-Next ==="
       cd libretro-vba/
       make -f Makefile.libretro -j4 || die "Failed to build VBA-Next"
-      cp libretro.so libretro-vba.so
+      cp vba_next_libretro.so libretro-vba.so
       cd ..
    else
       echo "VBA-Next not fetched, skipping ..."
@@ -146,8 +146,8 @@ build_libretro_fceu()
    if [ -d "libretro-fceu" ]; then
       echo "=== Building FCEU ==="
       cd libretro-fceu
-      make -C src-fceumm -f Makefile.libretro -j4 || die "Failed to build FCEU"
-      cp src-fceumm/libretro.so libretro-fceu.so
+      make -C fceumm-code -f Makefile.libretro -j4 || die "Failed to build FCEU"
+      cp fceumm-code/fceumm_libretro.so libretro-fceu.so
       cd ..
    else
       echo "FCEU not fetched, skipping ..."
@@ -160,7 +160,7 @@ build_libretro_gambatte()
       echo "=== Building Gambatte ==="
       cd libretro-gambatte/libgambatte
       make -f Makefile.libretro -j4 || die "Failed to build Gambatte"
-      cp libretro.so ../libretro-gambatte.so
+      cp gambatte_libretro.so ../libretro-gambatte.so
       cd ../..
    else
       echo "Gambatte not fetched, skipping ..."
@@ -186,7 +186,7 @@ build_libretro_nx()
       echo "=== Building NXEngine ==="
       cd libretro-nx
       make -j4 || die "Failed to build NXEngine"
-      cp libretro.so libretro-nx.so
+      cp nxengine_libretro.so libretro-nx.so
       cd ..
    else
       echo "NXEngine not fetched, skipping ..."
@@ -199,7 +199,7 @@ build_libretro_prboom()
       echo "=== Building PRBoom ==="
       cd libretro-prboom
       make -j4 || die "Failed to build PRBoom"
-      cp libretro.so libretro-prboom.so
+      cp prboom_libretro.so libretro-prboom.so
       cd ../
    else
       echo "PRBoom not fetched, skipping ..."
@@ -251,7 +251,7 @@ build_libretro_nestopia()
       echo "=== Building Nestopia ==="
       cd libretro-nestopia/libretro
       make -j4 || die "Failed to build Nestopia"
-      cp libretro.so ../libretro-nestopia.so
+      cp nestopia_libretro.so ../libretro-nestopia.so
       cd ../..
    else
       echo "Nestopia not fetched, skipping ..."
