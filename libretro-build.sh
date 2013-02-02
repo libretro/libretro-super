@@ -107,7 +107,7 @@ build_libretro_fba()
       echo "=== Building Final Burn Alpha ==="
       cd libretro-fba/
       ./compile_libretro.sh make || die "Failed to build Final Burn Alpha"
-      cp svn-new/trunk/libretro.so libretro-fba.so
+      cp svn-current/trunk/libretro.so libretro-fba.so
       cd ..
    else
       echo "Final Burn Alpha not fetched, skipping ..."
