@@ -67,7 +67,7 @@ build_libretro_s9x_next()
    fi
 }
 
-GENPLUS_NEXT_DIR_NAME=Genesis-Plus-GX
+GENPLUS_DIR_NAME=Genesis-Plus-GX
 
 build_libretro_genplus()
 {
