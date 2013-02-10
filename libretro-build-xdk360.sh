@@ -6,6 +6,7 @@ RARCH_DIR=$CORES_DIR/RetroArch
 RARCH_DIST_DIR=$RARCH_DIR/dist-scripts
 FORMAT=_xdk360
 LIB_EXT=lib
+MSVC_NAME=msvc-2010-360
 
 die()
 {
@@ -22,21 +23,21 @@ build_libretro_mednafen()
       echo "=== Building Mednafen ==="
       cd $MEDNAFEN_DIR_NAME/msvc/pce-fast
 
-      cmd.exe /k msvc-2010-360.bat
-      cp msvc-2010-360/Release_LTCG/mednafen_pce_fast_libretro$FORMAT.lib $RARCH_DIST_DIR
+      cmd.exe /k $MSVC_NAME.bat
+      cp $MSVC_NAME/Release_LTCG/mednafen_pce_fast_libretro$FORMAT.lib $RARCH_DIST_DIR
 
       cd ../
       cd wswan
-      cmd.exe /k msvc-2010-360.bat
-      cp msvc-2010-360/Release_LTCG/mednafen_wswan_libretro$FORMAT.lib $RARCH_DIST_DIR
+      cmd.exe /k $MSVC_NAME.bat
+      cp $MSVC_NAME/Release_LTCG/mednafen_wswan_libretro$FORMAT.lib $RARCH_DIST_DIR
 
       cd ../
       cd ngp
-      cmd.exe /k msvc-2010-360.bat
-      cp msvc-2010-360/Release_LTCG/mednafen_ngp_libretro$FORMAT.lib $RARCH_DIST_DIR
+      cmd.exe /k $MSVC_NAME.bat
+      cp $MSVC_NAME/Release_LTCG/mednafen_ngp_libretro$FORMAT.lib $RARCH_DIST_DIR
 
-      #msvc/vb/msvc-2010-360.bat
-      #cp msvc/vb/msvc-2010-360/mednafen_vb_libretro$FORMAT.lib $RARCH_DIST_DIR
+      #msvc/vb/$MSVC_NAME.bat
+      #cp msvc/vb/$MSVC_NAME/mednafen_vb_libretro$FORMAT.lib $RARCH_DIST_DIR
    else
       echo "Mednafen not fetched, skipping ..."
    fi
@@ -64,8 +65,8 @@ build_libretro_s9x_next()
       echo "=== Building SNES9x-Next ==="
       cd $S9X_NEXT_DIR_NAME
       cd libretro/msvc
-      cmd.exe /k msvc-2010-360.bat
-      cp msvc-2010-360/Release_LTCG/snes9x_next_libretro$FORMAT.$LIB_EXT $RARCH_DIST_DIR
+      cmd.exe /k $MSVC_NAME.bat
+      cp $MSVC_NAME/Release_LTCG/snes9x_next_libretro$FORMAT.$LIB_EXT $RARCH_DIST_DIR
    else
       echo "SNES9x-Next not fetched, skipping ..."
    fi
@@ -80,8 +81,8 @@ build_libretro_genplus()
       echo "=== Building Genplus GX ==="
       cd $GENPLUS_DIR_NAME
       cd libretro/msvc
-      cmd.exe /k msvc-2010-360.bat
-      cp msvc-2010-360/Release_LTCG/genesis_plus_gx_libretro$FORMAT.$LIB_EXT $RARCH_DIST_DIR
+      cmd.exe /k $MSVC_NAME.bat
+      cp $MSVC_NAME/Release_LTCG/genesis_plus_gx_libretro$FORMAT.$LIB_EXT $RARCH_DIST_DIR
    else
       echo "Genplus GX not fetched, skipping ..."
    fi
@@ -96,7 +97,7 @@ build_libretro_fba()
       echo "=== Building Final Burn Alpha ==="
       cd $FBA_DIR_NAME/svn-current/trunk
       cd projectfiles/visualstudio-2010-libretro-360
-      cmd.exe /k msvc-2010-360.bat
+      cmd.exe /k $MSVC_NAME.bat
       cp Release_LTCG/fb_alpha_libretro$FORMAT.$LIB_EXT $RARCH_DIST_DIR
    else
       echo "Final Burn Alpha not fetched, skipping ..."
@@ -112,8 +113,8 @@ build_libretro_vba()
       echo "=== Building VBA-Next ==="
       cd $VBA_NEXT_DIR_NAME
       cd libretro/msvc
-      cmd.exe /k msvc-2010-360.bat
-      cp msvc-2010-360/Release/vba_next_libretro$FORMAT.$LIB_EXT $RARCH_DIST_DIR
+      cmd.exe /k $MSVC_NAME.bat
+      cp $MSVC_NAME/Release/vba_next_libretro$FORMAT.$LIB_EXT $RARCH_DIST_DIR
    else
       echo "VBA-Next not fetched, skipping ..."
    fi
@@ -128,8 +129,8 @@ build_libretro_fceu()
       echo "=== Building FCEU ==="
       cd $FCEUMM_DIR_NAME
       cd fceumm-code/src/drivers/libretro/msvc
-      cmd.exe /k msvc-2010-360.bat
-      cp msvc-2010-360/Release_LTCG/fceumm_libretro$FORMAT.$LIB_EXT $RARCH_DIST_DIR
+      cmd.exe /k $MSVC_NAME.bat
+      cp $MSVC_NAME/Release_LTCG/fceumm_libretro$FORMAT.$LIB_EXT $RARCH_DIST_DIR
    else
       echo "FCEU not fetched, skipping ..."
    fi
@@ -144,8 +145,8 @@ build_libretro_gambatte()
       echo "=== Building Gambatte ==="
       cd $GAMBATTE_DIR_NAME/libgambatte
       cd libretro/msvc
-      cmd.exe /k msvc-2010-360.bat
-      cp msvc-2010-360/Release_LTCG/gambatte_libretro$FORMAT.$LIB_EXT $RARCH_DIST_DIR
+      cmd.exe /k $MSVC_NAME.bat
+      cp $MSVC_NAME/Release_LTCG/gambatte_libretro$FORMAT.$LIB_EXT $RARCH_DIST_DIR
    else
       echo "Gambatte not fetched, skipping ..."
    fi
@@ -176,8 +177,8 @@ build_libretro_prboom()
       echo "=== Building PRBoom ==="
       cd $PRBOOM_DIR_NAME
       cd libretro/msvc
-      cmd.exe /k msvc-2010-360.bat
-      cp msvc-2010-360/Release_LTCG/prboom_libretro$FORMAT.$LIB_EXT $RARCH_DIST_DIR
+      cmd.exe /k $MSVC_NAME.bat
+      cp $MSVC_NAME/Release_LTCG/prboom_libretro$FORMAT.$LIB_EXT $RARCH_DIST_DIR
    else
       echo "PRBoom not fetched, skipping ..."
    fi
@@ -232,8 +233,8 @@ build_libretro_nestopia()
       echo "=== Building Nestopia ==="
       cd $NESTOPIA_DIR_NAME/libretro
       cd msvc
-      cmd.exe /k msvc-2010-360.bat
-      cp msvc-2010-360/Release_LTCG/nestopia_libretro$FORMAT.$LIB_EXT $RARCH_DIST_DIR
+      cmd.exe /k $MSVC_NAME.bat
+      cp $MSVC_NAME/Release_LTCG/nestopia_libretro$FORMAT.$LIB_EXT $RARCH_DIST_DIR
    else
       echo "Nestopia not fetched, skipping ..."
    fi
