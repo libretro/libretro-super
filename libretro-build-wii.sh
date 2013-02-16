@@ -261,8 +261,6 @@ build_libretro_mednafen
 build_libretro_s9x_next
 build_libretro_genplus
 build_libretro_fba
-build_libretro_fba_cores_cps2
-build_libretro_fba_cores_neo
 build_libretro_vba
 build_libretro_fceu
 build_libretro_gambatte
