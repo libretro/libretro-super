@@ -231,10 +231,10 @@ build_libretro_nestopia()
       echo "=== Building Nestopia ==="
       cd libretro-nestopia/libretro
       make platform=win CC=$CC CXX=$CXX -j4 || die "Failed to build Nestopia"
-      cp nestopia_retro.dll ../libretro-143-nestopia.dll
+      cp nestopia_retro.dll ../libretro-144-nestopia.dll
       cd ../..
    else
-      echo "QuickNES not fetched, skipping ..."
+      echo "Nestopia not fetched, skipping ..."
    fi
 }
 
