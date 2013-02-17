@@ -166,7 +166,7 @@ build_libretro_gambatte()
       echo "=== Building Gambatte ==="
       cd libretro-gambatte/libgambatte
       make CC=$CC CXX=$CXX platform=win -f Makefile.libretro -j4 || die "Failed to build Gambatte"
-      cp retro.dll ../libretro-git-gambatte.dll
+      cp gambatte_retro.dll ../libretro-git-gambatte.dll
       cd ../..
    else
       echo "Gambatte not fetched, skipping ..."
