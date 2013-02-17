@@ -24,7 +24,7 @@ build_libretro_bsnes()
 
    if [ -d "libretro-bsnes/balanced" ]; then
       echo "=== Building bSNES balanced ==="
-      cd libretro-bsnes/compat/higan
+      cd libretro-bsnes/balanced/higan
       make platform=win compiler="$CC" ui=target-libretro profile=balanced -j4 || die "Failed to build bSNES balanced core"
       cp -f out/retro.dll ../../libretro-092-bsnes-balanced.dll
       cd ../../..
