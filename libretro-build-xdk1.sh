@@ -99,6 +99,23 @@ build_libretro_fba()
       cd projectfiles/visualstudio-2003-libretro-xbox1
       cmd.exe /k $MSVC_NAME.bat
       cp Release_LTCG/fb_alpha_libretro$FORMAT.$LIB_EXT $RARCH_DIST_DIR
+
+      echo "=== Building Final Burn Alpha Cores (CPS1) ==="
+      cd ../../fbacores/cps1/projectfiles/visualstudio-2003-libretro-xbox1
+      cmd.exe /k $MSVC_NAME.bat
+      cp Release_LTCG/fb_alpha_libretro$FORMAT.$LIB_EXT $RARCH_DIST_DIR/fba_cores_cps1_libretro$FORMAT.$LIB_EXT
+      cd ../../../../
+
+      echo "=== Building Final Burn Alpha Cores (CPS2) ==="
+      cd fbacores/cps2/projectfiles/visualstudio-2003-libretro-xbox1
+      cmd.exe /k $MSVC_NAME.bat
+      cp Release_LTCG/libretro$FORMAT.$LIB_EXT $RARCH_DIST_DIR/fba_cores_cps2_libretro$FORMAT.$LIB_EXT
+      cd ../../../../
+
+      echo "=== Building Final Burn Alpha Cores (NeoGeo) ==="
+      cd fbacores/neogeo/projectfiles/visualstudio-2003-libretro-xbox1
+      cmd.exe /k $MSVC_NAME.bat
+      cp Release_LTCG/libretro$FORMAT.$LIB_EXT $RARCH_DIST_DIR/fba_cores_neo_libretro$FORMAT.$LIB_EXT
    else
       echo "Final Burn Alpha not fetched, skipping ..."
    fi
