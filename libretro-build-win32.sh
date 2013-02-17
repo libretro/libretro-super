@@ -87,7 +87,7 @@ build_libretro_s9x_next()
       echo "=== Building SNES9x-Next ==="
       cd libretro-s9x-next/
       make CC=$CC CXX=$CXX platform=win -f Makefile.libretro -j4 || die "Failed to build SNES9x-Next"
-      cp retro.dll libretro-git-snes9x-next.dll
+      cp snes9x_next_retro.dll libretro-git-snes9x-next.dll
       cd ..
    else
       echo "SNES9x-Next not fetched, skipping ..."
@@ -100,7 +100,7 @@ build_libretro_genplus()
       echo "=== Building Genplus GX ==="
       cd libretro-genplus/
       make CC=$CC CXX=$CXX platform=win -f Makefile.libretro -j4 || die "Failed to build Genplus GX"
-      cp retro.dll libretro-git-genplus.dll
+      cp genesis_plus_gx_retro.dll libretro-git-genplus.dll
       cd ..
    else
       echo "Genplus GX not fetched, skipping ..."
