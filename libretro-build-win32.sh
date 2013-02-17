@@ -111,7 +111,7 @@ build_libretro_fba()
 {
    if [ -d "libretro-fba" ]; then
       echo "=== Building Final Burn Alpha ==="
-      cd libretro-fba/svn-new/trunk
+      cd libretro-fba/svn-current/trunk
       make CC=$CC CXX=$CXX platform=win -f makefile.libretro -j4 || die "Failed to build Final Burn Alpha"
       cp retro.dll ../../libretro-git-fba.dll
       cd ../../..
