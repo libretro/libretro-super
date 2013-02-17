@@ -113,7 +113,7 @@ build_libretro_fba()
       echo "=== Building Final Burn Alpha ==="
       cd libretro-fba/svn-current/trunk
       make CC=$CC CXX=$CXX platform=win -f makefile.libretro -j4 || die "Failed to build Final Burn Alpha"
-      cp retro.dll ../../libretro-git-fba.dll
+      cp fb_alpha_retro.dll ../../libretro-git-fba.dll
       cd ../../..
    else
       echo "Final Burn Alpha not fetched, skipping ..."
@@ -126,7 +126,7 @@ build_libretro_vba()
       echo "=== Building VBA-Next ==="
       cd libretro-vba/
       make CC=$CC CXX=$CXX platform=win -f Makefile.libretro -j4 || die "Failed to build VBA-Next"
-      cp retro.dll libretro-git-vba.dll
+      cp vba_next_retro.dll libretro-git-vba.dll
       cd ..
    else
       echo "VBA-Next not fetched, skipping ..."
