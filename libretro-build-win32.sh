@@ -152,8 +152,8 @@ build_libretro_fceu()
    if [ -d "libretro-fceu" ]; then
       echo "=== Building FCEU ==="
       cd libretro-fceu
-      make CC=$CC CXX=$CXX platform=win -C src-fceumm -f Makefile.libretro -j4 || die "Failed to build FCEU"
-      cp src-fceumm/retro.dll libretro-git-fceu.dll
+      make CC=$CC CXX=$CXX platform=win -C fceumm-code -f Makefile.libretro -j4 || die "Failed to build FCEU"
+      cp fceumm-code/fceumm_retro.dll libretro-git-fceu.dll
       cd ..
    else
       echo "FCEU not fetched, skipping ..."
