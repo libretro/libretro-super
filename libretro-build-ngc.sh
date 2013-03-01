@@ -256,6 +256,22 @@ build_libretro_nestopia()
    fi
 }
 
+TYRQUAKE_DIR_NAME=tyrquake
+
+build_libretro_tyrquake()
+{
+   cd $CORES_DIR
+   if [ -d "$TYRQUAKE_DIR_NAME" ]; then
+      echo "=== Building Tyr Quake ==="
+      cd $TYRQUAKE_DIR_NAME
+      make -f Makefile.libretro platform=$FORMAT_COMPILER_TARGET -j$JOBS clean || die "Failed to clean Tyr Quake"
+      make -f Makefile.libretro platform=$FORMAT_COMPILER_TARGET -j$JOBS || die "Failed to build Tyr Quake"
+      cp tyrquake_libretro$FORMAT.a $RARCH_DIST_DIR
+   else
+      echo "Tyr Quake not fetched, skipping ..."
+   fi
+}
+
 build_libretro_mednafen
 #build_libretro_s9x
 build_libretro_s9x_next
@@ -270,4 +286,4 @@ build_libretro_prboom
 #build_libretro_desmume
 #build_libretro_quicknes
 build_libretro_nestopia
-
+build_libretro_tyrquake

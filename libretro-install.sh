@@ -30,6 +30,7 @@ LIBS="$LIBS libretro-desmume/libretro-desmume.so"
 LIBS="$LIBS libretro-mednafen/libretro-mednafen-psx.so"
 LIBS="$LIBS libretro-mednafen/libretro-mednafen-pce-fast.so"
 LIBS="$LIBS libretro-mednafen/libretro-mednafen-wswan.so"
+LIBS="$LIBS libretro-mednafen/libretro-tyrquake.so"
 LIBS="$LIBS libretro-quicknes/libretro-quicknes.so"
 LIBS="$LIBS libretro-nestopia/libretro-nestopia.so"
 

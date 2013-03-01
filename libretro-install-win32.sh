@@ -31,6 +31,10 @@ LIBS="$LIBS libretro-mednafen/libretro-0926-mednafen-psx.dll"
 LIBS="$LIBS libretro-mednafen/libretro-0924-mednafen-pce-fast.dll"
 LIBS="$LIBS libretro-mednafen/libretro-0922-mednafen-wswan.dll"
 LIBS="$LIBS libretro-quicknes/libretro-git-quicknes.dll"
+
+#note -not sure about what kind of versioning you're doing here - so just going to make an assumption
+LIBS="$LIBS libretro-tyrquake/libretro-git-tyrquake.dll"
+
 LIBS="$LIBS libretro-nestopia/libretro-144-nestopia.dll"
 
 for lib in $LIBS

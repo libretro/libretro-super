@@ -258,6 +258,19 @@ build_libretro_nestopia()
    fi
 }
 
+build_libretro_tyrquake()
+{
+   if [ -d "libretro-tyrquake" ]; then
+      echo "=== Building Tyr Quake ==="
+      cd libretro-tyrquake
+      make -f Makefile.libretro -j4 || die "Failed to build Tyr Quake"
+      cp tyrquake_libretro.so ../libretro-tyrquake.so
+      cd ../..
+   else
+      echo "Tyr Quake not fetched, skipping ..."
+   fi
+}
+
 build_libretro_bsnes
 build_libretro_mednafen
 build_libretro_s9x
@@ -275,4 +288,5 @@ build_libretro_stella
 build_libretro_desmume
 build_libretro_quicknes
 build_libretro_nestopia
+build_libretro_tyrquake
 
