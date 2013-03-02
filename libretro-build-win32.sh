@@ -6,8 +6,18 @@ die()
    #exit 1
 }
 
+if [ "$HOST_CC" ]; then
+   CC="${HOST_CC}-gcc"
+   CXX="${HOST_CC}-g++"
+   STRIP="${HOST_CC}-strip"
+fi
+
 if [ -z "$CC" ]; then
    CC=gcc
+fi
+
+if [ -z "$CXX" ]; then
+   CC=g++
 fi
 
 build_libretro_bsnes()
@@ -49,17 +59,20 @@ build_libretro_mednafen()
 
       cd psx
       make core=psx platform=win CC=$CC CXX=$CXX -j4 || die "Failed to build mednafen/psx"
-      cp retro.dll ../libretro-0926-mednafen-psx.dll
+      cp retro.dll ../libretro-0928-mednafen-psx.dll
+      "$STRIP" ../libretro-0928-mednafen-psx.dll
       cd ..
 
       cd pce-fast
       make core=pce-fast platform=win CC=$CC CXX=$CXX -j4 || die "Failed to build mednafen/pce-fast"
       cp retro.dll ../libretro-0924-mednafen-pce-fast.dll
+      "$STRIP" ../libretro-0924-mednafen-pce-fast.dll
       cd ..
 
       cd wswan
       make core=wswan platform=win CC=$CC CXX=$CXX -j4 || die "Failed to build mednafen/wswan"
       cp retro.dll ../libretro-0922-mednafen-wswan.dll
+      "$STRIP" ../libretro-0922-mednafen-wswan.dll
       cd ..
 
       cd ..
