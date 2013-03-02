@@ -264,8 +264,8 @@ build_libretro_tyrquake()
       echo "=== Building Tyr Quake ==="
       cd libretro-tyrquake
       make -f Makefile.libretro -j4 || die "Failed to build Tyr Quake"
-      cp tyrquake_libretro.so ../libretro-tyrquake.so
-      cd ../..
+      cp tyrquake_libretro.so libretro-tyrquake.so
+      cd ..
    else
       echo "Tyr Quake not fetched, skipping ..."
    fi
