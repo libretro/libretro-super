@@ -28,8 +28,8 @@ LIBS="$LIBS libretro-meteor/libretro-git-meteor.dll"
 LIBS="$LIBS libretro-stella/libretro-git-stella.dll"
 LIBS="$LIBS libretro-desmume/libretro-git-desmume.dll"
 LIBS="$LIBS libretro-mednafen/libretro-0928-mednafen-psx.dll"
-LIBS="$LIBS libretro-mednafen/libretro-0924-mednafen-pce-fast.dll"
-LIBS="$LIBS libretro-mednafen/libretro-0922-mednafen-wswan.dll"
+LIBS="$LIBS libretro-mednafen/libretro-0928-mednafen-pce-fast.dll"
+LIBS="$LIBS libretro-mednafen/libretro-0928-mednafen-wswan.dll"
 LIBS="$LIBS libretro-quicknes/libretro-git-quicknes.dll"
 
 #note -not sure about what kind of versioning you're doing here - so just going to make an assumption

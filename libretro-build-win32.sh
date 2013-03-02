@@ -65,14 +65,14 @@ build_libretro_mednafen()
 
       cd pce-fast
       make core=pce-fast platform=win CC=$CC CXX=$CXX -j4 || die "Failed to build mednafen/pce-fast"
-      cp retro.dll ../libretro-0924-mednafen-pce-fast.dll
-      "$STRIP" ../libretro-0924-mednafen-pce-fast.dll
+      cp retro.dll ../libretro-0928-mednafen-pce-fast.dll
+      "$STRIP" ../libretro-0928-mednafen-pce-fast.dll
       cd ..
 
       cd wswan
       make core=wswan platform=win CC=$CC CXX=$CXX -j4 || die "Failed to build mednafen/wswan"
-      cp retro.dll ../libretro-0922-mednafen-wswan.dll
-      "$STRIP" ../libretro-0922-mednafen-wswan.dll
+      cp retro.dll ../libretro-0928-mednafen-wswan.dll
+      "$STRIP" ../libretro-0928-mednafen-wswan.dll
       cd ..
 
       cd ..
