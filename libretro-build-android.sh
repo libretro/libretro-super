@@ -4,7 +4,6 @@ CORES_DIR=~/local-repos
 ROOT_DIR=$CORES_DIR/libretro-super
 RARCH_DIR=$CORES_DIR/RetroArch
 RARCH_DIST_DIR=$RARCH_DIR/dist-scripts
-FORMAT=_ps3
 JOBS=7
 
 die()
@@ -90,7 +89,7 @@ build_libretro_s9x_next()
    fi
 }
 
-GENPLUS_NEXT_DIR_NAME=Genesis-Plus-GX
+GENPLUS_DIR_NAME=Genesis-Plus-GX
 
 build_libretro_genplus()
 {
