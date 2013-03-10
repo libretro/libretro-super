@@ -301,6 +301,25 @@ build_libretro_pcsx_rearmed()
    fi
 }
 
+TYRQUAKE_DIR_NAME=tyrquake
+
+build_libretro_tyrquake()
+{
+   cd $CORES_DIR
+   if [ -d "$TYRQUAKE_DIR_NAME" ]; then
+      echo "=== Building TyrQuake ==="
+      cd $TYRQUAKE_DIR_NAME
+      cd libretro/jni
+      ndk-build clean
+      ndk-build -j$JOBS
+      cp ../libs/armeabi-v7a/libretro.so $RARCH_DIR/android/phoenix/libs/armeabi-v7a/libretro_tyrquake.so
+      cp ../libs/mips/libretro.so $RARCH_DIR/android/phoenix/libs/mips/libretro_tyrquake.so
+      cp ../libs/x86/libretro.so $RARCH_DIR/android/phoenix/libs/x86/libretro_tyrquake.so
+   else
+      echo "TyrQuake not fetched, skipping ..."
+   fi
+}
+
 build_libretro_pcsx_rearmed
 build_libretro_mednafen
 #build_libretro_s9x
@@ -316,3 +335,4 @@ build_libretro_prboom
 #build_libretro_desmume
 #build_libretro_quicknes
 build_libretro_nestopia
+build_libretro_tyrquake
