@@ -7,6 +7,12 @@ ROOT_DIR=$CORES_DIR/libretro-super
 RARCH_DIR=$CORES_DIR/RetroArch
 RARCH_DIST_DIR=$RARCH_DIR/ios/modules
 
+if [ ! -d "$RARCH_DIST_DIR" ]
+then
+  echo "Can't find the RetroArch directory, quitting..."
+  exit 0
+fi
+
 export IOSSDK=/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS6.1.sdk/
 
 if ! $SKIPFETCH ; then
