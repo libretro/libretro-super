@@ -15,7 +15,9 @@ fi
 
 export IOSSDK=/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS6.1.sdk/
 
-if ! $SKIPFETCH ; then
+if [ $SKIPFETCH == "true" ] ; then
+  echo "Skipping fetch of emulator cores."
+else
   # clone/fetch the emulator core repos
   cd $CORES_DIR
   "$ROOT_DIR/libretro-fetch.sh"
