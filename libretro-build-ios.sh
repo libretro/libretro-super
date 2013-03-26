@@ -9,10 +9,11 @@ RARCH_DIST_DIR=$RARCH_DIR/ios/modules
 
 export IOSSDK=/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS6.1.sdk/
 
-# clone/fetch the emulator core repos
-cd $CORES_DIR
-"$ROOT_DIR/libretro-fetch.sh"
-
+if ! $SKIPFETCH ; then
+  # clone/fetch the emulator core repos
+  cd $CORES_DIR
+  "$ROOT_DIR/libretro-fetch.sh"
+fi
 
 MEDNAFEN_DIR_NAME=libretro-mednafen
 build_libretro_mednafen()
