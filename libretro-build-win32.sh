@@ -17,7 +17,7 @@ if [ -z "$CC" ]; then
 fi
 
 if [ -z "$CXX" ]; then
-   CC=g++
+   CXX=g++
 fi
 
 build_libretro_bsnes()
