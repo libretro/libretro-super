@@ -36,8 +36,10 @@ build_libretro_mednafen()
       cmd.exe /k $MSVC_NAME.bat
       cp $MSVC_NAME/Release_LTCG/mednafen_ngp_libretro$FORMAT.lib $RARCH_DIST_DIR
 
-      #msvc/vb/$MSVC_NAME.bat
-      #cp msvc/vb/$MSVC_NAME/mednafen_vb_libretro$FORMAT.lib $RARCH_DIST_DIR
+      cd ../
+      cd vb
+      cmd.exe /k $MSVC_NAME.bat
+      cp $MSVC_NAME/Release_LTCG/mednafen_vb_libretro$FORMAT.lib $RARCH_DIST_DIR
    else
       echo "Mednafen not fetched, skipping ..."
    fi
