@@ -205,7 +205,7 @@ build_libretro_stella()
       echo "=== Building Stella ==="
       cd libretro-stella
       make platform=win CC=$CC CXX=$CXX -j4 || die "Failed to build Stella"
-      cp retro.dll libretro-git-stella.dll
+      cp stella_retro.dll libretro-git-stella.dll
       cd ../
    else
       echo "Stella not fetched, skipping ..."
@@ -228,10 +228,10 @@ build_libretro_desmume()
 build_libretro_quicknes()
 {
    if [ -d "libretro-quicknes" ]; then
-      echo "=== Building Desmume ==="
+      echo "=== Building QuickNES ==="
       cd libretro-quicknes/libretro
       make platform=win CC=$CC CXX=$CXX -j4 || die "Failed to build QuickNES"
-      cp retro.dll ../libretro-git-quicknes.dll
+      cp quicknes_retro.dll ../libretro-git-quicknes.dll
       cd ../..
    else
       echo "QuickNES not fetched, skipping ..."
