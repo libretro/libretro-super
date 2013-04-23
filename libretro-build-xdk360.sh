@@ -242,6 +242,22 @@ build_libretro_nestopia()
    fi
 }
 
+TYRQUAKE_DIR_NAME=tyrquake
+
+build_libretro_tyrquake()
+{
+   cd $CORES_DIR
+   if [ -d "$TYRQUAKE_DIR_NAME" ]; then
+      echo "=== Building Tyr Quake ==="
+      cd $TYRQUAKE_DIR_NAME
+      cd libretro/msvc
+      cmd.exe /k $MSVC_NAME.bat
+      cp $MSVC_NAME/Release_LTCG/tyrquake_libretro$FORMAT.$LIB_EXT $RARCH_DIST_DIR
+   else
+      echo "Tyr Quake not fetched, skipping ..."
+   fi
+}
+
 build_libretro_mednafen
 #build_libretro_s9x
 build_libretro_s9x_next
@@ -256,4 +272,5 @@ build_libretro_prboom
 #build_libretro_desmume
 #build_libretro_quicknes
 build_libretro_nestopia
+build_libretro_tyrquake
 
