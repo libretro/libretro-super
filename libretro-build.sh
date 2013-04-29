@@ -229,7 +229,7 @@ build_libretro_desmume()
       echo "=== Building Desmume ==="
       cd libretro-desmume
       make -f Makefile.libretro -j4 || die "Failed to build Desmume"
-      cp libretro.so libretro-desmume.so
+      cp desmume_libretro.so libretro-desmume.so
    else
       echo "Desmume not fetched, skipping ..."
    fi
@@ -242,7 +242,7 @@ build_libretro_quicknes()
       echo "=== Building QuickNES ==="
       cd libretro-quicknes/libretro
       make -j4 || die "Failed to build QuickNES"
-      cp libretro.so ../libretro-quicknes.so
+      cp quicknes_libretro.so ../libretro-quicknes.so
    else
       echo "QuickNES not fetched, skipping ..."
    fi
