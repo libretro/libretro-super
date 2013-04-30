@@ -1,6 +1,5 @@
 #!/bin/sh
 
-
 # Keep three copies so we don't have to rebuild stuff all the time.
 fetch_project_bsnes()
 {
@@ -49,7 +48,11 @@ fetch_project()
    echo "=== Fetched ==="
 }
 
-REPO_BASE="git://github.com"
+if [ -z $WRITERIGHTS ]; then
+   REPO_BASE="https://github.com"
+else
+   REPO_BASE="git://github.com"
+fi
 
 fetch_project_bsnes "git://gitorious.org/bsnes/bsnes.git --branch libretro" "libretro-bsnes" "libretro/bSNES"
 fetch_project "$REPO_BASE/snes9xgit/snes9x.git" "libretro-s9x" "libretro/SNES9x"
