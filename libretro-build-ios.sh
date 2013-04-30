@@ -15,23 +15,6 @@ export IOSSDK=/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.plat
 
 . libretro-build-common-console.sh
 
-create_dist_dir()
-{
-   if [ -d $RARCH_DIR ]; then
-      echo "Directory $RARCH_DIR already exists, skipping creation..."
-   else
-      mkdir $RARCH_DIR
-   fi
-
-   if [ -d $RARCH_DIST_DIR ]; then
-      echo "Directory $RARCH_DIST_DIR already exists, skipping creation..."
-   else
-      mkdir $RARCH_DIST_DIR
-   fi
-}
-
-create_dist_dir
-
 build_libretro_pcsx_rearmed
 build_libretro_mednafen
 build_libretro_mednafen_psx
