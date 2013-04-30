@@ -19,11 +19,9 @@ build_libretro_mednafen()
       for core in psx pce-fast wswan ngp gba snes vb
       do
          if [ -d $core ]; then
-            cd $core
 				make -f Makefile platform=ios core=${core} clean
             make -f Makefile platform=ios core=${core} -j${JOBS} || die "Failed to build mednafen/${core}"
             cp "mednafen_$(echo ${core} | tr '[\-]' '[_]')_libretro.dylib" "$RARCH_DIST_DIR"
-            cd ..
          fi
       done
    else
@@ -74,6 +72,34 @@ build_libretro_fba()
       cp "fb_alpha_libretro.dylib" "$RARCH_DIST_DIR"
    else
       echo "Final Burn Alpha not fetched, skipping ..."
+   fi
+}
+
+build_libretro_vba()
+{
+   cd $BASE_DIR
+   if [ -d "libretro-vba" ]; then
+      echo "=== Building VBA-Next ==="
+      cd libretro-vba/
+		make -f Makefile.libretro platform=ios clean
+      make -f Makefile.libretro platform=ios -j4 || die "Failed to build VBA-Next"
+      cp "vba_next_libretro.dylib" "$RARCH_DIST_DIR"
+   else
+      echo "VBA-Next not fetched, skipping ..."
+   fi
+}
+
+build_libretro_fceu()
+{
+   cd $BASE_DIR
+   if [ -d "libretro-fceu" ]; then
+      echo "=== Building FCEU ==="
+      cd libretro-fceu
+		make -C fceumm-code -f Makefile.libretro clean
+      make -C fceumm-code -f Makefile.libretro platform=ios -j4 || die "Failed to build FCEU"
+      cp "fceumm-code/fceumm_libretro.dylib" "$RARCH_DIST_DIR"
+   else
+      echo "FCEU not fetched, skipping ..."
    fi
 }
 
@@ -203,6 +229,8 @@ build_libretro_mednafen
 build_libretro_s9x_next
 build_libretro_genplus
 build_libretro_fba
+build_libretro_vba
+build_libretro_fceu
 build_libretro_gambatte
 build_libretro_nx
 build_libretro_prboom
