@@ -2,49 +2,37 @@
 
 set -e
 
-CORES_DIR="$PWD/.."
-ROOT_DIR=$CORES_DIR/libretro-super
-RARCH_DIR=$CORES_DIR/RetroArch
-RARCH_DIST_DIR=$RARCH_DIR/ios/modules
-
-if [ ! -d "$RARCH_DIST_DIR" ]
-then
-  echo "Can't find the RetroArch directory, quitting..."
-  exit 0
-fi
+BASE_DIR="$PWD"
+RARCH_DIR=$BASE_DIR/dist
+RARCH_DIST_DIR=$RARCH_DIR/ios
+JOBS=4
 
 export IOSSDK=/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS6.1.sdk/
 
-if [ $SKIPFETCH == "true" ] ; then
-  echo "Skipping fetch of emulator cores."
-else
-  # clone/fetch the emulator core repos
-  cd $CORES_DIR
-  "$ROOT_DIR/libretro-fetch.sh"
-fi
-
-MEDNAFEN_DIR_NAME=libretro-mednafen
 build_libretro_mednafen()
 {
-   cd $CORES_DIR
-   if [ -d "$MEDNAFEN_DIR_NAME" ]; then
+   cd $BASE_DIR
+   if [ -d "libretro-mednafen" ]; then
       echo "=== Building Mednafen ==="
-      cd $MEDNAFEN_DIR_NAME
-      make clean
-      make -f Makefile platform=ios
-      cp "mednafen_psx_libretro.dylib" "$RARCH_DIST_DIR"
+      cd libretro-mednafen
+
+      for core in psx pce-fast wswan ngp gba vb
+      do
+			make -f Makefile platform=ios core=${core} clean
+         make -f Makefile platform=ios core=${core} -j${JOBS} || die "Failed to build mednafen/${core}"
+         cp "mednafen_$(echo ${core} | tr '[\-]' '[_]')_libretro.dylib" "$RARCH_DIST_DIR"
+      done
    else
       echo "Mednafen not fetched, skipping ..."
    fi
 }
 
-S9X_NEXT_DIR_NAME=libretro-s9x-next
 build_libretro_s9x_next()
 {
-   cd $CORES_DIR
-   if [ -d "$S9X_NEXT_DIR_NAME" ]; then
+   cd $BASE_DIR
+   if [ -d "libretro-s9x-next" ]; then
       echo "=== Building SNES9x-Next ==="
-      cd $S9X_NEXT_DIR_NAME
+      cd libretro-s9x-next/
       make -f Makefile.libretro clean
       make -f Makefile.libretro platform=ios
 
@@ -54,13 +42,12 @@ build_libretro_s9x_next()
    fi
 }
 
-GENPLUS_DIR_NAME=libretro-genplus
 build_libretro_genplus()
 {
-   cd $CORES_DIR
-   if [ -d "$GENPLUS_DIR_NAME" ]; then
+   cd $BASE_DIR
+   if [ -d "libretro-genplus" ]; then
       echo "=== Building Genplus GX ==="
-      cd $GENPLUS_DIR_NAME
+      cd libretro-genplus/
       make -f Makefile.libretro clean
       make -f Makefile.libretro platform=ios
 
@@ -70,13 +57,13 @@ build_libretro_genplus()
    fi
 }
 
-FBA_DIR_NAME=libretro-fba
 build_libretro_fba()
 {
-   cd $CORES_DIR
-   if [ -d "$FBA_DIR_NAME" ]; then
+   cd $BASE_DIR
+   if [ -d "libretro-fba" ]; then
       echo "=== Building Final Burn Alpha ==="
-      cd $FBA_DIR_NAME/svn-current/trunk
+      cd libretro-fba
+      cd svn-current/trunk
       make -f makefile.libretro clean
       make -f makefile.libretro platform=ios
 
@@ -86,48 +73,40 @@ build_libretro_fba()
    fi
 }
 
-# TODO: get ios into makefile
-#
-# VBA_NEXT_DIR_NAME=libretro-vba
-# build_libretro_vba()
-# {
-#    cd $CORES_DIR
-#    if [ -d "$VBA_NEXT_DIR_NAME" ]; then
-#       echo "=== Building VBA-Next ==="
-#       cd $VBA_NEXT_DIR_NAME
-#       make -f Makefile.libretro clean
-#       make -f Makefile.libretro platform=ios
-#
-#
-#    else
-#       echo "VBA-Next not fetched, skipping ..."
-#    fi
-# }
+build_libretro_vba()
+{
+   cd $BASE_DIR
+   if [ -d "libretro-vba" ]; then
+      echo "=== Building VBA-Next ==="
+      cd libretro-vba/
+		make -f Makefile.libretro platform=ios clean
+      make -f Makefile.libretro platform=ios -j4 || die "Failed to build VBA-Next"
+      cp "vba_next_libretro.dylib" "$RARCH_DIST_DIR"
+   else
+      echo "VBA-Next not fetched, skipping ..."
+   fi
+}
 
-# TODO: get ios into makefile
-#
-# FCEUMM_DIR_NAME=libretro-fceu
-# build_libretro_fceu()
-# {
-#    cd $CORES_DIR
-#    if [ -d "$FCEUMM_DIR_NAME" ]; then
-#       echo "=== Building FCEU ==="
-#       cd $FCEUMM_DIR_NAME
-#       make -f Makefile.libretro-fceux clean
-#       make -f Makefile.libretro-fceux platform=ios
-#
-#     else
-#       echo "FCEU not fetched, skipping ..."
-#    fi
-# }
+build_libretro_fceu()
+{
+   cd $BASE_DIR
+   if [ -d "libretro-fceu" ]; then
+      echo "=== Building FCEU ==="
+      cd libretro-fceu
+		make -C fceumm-code -f Makefile.libretro clean
+      make -C fceumm-code -f Makefile.libretro platform=ios -j4 || die "Failed to build FCEU"
+      cp "fceumm-code/fceumm_libretro.dylib" "$RARCH_DIST_DIR"
+   else
+      echo "FCEU not fetched, skipping ..."
+   fi
+}
 
-GAMBATTE_DIR_NAME=libretro-gambatte
 build_libretro_gambatte()
 {
-   cd $CORES_DIR
-   if [ -d "$GAMBATTE_DIR_NAME" ]; then
+   cd $BASE_DIR
+   if [ -d "libretro-gambatte" ]; then
       echo "=== Building Gambatte ==="
-      cd $GAMBATTE_DIR_NAME/libgambatte
+      cd libretro-gambatte/libgambatte
       make -f Makefile.libretro clean
       make -f Makefile.libretro platform=ios
 
@@ -137,13 +116,12 @@ build_libretro_gambatte()
    fi
 }
 
-NXENGINE_DIR_NAME=libretro-nx
 build_libretro_nx()
 {
-   cd $CORES_DIR
-   if [ -d "$NXENGINE_DIR_NAME" ]; then
+   cd $BASE_DIR
+   if [ -d "libretro-nx" ]; then
       echo "=== Building NXEngine ==="
-      cd $NXENGINE_DIR_NAME
+      cd libretro-nx
       make -f Makefile clean
       make -f Makefile platform=ios
 
@@ -153,13 +131,12 @@ build_libretro_nx()
    fi
 }
 
-PRBOOM_DIR_NAME=libretro-prboom
 build_libretro_prboom()
 {
-   cd $CORES_DIR
-   if [ -d "$PRBOOM_DIR_NAME" ]; then
+   cd $BASE_DIR
+   if [ -d "libretro-prboom" ]; then
       echo "=== Building PRBoom ==="
-      cd $PRBOOM_DIR_NAME
+      cd libretro-prboom
       make -f Makefile clean
       make -f Makefile platform=ios
 
@@ -169,13 +146,12 @@ build_libretro_prboom()
    fi
 }
 
-STELLA_DIR_NAME=libretro-stella
 build_libretro_stella()
 {
-   cd $CORES_DIR
-   if [ -d "$STELLA_DIR_NAME" ]; then
+   cd $BASE_DIR
+   if [ -d "libretro-stella" ]; then
       echo "=== Building Stella ==="
-      cd $STELLA_DIR_NAME
+      cd libretro-stella
       make -f Makefile clean
       make -f Makefile platform=ios
 
@@ -185,47 +161,27 @@ build_libretro_stella()
    fi
 }
 
-DESMUME_DIR_NAME=libretro-desmume
 build_libretro_desmume()
 {
-   cd $CORES_DIR
-   if [ -d "$DESMUME_DIR_NAME" ]; then
+   cd $BASE_DIR
+   if [ -d "libretro-desmume" ]; then
       echo "=== Building Desmume ==="
-      cd $DESMUME_DIR_NAME
+      cd libretro-desmume
       make -f Makefile.libretro clean
       make -f Makefile.libretro platform=ios
 
-      cp "libretro.dylib" "$RARCH_DIST_DIR"
+      cp "desmume_libretro.dylib" "$RARCH_DIST_DIR"
    else
       echo "Desmume not fetched, skipping ..."
    fi
 }
 
-# TODO: get ios into makefile
-#
-# QUICKNES_DIR_NAME=libretro-quicknes
-# build_libretro_quicknes()
-# {
-#    cd $CORES_DIR
-#    if [ -d "$QUICKNES_DIR_NAME" ]; then
-#       echo "=== Building QuickNES ==="
-#       cd $QUICKNES_DIR_NAME
-#       make -f Makefile clean
-#       make -f Makefile platform=ios
-#
-# #       cp "quicknes_libretro.dylib" "$RARCH_DIST_DIR"
-#    else
-#       echo "QuickNES not fetched, skipping ..."
-#    fi
-# }
-
-NESTOPIA_DIR_NAME=libretro-nestopia/libretro
 build_libretro_nestopia()
 {
-   cd $CORES_DIR
-   if [ -d "$NESTOPIA_DIR_NAME" ]; then
+   cd $BASE_DIR
+   if [ -d "libretro-nestopia" ]; then
       echo "=== Building Nestopia ==="
-      cd $NESTOPIA_DIR_NAME
+      cd libretro-nestopia/libretro
       make clean
       make -f Makefile platform=ios
 
@@ -235,13 +191,12 @@ build_libretro_nestopia()
    fi
 }
 
-TYRQUAKE_DIR_NAME=libretro-tyrquake
 build_libretro_tyrquake()
 {
-   cd $CORES_DIR
-   if [ -d "$TYRQUAKE_DIR_NAME" ]; then
+   cd $BASE_DIR
+   if [ -d "libretro-tyrquake" ]; then
       echo "=== Building TyrQuake ==="
-      cd $TYRQUAKE_DIR_NAME
+      cd libretro-tyrquake
       make -f Makefile.libretro clean
       make -f Makefile.libretro platform=ios
 
@@ -251,18 +206,34 @@ build_libretro_tyrquake()
    fi
 }
 
+create_dist_dir()
+{
+   if [ -d $RARCH_DIR ]; then
+      echo "Directory $RARCH_DIR already exists, skipping creation..."
+   else
+      mkdir $RARCH_DIR
+   fi
+
+   if [ -d $RARCH_DIST_DIR ]; then
+      echo "Directory $RARCH_DIST_DIR already exists, skipping creation..."
+   else
+      mkdir $RARCH_DIST_DIR
+   fi
+}
+
+create_dist_dir
+
 build_libretro_mednafen
 build_libretro_s9x_next
 build_libretro_genplus
 build_libretro_fba
-# build_libretro_vba
-# build_libretro_fceu
+build_libretro_vba
+build_libretro_fceu
 build_libretro_gambatte
 build_libretro_nx
 build_libretro_prboom
 build_libretro_stella
 build_libretro_desmume
-# build_libretro_quicknes
 build_libretro_nestopia
 build_libretro_tyrquake
 
