@@ -36,33 +36,6 @@ fetch_project_bsnes()
    fi
 }
 
-fetch_project_mednafen()
-{
-   echo "=== Fetching $3 ==="
-   if [ -d "$2" ]; then
-      cd "$2"
-      git pull
-      cd ..
-   else
-      git clone $1 "$2"
-   fi
-
-   if [ -d "$2" ]; then
-      cd "$2"
-      for core in psx pce-fast wswan
-      do
-         if [ -d "$core" ]; then
-            cd $core
-            git pull ..
-            cd ..
-         else
-            git clone . $core
-         fi
-      done
-      cd ..
-   fi
-}
-
 fetch_project()
 {
    echo "=== Fetching $3 ==="
@@ -96,5 +69,4 @@ fetch_project "$REPO_BASE/libretro/QuickNES_Core.git" "libretro-quicknes" "libre
 fetch_project "$REPO_BASE/libretro/nestopia.git" "libretro-nestopia" "libretro/Nestopia"
 fetch_project "$REPO_BASE/libretro/tyrquake.git" "libretro-tyrquake" "libretro/tyrquake"
 fetch_project "$REPO_BASE/libretro/pcsx_rearmed.git" "libretro-pcsx-rearmed" "libretro/pcsx_rearmed"
-fetch_project_mednafen "$REPO_BASE/libretro/mednafen-libretro.git" "libretro-mednafen" "libretro/Mednafen"
-
+fetch_project "$REPO_BASE/libretro/mednafen-libretro.git" "libretro-mednafen" "libretro/Mednafen"
