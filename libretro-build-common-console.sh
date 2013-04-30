@@ -21,6 +21,21 @@ build_libretro_fba_full()
    fi
 }
 
+build_libretro_pcsx_rearmed()
+{
+   cd $BASE_DIR
+   pwd
+   if [ -d "libretro-pcsx-rearmed" ]; then
+      echo "=== Building PCSX ReARMed ==="
+      cd libretro-pcsx-rearmed
+      make -f Makefile.libretro platform=$FORMAT_COMPILER_TARGET -j$JOBS clean || die "Failed to clean PCSX ReARMed"
+      make -f Makefile.libretro platform=$FORMAT_COMPILER_TARGET -j$JOBS || die "Failed to build PCSX ReARMed"
+      cp pcsx_rearmed_libretro$FORMAT.$FORMAT_EXT $RARCH_DIST_DIR
+   else
+      echo "PCSX ReARMed not fetched, skipping ..."
+   fi
+}
+
 build_libretro_mednafen()
 {
    cd $BASE_DIR

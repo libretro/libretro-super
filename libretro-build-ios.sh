@@ -32,6 +32,7 @@ create_dist_dir()
 
 create_dist_dir
 
+build_libretro_pcsx_rearmed
 build_libretro_mednafen
 build_libretro_mednafen_psx
 build_libretro_mednafen_gba
