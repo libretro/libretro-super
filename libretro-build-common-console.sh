@@ -85,7 +85,7 @@ build_libretro_mednafen_gba()
       echo "=== Building Mednafen PSX ==="
       cd libretro-mednafen
 
-      for core in psx
+      for core in gba
       do
          make core=${core} platform=$FORMAT_COMPILER_TARGET -j$JOBS clean || die "Failed to clean mednafen/${core}"
          make core=${core} platform=$FORMAT_COMPILER_TARGET -j$JOBS || die "Failed to build mednafen/${core}"
