@@ -28,6 +28,74 @@ build_libretro_mednafen()
    fi
 }
 
+build_libretro_mednafen_psx()
+{
+   cd $BASE_DIR
+
+   if [ -d "libretro-mednafen" ]; then
+      echo "=== Building Mednafen PSX ==="
+      cd libretro-mednafen
+
+      for core in psx
+      do
+         make core=${core} platform=$FORMAT_COMPILER_TARGET -j$JOBS clean || die "Failed to clean mednafen/${core}"
+         make core=${core} platform=$FORMAT_COMPILER_TARGET -j$JOBS || die "Failed to build mednafen/${core}"
+         cp mednafen_$(echo ${core} | tr '[\-]' '[_]')_libretro$FORMAT.a $RARCH_DIST_DIR
+      done
+   else
+      echo "Mednafen not fetched, skipping ..."
+   fi
+}
+
+build_libretro_mednafen_gba()
+{
+   cd $BASE_DIR
+
+   if [ -d "libretro-mednafen" ]; then
+      echo "=== Building Mednafen PSX ==="
+      cd libretro-mednafen
+
+      for core in psx
+      do
+         make core=${core} platform=$FORMAT_COMPILER_TARGET -j$JOBS clean || die "Failed to clean mednafen/${core}"
+         make core=${core} platform=$FORMAT_COMPILER_TARGET -j$JOBS || die "Failed to build mednafen/${core}"
+         cp mednafen_$(echo ${core} | tr '[\-]' '[_]')_libretro$FORMAT.a $RARCH_DIST_DIR
+      done
+   else
+      echo "Mednafen not fetched, skipping ..."
+   fi
+}
+
+build_libretro_stella()
+{
+   cd $BASE_DIR
+   if [ -d "libretro-stella" ]; then
+      echo "=== Building Stella ==="
+      cd libretro-stella
+      make -f Makefile clean
+      make -f Makefile platform=$FORMAT_COMPILER_TARGET -j$JOBS
+
+      cp stella_libretro.dylib $RARCH_DIST_DIR
+   else
+      echo "Stella not fetched, skipping ..."
+   fi
+}
+
+build_libretro_desmume()
+{
+   cd $BASE_DIR
+   if [ -d "libretro-desmume" ]; then
+      echo "=== Building Desmume ==="
+      cd libretro-desmume
+      make -f Makefile.libretro clean
+      make -f Makefile.libretro platform=$FORMAT_COMPILER_TARGET -j$JOBS
+
+      cp desmume_libretro.dylib $RARCH_DIST_DIR
+   else
+      echo "Desmume not fetched, skipping ..."
+   fi
+}
+
 build_libretro_s9x_next()
 {
    cd $BASE_DIR
