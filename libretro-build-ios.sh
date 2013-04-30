@@ -16,13 +16,11 @@ build_libretro_mednafen()
       echo "=== Building Mednafen ==="
       cd libretro-mednafen
 
-      for core in psx pce-fast wswan ngp gba snes vb
+      for core in psx pce-fast wswan ngp gba vb
       do
-         if [ -d $core ]; then
-				make -f Makefile platform=ios core=${core} clean
-            make -f Makefile platform=ios core=${core} -j${JOBS} || die "Failed to build mednafen/${core}"
-            cp "mednafen_$(echo ${core} | tr '[\-]' '[_]')_libretro.dylib" "$RARCH_DIST_DIR"
-         fi
+			make -f Makefile platform=ios core=${core} clean
+         make -f Makefile platform=ios core=${core} -j${JOBS} || die "Failed to build mednafen/${core}"
+         cp "mednafen_$(echo ${core} | tr '[\-]' '[_]')_libretro.dylib" "$RARCH_DIST_DIR"
       done
    else
       echo "Mednafen not fetched, skipping ..."
