@@ -16,7 +16,7 @@ die()
 
 build_libretro_fba()
 {
-   cd $CORES_DIR
+   cd $BASE_DIR
    if [ -d "libretro-fba" ]; then
       echo "=== Building Final Burn Alpha ==="
       cd libretro-fba/
