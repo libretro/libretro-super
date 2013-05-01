@@ -9,10 +9,9 @@ FORMAT_COMPILER_TARGET=ngc
 FORMAT_COMPILER_TARGET_ALT=ngc
 FORMAT_EXT=a
 JOBS=7
-MY_DIR=$(dirname $(readlink -f $0))
 
-. $MY_DIR/libretro-build-common-gx.sh
-. $MY_DIR/libretro-build-common-console.sh
+. ./libretro-build-common-gx.sh
+. ./libretro-build-common-console.sh
 
 build_libretro_mednafen
 build_libretro_s9x_next

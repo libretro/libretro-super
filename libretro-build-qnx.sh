@@ -9,9 +9,8 @@ FORMAT_COMPILER_TARGET=qnx
 FORMAT_COMPILER_TARGET_ALT=qnx
 FORMAT_EXT=so
 JOBS=7
-MY_DIR=$(dirname $(readlink -f $0))
 
-. $MY_DIR/libretro-build-common-console.sh
+. ./libretro-build-common-console.sh
 
 build_libretro_pcsx_rearmed
 build_libretro_mednafen
