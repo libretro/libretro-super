@@ -1,6 +1,6 @@
 #!/bin/sh
 
-. libretro-config.sh
+. ./libretro-config.sh
 
 # Keep three copies so we don't have to rebuild stuff all the time.
 fetch_project_bsnes()
