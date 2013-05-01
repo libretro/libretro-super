@@ -105,7 +105,7 @@ build_libretro_stella()
       make -f Makefile clean
       make -f Makefile platform=$FORMAT_COMPILER_TARGET -j$JOBS
 
-      cp stella_libretro.dylib $RARCH_DIST_DIR
+      cp stella_libretro$FORMAT.$FORMAT_EXT $RARCH_DIST_DIR
    else
       echo "Stella not fetched, skipping ..."
    fi
@@ -120,7 +120,7 @@ build_libretro_desmume()
       make -f Makefile.libretro clean
       make -f Makefile.libretro platform=$FORMAT_COMPILER_TARGET -j$JOBS
 
-      cp desmume_libretro.dylib $RARCH_DIST_DIR
+      cp desmume_libretro$FORMAT.$FORMAT_EXT $RARCH_DIST_DIR
    else
       echo "Desmume not fetched, skipping ..."
    fi
