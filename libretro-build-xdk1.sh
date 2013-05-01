@@ -1,7 +1,6 @@
 #!/bin/sh
 
-CORES_DIR=C:/local-repos
-BASE_DIR=$CORES_DIR/libretro-super
+BASE_DIR=$(pwd)
 RARCH_DIR=$BASE_DIR/dist
 RARCH_DIST_DIR=$RARCH_DIR/xdk1
 FORMAT=_xdk
