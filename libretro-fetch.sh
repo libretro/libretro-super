@@ -73,3 +73,8 @@ fetch_project "$REPO_BASE/libretro/nestopia.git" "libretro-nestopia" "libretro/N
 fetch_project "$REPO_BASE/libretro/tyrquake.git" "libretro-tyrquake" "libretro/tyrquake"
 fetch_project "$REPO_BASE/libretro/pcsx_rearmed.git" "libretro-pcsx-rearmed" "libretro/pcsx_rearmed"
 fetch_project "$REPO_BASE/libretro/mednafen-libretro.git" "libretro-mednafen" "libretro/Mednafen"
+fetch_project "$REPO_BASE/libretro/scummvm.git" "libretro-scummvm" "libretro/scummvm"
+fetch_project "$REPO_BASE/libretro/yabause.git" "libretro-yabause" "libretro/yabause"
+fetch_project "$REPO_BASE/libretro/dosbox-libretro.git" "libretro-dosbox" "libretro/dosbox"
+fetch_project "$REPO_BASE/libretro/virtualjaguar-libretro.git" "libretro-virtualjaguar" "libretro/virtualjaguar"
+fetch_project "$REPO_BASE/libretro/mame078-libretro.git" "libretro-mame078" "libretro/mame078"
