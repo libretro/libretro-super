@@ -15,22 +15,22 @@ build_libretro_mednafen()
       cd msvc/pce-fast
 
       cmd.exe /k $MSVC_NAME.bat
-      cp $MSVC_NAME/Release_LTCG/mednafen_pce_fast_libretro$FORMAT.lib $RARCH_DIST_DIR
+      cp $MSVC_NAME/Release_LTCG/mednafen_pce_fast_libretro$FORMAT.$LIB_EXT $RARCH_DIST_DIR
 
       cd ../
       cd wswan
       cmd.exe /k $MSVC_NAME.bat
-      cp $MSVC_NAME/Release_LTCG/mednafen_wswan_libretro$FORMAT.lib $RARCH_DIST_DIR
+      cp $MSVC_NAME/Release_LTCG/mednafen_wswan_libretro$FORMAT.$LIB_EXT $RARCH_DIST_DIR
 
       cd ../
       cd ngp
       cmd.exe /k $MSVC_NAME.bat
-      cp $MSVC_NAME/Release_LTCG/mednafen_ngp_libretro$FORMAT.lib $RARCH_DIST_DIR
+      cp $MSVC_NAME/Release_LTCG/mednafen_ngp_libretro$FORMAT.$LIB_EXT $RARCH_DIST_DIR
 
       cd ../
       cd vb
       cmd.exe /k $MSVC_NAME.bat
-      cp $MSVC_NAME/Release_LTCG/mednafen_vb_libretro$FORMAT.lib $RARCH_DIST_DIR
+      cp $MSVC_NAME/Release_LTCG/mednafen_vb_libretro$FORMAT.$LIB_EXT $RARCH_DIST_DIR
    else
       echo "Mednafen not fetched, skipping ..."
    fi
