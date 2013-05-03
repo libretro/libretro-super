@@ -279,9 +279,30 @@ build_libretro_desmume()
          make -f Makefile.libretro -j$JOBS clean || die "Failed to clean Desmume"
          make -f Makefile.libretro -j$JOBS || die "Failed to build Desmume"
       fi
-      cp libretro.so "$RARCH_DIST_DIR"/libretro-desmume.so
+      cp desmume_libretro.so "$RARCH_DIST_DIR"/libretro-desmume.so
    else
       echo "Desmume not fetched, skipping ..."
+   fi
+}
+
+build_libretro_pcsx_rearmed()
+{
+   cd $BASE_DIR
+   pwd
+   if [ -d "libretro-pcsx-rearmed" ]; then
+      echo "=== Building PCSX ReARMed ==="
+      cd libretro-pcsx-rearmed
+      if [ $ARMV7 = true ]; then
+         echo "=== Building PCSX ReARMed (ARMV7 NEON) ==="
+         make -f Makefile.libretro platform=arm -j$JOBS clean || die "Failed to clean PCSX ReARMed"
+         make -f Makefile.libretro platform=arm -j$JOBS || die "Failed to build PCSX ReARMed"
+      else
+         make -f Makefile.libretro -j$JOBS clean || die "Failed to clean PCSX ReARMed"
+         make -f Makefile.libretro -j$JOBS || die "Failed to build PCSX ReARMed"
+      fi
+      cp pcsx_rearmed_libretro.so "$RARCH_DIST_DIR"/libretro-pcsx-rearmed.so
+   else
+      echo "PCSX ReARMed not fetched, skipping ..."
    fi
 }
 
@@ -347,4 +368,4 @@ build_libretro_stella
 build_libretro_quicknes
 build_libretro_nestopia
 build_libretro_tyrquake
-
+build_libretro_pcsx_rearmed
