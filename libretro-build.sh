@@ -12,6 +12,34 @@ die()
    #exit 1
 }
 
+ARCH=`uname -m`
+X86=false
+X86_64=false
+ARM=false
+ARMV5=false
+ARMV6=false
+ARMV7=false
+if [ $ARCH = x86_64 ]; then
+   echo "x86_64 CPU detected"
+   X86=true
+   X86_64=true
+elif [ $ARCH = i686 ]; then
+   echo "x86_32 CPU detected"
+   X86=true
+elif [ $ARCH = armv5tel ]; then
+   echo "ARMv5 CPU detected"
+   ARM=true
+   ARMV5=true
+elif [ $ARCH = armv6l ]; then
+   echo "ARMv6 CPU detected"
+   ARM=true
+   ARMV6=true
+elif [ $ARCH = armv7l ]; then
+   echo "ARMv7 CPU detected"
+   ARM=true
+   ARMV7=true
+fi
+
 build_libretro_bsnes()
 {
    if [ -z "$CC" ]; then
@@ -243,8 +271,14 @@ build_libretro_desmume()
    if [ -d "libretro-desmume" ]; then
       echo "=== Building Desmume ==="
       cd libretro-desmume
-      make -f Makefile.libretro -j$JOBS clean || die "Failed to clean Desmume"
-      make -f Makefile.libretro -j$JOBS || die "Failed to build Desmume"
+      if [ $X86 = true ]; then
+         echo "=== Building Desmume with x86 JIT recompiler ==="
+         make -f Makefile.libretro DESMUME_JIT=1 -j$JOBS clean || die "Failed to clean Desmume"
+         make -f Makefile.libretro DESMUME_JIT=1 -j$JOBS || die "Failed to build Desmume"
+      else
+         make -f Makefile.libretro -j$JOBS clean || die "Failed to clean Desmume"
+         make -f Makefile.libretro -j$JOBS || die "Failed to build Desmume"
+      fi
       cp libretro.so "$RARCH_DIST_DIR"/libretro-desmume.so
    else
       echo "Desmume not fetched, skipping ..."
@@ -295,6 +329,7 @@ build_libretro_tyrquake()
 
 mkdir -p "$RARCH_DIST_DIR"
 
+build_libretro_desmume
 build_libretro_bsnes
 build_libretro_mednafen
 build_libretro_s9x
@@ -309,7 +344,6 @@ build_libretro_meteor
 build_libretro_nx
 build_libretro_prboom
 build_libretro_stella
-build_libretro_desmume
 build_libretro_quicknes
 build_libretro_nestopia
 build_libretro_tyrquake
