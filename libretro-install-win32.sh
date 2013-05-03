@@ -1,53 +1,14 @@
 #!/bin/sh
 
-if [ -z "$1" ]; then
-   LIBRETRO_DIR="libretro"
-else
-   LIBRETRO_DIR="$1"
-fi
+ARCH_EXT="$1"
 
-ARCH_EXT="$2"
+SCRIPT=$(readlink -f $0)
+BASE_DIR=$(dirname $SCRIPT)
+RARCH_DIR=$BASE_DIR/dist
+RARCH_DIST_DIR=$RARCH_DIR/windows
 
-if [ ! -d "$LIBRETRO_DIR" ]; then
-   mkdir -p "$LIBRETRO_DIR"
-fi
-
-LIBS=""
-LIBS="$LIBS libretro-bsnes/libretro-092-bsnes-performance.dll"
-LIBS="$LIBS libretro-bsnes/libretro-092-bsnes-balanced.dll"
-LIBS="$LIBS libretro-bsnes/libretro-092-bsnes-accuracy.dll"
-LIBS="$LIBS libretro-s9x/libretro-git-snes9x.dll"
-LIBS="$LIBS libretro-s9x-next/libretro-git-snes9x-next.dll"
-LIBS="$LIBS libretro-genplus/libretro-git-genplus.dll"
-LIBS="$LIBS libretro-fba/libretro-git-fba.dll"
-LIBS="$LIBS libretro-vba/libretro-git-vba.dll"
-LIBS="$LIBS libretro-fceu/libretro-git-fceu.dll"
-LIBS="$LIBS libretro-bnes/libretro-git-bnes.dll"
-LIBS="$LIBS libretro-gambatte/libretro-git-gambatte.dll"
-LIBS="$LIBS libretro-meteor/libretro-git-meteor.dll"
-LIBS="$LIBS libretro-stella/libretro-git-stella.dll"
-LIBS="$LIBS libretro-desmume/libretro-git-desmume.dll"
-LIBS="$LIBS libretro-mednafen/libretro-0928-mednafen-psx.dll"
-LIBS="$LIBS libretro-mednafen/libretro-0928-mednafen-pce-fast.dll"
-LIBS="$LIBS libretro-mednafen/libretro-0928-mednafen-wswan.dll"
-LIBS="$LIBS libretro-quicknes/libretro-git-quicknes.dll"
-
-#note -not sure about what kind of versioning you're doing here - so just going to make an assumption
-LIBS="$LIBS libretro-tyrquake/libretro-git-tyrquake.dll"
-
-LIBS="$LIBS libretro-nestopia/libretro-144-nestopia.dll"
-
-for lib in $LIBS
-do
-   if [ -f $lib ]; then
-      install -v -m644 $lib "$LIBRETRO_DIR"
-   else
-      echo "Library $lib not found, skipping ..."
-   fi
-done
-
-cd "$LIBRETRO_DIR"
-for file in `find . -name "*.dll"`
+cd "$RARCH_DIST_DIR"
+for file in *.dll
 do
    REGEX_MV="s|^\(.*\)\.dll$|\1-${ARCH_EXT}.dll|"
    REGEX="s|^\(.*\)\.dll$|\1-${ARCH_EXT}.zip|"
