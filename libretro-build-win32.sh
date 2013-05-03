@@ -47,6 +47,8 @@ build_libretro_bsnes()
    if [ -d "libretro-bsnes/perf" ]; then
       echo "=== Building bSNES performance ==="
       cd libretro-bsnes/perf/higan
+      rm -f obj/*.o
+      rm -f out/*.dll
       $MAKE platform=win compiler="$CC" ui=target-libretro profile=performance -j$JOBS clean || die "Failed to clean bSNES performance core"
       $MAKE platform=win compiler="$CC" ui=target-libretro profile=performance -j$JOBS || die "Failed to build bSNES performance core"
       cp -f out/retro.dll "$RARCH_DIST_DIR"/libretro-092-bsnes-performance.dll
@@ -58,6 +60,8 @@ build_libretro_bsnes()
    if [ -d "libretro-bsnes/balanced" ]; then
       echo "=== Building bSNES balanced ==="
       cd libretro-bsnes/balanced/higan
+      rm -f obj/*.o
+      rm -f out/*.dll
       $MAKE platform=win compiler="$CC" ui=target-libretro profile=balanced -j$JOBS clean || die "Failed to clean bSNES balanced core"
       $MAKE platform=win compiler="$CC" ui=target-libretro profile=balanced -j$JOBS || die "Failed to build bSNES balanced core"
       cp -f out/retro.dll "$RARCH_DIST_DIR"/libretro-092-bsnes-balanced.dll
@@ -69,6 +73,8 @@ build_libretro_bsnes()
    if [ -d "libretro-bsnes" ]; then
       echo "=== Building bSNES accuracy ==="
       cd libretro-bsnes/higan
+      rm -f obj/*.o
+      rm -f out/*.dll
       $MAKE platform=win compiler="$CC" ui=target-libretro profile=accuracy -j$JOBS clean || die "Failed to clean bSNES accuracy core"
       $MAKE platform=win compiler="$CC" ui=target-libretro profile=accuracy -j$JOBS || die "Failed to build bSNES accuracy core"
       cp -f out/retro.dll "$RARCH_DIST_DIR"/libretro-092-bsnes-accuracy.dll

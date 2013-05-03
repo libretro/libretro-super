@@ -3,7 +3,7 @@
 SCRIPT=$(readlink -f $0)
 BASE_DIR=$(dirname $SCRIPT)
 RARCH_DIR=$BASE_DIR/dist
-RARCH_DIST_DIR=$RARCH_DIR/windows
+RARCH_DIST_DIR=$RARCH_DIR/pc
 
 if [ -z "$1" ]; then
    LIBRETRO_DIR="/usr/local/lib/libretro"
