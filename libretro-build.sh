@@ -2,6 +2,8 @@
 
 SCRIPT=$(readlink -f $0)
 BASE_DIR=$(dirname $SCRIPT)
+RARCH_DIR=$BASE_DIR/dist
+RARCH_DIST_DIR=$RARCH_DIR/pc
 JOBS=4
 
 die()
@@ -22,7 +24,7 @@ build_libretro_bsnes()
       cd libretro-bsnes/perf/higan
       make compiler="$CC" ui=target-libretro profile=performance -j$JOBS clean || die "Failed to clean bSNES performance core"
       make compiler="$CC" ui=target-libretro profile=performance -j$JOBS || die "Failed to build bSNES performance core"
-      cp -f out/libretro.so ../../libretro-bsnes-performance.so
+      cp -f out/libretro.so "$RARCH_DIST_DIR"/libretro-bsnes-performance.so
    else
       echo "bSNES performance not fetched, skipping ..."
    fi
@@ -33,7 +35,7 @@ build_libretro_bsnes()
       cd libretro-bsnes/balanced/higan
       make compiler="$CC" ui=target-libretro profile=balanced -j$JOBS clean || die "Failed to clean bSNES balanced core"
       make compiler="$CC" ui=target-libretro profile=balanced -j$JOBS || die "Failed to build bSNES balanced core"
-      cp -f out/libretro.so ../../libretro-bsnes-balanced.so
+      cp -f out/libretro.so "$RARCH_DIST_DIR"/libretro-bsnes-balanced.so
    else
       echo "bSNES compat not fetched, skipping ..."
    fi
@@ -44,7 +46,7 @@ build_libretro_bsnes()
       cd libretro-bsnes/higan
       make compiler="$CC" ui=target-libretro profile=accuracy -j$JOBS clean || die "Failed to clean bSNES accuracy core"
       make compiler="$CC" ui=target-libretro profile=accuracy -j$JOBS || die "Failed to build bSNES accuracy core"
-      cp -f out/libretro.so ../libretro-bsnes-accuracy.so
+      cp -f out/libretro.so "$RARCH_DIST_DIR"/libretro-bsnes-accuracy.so
    fi
 }
 
@@ -59,7 +61,7 @@ build_libretro_mednafen()
       do
          make core=${core} -j$JOBS clean || die "Failed to clean mednafen/${core}"
          make core=${core} -j$JOBS || die "Failed to build mednafen/${core}"
-         cp mednafen_$(echo ${core} | tr '[\-]' '[_]')_libretro.so ../libretro-mednafen-${core}.so
+         cp mednafen_$(echo ${core} | tr '[\-]' '[_]')_libretro.so "$RARCH_DIST_DIR"/libretro-mednafen-${core}.so
       done
    else
       echo "Mednafen not fetched, skipping ..."
@@ -74,7 +76,7 @@ build_libretro_s9x()
       cd libretro-s9x/libretro
       make -j$JOBS clean || die "Failed to clean SNES9x"
       make -j$JOBS || die "Failed to build SNES9x"
-      cp libretro.so ../libretro-snes9x.so
+      cp libretro.so "$RARCH_DIST_DIR"/libretro-snes9x.so
    else
       echo "SNES9x not fetched, skipping ..."
    fi
@@ -88,7 +90,7 @@ build_libretro_s9x_next()
       cd libretro-s9x-next/
       make -f Makefile.libretro -j$JOBS clean || die "Failed to clean SNES9x-Next"
       make -f Makefile.libretro -j$JOBS || die "Failed to build SNES9x-Next"
-      cp snes9x_next_libretro.so libretro-snes9x-next.so
+      cp snes9x_next_libretro.so "$RARCH_DIST_DIR"/libretro-snes9x-next.so
    else
       echo "SNES9x-Next not fetched, skipping ..."
    fi
@@ -102,7 +104,7 @@ build_libretro_genplus()
       cd libretro-genplus/
       make -f Makefile.libretro -j$JOBS clean || die "Failed to clean Genplus GX"
       make -f Makefile.libretro -j$JOBS || die "Failed to build Genplus GX"
-      cp genesis_plus_gx_libretro.so libretro-genplus.so
+      cp genesis_plus_gx_libretro.so "$RARCH_DIST_DIR"/libretro-genplus.so
    else
       echo "Genplus GX not fetched, skipping ..."
    fi
@@ -117,7 +119,7 @@ build_libretro_fba()
       cd svn-current/trunk
       make -f makefile.libretro clean || die "Failed to clean Final Burn Alpha"
       make -f makefile.libretro -j$JOBS || die "Failed to build Final Burn Alpha"
-      cp fb_alpha_libretro.so libretro-fba.so
+      cp fb_alpha_libretro.so "$RARCH_DIST_DIR"/libretro-fba.so
    else
       echo "Final Burn Alpha not fetched, skipping ..."
    fi
@@ -131,7 +133,7 @@ build_libretro_vba()
       cd libretro-vba/
       make -f Makefile.libretro -j$JOBS clean || die "Failed to clean VBA-Next"
       make -f Makefile.libretro -j$JOBS || die "Failed to build VBA-Next"
-      cp vba_next_libretro.so libretro-vba.so
+      cp vba_next_libretro.so "$RARCH_DIST_DIR"/libretro-vba.so
    else
       echo "VBA-Next not fetched, skipping ..."
    fi
@@ -146,7 +148,7 @@ build_libretro_bnes()
       mkdir -p obj
       make -j$JOBS clean || die "Failed to clean bNES"
       make -j$JOBS || die "Failed to build bNES"
-      cp libretro.so libretro-bnes.so
+      cp libretro.so "$RARCH_DIST_DIR"/libretro-bnes.so
    else
       echo "bNES not fetched, skipping ..."
    fi
@@ -160,7 +162,7 @@ build_libretro_fceu()
       cd libretro-fceu
       make -C fceumm-code -f Makefile.libretro -j$JOBS clean || die "Failed to clean FCEU"
       make -C fceumm-code -f Makefile.libretro -j$JOBS || die "Failed to build FCEU"
-      cp fceumm-code/fceumm_libretro.so libretro-fceu.so
+      cp fceumm-code/fceumm_libretro.so "$RARCH_DIST_DIR"/libretro-fceu.so
    else
       echo "FCEU not fetched, skipping ..."
    fi
@@ -174,7 +176,7 @@ build_libretro_gambatte()
       cd libretro-gambatte/libgambatte
       make -f Makefile.libretro -j$JOBS clean || die "Failed to clean Gambatte"
       make -f Makefile.libretro -j$JOBS || die "Failed to build Gambatte"
-      cp gambatte_libretro.so ../libretro-gambatte.so
+      cp gambatte_libretro.so "$RARCH_DIST_DIR"/libretro-gambatte.so
    else
       echo "Gambatte not fetched, skipping ..."
    fi
@@ -188,7 +190,7 @@ build_libretro_meteor()
       cd libretro-meteor/libretro
       make -j$JOBS clean || die "Failed to clean Meteor"
       make -j$JOBS || die "Failed to build Meteor"
-      cp libretro.so ../libretro-meteor.so
+      cp libretro.so "$RARCH_DIST_DIR"/libretro-meteor.so
    else
       echo "Meteor not fetched, skipping ..."
    fi
@@ -201,7 +203,7 @@ build_libretro_nx()
       cd libretro-nx
       make -j$JOBS clean || die "Failed to clean NXEngine"
       make -j$JOBS || die "Failed to build NXEngine"
-      cp nxengine_libretro.so libretro-nx.so
+      cp nxengine_libretro.so "$RARCH_DIST_DIR"/libretro-nx.so
    else
       echo "NXEngine not fetched, skipping ..."
    fi
@@ -215,7 +217,7 @@ build_libretro_prboom()
       cd libretro-prboom
       make -j$JOBS clean || die "Failed to clean PRBoom"
       make -j$JOBS || die "Failed to build PRBoom"
-      cp prboom_libretro.so libretro-prboom.so
+      cp prboom_libretro.so "$RARCH_DIST_DIR"/libretro-prboom.so
    else
       echo "PRBoom not fetched, skipping ..."
    fi
@@ -229,7 +231,7 @@ build_libretro_stella()
       cd libretro-stella
       make -j$JOBS clean || die "Failed to clean Stella"
       make -j$JOBS  || die "Failed to build Stella"
-      cp libretro.so libretro-stella.so
+      cp libretro.so "$RARCH_DIST_DIR"/libretro-stella.so
    else
       echo "Stella not fetched, skipping ..."
    fi
@@ -243,7 +245,7 @@ build_libretro_desmume()
       cd libretro-desmume
       make -f Makefile.libretro -j$JOBS clean || die "Failed to clean Desmume"
       make -f Makefile.libretro -j$JOBS || die "Failed to build Desmume"
-      cp libretro.so libretro-desmume.so
+      cp libretro.so "$RARCH_DIST_DIR"/libretro-desmume.so
    else
       echo "Desmume not fetched, skipping ..."
    fi
@@ -257,7 +259,7 @@ build_libretro_quicknes()
       cd libretro-quicknes/libretro
       make -j$JOBS clean || die "Failed to clean QuickNES"
       make -j$JOBS || die "Failed to build QuickNES"
-      cp libretro.so ../libretro-quicknes.so
+      cp libretro.so "$RARCH_DIST_DIR"/libretro-quicknes.so
    else
       echo "QuickNES not fetched, skipping ..."
    fi
@@ -271,7 +273,7 @@ build_libretro_nestopia()
       cd libretro-nestopia/libretro
       make -j$JOBS clean || die "Failed to clean Nestopia"
       make -j$JOBS || die "Failed to build Nestopia"
-      cp nestopia_libretro.so ../libretro-nestopia.so
+      cp nestopia_libretro.so "$RARCH_DIST_DIR"/libretro-nestopia.so
    else
       echo "Nestopia not fetched, skipping ..."
    fi
@@ -285,11 +287,13 @@ build_libretro_tyrquake()
       cd libretro-tyrquake
       make -f Makefile.libretro -j$JOBS clean || die "Failed to clean Tyr Quake"
       make -f Makefile.libretro -j$JOBS || die "Failed to build Tyr Quake"
-      cp tyrquake_libretro.so libretro-tyrquake.so
+      cp tyrquake_libretro.so "$RARCH_DIST_DIR"/libretro-tyrquake.so
    else
       echo "Tyr Quake not fetched, skipping ..."
    fi
 }
+
+mkdir -p "$RARCH_DIST_DIR"
 
 build_libretro_bsnes
 build_libretro_mednafen
