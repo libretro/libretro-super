@@ -367,6 +367,20 @@ build_libretro_tyrquake()
    fi
 }
 
+build_libretro_dosbox()
+{
+   cd $BASE_DIR
+   if [ -d "libretro-dosbox" ]; then
+      echo "=== Building DOSbox ==="
+      cd libretro-dosbox
+      make -f Makefile.libretro -j$JOBS clean || die "Failed to clean DOSbox"
+      make -f Makefile.libretro -j$JOBS || die "Failed to build DOSbox"
+      cp dosbox_libretro.so "$RARCH_DIST_DIR"/libretro-dosbox.so
+   else
+      echo "DOSbox not fetched, skipping ..."
+   fi
+}
+
 mkdir -p "$RARCH_DIST_DIR"
 
 if [ $1 ]; then
@@ -392,4 +406,5 @@ else
    build_libretro_tyrquake
    build_libretro_pcsx_rearmed
    build_libretro_mame078
+   build_libretro_dosbox
 fi
