@@ -96,6 +96,21 @@ build_libretro_mednafen()
    fi
 }
 
+build_libretro_mame078()
+{
+   cd $BASE_DIR
+   if [ -d "libretro-mame078" ]; then
+      echo "=== Building MAME 0.78 ==="
+      cd libretro-mame078
+
+      make -j$JOBS clean || die "Failed to clean MAME 0.78"
+      make -j$JOBS || die "Failed to build MAME 0.78"
+      cp mame078_libretro.so "$RARCH_DIST_DIR"/libretro-mame078.so
+   else
+      echo "MAME 0.78 not fetched, skipping ..."
+   fi
+}
+
 build_libretro_s9x()
 {
    cd $BASE_DIR
@@ -353,6 +368,7 @@ mkdir -p "$RARCH_DIST_DIR"
 if [ $1 ]; then
    $1
 else
+   build_libretro_mame078
    build_libretro_desmume
    build_libretro_bsnes
    build_libretro_mednafen
