@@ -290,6 +290,10 @@ build_libretro_desmume()
          echo "=== Building Desmume with x86 JIT recompiler ==="
          make -f Makefile.libretro DESMUME_JIT=1 -j$JOBS clean || die "Failed to clean Desmume"
          make -f Makefile.libretro DESMUME_JIT=1 -j$JOBS || die "Failed to build Desmume"
+      elif [ $ARMV7 = true ]; then
+         echo "=== Building Desmume with ARMv7 JIT recompiler ==="
+         make -f Makefile.libretro platform=arm DESMUME_JIT=1 -j$JOBS clean || die "Failed to clean Desmume"
+         make -f Makefile.libretro platform=arm DESMUME_JIT=1 -j$JOBS || die "Failed to build Desmume"
       else
          make -f Makefile.libretro -j$JOBS clean || die "Failed to clean Desmume"
          make -f Makefile.libretro -j$JOBS || die "Failed to build Desmume"
@@ -368,7 +372,6 @@ mkdir -p "$RARCH_DIST_DIR"
 if [ $1 ]; then
    $1
 else
-   build_libretro_mame078
    build_libretro_desmume
    build_libretro_bsnes
    build_libretro_mednafen
@@ -388,4 +391,5 @@ else
    build_libretro_nestopia
    build_libretro_tyrquake
    build_libretro_pcsx_rearmed
+   build_libretro_mame078
 fi
