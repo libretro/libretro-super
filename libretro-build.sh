@@ -13,7 +13,27 @@ else
    EXE="so"
 fi
 
-SCRIPT=$(readlink -f "$0")
+# BSDs don't have readlink -f
+read_link()
+{
+   TARGET_FILE="$1"
+   cd $(dirname "$TARGET_FILE")
+   TARGET_FILE=$(basename "$TARGET_FILE")
+
+   while [ -L "$TARGET_FILE" ]
+   do
+      TARGET_FILE=$(readlink "$TARGET_FILE")
+      cd $(dirname "$TARGET_FILE")
+      TARGET_FILE=$(basename "$TARGET_FILE")
+   done
+
+   PHYS_DIR=$(pwd -P)
+   RESULT="$PHYS_DIR/$TARGET_FILE"
+   echo $RESULT
+}
+
+SCRIPT=$(read_link "$0")
+echo "Script: $SCRIPT"
 BASE_DIR=$(dirname "$SCRIPT")
 RARCH_DIR=""$BASE_DIR"/dist"
 RARCH_DIST_DIR="$RARCH_DIR/pc"
@@ -56,12 +76,12 @@ elif [ $ARCH = armv7l ]; then
    ARMV7=true
 fi
 
+if [ -z "$CC" ]; then
+   CC=gcc
+fi
+
 build_libretro_bsnes()
 {
-   if [ -z "$CC" ]; then
-      CC=gcc
-   fi
-
    cd "$BASE_DIR"
    if [ -d "libretro-bsnes/perf" ]; then
       echo "=== Building bSNES performance ==="
