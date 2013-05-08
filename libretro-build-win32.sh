@@ -1,10 +1,13 @@
 #!/bin/sh
 
-SCRIPT=$(readlink -f $0)
-BASE_DIR=$(dirname $SCRIPT)
-RARCH_DIR=$BASE_DIR/dist
-RARCH_DIST_DIR=$RARCH_DIR/windows
-JOBS=4
+SCRIPT=$(readlink -f "$0")
+BASE_DIR=$(dirname "$SCRIPT")
+RARCH_DIR="$BASE_DIR/dist"
+RARCH_DIST_DIR="$RARCH_DIR/windows"
+
+if [ -z "$JOBS" ]; then
+   JOBS=4
+fi
 
 die()
 {
