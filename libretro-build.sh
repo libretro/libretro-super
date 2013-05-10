@@ -141,7 +141,7 @@ build_libretro_mame078()
 
       make -j$JOBS clean || die "Failed to clean MAME 0.78"
       make -j$JOBS || die "Failed to build MAME 0.78"
-      cp mame078_libretro.so "$RARCH_DIST_DIR"/libretro-mame078.so
+      cp mame078_libretro.${EXE} "$RARCH_DIST_DIR"/libretro-mame078.${EXE}
    else
       echo "MAME 0.78 not fetched, skipping ..."
    fi
@@ -355,7 +355,7 @@ build_libretro_pcsx_rearmed()
          make -f Makefile.libretro -j$JOBS clean || die "Failed to clean PCSX ReARMed"
          make -f Makefile.libretro -j$JOBS || die "Failed to build PCSX ReARMed"
       fi
-      cp pcsx_rearmed_libretro.so "$RARCH_DIST_DIR"/libretro-pcsx-rearmed.so
+      cp pcsx_rearmed_libretro.${EXE} "$RARCH_DIST_DIR"/libretro-pcsx-rearmed.${EXE}
    else
       echo "PCSX ReARMed not fetched, skipping ..."
    fi
@@ -411,7 +411,7 @@ build_libretro_dosbox()
       cd libretro-dosbox
       make -f Makefile.libretro -j$JOBS clean || die "Failed to clean DOSbox"
       make -f Makefile.libretro -j$JOBS || die "Failed to build DOSbox"
-      cp dosbox_libretro.so "$RARCH_DIST_DIR"/libretro-dosbox.so
+      cp dosbox_libretro.${EXE} "$RARCH_DIST_DIR"/libretro-dosbox.${EXE}
    else
       echo "DOSbox not fetched, skipping ..."
    fi
@@ -425,7 +425,7 @@ build_libretro_scummvm()
       cd libretro-scummvm/backends/platform/libretro/build
       make -f Makefile -j$JOBS clean || die "Failed to clean ScummVM"
       make -f Makefile -j$JOBS || die "Failed to build ScummVM"
-      cp scummvm_libretro.so "$RARCH_DIST_DIR"/libretro-scummvm.so
+      cp scummvm_libretro.${EXE} "$RARCH_DIST_DIR"/libretro-scummvm.${EXE}
    else
       echo "ScummVM not fetched, skipping ..."
    fi
