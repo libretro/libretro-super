@@ -35,7 +35,7 @@ read_link()
 SCRIPT=$(read_link "$0")
 echo "Script: $SCRIPT"
 BASE_DIR=$(dirname "$SCRIPT")
-RARCH_DIR=""$BASE_DIR"/dist"
+RARCH_DIR="$BASE_DIR/dist"
 RARCH_DIST_DIR="$RARCH_DIR/pc"
 
 if [ -z "$JOBS" ]; then
