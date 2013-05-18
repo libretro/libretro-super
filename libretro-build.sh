@@ -19,6 +19,7 @@ elif [ "`echo $UNAME | grep -i MINGW`" ]; then
    FORMAT_EXT="dll"
    FORMAT_COMPILER_TARGET=win
    FORMAT_COMPILER_TARGET_ALT=win
+
 else
 # assume this is UNIX-based at least
    FORMAT_EXT="so"
@@ -51,7 +52,7 @@ SCRIPT=$(read_link "$0")
 echo "Script: $SCRIPT"
 BASE_DIR=$(dirname "$SCRIPT")
 RARCH_DIR="$BASE_DIR/dist"
-RARCH_DIST_DIR="$RARCH_DIR/pc"
+RARCH_DIST_DIR="$RARCH_DIR/pcwin"
 
 if [ -z "$JOBS" ]; then
    JOBS=4
@@ -91,8 +92,34 @@ elif [ $ARCH = armv7l ]; then
    ARMV7=true
 fi
 
+if [ "$HOST_CC" ]; then
+   CC="${HOST_CC}-gcc"
+   CXX="${HOST_CC}-g++"
+   STRIP="${HOST_CC}-strip"
+fi
+
+if [ -z "$MAKE" ]; then
+   if [ "$(expr substr $(uname -s) 1 7)" == "MINGW32" ]; then
+      MAKE=mingw32-make
+   else
+      MAKE=make
+   fi
+fi
+
 if [ -z "$CC" ]; then
-   CC=gcc
+   if [ "$(expr substr $(uname -s) 1 7)" == "MINGW32" ]; then
+      CC=mingw32-gcc
+   else
+      CC=gcc
+   fi
+fi
+
+if [ -z "$CXX" ]; then
+   if [ "$(expr substr $(uname -s) 1 7)" == "MINGW32" ]; then
+      CXX=mingw32-g++
+   else
+      CXX=g++
+   fi
 fi
 
 mkdir -p "$RARCH_DIST_DIR"
@@ -100,7 +127,6 @@ mkdir -p "$RARCH_DIST_DIR"
 if [ $1 ]; then
    $1
 else
-   build_libretro_desmume
    build_libretro_bsnes
    build_libretro_mednafen
    build_libretro_mednafen_gba
@@ -128,5 +154,8 @@ else
 if [ -z $BUILD_LIBRETRO_GL ]; then
    build_libretro_modelviewer
    build_libretro_scenewalker
+fi
+if [ $FORMAT_COMPILER_TARGET != "win" ]; then
+   build_libretro_desmume
 fi
 fi
