@@ -13,7 +13,7 @@ JOBS=7
 
 export IOSSDK=/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS6.1.sdk/
 
-. ./libretro-build-common-console.sh
+. ./libretro-build-common.sh
 
 if [ $1 ]; then
    $1

@@ -27,7 +27,7 @@ else
    FORMAT_COMPILER_TARGET_ALT=unix
 fi
 
-. ./libretro-build-common-console.sh
+. ./libretro-build-common.sh
 
 # BSDs don't have readlink -f
 read_link()

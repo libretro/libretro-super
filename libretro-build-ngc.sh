@@ -11,7 +11,7 @@ FORMAT_EXT=a
 JOBS=7
 
 . ./libretro-build-common-gx.sh
-. ./libretro-build-common-console.sh
+. ./libretro-build-common.sh
 
 if [ $1 ]; then
    $1
