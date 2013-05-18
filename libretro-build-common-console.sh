@@ -169,7 +169,7 @@ build_libretro_desmume()
          make -f Makefile.libretro platform=$FORMAT_COMPILER_TARGET -j$JOBS
       fi
 
-      cp desmume_libretro$FORMAT.$FORMAT_EXT "$RARCH_DIST_DIR"
+      cp desmume_libretro${FORMAT}.${FORMAT_EXT} "$RARCH_DIST_DIR"
    else
       echo "Desmume not fetched, skipping ..."
    fi
@@ -183,7 +183,7 @@ build_libretro_s9x()
       cd libretro-s9x/libretro
       make -f Makefile platform=${FORMAT_COMPILER_TARGET} -j$JOBS clean || die "Failed to clean SNES9x"
       make -f Makefile platform=${FORMAT_COMPILER_TARGET} -j$JOBS || die "Failed to build SNES9x"
-      cp snes9x_libretro.${FORMAT_EXT} "$RARCH_DIST_DIR"
+      cp snes9x_libretro${FORMAT}.${FORMAT_EXT} "$RARCH_DIST_DIR"
    else
       echo "SNES9x not fetched, skipping ..."
    fi
@@ -195,9 +195,9 @@ build_libretro_s9x_next()
    if [ -d "libretro-s9x-next" ]; then
       echo "=== Building SNES9x-Next ==="
       cd libretro-s9x-next/
-      make -f Makefile.libretro platform=$FORMAT_COMPILER_TARGET_ALT -j$JOBS clean || die "Failed to build SNES9x-Next"
-      make -f Makefile.libretro platform=$FORMAT_COMPILER_TARGET_ALT -j$JOBS || die "Failed to build SNES9x-Next"
-      cp snes9x_next_libretro$FORMAT.$FORMAT_EXT "$RARCH_DIST_DIR"
+      make -f Makefile.libretro platform=${FORMAT_COMPILER_TARGET_ALT} -j$JOBS clean || die "Failed to build SNES9x-Next"
+      make -f Makefile.libretro platform=${FORMAT_COMPILER_TARGET_ALT} -j$JOBS || die "Failed to build SNES9x-Next"
+      cp snes9x_next_libretro${FORMAT}.${FORMAT_EXT} "$RARCH_DIST_DIR"
       cd ..
    else
       echo "SNES9x-Next not fetched, skipping ..."
