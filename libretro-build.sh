@@ -7,24 +7,28 @@ if [ "`echo $UNAME | grep Linux`" ]; then
    FORMAT_EXT="so"
    FORMAT_COMPILER_TARGET=unix
    FORMAT_COMPILER_TARGET_ALT=unix
+	DIST_DIR=unix
 elif [ "`echo $UNAME | grep BSD`" ]; then
    FORMAT_EXT="so"
    FORMAT_COMPILER_TARGET=unix
    FORMAT_COMPILER_TARGET_ALT=unix
+	DIST_DIR=bsd
 elif [ "`echo $UNAME | grep Darwin`" ]; then
    FORMAT_EXT="dylib"
    FORMAT_COMPILER_TARGET=osx
    FORMAT_COMPILER_TARGET_ALT=osx
+	DIST_DIR=osx
 elif [ "`echo $UNAME | grep -i MINGW`" ]; then
    FORMAT_EXT="dll"
    FORMAT_COMPILER_TARGET=win
    FORMAT_COMPILER_TARGET_ALT=win
-
+	DIST_DIR=win
 else
 # assume this is UNIX-based at least
    FORMAT_EXT="so"
    FORMAT_COMPILER_TARGET=unix
    FORMAT_COMPILER_TARGET_ALT=unix
+	DIST_DIR=unix
 fi
 
 . ./libretro-build-common.sh
@@ -52,7 +56,7 @@ SCRIPT=$(read_link "$0")
 echo "Script: $SCRIPT"
 BASE_DIR=$(dirname "$SCRIPT")
 RARCH_DIR="$BASE_DIR/dist"
-RARCH_DIST_DIR="$RARCH_DIR/pcwin"
+RARCH_DIST_DIR="$RARCH_DIR/$DIST_DIR"
 
 if [ -z "$JOBS" ]; then
    JOBS=4
@@ -99,7 +103,9 @@ if [ "$HOST_CC" ]; then
 fi
 
 if [ -z "$MAKE" ]; then
-   if [ "$(expr substr $(uname -s) 1 7)" == "MINGW32" ]; then
+	if [ $FORMAT_COMPILER_TARGET == "osx" ]; then
+		MAKE=make
+   elif [ "$(expr substr $(uname -s) 1 7)" == "MINGW32" ]; then
       MAKE=mingw32-make
    else
       MAKE=make
@@ -107,7 +113,9 @@ if [ -z "$MAKE" ]; then
 fi
 
 if [ -z "$CC" ]; then
-   if [ "$(expr substr $(uname -s) 1 7)" == "MINGW32" ]; then
+	if [ $FORMAT_COMPILER_TARGET == "osx" ]; then
+		CCE=clang
+   elif [ "$(expr substr $(uname -s) 1 7)" == "MINGW32" ]; then
       CC=mingw32-gcc
    else
       CC=gcc
@@ -115,7 +123,9 @@ if [ -z "$CC" ]; then
 fi
 
 if [ -z "$CXX" ]; then
-   if [ "$(expr substr $(uname -s) 1 7)" == "MINGW32" ]; then
+	if [ $FORMAT_COMPILER_TARGET == "osx" ]; then
+		CXX=clang++
+   elif [ "$(expr substr $(uname -s) 1 7)" == "MINGW32" ]; then
       CXX=mingw32-g++
    else
       CXX=g++
@@ -127,7 +137,9 @@ mkdir -p "$RARCH_DIST_DIR"
 if [ $1 ]; then
    $1
 else
+if [ $FORMAT_COMPILER_TARGET != "osx" ]; then
    build_libretro_bsnes
+fi
    build_libretro_mednafen
    build_libretro_mednafen_gba
    build_libretro_mednafen_snes
