@@ -10,6 +10,7 @@ FORMAT_COMPILER_TARGET=ios
 FORMAT_COMPILER_TARGET_ALT=ios
 FORMAT_EXT=dylib
 JOBS=7
+MAKE=make
 
 export IOSSDK=/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS6.1.sdk/
 

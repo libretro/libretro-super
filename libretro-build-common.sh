@@ -28,7 +28,7 @@ build_libretro_pcsx_rearmed()
    if [ -d "libretro-pcsx-rearmed" ]; then
       echo "=== Building PCSX ReARMed ==="
       cd libretro-pcsx-rearmed
-      if [ $ARMV7 = true ]; then
+      if [ "$ARMV7" = true ]; then
          echo "=== Building PCSX ReARMed (ARMV7 NEON) ==="
          ${MAKE} -f Makefile.libretro platform=arm -j$JOBS clean || die "Failed to clean PCSX ReARMed"
          ${MAKE} -f Makefile.libretro platform=arm -j$JOBS || die "Failed to build PCSX ReARMed"
@@ -156,11 +156,11 @@ build_libretro_desmume()
    if [ -d "libretro-desmume" ]; then
       echo "=== Building Desmume ==="
       cd libretro-desmume
-      if [ $X86 = true ]; then
+      if [ "$X86" = true ]; then
          echo "=== Building Desmume with x86 JIT recompiler ==="
          ${MAKE} -f Makefile.libretro platform=${FORMAT_COMPILER_TARGET} DESMUME_JIT=1 -j$JOBS clean || die "Failed to clean Desmume"
          ${MAKE} -f Makefile.libretro platform=${FORMAT_COMPILER_TARGET} DESMUME_JIT=1 -j$JOBS || die "Failed to build Desmume"
-      elif [ $ARMV7 = true ]; then
+      elif [ "$ARMV7" = true ]; then
          echo "=== Building Desmume with ARMv7 JIT recompiler ==="
          ${MAKE} -f Makefile.libretro platform=arm DESMUME_JIT=1 -j$JOBS clean || die "Failed to clean Desmume"
          ${MAKE} -f Makefile.libretro platform=arm DESMUME_JIT=1 -j$JOBS || die "Failed to build Desmume"
@@ -411,7 +411,7 @@ build_libretro_bsnes()
       rm -f out/*.${FORMAT_EXT}
       ${MAKE} -f Makefile platform=${FORMAT_COMPILER_TARGET} compiler="$CC" ui=target-libretro profile=performance -j$JOBS clean || die "Failed to clean bSNES performance core"
       ${MAKE} -f Makefile platform=${FORMAT_COMPILER_TARGET} compiler="$CC" ui=target-libretro profile=performance -j$JOBS || die "Failed to build bSNES performance core"
-      if [ $FORMAT_COMPILER_TARGET == "win" ]; then
+      if [ "$FORMAT_COMPILER_TARGET" == "win" ]; then
       	cp -f out/retro${FORMAT}.${FORMAT_EXT} "$RARCH_DIST_DIR"/bsnes_libretro_performance.${FORMAT_EXT}
       else
       	cp -f out/libretro${FORMAT}.${FORMAT_EXT} "$RARCH_DIST_DIR"/bsnes_libretro_performance.${FORMAT_EXT}
@@ -428,7 +428,7 @@ build_libretro_bsnes()
       rm -f out/*.${FORMAT_EXT}
       ${MAKE} -f Makefile platform=${FORMAT_COMPILER_TARGET} compiler="$CC" ui=target-libretro profile=balanced -j$JOBS clean || die "Failed to clean bSNES balanced core"
       ${MAKE} -f Makefile platform=${FORMAT_COMPILER_TARGET} compiler="$CC" ui=target-libretro profile=balanced -j$JOBS || die "Failed to build bSNES balanced core"
-      if [ $FORMAT_COMPILER_TARGET == "win" ]; then
+      if [ "$FORMAT_COMPILER_TARGET" == "win" ]; then
       	cp -f out/retro${FORMAT}.${FORMAT_EXT} "$RARCH_DIST_DIR"/bsnes_libretro_balanced.${FORMAT_EXT}
       else
       	cp -f out/libretro${FORMAT}.${FORMAT_EXT} "$RARCH_DIST_DIR"/bsnes_libretro_balanced.${FORMAT_EXT}
@@ -445,7 +445,7 @@ build_libretro_bsnes()
       rm -f out/*.${FORMAT_EXT}
       ${MAKE} -f Makefile platform=${FORMAT_COMPILER_TARGET} compiler="$CC" ui=target-libretro profile=accuracy -j$JOBS clean || die "Failed to clean bSNES accuracy core"
       ${MAKE} -f Makefile platform=${FORMAT_COMPILER_TARGET} compiler="$CC" ui=target-libretro profile=accuracy -j$JOBS || die "Failed to build bSNES accuracy core"
-      if [ $FORMAT_COMPILER_TARGET == "win" ]; then
+      if [ "$FORMAT_COMPILER_TARGET" == "win" ]; then
       	cp -f out/retro${FORMAT}.${FORMAT_EXT} "$RARCH_DIST_DIR"/bsnes_libretro_accuracy.${FORMAT_EXT}
       else
       	cp -f out/libretro${FORMAT}.${FORMAT_EXT} "$RARCH_DIST_DIR"/bsnes_libretro_accuracy.${FORMAT_EXT}
