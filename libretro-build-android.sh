@@ -246,6 +246,40 @@ build_libretro_tyrquake()
    fi
 }
 
+build_libretro_modelviewer()
+{
+   cd $BASE_DIR
+   if [ -d "libretro-gl-modelviewer" ]; then
+      echo "=== Building Modelviewer (GL) ==="
+      cd libretro-gl-modelviewer
+      cd jni
+      ndk-build clean
+      ndk-build -j$JOBS
+      cp ../libs/armeabi-v7a/libretro.${FORMAT_EXT} $RARCH_DIST_DIR/armeabi-v7a/libretro_modelviewer.${FORMAT_EXT}
+      cp ../libs/mips/libretro.${FORMAT_EXT} $RARCH_DIST_DIR/mips/libretro_modelviewer.${FORMAT_EXT}
+      cp ../libs/x86/libretro.${FORMAT_EXT} $RARCH_DIST_DIR/x86/libretro_modelviewer.${FORMAT_EXT}
+   else
+      echo "ModelViewer not fetched, skipping ..."
+   fi
+}
+
+build_libretro_scenewalker()
+{
+   cd $BASE_DIR
+   if [ -d "libretro-gl-scenewalker" ]; then
+      echo "=== Building SceneWalker (GL) ==="
+      cd libretro-gl-scenewalker
+      cd jni
+      ndk-build clean
+      ndk-build -j$JOBS
+      cp ../libs/armeabi-v7a/libretro.${FORMAT_EXT} $RARCH_DIST_DIR/armeabi-v7a/libretro_scenewalker.${FORMAT_EXT}
+      cp ../libs/mips/libretro.${FORMAT_EXT} $RARCH_DIST_DIR/mips/libretro_scenewalker.${FORMAT_EXT}
+      cp ../libs/x86/libretro.${FORMAT_EXT} $RARCH_DIST_DIR/x86/libretro_scenewalker.${FORMAT_EXT}
+   else
+      echo "SceneWalker not fetched, skipping ..."
+   fi
+}
+
 create_dist_dir()
 {
    if [ -d $RARCH_DIR ]; then
@@ -296,4 +330,6 @@ else
    build_libretro_prboom
    build_libretro_nestopia
    build_libretro_tyrquake
+   build_libretro_modelviewer
+   build_libretro_scenewalker
 fi
