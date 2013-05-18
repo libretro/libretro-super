@@ -31,4 +31,6 @@ else
    #build_libretro_desmume
    build_libretro_nestopia
    build_libretro_tyrquake
+   build_libretro_modelviewer
+   build_libretro_scenewalker
 fi

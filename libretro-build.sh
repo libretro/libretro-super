@@ -1,5 +1,7 @@
 #!/bin/sh
 
+. ./libretro-config.sh
+
 UNAME=$(uname)
 if [ "`echo $UNAME | grep Linux`" ]; then
    FORMAT_EXT="so"
@@ -431,6 +433,34 @@ build_libretro_scummvm()
    fi
 }
 
+build_libretro_modelviewer()
+{
+   cd $BASE_DIR
+   if [ -d "libretro-gl-modelviewer" ]; then
+      echo "=== Building Modelviewer (GL) ==="
+      cd libretro-gl-modelviewer
+      make -f Makefile -j$JOBS clean || die "Failed to clean Modelviewer"
+      make -f Makefile -j$JOBS || die "Failed to build Modelviewer"
+      cp modelviewer_libretro.${FORMAT_EXT} "$RARCH_DIST_DIR"/libretro-gl-modelviewer.${FORMAT_EXT}
+   else
+      echo "ModelViewer not fetched, skipping ..."
+   fi
+}
+
+build_libretro_scenewalker()
+{
+   cd $BASE_DIR
+   if [ -d "libretro-gl-scenewalker" ]; then
+      echo "=== Building SceneWalker (GL) ==="
+      cd libretro-gl-scenewalker
+      make -f Makefile -j$JOBS clean || die "Failed to clean SceneWalker"
+      make -f Makefile -j$JOBS || die "Failed to build SceneWalker"
+      cp scenewalker_libretro.${FORMAT_EXT} "$RARCH_DIST_DIR"/libretro-gl-scenewalker.${FORMAT_EXT}
+   else
+      echo "SceneWalker not fetched, skipping ..."
+   fi
+}
+
 mkdir -p "$RARCH_DIST_DIR"
 
 if [ $1 ]; then
@@ -458,4 +488,8 @@ else
    build_libretro_mame078
    build_libretro_dosbox
    build_libretro_scummvm
+if [ -z $BUILD_LIBRETRO_GL ]; then
+   build_libretro_modelviewer
+   build_libretro_scenewalker
+fi
 fi

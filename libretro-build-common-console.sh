@@ -254,6 +254,34 @@ build_libretro_tyrquake()
    fi
 }
 
+build_libretro_modelviewer()
+{
+   cd $BASE_DIR
+   if [ -d "libretro-gl-modelviewer" ]; then
+      echo "=== Building Modelviewer (GL) ==="
+      cd libretro-gl-modelviewer
+      make -f Makefile platform=${FORMAT_COMPILER_TARGET} -j$JOBS clean || die "Failed to clean Modelviewer"
+      make -f Makefile platform=${FORMAT_COMPILER_TARGET} -j$JOBS || die "Failed to build Modelviewer"
+      cp modelviewer_libretro.${FORMAT_EXT} "$RARCH_DIST_DIR"
+   else
+      echo "ModelViewer not fetched, skipping ..."
+   fi
+}
+
+build_libretro_scenewalker()
+{
+   cd $BASE_DIR
+   if [ -d "libretro-gl-scenewalker" ]; then
+      echo "=== Building SceneWalker (GL) ==="
+      cd libretro-gl-scenewalker
+      make -f Makefile platform=${FORMAT_COMPILER_TARGET} -j$JOBS clean || die "Failed to clean SceneWalker"
+      make -f Makefile platform=${FORMAT_COMPILER_TARGET} -j$JOBS || die "Failed to build SceneWalker"
+      cp scenewalker_libretro.${FORMAT_EXT} "$RARCH_DIST_DIR"
+   else
+      echo "SceneWalker not fetched, skipping ..."
+   fi
+}
+
 create_dist_dir()
 {
    if [ -d $RARCH_DIR ]; then
