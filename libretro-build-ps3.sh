@@ -9,6 +9,7 @@ FORMAT_COMPILER_TARGET=ps3
 FORMAT_COMPILER_TARGET_ALT=sncps3
 FORMAT_EXT=a
 JOBS=7
+MAKE=make
 
 . ./libretro-build-common.sh
 

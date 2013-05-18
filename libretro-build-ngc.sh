@@ -9,6 +9,7 @@ FORMAT_COMPILER_TARGET=ngc
 FORMAT_COMPILER_TARGET_ALT=ngc
 FORMAT_EXT=a
 JOBS=7
+MAKE=make
 
 . ./libretro-build-common-gx.sh
 . ./libretro-build-common.sh

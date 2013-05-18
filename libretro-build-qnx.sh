@@ -9,6 +9,7 @@ FORMAT_COMPILER_TARGET=qnx
 FORMAT_COMPILER_TARGET_ALT=qnx
 FORMAT_EXT=so
 JOBS=7
+MAKE=make
 
 . ./libretro-build-common.sh
 
