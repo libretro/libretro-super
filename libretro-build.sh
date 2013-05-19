@@ -2,34 +2,53 @@
 
 . ./libretro-config.sh
 
-UNAME=$(uname)
-
-if [ $(echo $UNAME | grep Linux) ] || [ x"$platform" = x"unix" ]; then
-   FORMAT_EXT="so"
-   FORMAT_COMPILER_TARGET=unix
-   FORMAT_COMPILER_TARGET_ALT=unix
-	DIST_DIR=unix
-elif [ $(echo $UNAME | grep BSD) ]; then
-   FORMAT_EXT="so"
-   FORMAT_COMPILER_TARGET=unix
-   FORMAT_COMPILER_TARGET_ALT=unix
-	DIST_DIR=bsd
-elif [ $(echo $UNAME | grep Darwin) ] || [ x"$platform" = x"osx" ]; then
-   FORMAT_EXT="dylib"
-   FORMAT_COMPILER_TARGET=osx
-   FORMAT_COMPILER_TARGET_ALT=osx
-	DIST_DIR=osx
-elif [ $(echo $UNAME | grep -i MINGW) ] || [ x"$platform" = x"win" ]; then
-   FORMAT_EXT="dll"
-   FORMAT_COMPILER_TARGET=win
-   FORMAT_COMPILER_TARGET_ALT=win
-	DIST_DIR=win
+if [ "$platform" ]; then
+   if [ "$platform" = "win" ]; then
+      FORMAT_EXT="dll"
+      FORMAT_COMPILER_TARGET=win
+      FORMAT_COMPILER_TARGET_ALT=win
+      DIST_DIR=win
+   elif [ "$platform" = "osx" ]; then
+      FORMAT_EXT="dylib"
+      FORMAT_COMPILER_TARGET=osx
+      FORMAT_COMPILER_TARGET_ALT=osx
+      DIST_DIR=osx
+   else
+      FORMAT_EXT="so"
+      FORMAT_COMPILER_TARGET=unix
+      FORMAT_COMPILER_TARGET_ALT=unix
+      DIST_DIR=unix
+   fi
 else
-   # assume this is UNIX-based at least
-   FORMAT_EXT="so"
-   FORMAT_COMPILER_TARGET=unix
-   FORMAT_COMPILER_TARGET_ALT=unix
-	DIST_DIR=unix
+   UNAME=$(uname)
+
+   if [ $(echo $UNAME | grep Linux) ]; then
+      FORMAT_EXT="so"
+      FORMAT_COMPILER_TARGET=unix
+      FORMAT_COMPILER_TARGET_ALT=unix
+      DIST_DIR=unix
+   elif [ $(echo $UNAME | grep BSD) ]; then
+      FORMAT_EXT="so"
+      FORMAT_COMPILER_TARGET=unix
+      FORMAT_COMPILER_TARGET_ALT=unix
+      DIST_DIR=bsd
+   elif [ $(echo $UNAME | grep Darwin) ]; then
+      FORMAT_EXT="dylib"
+      FORMAT_COMPILER_TARGET=osx
+      FORMAT_COMPILER_TARGET_ALT=osx
+      DIST_DIR=osx
+   elif [ $(echo $UNAME | grep -i MINGW) ]; then
+      FORMAT_EXT="dll"
+      FORMAT_COMPILER_TARGET=win
+      FORMAT_COMPILER_TARGET_ALT=win
+      DIST_DIR=win
+   else
+      # assume this is UNIX-based at least
+      FORMAT_EXT="so"
+      FORMAT_COMPILER_TARGET=unix
+      FORMAT_COMPILER_TARGET_ALT=unix
+      DIST_DIR=unix
+   fi
 fi
 
 . ./libretro-build-common.sh
