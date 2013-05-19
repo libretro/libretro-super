@@ -51,8 +51,6 @@ else
    fi
 fi
 
-. ./libretro-build-common.sh
-
 # BSDs don't have readlink -f
 read_link()
 {
@@ -151,6 +149,12 @@ if [ -z "$CXX" ]; then
       CXX=g++
    fi
 fi
+
+echo "CC = $CC"
+echo "CXX = $CXX"
+echo "STRIP = $STRIP"
+
+. ./libretro-build-common.sh
 
 mkdir -p "$RARCH_DIST_DIR"
 
