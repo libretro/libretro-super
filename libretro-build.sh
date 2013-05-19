@@ -3,28 +3,29 @@
 . ./libretro-config.sh
 
 UNAME=$(uname)
-if [ "`echo $UNAME | grep Linux`" ]; then
+
+if [ $(echo $UNAME | grep Linux) ] || [ x"$platform" = x"unix" ]; then
    FORMAT_EXT="so"
    FORMAT_COMPILER_TARGET=unix
    FORMAT_COMPILER_TARGET_ALT=unix
 	DIST_DIR=unix
-elif [ "`echo $UNAME | grep BSD`" ]; then
+elif [ $(echo $UNAME | grep BSD) ]; then
    FORMAT_EXT="so"
    FORMAT_COMPILER_TARGET=unix
    FORMAT_COMPILER_TARGET_ALT=unix
 	DIST_DIR=bsd
-elif [ "`echo $UNAME | grep Darwin`" ]; then
+elif [ $(echo $UNAME | grep Darwin) ] || [ x"$platform" = x"osx" ]; then
    FORMAT_EXT="dylib"
    FORMAT_COMPILER_TARGET=osx
    FORMAT_COMPILER_TARGET_ALT=osx
 	DIST_DIR=osx
-elif [ "`echo $UNAME | grep -i MINGW`" ]; then
+elif [ $(echo $UNAME | grep -i MINGW) ] || [ x"$platform" = x"win" ]; then
    FORMAT_EXT="dll"
    FORMAT_COMPILER_TARGET=win
    FORMAT_COMPILER_TARGET_ALT=win
 	DIST_DIR=win
 else
-# assume this is UNIX-based at least
+   # assume this is UNIX-based at least
    FORMAT_EXT="so"
    FORMAT_COMPILER_TARGET=unix
    FORMAT_COMPILER_TARGET_ALT=unix
@@ -137,7 +138,7 @@ mkdir -p "$RARCH_DIST_DIR"
 if [ $1 ]; then
    $1
 else
-   #build_libretro_bsnes
+   build_libretro_bsnes
    build_libretro_mednafen
    build_libretro_mednafen_gba
    build_libretro_mednafen_snes
@@ -161,7 +162,7 @@ else
    build_libretro_mame078
    build_libretro_dosbox
    build_libretro_scummvm
-if [ -z $BUILD_LIBRETRO_GL ]; then
+if [ $BUILD_LIBRETRO_GL ]; then
    build_libretro_modelviewer
    build_libretro_scenewalker
 fi

@@ -401,7 +401,6 @@ build_libretro_dosbox()
    fi
 }
 
-# FIXME - needs to be fixed
 build_libretro_bsnes()
 {
    cd "$BASE_DIR"
@@ -410,9 +409,8 @@ build_libretro_bsnes()
       cd libretro-bsnes/perf/higan
       rm -f obj/*.o
       rm -f out/*.${FORMAT_EXT}
-      ${MAKE} -f Makefile platform=${FORMAT_COMPILER_TARGET} compiler="$CC" ui=target-libretro profile=performance -j$JOBS clean || die "Failed to clean bSNES performance core"
       ${MAKE} -f Makefile platform=${FORMAT_COMPILER_TARGET} compiler="$CC" ui=target-libretro profile=performance -j$JOBS || die "Failed to build bSNES performance core"
-      cp -f out/retro${FORMAT}.${FORMAT_EXT} "$RARCH_DIST_DIR"/bsnes_libretro_performance.${FORMAT_EXT}
+      cp -f out/bsnes_libretro${FORMAT}.${FORMAT_EXT} "$RARCH_DIST_DIR"/bsnes_libretro_performance.${FORMAT_EXT}
    else
       echo "bSNES performance not fetched, skipping ..."
    fi
@@ -423,9 +421,8 @@ build_libretro_bsnes()
       cd libretro-bsnes/balanced/higan
       rm -f obj/*.o
       rm -f out/*.${FORMAT_EXT}
-      ${MAKE} -f Makefile platform=${FORMAT_COMPILER_TARGET} compiler="$CC" ui=target-libretro profile=balanced -j$JOBS clean || die "Failed to clean bSNES balanced core"
       ${MAKE} -f Makefile platform=${FORMAT_COMPILER_TARGET} compiler="$CC" ui=target-libretro profile=balanced -j$JOBS || die "Failed to build bSNES balanced core"
-      cp -f out/retro${FORMAT}.${FORMAT_EXT} "$RARCH_DIST_DIR"/bsnes_libretro_balanced.${FORMAT_EXT}
+      cp -f out/bsnes_libretro${FORMAT}.${FORMAT_EXT} "$RARCH_DIST_DIR"/bsnes_libretro_balanced.${FORMAT_EXT}
    else
       echo "bSNES compat not fetched, skipping ..."
    fi
@@ -436,9 +433,8 @@ build_libretro_bsnes()
       cd libretro-bsnes/higan
       rm -f obj/*.o
       rm -f out/*.${FORMAT_EXT}
-      ${MAKE} -f Makefile platform=${FORMAT_COMPILER_TARGET} compiler="$CC" ui=target-libretro profile=accuracy -j$JOBS clean || die "Failed to clean bSNES accuracy core"
       ${MAKE} -f Makefile platform=${FORMAT_COMPILER_TARGET} compiler="$CC" ui=target-libretro profile=accuracy -j$JOBS || die "Failed to build bSNES accuracy core"
-      cp -f out/retro${FORMAT}.${FORMAT_EXT} "$RARCH_DIST_DIR"/bsnes_libretro_accuracy.${FORMAT_EXT}
+      cp -f out/bsnes_libretro${FORMAT}.${FORMAT_EXT} "$RARCH_DIST_DIR"/bsnes_libretro_accuracy.${FORMAT_EXT}
    fi
 }
 
