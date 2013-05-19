@@ -132,7 +132,7 @@ fi
 
 if [ -z "$CC" ]; then
 	if [ $FORMAT_COMPILER_TARGET == "osx" ]; then
-		CCE=clang
+		CC=clang
    elif [ "$(expr substr $(uname -s) 1 7)" == "MINGW32" ]; then
       CC=mingw32-gcc
    else
