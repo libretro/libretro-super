@@ -137,9 +137,7 @@ mkdir -p "$RARCH_DIST_DIR"
 if [ $1 ]; then
    $1
 else
-if [ $FORMAT_COMPILER_TARGET != "osx" ]; then
-   build_libretro_bsnes
-fi
+   #build_libretro_bsnes
    build_libretro_mednafen
    build_libretro_mednafen_gba
    build_libretro_mednafen_snes
