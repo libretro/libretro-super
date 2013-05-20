@@ -16,7 +16,7 @@ echo "Compiler: $COMPILER"
 
 build_libretro_fba_full()
 {
-   cd $BASE_DIR
+   cd "$BASE_DIR"
    if [ -d "libretro-fba" ]; then
 		echo "=== Building Final Burn Alpha (Full) ==="
       cd libretro-fba/
@@ -31,7 +31,7 @@ build_libretro_fba_full()
 
 build_libretro_pcsx_rearmed()
 {
-   cd $BASE_DIR
+   cd "$BASE_DIR"
    pwd
    if [ -d "libretro-pcsx-rearmed" ]; then
       echo "=== Building PCSX ReARMed ==="
@@ -52,7 +52,7 @@ build_libretro_pcsx_rearmed()
 
 build_libretro_mednafen()
 {
-   cd $BASE_DIR
+   cd "$BASE_DIR"
 
    if [ -d "libretro-mednafen" ]; then
       echo "=== Building Mednafen ==="
@@ -74,7 +74,7 @@ build_libretro_mednafen()
 
 build_libretro_mednafen_psx()
 {
-   cd $BASE_DIR
+   cd "$BASE_DIR"
 
    if [ -d "libretro-mednafen" ]; then
       echo "=== Building Mednafen PSX ==="
@@ -93,7 +93,7 @@ build_libretro_mednafen_psx()
 
 build_libretro_mednafen_gba()
 {
-   cd $BASE_DIR
+   cd "$BASE_DIR"
 
    if [ -d "libretro-mednafen" ]; then
       echo "=== Building Mednafen VBA ==="
@@ -112,7 +112,7 @@ build_libretro_mednafen_gba()
 
 build_libretro_mednafen_snes()
 {
-   cd $BASE_DIR
+   cd "$BASE_DIR"
 
    if [ -d "libretro-mednafen" ]; then
       echo "=== Building Mednafen bSNES ==="
@@ -131,7 +131,7 @@ build_libretro_mednafen_snes()
 
 build_libretro_stella()
 {
-   cd $BASE_DIR
+   cd "$BASE_DIR"
    if [ -d "libretro-stella" ]; then
       echo "=== Building Stella ==="
       cd libretro-stella
@@ -160,7 +160,7 @@ build_libretro_quicknes()
 
 build_libretro_desmume()
 {
-   cd $BASE_DIR
+   cd "$BASE_DIR"
    if [ -d "libretro-desmume" ]; then
       echo "=== Building Desmume ==="
       cd libretro-desmume
@@ -199,7 +199,7 @@ build_libretro_s9x()
 
 build_libretro_s9x_next()
 {
-   cd $BASE_DIR
+   cd "$BASE_DIR"
    if [ -d "libretro-s9x-next" ]; then
       echo "=== Building SNES9x-Next ==="
       cd libretro-s9x-next/
@@ -214,7 +214,7 @@ build_libretro_s9x_next()
 
 build_libretro_genplus()
 {
-   cd $BASE_DIR
+   cd "$BASE_DIR"
    if [ -d "libretro-genplus" ]; then
       echo "=== Building Genplus GX ==="
       cd libretro-genplus/
@@ -228,7 +228,7 @@ build_libretro_genplus()
 
 build_libretro_mame078()
 {
-   cd $BASE_DIR
+   cd "$BASE_DIR"
    if [ -d "libretro-mame078" ]; then
       echo "=== Building MAME 0.78 ==="
       cd libretro-mame078
@@ -243,7 +243,7 @@ build_libretro_mame078()
 
 build_libretro_vba()
 {
-   cd $BASE_DIR
+   cd "$BASE_DIR"
    if [ -d "libretro-vba" ]; then
       echo "=== Building VBA-Next ==="
       cd libretro-vba/
@@ -257,7 +257,7 @@ build_libretro_vba()
 
 build_libretro_fceu()
 {
-   cd $BASE_DIR
+   cd "$BASE_DIR"
    if [ -d "libretro-fceu" ]; then
       echo "=== Building FCEUmm ==="
       cd libretro-fceu
@@ -271,7 +271,7 @@ build_libretro_fceu()
 
 build_libretro_gambatte()
 {
-   cd $BASE_DIR
+   cd "$BASE_DIR"
    if [ -d "libretro-gambatte" ]; then
       echo "=== Building Gambatte ==="
       cd libretro-gambatte/libgambatte
@@ -285,7 +285,7 @@ build_libretro_gambatte()
 
 build_libretro_nx()
 {
-   cd $BASE_DIR
+   cd "$BASE_DIR"
    if [ -d "libretro-nx" ]; then
       echo "=== Building NXEngine ==="
       cd libretro-nx
@@ -299,7 +299,7 @@ build_libretro_nx()
 
 build_libretro_prboom()
 {
-   cd $BASE_DIR
+   cd "$BASE_DIR"
    if [ -d "libretro-prboom" ]; then
       echo "=== Building PRBoom ==="
       cd libretro-prboom
@@ -327,7 +327,7 @@ build_libretro_meteor()
 
 build_libretro_nestopia()
 {
-   cd $BASE_DIR
+   cd "$BASE_DIR"
    if [ -d "libretro-nestopia" ]; then
       echo "=== Building Nestopia ==="
       cd libretro-nestopia/libretro
@@ -341,7 +341,7 @@ build_libretro_nestopia()
 
 build_libretro_tyrquake()
 {
-   cd $BASE_DIR
+   cd "$BASE_DIR"
    if [ -d "libretro-tyrquake" ]; then
       echo "=== Building Tyr Quake ==="
       cd libretro-tyrquake
@@ -355,7 +355,7 @@ build_libretro_tyrquake()
 
 build_libretro_modelviewer()
 {
-   cd $BASE_DIR
+   cd "$BASE_DIR"
    if [ -d "libretro-gl-modelviewer" ]; then
       echo "=== Building Modelviewer (GL) ==="
       cd libretro-gl-modelviewer
@@ -369,7 +369,7 @@ build_libretro_modelviewer()
 
 build_libretro_scenewalker()
 {
-   cd $BASE_DIR
+   cd "$BASE_DIR"
    if [ -d "libretro-gl-scenewalker" ]; then
       echo "=== Building SceneWalker (GL) ==="
       cd libretro-gl-scenewalker
@@ -383,7 +383,7 @@ build_libretro_scenewalker()
 
 build_libretro_scummvm()
 {
-   cd $BASE_DIR
+   cd "$BASE_DIR"
    if [ -d "libretro-scummvm" ]; then
       echo "=== Building ScummVM ==="
       cd libretro-scummvm/backends/platform/libretro/build
@@ -397,7 +397,7 @@ build_libretro_scummvm()
 
 build_libretro_dosbox()
 {
-   cd $BASE_DIR
+   cd "$BASE_DIR"
    if [ -d "libretro-dosbox" ]; then
       echo "=== Building DOSbox ==="
       cd libretro-dosbox
@@ -463,16 +463,10 @@ build_libretro_bnes()
 
 create_dist_dir()
 {
-   if [ -d $RARCH_DIR ]; then
-      echo "Directory $RARCH_DIR already exists, skipping creation..."
-   else
-      mkdir $RARCH_DIR
-   fi
-
    if [ -d $RARCH_DIST_DIR ]; then
       echo "Directory $RARCH_DIST_DIR already exists, skipping creation..."
    else
-      mkdir $RARCH_DIST_DIR
+      mkdir -p "$RARCH_DIST_DIR"
    fi
 }
 

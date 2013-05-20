@@ -73,8 +73,10 @@ read_link()
 SCRIPT=$(read_link "$0")
 echo "Script: $SCRIPT"
 BASE_DIR=$(dirname "$SCRIPT")
-RARCH_DIR="$BASE_DIR/dist"
-RARCH_DIST_DIR="$RARCH_DIR/$DIST_DIR"
+if [ -z "$RARCH_DIST_DIR" ]; then
+   RARCH_DIR="$BASE_DIR/dist"
+   RARCH_DIST_DIR="$RARCH_DIR/$DIST_DIR"
+fi
 
 if [ -z "$JOBS" ]; then
    JOBS=4
