@@ -181,7 +181,6 @@ else
    build_libretro_quicknes
    build_libretro_nestopia
    build_libretro_tyrquake
-   build_libretro_pcsx_rearmed
    build_libretro_mame078
    build_libretro_dosbox
    build_libretro_scummvm
@@ -191,5 +190,6 @@ if [ $BUILD_LIBRETRO_GL ]; then
 fi
 if [ $FORMAT_COMPILER_TARGET != "win" ]; then
    build_libretro_desmume
+   build_libretro_pcsx_rearmed
 fi
 fi
