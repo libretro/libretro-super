@@ -120,6 +120,20 @@ build_libretro_nx()
    fi
 }
 
+build_libretro_nx()
+{
+   cd "$BASE_DIR"
+   if [ -d "libretro-nx" ]; then
+      echo "=== Building NXEngine ==="
+      cd libretro-nx
+      cd nxengine-1.0.0.4/libretro/msvc
+      cmd.exe /k $MSVC_NAME.bat
+      cp $MSVC_NAME/Release_LTCG/nxengine_libretro$FORMAT.$FORMAT_EXT "$RARCH_DIST_DIR"
+   else
+      echo "NXEngine not fetched, skipping ..."
+   fi
+}
+
 build_libretro_prboom()
 {
    cd $BASE_DIR
