@@ -79,7 +79,7 @@ fetch_project "$REPO_BASE/libretro/scummvm.git" "libretro-scummvm" "libretro/scu
 fetch_project "$REPO_BASE/libretro/yabause.git" "libretro-yabause" "libretro/yabause"
 fetch_project "$REPO_BASE/libretro/dosbox-libretro.git" "libretro-dosbox" "libretro/dosbox"
 fetch_project "$REPO_BASE/libretro/virtualjaguar-libretro.git" "libretro-virtualjaguar" "libretro/virtualjaguar"
-fetch_project "$REPO_BASE/libretro/mame2003--libretro.git" "libretro-mame078" "libretro/mame078"
+fetch_project "$REPO_BASE/libretro/mame2003-libretro.git" "libretro-mame078" "libretro/mame078"
 fetch_project "$REPO_BASE/libretro/scenewalker-libretro.git" "libretro-gl-scenewalker" "libretro/SceneWalker"
 fetch_project "$REPO_BASE/libretro/modelviewer-libretro.git" "libretro-gl-modelviewer" "libretro/ModelViewer"
 fetch_project "$REPO_BASE/libretro/picodrive-libretro.git" "libretro-picodrive" "libretro/Picodrive"
