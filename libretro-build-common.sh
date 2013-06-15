@@ -220,7 +220,7 @@ build_libretro_genplus()
       cd libretro-genplus/
       ${MAKE} -f Makefile.libretro platform=$FORMAT_COMPILER_TARGET $COMPILER -j$JOBS clean || die "Failed to clean Genplus GX"
       ${MAKE} -f Makefile.libretro platform=$FORMAT_COMPILER_TARGET $COMPILER -j$JOBS || die "Failed to build Genplus GX"
-      cp genesis_plus_gx_libretro$FORMAT.$FORMAT_EXT "$RARCH_DIST_DIR"
+      cp genesis_plus_gx_libretro${FORMAT}.${FORMAT_EXT} "$RARCH_DIST_DIR"
    else
       echo "Genplus GX not fetched, skipping ..."
    fi
@@ -235,7 +235,7 @@ build_libretro_mame078()
 
       ${MAKE} -f makefile platform=${FORMAT_COMPILER_TARGET} $COMPILER -j$JOBS clean || die "Failed to clean MAME 0.78"
       ${MAKE} -f makefile platform=${FORMAT_COMPILER_TARGET} $COMPILER -j$JOBS || die "Failed to build MAME 0.78"
-      cp mame078_libretro.${FORMAT_EXT} "$RARCH_DIST_DIR"
+      cp mame078_libretro${FORMAT}.${FORMAT_EXT} "$RARCH_DIST_DIR"
    else
       echo "MAME 0.78 not fetched, skipping ..."
    fi
