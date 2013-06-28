@@ -82,5 +82,4 @@ fetch_project "$REPO_BASE/libretro/virtualjaguar-libretro.git" "libretro-virtual
 fetch_project "$REPO_BASE/libretro/mame2003-libretro.git" "libretro-mame078" "libretro/mame078"
 fetch_project "$REPO_BASE/libretro/scenewalker-libretro.git" "libretro-gl-scenewalker" "libretro/SceneWalker"
 fetch_project "$REPO_BASE/libretro/modelviewer-libretro.git" "libretro-gl-modelviewer" "libretro/ModelViewer"
-fetch_project "$REPO_BASE/libretro/picodrive-libretro.git" "libretro-picodrive" "libretro/Picodrive"
 fetch_project "$REPO_BASE/libretro/libretro-ffmpeg.git" "libretro-ffmpeg" "libretro/ffmpeg"
