@@ -280,6 +280,22 @@ build_libretro_scenewalker()
    fi
 }
 
+build_libretro_picodrive()
+{
+   cd $BASE_DIR
+   if [ -d "libretro-picodrive" ]; then
+      echo "=== Building Picodrive ==="
+      cd libretro-picodrive
+      cd jni
+      ndk-build clean
+      ndk-build -j$JOBS
+      cp ../libs/armeabi-v7a/libretro_picodrive.${FORMAT_EXT} "$RARCH_DIST_DIR"
+      cp ../libs/mips/libretro_picodrive.${FORMAT_EXT} "$RARCH_DIST_DIR"
+      cp ../libs/x86/libretro_picodrive.${FORMAT_EXT} "$RARCH_DIST_DIR"
+   else
+      echo "Picodrive not fetched, skipping ..."
+   fi
+}
 create_dist_dir()
 {
    if [ -d $RARCH_DIR ]; then
@@ -330,6 +346,7 @@ else
    build_libretro_prboom
    build_libretro_nestopia
    build_libretro_tyrquake
+   build_libretro_picodrive
    build_libretro_modelviewer
    build_libretro_scenewalker
 fi
