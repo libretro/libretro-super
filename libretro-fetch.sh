@@ -50,6 +50,21 @@ fetch_project()
    echo "=== Fetched ==="
 }
 
+fetch_project_submodule()
+{
+   echo "=== Fetching $3 ==="
+   if [ -d "$2" ]; then
+      cd "$2"
+      git pull
+      cd ..
+   else
+      git clone "$1" "$2"
+   cd "$2"
+   git submodule update --init
+   fi
+   echo "=== Fetched ==="
+}
+
 if [ -z $WRITERIGHTS ]; then
    REPO_BASE="https://github.com"
 else
@@ -84,6 +99,6 @@ fetch_project "$REPO_BASE/libretro/scenewalker-libretro.git" "libretro-gl-scenew
 fetch_project "$REPO_BASE/libretro/modelviewer-libretro.git" "libretro-gl-modelviewer" "libretro/ModelViewer"
 fetch_project "$REPO_BASE/libretro/libretro-ffmpeg.git" "libretro-ffmpeg" "libretro/ffmpeg"
 fetch_project "$REPO_BASE/libretro/bsnes-libretro-cplusplus98.git" "libretro-bsnes-cplusplus98" "libretro/bsnes-cplusplus98"
-fetch_project "$REPO_BASE/libretro/picodrive.git" "libretro-picodrive" "libretro/picodrive"
+fetch_project_submodule "$REPO_BASE/libretro/picodrive.git" "libretro-picodrive" "libretro/picodrive"
 fetch_project "$REPO_BASE/libretro/mupen64plus-libretro.git" "libretro-mupen64plus" "libretro/mupen64plus"
 fetch_project "$REPO_BASE/libretro/instancingviewer-libretro-gl.git" "libretro-gl-instancingviewer" "libretro/instancingviewer"
