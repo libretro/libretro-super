@@ -163,6 +163,13 @@ mkdir -p "$RARCH_DIST_DIR"
 if [ $1 ]; then
    $1
 else
+if [ -z $BUILD_LIBRETRO_GL ]; then
+   build_libretro_modelviewer
+   build_libretro_scenewalker
+if [ -z $BUILD_EXPERIMENTAL ]; then
+   build_libretro_mupen64
+fi
+fi
    build_libretro_bsnes
    build_libretro_mednafen
    build_libretro_mednafen_gba
