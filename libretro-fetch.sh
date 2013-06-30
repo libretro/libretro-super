@@ -61,6 +61,7 @@ fetch_project_submodule()
       git clone "$1" "$2"
    cd "$2"
    git submodule update --init
+   cd ..
    fi
    echo "=== Fetched ==="
 }
