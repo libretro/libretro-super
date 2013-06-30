@@ -461,6 +461,42 @@ build_libretro_bnes()
    fi
 }
 
+build_libretro_mupen64()
+{
+   cd "$BASE_DIR"
+   if [ -d "libretro-mupen64plus" ]; then
+      echo "=== Building Mupen 64 Plus ==="
+      cd libretro-mupen64plus
+      mkdir -p obj
+      ${MAKE} -j$JOBS clean || die "Failed to clean Mupen 64"
+      ${MAKE} $COMPILER -j$JOBS || die "Failed to build Mupen 64"
+      cp mupen64plus_libretro${FORMAT}.${FORMAT_EXT} "$RARCH_DIST_DIR"
+   else
+      echo "Mupen64 Plus not fetched, skipping ..."
+   fi
+}
+
+build_libretro_picodrive()
+{
+   cd "$BASE_DIR"
+   pwd
+   if [ -d "libretro-picodrive" ]; then
+      echo "=== Building Picodrive ==="
+      cd libretro-picodrive
+      if [ "$ARMV7" = true ]; then
+         echo "=== Building PCSX ReARMed (ARMV7 NEON) ==="
+         ${MAKE} -f Makefile.libretro platform=arm -j$JOBS clean || die "Failed to clean Picodrive"
+         ${MAKE} -f Makefile.libretro platform=arm -j$JOBS || die "Failed to build Picodrive"
+      else
+         ${MAKE} -f Makefile.libretro platform=$FORMAT_COMPILER_TARGET $COMPILER -j$JOBS clean || die "Failed to clean Picodrive"
+         ${MAKE} -f Makefile.libretro platform=$FORMAT_COMPILER_TARGET $COMPILER -j$JOBS || die "Failed to build PCSX Picodrive"
+      fi
+      cp picodrive_libretro$FORMAT.$FORMAT_EXT "$RARCH_DIST_DIR"
+   else
+      echo "Picodrive not fetched, skipping ..."
+   fi
+}
+
 create_dist_dir()
 {
    if [ -d $RARCH_DIST_DIR ]; then

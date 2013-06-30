@@ -188,6 +188,7 @@ else
    build_libretro_scummvm
    build_libretro_modelviewer
    build_libretro_scenewalker
+   build_libretro_picodrive
 if [ $FORMAT_COMPILER_TARGET != "win" ]; then
    build_libretro_desmume
    build_libretro_pcsx_rearmed
