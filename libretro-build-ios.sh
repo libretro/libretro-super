@@ -33,11 +33,12 @@ else
    build_libretro_nx
    build_libretro_prboom
    build_libretro_stella
-	build_libretro_quicknes
+   build_libretro_quicknes
    build_libretro_desmume
    build_libretro_nestopia
    build_libretro_tyrquake
    build_libretro_mame078
    build_libretro_modelviewer
    build_libretro_scenewalker
+   build_libretro_picodrive
 fi
