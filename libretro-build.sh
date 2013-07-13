@@ -123,9 +123,7 @@ if [ "$HOST_CC" ]; then
 fi
 
 if [ -z "$MAKE" ]; then
-	if [ $FORMAT_COMPILER_TARGET = "osx" ]; then
-		MAKE=make
-   elif [ "$(expr substr $(uname -s) 1 7)" = "MINGW32" ]; then
+   if [ "$(expr substr $(uname -s) 1 7)" = "MINGW32" ]; then
       MAKE=mingw32-make
    else
       MAKE=make

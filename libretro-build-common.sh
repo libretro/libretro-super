@@ -16,19 +16,24 @@ echo "Compiler: $COMPILER"
 
 platformvar=armv
 
-if [ "$ARM_NEON"= true]; then
+if [ "$ARM_NEON"]; then
+echo "=== ARM NEON opts enabled... ==="
 platformvar += -neon
 fi
-if [ "$CORTEX_A8"= true]; then
+if [ "$CORTEX_A8"]; then
+echo "=== Cortex A8 opts enabled... ==="
 platformvar += -cortexa8
 fi
-if [ "$CORTEX_A9"= true]; then
+if [ "$CORTEX_A9"]; then
+echo "=== Cortex A9 opts enabled... ==="
 platformvar += -cortexa9
 fi
-if [ "$ARM_HARDFLOAT"= true]; then
-platformvar += -cortexa9
+if [ "$ARM_HARDFLOAT"]; then
+echo "=== ARM hardfloat ABI enabled... ==="
+platformvar += -hardfloat
 fi
-if [ "$ARM_SOFTFLOAT"= true]; then
+if [ "$ARM_SOFTFLOAT"]; then
+echo "=== ARM softfloat ABI enabled... ==="
 platformvar += -softfloat
 fi
 
