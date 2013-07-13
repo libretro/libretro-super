@@ -513,8 +513,8 @@ build_libretro_picodrive()
       cd libretro-picodrive
       if [ "$ARMV7" = true ]; then
          echo "=== Building Picodrive (ARMv7) ==="
-         ${MAKE} -f Makefile.libretro platform=$ARMPLATFORM -j$JOBS clean || die "Failed to clean Picodrive"
-         ${MAKE} -f Makefile.libretro platform=$ARMPLATFORM -j$JOBS || die "Failed to build Picodrive"
+         ${MAKE} -f Makefile.libretro platform=$ARMPLATFORM-armasm -j$JOBS clean || die "Failed to clean Picodrive"
+         ${MAKE} -f Makefile.libretro platform=$ARMPLATFORM-armasm -j$JOBS || die "Failed to build Picodrive"
       else
          ${MAKE} -f Makefile.libretro platform=$FORMAT_COMPILER_TARGET $COMPILER -j$JOBS clean || die "Failed to clean Picodrive"
          ${MAKE} -f Makefile.libretro platform=$FORMAT_COMPILER_TARGET $COMPILER -j$JOBS || die "Failed to build PCSX Picodrive"
