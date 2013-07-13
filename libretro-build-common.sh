@@ -16,7 +16,7 @@ echo "Compiler: $COMPILER"
 
 if [ "$ARM_NEON" ]; then
 echo "=== ARM NEON opts enabled... ==="
-export FORMAT_COMPILER_TARGET=armv-neon
+export FORMAT_COMPILER_TARGET=$FORMAT_COMPILER_TARGET-neon
 echo $FORMAT_COMPILER_TARGET
 fi
 if [ "$CORTEX_A8" ]; then
