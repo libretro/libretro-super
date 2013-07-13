@@ -39,9 +39,9 @@ export ARMPLATFORM=
 #OPENGL DEFINES
 #--------------
 
-#if uncommented, will build libretro GL cores. Ignored for mobile platforms
+#if uncommented, will build libretro GL cores. Ignored for mobile platforms - GL cores will always be built there.
 export BUILD_LIBRETRO_GL=1
 
 #if uncommented, will build cores with OpenGL ES 2 support. Not needed
-#for platform-specific cores - only for generic core builds
+#for platform-specific cores - only for generic core builds (ie. libretro-build.sh)
 #export ENABLE_GLES=1
