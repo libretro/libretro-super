@@ -65,9 +65,9 @@ build_libretro_pcsx_rearmed()
       echo "=== Building PCSX ReARMed ==="
       cd libretro-pcsx-rearmed
       if [ "$ARMV7" = true ]; then
-         echo "=== Building PCSX ReARMed (ARMV7 NEON) ==="
-         ${MAKE} -f Makefile.libretro platform=arm -j$JOBS clean || die "Failed to clean PCSX ReARMed"
-         ${MAKE} -f Makefile.libretro platform=arm -j$JOBS || die "Failed to build PCSX ReARMed"
+         echo "=== Building PCSX ReARMed (ARMV7) ==="
+         ${MAKE} -f Makefile.libretro platform=$ARMPLATFORM -j$JOBS clean || die "Failed to clean PCSX ReARMed"
+         ${MAKE} -f Makefile.libretro platform=$ARMPLATFORM -j$JOBS || die "Failed to build PCSX ReARMed"
       else
          ${MAKE} -f Makefile.libretro platform=$FORMAT_COMPILER_TARGET $COMPILER -j$JOBS clean || die "Failed to clean PCSX ReARMed"
          ${MAKE} -f Makefile.libretro platform=$FORMAT_COMPILER_TARGET $COMPILER -j$JOBS || die "Failed to build PCSX ReARMed"
