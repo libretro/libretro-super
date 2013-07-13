@@ -14,11 +14,9 @@ fi
 
 echo "Compiler: $COMPILER"
 
-export FORMAT_COMPILER_TARGET=armv
-
 if [ "$ARM_NEON" ]; then
 echo "=== ARM NEON opts enabled... ==="
-export FORMAT_COMPILER_TARGET=$FORMAT_COMPILER_TARGET-neon
+export FORMAT_COMPILER_TARGET=armv-neon
 echo $FORMAT_COMPILER_TARGET
 fi
 if [ "$CORTEX_A8" ]; then
@@ -47,10 +45,10 @@ check_opengl()
    if [ "$BUILD_LIBRETRO_GL" ]; then
       if [ "$ENABLE_GLES"]; then
          echo "=== OpenGL ES enabled ==="
-         export FORMAT_COMPILER_TARGET=FORMAT_COMPILER_TARGET-gles
+         export FORMAT_COMPILER_TARGET=$FORMAT_COMPILER_TARGET-gles
       else
          echo "=== OpenGL enabled ==="
-         export FORMAT_COMPILER_TARGET=FORMAT_COMPILER_TARGET-opengl
+         export FORMAT_COMPILER_TARGET=$FORMAT_COMPILER_TARGET-opengl
       fi
    else
       echo "=== OpenGL disabled in build ==="
@@ -64,7 +62,9 @@ build_libretro_ffmpeg()
       echo "=== Checking OpenGL dependencies ==="
       check_opengl
       echo "=== Building FFmpeg ==="
-      ${MAKE} -f Makefile platform=$FORMAT_COMPILER_TARGET $COMPILER -j$JOBS clean || die "Failed to clean FFmpeg"
+      cd libretro-ffmpeg
+      ${MAKE} platform=$FORMAT_COMPILER_TARGET -j$JOBS clean || die "Failed to clean FFmpeg"
+      ${MAKE} platform=$FORMAT_COMPILER_TARGET -j$JOBS
       cp ffmpeg_libretro$FORMAT.$FORMAT_EXT "$RARCH_DIST_DIR"
    else
       echo "FFmpeg not fetched, skipping ..."

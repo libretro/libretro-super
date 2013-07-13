@@ -106,14 +106,17 @@ elif [ $ARCH = armv5tel ]; then
    echo "ARMv5 CPU detected"
    ARM=true
    ARMV5=true
+   export FORMAT_COMPILER_TARGET=armv
 elif [ $ARCH = armv6l ]; then
    echo "ARMv6 CPU detected"
    ARM=true
    ARMV6=true
+   export FORMAT_COMPILER_TARGET=armv
 elif [ $ARCH = armv7l ]; then
    echo "ARMv7 CPU detected"
    ARM=true
    ARMV7=true
+   export FORMAT_COMPILER_TARGET=armv
 fi
 
 if [ "$HOST_CC" ]; then
