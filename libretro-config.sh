@@ -8,6 +8,9 @@
 
 if [ -f "libretro-config-user.sh" ]; then
 . ./libretro-config-user.sh
+else
+# Sane defaults
+export BUILD_LIBRETRO_GL=1
 fi
 
 #if uncommented, will fetch repos with read+write access. Useful for committers
@@ -38,7 +41,7 @@ fi
 #--------------
 
 #if uncommented, will build libretro GL cores. Ignored for mobile platforms - GL cores will always be built there.
-export BUILD_LIBRETRO_GL=1
+#export BUILD_LIBRETRO_GL=1
 
 #if uncommented, will build cores with OpenGL ES 2 support. Not needed
 #for platform-specific cores - only for generic core builds (ie. libretro-build.sh)
