@@ -11,29 +11,29 @@ if [ -f "libretro-config-user.sh" ]; then
 fi
 
 #if uncommented, will fetch repos with read+write access. Useful for committers
-#export WRITERIGHTS
+#export WRITERIGHTS=1
 
 #if uncommented, will build libretro GL cores as well. Doesn't need to be defined for mobile platforms
-#export BUILD_LIBRETRO_GL
+#export BUILD_LIBRETRO_GL=1
 
 #if uncommented, will build experimental cores as well which are not yet fit for release.
-#export BUILD_EXPERIMENTAL
+#export BUILD_EXPERIMENTAL=1
 
 #ARM DEFINES
 #-----------
 export ARMPLATFORM=
 
 #if uncommented, will build cores with Cortex A8 compiler optimizations
-#export CORTEX_A8
+#export CORTEX_A8=1
 
 #if uncommented, will build cores with Cortex A9 compiler optimizations
-#export CORTEX_A9
+#export CORTEX_A9=1
 
 #if uncommented, will build cores with ARM hardfloat ABI
-#export ARM_HARDFLOAT
+#export ARM_HARDFLOAT=1
 
 #if uncommented, will build cores with ARM softfloat ABI
-#export ARM_SOFTFLOAT
+#export ARM_SOFTFLOAT=1
 
 #if uncommented, will build cores with ARM NEON support (ARMv7+ only)
-#export ARM_NEON
+#export ARM_NEON=1

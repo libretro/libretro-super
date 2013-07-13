@@ -18,23 +18,28 @@ export ARMPLATFORM=$ARMPLATFORM-armv
 
 if [ "$ARM_NEON" ]; then
 echo "=== ARM NEON opts enabled... ==="
-export ARMPLATFORM = $ARMPLATFORM-neon
+export ARMPLATFORM=$ARMPLATFORM-neon
+echo $ARMPLATFORM
 fi
 if [ "$CORTEX_A8" ]; then
 echo "=== Cortex A8 opts enabled... ==="
-export ARMPLATFORM = $ARMPLATFORM-cortexa8
+export ARMPLATFORM=$ARMPLATFORM-cortexa8
+echo $ARMPLATFORM
 fi
 if [ "$CORTEX_A9" ]; then
 echo "=== Cortex A9 opts enabled... ==="
-export ARMPLATFORM = $ARMPLATFORM-cortexa9
+export ARMPLATFORM=$ARMPLATFORM-cortexa9
+echo $ARMPLATFORM
 fi
 if [ "$ARM_HARDFLOAT" ]; then
 echo "=== ARM hardfloat ABI enabled... ==="
-ARMPLATFORM = $ARMPLATFORM-hardfloat
+export ARMPLATFORM=$ARMPLATFORM-hardfloat
+echo $ARMPLATFORM
 fi
 if [ "$ARM_SOFTFLOAT" ]; then
 echo "=== ARM softfloat ABI enabled... ==="
-ARMPLATFORM += ARMPLATFORM-softfloat
+export ARMPLATFORM=ARMPLATFORM-softfloat
+echo $ARMPLATFORM
 fi
 
 build_libretro_fba_full()
