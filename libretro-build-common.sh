@@ -17,26 +17,31 @@ echo "Compiler: $COMPILER"
 if [ "$ARM_NEON" ]; then
 echo "=== ARM NEON opts enabled... ==="
 export FORMAT_COMPILER_TARGET=$FORMAT_COMPILER_TARGET-neon
+export FORMAT_COMPILER_TARGET_ALT=$FORMAT_COMPILER_TARGET
 echo $FORMAT_COMPILER_TARGET
 fi
 if [ "$CORTEX_A8" ]; then
 echo "=== Cortex A8 opts enabled... ==="
 export FORMAT_COMPILER_TARGET=$FORMAT_COMPILER_TARGET-cortexa8
+export FORMAT_COMPILER_TARGET_ALT=$FORMAT_COMPILER_TARGET
 echo $FORMAT_COMPILER_TARGET
 fi
 if [ "$CORTEX_A9" ]; then
 echo "=== Cortex A9 opts enabled... ==="
 export FORMAT_COMPILER_TARGET=$FORMAT_COMPILER_TARGET-cortexa9
+export FORMAT_COMPILER_TARGET_ALT=$FORMAT_COMPILER_TARGET
 echo $FORMAT_COMPILER_TARGET
 fi
 if [ "$ARM_HARDFLOAT" ]; then
 echo "=== ARM hardfloat ABI enabled... ==="
 export FORMAT_COMPILER_TARGET=$FORMAT_COMPILER_TARGET-hardfloat
+export FORMAT_COMPILER_TARGET_ALT=$FORMAT_COMPILER_TARGET
 echo $FORMAT_COMPILER_TARGET
 fi
 if [ "$ARM_SOFTFLOAT" ]; then
 echo "=== ARM softfloat ABI enabled... ==="
 export FORMAT_COMPILER_TARGET=FORMAT_COMPILER_TARGET-softfloat
+export FORMAT_COMPILER_TARGET_ALT=$FORMAT_COMPILER_TARGET
 echo $FORMAT_COMPILER_TARGET
 fi
 
@@ -46,9 +51,11 @@ check_opengl()
       if [ "$ENABLE_GLES"]; then
          echo "=== OpenGL ES enabled ==="
          export FORMAT_COMPILER_TARGET=$FORMAT_COMPILER_TARGET-gles
+	 export FORMAT_COMPILER_TARGET_ALT=$FORMAT_COMPILER_TARGET
       else
          echo "=== OpenGL enabled ==="
          export FORMAT_COMPILER_TARGET=$FORMAT_COMPILER_TARGET-opengl
+	 export FORMAT_COMPILER_TARGET_ALT=$FORMAT_COMPILER_TARGET
       fi
    else
       echo "=== OpenGL disabled in build ==="
