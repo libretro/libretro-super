@@ -13,8 +13,6 @@ fi
 #if uncommented, will fetch repos with read+write access. Useful for committers
 #export WRITERIGHTS=1
 
-#if uncommented, will build libretro GL cores as well. Doesn't need to be defined for mobile platforms
-#export BUILD_LIBRETRO_GL=1
 
 #if uncommented, will build experimental cores as well which are not yet fit for release.
 #export BUILD_EXPERIMENTAL=1
@@ -37,3 +35,13 @@ export ARMPLATFORM=
 
 #if uncommented, will build cores with ARM NEON support (ARMv7+ only)
 #export ARM_NEON=1
+
+#OPENGL DEFINES
+#--------------
+
+#if uncommented, will build libretro GL cores. Ignored for mobile platforms
+export BUILD_LIBRETRO_GL=1
+
+#if uncommented, will build cores with OpenGL ES 2 support. Not needed
+#for platform-specific cores - only for generic core builds
+#export ENABLE_GLES=1

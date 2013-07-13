@@ -14,32 +14,32 @@ fi
 
 echo "Compiler: $COMPILER"
 
-export ARMPLATFORM=$ARMPLATFORM-armv
+export FORMAT_COMPILER_TARGET=armv
 
 if [ "$ARM_NEON" ]; then
 echo "=== ARM NEON opts enabled... ==="
-export ARMPLATFORM=$ARMPLATFORM-neon
-echo $ARMPLATFORM
+export FORMAT_COMPILER_TARGET=$FORMAT_COMPILER_TARGET-neon
+echo $FORMAT_COMPILER_TARGET
 fi
 if [ "$CORTEX_A8" ]; then
 echo "=== Cortex A8 opts enabled... ==="
-export ARMPLATFORM=$ARMPLATFORM-cortexa8
-echo $ARMPLATFORM
+export FORMAT_COMPILER_TARGET=$FORMAT_COMPILER_TARGET-cortexa8
+echo $FORMAT_COMPILER_TARGET
 fi
 if [ "$CORTEX_A9" ]; then
 echo "=== Cortex A9 opts enabled... ==="
-export ARMPLATFORM=$ARMPLATFORM-cortexa9
-echo $ARMPLATFORM
+export FORMAT_COMPILER_TARGET=$FORMAT_COMPILER_TARGET-cortexa9
+echo $FORMAT_COMPILER_TARGET
 fi
 if [ "$ARM_HARDFLOAT" ]; then
 echo "=== ARM hardfloat ABI enabled... ==="
-export ARMPLATFORM=$ARMPLATFORM-hardfloat
-echo $ARMPLATFORM
+export FORMAT_COMPILER_TARGET=$FORMAT_COMPILER_TARGET-hardfloat
+echo $FORMAT_COMPILER_TARGET
 fi
 if [ "$ARM_SOFTFLOAT" ]; then
 echo "=== ARM softfloat ABI enabled... ==="
-export ARMPLATFORM=ARMPLATFORM-softfloat
-echo $ARMPLATFORM
+export FORMAT_COMPILER_TARGET=FORMAT_COMPILER_TARGET-softfloat
+echo $FORMAT_COMPILER_TARGET
 fi
 
 build_libretro_fba_full()
@@ -64,14 +64,8 @@ build_libretro_pcsx_rearmed()
    if [ -d "libretro-pcsx-rearmed" ]; then
       echo "=== Building PCSX ReARMed ==="
       cd libretro-pcsx-rearmed
-      if [ "$ARMV7" = true ]; then
-         echo "=== Building PCSX ReARMed (ARMV7) ==="
-         ${MAKE} -f Makefile.libretro platform=$ARMPLATFORM -j$JOBS clean || die "Failed to clean PCSX ReARMed"
-         ${MAKE} -f Makefile.libretro platform=$ARMPLATFORM -j$JOBS || die "Failed to build PCSX ReARMed"
-      else
-         ${MAKE} -f Makefile.libretro platform=$FORMAT_COMPILER_TARGET $COMPILER -j$JOBS clean || die "Failed to clean PCSX ReARMed"
-         ${MAKE} -f Makefile.libretro platform=$FORMAT_COMPILER_TARGET $COMPILER -j$JOBS || die "Failed to build PCSX ReARMed"
-      fi
+      ${MAKE} -f Makefile.libretro platform=$FORMAT_COMPILER_TARGET $COMPILER -j$JOBS clean || die "Failed to clean PCSX ReARMed"
+      ${MAKE} -f Makefile.libretro platform=$FORMAT_COMPILER_TARGET $COMPILER -j$JOBS || die "Failed to build PCSX ReARMed"
       cp pcsx_rearmed_libretro$FORMAT.$FORMAT_EXT "$RARCH_DIST_DIR"
    else
       echo "PCSX ReARMed not fetched, skipping ..."
@@ -511,14 +505,8 @@ build_libretro_picodrive()
    if [ -d "libretro-picodrive" ]; then
       echo "=== Building Picodrive ==="
       cd libretro-picodrive
-      if [ "$ARMV7" = true ]; then
-         echo "=== Building Picodrive (ARMv7) ==="
-         ${MAKE} -f Makefile.libretro platform=$ARMPLATFORM-armasm -j$JOBS clean || die "Failed to clean Picodrive"
-         ${MAKE} -f Makefile.libretro platform=$ARMPLATFORM-armasm -j$JOBS || die "Failed to build Picodrive"
-      else
-         ${MAKE} -f Makefile.libretro platform=$FORMAT_COMPILER_TARGET $COMPILER -j$JOBS clean || die "Failed to clean Picodrive"
-         ${MAKE} -f Makefile.libretro platform=$FORMAT_COMPILER_TARGET $COMPILER -j$JOBS || die "Failed to build PCSX Picodrive"
-      fi
+      ${MAKE} -f Makefile.libretro platform=$FORMAT_COMPILER_TARGET $COMPILER -j$JOBS clean || die "Failed to clean Picodrive"
+      ${MAKE} -f Makefile.libretro platform=$FORMAT_COMPILER_TARGET $COMPILER -j$JOBS || die "Failed to build PCSX Picodrive"
       cp picodrive_libretro$FORMAT.$FORMAT_EXT "$RARCH_DIST_DIR"
    else
       echo "Picodrive not fetched, skipping ..."
