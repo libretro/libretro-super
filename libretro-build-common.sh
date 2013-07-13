@@ -46,10 +46,14 @@ check_opengl()
 {
    if [ "$BUILD_LIBRETRO_GL" ]; then
       if [ "$ENABLE_GLES"]; then
+         echo "=== OpenGL ES enabled ==="
          export FORMAT_COMPILER_TARGET=FORMAT_COMPILER_TARGET-gles
       else
+         echo "=== OpenGL enabled ==="
          export FORMAT_COMPILER_TARGET=FORMAT_COMPILER_TARGET-opengl
       fi
+   else
+      echo "=== OpenGL disabled in build ==="
    fi
 }
 
