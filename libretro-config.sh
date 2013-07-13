@@ -21,6 +21,7 @@ fi
 
 #ARM DEFINES
 #-----------
+export ARMPLATFORM=
 
 #if uncommented, will build cores with Cortex A8 compiler optimizations
 #export CORTEX_A8

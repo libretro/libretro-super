@@ -14,27 +14,27 @@ fi
 
 echo "Compiler: $COMPILER"
 
-platformvar=armv
+export ARMPLATFORM=$ARMPLATFORM-armv
 
 if [ "$ARM_NEON" ]; then
 echo "=== ARM NEON opts enabled... ==="
-platformvar += -neon
+export ARMPLATFORM = $ARMPLATFORM-neon
 fi
 if [ "$CORTEX_A8" ]; then
 echo "=== Cortex A8 opts enabled... ==="
-platformvar += -cortexa8
+export ARMPLATFORM = $ARMPLATFORM-cortexa8
 fi
 if [ "$CORTEX_A9" ]; then
 echo "=== Cortex A9 opts enabled... ==="
-platformvar += -cortexa9
+export ARMPLATFORM = $ARMPLATFORM-cortexa9
 fi
 if [ "$ARM_HARDFLOAT" ]; then
 echo "=== ARM hardfloat ABI enabled... ==="
-platformvar += -hardfloat
+ARMPLATFORM = $ARMPLATFORM-hardfloat
 fi
 if [ "$ARM_SOFTFLOAT" ]; then
 echo "=== ARM softfloat ABI enabled... ==="
-platformvar += -softfloat
+ARMPLATFORM += ARMPLATFORM-softfloat
 fi
 
 build_libretro_fba_full()
@@ -508,8 +508,8 @@ build_libretro_picodrive()
       cd libretro-picodrive
       if [ "$ARMV7" = true ]; then
          echo "=== Building Picodrive (ARMv7) ==="
-         ${MAKE} -f Makefile.libretro platform=$platformvar -j$JOBS clean || die "Failed to clean Picodrive"
-         ${MAKE} -f Makefile.libretro platform=$platformvar -j$JOBS || die "Failed to build Picodrive"
+         ${MAKE} -f Makefile.libretro platform=$ARMPLATFORM -j$JOBS clean || die "Failed to clean Picodrive"
+         ${MAKE} -f Makefile.libretro platform=$ARMPLATFORM -j$JOBS || die "Failed to build Picodrive"
       else
          ${MAKE} -f Makefile.libretro platform=$FORMAT_COMPILER_TARGET $COMPILER -j$JOBS clean || die "Failed to clean Picodrive"
          ${MAKE} -f Makefile.libretro platform=$FORMAT_COMPILER_TARGET $COMPILER -j$JOBS || die "Failed to build PCSX Picodrive"
