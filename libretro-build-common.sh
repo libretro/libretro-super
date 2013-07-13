@@ -14,6 +14,24 @@ fi
 
 echo "Compiler: $COMPILER"
 
+platformvar=armv
+
+if [ "$ARM_NEON"= true]; then
+platformvar += -neon
+fi
+if [ "$CORTEX_A8"= true]; then
+platformvar += -cortexa8
+fi
+if [ "$CORTEX_A9"= true]; then
+platformvar += -cortexa9
+fi
+if [ "$ARM_HARDFLOAT"= true]; then
+platformvar += -cortexa9
+fi
+if [ "$ARM_SOFTFLOAT"= true]; then
+platformvar += -softfloat
+fi
+
 build_libretro_fba_full()
 {
    cd "$BASE_DIR"
@@ -484,9 +502,9 @@ build_libretro_picodrive()
       echo "=== Building Picodrive ==="
       cd libretro-picodrive
       if [ "$ARMV7" = true ]; then
-         echo "=== Building PCSX ReARMed (ARMV7 NEON) ==="
-         ${MAKE} -f Makefile.libretro platform=arm -j$JOBS clean || die "Failed to clean Picodrive"
-         ${MAKE} -f Makefile.libretro platform=arm -j$JOBS || die "Failed to build Picodrive"
+         echo "=== Building Picodrive (ARMv7) ==="
+         ${MAKE} -f Makefile.libretro platform=$platformvar -j$JOBS clean || die "Failed to clean Picodrive"
+         ${MAKE} -f Makefile.libretro platform=$platformvar -j$JOBS || die "Failed to build Picodrive"
       else
          ${MAKE} -f Makefile.libretro platform=$FORMAT_COMPILER_TARGET $COMPILER -j$JOBS clean || die "Failed to clean Picodrive"
          ${MAKE} -f Makefile.libretro platform=$FORMAT_COMPILER_TARGET $COMPILER -j$JOBS || die "Failed to build PCSX Picodrive"

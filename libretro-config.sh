@@ -1,11 +1,14 @@
 #!/bin/sh
 
+#USER DEFINES
+#------------
+#These options should be defined inside your own
+#local libretro-config-user.sh file rather than here.
+#The following below is just a sample.
+
 if [ -f "libretro-config-user.sh" ]; then
-# All your user defines (listed below) should go in this local file
 . ./libretro-config-user.sh
 fi
-
-#User defines (should be defined in local libretro-config-user.sh file)
 
 #if uncommented, will fetch repos with read+write access. Useful for committers
 #export WRITERIGHTS
@@ -15,3 +18,21 @@ fi
 
 #if uncommented, will build experimental cores as well which are not yet fit for release.
 #export BUILD_EXPERIMENTAL
+
+#ARM DEFINES
+#-----------
+
+#if uncommented, will build cores with Cortex A8 compiler optimizations
+#export CORTEX_A8
+
+#if uncommented, will build cores with Cortex A9 compiler optimizations
+#export CORTEX_A9
+
+#if uncommented, will build cores with ARM hardfloat ABI
+#export ARM_HARDFLOAT
+
+#if uncommented, will build cores with ARM softfloat ABI
+#export ARM_SOFTFLOAT
+
+#if uncommented, will build cores with ARM NEON support (ARMv7+ only)
+#export ARM_NEON
