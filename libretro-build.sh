@@ -123,9 +123,9 @@ if [ "$HOST_CC" ]; then
 fi
 
 if [ -z "$MAKE" ]; then
-	if [ $FORMAT_COMPILER_TARGET == "osx" ]; then
+	if [ $FORMAT_COMPILER_TARGET = "osx" ]; then
 		MAKE=make
-   elif [ "$(expr substr $(uname -s) 1 7)" == "MINGW32" ]; then
+   elif [ "$(expr substr $(uname -s) 1 7)" = "MINGW32" ]; then
       MAKE=mingw32-make
    else
       MAKE=make
@@ -133,9 +133,9 @@ if [ -z "$MAKE" ]; then
 fi
 
 if [ -z "$CC" ]; then
-	if [ $FORMAT_COMPILER_TARGET == "osx" ]; then
+	if [ $FORMAT_COMPILER_TARGET = "osx" ]; then
 		CC=clang
-   elif [ "$(expr substr $(uname -s) 1 7)" == "MINGW32" ]; then
+   elif [ "$(expr substr $(uname -s) 1 7)" = "MINGW32" ]; then
       CC=mingw32-gcc
    else
       CC=gcc
@@ -143,9 +143,9 @@ if [ -z "$CC" ]; then
 fi
 
 if [ -z "$CXX" ]; then
-	if [ $FORMAT_COMPILER_TARGET == "osx" ]; then
+	if [ $FORMAT_COMPILER_TARGET = "osx" ]; then
 		CXX=clang++
-   elif [ "$(expr substr $(uname -s) 1 7)" == "MINGW32" ]; then
+   elif [ "$(expr substr $(uname -s) 1 7)" = "MINGW32" ]; then
       CXX=mingw32-g++
    else
       CXX=g++
