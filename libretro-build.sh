@@ -166,6 +166,7 @@ if [ -z $BUILD_LIBRETRO_GL ]; then
    build_libretro_scenewalker
 if [ -z $BUILD_EXPERIMENTAL ]; then
    build_libretro_mupen64
+   build_libretro_ffmpeg
 fi
 fi
    build_libretro_bsnes

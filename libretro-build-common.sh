@@ -42,6 +42,31 @@ export FORMAT_COMPILER_TARGET=FORMAT_COMPILER_TARGET-softfloat
 echo $FORMAT_COMPILER_TARGET
 fi
 
+check_opengl()
+{
+   if [ "$BUILD_LIBRETRO_GL" ]; then
+      if [ "$ENABLE_GLES"]; then
+         export FORMAT_COMPILER_TARGET=FORMAT_COMPILER_TARGET-gles
+      else
+         export FORMAT_COMPILER_TARGET=FORMAT_COMPILER_TARGET-opengl
+      fi
+   fi
+}
+
+build_libretro_ffmpeg()
+{
+   cd "$BASE_DIR"
+   if [ -d "libretro-ffmpeg" ]; then
+      echo "=== Checking OpenGL dependencies ==="
+      check_opengl
+      echo "=== Building FFmpeg ==="
+      ${MAKE} -f Makefile platform=$FORMAT_COMPILER_TARGET $COMPILER -j$JOBS clean || die "Failed to clean FFmpeg"
+      cp ffmpeg_libretro$FORMAT.$FORMAT_EXT "$RARCH_DIST_DIR"
+   else
+      echo "FFmpeg not fetched, skipping ..."
+   fi
+}
+
 build_libretro_fba_full()
 {
    cd "$BASE_DIR"
