@@ -103,5 +103,6 @@ fetch_project "$REPO_BASE/libretro/modelviewer-libretro.git" "libretro-gl-modelv
 fetch_project "$REPO_BASE/libretro/libretro-ffmpeg.git" "libretro-ffmpeg" "libretro/ffmpeg"
 fetch_project "$REPO_BASE/libretro/bsnes-libretro-cplusplus98.git" "libretro-bsnes-cplusplus98" "libretro/bsnes-cplusplus98"
 fetch_project_submodule "$REPO_BASE/libretro/picodrive.git" "libretro-picodrive" "libretro/picodrive"
+fetch_project_submodule "$REPO_BASE/libretro/tgbdual-libretro.git" "libretro-tgbdual" "libretro/tgbdual"
 fetch_project "$REPO_BASE/libretro/mupen64plus-libretro.git" "libretro-mupen64plus" "libretro/mupen64plus"
 fetch_project "$REPO_BASE/libretro/instancingviewer-libretro-gl.git" "libretro-gl-instancingviewer" "libretro/instancingviewer"
