@@ -222,14 +222,10 @@ build_libretro_desmume()
    if [ -d "libretro-desmume" ]; then
       echo "=== Building Desmume ==="
       cd libretro-desmume
-      if [ "$X86" = true ]; then
-         echo "=== Building Desmume with x86 JIT recompiler ==="
+      if [ "$X86" = true ] || [ "$ARMV7" = true ]; then
+         echo "=== Building Desmume with JIT recompiler ==="
          ${MAKE} -f Makefile.libretro platform=${FORMAT_COMPILER_TARGET} DESMUME_JIT=1 -j$JOBS clean || die "Failed to clean Desmume"
          ${MAKE} -f Makefile.libretro platform=${FORMAT_COMPILER_TARGET} DESMUME_JIT=1 -j$JOBS || die "Failed to build Desmume"
-      elif [ "$ARMV7" = true ]; then
-         echo "=== Building Desmume with ARMv7 JIT recompiler ==="
-         ${MAKE} -f Makefile.libretro platform=arm DESMUME_JIT=1 $COMPILER -j$JOBS clean || die "Failed to clean Desmume"
-         ${MAKE} -f Makefile.libretro platform=arm DESMUME_JIT=1 $COMPILER -j$JOBS || die "Failed to build Desmume"
       else
          ${MAKE} -f Makefile.libretro clean
          ${MAKE} -f Makefile.libretro platform=$FORMAT_COMPILER_TARGET -j$JOBS
