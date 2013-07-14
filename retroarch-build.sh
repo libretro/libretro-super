@@ -178,6 +178,14 @@ check_deps()
       export ENABLE_NEON="--enable-neon"
    fi
 
+   if [ $ARM_HARDFLOAT ]; then
+      echo "=== Enabling ARM Hard float ABI support ==="
+      export RARCHCFLAGS="${RARCHCFLAGS} -mfloat-abi=hard"
+   fi
+   if [ $ARM_SOFTFLOAT ]; then
+      echo "=== Enabling ARM Soft float ABI support ==="
+      export RARCHCFLAGS="${RARCHCFLAGS} -mfloat-abi=softfp"
+   fi
    if [ "$CORTEX_A8" ]; then
       echo "=== Enabling Cortex A8 CFLAGS ==="
       export RARCHCFLAGS="${RARCHCFLAGS} -mcpu=cortex-a8 -mtune=cortex-a8"
