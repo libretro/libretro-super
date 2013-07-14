@@ -48,7 +48,7 @@ fi
 check_opengl()
 {
    if [ "$BUILD_LIBRETRO_GL" ]; then
-      if [ "$ENABLE_GLES"]; then
+      if [ "$ENABLE_GLES" ]; then
          echo "=== OpenGL ES enabled ==="
          export FORMAT_COMPILER_TARGET=$FORMAT_COMPILER_TARGET-gles
 	 export FORMAT_COMPILER_TARGET_ALT=$FORMAT_COMPILER_TARGET
@@ -405,6 +405,7 @@ build_libretro_modelviewer()
    cd "$BASE_DIR"
    if [ -d "libretro-gl-modelviewer" ]; then
       echo "=== Building Modelviewer (GL) ==="
+      check_opengl
       cd libretro-gl-modelviewer
       ${MAKE} -f Makefile platform=${FORMAT_COMPILER_TARGET} $COMPILER -j$JOBS clean || die "Failed to clean Modelviewer"
       ${MAKE} -f Makefile platform=${FORMAT_COMPILER_TARGET} $COMPILER -j$JOBS || die "Failed to build Modelviewer"
@@ -419,6 +420,7 @@ build_libretro_scenewalker()
    cd "$BASE_DIR"
    if [ -d "libretro-gl-scenewalker" ]; then
       echo "=== Building SceneWalker (GL) ==="
+      check_opengl
       cd libretro-gl-scenewalker
       ${MAKE} -f Makefile platform=${FORMAT_COMPILER_TARGET} $COMPILER -j$JOBS clean || die "Failed to clean SceneWalker"
       ${MAKE} -f Makefile platform=${FORMAT_COMPILER_TARGET} $COMPILER -j$JOBS || die "Failed to build SceneWalker"
@@ -513,6 +515,7 @@ build_libretro_mupen64()
    cd "$BASE_DIR"
    if [ -d "libretro-mupen64plus" ]; then
       echo "=== Building Mupen 64 Plus ==="
+      check_opengl
       cd libretro-mupen64plus
       mkdir -p obj
       ${MAKE} -j$JOBS clean || die "Failed to clean Mupen 64"
