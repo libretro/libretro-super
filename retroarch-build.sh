@@ -197,7 +197,7 @@ check_deps()
 
    if [ $ARM_NEON ]; then
       echo "=== Enabling ARM NEON support (CFLAGS) ==="
-      export RARCHCFLAGS=="-mfpu=neon"
+      export RARCHCFLAGS="${RARCHCFLAGS} -mfpu=neon"
    fi
 }
 
