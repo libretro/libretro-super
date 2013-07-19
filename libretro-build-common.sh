@@ -430,6 +430,21 @@ build_libretro_scenewalker()
    fi
 }
 
+build_libretro_instancingviewer()
+{
+   cd "$BASE_DIR"
+   if [ -d "libretro-gl-instancingviewer" ]; then
+      echo "=== Building Instancing Viewer (GL) ==="
+      check_opengl
+      cd libretro-gl-instancingviewer
+      ${MAKE} -f Makefile platform=${FORMAT_COMPILER_TARGET} $COMPILER -j$JOBS clean || die "Failed to clean InstancingViewer"
+      ${MAKE} -f Makefile platform=${FORMAT_COMPILER_TARGET} $COMPILER -j$JOBS || die "Failed to build InstancingViewer"
+      cp instancingviewer_libretro${FORMAT}.${FORMAT_EXT} "$RARCH_DIST_DIR"
+   else
+      echo "InstancingViewer not fetched, skipping ..."
+   fi
+}
+
 build_libretro_scummvm()
 {
    cd "$BASE_DIR"
