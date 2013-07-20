@@ -1,27 +1,18 @@
 #!/bin/sh
 
 if [ "$platform" ]; then
-   if [ "$platform" = "win" ]; then
-      DIST_DIR=win
-   elif [ "$platform" = "osx" ]; then
-      DIST_DIR=osx
-   else
-      DIST_DIR=unix
-   fi
+   case "$platform" in
+      win) DIST_DIR=win;;
+      osx) DIST_DIR=osx;;
+      *)   DIST_DIR=unix;;
+   esac
 else
-   UNAME=$(uname)
-
-   if [ $(echo $UNAME | grep Linux) ]; then
-      DIST_DIR=unix
-   elif [ $(echo $UNAME | grep BSD) ]; then
-      DIST_DIR=bsd
-   elif [ $(echo $UNAME | grep Darwin) ]; then
-      DIST_DIR=osx
-   elif [ $(echo $UNAME | grep -i MINGW) ]; then
-      DIST_DIR=win
-   else
-      DIST_DIR=unix
-   fi
+   case "$(uname)" in
+      *BSD*) DIST_DIR=bsd;;
+      *Darwin*) DIST_DIR=osx;;
+      *mingw*|*MINGW*) DIST_DIR=win;;
+      *) DIST_DIR=unix;;
+   esac
 fi
 
 # BSDs don't have readlink -f
