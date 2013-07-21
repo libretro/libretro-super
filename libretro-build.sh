@@ -2,55 +2,6 @@
 
 . ./libretro-config.sh
 
-if [ "$platform" ]; then
-   if [ "$platform" = "win" ]; then
-      FORMAT_EXT="dll"
-      FORMAT_COMPILER_TARGET=win
-      FORMAT_COMPILER_TARGET_ALT=win
-      DIST_DIR=win
-   elif [ "$platform" = "osx" ]; then
-      FORMAT_EXT="dylib"
-      FORMAT_COMPILER_TARGET=osx
-      FORMAT_COMPILER_TARGET_ALT=osx
-      DIST_DIR=osx
-   else
-      FORMAT_EXT="so"
-      FORMAT_COMPILER_TARGET=unix
-      FORMAT_COMPILER_TARGET_ALT=unix
-      DIST_DIR=unix
-   fi
-else
-   UNAME=$(uname)
-
-   if [ $(echo $UNAME | grep Linux) ]; then
-      FORMAT_EXT="so"
-      FORMAT_COMPILER_TARGET=unix
-      FORMAT_COMPILER_TARGET_ALT=unix
-      DIST_DIR=unix
-   elif [ $(echo $UNAME | grep BSD) ]; then
-      FORMAT_EXT="so"
-      FORMAT_COMPILER_TARGET=unix
-      FORMAT_COMPILER_TARGET_ALT=unix
-      DIST_DIR=bsd
-   elif [ $(echo $UNAME | grep Darwin) ]; then
-      FORMAT_EXT="dylib"
-      FORMAT_COMPILER_TARGET=osx
-      FORMAT_COMPILER_TARGET_ALT=osx
-      DIST_DIR=osx
-   elif [ $(echo $UNAME | grep -i MINGW) ]; then
-      FORMAT_EXT="dll"
-      FORMAT_COMPILER_TARGET=win
-      FORMAT_COMPILER_TARGET_ALT=win
-      DIST_DIR=win
-   else
-      # assume this is UNIX-based at least
-      FORMAT_EXT="so"
-      FORMAT_COMPILER_TARGET=unix
-      FORMAT_COMPILER_TARGET_ALT=unix
-      DIST_DIR=unix
-   fi
-fi
-
 # BSDs don't have readlink -f
 read_link()
 {
@@ -87,21 +38,6 @@ die()
    echo $1
    #exit 1
 }
-
-case "$(uname -m)" in
-   x86_64) X86=true && X86_64=true;;
-   i686)   X86=true;;
-   armv*)
-      ARM=true && export FORMAT_COMPILER_TARGET=armv
-      case "$(uname -m)" in
-         armv5tel) ARMV5=true;;
-         armv6l)   ARMV6=true;;
-         armv7l)   ARMV7=true;;
-      esac;;
-esac
-
-echo "$(uname -m) CPU detected"
-export FORMAT_COMPILER_TARGET_ALT="$FORMAT_COMPILER_TARGET"
 
 if [ "$HOST_CC" ]; then
    CC="${HOST_CC}-gcc"
