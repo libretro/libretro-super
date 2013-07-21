@@ -1,5 +1,61 @@
 #!/bin/sh
 
+# Architecture Assignment
+ARCH="$(uname -m)"
+case "$ARCH" in
+   x86_64) X86=true && X86_64=true;;
+   i686)   X86=true;;
+   armv*)
+      ARM=true && export FORMAT_COMPILER_TARGET=armv
+      export RARCHCFLAGS="${RARCHCFLAGS} -marm"
+      case "$ARCH" in
+         armv5tel) ARMV5=true;;
+         armv6l)   ARMV6=true;;
+         armv7l)   ARMV7=true;;
+      esac;;
+esac
+echo "$ARCH CPU detected"
+
+# Platform Assignment
+if [ "$platform" ]; then
+   case "$platform" in
+      win)
+         FORMAT_EXT='dll'
+         FORMAT_COMPILER_TARGET=win
+         DIST_DIR=win;;
+      osx)
+         FORMAT_EXT='dylib'
+         FORMAT_COMPILER_TARGET=osx
+         DIST_DIR=osx;;
+      *)
+         FORMAT_EXT='so'
+         FORMAT_COMPILER_TARGET=unix
+         DIST_DIR=unix;;
+   esac
+else
+   UNAME="$(uname)"
+   case "$UNAME" in
+      *BSD*)
+         FORMAT_EXT='so'
+         FORMAT_COMPILER_TARGET=unix
+         DIST_DIR=bsd;;
+      *Darwin*)
+         FORMAT_EXT='dylib'
+         FORMAT_COMPILER_TARGET=osx
+         DIST_DIR=osx;;
+      *mingw*|*MINGW*)
+         FORMAT_EXT='dll'
+         FORMAT_COMPILER_TARGET=win
+         DIST_DIR=win;;
+      *)
+         FORMAT_EXT='so'
+         FORMAT_COMPILER_TARGET=unix
+         DISTT_DIR=unix;;
+   esac
+fi
+
+export FORMAT_COMPILER_TARGET_ALT="$FORMAT_COMPILER_TARGET"
+
 #USER DEFINES
 #------------
 #These options should be defined inside your own
