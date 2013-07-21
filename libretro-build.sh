@@ -88,39 +88,20 @@ die()
    #exit 1
 }
 
-ARCH=$(uname -m)
-X86=false
-X86_64=false
-ARM=false
-ARMV5=false
-ARMV6=false
-ARMV7=false
-if [ $ARCH = x86_64 ]; then
-   echo "x86_64 CPU detected"
-   X86=true
-   X86_64=true
-elif [ $ARCH = i686 ]; then
-   echo "x86_32 CPU detected"
-   X86=true
-elif [ $ARCH = armv5tel ]; then
-   echo "ARMv5 CPU detected"
-   ARM=true
-   ARMV5=true
-   export FORMAT_COMPILER_TARGET=armv
-   export FORMAT_COMPILER_TARGET_ALT=$FORMAT_COMPILER_TARGET
-elif [ $ARCH = armv6l ]; then
-   echo "ARMv6 CPU detected"
-   ARM=true
-   ARMV6=true
-   export FORMAT_COMPILER_TARGET=armv
-   export FORMAT_COMPILER_TARGET_ALT=$FORMAT_COMPILER_TARGET
-elif [ $ARCH = armv7l ]; then
-   echo "ARMv7 CPU detected"
-   ARM=true
-   ARMV7=true
-   export FORMAT_COMPILER_TARGET=armv
-   export FORMAT_COMPILER_TARGET_ALT=$FORMAT_COMPILER_TARGET
-fi
+case "$(uname -m)" in
+   x86_64) X86=true && X86_64=true;;
+   i686)   X86=true;;
+   armv*)
+      ARM=true && export FORMAT_COMPILER_TARGET=armv
+      case "$(uname -m)" in
+         armv5tel) ARMV5=true;;
+         armv6l)   ARMV6=true;;
+         armv7l)   ARMV7=true;;
+      esac;;
+esac
+
+echo "$(uname -m) CPU detected"
+export FORMAT_COMPILER_TARGET_ALT="$FORMAT_COMPILER_TARGET"
 
 if [ "$HOST_CC" ]; then
    CC="${HOST_CC}-gcc"
