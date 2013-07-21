@@ -2,55 +2,6 @@
 
 . ./libretro-config.sh
 
-if [ "$platform" ]; then
-   if [ "$platform" = "win" ]; then
-      FORMAT_EXT="dll"
-      FORMAT_COMPILER_TARGET=win
-      FORMAT_COMPILER_TARGET_ALT=win
-      DIST_DIR=win
-   elif [ "$platform" = "osx" ]; then
-      FORMAT_EXT="dylib"
-      FORMAT_COMPILER_TARGET=osx
-      FORMAT_COMPILER_TARGET_ALT=osx
-      DIST_DIR=osx
-   else
-      FORMAT_EXT="so"
-      FORMAT_COMPILER_TARGET=unix
-      FORMAT_COMPILER_TARGET_ALT=unix
-      DIST_DIR=unix
-   fi
-else
-   UNAME=$(uname)
-
-   if [ $(echo $UNAME | grep Linux) ]; then
-      FORMAT_EXT="so"
-      FORMAT_COMPILER_TARGET=unix
-      FORMAT_COMPILER_TARGET_ALT=unix
-      DIST_DIR=unix
-   elif [ $(echo $UNAME | grep BSD) ]; then
-      FORMAT_EXT="so"
-      FORMAT_COMPILER_TARGET=unix
-      FORMAT_COMPILER_TARGET_ALT=unix
-      DIST_DIR=bsd
-   elif [ $(echo $UNAME | grep Darwin) ]; then
-      FORMAT_EXT="dylib"
-      FORMAT_COMPILER_TARGET=osx
-      FORMAT_COMPILER_TARGET_ALT=osx
-      DIST_DIR=osx
-   elif [ $(echo $UNAME | grep -i MINGW) ]; then
-      FORMAT_EXT="dll"
-      FORMAT_COMPILER_TARGET=win
-      FORMAT_COMPILER_TARGET_ALT=win
-      DIST_DIR=win
-   else
-      # assume this is UNIX-based at least
-      FORMAT_EXT="so"
-      FORMAT_COMPILER_TARGET=unix
-      FORMAT_COMPILER_TARGET_ALT=unix
-      DIST_DIR=unix
-   fi
-fi
-
 # BSDs don't have readlink -f
 read_link()
 {
@@ -87,43 +38,6 @@ die()
    echo $1
    #exit 1
 }
-
-ARCH=$(uname -m)
-X86=false
-X86_64=false
-ARM=false
-ARMV5=false
-ARMV6=false
-ARMV7=false
-if [ $ARCH = x86_64 ]; then
-   echo "x86_64 CPU detected"
-   X86=true
-   X86_64=true
-elif [ $ARCH = i686 ]; then
-   echo "x86_32 CPU detected"
-   X86=true
-elif [ $ARCH = armv5tel ]; then
-   echo "ARMv5 CPU detected"
-   ARM=true
-   ARMV5=true
-   export FORMAT_COMPILER_TARGET=armv
-   export FORMAT_COMPILER_TARGET_ALT=$FORMAT_COMPILER_TARGET
-   export RARCHCFLAGS="${RARCHCFLAGS} -marm"
-elif [ $ARCH = armv6l ]; then
-   echo "ARMv6 CPU detected"
-   ARM=true
-   ARMV6=true
-   export FORMAT_COMPILER_TARGET=armv
-   export FORMAT_COMPILER_TARGET_ALT=$FORMAT_COMPILER_TARGET
-   export RARCHCFLAGS="${RARCHCFLAGS} -marm"
-elif [ $ARCH = armv7l ]; then
-   echo "ARMv7 CPU detected"
-   ARM=true
-   ARMV7=true
-   export FORMAT_COMPILER_TARGET=armv
-   export FORMAT_COMPILER_TARGET_ALT=$FORMAT_COMPILER_TARGET
-   export RARCHCFLAGS="${RARCHCFLAGS} -marm"
-fi
 
 if [ "$HOST_CC" ]; then
    CC="${HOST_CC}-gcc"

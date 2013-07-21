@@ -1,19 +1,6 @@
 #!/bin/sh
 
-if [ "$platform" ]; then
-   case "$platform" in
-      win) DIST_DIR=win;;
-      osx) DIST_DIR=osx;;
-      *)   DIST_DIR=unix;;
-   esac
-else
-   case "$(uname)" in
-      *BSD*) DIST_DIR=bsd;;
-      *Darwin*) DIST_DIR=osx;;
-      *mingw*|*MINGW*) DIST_DIR=win;;
-      *) DIST_DIR=unix;;
-   esac
-fi
+. ./libretro-config.sh
 
 # BSDs don't have readlink -f
 read_link()
