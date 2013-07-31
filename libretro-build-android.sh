@@ -259,10 +259,10 @@ build_libretro_pcsx_rearmed()
       cd libretro-pcsx-rearmed
       cd jni
       ndk-build clean
-      ndk-build -j$JOBS NO_NEON=1
+      ndk-build -j$JOBS NO_NEON=1 APP_ABI=armeabi-v7a
       cp ../libs/armeabi-v7a/libretro-noneon.${FORMAT_EXT} $RARCH_DIST_DIR/armeabi-v7a/libretro_pcsx_rearmed.${FORMAT_EXT}
       ndk-build clean
-      ndk-build -j$JOBS
+      ndk-build -j$JOBS APP_ABI=armeabi-v7a
       cp ../libs/armeabi-v7a/libretro.${FORMAT_EXT} $RARCH_DIST_DIR/armeabi-v7a/libretro_pcsx_rearmed-neon.${FORMAT_EXT}
    else
       echo "PCSX ReARMed not fetched, skipping ..."
@@ -328,10 +328,8 @@ build_libretro_picodrive()
       cd libretro-picodrive
       cd jni
       ndk-build clean
-      ndk-build -j$JOBS
+      ndk-build -j$JOBS APP_ABI=armeabi-v7a
       cp ../libs/armeabi-v7a/libretro_picodrive.${FORMAT_EXT} "$RARCH_DIST_DIR"/armeabi-v7a/libretro_picodrive.${FORMAT_EXT}
-      cp ../libs/mips/libretro_picodrive.${FORMAT_EXT} "$RARCH_DIST_DIR"/mips/libretro_picodrive.${FORMAT_EXT}
-      cp ../libs/x86/libretro_picodrive.${FORMAT_EXT} "$RARCH_DIST_DIR"/x86/libretro_picodrive.${FORMAT_EXT}
    else
       echo "Picodrive not fetched, skipping ..."
    fi
