@@ -41,9 +41,10 @@ build_libretro_mednafen()
    cd $BASE_DIR
    pwd
    if [ -d "libretro-mednafen" ]; then
-      echo "=== Building Mednafen ==="
+      echo "=== Building Mednafen cores ==="
       cd libretro-mednafen
       cd jni
+      echo "=== Building Mednafen NGP ==="
       ndk-build clean APP_ABI="armeabi-v7a mips x86" || die "Failed to clean mednafen_ngp"
       ndk-build core=ngp clean APP_ABI="armeabi-v7a mips x86" || die "Failed to clean mednafen_ngp"
       ndk-build core=ngp -j$JOBS APP_ABI="armeabi-v7a mips x86" || die "Failed to build mednafen_ngp"
@@ -51,6 +52,7 @@ build_libretro_mednafen()
       cp ../libs/mips/libretro.${FORMAT_EXT} $RARCH_DIST_DIR/mips/libretro_mednafen_ngp.${FORMAT_EXT}
       cp ../libs/x86/libretro.${FORMAT_EXT} $RARCH_DIST_DIR/x86/libretro_mednafen_ngp.${FORMAT_EXT}
 
+      echo "=== Building Mednafen WonderSwan ==="
       ndk-build clean APP_ABI="armeabi-v7a mips x86" || die "Failed to clean mednafen_wswan"
       ndk-build core=wswan clean APP_ABI="armeabi-v7a mips x86" || die "Failed to clean mednafen_wswan"
       ndk-build core=wswan -j$JOBS APP_ABI="armeabi-v7a mips x86" || die "Failed to build mednafen_wswan"
@@ -59,6 +61,7 @@ build_libretro_mednafen()
       cp ../libs/mips/libretro.${FORMAT_EXT} $RARCH_DIST_DIR/mips/libretro_mednafen_wswan.${FORMAT_EXT}
       cp ../libs/x86/libretro.${FORMAT_EXT} $RARCH_DIST_DIR/x86/libretro_mednafen_wswan.${FORMAT_EXT}
 
+      echo "=== Building Mednafen VirtualBoy ==="
       ndk-build clean APP_ABI="armeabi-v7a mips x86" || die "Failed to clean mednafen_vb"
       ndk-build core=vb clean APP_ABI="armeabi-v7a mips x86" || die "Failed to clean mednafen_vb"
       ndk-build core=vb -j$JOBS APP_ABI="armeabi-v7a mips x86" || die "Failed to build mednafen_vb"
@@ -67,6 +70,7 @@ build_libretro_mednafen()
       cp ../libs/mips/libretro.${FORMAT_EXT} $RARCH_DIST_DIR/mips/libretro_mednafen_vb.${FORMAT_EXT}
       cp ../libs/x86/libretro.${FORMAT_EXT} $RARCH_DIST_DIR/x86/libretro_mednafen_vb.${FORMAT_EXT}
 
+      echo "=== Building Mednafen PCE Fast ==="
       ndk-build clean APP_ABI="armeabi-v7a mips x86" || die "Failed to clean mednafen_pce_fast"
       ndk-build core=pce-fast clean APP_ABI="armeabi-v7a mips x86" || die "Failed to clean mednafen_pce_fast"
       ndk-build core=pce-fast -j$JOBS APP_ABI="armeabi-v7a mips x86" || die "Failed to build mednafen_pce_fast"
@@ -74,6 +78,15 @@ build_libretro_mednafen()
       cp ../libs/armeabi-v7a/libretro.${FORMAT_EXT} $RARCH_DIST_DIR/armeabi-v7a/libretro_mednafen_pce_fast.${FORMAT_EXT}
       cp ../libs/mips/libretro.${FORMAT_EXT} $RARCH_DIST_DIR/mips/libretro_mednafen_pce_fast.${FORMAT_EXT}
       cp ../libs/x86/libretro.${FORMAT_EXT} $RARCH_DIST_DIR/x86/libretro_mednafen_pce_fast.${FORMAT_EXT}
+
+      echo "=== Building Mednafen PSX ==="
+      ndk-build clean APP_ABI="armeabi-v7a mips x86" || die "Failed to clean mednafen_psx"
+      ndk-build core=psx clean APP_ABI="armeabi-v7a mips x86" || die "Failed to clean mednafen_psx"
+      ndk-build core=psx -j$JOBS APP_ABI="armeabi-v7a mips x86" || die "Failed to build mednafen_psx"
+
+      cp ../libs/armeabi-v7a/libretro.${FORMAT_EXT} $RARCH_DIST_DIR/armeabi-v7a/libretro_mednafen_psx.${FORMAT_EXT}
+      cp ../libs/mips/libretro.${FORMAT_EXT} $RARCH_DIST_DIR/mips/libretro_mednafen_psx.${FORMAT_EXT}
+      cp ../libs/x86/libretro.${FORMAT_EXT} $RARCH_DIST_DIR/x86/libretro_mednafen_psx.${FORMAT_EXT}
    else
       echo "Mednafen not fetched, skipping ..."
    fi
@@ -351,6 +364,26 @@ build_libretro_picodrive()
       echo "Picodrive not fetched, skipping ..."
    fi
 }
+
+build_libretro_desmume()
+{
+   cd $BASE_DIR
+   if [ -d "libretro-desmume" ]; then
+      echo "=== Building Desmume ==="
+      cd libretro-desmume
+      cd jni
+      ndk-build clean
+      ndk-build -j$JOBS APP_ABI=armeabi-v7a
+      cp ../libs/armeabi-v7a/libretro.${FORMAT_EXT} "$RARCH_DIST_DIR"/armeabi-v7a/libretro_desmume.${FORMAT_EXT}
+
+      ndk-build clean
+      ndk-build -j$JOBS APP_ABI=x86
+      cp ../libs/x86/libretro.${FORMAT_EXT} "$RARCH_DIST_DIR"/x86/libretro_desmume.${FORMAT_EXT}
+   else
+      echo "Picodrive not fetched, skipping ..."
+   fi
+}
+
 create_dist_dir()
 {
    if [ -d $RARCH_DIR ]; then
@@ -400,6 +433,7 @@ else
    build_libretro_gambatte
    build_libretro_nx
    build_libretro_prboom
+   build_libretro_desmume
    build_libretro_nestopia
    build_libretro_tyrquake
    build_libretro_picodrive
