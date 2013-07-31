@@ -96,6 +96,23 @@ build_libretro_s9x_next()
    fi
 }
 
+build_libretro_stella()
+{
+   cd $BASE_DIR
+   if [ -d "libretro-stella" ]; then
+      echo "=== Building Stella ==="
+      cd libretro-stella/
+      cd jni
+      ndk-build clean
+      ndk-build -j$JOBS
+      cp ../libs/armeabi-v7a/libretro.${FORMAT_EXT} $RARCH_DIST_DIR/armeabi-v7a/libretro_stella.${FORMAT_EXT}
+      cp ../libs/mips/libretro.${FORMAT_EXT} $RARCH_DIST_DIR/mips/libretro_stella.${FORMAT_EXT}
+      cp ../libs/x86/libretro.${FORMAT_EXT} $RARCH_DIST_DIR/x86/libretro_stella.${FORMAT_EXT}
+   else
+      echo "Stella not fetched, skipping ..."
+   fi
+}
+
 build_libretro_genplus()
 {
    cd $BASE_DIR
@@ -312,9 +329,9 @@ build_libretro_picodrive()
       cd jni
       ndk-build clean
       ndk-build -j$JOBS
-      cp ../libs/armeabi-v7a/libretro_picodrive.${FORMAT_EXT} "$RARCH_DIST_DIR"
-      cp ../libs/mips/libretro_picodrive.${FORMAT_EXT} "$RARCH_DIST_DIR"
-      cp ../libs/x86/libretro_picodrive.${FORMAT_EXT} "$RARCH_DIST_DIR"
+      cp ../libs/armeabi-v7a/libretro_picodrive.${FORMAT_EXT} "$RARCH_DIST_DIR"/armeabi-v7a/libretro_picodrive.${FORMAT_EXT}
+      cp ../libs/mips/libretro_picodrive.${FORMAT_EXT} "$RARCH_DIST_DIR"/mips/libretro_picodrive.${FORMAT_EXT}
+      cp ../libs/x86/libretro_picodrive.${FORMAT_EXT} "$RARCH_DIST_DIR"/x86/libretro_picodrive.${FORMAT_EXT}
    else
       echo "Picodrive not fetched, skipping ..."
    fi
@@ -370,6 +387,7 @@ else
    build_libretro_nestopia
    build_libretro_tyrquake
    build_libretro_picodrive
+   build_libretro_stella
    build_libretro_modelviewer
    build_libretro_scenewalker
 fi
