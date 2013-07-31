@@ -160,7 +160,7 @@ build_libretro_genplus()
    fi
 }
 
-build_libretro_fba()
+build_libretro_fba_full()
 {
    cd $BASE_DIR
    if [ -d "libretro-fba" ]; then
@@ -380,7 +380,24 @@ build_libretro_desmume()
       ndk-build -j$JOBS APP_ABI=x86
       cp ../libs/x86/libretro.${FORMAT_EXT} "$RARCH_DIST_DIR"/x86/libretro_desmume.${FORMAT_EXT}
    else
-      echo "Picodrive not fetched, skipping ..."
+      echo "Desmume not fetched, skipping ..."
+   fi
+}
+
+build_libretro_quicknes()
+{
+   cd $BASE_DIR
+   if [ -d "libretro-quicknes" ]; then
+      echo "=== Building QuickNES ==="
+      cd libretro-quicknes
+      cd libretro/jni
+      ndk-build clean APP_ABI="armeabi-v7a mips x86"
+      ndk-build -j$JOBS APP_ABI="armeabi-v7a mips x86"
+      cp ../libs/armeabi-v7a/libretro.${FORMAT_EXT} "$RARCH_DIST_DIR"/armeabi-v7a/libretro_quicknes.${FORMAT_EXT}
+      cp ../libs/mips/libretro.${FORMAT_EXT} "$RARCH_DIST_DIR"/mips/libretro_quicknes.${FORMAT_EXT}
+      cp ../libs/x86/libretro.${FORMAT_EXT} "$RARCH_DIST_DIR"/x86/libretro_quicknes.${FORMAT_EXT}
+   else
+      echo "QuickNES not fetched, skipping ..."
    fi
 }
 
@@ -427,17 +444,18 @@ else
    build_libretro_s9x
    build_libretro_s9x_next
    build_libretro_genplus
-   build_libretro_fba
+   build_libretro_fba_full
    build_libretro_vba
    build_libretro_fceu
    build_libretro_gambatte
    build_libretro_nx
    build_libretro_prboom
+   build_libretro_stella
+   build_libretro_quicknes
    build_libretro_desmume
    build_libretro_nestopia
    build_libretro_tyrquake
-   build_libretro_picodrive
-   build_libretro_stella
    build_libretro_modelviewer
    build_libretro_scenewalker
+   build_libretro_picodrive
 fi
