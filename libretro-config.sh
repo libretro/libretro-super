@@ -3,7 +3,9 @@
 # Architecture Assignment
 ARCH="$(uname -m)"
 case "$ARCH" in
-   x86_64) X86=true && X86_64=true;;
+   x86_64)
+      X86=true && X86_64=true
+      ;;
    i686)   X86=true;;
    armv*)
       ARM=true && export FORMAT_COMPILER_TARGET=armv
@@ -77,7 +79,8 @@ fi
 #export BUILD_EXPERIMENTAL=1
 
 #ARM DEFINES
-#-----------
+#===========
+
 #if uncommented, will build cores with Cortex A8 compiler optimizations
 #export CORTEX_A8=1
 
@@ -94,7 +97,7 @@ fi
 #export ARM_NEON=1
 
 #OPENGL DEFINES
-#--------------
+#==============
 
 #if uncommented, will build libretro GL cores. Ignored for mobile platforms - GL cores will always be built there.
 #export BUILD_LIBRETRO_GL=1
@@ -102,3 +105,15 @@ fi
 #if uncommented, will build cores with OpenGL ES 2 support. Not needed
 #for platform-specific cores - only for generic core builds (ie. libretro-build.sh)
 #export ENABLE_GLES=1
+
+#ANDROID DEFINES
+#================
+
+#uncomment to define NDK standalone toolchain for ARM
+#export NDK_ROOT_DIR_ARM = 
+
+#uncomment to define NDK standalone toolchain for MIPS
+#export NDK_ROOT_DIR_MIPS = 
+
+#uncomment to define NDK standalone toolchain for x86
+#export NDK_ROOT_DIR_X86 =

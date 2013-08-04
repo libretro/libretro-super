@@ -333,6 +333,23 @@ build_libretro_modelviewer()
    fi
 }
 
+build_libretro_instancingviewer()
+{
+   cd $BASE_DIR
+   if [ -d "libretro-gl-instancingviewer" ]; then
+      echo "=== Building InstancingViewer (GL) ==="
+      cd libretro-gl-instancingviewer
+      cd jni
+      ndk-build clean APP_ABI="armeabi-v7a mips x86"
+      ndk-build -j$JOBS APP_ABI="armeabi-v7a mips x86"
+      cp ../libs/armeabi-v7a/libretro.${FORMAT_EXT} $RARCH_DIST_DIR/armeabi-v7a/libretro_instancingviewer.${FORMAT_EXT}
+      cp ../libs/mips/libretro.${FORMAT_EXT} $RARCH_DIST_DIR/mips/libretro_instancingviewer.${FORMAT_EXT}
+      cp ../libs/x86/libretro.${FORMAT_EXT} $RARCH_DIST_DIR/x86/libretro_instancingviewer.${FORMAT_EXT}
+   else
+      echo "InstancingViewer not fetched, skipping ..."
+   fi
+}
+
 build_libretro_scenewalker()
 {
    cd $BASE_DIR
@@ -456,6 +473,7 @@ else
    build_libretro_nestopia
    build_libretro_tyrquake
    build_libretro_modelviewer
+   build_libretro_instancingviewer
    build_libretro_scenewalker
    build_libretro_picodrive
 fi
