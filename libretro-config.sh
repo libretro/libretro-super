@@ -19,42 +19,25 @@ esac
 echo "$ARCH CPU detected"
 
 # Platform Assignment
-if [ "$platform" ]; then
-   case "$platform" in
-      win)
-         FORMAT_EXT='dll'
-         FORMAT_COMPILER_TARGET=win
-         DIST_DIR=win;;
-      osx)
-         FORMAT_EXT='dylib'
-         FORMAT_COMPILER_TARGET=osx
-         DIST_DIR=osx;;
-      *)
-         FORMAT_EXT='so'
-         FORMAT_COMPILER_TARGET=unix
-         DIST_DIR=unix;;
-   esac
-else
-   UNAME="$(uname)"
-   case "$UNAME" in
-      *BSD*)
-         FORMAT_EXT='so'
-         FORMAT_COMPILER_TARGET=unix
-         DIST_DIR=bsd;;
-      *Darwin*)
-         FORMAT_EXT='dylib'
-         FORMAT_COMPILER_TARGET=osx
-         DIST_DIR=osx;;
-      *mingw*|*MINGW*)
-         FORMAT_EXT='dll'
-         FORMAT_COMPILER_TARGET=win
-         DIST_DIR=win;;
-      *)
-         FORMAT_EXT='so'
-         FORMAT_COMPILER_TARGET=unix
-         DISTT_DIR=unix;;
-   esac
-fi
+[ -z "$platform" ] && platform="$(uname)"
+case "$platform" in
+   *BSD*)
+      FORMAT_EXT='so'
+      FORMAT_COMPILER_TARGET=unix
+      DIST_DIR=bsd;;
+   osx|*Darwin*)
+      FORMAT_EXT='dylib'
+      FORMAT_COMPILER_TARGET=osx
+      DIST_DIR=osx;;
+   win|*mingw*|*MINGW*)
+      FORMAT_EXT='dll'
+      FORMAT_COMPILER_TARGET=win
+      DIST_DIR=win;;
+   *)
+      FORMAT_EXT='so'
+      FORMAT_COMPILER_TARGET=unix
+      DIST_DIR=unix;;
+esac
 
 export FORMAT_COMPILER_TARGET_ALT="$FORMAT_COMPILER_TARGET"
 
