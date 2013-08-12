@@ -14,36 +14,14 @@ fi
 
 echo "Compiler: $COMPILER"
 
-if [ "$ARM_NEON" ]; then
-echo "=== ARM NEON opts enabled... ==="
-export FORMAT_COMPILER_TARGET=$FORMAT_COMPILER_TARGET-neon
-export FORMAT_COMPILER_TARGET_ALT=$FORMAT_COMPILER_TARGET
-echo $FORMAT_COMPILER_TARGET
-fi
-if [ "$CORTEX_A8" ]; then
-echo "=== Cortex A8 opts enabled... ==="
-export FORMAT_COMPILER_TARGET=$FORMAT_COMPILER_TARGET-cortexa8
-export FORMAT_COMPILER_TARGET_ALT=$FORMAT_COMPILER_TARGET
-echo $FORMAT_COMPILER_TARGET
-fi
-if [ "$CORTEX_A9" ]; then
-echo "=== Cortex A9 opts enabled... ==="
-export FORMAT_COMPILER_TARGET=$FORMAT_COMPILER_TARGET-cortexa9
-export FORMAT_COMPILER_TARGET_ALT=$FORMAT_COMPILER_TARGET
-echo $FORMAT_COMPILER_TARGET
-fi
-if [ "$ARM_HARDFLOAT" ]; then
-echo "=== ARM hardfloat ABI enabled... ==="
-export FORMAT_COMPILER_TARGET=$FORMAT_COMPILER_TARGET-hardfloat
-export FORMAT_COMPILER_TARGET_ALT=$FORMAT_COMPILER_TARGET
-echo $FORMAT_COMPILER_TARGET
-fi
-if [ "$ARM_SOFTFLOAT" ]; then
-echo "=== ARM softfloat ABI enabled... ==="
-export FORMAT_COMPILER_TARGET=FORMAT_COMPILER_TARGET-softfloat
-export FORMAT_COMPILER_TARGET_ALT=$FORMAT_COMPILER_TARGET
-echo $FORMAT_COMPILER_TARGET
-fi
+[[ "$ARM_NEON" ]] && echo "=== ARM NEON opts enabled... ===" && export FORMAT_COMPILER_TARGET="${FORMAT_COMPILER_TARGET}-neon"
+[[ "$CORTEX_A8" ]] && echo "=== Cortex A8 opts enabled... ===" && export FORMAT_COMPILER_TARGET="${FORMAT_COMPILER_TARGET}-cortexa8"
+[[ "$CORTEX_A9" ]] && echo "=== Cortex A9 opts enabled... ===" && export FORMAT_COMPILER_TARGET="${FORMAT_COMPILER_TARGET}-cortexa9"
+[[ "$ARM_HARDFLOAT" ]] && echo "=== ARM hardfloat ABI enabled... ===" && export FORMAT_COMPILER_TARGET="${FORMAT_COMPILER_TARGET}-hardfloat"
+[[ "$ARM_SOFTFLOAT" ]] && echo "=== ARM softfloat ABI enabled... ===" && export FORMAT_COMPILER_TARGET="${FORMAT_COMPILER_TARGET}-softfloat"
+
+export FORMAT_COMPILER_TARGET_ALT="$FORMAT_COMPILER_TARGET"
+echo "${FORMAT_COMPILER_TARGET}"
 
 check_opengl()
 {
