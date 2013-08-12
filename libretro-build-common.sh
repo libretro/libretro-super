@@ -21,6 +21,7 @@ echo "Compiler: $COMPILER"
 [[ "$ARM_SOFTFLOAT" ]] && echo "=== ARM softfloat ABI enabled... ===" && export FORMAT_COMPILER_TARGET="${FORMAT_COMPILER_TARGET}-softfloat"
 
 export FORMAT_COMPILER_TARGET_ALT="$FORMAT_COMPILER_TARGET"
+echo "${FORMAT_COMPILER_TARGET}"
 
 check_opengl()
 {
