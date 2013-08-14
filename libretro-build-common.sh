@@ -1,546 +1,245 @@
 #!/bin/sh
 
-die()
-{
-   echo $1
+die() { 
+   echo "$1"
    #exit 1
 }
 
-if [ "$CC" ] && [ "$CXX" ]; then
-   COMPILER="CC=\"$CC\" CXX=\"$CXX\""
+if [ "${CC}" ] && [ "${CXX}" ]; then
+   COMPILER="CC=\"${CC}\" CXX=\"${CXX}\""
 else
    COMPILER=""
 fi
 
-echo "Compiler: $COMPILER"
+echo "Compiler: ${COMPILER}"
 
-[[ "$ARM_NEON" ]] && echo "=== ARM NEON opts enabled... ===" && export FORMAT_COMPILER_TARGET="${FORMAT_COMPILER_TARGET}-neon"
-[[ "$CORTEX_A8" ]] && echo "=== Cortex A8 opts enabled... ===" && export FORMAT_COMPILER_TARGET="${FORMAT_COMPILER_TARGET}-cortexa8"
-[[ "$CORTEX_A9" ]] && echo "=== Cortex A9 opts enabled... ===" && export FORMAT_COMPILER_TARGET="${FORMAT_COMPILER_TARGET}-cortexa9"
-[[ "$ARM_HARDFLOAT" ]] && echo "=== ARM hardfloat ABI enabled... ===" && export FORMAT_COMPILER_TARGET="${FORMAT_COMPILER_TARGET}-hardfloat"
-[[ "$ARM_SOFTFLOAT" ]] && echo "=== ARM softfloat ABI enabled... ===" && export FORMAT_COMPILER_TARGET="${FORMAT_COMPILER_TARGET}-softfloat"
+[[ "$ARM_NEON" ]] && echo '=== ARM NEON opts enabled... ===' && export FORMAT_COMPILER_TARGET="${FORMAT_COMPILER_TARGET}-neon"
+[[ "$CORTEX_A8" ]] && echo '=== Cortex A8 opts enabled... ===' && export FORMAT_COMPILER_TARGET="${FORMAT_COMPILER_TARGET}-cortexa8"
+[[ "$CORTEX_A9" ]] && echo '=== Cortex A9 opts enabled... ===' && export FORMAT_COMPILER_TARGET="${FORMAT_COMPILER_TARGET}-cortexa9"
+[[ "$ARM_HARDFLOAT" ]] && echo '=== ARM hardfloat ABI enabled... ===' && export FORMAT_COMPILER_TARGET="${FORMAT_COMPILER_TARGET}-hardfloat"
+[[ "$ARM_SOFTFLOAT" ]] && echo '=== ARM softfloat ABI enabled... ===' && export FORMAT_COMPILER_TARGET="${FORMAT_COMPILER_TARGET}-softfloat"
 
-export FORMAT_COMPILER_TARGET_ALT="$FORMAT_COMPILER_TARGET"
+export FORMAT_COMPILER_TARGET_ALT="${FORMAT_COMPILER_TARGET}"
 echo "${FORMAT_COMPILER_TARGET}"
 
-check_opengl()
-{
-   if [ "$BUILD_LIBRETRO_GL" ]; then
-      if [ "$ENABLE_GLES" ]; then
-         echo "=== OpenGL ES enabled ==="
-         export FORMAT_COMPILER_TARGET=$FORMAT_COMPILER_TARGET-gles
-	 export FORMAT_COMPILER_TARGET_ALT=$FORMAT_COMPILER_TARGET
+check_opengl() {
+   if [ "${BUILD_LIBRETRO_GL}" ]; then
+      if [ "${ENABLE_GLES}" ]; then
+         echo '=== OpenGL ES enabled ==='
+         export FORMAT_COMPILER_TARGET="${FORMAT_COMPILER_TARGET}-gles"
       else
-         echo "=== OpenGL enabled ==="
-         export FORMAT_COMPILER_TARGET=$FORMAT_COMPILER_TARGET-opengl
-	 export FORMAT_COMPILER_TARGET_ALT=$FORMAT_COMPILER_TARGET
+         echo '=== OpenGL enabled ==='
+         export FORMAT_COMPILER_TARGET="${FORMAT_COMPILER_TARGET}-opengl"
       fi
+      export FORMAT_COMPILER_TARGET_ALT="${FORMAT_COMPILER_TARGET}"
    else
-      echo "=== OpenGL disabled in build ==="
+      echo '=== OpenGL disabled in build ==='
    fi
 }
 
-build_libretro_ffmpeg()
-{
-   cd "$BASE_DIR"
-   if [ -d "libretro-ffmpeg" ]; then
-      echo "=== Checking OpenGL dependencies ==="
-      check_opengl
-      echo "=== Building FFmpeg ==="
-      cd libretro-ffmpeg
-      ${MAKE} platform=$FORMAT_COMPILER_TARGET -j$JOBS clean || die "Failed to clean FFmpeg"
-      ${MAKE} platform=$FORMAT_COMPILER_TARGET -j$JOBS
-      cp ffmpeg_libretro$FORMAT.$FORMAT_EXT "$RARCH_DIST_DIR"
-   else
-      echo "FFmpeg not fetched, skipping ..."
-   fi
+basic_build() {
+   echo "=== Building ${CORE_TARGET} ==="
+   "${MAKE}" "${CORE_MAKEFILE}" core="${core}" platform="${FORMAT_COMPILER_TARGET}" "${COMPILER}" "-j${JOBS}" clean || die "Failed to clean ${CORE_TARGET}"
+   "${MAKE}" "${CORE_MAKEFILE}" core="${core}" platform="${FORMAT_COMPILER_TARGET}" "${COMPILER}" "-j${JOBS}" || die "Failed to make ${CORE_TARGET}"
+   cp "${CORE_TARGET}${FORMAT}.${FORMAT_EXT}" "${RARCH_DIST_DIR}"
 }
 
-build_libretro_fba_full()
-{
-   cd "$BASE_DIR"
-   if [ -d "libretro-fba" ]; then
-		echo "=== Building Final Burn Alpha (Full) ==="
-      cd libretro-fba/
-      cd svn-current/trunk
-      ${MAKE} -f makefile.libretro platform=$FORMAT_COMPILER_TARGET $COMPILER -j$JOBS clean || die "Failed to clean Final Burn Alpha"
-      ${MAKE} -f makefile.libretro platform=$FORMAT_COMPILER_TARGET $COMPILER -j$JOBS || die "Failed to build Final Burn Alpha"
-      cp fb_alpha_libretro$FORMAT.$FORMAT_EXT "$RARCH_DIST_DIR"
-   else
-      echo "Final Burn Alpha not fetched, skipping ..."
-   fi
+basic_build_alt() {
+   echo "=== Building ${CORE_TARGET} ==="
+   "${MAKE}" "${CORE_MAKEFILE}" core="${core}" platform="${FORMAT_COMPILER_TARGET_ALT}" "${COMPILER}" "-j${JOBS}" || die "Failed to clean ${CORE_TARGET}"
+   "${MAKE}" "${CORE_MAKEFILE}" core="${core}" platform="${FORMAT_COMPILER_TARGET_ALT}" "${COMPILER}" "-j${JOBS}" || die "Filed to build ${CORE_TARGET}"
+   cp "${CORE_TARGET}${FORMAT}.${FORMAT_EXT}" "${RARCH_DIST_DIR}"
 }
 
-build_libretro_pcsx_rearmed()
-{
-   cd "$BASE_DIR"
-   pwd
-   if [ -d "libretro-pcsx-rearmed" ]; then
-      echo "=== Building PCSX ReARMed ==="
-      cd libretro-pcsx-rearmed
-      ${MAKE} -f Makefile.libretro platform=$FORMAT_COMPILER_TARGET $COMPILER -j$JOBS clean || die "Failed to clean PCSX ReARMed"
-      ${MAKE} -f Makefile.libretro platform=$FORMAT_COMPILER_TARGET $COMPILER -j$JOBS || die "Failed to build PCSX ReARMed"
-      cp pcsx_rearmed_libretro$FORMAT.$FORMAT_EXT "$RARCH_DIST_DIR"
-   else
-      echo "PCSX ReARMed not fetched, skipping ..."
-   fi
+build_libretro_ffmpeg() {
+   cd "${BASE_DIR}/libretro-ffmpeg" > /dev/null 2>&1 && \
+      check_opengl && CORE_TARGET='ffmpeg_libretro' basic_build || \
+      echo 'FFmpeg not fetched, skipping...'
 }
 
-build_libretro_mednafen()
-{
-   cd "$BASE_DIR"
-
-   if [ -d "libretro-mednafen" ]; then
-      echo "=== Building Mednafen ==="
-      cd libretro-mednafen
-
-      ${MAKE} core=pce-fast platform=$FORMAT_COMPILER_TARGET_ALT $COMPILER -j$JOBS clean || die "Failed to clean mednafen/${core}"
-      ${MAKE} core=pce-fast platform=$FORMAT_COMPILER_TARGET_ALT $COMPILER -j$JOBS || die "Failed to build mednafen/${core}"
-      cp mednafen_pce_fast_libretro$FORMAT.$FORMAT_EXT $RARCH_DIST_DIR
-      for core in wswan ngp vb
-      do
-         ${MAKE} core=${core} platform=$FORMAT_COMPILER_TARGET $COMPILER -j$JOBS clean || die "Failed to clean mednafen/${core}"
-         ${MAKE} core=${core} platform=$FORMAT_COMPILER_TARGET $COMPILER -j$JOBS || die "Failed to build mednafen/${core}"
-         cp mednafen_$(echo ${core} | tr '[\-]' '[_]')_libretro$FORMAT.$FORMAT_EXT "$RARCH_DIST_DIR"
-      done
-   else
-      echo "Mednafen not fetched, skipping ..."
-   fi
+build_libretro_fba_full() {
+   cd "${BASE_DIR}/libretro-fba/svn-current/trunk" > /dev/null 2>&1 && \
+      CORE_TARGET='ffmpeg_libretro' CORE_MAKEFILE='-f makefile.libretro' basic_build || \
+      echo 'Final Burn Alpha not fetched, skipping...'
 }
 
-build_libretro_mednafen_psx()
-{
-   cd "$BASE_DIR"
-
-   if [ -d "libretro-mednafen" ]; then
-      echo "=== Building Mednafen PSX ==="
-      cd libretro-mednafen
-
-      for core in psx
-      do
-         ${MAKE} core=${core} platform=$FORMAT_COMPILER_TARGET $COMPILER -j$JOBS clean || die "Failed to clean mednafen/${core}"
-         ${MAKE} core=${core} platform=$FORMAT_COMPILER_TARGET $COMPILER -j$JOBS || die "Failed to build mednafen/${core}"
-         cp mednafen_$(echo ${core} | tr '[\-]' '[_]')_libretro$FORMAT.$FORMAT_EXT "$RARCH_DIST_DIR"
-      done
-   else
-      echo "Mednafen not fetched, skipping ..."
-   fi
+build_libretro_pcsx_rearmed() {
+   cd "${BASE_DIR}/libretro-pcsx-rearmed" > /dev/null 2>&1 && \
+      CORE_TARGET='pcsx_rearmed_libretro' CORE_MAKEFILE='-f Makefile.libretro' basic_build || \
+      echo 'PCSX ReARMed not fetched, skipping...'
 }
 
-build_libretro_mednafen_gba()
-{
-   cd "$BASE_DIR"
-
-   if [ -d "libretro-mednafen" ]; then
-      echo "=== Building Mednafen VBA ==="
-      cd libretro-mednafen
-
-      for core in gba
-      do
-         ${MAKE} core=${core} platform=$FORMAT_COMPILER_TARGET $COMPILER -j$JOBS clean || die "Failed to clean mednafen/${core}"
-         ${MAKE} core=${core} platform=$FORMAT_COMPILER_TARGET $COMPILER -j$JOBS || die "Failed to build mednafen/${core}"
-         cp mednafen_$(echo ${core} | tr '[\-]' '[_]')_libretro$FORMAT.$FORMAT_EXT "$RARCH_DIST_DIR"
-      done
-   else
-      echo "Mednafen not fetched, skipping ..."
-   fi
+build_libretro_mednafen() {
+   cd "${BASE_DIR}/libretro-mednafen" > /dev/null 2>&1 && \
+      core='pce-fast' CORE_TARGET="mednafen_${core//-/_}_libretro" basic_build_alt && \
+      for core in wswan ngp vb psx gba snes; do 
+         core="${core}" CORE_TARGET="mednafen_${core//-/_}_libretro" basic_build
+      done || echo 'Mednafen not fetched, skipping...'
 }
 
-build_libretro_mednafen_snes()
-{
-   cd "$BASE_DIR"
-
-   if [ -d "libretro-mednafen" ]; then
-      echo "=== Building Mednafen bSNES ==="
-      cd libretro-mednafen
-
-      for core in snes
-      do
-         ${MAKE} core=${core} platform=$FORMAT_COMPILER_TARGET $COMPILER -j$JOBS clean || die "Failed to clean mednafen/${core}"
-         ${MAKE} core=${core} platform=$FORMAT_COMPILER_TARGET $COMPILER -j$JOBS || die "Failed to build mednafen/${core}"
-         cp mednafen_$(echo ${core} | tr '[\-]' '[_]')_libretro$FORMAT.$FORMAT_EXT "$RARCH_DIST_DIR"
-      done
-   else
-      echo "Mednafen not fetched, skipping ..."
-   fi
+build_libretro_stella() {
+   cd "${BASE_DIR}/libretro-stella" > /dev/null 2>&1 && \
+      CORE_TARGET='stella_libretro' basic_build || \
+      echo 'Stella not fetched, skipping...'
 }
 
-build_libretro_stella()
-{
-   cd "$BASE_DIR"
-   if [ -d "libretro-stella" ]; then
-      echo "=== Building Stella ==="
-      cd libretro-stella
-      ${MAKE} -f Makefile platform=${FORMAT_COMPILER_TARGET} $COMPILER clean
-      ${MAKE} -f Makefile platform=${FORMAT_COMPILER_TARGET} $COMPILER -j$JOBS
-
-      cp stella_libretro${FORMAT}.${FORMAT_EXT} "$RARCH_DIST_DIR"
-   else
-      echo "Stella not fetched, skipping ..."
-   fi
+build_libretro_quicknes() {
+   cd "${BASE_DIR}/libretro-quicknes/libretro" > /dev/null 2>&1 && \
+      CORE_TARGET='quicknes_libretro' basic_build || \
+      echo 'QuickNES not fetched, skipping...'
 }
 
-build_libretro_quicknes()
-{
-   cd "$BASE_DIR"
-   if [ -d "libretro-quicknes" ]; then
-      echo "=== Building QuickNES ==="
-      cd libretro-quicknes/libretro
-      ${MAKE} -f Makefile platform=${FORMAT_COMPILER_TARGET} $COMPILER -j$JOBS clean || die "Failed to clean QuickNES"
-      ${MAKE} -f Makefile platform=${FORMAT_COMPILER_TARGET} $COMPILER -j$JOBS || die "Failed to build QuickNES"
-      cp quicknes_libretro${FORMAT}.${FORMAT_EXT} "$RARCH_DIST_DIR"
-   else
-      echo "QuickNES not fetched, skipping ..."
-   fi
+build_libretro_desmume() {
+   cd "${BASE_DIR}/libretro-desmume" > /dev/null 2>&1 && \
+      CORE_TARGET='desmume_libretro' CORE_MAKEFILE='-f Makefile.libretro' basic_build || \
+      echo 'Desmume not fetched, skipping...'
 }
 
-build_libretro_desmume()
-{
-   cd "$BASE_DIR"
-   if [ -d "libretro-desmume" ]; then
-      echo "=== Building Desmume ==="
-      cd libretro-desmume
-      ${MAKE} -f Makefile.libretro platform=${FORMAT_COMPILER_TARGET} -j$JOBS clean || die "Failed to clean Desmume"
-      ${MAKE} -f Makefile.libretro platform=${FORMAT_COMPILER_TARGET} -j$JOBS || die "Failed to build Desmume"
-      cp desmume_libretro${FORMAT}.${FORMAT_EXT} "$RARCH_DIST_DIR"
-   else
-      echo "Desmume not fetched, skipping ..."
-   fi
+build_libretro_s9x() {
+   cd "${BASE_DIR}/libretro-s9x/libretro" > /dev/null 2>&1 && \
+      CORE_TARGET='snes9x_libretro' basic_build || \
+      echo 'SNES9x not fetched, skipping...'
 }
 
-build_libretro_s9x()
-{
-   cd "$BASE_DIR"
-   if [ -d "libretro-s9x" ]; then
-      echo "=== Building SNES9x ==="
-      cd libretro-s9x/libretro
-      ${MAKE} -f Makefile platform=${FORMAT_COMPILER_TARGET} $COMPILER -j$JOBS clean || die "Failed to clean SNES9x"
-      ${MAKE} -f Makefile platform=${FORMAT_COMPILER_TARGET} $COMPILER -j$JOBS || die "Failed to build SNES9x"
-      cp snes9x_libretro${FORMAT}.${FORMAT_EXT} "$RARCH_DIST_DIR"
-   else
-      echo "SNES9x not fetched, skipping ..."
-   fi
+build_libretro_s9x_next() {
+   cd "${BASE_DIR}/libretro-s9x-next" > /dev/null 2>&1 && \
+      CORE_TARGET='snes9x_next_libretro' CORE_MAKEFILE='-f Makefile.libretro' basic_build_alt || \
+      echo 'SNES9x-Next not fetched, skipping...'
 }
 
-build_libretro_s9x_next()
-{
-   cd "$BASE_DIR"
-   if [ -d "libretro-s9x-next" ]; then
-      echo "=== Building SNES9x-Next ==="
-      cd libretro-s9x-next/
-      ${MAKE} -f Makefile.libretro platform=${FORMAT_COMPILER_TARGET_ALT} $COMPILER -j$JOBS clean || die "Failed to build SNES9x-Next"
-      ${MAKE} -f Makefile.libretro platform=${FORMAT_COMPILER_TARGET_ALT} $COMPILER -j$JOBS || die "Failed to build SNES9x-Next"
-      cp snes9x_next_libretro${FORMAT}.${FORMAT_EXT} "$RARCH_DIST_DIR"
-      cd ..
-   else
-      echo "SNES9x-Next not fetched, skipping ..."
-   fi
+build_libretro_genplus() {
+   cd "${BASE_DIR}/libretro-genplus" > /dev/null 2>&1 && \
+      CORE_TARGET='genesis_plus_gx_libretro' CORE_MAKEFILE='-f Makefile.libretro' basic_build || \
+      echo 'Genplus GX not fetched, skipping...'
 }
 
-build_libretro_genplus()
-{
-   cd "$BASE_DIR"
-   if [ -d "libretro-genplus" ]; then
-      echo "=== Building Genplus GX ==="
-      cd libretro-genplus/
-      ${MAKE} -f Makefile.libretro platform=$FORMAT_COMPILER_TARGET $COMPILER -j$JOBS clean || die "Failed to clean Genplus GX"
-      ${MAKE} -f Makefile.libretro platform=$FORMAT_COMPILER_TARGET $COMPILER -j$JOBS || die "Failed to build Genplus GX"
-      cp genesis_plus_gx_libretro${FORMAT}.${FORMAT_EXT} "$RARCH_DIST_DIR"
-   else
-      echo "Genplus GX not fetched, skipping ..."
-   fi
+build_libretro_mame078() {
+   cd "${BASE_DIR}/libretro/mame078" > /dev/null 2>&1 && \
+      CORE_TARGET='mame078_libretro' CORE_MAKEFILE='-f makefile' basic_build
+      echo 'MAME 0.78 not fetched, skipping...'
 }
 
-build_libretro_mame078()
-{
-   cd "$BASE_DIR"
-   if [ -d "libretro-mame078" ]; then
-      echo "=== Building MAME 0.78 ==="
-      cd libretro-mame078
-
-      ${MAKE} -f makefile platform=${FORMAT_COMPILER_TARGET} $COMPILER clean || die "Failed to clean MAME 0.78"
-      ${MAKE} -f makefile platform=${FORMAT_COMPILER_TARGET} $COMPILER || die "Failed to build MAME 0.78"
-      cp mame078_libretro${FORMAT}.${FORMAT_EXT} "$RARCH_DIST_DIR"
-   else
-      echo "MAME 0.78 not fetched, skipping ..."
-   fi
-}
-
-build_libretro_vba()
-{
-   cd "$BASE_DIR"
-   if [ -d "libretro-vba" ]; then
-      echo "=== Building VBA-Next ==="
-      cd libretro-vba/
-      ${MAKE} -f Makefile.libretro platform=$FORMAT_COMPILER_TARGET_ALT $COMPILER -j$JOBS clean || die "Failed to clean VBA-Next"
-      ${MAKE} -f Makefile.libretro platform=$FORMAT_COMPILER_TARGET_ALT $COMPILER -j$JOBS || die "Failed to build VBA-Next"
-      cp vba_next_libretro$FORMAT.$FORMAT_EXT "$RARCH_DIST_DIR"
-   else
+build_libretro_vba() {
+   cd "${BASE_DIR}/libretro-vba" > /dev/null 2>&1 && \
+      CORE_TARGET='vba_next_libretro' CORE_MAKEFILE='-f Makefile.libretro' basic_build_alt || \
       echo "VBA-Next not fetched, skipping ..."
+}
+
+build_libretro_fceu() {
+   cd "${BASE_DIR}/libretro-fceu/fceumm-code" > /dev/null 2>&1 && \
+      #${MAKE} -C fceumm-code -f Makefile.libretro platform=$FORMAT_COMPILER_TARGET $COMPILER -j$JOBS clean || die "Failed to clean FCEUmm"
+      #${MAKE} -C fceumm-code -f Makefile.libretro platform=$FORMAT_COMPILER_TARGET $COMPILER -j$JOBS || die "Failed to build FCEUmm"
+      #cp fceumm-code/fceumm_libretro$FORMAT.$FORMAT_EXT "$RARCH_DIST_DIR"
+      CORE_TARGET='fceumm_libretro' CORE_MAKEFILE='-f Makefile.libretro' basic_build || \
+      echo 'FCEUmm not fetched, skipping...'
+}
+
+build_libretro_gambatte() {
+   cd "${BASE_DIR}/libretro-gambatte/libgambatte" > /dev/null 2>&1 && \
+      CORE_TARGET='gambatte_libretro' CORE_MAKEFILE='-f Makefile.libretro' basic_build_alt || \
+      echo 'Gambatte not fetched, skipping...'
    fi
 }
 
-build_libretro_fceu()
-{
-   cd "$BASE_DIR"
-   if [ -d "libretro-fceu" ]; then
-      echo "=== Building FCEUmm ==="
-      cd libretro-fceu
-      ${MAKE} -C fceumm-code -f Makefile.libretro platform=$FORMAT_COMPILER_TARGET $COMPILER -j$JOBS clean || die "Failed to clean FCEUmm"
-      ${MAKE} -C fceumm-code -f Makefile.libretro platform=$FORMAT_COMPILER_TARGET $COMPILER -j$JOBS || die "Failed to build FCEUmm"
-      cp fceumm-code/fceumm_libretro$FORMAT.$FORMAT_EXT "$RARCH_DIST_DIR"
-   else
-      echo "FCEUmm not fetched, skipping ..."
-   fi
+build_libretro_nx() {
+   cd "${BASE_DIR}/libretro-nx" > /dev/null 2>&1 && \
+      CORE_TARGET='nxengine_libretro' basic_build || \
+      echo 'NXEngine not fetched, skipping'
 }
 
-build_libretro_gambatte()
-{
-   cd "$BASE_DIR"
-   if [ -d "libretro-gambatte" ]; then
-      echo "=== Building Gambatte ==="
-      cd libretro-gambatte/libgambatte
-      ${MAKE} -f Makefile.libretro platform=$FORMAT_COMPILER_TARGET_ALT $COMPILER -j$JOBS clean || die "Failed to clean Gambatte"
-      ${MAKE} -f Makefile.libretro platform=$FORMAT_COMPILER_TARGET_ALT $COMPILER -j$JOBS || die "Failed to build Gambatte"
-      cp gambatte_libretro$FORMAT.$FORMAT_EXT "$RARCH_DIST_DIR"
-   else
-      echo "Gambatte not fetched, skipping ..."
-   fi
+build_libretro_prboom() {
+   cd "${BASE_DIR}/libretro-prboom" > /dev/null 2>&1 && \
+      CORE_TARGET='prboom_libretro' basic_build_alt || \
+      echo 'PRBoom not fetched, skipping...'
 }
 
-build_libretro_nx()
-{
-   cd "$BASE_DIR"
-   if [ -d "libretro-nx" ]; then
-      echo "=== Building NXEngine ==="
-      cd libretro-nx
-      ${MAKE} platform=$FORMAT_COMPILER_TARGET $COMPILER -j$JOBS clean || die "Failed to clean NXEngine"
-      ${MAKE} platform=$FORMAT_COMPILER_TARGET $COMPILER -j$JOBS || die "Failed to build NXEngine"
-      cp nxengine_libretro$FORMAT.$FORMAT_EXT "$RARCH_DIST_DIR"
-   else
-      echo "NXEngine not fetched, skipping ..."
-   fi
+build_libretro_meteor() {
+   cd "${BASE_DIR}/libretro-meteor/libretro" > /dev/null 2>&1 && \
+      CORE_TARGET='meteor_libretro' basic_build || \
+      echo 'Meteor not fetched, skipping...'
 }
 
-build_libretro_prboom()
-{
-   cd "$BASE_DIR"
-   if [ -d "libretro-prboom" ]; then
-      echo "=== Building PRBoom ==="
-      cd libretro-prboom
-      ${MAKE} platform=${FORMAT_COMPILER_TARGET_ALT} $COMPILER -j$JOBS clean || die "Failed to clean PRBoom"
-      ${MAKE} platform=${FORMAT_COMPILER_TARGET_ALT} $COMPILER -j$JOBS || die "Failed to build PRBoom"
-      cp prboom_libretro${FORMAT}.${FORMAT_EXT} "$RARCH_DIST_DIR"
-   else
-      echo "PRBoom not fetched, skipping ..."
-   fi
+build_libretro_nestopia() {
+   cd "${BASE_DIR}/libretro-nestopia/libretro" > /dev/null 2>&1 && \
+      CORE_TARGET='nestopia_libretro' basic_build || \
+      echo 'Nestopia not fetched, skipping...'
 }
 
-build_libretro_meteor()
-{
-   cd "$BASE_DIR"
-   if [ -d "libretro-meteor" ]; then
-      echo "=== Building Meteor ==="
-      cd libretro-meteor/libretro
-      ${MAKE} -f Makefile platform=${FORMAT_COMPILER_TARGET} $COMPILER -j$JOBS clean || die "Failed to clean Meteor"
-      ${MAKE} -f Makefile platform=${FORMAT_COMPILER_TARGET} $COMPILER -j$JOBS || die "Failed to build Meteor"
-      cp meteor_libretro${FORMAT}.${FORMAT_EXT} "$RARCH_DIST_DIR"
-   else
-      echo "Meteor not fetched, skipping ..."
-   fi
+build_libretro_tyrquake() {
+   cd "${BASE_DIR}/libretro-tyrquake" > /dev/null 2>&1 && \
+      CORE_TARGET='tryquake_libretro' CORE_MAKEFILE='-f Makefile.libretro' basic_build || \
+      echo 'Tyr Quake not fetched, skipping...'
 }
 
-build_libretro_nestopia()
-{
-   cd "$BASE_DIR"
-   if [ -d "libretro-nestopia" ]; then
-      echo "=== Building Nestopia ==="
-      cd libretro-nestopia/libretro
-      ${MAKE} platform=${FORMAT_COMPILER_TARGET} $COMPILER -j$JOBS clean || die "Failed to clean Nestopia"
-      ${MAKE} platform=${FORMAT_COMPILER_TARGET} $COMPILER -j$JOBS || die "Failed to build Nestopia"
-      cp nestopia_libretro${FORMAT}.${FORMAT_EXT} "$RARCH_DIST_DIR"
-   else
-      echo "Nestopia not fetched, skipping ..."
-   fi
+build_libretro_modelviewer() {
+   cd "${BASE_DIR}/libretro-gl-modelviewer" > /dev/null 2>&1 && \
+      check_opengl && CORE_TARGET='modelviewer_libretro' CORE_MAKEFILE='-f Makefile.libretro' basic_build || \
+      echo 'ModelViewer not fetched, skipping...'
 }
 
-build_libretro_tyrquake()
-{
-   cd "$BASE_DIR"
-   if [ -d "libretro-tyrquake" ]; then
-      echo "=== Building Tyr Quake ==="
-      cd libretro-tyrquake
-      ${MAKE} -f Makefile.libretro platform=${FORMAT_COMPILER_TARGET} $COMPILER -j$JOBS clean || die "Failed to clean Tyr Quake"
-      ${MAKE} -f Makefile.libretro platform=${FORMAT_COMPILER_TARGET} $COMPILER -j$JOBS || die "Failed to build Tyr Quake"
-      cp tyrquake_libretro${FORMAT}.${FORMAT_EXT} "$RARCH_DIST_DIR"
-   else
-      echo "Tyr Quake not fetched, skipping ..."
-   fi
+build_libretro_scenewalker() {
+   cd "${BASE_DIR}/libretro-gl-scenewalker" > /dev/null 2>&1 && \
+      CORE_TARGET='scenewalker_libretro' basic_build || \
+      echo 'SceneWalker not fetched, skipping...'
 }
 
-build_libretro_modelviewer()
-{
-   cd "$BASE_DIR"
-   if [ -d "libretro-gl-modelviewer" ]; then
-      echo "=== Building Modelviewer (GL) ==="
-      check_opengl
-      cd libretro-gl-modelviewer
-      ${MAKE} -f Makefile platform=${FORMAT_COMPILER_TARGET} $COMPILER -j$JOBS clean || die "Failed to clean Modelviewer"
-      ${MAKE} -f Makefile platform=${FORMAT_COMPILER_TARGET} $COMPILER -j$JOBS || die "Failed to build Modelviewer"
-      cp modelviewer_libretro${FORMAT}.${FORMAT_EXT} "$RARCH_DIST_DIR"
-   else
-      echo "ModelViewer not fetched, skipping ..."
-   fi
+build_libretro_instancingviewer() {
+   cd "${BASE_DIR}/libretro-gl-instancingviewer" > /dev/null 2>&1 && \
+      CORE_TARGET='instancingviewer_libretro' basic_build || \
+      echo 'InstancingViewer not fetched, skipping...'
 }
 
-build_libretro_scenewalker()
-{
-   cd "$BASE_DIR"
-   if [ -d "libretro-gl-scenewalker" ]; then
-      echo "=== Building SceneWalker (GL) ==="
-      check_opengl
-      cd libretro-gl-scenewalker
-      ${MAKE} -f Makefile platform=${FORMAT_COMPILER_TARGET} $COMPILER -j$JOBS clean || die "Failed to clean SceneWalker"
-      ${MAKE} -f Makefile platform=${FORMAT_COMPILER_TARGET} $COMPILER -j$JOBS || die "Failed to build SceneWalker"
-      cp scenewalker_libretro${FORMAT}.${FORMAT_EXT} "$RARCH_DIST_DIR"
-   else
-      echo "SceneWalker not fetched, skipping ..."
-   fi
+build_libretro_scummvm() {
+   cd "${BASE_DIR}/libretro-scummvm/backends/platform/libretro/build" > /dev/null 2>&1 && \
+      CORE_TARGET='scummvm_libretro' basic_build || \
+      echo 'ScummVM not fetched, skipping...'
 }
 
-build_libretro_instancingviewer()
-{
-   cd "$BASE_DIR"
-   if [ -d "libretro-gl-instancingviewer" ]; then
-      echo "=== Building Instancing Viewer (GL) ==="
-      check_opengl
-      cd libretro-gl-instancingviewer
-      ${MAKE} -f Makefile platform=${FORMAT_COMPILER_TARGET} $COMPILER -j$JOBS clean || die "Failed to clean InstancingViewer"
-      ${MAKE} -f Makefile platform=${FORMAT_COMPILER_TARGET} $COMPILER -j$JOBS || die "Failed to build InstancingViewer"
-      cp instancingviewer_libretro${FORMAT}.${FORMAT_EXT} "$RARCH_DIST_DIR"
-   else
-      echo "InstancingViewer not fetched, skipping ..."
-   fi
+build_libretro_dosbox() {
+   cd "${BASE_DIR}/libretro-dosbox" > /dev/null 2>&1 && \
+      CORE_TARGET='dosbox_libretro' CORE_MAKEFILE='-f Makefile.libretro' basic_build || \
+      echo 'DOSbox not fetched, skipping...'
 }
 
-build_libretro_scummvm()
-{
-   cd "$BASE_DIR"
-   if [ -d "libretro-scummvm" ]; then
-      echo "=== Building ScummVM ==="
-      cd libretro-scummvm/backends/platform/libretro/build
-      ${MAKE} -f Makefile platform=${FORMAT_COMPILER_TARGET} $COMPILER -j$JOBS clean || die "Failed to clean ScummVM"
-      ${MAKE} -f Makefile platform=${FORMAT_COMPILER_TARGET} $COMPILER -j$JOBS || die "Failed to build ScummVM"
-      cp scummvm_libretro${FORMAT}.${FORMAT_EXT} "$RARCH_DIST_DIR"
-   else
-      echo "ScummVM not fetched, skipping ..."
-   fi
+build_libretro_bsnes() {
+   cd "${BASE_DIR}/libretro-bsnes/perf/higan" > /dev/null 2>&1 && \
+      echo '=== Building bSNES: performance ===' && rm -f obj/*.{o,"${FORMAT_EXT}"} && \
+      "${MAKE}" platform="${FORMAT_COMPILER_TARGET}" compiler="$CC" ui='target-libretro' profile='performance' "-j${JOBS}" || die 'Failed to build bSNES performance core' && \
+      cp -f "out/bsnes_libretro${FORMAT}.${FORMAT_EXT}" "${RARCH_DIST_DIR}/bsnes_libretro_performance.${FORMAT_EXT}" || echo 'bSNES performance not fetched, skipping...'
+
+   cd "${BASE_DIR}/libretro-bsnes/balanced" > /dev/null 2>&1 && \
+      echo '=== Building bSNES: balanced ===' && rm -f obj/*.{o,"${FORMAT_EXT}"} && \
+      "${MAKE}" platform="${FORMAT_COMPILER_TARGET}" compiler="$CC" ui='target-libretro' profile='balanced' "-j${JOBS}" || die 'Failed to build bSNES balanced core' && \
+      cp -f "out/bsnes_libretro${FORMAT}.${FORMAT_EXT}" "${RARCH_DIST_DIR}/bsnes_libretro_balanced.${FORMAT_EXT}" || echo 'bSNES compat not fetched, skipping...'
+
+   cd "${BASE_DIR}/libretro-bsnes/higan" > /dev/null 2>&1 && \
+      echo '=== Building bSNES: accuracy ===' && rm -f obj/*.{o,"${FORMAT_EXT}"}
+      "${MAKE}" platform="${FORMAT_COMPILER_TARGET}" compiler="$CC" ui='target-libretro' profile='accuracy' "-j${JOBS}" || die 'Failed to build bSNES accuracy core'
+      cp -f "out/bsnes_libretro${FORMAT}.${FORMAT_EXT}" "${RARCH_DIST_DIR}/bsnes_libretro_accuracy.${FORMAT_EXT}" || echo 'bSNES not fetched, skipping...'
 }
 
-build_libretro_dosbox()
-{
-   cd "$BASE_DIR"
-   if [ -d "libretro-dosbox" ]; then
-      echo "=== Building DOSbox ==="
-      cd libretro-dosbox
-      ${MAKE} -f Makefile.libretro platform=${FORMAT_COMPILER_TARGET} $COMPILER -j$JOBS clean || die "Failed to clean DOSbox"
-      ${MAKE} -f Makefile.libretro platform=${FORMAT_COMPILER_TARGET} $COMPILER -j$JOBS || die "Failed to build DOSbox"
-      cp dosbox_libretro${FORMAT}.${FORMAT_EXT} "$RARCH_DIST_DIR"
-   else
-      echo "DOSbox not fetched, skipping ..."
-   fi
+build_libretro_bnes() {
+   cd "${BASE_DIR}/libretro-bnes" > /dev/null 2>&1 && \
+      echo "=== Building bNES ===" && mkdir -p obj && \
+      "${MAKE}" "-j${JOBS}" clean || die 'Failed to clean bNES' && \
+      "${MAKE}" "${COMPILER}" "-j${JOBS}" || die 'Failed to build bNES' && \
+      cp "libretro${FORMAT}.${FORMAT_EXT}" "${RARCH_DIST_DIR}/bnes_libretro.${FORMAT_EXT}" || \
+      echo 'bNES not fetched, skipping...'
 }
 
-build_libretro_bsnes()
-{
-   cd "$BASE_DIR"
-   if [ -d "libretro-bsnes/perf" ]; then
-      echo "=== Building bSNES performance ==="
-      cd libretro-bsnes/perf/higan
-      rm -f obj/*.o
-      rm -f out/*.${FORMAT_EXT}
-      ${MAKE} -f Makefile platform=${FORMAT_COMPILER_TARGET} compiler="$CC" ui=target-libretro profile=performance -j$JOBS || die "Failed to build bSNES performance core"
-      cp -f out/bsnes_libretro${FORMAT}.${FORMAT_EXT} "$RARCH_DIST_DIR"/bsnes_libretro_performance.${FORMAT_EXT}
-   else
-      echo "bSNES performance not fetched, skipping ..."
-   fi
-
-   cd "$BASE_DIR"
-   if [ -d "libretro-bsnes/balanced" ]; then
-      echo "=== Building bSNES balanced ==="
-      cd libretro-bsnes/balanced/higan
-      rm -f obj/*.o
-      rm -f out/*.${FORMAT_EXT}
-      ${MAKE} -f Makefile platform=${FORMAT_COMPILER_TARGET} compiler="$CC" ui=target-libretro profile=balanced -j$JOBS || die "Failed to build bSNES balanced core"
-      cp -f out/bsnes_libretro${FORMAT}.${FORMAT_EXT} "$RARCH_DIST_DIR"/bsnes_libretro_balanced.${FORMAT_EXT}
-   else
-      echo "bSNES compat not fetched, skipping ..."
-   fi
-
-   cd "$BASE_DIR"
-   if [ -d "libretro-bsnes" ]; then
-      echo "=== Building bSNES accuracy ==="
-      cd libretro-bsnes/higan
-      rm -f obj/*.o
-      rm -f out/*.${FORMAT_EXT}
-      ${MAKE} -f Makefile platform=${FORMAT_COMPILER_TARGET} compiler="$CC" ui=target-libretro profile=accuracy -j$JOBS || die "Failed to build bSNES accuracy core"
-      cp -f out/bsnes_libretro${FORMAT}.${FORMAT_EXT} "$RARCH_DIST_DIR"/bsnes_libretro_accuracy.${FORMAT_EXT}
-   fi
+build_libretro_mupen64() {
+   cd "${BASE_DIR}/libretro-mupen64plus" > /dev/null 2>&1 && \
+      echo "=== Building Mupen64Plus ===" && check_opengl && mkdir -p obj && \
+      "${MAKE}" "-j${JOBS}" clean || die 'Failed to clean Mupen 64' && \
+      "${MAKE}" "${COMPILER}" "-j${JOBS}" || die 'Failed to build Mupen 64' && \
+      cp "mupen64plus_libretro${FORMAT}.${FORMAT_EXT}" "$RARCH_DIST_DIR" || \
+      echo 'Mupen64 Plus not fetched, skipping...'
 }
 
-build_libretro_bnes()
-{
-   cd "$BASE_DIR"
-   if [ -d "libretro-bnes" ]; then
-      echo "=== Building bNES ==="
-      cd libretro-bnes
-      mkdir -p obj
-      ${MAKE} -j$JOBS clean || die "Failed to clean bNES"
-      ${MAKE} $COMPILER -j$JOBS || die "Failed to build bNES"
-      cp libretro${FORMAT}.${FORMAT_EXT} "$RARCH_DIST_DIR"/bnes_libretro.${FORMAT_EXT}
-   else
-      echo "bNES not fetched, skipping ..."
-   fi
+build_libretro_picodrive() {
+   cd "${BASE_DIR}/libretro-picodrive" > /dev/null 2>&1 && \
+      CORE_TARGET='picodrive_libretro' CORE_MAKEFILE='-f Makefile.libretro' basic_build || \
+      echo 'Picodrive not fetched, skipping...'
 }
 
-build_libretro_mupen64()
-{
-   cd "$BASE_DIR"
-   if [ -d "libretro-mupen64plus" ]; then
-      echo "=== Building Mupen 64 Plus ==="
-      check_opengl
-      cd libretro-mupen64plus
-      mkdir -p obj
-      ${MAKE} -j$JOBS clean || die "Failed to clean Mupen 64"
-      ${MAKE} $COMPILER -j$JOBS || die "Failed to build Mupen 64"
-      cp mupen64plus_libretro${FORMAT}.${FORMAT_EXT} "$RARCH_DIST_DIR"
-   else
-      echo "Mupen64 Plus not fetched, skipping ..."
-   fi
-}
-
-build_libretro_picodrive()
-{
-   cd "$BASE_DIR"
-   pwd
-   if [ -d "libretro-picodrive" ]; then
-      echo "=== Building Picodrive ==="
-      cd libretro-picodrive
-      ${MAKE} -f Makefile.libretro platform=$FORMAT_COMPILER_TARGET $COMPILER -j$JOBS clean || die "Failed to clean Picodrive"
-      ${MAKE} -f Makefile.libretro platform=$FORMAT_COMPILER_TARGET $COMPILER -j$JOBS || die "Failed to build PCSX Picodrive"
-      cp picodrive_libretro$FORMAT.$FORMAT_EXT "$RARCH_DIST_DIR"
-   else
-      echo "Picodrive not fetched, skipping ..."
-   fi
-}
-
-create_dist_dir()
-{
-   if [ -d $RARCH_DIST_DIR ]; then
-      echo "Directory $RARCH_DIST_DIR already exists, skipping creation..."
-   else
-      mkdir -p "$RARCH_DIST_DIR"
-   fi
-}
-
-create_dist_dir
+[[ ! -d "${RARCH_DIST_DIR}" ]] && mkdir -p "${RARCH_DIST_DIR}" || echo "Specified '${RARCH_DIST_DIR}' already exists..."
