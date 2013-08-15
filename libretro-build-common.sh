@@ -119,8 +119,8 @@ build_libretro_mame078() {
       echo 'MAME 0.78 not fetched, skipping...'
 }
 
-build_libretro_vba() {
-   cd "${BASE_DIR}/libretro-vba" > /dev/null 2>&1 && \
+build_libretro_vba_next() {
+   cd "${BASE_DIR}/libretro-vba-next" > /dev/null 2>&1 && \
       CORE_TARGET='vba_next_libretro' CORE_MAKEFILE='-f Makefile.libretro' basic_build_alt || \
       echo "VBA-Next not fetched, skipping ..."
 }
