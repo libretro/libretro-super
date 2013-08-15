@@ -64,12 +64,12 @@ build_libretro_genplus()
    fi
 }
 
-build_libretro_vba()
+build_libretro_vba_next()
 {
    cd $BASE_DIR
-   if [ -d "libretro-vba" ]; then
+   if [ -d "libretro-vba-next" ]; then
       echo "=== Building VBA-Next ==="
-      cd libretro-vba/
+      cd libretro-vba-next/
       cd libretro/msvc
       cmd.exe /k $MSVC_NAME.bat
       cp $MSVC_NAME/Release/vba_next_libretro$FORMAT.$FORMAT_EXT "$RARCH_DIST_DIR"

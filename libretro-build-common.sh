@@ -266,12 +266,12 @@ build_libretro_mame078()
    fi
 }
 
-build_libretro_vba()
+build_libretro_vba_next()
 {
    cd "$BASE_DIR"
-   if [ -d "libretro-vba" ]; then
+   if [ -d "libretro-vba-next" ]; then
       echo "=== Building VBA-Next ==="
-      cd libretro-vba/
+      cd libretro-vba-next/
       ${MAKE} -f Makefile.libretro platform=$FORMAT_COMPILER_TARGET_ALT $COMPILER -j$JOBS clean || die "Failed to clean VBA-Next"
       ${MAKE} -f Makefile.libretro platform=$FORMAT_COMPILER_TARGET_ALT $COMPILER -j$JOBS || die "Failed to build VBA-Next"
       cp vba_next_libretro$FORMAT.$FORMAT_EXT "$RARCH_DIST_DIR"

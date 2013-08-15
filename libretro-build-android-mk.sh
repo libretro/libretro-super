@@ -178,12 +178,12 @@ build_libretro_fba_full()
    fi
 }
 
-build_libretro_vba()
+build_libretro_vba_next()
 {
    cd $BASE_DIR
-   if [ -d "libretro-vba" ]; then
+   if [ -d "libretro-vba-next" ]; then
       echo "=== Building VBA-Next ==="
-      cd libretro-vba/
+      cd libretro-vba-next/
       cd libretro/jni
       ndk-build clean APP_ABI="armeabi-v7a mips x86"
       ndk-build -j$JOBS APP_ABI="armeabi-v7a mips x86"
@@ -462,7 +462,7 @@ else
    build_libretro_s9x_next
    build_libretro_genplus
    build_libretro_fba_full
-   build_libretro_vba
+   build_libretro_vba_next
    build_libretro_fceu
    build_libretro_gambatte
    build_libretro_nx
