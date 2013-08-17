@@ -138,7 +138,6 @@ build_libretro_gambatte() {
    cd "${BASE_DIR}/libretro-gambatte/libgambatte" > /dev/null 2>&1 && \
       CORE_TARGET='gambatte_libretro' CORE_MAKEFILE='-f Makefile.libretro' basic_build_alt || \
       echo 'Gambatte not fetched, skipping...'
-   fi
 }
 
 build_libretro_nx() {
