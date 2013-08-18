@@ -39,15 +39,15 @@ check_opengl() {
 
 basic_build() {
    echo "=== Building ${CORE_TARGET} ==="
-   "${MAKE}" "${CORE_MAKEFILE}" core="${core}" platform="${FORMAT_COMPILER_TARGET}" "${COMPILER}" "-j${JOBS}" clean || die "Failed to clean ${CORE_TARGET}"
-   "${MAKE}" "${CORE_MAKEFILE}" core="${core}" platform="${FORMAT_COMPILER_TARGET}" "${COMPILER}" "-j${JOBS}" || die "Failed to make ${CORE_TARGET}"
+   "${MAKE}" --file="${CORE_MAKEFILE:-Makefile}" core="${core}" platform="${FORMAT_COMPILER_TARGET}" "${COMPILER}" "-j${JOBS}" clean || die "Failed to clean ${CORE_TARGET}"
+   "${MAKE}" --file="${CORE_MAKEFILE:-Makefile}" core="${core}" platform="${FORMAT_COMPILER_TARGET}" "${COMPILER}" "-j${JOBS}" || die "Failed to make ${CORE_TARGET}"
    cp "${CORE_TARGET}${FORMAT}.${FORMAT_EXT}" "${RARCH_DIST_DIR}"
 }
 
 basic_build_alt() {
    echo "=== Building ${CORE_TARGET} ==="
-   "${MAKE}" "${CORE_MAKEFILE}" core="${core}" platform="${FORMAT_COMPILER_TARGET_ALT}" "${COMPILER}" "-j${JOBS}" || die "Failed to clean ${CORE_TARGET}"
-   "${MAKE}" "${CORE_MAKEFILE}" core="${core}" platform="${FORMAT_COMPILER_TARGET_ALT}" "${COMPILER}" "-j${JOBS}" || die "Filed to build ${CORE_TARGET}"
+   "${MAKE}" --file="${CORE_MAKEFILE:-Makefile}" core="${core}" platform="${FORMAT_COMPILER_TARGET_ALT}" "${COMPILER}" "-j${JOBS}" || die "Failed to clean ${CORE_TARGET}"
+   "${MAKE}" --file="${CORE_MAKEFILE:-Makefile}" core="${core}" platform="${FORMAT_COMPILER_TARGET_ALT}" "${COMPILER}" "-j${JOBS}" || die "Filed to build ${CORE_TARGET}"
    cp "${CORE_TARGET}${FORMAT}.${FORMAT_EXT}" "${RARCH_DIST_DIR}"
 }
 
@@ -59,13 +59,13 @@ build_libretro_ffmpeg() {
 
 build_libretro_fba_full() {
    cd "${BASE_DIR}/libretro-fba/svn-current/trunk" > /dev/null 2>&1 && \
-      CORE_TARGET='ffmpeg_libretro' CORE_MAKEFILE='-f makefile.libretro' basic_build || \
+      CORE_TARGET='ffmpeg_libretro' CORE_MAKEFILE='makefile.libretro' basic_build || \
       echo 'Final Burn Alpha not fetched, skipping...'
 }
 
 build_libretro_pcsx_rearmed() {
    cd "${BASE_DIR}/libretro-pcsx-rearmed" > /dev/null 2>&1 && \
-      CORE_TARGET='pcsx_rearmed_libretro' CORE_MAKEFILE='-f Makefile.libretro' basic_build || \
+      CORE_TARGET='pcsx_rearmed_libretro' CORE_MAKEFILE='Makefile.libretro' basic_build || \
       echo 'PCSX ReARMed not fetched, skipping...'
 }
 
@@ -91,7 +91,7 @@ build_libretro_quicknes() {
 
 build_libretro_desmume() {
    cd "${BASE_DIR}/libretro-desmume" > /dev/null 2>&1 && \
-      CORE_TARGET='desmume_libretro' CORE_MAKEFILE='-f Makefile.libretro' basic_build || \
+      CORE_TARGET='desmume_libretro' CORE_MAKEFILE='Makefile.libretro' basic_build || \
       echo 'Desmume not fetched, skipping...'
 }
 
@@ -103,25 +103,25 @@ build_libretro_s9x() {
 
 build_libretro_s9x_next() {
    cd "${BASE_DIR}/libretro-s9x-next" > /dev/null 2>&1 && \
-      CORE_TARGET='snes9x_next_libretro' CORE_MAKEFILE='-f Makefile.libretro' basic_build_alt || \
+      CORE_TARGET='snes9x_next_libretro' CORE_MAKEFILE='Makefile.libretro' basic_build_alt || \
       echo 'SNES9x-Next not fetched, skipping...'
 }
 
 build_libretro_genplus() {
    cd "${BASE_DIR}/libretro-genplus" > /dev/null 2>&1 && \
-      CORE_TARGET='genesis_plus_gx_libretro' CORE_MAKEFILE='-f Makefile.libretro' basic_build || \
+      CORE_TARGET='genesis_plus_gx_libretro' CORE_MAKEFILE='Makefile.libretro' basic_build || \
       echo 'Genplus GX not fetched, skipping...'
 }
 
 build_libretro_mame078() {
    cd "${BASE_DIR}/libretro/mame078" > /dev/null 2>&1 && \
-      CORE_TARGET='mame078_libretro' CORE_MAKEFILE='-f makefile' basic_build
+      CORE_TARGET='mame078_libretro' CORE_MAKEFILE='makefile' basic_build
       echo 'MAME 0.78 not fetched, skipping...'
 }
 
 build_libretro_vba_next() {
    cd "${BASE_DIR}/libretro-vba-next" > /dev/null 2>&1 && \
-      CORE_TARGET='vba_next_libretro' CORE_MAKEFILE='-f Makefile.libretro' basic_build_alt || \
+      CORE_TARGET='vba_next_libretro' CORE_MAKEFILE='Makefile.libretro' basic_build_alt || \
       echo "VBA-Next not fetched, skipping ..."
 }
 
@@ -130,13 +130,13 @@ build_libretro_fceu() {
       #${MAKE} -C fceumm-code -f Makefile.libretro platform=$FORMAT_COMPILER_TARGET $COMPILER -j$JOBS clean || die "Failed to clean FCEUmm"
       #${MAKE} -C fceumm-code -f Makefile.libretro platform=$FORMAT_COMPILER_TARGET $COMPILER -j$JOBS || die "Failed to build FCEUmm"
       #cp fceumm-code/fceumm_libretro$FORMAT.$FORMAT_EXT "$RARCH_DIST_DIR"
-      CORE_TARGET='fceumm_libretro' CORE_MAKEFILE='-f Makefile.libretro' basic_build || \
+      CORE_TARGET='fceumm_libretro' CORE_MAKEFILE='Makefile.libretro-fceux' basic_build || \
       echo 'FCEUmm not fetched, skipping...'
 }
 
 build_libretro_gambatte() {
    cd "${BASE_DIR}/libretro-gambatte/libgambatte" > /dev/null 2>&1 && \
-      CORE_TARGET='gambatte_libretro' CORE_MAKEFILE='-f Makefile.libretro' basic_build_alt || \
+      CORE_TARGET='gambatte_libretro' CORE_MAKEFILE='Makefile.libretro' basic_build_alt || \
       echo 'Gambatte not fetched, skipping...'
 }
 
@@ -166,13 +166,13 @@ build_libretro_nestopia() {
 
 build_libretro_tyrquake() {
    cd "${BASE_DIR}/libretro-tyrquake" > /dev/null 2>&1 && \
-      CORE_TARGET='tryquake_libretro' CORE_MAKEFILE='-f Makefile.libretro' basic_build || \
+      CORE_TARGET='tryquake_libretro' CORE_MAKEFILE='Makefile.libretro' basic_build || \
       echo 'Tyr Quake not fetched, skipping...'
 }
 
 build_libretro_modelviewer() {
    cd "${BASE_DIR}/libretro-gl-modelviewer" > /dev/null 2>&1 && \
-      check_opengl && CORE_TARGET='modelviewer_libretro' CORE_MAKEFILE='-f Makefile.libretro' basic_build || \
+      check_opengl && CORE_TARGET='modelviewer_libretro' CORE_MAKEFILE='Makefile.libretro' basic_build || \
       echo 'ModelViewer not fetched, skipping...'
 }
 
@@ -196,7 +196,7 @@ build_libretro_scummvm() {
 
 build_libretro_dosbox() {
    cd "${BASE_DIR}/libretro-dosbox" > /dev/null 2>&1 && \
-      CORE_TARGET='dosbox_libretro' CORE_MAKEFILE='-f Makefile.libretro' basic_build || \
+      CORE_TARGET='dosbox_libretro' CORE_MAKEFILE='Makefile.libretro' basic_build || \
       echo 'DOSbox not fetched, skipping...'
 }
 
@@ -237,7 +237,7 @@ build_libretro_mupen64() {
 
 build_libretro_picodrive() {
    cd "${BASE_DIR}/libretro-picodrive" > /dev/null 2>&1 && \
-      CORE_TARGET='picodrive_libretro' CORE_MAKEFILE='-f Makefile.libretro' basic_build || \
+      CORE_TARGET='picodrive_libretro' CORE_MAKEFILE='Makefile.libretro' basic_build || \
       echo 'Picodrive not fetched, skipping...'
 }
 
