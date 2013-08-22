@@ -456,10 +456,10 @@ build_libretro_bsnes()
    cd "$BASE_DIR"
    if [ -d "libretro-bsnes/perf" ]; then
       echo "=== Building bSNES performance ==="
-      cd libretro-bsnes/perf/higan
+      cd libretro-bsnes/perf
       rm -f obj/*.o
       rm -f out/*.${FORMAT_EXT}
-      ${MAKE} -f Makefile platform=${FORMAT_COMPILER_TARGET} compiler="$CC" ui=target-libretro profile=performance -j$JOBS || die "Failed to build bSNES performance core"
+      ${MAKE} -f Makefile platform=${FORMAT_COMPILER_TARGET} compiler="$CXX" ui=target-libretro profile=performance -j$JOBS || die "Failed to build bSNES performance core"
       cp -f out/bsnes_libretro${FORMAT}.${FORMAT_EXT} "$RARCH_DIST_DIR"/bsnes_libretro_performance.${FORMAT_EXT}
    else
       echo "bSNES performance not fetched, skipping ..."
@@ -468,10 +468,10 @@ build_libretro_bsnes()
    cd "$BASE_DIR"
    if [ -d "libretro-bsnes/balanced" ]; then
       echo "=== Building bSNES balanced ==="
-      cd libretro-bsnes/balanced/higan
+      cd libretro-bsnes/balanced
       rm -f obj/*.o
       rm -f out/*.${FORMAT_EXT}
-      ${MAKE} -f Makefile platform=${FORMAT_COMPILER_TARGET} compiler="$CC" ui=target-libretro profile=balanced -j$JOBS || die "Failed to build bSNES balanced core"
+      ${MAKE} -f Makefile platform=${FORMAT_COMPILER_TARGET} compiler="$CXX" ui=target-libretro profile=balanced -j$JOBS || die "Failed to build bSNES balanced core"
       cp -f out/bsnes_libretro${FORMAT}.${FORMAT_EXT} "$RARCH_DIST_DIR"/bsnes_libretro_balanced.${FORMAT_EXT}
    else
       echo "bSNES compat not fetched, skipping ..."
@@ -480,10 +480,10 @@ build_libretro_bsnes()
    cd "$BASE_DIR"
    if [ -d "libretro-bsnes" ]; then
       echo "=== Building bSNES accuracy ==="
-      cd libretro-bsnes/higan
+      cd libretro-bsnes
       rm -f obj/*.o
       rm -f out/*.${FORMAT_EXT}
-      ${MAKE} -f Makefile platform=${FORMAT_COMPILER_TARGET} compiler="$CC" ui=target-libretro profile=accuracy -j$JOBS || die "Failed to build bSNES accuracy core"
+      ${MAKE} -f Makefile platform=${FORMAT_COMPILER_TARGET} compiler="$CXX" ui=target-libretro profile=accuracy -j$JOBS || die "Failed to build bSNES accuracy core"
       cp -f out/bsnes_libretro${FORMAT}.${FORMAT_EXT} "$RARCH_DIST_DIR"/bsnes_libretro_accuracy.${FORMAT_EXT}
    fi
 }
