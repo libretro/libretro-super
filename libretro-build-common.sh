@@ -180,6 +180,21 @@ build_libretro_stella()
    fi
 }
 
+build_libretro_handy()
+{
+   cd "$BASE_DIR"
+   if [ -d "libretro-handy" ]; then
+      echo "=== Building Handy ==="
+      cd libretro-handy
+      ${MAKE} -f Makefile platform=${FORMAT_COMPILER_TARGET} $COMPILER clean
+      ${MAKE} -f Makefile platform=${FORMAT_COMPILER_TARGET} $COMPILER -j$JOBS
+
+      cp handy_libretro${FORMAT}.${FORMAT_EXT} "$RARCH_DIST_DIR"
+   else
+      echo "Handy not fetched, skipping ..."
+   fi
+}
+
 build_libretro_quicknes()
 {
    cd "$BASE_DIR"
