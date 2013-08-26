@@ -19,6 +19,8 @@ echo "Compiler: $COMPILER"
 [[ "$CORTEX_A9" ]] && echo "=== Cortex A9 opts enabled... ===" && export FORMAT_COMPILER_TARGET="${FORMAT_COMPILER_TARGET}-cortexa9"
 [[ "$ARM_HARDFLOAT" ]] && echo "=== ARM hardfloat ABI enabled... ===" && export FORMAT_COMPILER_TARGET="${FORMAT_COMPILER_TARGET}-hardfloat"
 [[ "$ARM_SOFTFLOAT" ]] && echo "=== ARM softfloat ABI enabled... ===" && export FORMAT_COMPILER_TARGET="${FORMAT_COMPILER_TARGET}-softfloat"
+[[ "$X86" ]] && echo "=== x86 CPU detected... ==="
+[[ "$X86" ]] && [[ "$X86_64" ]] && echo "=== x86_64 CPU detected... ==="
 
 export FORMAT_COMPILER_TARGET_ALT="$FORMAT_COMPILER_TARGET"
 echo "${FORMAT_COMPILER_TARGET}"
@@ -522,12 +524,26 @@ build_libretro_mupen64()
 {
    cd "$BASE_DIR"
    if [ -d "libretro-mupen64plus" ]; then
-      echo "=== Building Mupen 64 Plus ==="
       check_opengl
       cd libretro-mupen64plus
       mkdir -p obj
-      ${MAKE} -j$JOBS clean || die "Failed to clean Mupen 64"
-      ${MAKE} $COMPILER -j$JOBS || die "Failed to build Mupen 64"
+      if [ "$X86" ] && [ "$X86_64" ]; then
+         echo "=== Building Mupen 64 Plus (x86_64 dynarec) ==="
+         ${MAKE} WITH_DYNAREC=x86_64 -j$JOBS clean || die "Failed to clean Mupen 64 (x86_64 dynarec)"
+         ${MAKE} WITH_DYNAREC=x86_64 $COMPILER -j$JOBS || die "Failed to build Mupen 64 (x86_64 dynarec)"
+      elif [ "$X86" ]; then
+         echo "=== Building Mupen 64 Plus (x86 32bit dynarec) ==="
+         ${MAKE} WITH_DYNAREC=x86 -j$JOBS clean || die "Failed to clean Mupen 64 (x86 dynarec)"
+         ${MAKE} WITH_DYNAREC=x86 $COMPILER -j$JOBS || die "Failed to build Mupen 64 (x86 dynarec)"
+      elif [ "$CORTEX_A8" ] && [ "$CORTEX_A9" ]; then
+         echo "=== Building Mupen 64 Plus (ARM dynarec) ==="
+         ${MAKE} WITH_DYNAREC=arm -j$JOBS clean || die "Failed to clean Mupen 64 (ARM dynarec)"
+         ${MAKE} WITH_DYNAREC=arm $COMPILER -j$JOBS || die "Failed to build Mupen 64 (ARM dynarec)"
+      else
+         echo "=== Building Mupen 64 Plus ==="
+         ${MAKE} -j$JOBS clean || die "Failed to clean Mupen 64"
+         ${MAKE} $COMPILER -j$JOBS || die "Failed to build Mupen 64"
+      fi
       cp mupen64plus_libretro${FORMAT}.${FORMAT_EXT} "$RARCH_DIST_DIR"
    else
       echo "Mupen64 Plus not fetched, skipping ..."
