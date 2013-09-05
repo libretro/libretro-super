@@ -47,7 +47,6 @@ build_libretro_ffmpeg()
    cd "$BASE_DIR"
    if [ -d "libretro-ffmpeg" ]; then
       echo "=== Checking OpenGL dependencies ==="
-      check_opengl
       echo "=== Building FFmpeg ==="
       cd libretro-ffmpeg
       ${MAKE} platform=$FORMAT_COMPILER_TARGET -j$JOBS clean || die "Failed to clean FFmpeg"
@@ -400,7 +399,6 @@ build_libretro_modelviewer()
    cd "$BASE_DIR"
    if [ -d "libretro-gl-modelviewer" ]; then
       echo "=== Building Modelviewer (GL) ==="
-      check_opengl
       cd libretro-gl-modelviewer
       ${MAKE} -f Makefile platform=${FORMAT_COMPILER_TARGET} $COMPILER -j$JOBS clean || die "Failed to clean Modelviewer"
       ${MAKE} -f Makefile platform=${FORMAT_COMPILER_TARGET} $COMPILER -j$JOBS || die "Failed to build Modelviewer"
@@ -415,7 +413,6 @@ build_libretro_scenewalker()
    cd "$BASE_DIR"
    if [ -d "libretro-gl-scenewalker" ]; then
       echo "=== Building SceneWalker (GL) ==="
-      check_opengl
       cd libretro-gl-scenewalker
       ${MAKE} -f Makefile platform=${FORMAT_COMPILER_TARGET} $COMPILER -j$JOBS clean || die "Failed to clean SceneWalker"
       ${MAKE} -f Makefile platform=${FORMAT_COMPILER_TARGET} $COMPILER -j$JOBS || die "Failed to build SceneWalker"
@@ -430,7 +427,6 @@ build_libretro_instancingviewer()
    cd "$BASE_DIR"
    if [ -d "libretro-gl-instancingviewer" ]; then
       echo "=== Building Instancing Viewer (GL) ==="
-      check_opengl
       cd libretro-gl-instancingviewer
       ${MAKE} -f Makefile platform=${FORMAT_COMPILER_TARGET} $COMPILER -j$JOBS clean || die "Failed to clean InstancingViewer"
       ${MAKE} -f Makefile platform=${FORMAT_COMPILER_TARGET} $COMPILER -j$JOBS || die "Failed to build InstancingViewer"
@@ -524,7 +520,6 @@ build_libretro_mupen64()
 {
    cd "$BASE_DIR"
    if [ -d "libretro-mupen64plus" ]; then
-      check_opengl
       cd libretro-mupen64plus
       mkdir -p obj
       if [ "$X86" ] && [ "$X86_64" ]; then
