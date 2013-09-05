@@ -84,13 +84,6 @@ mkdir -p "$RARCH_DIST_DIR"
 if [ $1 ]; then
    $1
 else
-   build_libretro_modelviewer
-   build_libretro_scenewalker
-   build_libretro_instancingviewer
-if [ -z $BUILD_EXPERIMENTAL ]; then
-   build_libretro_mupen64
-   build_libretro_ffmpeg
-fi
    build_libretro_bsnes
    build_libretro_mednafen
    build_libretro_mednafen_gba
@@ -119,5 +112,13 @@ fi
 if [ $FORMAT_COMPILER_TARGET != "win" ]; then
    build_libretro_desmume
    build_libretro_pcsx_rearmed
+fi
+   check_opengl
+   build_libretro_modelviewer
+   build_libretro_scenewalker
+   build_libretro_instancingviewer
+if [ -z $BUILD_EXPERIMENTAL ]; then
+   build_libretro_mupen64
+   build_libretro_ffmpeg
 fi
 fi
