@@ -418,6 +418,23 @@ build_libretro_quicknes()
    fi
 }
 
+build_libretro_bsnes_performance()
+{
+   cd $BASE_DIR
+   if [ -d "libretro-bsnes" ]; then
+      echo "=== Building bsnes (Performance Core) ==="
+      cd libretro-bsnes/perf
+      cd target-libretro/jni
+      ndk-build clean APP_ABI="armeabi-v7a x86"
+      ndk-build -j$JOBS APP_ABI="armeabi-v7a x86"
+      cp ../libs/armeabi-v7a/libretro.${FORMAT_EXT} $RARCH_DIST_DIR/armeabi-v7a/libretro_snes9x_next.${FORMAT_EXT}
+      cp ../libs/mips/libretro.${FORMAT_EXT} $RARCH_DIST_DIR/mips/libretro_bsnes_performance.${FORMAT_EXT}
+      cp ../libs/x86/libretro.${FORMAT_EXT} $RARCH_DIST_DIR/x86/libretro_bsnes_performance.${FORMAT_EXT}
+   else
+      echo "bsnes not fetched, skipping ..."
+   fi
+}
+
 create_dist_dir()
 {
    if [ -d $RARCH_DIR ]; then
@@ -476,4 +493,5 @@ else
    build_libretro_instancingviewer
    build_libretro_scenewalker
    build_libretro_picodrive
+   build_libretro_bsnes_performance
 fi
