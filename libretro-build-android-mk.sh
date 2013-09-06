@@ -461,7 +461,6 @@ build_libretro_bsnes_performance()
       ndk-build clean APP_ABI="armeabi-v7a x86"
       ndk-build -j$JOBS APP_ABI="armeabi-v7a x86"
       cp ../libs/armeabi-v7a/libretro_bsnes_performance.${FORMAT_EXT} $RARCH_DIST_DIR/armeabi-v7a/libretro_bsnes_performance.${FORMAT_EXT}
-      cp ../libs/mips/libretro_bsnes_performance.${FORMAT_EXT} $RARCH_DIST_DIR/mips/libretro_bsnes_performance.${FORMAT_EXT}
       cp ../libs/x86/libretro_bsnes_performance.${FORMAT_EXT} $RARCH_DIST_DIR/x86/libretro_bsnes_performance.${FORMAT_EXT}
    else
       echo "bsnes not fetched, skipping ..."
