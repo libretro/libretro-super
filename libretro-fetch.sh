@@ -100,6 +100,7 @@ fetch_project "$REPO_BASE/libretro/dosbox-libretro.git" "libretro-dosbox" "libre
 fetch_project "$REPO_BASE/libretro/virtualjaguar-libretro.git" "libretro-virtualjaguar" "libretro/virtualjaguar"
 fetch_project "$REPO_BASE/libretro/mame2003-libretro.git" "libretro-mame078" "libretro/mame078"
 fetch_project "$REPO_BASE/libretro/mame2010-libretro.git" "libretro-mame139" "libretro/mame139"
+fetch_project "$REPO_BASE/libretro/mame2013-libretro.git" "libretro-mame149" "libretro/mame149"
 fetch_project "$REPO_BASE/libretro/scenewalker-libretro.git" "libretro-gl-scenewalker" "libretro/SceneWalker"
 fetch_project "$REPO_BASE/libretro/modelviewer-libretro.git" "libretro-gl-modelviewer" "libretro/ModelViewer"
 fetch_project "$REPO_BASE/libretro/libretro-ffmpeg.git" "libretro-ffmpeg" "libretro/ffmpeg"
