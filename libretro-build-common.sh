@@ -282,6 +282,20 @@ build_libretro_mame078()
    fi
 }
 
+build_libretro_vbam()
+{
+   cd "$BASE_DIR"
+   if [ -d "libretro-vbam" ]; then
+      echo "=== Building VBA-M ==="
+      cd libretro-vbam/src/libretro
+      ${MAKE} -f Makefile platform=$FORMAT_COMPILER_TARGET_ALT $COMPILER -j$JOBS clean || die "Failed to clean VBA-M"
+      ${MAKE} -f Makefile platform=$FORMAT_COMPILER_TARGET_ALT $COMPILER -j$JOBS || die "Failed to build VBA-M"
+      cp vbam_libretro$FORMAT.$FORMAT_EXT "$RARCH_DIST_DIR"
+   else
+      echo "VBA-M not fetched, skipping ..."
+   fi
+}
+
 build_libretro_vba_next()
 {
    cd "$BASE_DIR"

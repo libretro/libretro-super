@@ -93,6 +93,7 @@ else
    build_libretro_s9x_next
    build_libretro_genplus
    build_libretro_fba_full
+   build_libretro_vbam
    build_libretro_vba_next
    build_libretro_bnes
    build_libretro_fceu
