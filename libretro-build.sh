@@ -123,4 +123,5 @@ if [ -z $BUILD_EXPERIMENTAL ]; then
    build_libretro_mupen64
 fi
    build_libretro_ffmpeg
+   build_libretro_dinothawr
 fi

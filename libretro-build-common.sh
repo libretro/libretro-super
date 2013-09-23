@@ -381,6 +381,20 @@ build_libretro_prboom()
    fi
 }
 
+build_libretro_dinothawr()
+{
+   cd "$BASE_DIR"
+   if [ -d "libretro-dinothawr" ]; then
+      echo "=== Building Dinothawr ==="
+      cd libretro-dinothawr
+      ${MAKE} platform=${FORMAT_COMPILER_TARGET_ALT} $COMPILER -j$JOBS clean || die "Failed to clean Dinothawr"
+      ${MAKE} platform=${FORMAT_COMPILER_TARGET_ALT} $COMPILER -j$JOBS || die "Failed to build Dinothawr"
+      cp dinothawr_libretro${FORMAT}.${FORMAT_EXT} "$RARCH_DIST_DIR"
+   else
+      echo "Dinothawr not fetched, skipping ..."
+   fi
+}
+
 build_libretro_meteor()
 {
    cd "$BASE_DIR"
