@@ -263,6 +263,23 @@ build_libretro_prboom()
    fi
 }
 
+build_libretro_dinothawr()
+{
+   cd $BASE_DIR
+   if [ -d "libretro-dinothawr" ]; then
+      echo "=== Building Dinothawr ==="
+      cd libretro-dinothawr
+      cd android/eclipse/jni
+      ndk-build clean APP_ABI="armeabi-v7a mips x86"
+      ndk-build -j$JOBS APP_ABI="armeabi-v7a mips x86"
+      cp ../libs/armeabi-v7a/libretro_dino.${FORMAT_EXT} $RARCH_DIST_DIR/armeabi-v7a/libretro_dinothawr.${FORMAT_EXT}
+      cp ../libs/mips/libretro_dino.${FORMAT_EXT} $RARCH_DIST_DIR/mips/libretro_dinothawr.${FORMAT_EXT}
+      cp ../libs/x86/libretro_dino.${FORMAT_EXT} $RARCH_DIST_DIR/x86/libretro_dinothawr.${FORMAT_EXT}
+   else
+      echo "Dinothawr not fetched, skipping ..."
+   fi
+}
+
 build_libretro_nestopia()
 {
    cd $BASE_DIR
@@ -493,4 +510,5 @@ else
    build_libretro_scenewalker
    build_libretro_picodrive
    build_libretro_bsnes_performance
+   build_libretro_dinothawr
 fi
