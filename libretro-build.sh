@@ -30,7 +30,7 @@ if [ -z "$RARCH_DIST_DIR" ]; then
 fi
 
 if [ -z "$JOBS" ]; then
-   JOBS=4
+   JOBS=7
 fi
 
 die()

@@ -1,0 +1,5 @@
+display_name = "Arcade (FBA)"
+supported_extensions = "zip"
+corename = "Final Burn Alpha"
+manufacturer = "Various"
+systemname = "Arcade (various)"
