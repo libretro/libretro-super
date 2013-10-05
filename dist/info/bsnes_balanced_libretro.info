@@ -1,5 +1,5 @@
-display_name = "SNES / Super Famicom (bSNES Performance)"
+display_name = "SNES / Super Famicom (bSNES Balanced)"
 supported_extensions = "smc|sfc"
-corename = "bsnes/higan Performance"
+corename = "bsnes/higan Balanced"
 manufacturer = "Nintendo"
 systemname = "Super Nintendo Entertainment System"

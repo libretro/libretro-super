@@ -1,5 +1,5 @@
 display_name = "PlayStation1 (Mednafen PSX)"
-supported_extensions = "cue|toc"
+supported_extensions = "cue|toc|ccd"
 corename = "Mednafen PSX"
 manufacturer = "Sony"
 systemname = "PlayStation"
