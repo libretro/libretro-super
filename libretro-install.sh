@@ -41,3 +41,10 @@ do
    fi
 done
 
+for infofile in "$RARCH_DIR"/info/*.info
+do
+   if [ -f "$infofile" ]; then
+      install -v -m644 "$infofile" "$LIBRETRO_DIR"
+   fi
+done
+
