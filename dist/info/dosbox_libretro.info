@@ -1,0 +1,3 @@
+display_name = "DOS (DOSBox)"
+supported_extensions = "exe|com|bat|conf"
+corename = "DOSBox"

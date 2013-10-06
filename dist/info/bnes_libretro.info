@@ -1,0 +1,5 @@
+display_name = "NES / Famicom (bNES)"
+supported_extensions = "nes"
+corename = "bNES/higan"
+manufacturer = "Nintendo"
+systemname = "Nintendo Entertainment System"
