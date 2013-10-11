@@ -548,19 +548,19 @@ build_libretro_mupen64() {
       if [ "${X86}" ] && [ "${X86_64}" ]; then
          echo '=== Building Mupen 64 Plus (x86_64 dynarec) ==='
          "${MAKE}" WITH_DYNAREC='x86_64' "-j${JOBS}" clean || die 'Failed to clean Mupen 64 (x86_64 dynarec)'
-         "${MAKE}" WITH_DYNAREC='x86_64' "${COMPILER}" "-j${JOBS}" || die 'Failed to build Mupen 64 (x86_64 dynarec)'
+         "${MAKE}" WITH_DYNAREC='x86_64' $COMPILER "-j${JOBS}" || die 'Failed to build Mupen 64 (x86_64 dynarec)'
       elif [ "${X86}" ]; then
          echo '=== Building Mupen 64 Plus (x86 32bit dynarec) ==='
          "${MAKE}" WITH_DYNAREC='x86' "-j${JOBS}" clean || die 'Failed to clean Mupen 64 (x86 dynarec)'
-         "${MAKE}" WITH_DYNAREC='x86' "${COMPILER}" "-j${JOBS}" || die 'Failed to build Mupen 64 (x86 dynarec)'
+         "${MAKE}" WITH_DYNAREC='x86' ${COMPILER} "-j${JOBS}" || die 'Failed to build Mupen 64 (x86 dynarec)'
       elif [ "${CORTEX_A8}" ] || [ "${CORTEX_A9}" ]; then
          echo '=== Building Mupen 64 Plus (ARM dynarec) ==='
          "${MAKE}" WITH_DYNAREC='arm' "-j${JOBS}" clean || die 'Failed to clean Mupen 64 (ARM dynarec)'
-         "${MAKE}" WITH_DYNAREC='arm' "${COMPILER}" "-j${JOBS}" || die 'Failed to build Mupen 64 (ARM dynarec)'
+         "${MAKE}" WITH_DYNAREC='arm' ${COMPILER} "-j${JOBS}" || die 'Failed to build Mupen 64 (ARM dynarec)'
       else
          echo '=== Building Mupen 64 Plus ==='
          "${MAKE}" "-j${JOBS}" clean || die 'Failed to clean Mupen 64'
-         "${MAKE}" "${COMPILER}" "-j${JOBS}" || die 'Failed to build Mupen 64'
+         "${MAKE}" ${COMPILER} "-j${JOBS}" || die 'Failed to build Mupen 64'
       fi
       cp "mupen64plus_libretro${FORMAT}.${FORMAT_EXT}" "${RARCH_DIST_DIR}"
    else
