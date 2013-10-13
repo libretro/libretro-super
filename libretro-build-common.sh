@@ -47,8 +47,8 @@ build_libretro_ffmpeg() {
       echo '=== Building FFmpeg ==='
       cd libretro-ffmpeg
 
-      "${MAKE}" platform="${FORMAT_COMPILER_TARGET}" "-j${JOBS}" clean || die 'Failed to clean FFmpeg'
-      "${MAKE}" platform="${FORMAT_COMPILER_TARGET}" "-j${JOBS}"
+      "${MAKE}" platform="${FORMAT_COMPILER_TARGET}" ${COMPILER} "-j${JOBS}" clean || die 'Failed to clean FFmpeg'
+      "${MAKE}" platform="${FORMAT_COMPILER_TARGET}" ${COMPILER} "-j${JOBS}"
       cp "ffmpeg_libretro${FORMAT}.${FORMAT_EXT}" "${RARCH_DIST_DIR}"
    else
       echo 'FFmpeg not fetched, skipping ...'
