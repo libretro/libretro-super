@@ -1,7 +1,7 @@
 #!/bin/sh
 
 # Architecture Assignment
-ARCH="$(uname -m)"
+[[ -z "$ARCH" ]] && ARCH="$(uname -m)"
 case "$ARCH" in
    x86_64)
       X86=true && X86_64=true
