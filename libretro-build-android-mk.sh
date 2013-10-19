@@ -484,6 +484,21 @@ build_libretro_bsnes_performance()
    fi
 }
 
+build_libretro_mupen64()
+{
+   cd $BASE_DIR
+   if [ -d "libretro-mupen64plus" ]; then
+      echo '=== Building Mupen 64 Plus (ARMv7 dynarec) ==='
+      cd libretro-mupen64plus
+      cd libretro/jni
+      ndk-build clean APP_ABI="armeabi-v7a"
+      ndk-build -j$JOBS APP_ABI="armeabi-v7a"
+      cp ../libs/armeabi-v7a/libretro_mupen64plus.${FORMAT_EXT} $RARCH_DIST_DIR/armeabi-v7a/libretro_mupen64plus.${FORMAT_EXT}
+   else
+      echo 'Mupen64 Plus not fetched, skipping ...'
+   fi
+}
+
 create_dist_dir
 
 if [ $1 ]; then
@@ -510,5 +525,6 @@ else
    build_libretro_scenewalker
    build_libretro_picodrive
    build_libretro_bsnes_performance
+   build_libretro_mupen64
    build_libretro_dinothawr
 fi

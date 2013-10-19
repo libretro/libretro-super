@@ -119,9 +119,7 @@ fi
    build_libretro_modelviewer
    build_libretro_scenewalker
    build_libretro_instancingviewer
-if [ -z $BUILD_EXPERIMENTAL ]; then
    build_libretro_mupen64
-fi
    build_libretro_ffmpeg
    build_libretro_dinothawr
 fi
