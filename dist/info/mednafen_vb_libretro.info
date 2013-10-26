@@ -3,4 +3,4 @@ supported_extensions = "vb|vboy|bin"
 corename = "Mednafen VB"
 manufacturer = "Nintendo"
 systemname = "Virtual Boy"
-
+license = "GPLv2"

@@ -3,4 +3,4 @@ supported_extensions = "lnx"
 corename = "Handy"
 manufacturer = "Atari"
 systemname = "Atari Lynx"
-
+license = "Zlib"

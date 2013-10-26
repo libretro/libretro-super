@@ -3,6 +3,7 @@ supported_extensions = "md|smd|gen|sms|gg|sg|bin|cue|ios"
 corename = "Genesis Plus GX"
 manufacturer = "Sega"
 systemname = "Sega (Various)"
+license = "Non-commercial"
 
 firmware_count = 7
 
@@ -26,3 +27,4 @@ firmware6_path = "%sysdir%/bios_J.sms"
 
 firmware7_desc = "bios.gg (GameGear BIOS)"
 firmware7_path = "%sysdir%/bios.gg"
+

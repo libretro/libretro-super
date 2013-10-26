@@ -3,4 +3,4 @@ supported_extensions = "cue|toc|ccd"
 corename = "Mednafen PSX"
 manufacturer = "Sony"
 systemname = "PlayStation"
-
+license = "GPLv2"

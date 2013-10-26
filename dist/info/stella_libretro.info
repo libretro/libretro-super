@@ -3,4 +3,4 @@ supported_extensions = "a26|bin"
 corename = "Stella"
 manufacturer = "Atari"
 systemname = "Atari 2600"
-
+license = "GPLv2"

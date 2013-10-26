@@ -3,6 +3,7 @@ supported_extensions = "pce|sgx|cue"
 corename = "Mednafen PCE Fast"
 manufacturer = "NEC"
 systemname = "PC Engine/TurboGrafx-16"
+license = "GPLv2"
 
 firmware_count = 1
 

@@ -3,4 +3,4 @@ supported_extensions = "nes|fds"
 corename = "Nestopia"
 manufacturer = "Nintendo"
 systemname = "Nintendo Entertainment System"
-
+license = "GPLv2"

@@ -3,4 +3,4 @@ supported_extensions = "nes"
 corename = "QuickNES"
 manufacturer = "Nintendo"
 systemname = "Nintendo Entertainment System"
-
+license = "GPLv2"
