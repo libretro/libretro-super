@@ -24,6 +24,7 @@ echo "Script: $SCRIPT"
 BASE_DIR=$(dirname $SCRIPT)
 RARCH_DIR=$BASE_DIR/dist
 RARCH_DIST_DIR=$RARCH_DIR/android
+FORMAT=_android
 FORMAT_EXT=so
 
 if [ -z "$JOBS" ]; then
@@ -48,45 +49,45 @@ build_libretro_mednafen()
       ndk-build clean APP_ABI="armeabi-v7a mips x86" || die "Failed to clean mednafen_ngp"
       ndk-build core=ngp clean APP_ABI="armeabi-v7a mips x86" || die "Failed to clean mednafen_ngp"
       ndk-build core=ngp -j$JOBS APP_ABI="armeabi-v7a mips x86" || die "Failed to build mednafen_ngp"
-      cp ../libs/armeabi-v7a/libretro.${FORMAT_EXT} $RARCH_DIST_DIR/armeabi-v7a/libretro_mednafen_ngp.${FORMAT_EXT}
-      cp ../libs/mips/libretro.${FORMAT_EXT} $RARCH_DIST_DIR/mips/libretro_mednafen_ngp.${FORMAT_EXT}
-      cp ../libs/x86/libretro.${FORMAT_EXT} $RARCH_DIST_DIR/x86/libretro_mednafen_ngp.${FORMAT_EXT}
+      cp ../libs/armeabi-v7a/libretro.${FORMAT_EXT} $RARCH_DIST_DIR/armeabi-v7a/mednafen_ngp_libretro${FORMAT}.${FORMAT_EXT}
+      cp ../libs/mips/libretro.${FORMAT_EXT} $RARCH_DIST_DIR/mips/mednafen_ngp_libretro${FORMAT}.${FORMAT_EXT}
+      cp ../libs/x86/libretro.${FORMAT_EXT} $RARCH_DIST_DIR/x86/mednafen_ngp_libretro${FORMAT}.${FORMAT_EXT}
 
       echo "=== Building Mednafen WonderSwan ==="
       ndk-build clean APP_ABI="armeabi-v7a mips x86" || die "Failed to clean mednafen_wswan"
       ndk-build core=wswan clean APP_ABI="armeabi-v7a mips x86" || die "Failed to clean mednafen_wswan"
       ndk-build core=wswan -j$JOBS APP_ABI="armeabi-v7a mips x86" || die "Failed to build mednafen_wswan"
 
-      cp ../libs/armeabi-v7a/libretro.${FORMAT_EXT} $RARCH_DIST_DIR/armeabi-v7a/libretro_mednafen_wswan.${FORMAT_EXT}
-      cp ../libs/mips/libretro.${FORMAT_EXT} $RARCH_DIST_DIR/mips/libretro_mednafen_wswan.${FORMAT_EXT}
-      cp ../libs/x86/libretro.${FORMAT_EXT} $RARCH_DIST_DIR/x86/libretro_mednafen_wswan.${FORMAT_EXT}
+      cp ../libs/armeabi-v7a/libretro.${FORMAT_EXT} $RARCH_DIST_DIR/armeabi-v7a/mednafen_wswan_libretro${FORMAT}.${FORMAT_EXT}
+      cp ../libs/mips/libretro.${FORMAT_EXT} $RARCH_DIST_DIR/mips/mednafen_wswan_libretro${FORMAT}.${FORMAT_EXT}
+      cp ../libs/x86/libretro.${FORMAT_EXT} $RARCH_DIST_DIR/x86/mednafen_wswan_libretro${FORMAT}.${FORMAT_EXT}
 
       echo "=== Building Mednafen VirtualBoy ==="
       ndk-build clean APP_ABI="armeabi-v7a mips x86" || die "Failed to clean mednafen_vb"
       ndk-build core=vb clean APP_ABI="armeabi-v7a mips x86" || die "Failed to clean mednafen_vb"
       ndk-build core=vb -j$JOBS APP_ABI="armeabi-v7a mips x86" || die "Failed to build mednafen_vb"
 
-      cp ../libs/armeabi-v7a/libretro.${FORMAT_EXT} $RARCH_DIST_DIR/armeabi-v7a/libretro_mednafen_vb.${FORMAT_EXT}
-      cp ../libs/mips/libretro.${FORMAT_EXT} $RARCH_DIST_DIR/mips/libretro_mednafen_vb.${FORMAT_EXT}
-      cp ../libs/x86/libretro.${FORMAT_EXT} $RARCH_DIST_DIR/x86/libretro_mednafen_vb.${FORMAT_EXT}
+      cp ../libs/armeabi-v7a/libretro.${FORMAT_EXT} $RARCH_DIST_DIR/armeabi-v7a/mednafen_vb_libretro${FORMAT}.${FORMAT_EXT}
+      cp ../libs/mips/libretro.${FORMAT_EXT} $RARCH_DIST_DIR/mips/mednafen_vb_libretro${FORMAT}.${FORMAT_EXT}
+      cp ../libs/x86/libretro.${FORMAT_EXT} $RARCH_DIST_DIR/x86/mednafen_vb_libretro${FORMAT}.${FORMAT_EXT}
 
       echo "=== Building Mednafen PCE Fast ==="
       ndk-build clean APP_ABI="armeabi-v7a mips x86" || die "Failed to clean mednafen_pce_fast"
       ndk-build core=pce-fast clean APP_ABI="armeabi-v7a mips x86" || die "Failed to clean mednafen_pce_fast"
       ndk-build core=pce-fast -j$JOBS APP_ABI="armeabi-v7a mips x86" || die "Failed to build mednafen_pce_fast"
 
-      cp ../libs/armeabi-v7a/libretro.${FORMAT_EXT} $RARCH_DIST_DIR/armeabi-v7a/libretro_mednafen_pce_fast.${FORMAT_EXT}
-      cp ../libs/mips/libretro.${FORMAT_EXT} $RARCH_DIST_DIR/mips/libretro_mednafen_pce_fast.${FORMAT_EXT}
-      cp ../libs/x86/libretro.${FORMAT_EXT} $RARCH_DIST_DIR/x86/libretro_mednafen_pce_fast.${FORMAT_EXT}
+      cp ../libs/armeabi-v7a/libretro.${FORMAT_EXT} $RARCH_DIST_DIR/armeabi-v7a/mednafen_pce_fast_libretro${FORMAT}.${FORMAT_EXT}
+      cp ../libs/mips/libretro.${FORMAT_EXT} $RARCH_DIST_DIR/mips/mednafen_pce_fast_libretro${FORMAT}.${FORMAT_EXT}
+      cp ../libs/x86/libretro.${FORMAT_EXT} $RARCH_DIST_DIR/x86/mednafen_pce_fast_libretro${FORMAT}.${FORMAT_EXT}
 
       echo "=== Building Mednafen PSX ==="
       ndk-build clean APP_ABI="armeabi-v7a mips x86" || die "Failed to clean mednafen_psx"
       ndk-build core=psx clean APP_ABI="armeabi-v7a mips x86" || die "Failed to clean mednafen_psx"
       ndk-build core=psx -j$JOBS APP_ABI="armeabi-v7a mips x86" || die "Failed to build mednafen_psx"
 
-      cp ../libs/armeabi-v7a/libretro.${FORMAT_EXT} $RARCH_DIST_DIR/armeabi-v7a/libretro_mednafen_psx.${FORMAT_EXT}
-      cp ../libs/mips/libretro.${FORMAT_EXT} $RARCH_DIST_DIR/mips/libretro_mednafen_psx.${FORMAT_EXT}
-      cp ../libs/x86/libretro.${FORMAT_EXT} $RARCH_DIST_DIR/x86/libretro_mednafen_psx.${FORMAT_EXT}
+      cp ../libs/armeabi-v7a/libretro.${FORMAT_EXT} $RARCH_DIST_DIR/armeabi-v7a/mednafen_psx_libretro${FORMAT}.${FORMAT_EXT}
+      cp ../libs/mips/libretro.${FORMAT_EXT} $RARCH_DIST_DIR/mips/mednafen_psx_libretro${FORMAT}.${FORMAT_EXT}
+      cp ../libs/x86/libretro.${FORMAT_EXT} $RARCH_DIST_DIR/x86/mednafen_psx_libretro${FORMAT}.${FORMAT_EXT}
    else
       echo "Mednafen not fetched, skipping ..."
    fi
@@ -101,9 +102,9 @@ build_libretro_s9x()
       cd libretro/jni
       ndk-build clean APP_ABI="armeabi-v7a mips x86"
       ndk-build -j$JOBS APP_ABI="armeabi-v7a mips x86"
-      cp ../libs/armeabi-v7a/libretro.${FORMAT_EXT} $RARCH_DIST_DIR/armeabi-v7a/libretro_snes9x.${FORMAT_EXT}
-      cp ../libs/mips/libretro.${FORMAT_EXT} $RARCH_DIST_DIR/mips/libretro_snes9x.${FORMAT_EXT}
-      cp ../libs/x86/libretro.${FORMAT_EXT} $RARCH_DIST_DIR/x86/libretro_snes9x.${FORMAT_EXT}
+      cp ../libs/armeabi-v7a/libretro.${FORMAT_EXT} $RARCH_DIST_DIR/armeabi-v7a/snes9x_libretro${FORMAT}.${FORMAT_EXT}
+      cp ../libs/mips/libretro.${FORMAT_EXT} $RARCH_DIST_DIR/mips/snes9x_libretro${FORMAT}.${FORMAT_EXT}
+      cp ../libs/x86/libretro.${FORMAT_EXT} $RARCH_DIST_DIR/x86/snes9x_libretro${FORMAT}.${FORMAT_EXT}
    else
       echo "SNES9x not fetched, skipping ..."
    fi
@@ -118,9 +119,9 @@ build_libretro_s9x_next()
       cd libretro/jni
       ndk-build clean APP_ABI="armeabi-v7a mips x86"
       ndk-build -j$JOBS APP_ABI="armeabi-v7a mips x86"
-      cp ../libs/armeabi-v7a/libretro.${FORMAT_EXT} $RARCH_DIST_DIR/armeabi-v7a/libretro_snes9x_next.${FORMAT_EXT}
-      cp ../libs/mips/libretro.${FORMAT_EXT} $RARCH_DIST_DIR/mips/libretro_snes9x_next.${FORMAT_EXT}
-      cp ../libs/x86/libretro.${FORMAT_EXT} $RARCH_DIST_DIR/x86/libretro_snes9x_next.${FORMAT_EXT}
+      cp ../libs/armeabi-v7a/libretro.${FORMAT_EXT} $RARCH_DIST_DIR/armeabi-v7a/snes9x_next_libretro${FORMAT}.${FORMAT_EXT}
+      cp ../libs/mips/libretro.${FORMAT_EXT} $RARCH_DIST_DIR/mips/snes9x_next_libretro${FORMAT}.${FORMAT_EXT}
+      cp ../libs/x86/libretro.${FORMAT_EXT} $RARCH_DIST_DIR/x86/snes9x_next_libretro${FORMAT}.${FORMAT_EXT}
    else
       echo "SNES9x-Next not fetched, skipping ..."
    fi
@@ -135,9 +136,9 @@ build_libretro_stella()
       cd jni
       ndk-build clean APP_ABI="armeabi-v7a mips x86"
       ndk-build -j$JOBS APP_ABI="armeabi-v7a mips x86"
-      cp ../libs/armeabi-v7a/libretro.${FORMAT_EXT} $RARCH_DIST_DIR/armeabi-v7a/libretro_stella.${FORMAT_EXT}
-      cp ../libs/mips/libretro.${FORMAT_EXT} $RARCH_DIST_DIR/mips/libretro_stella.${FORMAT_EXT}
-      cp ../libs/x86/libretro.${FORMAT_EXT} $RARCH_DIST_DIR/x86/libretro_stella.${FORMAT_EXT}
+      cp ../libs/armeabi-v7a/libretro.${FORMAT_EXT} $RARCH_DIST_DIR/armeabi-v7a/stella_libretro${FORMAT}.${FORMAT_EXT}
+      cp ../libs/mips/libretro.${FORMAT_EXT} $RARCH_DIST_DIR/mips/stella_libretro${FORMAT}.${FORMAT_EXT}
+      cp ../libs/x86/libretro.${FORMAT_EXT} $RARCH_DIST_DIR/x86/stella_libretro${FORMAT}.${FORMAT_EXT}
    else
       echo "Stella not fetched, skipping ..."
    fi
@@ -152,9 +153,9 @@ build_libretro_genplus()
       cd libretro/jni
       ndk-build clean APP_ABI="armeabi-v7a mips x86"
       ndk-build -j$JOBS APP_ABI="armeabi-v7a mips x86"
-      cp ../libs/armeabi-v7a/libretro.${FORMAT_EXT} $RARCH_DIST_DIR/armeabi-v7a/libretro_genesis_plus_gx.${FORMAT_EXT}
-      cp ../libs/mips/libretro.${FORMAT_EXT} $RARCH_DIST_DIR/mips/libretro_genesis_plus_gx.${FORMAT_EXT}
-      cp ../libs/x86/libretro.${FORMAT_EXT} $RARCH_DIST_DIR/x86/libretro_genesis_plus_gx.${FORMAT_EXT}
+      cp ../libs/armeabi-v7a/libretro.${FORMAT_EXT} $RARCH_DIST_DIR/armeabi-v7a/genesis_plus_gx_libretro${FORMAT}.${FORMAT_EXT}
+      cp ../libs/mips/libretro.${FORMAT_EXT} $RARCH_DIST_DIR/mips/genesis_plus_gx_libretro${FORMAT}.${FORMAT_EXT}
+      cp ../libs/x86/libretro.${FORMAT_EXT} $RARCH_DIST_DIR/x86/genesis_plus_gx_libretro${FORMAT}.${FORMAT_EXT}
    else
       echo "Genplus GX not fetched, skipping ..."
    fi
@@ -170,9 +171,9 @@ build_libretro_fba_full()
       cd projectfiles/libretro-android/jni
       ndk-build clean APP_ABI="armeabi-v7a mips x86"
       ndk-build -j$JOBS APP_ABI="armeabi-v7a mips x86"
-      cp ../libs/armeabi-v7a/libretro.${FORMAT_EXT} $RARCH_DIST_DIR/armeabi-v7a/libretro_fba.${FORMAT_EXT}
-      cp ../libs/mips/libretro.${FORMAT_EXT} $RARCH_DIST_DIR/mips/libretro_fba.${FORMAT_EXT}
-      cp ../libs/x86/libretro.${FORMAT_EXT} $RARCH_DIST_DIR/x86/libretro_fba.${FORMAT_EXT}
+      cp ../libs/armeabi-v7a/libretro.${FORMAT_EXT} $RARCH_DIST_DIR/armeabi-v7a/fba_libretro${FORMAT}.${FORMAT_EXT}
+      cp ../libs/mips/libretro.${FORMAT_EXT} $RARCH_DIST_DIR/mips/fba_libretro${FORMAT}.${FORMAT_EXT}
+      cp ../libs/x86/libretro.${FORMAT_EXT} $RARCH_DIST_DIR/x86/fba_libretro${FORMAT}.${FORMAT_EXT}
    else
       echo "Final Burn Alpha not fetched, skipping ..."
    fi
@@ -187,9 +188,9 @@ build_libretro_vba_next()
       cd libretro/jni
       ndk-build clean APP_ABI="armeabi-v7a mips x86"
       ndk-build -j$JOBS APP_ABI="armeabi-v7a mips x86"
-      cp ../libs/armeabi-v7a/libretro.${FORMAT_EXT} $RARCH_DIST_DIR/armeabi-v7a/libretro_vba_next.${FORMAT_EXT}
-      cp ../libs/mips/libretro.${FORMAT_EXT} $RARCH_DIST_DIR/mips/libretro_vba_next.${FORMAT_EXT}
-      cp ../libs/x86/libretro.${FORMAT_EXT} $RARCH_DIST_DIR/x86/libretro_vba_next.${FORMAT_EXT}
+      cp ../libs/armeabi-v7a/libretro.${FORMAT_EXT} $RARCH_DIST_DIR/armeabi-v7a/vba_next_libretro${FORMAT}.${FORMAT_EXT}
+      cp ../libs/mips/libretro.${FORMAT_EXT} $RARCH_DIST_DIR/mips/vba_next_libretro${FORMAT}.${FORMAT_EXT}
+      cp ../libs/x86/libretro.${FORMAT_EXT} $RARCH_DIST_DIR/x86/vba_next_libretro${FORMAT}.${FORMAT_EXT}
    else
       echo "VBA-Next not fetched, skipping ..."
    fi
@@ -204,9 +205,9 @@ build_libretro_fceu()
       cd fceumm-code/src/drivers/libretro/jni
       ndk-build clean APP_ABI="armeabi-v7a mips x86"
       ndk-build -j$JOBS APP_ABI="armeabi-v7a mips x86"
-      cp ../libs/armeabi-v7a/libretro.${FORMAT_EXT} $RARCH_DIST_DIR/armeabi-v7a/libretro_fceumm.${FORMAT_EXT}
-      cp ../libs/mips/libretro.${FORMAT_EXT} $RARCH_DIST_DIR/mips/libretro_fceumm.${FORMAT_EXT}
-      cp ../libs/x86/libretro.${FORMAT_EXT} $RARCH_DIST_DIR/x86/libretro_fceumm.${FORMAT_EXT}
+      cp ../libs/armeabi-v7a/libretro.${FORMAT_EXT} $RARCH_DIST_DIR/armeabi-v7a/fceumm_libretro${FORMAT}.${FORMAT_EXT}
+      cp ../libs/mips/libretro.${FORMAT_EXT} $RARCH_DIST_DIR/mips/fceumm_libretro${FORMAT}.${FORMAT_EXT}
+      cp ../libs/x86/libretro.${FORMAT_EXT} $RARCH_DIST_DIR/x86/fceumm_libretro${FORMAT}.${FORMAT_EXT}
    else
       echo "FCEU not fetched, skipping ..."
    fi
@@ -221,9 +222,9 @@ build_libretro_gambatte()
       cd libretro/jni
       ndk-build clean APP_ABI="armeabi-v7a mips x86"
       ndk-build -j$JOBS APP_ABI="armeabi-v7a mips x86"
-      cp ../libs/armeabi-v7a/libretro.${FORMAT_EXT} $RARCH_DIST_DIR/armeabi-v7a/libretro_gambatte.${FORMAT_EXT}
-      cp ../libs/mips/libretro.${FORMAT_EXT} $RARCH_DIST_DIR/mips/libretro_gambatte.${FORMAT_EXT}
-      cp ../libs/x86/libretro.${FORMAT_EXT} $RARCH_DIST_DIR/x86/libretro_gambatte.${FORMAT_EXT}
+      cp ../libs/armeabi-v7a/libretro.${FORMAT_EXT} $RARCH_DIST_DIR/armeabi-v7a/gambatte_libretro${FORMAT}.${FORMAT_EXT}
+      cp ../libs/mips/libretro.${FORMAT_EXT} $RARCH_DIST_DIR/mips/gambatte_libretro${FORMAT}.${FORMAT_EXT}
+      cp ../libs/x86/libretro.${FORMAT_EXT} $RARCH_DIST_DIR/x86/gambatte_libretro${FORMAT}.${FORMAT_EXT}
    else
       echo "Gambatte not fetched, skipping ..."
    fi
@@ -238,9 +239,9 @@ build_libretro_nx()
       cd jni
       ndk-build clean APP_ABI="armeabi-v7a mips x86"
       ndk-build -j$JOBS APP_ABI="armeabi-v7a mips x86"
-      cp ../libs/armeabi-v7a/libretro.${FORMAT_EXT} $RARCH_DIST_DIR/armeabi-v7a/libretro_nxengine.${FORMAT_EXT}
-      cp ../libs/mips/libretro.${FORMAT_EXT} $RARCH_DIST_DIR/mips/libretro_nxengine.${FORMAT_EXT}
-      cp ../libs/x86/libretro.${FORMAT_EXT} $RARCH_DIST_DIR/x86/libretro_nxengine.${FORMAT_EXT}
+      cp ../libs/armeabi-v7a/libretro.${FORMAT_EXT} $RARCH_DIST_DIR/armeabi-v7a/nxengine_libretro${FORMAT}.${FORMAT_EXT}
+      cp ../libs/mips/libretro.${FORMAT_EXT} $RARCH_DIST_DIR/mips/nxengine_libretro${FORMAT}.${FORMAT_EXT}
+      cp ../libs/x86/libretro.${FORMAT_EXT} $RARCH_DIST_DIR/x86/nxengine_libretro${FORMAT}.${FORMAT_EXT}
    else
       echo "NXEngine not fetched, skipping ..."
    fi
@@ -255,9 +256,9 @@ build_libretro_prboom()
       cd libretro/jni
       ndk-build clean APP_ABI="armeabi-v7a mips x86"
       ndk-build -j$JOBS APP_ABI="armeabi-v7a mips x86"
-      cp ../libs/armeabi-v7a/libretro.${FORMAT_EXT} $RARCH_DIST_DIR/armeabi-v7a/libretro_prboom.${FORMAT_EXT}
-      cp ../libs/mips/libretro.${FORMAT_EXT} $RARCH_DIST_DIR/mips/libretro_prboom.${FORMAT_EXT}
-      cp ../libs/x86/libretro.${FORMAT_EXT} $RARCH_DIST_DIR/x86/libretro_prboom.${FORMAT_EXT}
+      cp ../libs/armeabi-v7a/libretro.${FORMAT_EXT} $RARCH_DIST_DIR/armeabi-v7a/prboom_libretro${FORMAT}.${FORMAT_EXT}
+      cp ../libs/mips/libretro.${FORMAT_EXT} $RARCH_DIST_DIR/mips/prboom_libretro${FORMAT}.${FORMAT_EXT}
+      cp ../libs/x86/libretro.${FORMAT_EXT} $RARCH_DIST_DIR/x86/prboom_libretro${FORMAT}.${FORMAT_EXT}
    else
       echo "PRBoom not fetched, skipping ..."
    fi
@@ -272,9 +273,9 @@ build_libretro_dinothawr()
       cd android/eclipse/jni
       ndk-build clean APP_ABI="armeabi-v7a mips x86"
       ndk-build -j$JOBS APP_ABI="armeabi-v7a mips x86"
-      cp ../libs/armeabi-v7a/libretro_dino.${FORMAT_EXT} $RARCH_DIST_DIR/armeabi-v7a/libretro_dinothawr.${FORMAT_EXT}
-      cp ../libs/mips/libretro_dino.${FORMAT_EXT} $RARCH_DIST_DIR/mips/libretro_dinothawr.${FORMAT_EXT}
-      cp ../libs/x86/libretro_dino.${FORMAT_EXT} $RARCH_DIST_DIR/x86/libretro_dinothawr.${FORMAT_EXT}
+      cp ../libs/armeabi-v7a/libretro_dino.${FORMAT_EXT} $RARCH_DIST_DIR/armeabi-v7a/dinothawr_libretro${FORMAT}.${FORMAT_EXT}
+      cp ../libs/mips/libretro_dino.${FORMAT_EXT} $RARCH_DIST_DIR/mips/dinothawr_libretro${FORMAT}.${FORMAT_EXT}
+      cp ../libs/x86/libretro_dino.${FORMAT_EXT} $RARCH_DIST_DIR/x86/dinothawr_libretro${FORMAT}.${FORMAT_EXT}
    else
       echo "Dinothawr not fetched, skipping ..."
    fi
@@ -289,9 +290,9 @@ build_libretro_nestopia()
       cd jni
       ndk-build clean APP_ABI="armeabi-v7a mips x86"
       ndk-build -j$JOBS APP_ABI="armeabi-v7a mips x86"
-      cp ../libs/armeabi-v7a/libretro.${FORMAT_EXT} $RARCH_DIST_DIR/armeabi-v7a/libretro_nestopia.${FORMAT_EXT}
-      cp ../libs/mips/libretro.${FORMAT_EXT} $RARCH_DIST_DIR/mips/libretro_nestopia.${FORMAT_EXT}
-      cp ../libs/x86/libretro.${FORMAT_EXT} $RARCH_DIST_DIR/x86/libretro_nestopia.${FORMAT_EXT}
+      cp ../libs/armeabi-v7a/libretro.${FORMAT_EXT} $RARCH_DIST_DIR/armeabi-v7a/nestopia_libretro${FORMAT}.${FORMAT_EXT}
+      cp ../libs/mips/libretro.${FORMAT_EXT} $RARCH_DIST_DIR/mips/nestopia_libretro${FORMAT}.${FORMAT_EXT}
+      cp ../libs/x86/libretro.${FORMAT_EXT} $RARCH_DIST_DIR/x86/nestopia_libretro${FORMAT}.${FORMAT_EXT}
    else
       echo "Nestopia not fetched, skipping ..."
    fi
@@ -307,10 +308,10 @@ build_libretro_pcsx_rearmed()
       cd jni
       ndk-build clean APP_ABI=armeabi-v7a
       ndk-build -j$JOBS NO_NEON=1 APP_ABI=armeabi-v7a
-      cp ../libs/armeabi-v7a/libretro-noneon.${FORMAT_EXT} $RARCH_DIST_DIR/armeabi-v7a/libretro_pcsx_rearmed.${FORMAT_EXT}
+      cp ../libs/armeabi-v7a/libretro-noneon.${FORMAT_EXT} $RARCH_DIST_DIR/armeabi-v7a/pcsx_rearmed_libretro${FORMAT}.${FORMAT_EXT}
       ndk-build clean APP_ABI=armeabi-v7a
       ndk-build -j$JOBS APP_ABI=armeabi-v7a
-      cp ../libs/armeabi-v7a/libretro.${FORMAT_EXT} $RARCH_DIST_DIR/armeabi-v7a/libretro_pcsx_rearmed-neon.${FORMAT_EXT}
+      cp ../libs/armeabi-v7a/libretro.${FORMAT_EXT} $RARCH_DIST_DIR/armeabi-v7a/pcsx_rearmed_libretro_neon${FORMAT}.${FORMAT_EXT}
    else
       echo "PCSX ReARMed not fetched, skipping ..."
    fi
@@ -325,9 +326,9 @@ build_libretro_tyrquake()
       cd libretro/jni
       ndk-build clean APP_ABI="armeabi-v7a mips x86"
       ndk-build -j$JOBS APP_ABI="armeabi-v7a mips x86"
-      cp ../libs/armeabi-v7a/libretro.${FORMAT_EXT} $RARCH_DIST_DIR/armeabi-v7a/libretro_tyrquake.${FORMAT_EXT}
-      cp ../libs/mips/libretro.${FORMAT_EXT} $RARCH_DIST_DIR/mips/libretro_tyrquake.${FORMAT_EXT}
-      cp ../libs/x86/libretro.${FORMAT_EXT} $RARCH_DIST_DIR/x86/libretro_tyrquake.${FORMAT_EXT}
+      cp ../libs/armeabi-v7a/libretro.${FORMAT_EXT} $RARCH_DIST_DIR/armeabi-v7a/tyrquake_libretro${FORMAT}.${FORMAT_EXT}
+      cp ../libs/mips/libretro.${FORMAT_EXT} $RARCH_DIST_DIR/mips/tyrquake_libretro${FORMAT}.${FORMAT_EXT}
+      cp ../libs/x86/libretro.${FORMAT_EXT} $RARCH_DIST_DIR/x86/tyrquake_libretro${FORMAT}.${FORMAT_EXT}
    else
       echo "TyrQuake not fetched, skipping ..."
    fi
@@ -342,9 +343,9 @@ build_libretro_modelviewer()
       cd jni
       ndk-build clean APP_ABI="armeabi-v7a mips x86"
       ndk-build -j$JOBS APP_ABI="armeabi-v7a mips x86"
-      cp ../libs/armeabi-v7a/libretro.${FORMAT_EXT} $RARCH_DIST_DIR/armeabi-v7a/libretro_modelviewer.${FORMAT_EXT}
-      cp ../libs/mips/libretro.${FORMAT_EXT} $RARCH_DIST_DIR/mips/libretro_modelviewer.${FORMAT_EXT}
-      cp ../libs/x86/libretro.${FORMAT_EXT} $RARCH_DIST_DIR/x86/libretro_modelviewer.${FORMAT_EXT}
+      cp ../libs/armeabi-v7a/libretro.${FORMAT_EXT} $RARCH_DIST_DIR/armeabi-v7a/modelviewer_libretro${FORMAT}.${FORMAT_EXT}
+      cp ../libs/mips/libretro.${FORMAT_EXT} $RARCH_DIST_DIR/mips/modelviewer_libretro${FORMAT}.${FORMAT_EXT}
+      cp ../libs/x86/libretro.${FORMAT_EXT} $RARCH_DIST_DIR/x86/modelviewer_libretro${FORMAT}.${FORMAT_EXT}
    else
       echo "ModelViewer not fetched, skipping ..."
    fi
@@ -359,9 +360,9 @@ build_libretro_instancingviewer()
       cd jni
       ndk-build clean APP_ABI="armeabi-v7a mips x86"
       ndk-build -j$JOBS APP_ABI="armeabi-v7a mips x86"
-      cp ../libs/armeabi-v7a/libretro.${FORMAT_EXT} $RARCH_DIST_DIR/armeabi-v7a/libretro_instancingviewer.${FORMAT_EXT}
-      cp ../libs/mips/libretro.${FORMAT_EXT} $RARCH_DIST_DIR/mips/libretro_instancingviewer.${FORMAT_EXT}
-      cp ../libs/x86/libretro.${FORMAT_EXT} $RARCH_DIST_DIR/x86/libretro_instancingviewer.${FORMAT_EXT}
+      cp ../libs/armeabi-v7a/libretro.${FORMAT_EXT} $RARCH_DIST_DIR/armeabi-v7a/instancingviewer_libretro${FORMAT}.${FORMAT_EXT}
+      cp ../libs/mips/libretro.${FORMAT_EXT} $RARCH_DIST_DIR/mips/instancingviewer_libretro${FORMAT}.${FORMAT_EXT}
+      cp ../libs/x86/libretro.${FORMAT_EXT} $RARCH_DIST_DIR/x86/instancingviewer_libretro${FORMAT}.${FORMAT_EXT}
    else
       echo "InstancingViewer not fetched, skipping ..."
    fi
@@ -376,9 +377,9 @@ build_libretro_scenewalker()
       cd jni
       ndk-build clean APP_ABI="armeabi-v7a mips x86"
       ndk-build -j$JOBS APP_ABI="armeabi-v7a mips x86"
-      cp ../libs/armeabi-v7a/libretro.${FORMAT_EXT} $RARCH_DIST_DIR/armeabi-v7a/libretro_scenewalker.${FORMAT_EXT}
-      cp ../libs/mips/libretro.${FORMAT_EXT} $RARCH_DIST_DIR/mips/libretro_scenewalker.${FORMAT_EXT}
-      cp ../libs/x86/libretro.${FORMAT_EXT} $RARCH_DIST_DIR/x86/libretro_scenewalker.${FORMAT_EXT}
+      cp ../libs/armeabi-v7a/libretro.${FORMAT_EXT} $RARCH_DIST_DIR/armeabi-v7a/scenewalker_libretro${FORMAT}.${FORMAT_EXT}
+      cp ../libs/mips/libretro.${FORMAT_EXT} $RARCH_DIST_DIR/mips/scenewalker_libretro${FORMAT}.${FORMAT_EXT}
+      cp ../libs/x86/libretro.${FORMAT_EXT} $RARCH_DIST_DIR/x86/scenewalker_libretro${FORMAT}.${FORMAT_EXT}
    else
       echo "SceneWalker not fetched, skipping ..."
    fi
@@ -393,7 +394,7 @@ build_libretro_picodrive()
       cd jni
       ndk-build clean APP_ABI=armeabi-v7a
       ndk-build -j$JOBS APP_ABI=armeabi-v7a
-      cp ../libs/armeabi-v7a/libretro_picodrive.${FORMAT_EXT} "$RARCH_DIST_DIR"/armeabi-v7a/libretro_picodrive.${FORMAT_EXT}
+      cp ../libs/armeabi-v7a/libretro_picodrive.${FORMAT_EXT} "$RARCH_DIST_DIR"/armeabi-v7a/picodrive_libretro${FORMAT}.${FORMAT_EXT}
    else
       echo "Picodrive not fetched, skipping ..."
    fi
@@ -408,11 +409,11 @@ build_libretro_desmume()
       cd jni
       ndk-build clean
       ndk-build -j$JOBS APP_ABI=armeabi-v7a
-      cp ../libs/armeabi-v7a/libretro.${FORMAT_EXT} "$RARCH_DIST_DIR"/armeabi-v7a/libretro_desmume.${FORMAT_EXT}
+      cp ../libs/armeabi-v7a/libretro.${FORMAT_EXT} "$RARCH_DIST_DIR"/armeabi-v7a/desmume_libretro${FORMAT}.${FORMAT_EXT}
 
       ndk-build clean
       ndk-build -j$JOBS APP_ABI=x86
-      cp ../libs/x86/libretro.${FORMAT_EXT} "$RARCH_DIST_DIR"/x86/libretro_desmume.${FORMAT_EXT}
+      cp ../libs/x86/libretro.${FORMAT_EXT} "$RARCH_DIST_DIR"/x86/desmume_libretro${FORMAT}.${FORMAT_EXT}
    else
       echo "Desmume not fetched, skipping ..."
    fi
@@ -427,9 +428,9 @@ build_libretro_quicknes()
       cd libretro/jni
       ndk-build clean APP_ABI="armeabi-v7a mips x86"
       ndk-build -j$JOBS APP_ABI="armeabi-v7a mips x86"
-      cp ../libs/armeabi-v7a/libretro.${FORMAT_EXT} "$RARCH_DIST_DIR"/armeabi-v7a/libretro_quicknes.${FORMAT_EXT}
-      cp ../libs/mips/libretro.${FORMAT_EXT} "$RARCH_DIST_DIR"/mips/libretro_quicknes.${FORMAT_EXT}
-      cp ../libs/x86/libretro.${FORMAT_EXT} "$RARCH_DIST_DIR"/x86/libretro_quicknes.${FORMAT_EXT}
+      cp ../libs/armeabi-v7a/libretro.${FORMAT_EXT} "$RARCH_DIST_DIR"/armeabi-v7a/quicknes_libretro${FORMAT}.${FORMAT_EXT}
+      cp ../libs/mips/libretro.${FORMAT_EXT} "$RARCH_DIST_DIR"/mips/quicknes_libretro${FORMAT}.${FORMAT_EXT}
+      cp ../libs/x86/libretro.${FORMAT_EXT} "$RARCH_DIST_DIR"/x86/quicknes_libretro${FORMAT}.${FORMAT_EXT}
    else
       echo "QuickNES not fetched, skipping ..."
    fi
@@ -477,8 +478,8 @@ build_libretro_bsnes_performance()
       cd target-libretro/jni
       ndk-build clean APP_ABI="armeabi-v7a x86"
       ndk-build -j$JOBS APP_ABI="armeabi-v7a x86"
-      cp ../libs/armeabi-v7a/libretro_bsnes_performance.${FORMAT_EXT} $RARCH_DIST_DIR/armeabi-v7a/libretro_bsnes_performance.${FORMAT_EXT}
-      cp ../libs/x86/libretro_bsnes_performance.${FORMAT_EXT} $RARCH_DIST_DIR/x86/libretro_bsnes_performance.${FORMAT_EXT}
+      cp ../libs/armeabi-v7a/libretro_bsnes_performance.${FORMAT_EXT} $RARCH_DIST_DIR/armeabi-v7a/bsnes_performance_libretro${FORMAT}.${FORMAT_EXT}
+      cp ../libs/x86/libretro_bsnes_performance.${FORMAT_EXT} $RARCH_DIST_DIR/x86/bsnes_performance_libretro${FORMAT}.${FORMAT_EXT}
    else
       echo "bsnes not fetched, skipping ..."
    fi
@@ -493,7 +494,7 @@ build_libretro_mupen64()
       cd libretro/jni
       ndk-build clean APP_ABI="armeabi-v7a"
       ndk-build -j$JOBS APP_ABI="armeabi-v7a"
-      cp ../libs/armeabi-v7a/libretro_mupen64plus.${FORMAT_EXT} $RARCH_DIST_DIR/armeabi-v7a/libretro_mupen64plus.${FORMAT_EXT}
+      cp ../libs/armeabi-v7a/libretro_mupen64plus.${FORMAT_EXT} $RARCH_DIST_DIR/armeabi-v7a/mupen64plus_libretro${FORMAT}.${FORMAT_EXT}
    else
       echo 'Mupen64 Plus not fetched, skipping ...'
    fi
