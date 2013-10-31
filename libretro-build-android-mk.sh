@@ -171,9 +171,9 @@ build_libretro_fba_full()
       cd projectfiles/libretro-android/jni
       ndk-build clean APP_ABI="armeabi-v7a mips x86"
       ndk-build -j$JOBS APP_ABI="armeabi-v7a mips x86"
-      cp ../libs/armeabi-v7a/libretro.${FORMAT_EXT} $RARCH_DIST_DIR/armeabi-v7a/fba_libretro${FORMAT}.${FORMAT_EXT}
-      cp ../libs/mips/libretro.${FORMAT_EXT} $RARCH_DIST_DIR/mips/fba_libretro${FORMAT}.${FORMAT_EXT}
-      cp ../libs/x86/libretro.${FORMAT_EXT} $RARCH_DIST_DIR/x86/fba_libretro${FORMAT}.${FORMAT_EXT}
+      cp ../libs/armeabi-v7a/libretro.${FORMAT_EXT} $RARCH_DIST_DIR/armeabi-v7a/fb_alpha_libretro${FORMAT}.${FORMAT_EXT}
+      cp ../libs/mips/libretro.${FORMAT_EXT} $RARCH_DIST_DIR/mips/fb_alpha_libretro${FORMAT}.${FORMAT_EXT}
+      cp ../libs/x86/libretro.${FORMAT_EXT} $RARCH_DIST_DIR/x86/fb_alpha_libretro${FORMAT}.${FORMAT_EXT}
    else
       echo "Final Burn Alpha not fetched, skipping ..."
    fi
