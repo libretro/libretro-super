@@ -1,4 +1,5 @@
 display_name = "Doom (PrBoom)"
 supported_extensions = "wad|iwad"
 corename = "prboom"
+systemname = "DOOM game engine"
 license = "GPLv2"

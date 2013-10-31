@@ -1,4 +1,5 @@
 display_name = "Cave Story (NXEngine)"
 supported_extensions = "exe"
 corename = "NXEngine"
+systemname = "Cave Story game engine"
 license = "GPLv3"

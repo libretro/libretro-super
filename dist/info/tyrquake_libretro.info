@@ -1,4 +1,5 @@
 display_name = "Quake 1 (TyrQuake)"
 supported_extensions = "pak"
-corename = "prboom"
+corename = "TyrQuake"
+systemname = "Quake 1 game engine"
 license = "GPLv2"

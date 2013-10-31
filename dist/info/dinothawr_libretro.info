@@ -1,4 +1,5 @@
 display_name = "Dinothawr"
 supported_extensions = "game"
 corename = "Dinothawr"
+systemname = "Game"
 license = "Non-commercial"
