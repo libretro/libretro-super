@@ -179,6 +179,23 @@ build_libretro_fba_full()
    fi
 }
 
+build_libretro_vbam()
+{
+   cd $BASE_DIR
+   if [ -d "libretro-vbam" ]; then
+      echo '=== Building VBA-M ==='
+      cd libretro-vbam/
+      cd src/libretro/jni
+      ndk-build clean APP_ABI="armeabi-v7a mips x86"
+      ndk-build -j$JOBS APP_ABI="armeabi-v7a mips x86"
+      cp ../libs/armeabi-v7a/libretro.${FORMAT_EXT} $RARCH_DIST_DIR/armeabi-v7a/vbam_libretro${FORMAT}.${FORMAT_EXT}
+      cp ../libs/mips/libretro.${FORMAT_EXT} $RARCH_DIST_DIR/mips/vbam_libretro${FORMAT}.${FORMAT_EXT}
+      cp ../libs/x86/libretro.${FORMAT_EXT} $RARCH_DIST_DIR/x86/vbam_libretro${FORMAT}.${FORMAT_EXT}
+   else
+      echo 'VBA-M not fetched, skipping ...'
+   fi
+}
+
 build_libretro_vba_next()
 {
    cd $BASE_DIR
@@ -511,6 +528,7 @@ else
    build_libretro_s9x_next
    build_libretro_genplus
    build_libretro_fba_full
+   build_libretro_vbam
    build_libretro_vba_next
    build_libretro_fceu
    build_libretro_gambatte
