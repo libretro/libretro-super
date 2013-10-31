@@ -1,6 +1,6 @@
 display_name = "Nintendo 64 (Mupen64plus)"
 supported_extensions = "n64|v64|z64"
-corename = "mupen64plus"
+corename = "Mupen64Plus"
 manufacturer = "Nintendo"
 systemname = "Nintendo 64"
 license = "GPLv2"
