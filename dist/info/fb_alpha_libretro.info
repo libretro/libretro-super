@@ -1,4 +1,5 @@
 display_name = "Arcade (FBA)"
+authors = "Barry Harris"
 supported_extensions = "zip"
 corename = "Final Burn Alpha"
 manufacturer = "Various"

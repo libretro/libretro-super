@@ -1,4 +1,5 @@
 display_name = "Arcade (MAME 2003)"
+authors = "MAMEdev"
 supported_extensions = "zip"
 corename = "MAME 2003 (0.78)"
 manufacturer = "Various"

@@ -1,4 +1,5 @@
 display_name = "Sega MS/GG/MD/CD (Genesis Plus GX)"
+authors = "Charles McDonald|Eke-Eke"
 supported_extensions = "md|smd|gen|sms|gg|sg|bin|cue|ios"
 corename = "Genesis Plus GX"
 manufacturer = "Sega"

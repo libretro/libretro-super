@@ -1,4 +1,5 @@
 display_name = "Game Boy Advance (VBA Next)"
+authors = "VBA-M Team|Squarepusher2"
 supported_extensions = "gba"
 corename = "VBA Next"
 manufacturer = "Nintendo"

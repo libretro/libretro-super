@@ -1,4 +1,5 @@
 display_name = "Arcade (MAME 2010)"
+authors = "MAMEdev"
 supported_extensions = "zip|7z|chd"
 corename = "MAME 2010 (0.139)"
 manufacturer = "Various"

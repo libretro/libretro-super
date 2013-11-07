@@ -1,4 +1,5 @@
 display_name = "Game Boy Advance (Mednafen VBA)"
+authors = "Forgotten|Ryphecha"
 supported_extensions = "gba"
 corename = "Mednafen VBA"
 manufacturer = "Nintendo"

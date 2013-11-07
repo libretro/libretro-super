@@ -1,4 +1,5 @@
 display_name = "Game Boy / Game Boy Color (Gambatte)"
+authors = "Sinamas"
 supported_extensions = "gb|gbc|dmg"
 corename = "Gambatte"
 manufacturer = "Nintendo"

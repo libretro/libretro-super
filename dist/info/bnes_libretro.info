@@ -1,4 +1,5 @@
 display_name = "NES / Famicom (bNES)"
+authors = "byuu"
 supported_extensions = "nes"
 corename = "bNES/higan"
 manufacturer = "Nintendo"

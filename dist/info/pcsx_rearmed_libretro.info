@@ -1,4 +1,5 @@
 display_name = "PlayStation1 (PCSX ReARMed)"
+authors = "PCSX Team|notaz|Exophase"
 supported_extensions = "bin|cue|img|mdf|pbp|cbn|toc"
 corename = "PCSX ReARMed"
 manufacturer = "Sony"

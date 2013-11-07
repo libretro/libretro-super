@@ -1,4 +1,5 @@
 display_name = "Game Boy Advance (VBA-M)"
+authors = "VBA-M Team"
 supported_extensions = "gba"
 corename = "VBA-M"
 manufacturer = "Nintendo"

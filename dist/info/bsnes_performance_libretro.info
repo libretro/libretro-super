@@ -1,4 +1,5 @@
 display_name = "SNES / Super Famicom (bSNES Performance)"
+authors = "byuu"
 supported_extensions = "smc|sfc"
 corename = "bsnes/higan Performance"
 manufacturer = "Nintendo"
