@@ -12,6 +12,8 @@ build_libretro_fba()
       cp fb_alpha_libretro$FORMAT.${FORMAT_EXT} $RARCH_DIST_DIR
 
       echo "=== Building Final Burn Alpha Cores (CPS1) ==="
+      cd ../../
+      cd svn-old/trunk
       cd fbacores/cps1
       make -f makefile.libretro platform=$FORMAT_COMPILER_TARGET -j$JOBS clean || die "Failed to clean Final Burn Alpha Cores CPS1"
       make -f makefile.libretro platform=$FORMAT_COMPILER_TARGET -j$JOBS || die "Failed to build Final Burn Alpha Cores CPS1"
