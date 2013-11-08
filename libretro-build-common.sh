@@ -21,8 +21,8 @@ echo "Compiler: ${COMPILER}"
 [[ "${X86}" ]] && echo '=== x86 CPU detected... ==='
 [[ "${X86}" ]] && [[ "${X86_64}" ]] && echo '=== x86_64 CPU detected... ==='
 
-export FORMAT_COMPILER_TARGET_ALT="${FORMAT_COMPILER_TARGET}"
 echo "${FORMAT_COMPILER_TARGET}"
+echo "${FORMAT_COMPILER_TARGET_ALT}"
 
 check_opengl() {
    if [ "${BUILD_LIBRETRO_GL}" ]; then

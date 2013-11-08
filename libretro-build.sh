@@ -73,6 +73,7 @@ if [ -z "$CXX" ]; then
    fi
 fi
 
+FORMAT_COMPILER_TARGET_ALT=$FORMAT_COMPILER_TARGET
 echo "CC = $CC"
 echo "CXX = $CXX"
 echo "STRIP = $STRIP"
