@@ -323,9 +323,9 @@ build_libretro_pcsx_rearmed()
       echo "=== Building PCSX ReARMed ==="
       cd libretro-pcsx-rearmed
       cd jni
-      ndk-build clean APP_ABI=armeabi-v7a
-      ndk-build -j$JOBS NO_NEON=1 APP_ABI=armeabi-v7a
-      cp ../libs/armeabi-v7a/libretro-noneon.${FORMAT_EXT} $RARCH_DIST_DIR/armeabi-v7a/pcsx_rearmed_libretro${FORMAT}.${FORMAT_EXT}
+      #ndk-build clean APP_ABI=armeabi-v7a
+      #ndk-build -j$JOBS NO_NEON=1 APP_ABI=armeabi-v7a
+      #cp ../libs/armeabi-v7a/libretro-noneon.${FORMAT_EXT} $RARCH_DIST_DIR/armeabi-v7a/pcsx_rearmed_libretro${FORMAT}.${FORMAT_EXT}
       ndk-build clean APP_ABI=armeabi-v7a
       ndk-build -j$JOBS APP_ABI=armeabi-v7a
       cp ../libs/armeabi-v7a/libretro.${FORMAT_EXT} $RARCH_DIST_DIR/armeabi-v7a/pcsx_rearmed_libretro_neon${FORMAT}.${FORMAT_EXT}
