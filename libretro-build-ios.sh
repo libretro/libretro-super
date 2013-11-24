@@ -12,7 +12,7 @@ FORMAT_EXT=dylib
 JOBS=7
 MAKE=make
 
-export IOSSDK=/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS6.1.sdk/
+export IOSSDK=/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS7.0.sdk/
 
 . ./libretro-build-common.sh
 
