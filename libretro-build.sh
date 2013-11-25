@@ -42,6 +42,7 @@ die()
 if [ "$HOST_CC" ]; then
    CC="${HOST_CC}-gcc"
    CXX="${HOST_CC}-g++"
+   CXX11="${HOST_CC}-g++"
    STRIP="${HOST_CC}-strip"
 fi
 
@@ -66,10 +67,13 @@ fi
 if [ -z "$CXX" ]; then
 	if [ $FORMAT_COMPILER_TARGET = "osx" ]; then
 		CXX=clang++
+		CXX11="clang++ -std=c++11 -stdlib=libc++"
    elif [ "$(expr substr $(uname -s) 1 7)" = "MINGW32" ]; then
       CXX=mingw32-g++
+      CXX11=mingw32-g++
    else
       CXX=g++
+      CXX11=g++
    fi
 fi
 

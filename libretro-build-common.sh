@@ -6,7 +6,7 @@ die() {
 }
 
 if [ "${CC}" ] && [ "${CXX}" ]; then
-   COMPILER="CC=\"${CC}\" CXX=\"${CXX}\""
+   COMPILER="CC=\"${CC}\" CXX=\"${CXX}\" CXX11=\"${CXX11}\""
 else
    COMPILER=""
 fi
@@ -509,7 +509,7 @@ build_libretro_bsnes() {
       cd libretro-bsnes/perf
 
       rm -f obj/*.{o,"${FORMAT_EXT}"}
-      "${MAKE}" -f Makefile platform="${FORMAT_COMPILER_TARGET}" compiler="${CXX}" ui='target-libretro' profile='performance' "-j${JOBS}" || die 'Failed to build bSNES performance core'
+      "${MAKE}" -f Makefile platform="${FORMAT_COMPILER_TARGET}" compiler="${CXX11}" ui='target-libretro' profile='performance' "-j${JOBS}" || die 'Failed to build bSNES performance core'
       cp -f "out/bsnes_libretro${FORMAT}.${FORMAT_EXT}" "${RARCH_DIST_DIR}/bsnes_performance_libretro.${FORMAT_EXT}"
    else
       echo 'bSNES performance not fetched, skipping ...'
@@ -521,7 +521,7 @@ build_libretro_bsnes() {
       cd libretro-bsnes/balanced
 
       rm -f obj/*.{o,"${FORMAT_EXT}"}
-      "${MAKE}" -f Makefile platform="${FORMAT_COMPILER_TARGET}" compiler="${CXX}" ui='target-libretro' profile='balanced' "-j${JOBS}" || die 'Failed to build bSNES balanced core'
+      "${MAKE}" -f Makefile platform="${FORMAT_COMPILER_TARGET}" compiler="${CXX11}" ui='target-libretro' profile='balanced' "-j${JOBS}" || die 'Failed to build bSNES balanced core'
       cp -f "out/bsnes_libretro${FORMAT}.${FORMAT_EXT}" "${RARCH_DIST_DIR}/bsnes_balanced_libretro.${FORMAT_EXT}"
    else
       echo 'bSNES compat not fetched, skipping ...'
@@ -533,7 +533,7 @@ build_libretro_bsnes() {
       cd libretro-bsnes
 
       rm -f obj/*.{o,"${FORMAT_EXT}"}
-      "${MAKE}" -f Makefile platform="${FORMAT_COMPILER_TARGET}" compiler="${CXX}" ui='target-libretro' profile='accuracy' "-j${JOBS}" || die 'Failed to build bSNES accuracy core'
+      "${MAKE}" -f Makefile platform="${FORMAT_COMPILER_TARGET}" compiler="${CXX11}" ui='target-libretro' profile='accuracy' "-j${JOBS}" || die 'Failed to build bSNES accuracy core'
       cp -f "out/bsnes_libretro${FORMAT}.${FORMAT_EXT}" "${RARCH_DIST_DIR}/bsnes_accuracy_libretro.${FORMAT_EXT}"
    fi
 }
