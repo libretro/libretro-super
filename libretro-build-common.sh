@@ -460,6 +460,20 @@ build_libretro_instancingviewer() {
    fi
 }
 
+build_libretro_instancingviewer_camera() {
+   cd "${BASE_DIR}"
+   if [ -d 'libretro-gl-instancingviewer-camera' ]; then
+      echo '=== Building Instancing Viewer Camera (GL) ==='
+      cd libretro-gl-instancingviewer-camera
+
+      "${MAKE}" -f Makefile platform="${FORMAT_COMPILER_TARGET}" ${COMPILER} "-j${JOBS}" clean || die 'Failed to clean InstancingViewer-Camera'
+      "${MAKE}" -f Makefile platform="${FORMAT_COMPILER_TARGET}" ${COMPILER} "-j${JOBS}" || die 'Failed to build InstancingViewer-Camera'
+      cp "instancingviewer_camera_libretro${FORMAT}.${FORMAT_EXT}" "${RARCH_DIST_DIR}"
+   else
+      echo 'InstancingViewer Camera not fetched, skipping ...'
+   fi
+}
+
 build_libretro_scummvm() {
    cd "${BASE_DIR}"
    if [ -d 'libretro-scummvm' ]; then

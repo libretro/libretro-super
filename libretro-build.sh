@@ -120,6 +120,7 @@ fi
    build_libretro_modelviewer
    build_libretro_scenewalker
    build_libretro_instancingviewer
+   build_libretro_instancingviewer_camera
    build_libretro_mupen64
    build_libretro_ffmpeg
    build_libretro_dinothawr
