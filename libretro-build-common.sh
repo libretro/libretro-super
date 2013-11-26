@@ -6,7 +6,7 @@ die() {
 }
 
 if [ "${CC}" ] && [ "${CXX}" ]; then
-   COMPILER="CC=\"${CC}\" CXX=\"${CXX}\" CXX11=\"${CXX11}\""
+   COMPILER="CC=\"${CC}\" CXX=\"${CXX}\""
 else
    COMPILER=""
 fi
