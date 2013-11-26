@@ -1,0 +1,6 @@
+display_name = "PNG Images (InstancingViewer Camera)"
+supported_extensions = "png"
+corename = "InstancingViewer Camera"
+manufacturer = "Various"
+systemname = "Instantiation of objects displaying the camera image"
+license = "N/A"
