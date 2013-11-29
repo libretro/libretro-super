@@ -113,3 +113,4 @@ fetch_project "$REPO_BASE/libretro/instancingviewer-libretro-gl.git" "libretro-g
 fetch_project "$REPO_BASE/libretro/instancingviewer-camera.git" "libretro-gl-instancingviewer-camera" "libretro/instancingviewer-camera"
 fetch_project "$REPO_BASE/libretro/Dinothawr.git" "libretro-dinothawr" "libretro/Dinothawr"
 fetch_project "$REPO_BASE/libretro/libretro-hatari.git" "libretro-hatari" "libretro/Hatari"
+fetch_project "$REPO_BASE/libretro/libretro-uae.git" "libretro-uae" "libretro/UAE"
