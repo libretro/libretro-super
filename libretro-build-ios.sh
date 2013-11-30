@@ -22,10 +22,9 @@ if [ $1 ]; then
    $1
 else
    build_libretro_bsnes
-   build_libretro_pcsx_rearmed
    build_libretro_mednafen
-   build_libretro_mednafen_psx
    build_libretro_mednafen_gba
+   build_libretro_mednafen_psx
    build_libretro_s9x
    build_libretro_s9x_next
    build_libretro_genplus
@@ -38,15 +37,17 @@ else
    build_libretro_prboom
    build_libretro_stella
    build_libretro_quicknes
-   build_libretro_desmume
    build_libretro_nestopia
    build_libretro_tyrquake
    build_libretro_mame078
+   build_libretro_picodrive
+   build_libretro_handy
+   build_libretro_desmume
+   build_libretro_pcsx_rearmed
    build_libretro_modelviewer
    build_libretro_scenewalker
    build_libretro_instancingviewer
    build_libretro_instancingviewer_camera
-   build_libretro_picodrive
    build_libretro_mupen64
    build_libretro_dinothawr
 fi
