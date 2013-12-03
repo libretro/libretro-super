@@ -66,7 +66,7 @@ fi
 
 if [ -z "$CXX" ]; then
 	if [ $FORMAT_COMPILER_TARGET = "osx" ]; then
-		CXX=clang++
+		CXX=c++
 		CXX11="clang++ -std=c++11 -stdlib=libc++"
    elif [ "$(expr substr $(uname -s) 1 7)" = "MINGW32" ]; then
       CXX=mingw32-g++

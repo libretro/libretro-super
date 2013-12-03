@@ -11,7 +11,7 @@ FORMAT_COMPILER_TARGET_ALT=ios
 FORMAT_EXT=dylib
 JOBS=7
 MAKE=make
-CXX11="clang++ -std=c++11 -stdlib=libc++"
+CXX11="clang++ -std=c++11 -stdlib=libc++ -miphoneos-version-min=5.0"
 IOS=1
 
 export IOSSDK=/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS7.0.sdk/
