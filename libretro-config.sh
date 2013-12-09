@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 # Architecture Assignment
 [[ -z "$ARCH" ]] && ARCH="$(uname -m)"

@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 SCRIPT=$(readlink -f $0)
 BASE_DIR=$(dirname $SCRIPT)
