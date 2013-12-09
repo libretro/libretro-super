@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 # BSDs don't have readlink -f
 read_link()

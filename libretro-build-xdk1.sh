@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 BASE_DIR=$(pwd)
 RARCH_DIR=$BASE_DIR/dist
