@@ -1,16 +1,22 @@
 ## All data is optional, but helps improve user experience.
 
-# Name displayed when the user is selecting an core.
+# Name displayed when the user is selecting the core.
 # display_name = "NES / Famicom"
 
 # List of supported extensions.
 # supported_extensions = "nes|fds"
 
-# Name the core.
+# Name of the core.
 # corename = "Nestopia"
 
 # The developer.
 # manufacturer = "Nintendo"
 
-# Name of the system that the emulator targets.
+# Name of the system that the core targets (optional).
 # systemname = "Nintendo Entertainment System"
+
+# License of the core's sourcecode
+# license = "GPLv3"
+
+# Privacy-specific permissions needed for using the core
+# permissions = ""

@@ -5,6 +5,7 @@ corename = "PCSX ReARMed [NEON]"
 manufacturer = "Sony"
 systemname = "PlayStation"
 license = "GPLv2"
+permissions = ""
 
 firmware_count = 3
 

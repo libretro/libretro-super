@@ -5,6 +5,7 @@ corename = "Mednafen PCE Fast"
 manufacturer = "NEC"
 systemname = "PC Engine/TurboGrafx-16"
 license = "GPLv2"
+permissions = ""
 
 firmware_count = 1
 
