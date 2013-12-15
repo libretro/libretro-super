@@ -1,0 +1,8 @@
+display_name = "SNES / Super Famicom (bSNES C++98 (v085))"
+authors = "byuu|Themaister|Ver GreenEyes"
+supported_extensions = "smc|sfc"
+corename = "bsnes C++98 (v085)"
+manufacturer = "Nintendo"
+systemname = "Super Nintendo Entertainment System"
+license = "GPLv3"
+permissions = ""
