@@ -48,7 +48,7 @@ build_libretro_bsnes_cplusplus98() {
 
       "${MAKE}" clean || die 'Failed to clean bSNES C++98'
       "${MAKE}" platform="${FORMAT_COMPILER_TARGET}" ${COMPILER} "-j${JOBS}"
-      cp "out/libretro.${FORMAT_EXT}" "${RARCH_DIST_DIR}/bsnes_cplusplus98.${FORMAT_EXT}"
+      cp "out/libretro.${FORMAT_EXT}" "${RARCH_DIST_DIR}/bsnes_cplusplus98_libretro${FORMAT}.${FORMAT_EXT}"
    else
       echo 'bSNES C++98 not fetched, skipping ...'
    fi
@@ -524,7 +524,7 @@ build_libretro_bsnes() {
 
       rm -f obj/*.{o,"${FORMAT_EXT}"}
       "${MAKE}" -f Makefile platform="${FORMAT_COMPILER_TARGET}" compiler="${CXX11}" ui='target-libretro' profile='performance' "-j${JOBS}" || die 'Failed to build bSNES performance core'
-      cp -f "out/bsnes_libretro${FORMAT}.${FORMAT_EXT}" "${RARCH_DIST_DIR}/bsnes_performance_libretro.${FORMAT_EXT}"
+      cp -f "out/bsnes_libretro${FORMAT}.${FORMAT_EXT}" "${RARCH_DIST_DIR}/bsnes_performance_libretro${FORMAT}.${FORMAT_EXT}"
    else
       echo 'bSNES performance not fetched, skipping ...'
    fi
@@ -536,7 +536,7 @@ build_libretro_bsnes() {
 
       rm -f obj/*.{o,"${FORMAT_EXT}"}
       "${MAKE}" -f Makefile platform="${FORMAT_COMPILER_TARGET}" compiler="${CXX11}" ui='target-libretro' profile='balanced' "-j${JOBS}" || die 'Failed to build bSNES balanced core'
-      cp -f "out/bsnes_libretro${FORMAT}.${FORMAT_EXT}" "${RARCH_DIST_DIR}/bsnes_balanced_libretro.${FORMAT_EXT}"
+      cp -f "out/bsnes_libretro${FORMAT}.${FORMAT_EXT}" "${RARCH_DIST_DIR}/bsnes_balanced_libretro${FORMAT}.${FORMAT_EXT}"
    else
       echo 'bSNES compat not fetched, skipping ...'
    fi
@@ -548,7 +548,7 @@ build_libretro_bsnes() {
 
       rm -f obj/*.{o,"${FORMAT_EXT}"}
       "${MAKE}" -f Makefile platform="${FORMAT_COMPILER_TARGET}" compiler="${CXX11}" ui='target-libretro' profile='accuracy' "-j${JOBS}" || die 'Failed to build bSNES accuracy core'
-      cp -f "out/bsnes_libretro${FORMAT}.${FORMAT_EXT}" "${RARCH_DIST_DIR}/bsnes_accuracy_libretro.${FORMAT_EXT}"
+      cp -f "out/bsnes_libretro${FORMAT}.${FORMAT_EXT}" "${RARCH_DIST_DIR}/bsnes_accuracy_libretro${FORMAT}.${FORMAT_EXT}"
    fi
 }
 
@@ -561,7 +561,7 @@ build_libretro_bnes() {
       mkdir -p obj
       "${MAKE}" "-j${JOBS}" clean || die 'Failed to clean bNES'
       "${MAKE}" ${COMPILER} "-j${JOBS}" || die 'Failed to build bNES'
-      cp "libretro${FORMAT}.${FORMAT_EXT}" "${RARCH_DIST_DIR}/bnes_libretro.${FORMAT_EXT}"
+      cp "libretro${FORMAT}.${FORMAT_EXT}" "${RARCH_DIST_DIR}/bnes_libretro${FORMAT}.${FORMAT_EXT}"
    else
       echo 'bNES not fetched, skipping ...'
    fi
