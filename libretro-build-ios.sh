@@ -21,6 +21,7 @@ export IOSSDK=/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.plat
 if [ $1 ]; then
    $1
 else
+   build_libretro_bsnes_cplusplus98
    build_libretro_bsnes
    build_libretro_mednafen
    build_libretro_mednafen_gba
