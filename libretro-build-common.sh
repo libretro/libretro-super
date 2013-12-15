@@ -40,6 +40,20 @@ check_opengl() {
    fi
 }
 
+build_libretro_bsnes_cplusplus98() {
+   cd "${BASE_DIR}"
+   if [ -d 'libretro-bsnes-cplusplus98' ]; then
+      echo '=== Building bSNES C++98 ==='
+      cd libretro-bsnes-cplusplus98
+
+      "${MAKE}" clean || die 'Failed to clean bSNES C++98'
+      "${MAKE}" platform="${FORMAT_COMPILER_TARGET}" ${COMPILER} "-j${JOBS}"
+      cp "out/libretro.${FORMAT_EXT}" "${RARCH_DIST_DIR}/bsnes_cplusplus98.${FORMAT_EXT}"
+   else
+      echo 'bSNES C++98 not fetched, skipping ...'
+   fi
+}
+
 build_libretro_ffmpeg() {
    cd "${BASE_DIR}"
    if [ -d 'libretro-ffmpeg' ]; then
