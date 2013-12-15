@@ -588,7 +588,7 @@ build_libretro_mupen64() {
       else
          echo '=== Building Mupen 64 Plus ==='
          "${MAKE}" "-j${JOBS}" clean || die 'Failed to clean Mupen 64'
-         "${MAKE}" ${COMPILER} "-j${JOBS}" || die 'Failed to build Mupen 64'
+         "${MAKE}" platform="${FORMAT_COMPILER_TARGET_ALT}" ${COMPILER} "-j${JOBS}" || die 'Failed to build Mupen 64'
       fi
       cp "mupen64plus_libretro${FORMAT}.${FORMAT_EXT}" "${RARCH_DIST_DIR}"
    else
