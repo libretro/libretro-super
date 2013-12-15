@@ -1,3 +1,4 @@
+authors = "Team Libretro"
 display_name = "3D Models (Modelviewer)"
 supported_extensions = "obj"
 corename = "Modelviewer"

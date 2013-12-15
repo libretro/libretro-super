@@ -1,3 +1,4 @@
+authors = "Team Libretro"
 display_name = "PNG Images (InstancingViewer)"
 supported_extensions = "png"
 corename = "InstancingViewer"
