@@ -559,8 +559,8 @@ build_libretro_bnes() {
       cd libretro-bnes
 
       mkdir -p obj
-      "${MAKE}" "-j${JOBS}" clean || die 'Failed to clean bNES'
-      "${MAKE}" ${COMPILER} "-j${JOBS}" || die 'Failed to build bNES'
+      "${MAKE}" -f Makefile "-j${JOBS}" clean || die 'Failed to clean bNES'
+      "${MAKE}" -f Makefile ${COMPILER} "-j${JOBS}" compiler="${CXX11}" || die 'Failed to build bNES'
       cp "libretro${FORMAT}.${FORMAT_EXT}" "${RARCH_DIST_DIR}/bnes_libretro${FORMAT}.${FORMAT_EXT}"
    else
       echo 'bNES not fetched, skipping ...'
