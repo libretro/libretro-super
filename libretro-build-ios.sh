@@ -25,6 +25,7 @@ else
    build_libretro_bsnes
    build_libretro_mednafen
    build_libretro_mednafen_gba
+   #build_libretro_mednafen_snes
    build_libretro_mednafen_psx
    build_libretro_s9x
    build_libretro_s9x_next
@@ -34,6 +35,7 @@ else
    build_libretro_vba_next
    build_libretro_fceu
    build_libretro_gambatte
+   #build_libretro_meteor
    build_libretro_nx
    build_libretro_prboom
    build_libretro_stella
@@ -41,6 +43,8 @@ else
    build_libretro_nestopia
    build_libretro_tyrquake
    build_libretro_mame078
+   #build_libretro_mame
+   #build_libretro_dosbox
    build_libretro_scummvm
    build_libretro_picodrive
    build_libretro_handy
@@ -51,5 +55,6 @@ else
    build_libretro_instancingviewer
    build_libretro_instancingviewer_camera
    build_libretro_mupen64
+   #build_libretro_ffmpeg
    build_libretro_dinothawr
 fi
