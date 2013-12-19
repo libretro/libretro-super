@@ -50,6 +50,7 @@ else
    build_libretro_handy
    build_libretro_desmume
    build_libretro_pcsx_rearmed
+   build_libretro_pcsx_rearmed_interpreter
    build_libretro_modelviewer
    build_libretro_scenewalker
    build_libretro_instancingviewer
