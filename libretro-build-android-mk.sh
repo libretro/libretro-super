@@ -369,6 +369,23 @@ build_libretro_modelviewer()
    fi
 }
 
+build_libretro_modelviewer_location()
+{
+   cd $BASE_DIR
+   if [ -d "libretro-gl-modelviewer-location" ]; then
+      echo "=== Building Modelviewer Location (GL) ==="
+      cd libretro-gl-modelviewer-location
+      cd jni
+      ndk-build clean APP_ABI="armeabi-v7a mips x86"
+      ndk-build -j$JOBS APP_ABI="armeabi-v7a mips x86"
+      cp ../libs/armeabi-v7a/libretro.${FORMAT_EXT} $RARCH_DIST_DIR/armeabi-v7a/modelviewer_location_libretro${FORMAT}.${FORMAT_EXT}
+      cp ../libs/mips/libretro.${FORMAT_EXT} $RARCH_DIST_DIR/mips/modelviewer_location_libretro${FORMAT}.${FORMAT_EXT}
+      cp ../libs/x86/libretro.${FORMAT_EXT} $RARCH_DIST_DIR/x86/modelviewer_location_libretro${FORMAT}.${FORMAT_EXT}
+   else
+      echo "ModelViewer Location not fetched, skipping ..."
+   fi
+}
+
 build_libretro_instancingviewer()
 {
    cd $BASE_DIR

@@ -460,6 +460,20 @@ build_libretro_modelviewer() {
    fi
 }
 
+build_libretro_modelviewer_location() {
+   cd "${BASE_DIR}"
+   if [ -d 'libretro-gl-modelviewer-location' ]; then
+      echo '=== Building Modelviewer Location (GL) ==='
+      cd libretro-gl-modelviewer-location
+
+      "${MAKE}" -f Makefile platform="${FORMAT_COMPILER_TARGET}" ${COMPILER} "-j${JOBS}" clean || die 'Failed to clean Modelviewer Location'
+      "${MAKE}" -f Makefile platform="${FORMAT_COMPILER_TARGET}" ${COMPILER} "-j${JOBS}" || die 'Failed to build Modelviewer Location'
+      cp "modelviewer_location_libretro${FORMAT}.${FORMAT_EXT}" "${RARCH_DIST_DIR}"
+   else
+      echo 'ModelViewer Location not fetched, skipping ...'
+   fi
+}
+
 build_libretro_scenewalker() {
    cd "${BASE_DIR}"
    if [ -d 'libretro-gl-scenewalker' ]; then

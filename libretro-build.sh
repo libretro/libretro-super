@@ -123,6 +123,7 @@ if [ $FORMAT_COMPILER_TARGET != "win" ]; then
 fi
    check_opengl
    build_libretro_modelviewer
+   build_libretro_modelviewer_location
    build_libretro_scenewalker
    build_libretro_instancingviewer
    build_libretro_instancingviewer_camera
