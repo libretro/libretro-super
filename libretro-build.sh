@@ -50,18 +50,18 @@ if [ -z "$MAKE" ]; then
    if uname -s | grep -i MINGW32 > /dev/null 2>&1; then
       MAKE=mingw32-make
    else
-       if type gmake > /dev/null 2>&1; then
-	   MAKE=gmake
-       else
-	   MAKE=make
-       fi
+      if type gmake > /dev/null 2>&1; then
+         MAKE=gmake
+      else
+         MAKE=make
+      fi
    fi
 fi
 
 
 if [ -z "$CC" ]; then
-    if [ $FORMAT_COMPILER_TARGET = "osx" ]; then
-	CC=clang
+   if [ $FORMAT_COMPILER_TARGET = "osx" ]; then
+      CC=clang
    elif uname -s | grep -i MINGW32 > /dev/null 2>&1; then
       CC=mingw32-gcc
    else
@@ -70,16 +70,16 @@ if [ -z "$CC" ]; then
 fi
 
 if [ -z "$CXX" ]; then
-    if [ $FORMAT_COMPILER_TARGET = "osx" ]; then
-	CXX=c++
-	CXX11="clang++ -std=c++11 -stdlib=libc++"
-    elif uname -s | grep -i MINGW32 > /dev/null 2>&1; then
-	CXX=mingw32-g++
-	CXX11=mingw32-g++
-    else
-	CXX=g++
-	CXX11=g++
-    fi
+   if [ $FORMAT_COMPILER_TARGET = "osx" ]; then
+      CXX=c++
+      CXX11="clang++ -std=c++11 -stdlib=libc++"
+   elif uname -s | grep -i MINGW32 > /dev/null 2>&1; then
+      CXX=mingw32-g++
+      CXX11=mingw32-g++
+   else
+      CXX=g++
+      CXX11=g++
+   fi
 fi
 
 FORMAT_COMPILER_TARGET_ALT=$FORMAT_COMPILER_TARGET
@@ -122,10 +122,10 @@ else
    build_libretro_scummvm
    build_libretro_picodrive
    build_libretro_handy
-if [ $FORMAT_COMPILER_TARGET != "win" ]; then
-   build_libretro_desmume
-   build_libretro_pcsx_rearmed
-fi
+   if [ $FORMAT_COMPILER_TARGET != "win" ]; then
+      build_libretro_desmume
+      build_libretro_pcsx_rearmed
+   fi
    check_opengl
    build_libretro_modelviewer
    build_libretro_modelviewer_location
