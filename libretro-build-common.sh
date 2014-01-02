@@ -362,6 +362,20 @@ build_libretro_gambatte() {
    fi
 }
 
+build_libretro_tgbdual() {
+   cd "${BASE_DIR}"
+   if [ -d 'libretro-tgbdual' ]; then
+      echo '=== Building TGBDual ==='
+      cd libretro-tgbdual
+
+      "${MAKE}" -f Makefile platform="${FORMAT_COMPILER_TARGET_ALT}" ${COMPILER} "-j${JOBS}" clean || die 'Failed to clean TGBDual'
+      "${MAKE}" -f Makefile platform="${FORMAT_COMPILER_TARGET_ALT}" ${COMPILER} "-j${JOBS}" || die 'Failed to build TGBDual'
+      cp "tgbdual_libretro${FORMAT}.${FORMAT_EXT}" "${RARCH_DIST_DIR}"
+   else
+      echo 'TGBDual not fetched, skipping ...'
+   fi
+}
+
 build_libretro_nx() {
    cd "${BASE_DIR}"
    if [ -d 'libretro-nx' ]; then
