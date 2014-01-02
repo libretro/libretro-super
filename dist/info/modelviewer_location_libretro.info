@@ -1,0 +1,8 @@
+authors = "Team Libretro"
+display_name = "3D Models (Modelviewer) GPS"
+supported_extensions = "obj"
+corename = "Modelviewer"
+manufacturer = "Various"
+systemname = "3D Models"
+license = "GPLv3"
+permissions = "location"
