@@ -34,7 +34,7 @@ build_libretro_fba_neogeo()
    if [ -d "libretro-fba" ]; then
       echo "=== Building Final Burn Alpha Cores (NeoGeo) ==="
       cd libretro-fba/
-      cd svn-old/trunk
+      cd svn-current/trunk
       cd fbacores/neogeo
       make -f makefile.libretro platform=$FORMAT_COMPILER_TARGET -j$JOBS clean || die "Failed to clean Final Burn Alpha Cores NeoGeo"
       make -f makefile.libretro platform=$FORMAT_COMPILER_TARGET -j$JOBS || die "Failed to build Final Burn Alpha Cores NeoGeo"
