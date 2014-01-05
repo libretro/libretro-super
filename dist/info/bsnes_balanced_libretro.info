@@ -1,6 +1,6 @@
 display_name = "SNES / Super Famicom (bSNES Balanced)"
 authors = "byuu"
-supported_extensions = "smc|sfc"
+supported_extensions = "smc|sfc|bml"
 corename = "bsnes/higan Balanced"
 manufacturer = "Nintendo"
 systemname = "Super Nintendo Entertainment System"
