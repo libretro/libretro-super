@@ -6,7 +6,7 @@ build_libretro_fba_cps1()
    if [ -d "libretro-fba" ]; then
       echo "=== Building Final Burn Alpha Cores (CPS1) ==="
       cd libretro-fba/
-      cd svn-current/trunk
+      cd svn-old/trunk
       cd fbacores/cps1
       make -f makefile.libretro platform=$FORMAT_COMPILER_TARGET -j$JOBS clean || die "Failed to clean Final Burn Alpha Cores CPS1"
       make -f makefile.libretro platform=$FORMAT_COMPILER_TARGET -j$JOBS || die "Failed to build Final Burn Alpha Cores CPS1"
@@ -20,7 +20,7 @@ build_libretro_fba_cps2()
    if [ -d "libretro-fba" ]; then
       echo "=== Building Final Burn Alpha Cores (CPS2) ==="
       cd libretro-fba/
-      cd svn-current/trunk
+      cd svn-old/trunk
       cd fbacores/cps2
       make -f makefile.libretro platform=$FORMAT_COMPILER_TARGET -j$JOBS clean || die "Failed to clean Final Burn Alpha Cores CPS2"
       make -f makefile.libretro platform=$FORMAT_COMPILER_TARGET -j$JOBS || die "Failed to build Final Burn Alpha Cores CPS2"
@@ -34,7 +34,7 @@ build_libretro_fba_neogeo()
    if [ -d "libretro-fba" ]; then
       echo "=== Building Final Burn Alpha Cores (NeoGeo) ==="
       cd libretro-fba/
-      cd svn-current/trunk
+      cd svn-old/trunk
       cd fbacores/neogeo
       make -f makefile.libretro platform=$FORMAT_COMPILER_TARGET -j$JOBS clean || die "Failed to clean Final Burn Alpha Cores NeoGeo"
       make -f makefile.libretro platform=$FORMAT_COMPILER_TARGET -j$JOBS || die "Failed to build Final Burn Alpha Cores NeoGeo"
