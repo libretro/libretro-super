@@ -19,7 +19,7 @@ build_libretro_fba()
    if [ -d "libretro-fba" ]; then
       echo "=== Building Final Burn Alpha ==="
       cd libretro-fba/
-      cd svn-old/trunk
+      cd svn-current/trunk
       cd projectfiles/visualstudio-2003-libretro-xbox1
       cmd.exe /k $MSVC_NAME.bat
       cp Release_LTCG/fb_alpha_libretro$FORMAT.${FORMAT_EXT} $RARCH_DIST_DIR
