@@ -170,7 +170,7 @@ build_libretro_tyrquake()
       cd libretro-tyrquake
       cd libretro/msvc
       cmd.exe /k $MSVC_NAME.bat
-      cp $MSVC_NAME/Release_LTCG/tyrquake_libretro$FORMAT.$FORMAT_EXT "$RARCH_DIST_DIR"
+      cp $MSVC_NAME/Release/tyrquake_libretro$FORMAT.$FORMAT_EXT "$RARCH_DIST_DIR"
    else
       echo "Tyr Quake not fetched, skipping ..."
    fi
