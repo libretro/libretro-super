@@ -1,0 +1,8 @@
+display_name = "NeoGeo (FBA)"
+authors = "Barry Harris"
+supported_extensions = "zip"
+corename = "Final Burn Alpha - NeoGeo"
+manufacturer = "Various"
+systemname = "Arcade (various)"
+license = "Non-commercial"
+permissions = ""

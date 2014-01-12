@@ -1,0 +1,8 @@
+display_name = "CPS1 (FBA)"
+authors = "Barry Harris"
+supported_extensions = "zip"
+corename = "Final Burn Alpha - CPS1"
+manufacturer = "Various"
+systemname = "Arcade (various)"
+license = "Non-commercial"
+permissions = ""
