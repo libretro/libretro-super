@@ -135,4 +135,5 @@ else
    build_libretro_mupen64
    build_libretro_ffmpeg
    build_libretro_dinothawr
+   build_libretro_3dengine
 fi

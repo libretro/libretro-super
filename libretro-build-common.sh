@@ -488,6 +488,20 @@ build_libretro_modelviewer_location() {
    fi
 }
 
+build_libretro_3dengine() {
+   cd "${BASE_DIR}"
+   if [ -d 'libretro-3dengine' ]; then
+      echo '=== Building 3DEngine (GL) ==='
+      cd libretro-3dengine
+
+      "${MAKE}" -f Makefile platform="${FORMAT_COMPILER_TARGET}" ${COMPILER} "-j${JOBS}" clean || die 'Failed to clean SceneWalker'
+      "${MAKE}" -f Makefile platform="${FORMAT_COMPILER_TARGET}" ${COMPILER} "-j${JOBS}" || die 'Failed to build SceneWalker'
+      cp "3dengine_libretro${FORMAT}.${FORMAT_EXT}" "${RARCH_DIST_DIR}"
+   else
+      echo '3DEngine not fetched, skipping ...'
+   fi
+}
+
 build_libretro_scenewalker() {
    cd "${BASE_DIR}"
    if [ -d 'libretro-gl-scenewalker' ]; then
