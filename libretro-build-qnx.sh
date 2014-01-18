@@ -16,7 +16,7 @@ MAKE=make
 if [ $1 ]; then
    $1
 else
-   #build_libretro_bsnes_cplusplus98
+   build_libretro_bsnes_cplusplus98
    #build_libretro_bsnes
    build_libretro_mednafen
    build_libretro_mednafen_gba
@@ -40,7 +40,7 @@ else
    build_libretro_mame078
    #build_libretro_mame
    #build_libretro_dosbox
-   #build_libretro_scummvm
+   build_libretro_scummvm
    build_libretro_picodrive
    build_libretro_handy
    #build_libretro_desmume
