@@ -420,6 +420,25 @@ build_libretro_instancingviewer_camera()
    fi
 }
 
+CORENAME="3dengine"
+
+build_libretro_3dengine() {
+   cd "${BASE_DIR}"
+   if [ -d 'libretro-3dengine' ]; then
+      echo '=== Building 3DEngine (GL) ==='
+      cd libretro-${CORENAME}
+      cd jni
+
+      ndk-build clean APP_ABI="armeabi-v7a mips x86"
+      ndk-build -j$JOBS APP_ABI="armeabi-v7a mips x86"
+      cp ../libs/armeabi-v7a/libretro.${FORMAT_EXT} $RARCH_DIST_DIR/armeabi-v7a/${CORENAME}_libretro${FORMAT}.${FORMAT_EXT}
+      cp ../libs/mips/libretro.${FORMAT_EXT} $RARCH_DIST_DIR/mips/${CORENAME}_libretro${FORMAT}.${FORMAT_EXT}
+      cp ../libs/x86/libretro.${FORMAT_EXT} $RARCH_DIST_DIR/x86/${CORENAME}_libretro${FORMAT}.${FORMAT_EXT}
+   else
+      echo '3DEngine not fetched, skipping ...'
+   fi
+}
+
 build_libretro_scenewalker()
 {
    cd $BASE_DIR
