@@ -117,3 +117,4 @@ fetch_project "$REPO_BASE/libretro/Dinothawr.git" "libretro-dinothawr" "libretro
 fetch_project "$REPO_BASE/libretro/libretro-hatari.git" "libretro-hatari" "libretro/Hatari"
 fetch_project "$REPO_BASE/libretro/libretro-uae.git" "libretro-uae" "libretro/UAE"
 fetch_project "$REPO_BASE/libretro/libretro-3dengine.git" "libretro-3dengine" "libretro/3DEngine"
+fetch_project "$REPO_BASE/libretro/libretro-remotejoy.git" "libretro-remotejoy" "libretro/RemoteJoy"
