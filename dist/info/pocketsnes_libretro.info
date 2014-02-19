@@ -1,0 +1,8 @@
+display_name = "SNES / Super Famicom (PocketSNES)"
+authors = "SNES9x Team|PocketSNES Team|Toadking"
+supported_extensions = "smc|fig|sfc|gd3|gd7|dx2|bsx|swc"
+corename = "PocketSNES"
+manufacturer = "Nintendo"
+systemname = "Super Nintendo Entertainment System"
+license = "Non-commercial"
+permissions = ""
