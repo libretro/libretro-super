@@ -1,0 +1,8 @@
+display_name = "Arcade (iMAME4all)"
+authors = "MAMEdev"
+supported_extensions = "zip|7z|chd"
+corename = "iMAME4all"
+manufacturer = "Various"
+systemname = "Arcade (various)"
+license = "GPL"
+permissions = ""
