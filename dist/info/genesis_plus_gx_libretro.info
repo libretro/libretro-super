@@ -1,6 +1,6 @@
 display_name = "Sega MS/GG/MD/CD (Genesis Plus GX)"
 authors = "Charles McDonald|Eke-Eke"
-supported_extensions = "md|smd|gen|sms|gg|sg|bin|cue|ios"
+supported_extensions = "md|smd|gen|sms|gg|sg|bin|cue|ios|flac"
 corename = "Genesis Plus GX"
 manufacturer = "Sega"
 systemname = "Sega 8/16bit (Various)"
@@ -20,8 +20,8 @@ firmware5_desc = "bios_U.sms (MasterSystem US BIOS)"
 firmware5_path = "bios_U.sms"
 firmware6_desc = "bios_J.sms (MasterSystem JP BIOS)"
 firmware6_path = "bios_J.sms"
-firmware0_desc = "bios.gg (GameGear BIOS)"
-firmware0_path = "bios.gg"
+firmware7=desc = "bios.gg (GameGear BIOS)"
+firmware7_path = "bios.gg"
 
-notes = "note1|note2|note3 with spaces|note 4 with spaces|note 5 (test)|note6"
+
 
