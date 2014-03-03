@@ -8,24 +8,20 @@ license = "Non-commercial"
 permissions = ""
 
 firmware_count = 7
-
 firmware1_desc = "bios_CD_E.bin (MegaCD EU BIOS)"
-firmware1_path = "%sysdir%/bios_CD_E.bin"
-
+firmware1_path = "bios_CD_E.bin"
 firmware2_desc = "bios_CD_U.bin (SegaCD US BIOS)"
-firmware2_path = "%sysdir%/bios_CD_U.bin"
-
+firmware2_path = "bios_CD_U.bin"
 firmware3_desc = "bios_CD_J.bin (MegaCD JP BIOS)"
-firmware3_path = "%sysdir%/bios_CD_J.bin"
-
+firmware3_path = "bios_CD_J.bin"
 firmware4_desc = "bios_E.sms (MasterSystem EU BIOS)"
-firmware4_path = "%sysdir%/bios_E.sms"
-
+firmware4_path = "bios_E.sms"
 firmware5_desc = "bios_U.sms (MasterSystem US BIOS)"
-firmware5_path = "%sysdir%/bios_U.sms"
-
+firmware5_path = "bios_U.sms"
 firmware6_desc = "bios_J.sms (MasterSystem JP BIOS)"
-firmware6_path = "%sysdir%/bios_J.sms"
+firmware6_path = "bios_J.sms"
+firmware0_desc = "bios.gg (GameGear BIOS)"
+firmware0_path = "bios.gg"
 
-firmware7_desc = "bios.gg (GameGear BIOS)"
-firmware7_path = "%sysdir%/bios.gg"
+notes = "note1|note2|note3 with spaces|note 4 with spaces|note 5 (test)|note6"
+
