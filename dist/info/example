@@ -20,3 +20,6 @@
 
 # Privacy-specific permissions needed for using the core
 # permissions = ""
+
+# Notes
+#notes = "note1|note2|note3 with spaces|note 4 with spaces|note 5 (test)|note6"
