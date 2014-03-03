@@ -338,7 +338,7 @@ build_libretro_mame() {
    cd "${BASE_DIR}"
    if [ -d 'libretro-mame' ]; then
       echo '=== Building MAME ==='
-      cd libretro-mame/0151
+      cd libretro-mame/0152
 
       "${MAKE}" -f Makefile.libretro platform="${FORMAT_COMPILER_TARGET}" ${COMPILER} "-j${JOBS}" clean || die 'Failed to clean MAME'
       "${MAKE}" -f Makefile.libretro platform="${FORMAT_COMPILER_TARGET}" ${COMPILER} "-j${JOBS}" || die 'Failed to build MAME'
