@@ -1,5 +1,5 @@
 display_name = "SNES / Super Famicom (SNES9x Next)"
-authors = "SNES9x Team|Squarepusher2"
+authors = "SNES9x Team|Squarepusher"
 supported_extensions = "smc|fig|sfc|gd3|gd7|dx2|bsx|swc"
 corename = "SNES9x Next"
 manufacturer = "Nintendo"

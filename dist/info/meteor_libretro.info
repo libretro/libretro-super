@@ -1,5 +1,6 @@
 display_name = "Game Boy Advance (Meteor)"
 supported_extensions = "gba"
+authors = "Philippe Daouadi"
 corename = "Meteor"
 manufacturer = "Nintendo"
 systemname = "Game Boy Advance"

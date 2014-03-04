@@ -1,4 +1,5 @@
 display_name = "ScummVM"
+authors = "SCUMMVMdev"
 supported_extensions = ""
 corename = "ScummVM"
 license = "GPLv2"
