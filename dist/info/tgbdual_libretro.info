@@ -1,0 +1,8 @@
+display_name = "Game Boy / Game Boy Color (TGB Dual)"
+authors = "GIGO|Hii"
+supported_extensions = "gb|gbc|dmg"
+corename = "TGB Dual"
+manufacturer = "Nintendo"
+systemname = "Game Boy/Game Boy Color"
+license = "GPLv2"
+permissions = ""
