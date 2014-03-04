@@ -31,5 +31,6 @@ else
    build_libretro_nestopia
    build_libretro_tyrquake
    #build_libretro_mame078
+   build_libretro_picodrive
    build_libretro_handy
 fi
