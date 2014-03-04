@@ -1,0 +1,7 @@
+display_name = "PSP RemotePlay (RemoteJoy)"
+authors = ""
+supported_extensions = ""
+corename = "RemoteJoy"
+systemname = "PSP RemotePlay"
+license = "GPLv2"
+permissions = ""
