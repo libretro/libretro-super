@@ -6,14 +6,13 @@ manufacturer = "Sony"
 systemname = "PlayStation"
 license = "GPLv2"
 permissions = "dynarec"
-
 firmware_count = 3
-
-firmware1_desc = "scph1001 (US BIOS)"
-firmware1_path = "%sysdir%/scph1001.bin"
-
-firmware2_desc = "scph5501 (US BIOS Alternative)"
-firmware2_path = "%sysdir%/scph5501.bin"
-
-firmware3_desc = "scph7001 (US BIOS Alternative)"
-firmware3_path = "%sysdir%/scph7001.bin"
+firmware0_desc = "scph5500.bin (PS1 JP BIOS)"
+firmware0_path = "scph5500.bin"
+firmware0_opt = "true"
+firmware1_desc = "scph5501.bin (PS1 US BIOS)"
+firmware1_path = "scph5501.bin"
+firmware1_opt = "true"
+firmware2_desc = "scph5502.bin (PS1 EU BIOS)"
+firmware2_path = "scph5502.bin"
+firmware2_opt = "true"

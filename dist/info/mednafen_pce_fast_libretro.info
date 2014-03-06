@@ -6,8 +6,7 @@ manufacturer = "NEC"
 systemname = "PC Engine/TurboGrafx-16"
 license = "GPLv2"
 permissions = ""
-
 firmware_count = 1
-
-firmware1_desc = "syscard3.pce"
-firmware1_path = "%sysdir%/syscard3.pce"
+firmware0_desc = "syscard3.pce (PCE CD BIOS)"
+firmware0_path = "syscard3.pce"
+firmware0_opt = "false"
