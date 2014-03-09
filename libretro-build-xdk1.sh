@@ -13,6 +13,46 @@ die()
    #exit 1
 }
 
+build_libretro_fba_cps1()
+{
+   cd $BASE_DIR
+   if [ -d "libretro-fba" ]; then
+      echo "=== Building Final Burn Alpha Cores (CPS1) ==="
+      cd libretro-fba/
+      cd svn-current/trunk
+      cd fbacores/cps1/projectfiles/visualstudio-2003-libretro-xbox1
+      cmd.exe /k $MSVC_NAME.bat
+      cp Release_LTCG/libretro$FORMAT.${FORMAT_EXT} $RARCH_DIST_DIR/fba_cores_cps1_libretro$FORMAT.${FORMAT_EXT}
+   fi
+}
+
+build_libretro_fba_cps2()
+{
+   cd $BASE_DIR
+   if [ -d "libretro-fba" ]; then
+      echo "=== Building Final Burn Alpha Cores (CPS2) ==="
+      cd libretro-fba/
+      cd svn-old/trunk
+      cd fbacores/cps2/projectfiles/visualstudio-2003-libretro-xbox1
+      cmd.exe /k $MSVC_NAME.bat
+      cp Release_LTCG/libretro$FORMAT.${FORMAT_EXT} $RARCH_DIST_DIR/fba_cores_cps2_libretro$FORMAT.${FORMAT_EXT}
+   fi
+}
+
+
+build_libretro_fba_neo()
+{
+   cd $BASE_DIR
+   if [ -d "libretro-fba" ]; then
+      echo "=== Building Final Burn Alpha Cores (NeoGeo) ==="
+      cd libretro-fba/
+      cd svn-current/trunk
+      cd fbacores/neogeo/projectfiles/visualstudio-2003-libretro-xbox1
+      cmd.exe /k $MSVC_NAME.bat
+      cp Release_LTCG/libretro$FORMAT.${FORMAT_EXT} $RARCH_DIST_DIR/fba_cores_neo_libretro$FORMAT.${FORMAT_EXT}
+   fi
+}
+
 build_libretro_fba()
 {
    cd $BASE_DIR
@@ -24,22 +64,9 @@ build_libretro_fba()
       cmd.exe /k $MSVC_NAME.bat
       cp Release_LTCG/fb_alpha_libretro$FORMAT.${FORMAT_EXT} $RARCH_DIST_DIR
 
-      echo "=== Building Final Burn Alpha Cores (CPS1) ==="
-      cd ../../fbacores/cps1/projectfiles/visualstudio-2003-libretro-xbox1
-      cmd.exe /k $MSVC_NAME.bat
-      cp Release_LTCG/fb_alpha_libretro$FORMAT.${FORMAT_EXT} $RARCH_DIST_DIR/fba_cores_cps1_libretro$FORMAT.${FORMAT_EXT}
-      cd ../../../../
-
-      echo "=== Building Final Burn Alpha Cores (CPS2) ==="
-      cd fbacores/cps2/projectfiles/visualstudio-2003-libretro-xbox1
-      cmd.exe /k $MSVC_NAME.bat
-      cp Release_LTCG/libretro$FORMAT.${FORMAT_EXT} $RARCH_DIST_DIR/fba_cores_cps2_libretro$FORMAT.${FORMAT_EXT}
-      cd ../../../../
-
-      echo "=== Building Final Burn Alpha Cores (NeoGeo) ==="
-      cd fbacores/neogeo/projectfiles/visualstudio-2003-libretro-xbox1
-      cmd.exe /k $MSVC_NAME.bat
-      cp Release_LTCG/libretro$FORMAT.${FORMAT_EXT} $RARCH_DIST_DIR/fba_cores_neo_libretro$FORMAT.${FORMAT_EXT}
+      build_libretro_fba_cps1
+      build_libretro_fba_cps2
+      build_libretro_fba_neo
    else
       echo "Final Burn Alpha not fetched, skipping ..."
    fi
