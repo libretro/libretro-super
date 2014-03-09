@@ -78,6 +78,19 @@ build_libretro_vba_next()
    fi
 }
 
+build_libretro_mame078() {
+   cd "${BASE_DIR}"
+   if [ -d 'libretro-mame078' ]; then
+      echo '=== Building MAME 0.78 ==='
+      cd libretro-mame078
+      cd src/libretro/msvc
+      cmd.exe /k $MSVC_NAME.bat
+      cp $MSVC_NAME/Release_LTCG/msvc-2010-360.$FORMAT_EXT "$RARCH_DIST_DIR"/mame078_libretro$FORMAT.$FORMAT_EXT
+   else
+      echo 'MAME 0.78 not fetched, skipping ...'
+   fi
+}
+
 build_libretro_fceu()
 {
    cd $BASE_DIR
