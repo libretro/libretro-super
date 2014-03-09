@@ -326,8 +326,8 @@ build_libretro_mame078() {
       echo '=== Building MAME 0.78 ==='
       cd libretro-mame078
 
-      "${MAKE}" -f makefile platform="${FORMAT_COMPILER_TARGET}" ${COMPILER} "-j${JOBS}" clean || die 'Failed to clean MAME 0.78'
-      "${MAKE}" -f makefile platform="${FORMAT_COMPILER_TARGET}" ${COMPILER} "-j${JOBS}" || die 'Failed to build MAME 0.78'
+      "${MAKE}" -f makefile platform="${FORMAT_COMPILER_TARGET}" ${COMPILER} "-j1" clean || die 'Failed to clean MAME 0.78'
+      "${MAKE}" -f makefile platform="${FORMAT_COMPILER_TARGET}" ${COMPILER} "-j1" || die 'Failed to build MAME 0.78'
       cp "mame078_libretro${FORMAT}.${FORMAT_EXT}" "${RARCH_DIST_DIR}"
    else
       echo 'MAME 0.78 not fetched, skipping ...'
