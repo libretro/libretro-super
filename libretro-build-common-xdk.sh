@@ -155,7 +155,7 @@ build_libretro_prboom()
       cd libretro-prboom
       cd libretro/msvc
       cmd.exe /k $MSVC_NAME.bat
-      cp $MSVC_NAME/$RELEASE_LTCG/prboom_libretro$FORMAT.$FORMAT_EXT "$RARCH_DIST_DIR"
+      cp $MSVC_NAME/$RELEASE_LTCG/${MSVC_NAME}.${FORMAT_EXT} "$RARCH_DIST_DIR"/prboom_libretro$FORMAT.$FORMAT_EXT
    else
       echo "PRBoom not fetched, skipping ..."
    fi

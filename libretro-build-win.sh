@@ -6,6 +6,7 @@ RARCH_DIST_DIR=$RARCH_DIR/win
 FORMAT=_win
 FORMAT_EXT=dll
 MSVC_NAME=msvc-2010
+RELEASE_LTCG=Release
 
 die()
 {
@@ -26,7 +27,7 @@ else
    #build_libretro_fceu
    #build_libretro_gambatte
    #build_libretro_nx
-   #build_libretro_prboom
+   build_libretro_prboom
    #build_libretro_nestopia
    build_libretro_tyrquake
 fi
