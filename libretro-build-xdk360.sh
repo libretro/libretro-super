@@ -23,7 +23,7 @@ build_libretro_fba()
       cd svn-current/trunk
       cd projectfiles/visualstudio-2010-libretro-360
       cmd.exe /k $MSVC_NAME.bat
-      cp Release_LTCG/fb_alpha_libretro$FORMAT.${FORMAT_EXT} $RARCH_DIST_DIR
+      cp $RELEASE_LTCG/fb_alpha_libretro$FORMAT.${FORMAT_EXT} $RARCH_DIST_DIR
    else
       echo "Final Burn Alpha not fetched, skipping ..."
    fi

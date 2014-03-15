@@ -23,7 +23,7 @@ build_libretro_fba_cps1()
       cd svn-current/trunk
       cd fbacores/cps1/projectfiles/visualstudio-2003-libretro-xbox1
       cmd.exe /k $MSVC_NAME.bat
-      cp Release_LTCG/fb_alpha_libretro$FORMAT.${FORMAT_EXT} $RARCH_DIST_DIR/fba_cores_cps1_libretro$FORMAT.${FORMAT_EXT}
+      cp $RELEASE_LTCG/fb_alpha_libretro$FORMAT.${FORMAT_EXT} $RARCH_DIST_DIR/fba_cores_cps1_libretro$FORMAT.${FORMAT_EXT}
    fi
 }
 
@@ -36,7 +36,7 @@ build_libretro_fba_cps2()
       cd svn-old/trunk
       cd fbacores/cps2/projectfiles/visualstudio-2003-libretro-xbox1
       cmd.exe /k $MSVC_NAME.bat
-      cp Release_LTCG/libretro$FORMAT.${FORMAT_EXT} $RARCH_DIST_DIR/fba_cores_cps2_libretro$FORMAT.${FORMAT_EXT}
+      cp $RELEASE_LTCG/libretro$FORMAT.${FORMAT_EXT} $RARCH_DIST_DIR/fba_cores_cps2_libretro$FORMAT.${FORMAT_EXT}
    fi
 }
 
@@ -50,7 +50,7 @@ build_libretro_fba_neogeo()
       cd svn-current/trunk
       cd fbacores/neogeo/projectfiles/visualstudio-2003-libretro-xbox1
       cmd.exe /k $MSVC_NAME.bat
-      cp Release_LTCG/libretro$FORMAT.${FORMAT_EXT} $RARCH_DIST_DIR/fba_cores_neo_libretro$FORMAT.${FORMAT_EXT}
+      cp $RELEASE_LTCG/libretro$FORMAT.${FORMAT_EXT} $RARCH_DIST_DIR/fba_cores_neo_libretro$FORMAT.${FORMAT_EXT}
    fi
 }
 
@@ -63,7 +63,7 @@ build_libretro_fba()
       cd svn-current/trunk
       cd projectfiles/visualstudio-2003-libretro-xbox1
       cmd.exe /k $MSVC_NAME.bat
-      cp Release_LTCG/fb_alpha_libretro$FORMAT.${FORMAT_EXT} $RARCH_DIST_DIR
+      cp $RELEASE_LTCG/fb_alpha_libretro$FORMAT.${FORMAT_EXT} $RARCH_DIST_DIR
 
       build_libretro_fba_cps1
       build_libretro_fba_cps2
