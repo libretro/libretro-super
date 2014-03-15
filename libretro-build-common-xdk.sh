@@ -85,7 +85,7 @@ build_libretro_mame078() {
       cd libretro-mame078
       cd src/libretro/msvc
       cmd.exe /k $MSVC_NAME.bat
-      cp $MSVC_NAME/$RELEASE_LTCG/msvc-2010-360.$FORMAT_EXT "$RARCH_DIST_DIR"/mame078_libretro$FORMAT.$FORMAT_EXT
+      cp $MSVC_NAME/$RELEASE_LTCG/${MSVC_NAME}.${FORMAT_EXT} "$RARCH_DIST_DIR"/mame078_libretro$FORMAT.$FORMAT_EXT
    else
       echo 'MAME 0.78 not fetched, skipping ...'
    fi
