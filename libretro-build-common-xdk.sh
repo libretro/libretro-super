@@ -179,13 +179,13 @@ build_libretro_tyrquake()
 {
    cd $BASE_DIR
    if [ -d "libretro-tyrquake" ]; then
-      echo "=== Building Tyr Quake ==="
+      echo "=== Building TyrQuake ==="
       cd libretro-tyrquake
       cd libretro/msvc
       cmd.exe /k $MSVC_NAME.bat
-      cp $MSVC_NAME/Release/tyrquake_libretro$FORMAT.$FORMAT_EXT "$RARCH_DIST_DIR"
+      cp $MSVC_NAME/$RELEASE/${MSVC_NAME}.${FORMAT_EXT} "$RARCH_DIST_DIR"/tyrquake_libretro$FORMAT.$FORMAT_EXT
    else
-      echo "Tyr Quake not fetched, skipping ..."
+      echo "TyrQuake not fetched, skipping ..."
    fi
 }
 

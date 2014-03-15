@@ -7,6 +7,7 @@ FORMAT=_win
 FORMAT_EXT=dll
 MSVC_NAME=msvc-2010
 RELEASE_LTCG=Release
+RELEASE=Release
 
 die()
 {

@@ -7,6 +7,7 @@ FORMAT=_xdk360
 FORMAT_EXT=lib
 MSVC_NAME=msvc-2010-360
 RELEASE_LTCG=Release_LTCG
+RELEASE=Release
 
 die()
 {
