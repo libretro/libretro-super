@@ -6,6 +6,7 @@ RARCH_DIST_DIR=$RARCH_DIR/xdk1
 FORMAT=_xdk
 FORMAT_EXT=lib
 MSVC_NAME=msvc-2003-xbox1
+RELEASE_LTCG=Release_LTCG
 
 die()
 {

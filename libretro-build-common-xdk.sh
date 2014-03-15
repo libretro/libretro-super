@@ -15,22 +15,22 @@ build_libretro_mednafen()
       cd msvc/pce-fast
 
       cmd.exe /k $MSVC_NAME.bat
-      cp $MSVC_NAME/Release_LTCG/mednafen_pce_fast_libretro$FORMAT.$FORMAT_EXT "$RARCH_DIST_DIR"
+      cp $MSVC_NAME/$RELEASE_LTCG/mednafen_pce_fast_libretro$FORMAT.$FORMAT_EXT "$RARCH_DIST_DIR"
 
       cd ../
       cd wswan
       cmd.exe /k $MSVC_NAME.bat
-      cp $MSVC_NAME/Release_LTCG/mednafen_wswan_libretro$FORMAT.$FORMAT_EXT "$RARCH_DIST_DIR"
+      cp $MSVC_NAME/$RELEASE_LTCG/mednafen_wswan_libretro$FORMAT.$FORMAT_EXT "$RARCH_DIST_DIR"
 
       cd ../
       cd ngp
       cmd.exe /k $MSVC_NAME.bat
-      cp $MSVC_NAME/Release_LTCG/mednafen_ngp_libretro$FORMAT.$FORMAT_EXT "$RARCH_DIST_DIR"
+      cp $MSVC_NAME/$RELEASE_LTCG/mednafen_ngp_libretro$FORMAT.$FORMAT_EXT "$RARCH_DIST_DIR"
 
       cd ../
       cd vb
       cmd.exe /k $MSVC_NAME.bat
-      cp $MSVC_NAME/Release_LTCG/mednafen_vb_libretro$FORMAT.$FORMAT_EXT "$RARCH_DIST_DIR"
+      cp $MSVC_NAME/$RELEASE_LTCG/mednafen_vb_libretro$FORMAT.$FORMAT_EXT "$RARCH_DIST_DIR"
    else
       echo "Mednafen not fetched, skipping ..."
    fi
@@ -44,7 +44,7 @@ build_libretro_s9x_next()
       cd libretro-s9x-next/
       cd libretro/msvc
       cmd.exe /k $MSVC_NAME.bat
-      cp $MSVC_NAME/Release_LTCG/snes9x_next_libretro$FORMAT.$FORMAT_EXT "$RARCH_DIST_DIR"
+      cp $MSVC_NAME/$RELEASE_LTCG/snes9x_next_libretro$FORMAT.$FORMAT_EXT "$RARCH_DIST_DIR"
    else
       echo "SNES9x-Next not fetched, skipping ..."
    fi
@@ -58,7 +58,7 @@ build_libretro_genplus()
       cd libretro-genplus/
       cd libretro/msvc
       cmd.exe /k $MSVC_NAME.bat
-      cp $MSVC_NAME/Release_LTCG/genesis_plus_gx_libretro$FORMAT.$FORMAT_EXT "$RARCH_DIST_DIR"
+      cp $MSVC_NAME/$RELEASE_LTCG/genesis_plus_gx_libretro$FORMAT.$FORMAT_EXT "$RARCH_DIST_DIR"
    else
       echo "Genplus GX not fetched, skipping ..."
    fi
@@ -85,7 +85,7 @@ build_libretro_mame078() {
       cd libretro-mame078
       cd src/libretro/msvc
       cmd.exe /k $MSVC_NAME.bat
-      cp $MSVC_NAME/Release_LTCG/msvc-2010-360.$FORMAT_EXT "$RARCH_DIST_DIR"/mame078_libretro$FORMAT.$FORMAT_EXT
+      cp $MSVC_NAME/$RELEASE_LTCG/msvc-2010-360.$FORMAT_EXT "$RARCH_DIST_DIR"/mame078_libretro$FORMAT.$FORMAT_EXT
    else
       echo 'MAME 0.78 not fetched, skipping ...'
    fi
@@ -99,7 +99,7 @@ build_libretro_fceu()
       cd libretro-fceu
       cd fceumm-code/src/drivers/libretro/msvc
       cmd.exe /k $MSVC_NAME.bat
-      cp $MSVC_NAME/Release_LTCG/fceumm_libretro$FORMAT.$FORMAT_EXT "$RARCH_DIST_DIR"
+      cp $MSVC_NAME/$RELEASE_LTCG/fceumm_libretro$FORMAT.$FORMAT_EXT "$RARCH_DIST_DIR"
    else
       echo "FCEU not fetched, skipping ..."
    fi
@@ -113,7 +113,7 @@ build_libretro_gambatte()
       cd libretro-gambatte/libgambatte
       cd libretro/msvc
       cmd.exe /k $MSVC_NAME.bat
-      cp $MSVC_NAME/Release_LTCG/gambatte_libretro$FORMAT.$FORMAT_EXT "$RARCH_DIST_DIR"
+      cp $MSVC_NAME/$RELEASE_LTCG/gambatte_libretro$FORMAT.$FORMAT_EXT "$RARCH_DIST_DIR"
    else
       echo "Gambatte not fetched, skipping ..."
    fi
@@ -127,7 +127,7 @@ build_libretro_nx()
       cd libretro-nx
       cd nxengine-1.0.0.4/libretro/msvc
       cmd.exe /k $MSVC_NAME.bat
-      cp $MSVC_NAME/Release_LTCG/nxengine_libretro$FORMAT.$FORMAT_EXT "$RARCH_DIST_DIR"
+      cp $MSVC_NAME/$RELEASE_LTCG/nxengine_libretro$FORMAT.$FORMAT_EXT "$RARCH_DIST_DIR"
    else
       echo "NXEngine not fetched, skipping ..."
    fi
@@ -141,7 +141,7 @@ build_libretro_nx()
       cd libretro-nx
       cd nxengine-1.0.0.4/libretro/msvc
       cmd.exe /k $MSVC_NAME.bat
-      cp $MSVC_NAME/Release_LTCG/nxengine_libretro$FORMAT.$FORMAT_EXT "$RARCH_DIST_DIR"
+      cp $MSVC_NAME/$RELEASE_LTCG/nxengine_libretro$FORMAT.$FORMAT_EXT "$RARCH_DIST_DIR"
    else
       echo "NXEngine not fetched, skipping ..."
    fi
@@ -155,7 +155,7 @@ build_libretro_prboom()
       cd libretro-prboom
       cd libretro/msvc
       cmd.exe /k $MSVC_NAME.bat
-      cp $MSVC_NAME/Release_LTCG/prboom_libretro$FORMAT.$FORMAT_EXT "$RARCH_DIST_DIR"
+      cp $MSVC_NAME/$RELEASE_LTCG/prboom_libretro$FORMAT.$FORMAT_EXT "$RARCH_DIST_DIR"
    else
       echo "PRBoom not fetched, skipping ..."
    fi
@@ -169,7 +169,7 @@ build_libretro_nestopia()
       cd libretro-nestopia/libretro
       cd msvc
       cmd.exe /k $MSVC_NAME.bat
-      cp $MSVC_NAME/Release_LTCG/nestopia_libretro$FORMAT.$FORMAT_EXT "$RARCH_DIST_DIR"
+      cp $MSVC_NAME/$RELEASE_LTCG/nestopia_libretro$FORMAT.$FORMAT_EXT "$RARCH_DIST_DIR"
    else
       echo "Nestopia not fetched, skipping ..."
    fi
@@ -197,7 +197,7 @@ build_libretro_nx()
       cd libretro-nx
       cd nxengine-1.0.0.4/libretro/msvc
       cmd.exe /k $MSVC_NAME.bat
-      cp $MSVC_NAME/Release_LTCG/nxengine_libretro$FORMAT.$FORMAT_EXT "$RARCH_DIST_DIR"
+      cp $MSVC_NAME/$RELEASE_LTCG/nxengine_libretro$FORMAT.$FORMAT_EXT "$RARCH_DIST_DIR"
    else
       echo "NXEngine not fetched, skipping ..."
    fi
