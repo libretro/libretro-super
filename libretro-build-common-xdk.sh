@@ -99,7 +99,7 @@ build_libretro_fceu()
       cd libretro-fceu
       cd fceumm-code/src/drivers/libretro/msvc
       cmd.exe /k $MSVC_NAME.bat
-      cp $MSVC_NAME/$RELEASE_LTCG/fceumm_libretro$FORMAT.$FORMAT_EXT "$RARCH_DIST_DIR"
+      cp $MSVC_NAME/$RELEASE_LTCG/${MSVC_NAME}.${FORMAT_EXT} "$RARCH_DIST_DIR"/fceumm_libretro$FORMAT.$FORMAT_EXT
    else
       echo "FCEU not fetched, skipping ..."
    fi
