@@ -72,7 +72,7 @@ build_libretro_vba_next()
       cd libretro-vba-next/
       cd libretro/msvc
       cmd.exe /k $MSVC_NAME.bat
-      cp $MSVC_NAME/Release/vba_next_libretro$FORMAT.$FORMAT_EXT "$RARCH_DIST_DIR"
+      cp $MSVC_NAME/$RELEASE/${MSVC_NAME}.${FORMAT_EXT} "$RARCH_DIST_DIR"/vba_next_libretro$FORMAT.$FORMAT_EXT
    else
       echo "VBA-Next not fetched, skipping ..."
    fi
