@@ -44,7 +44,7 @@ build_libretro_s9x_next()
       cd libretro-s9x-next/
       cd libretro/msvc
       cmd.exe /k $MSVC_NAME.bat
-      cp $MSVC_NAME/$RELEASE_LTCG/snes9x_next_libretro$FORMAT.$FORMAT_EXT "$RARCH_DIST_DIR"
+      cp $MSVC_NAME/$RELEASE_LTCG/${MSVC_NAME}.${FORMAT_EXT} "$RARCH_DIST_DIR"/snes9x_next_libretro$FORMAT.$FORMAT_EXT
    else
       echo "SNES9x-Next not fetched, skipping ..."
    fi
