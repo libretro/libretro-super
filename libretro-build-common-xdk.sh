@@ -36,6 +36,20 @@ build_libretro_mednafen()
    fi
 }
 
+build_libretro_s9x()
+{
+   cd $BASE_DIR
+   if [ -d "libretro-s9x" ]; then
+      echo "=== Building SNES9x ==="
+      cd libretro-s9x/
+      cd libretro/msvc
+      cmd.exe /k $MSVC_NAME.bat
+      cp $MSVC_NAME/$RELEASE_LTCG/${MSVC_NAME}.${FORMAT_EXT} "$RARCH_DIST_DIR"/snes9x_libretro$FORMAT.$FORMAT_EXT
+   else
+      echo "SNES9x not fetched, skipping ..."
+   fi
+}
+
 build_libretro_s9x_next()
 {
    cd $BASE_DIR
