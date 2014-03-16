@@ -6,33 +6,78 @@ die()
    #exit 1
 }
 
-build_libretro_mednafen()
+build_libretro_mednafen_pce_fast()
 {
    cd $BASE_DIR
    if [ -d "libretro-mednafen" ]; then
-      echo "=== Building Mednafen ==="
+      echo "=== Building Mednafen PCE Fast ==="
       cd libretro-mednafen
       cd msvc/pce-fast
 
       cmd.exe /k $MSVC_NAME.bat
-      cp $MSVC_NAME/$RELEASE_LTCG/mednafen_pce_fast_libretro$FORMAT.$FORMAT_EXT "$RARCH_DIST_DIR"
-
-      cd ../
-      cd wswan
-      cmd.exe /k $MSVC_NAME.bat
-      cp $MSVC_NAME/$RELEASE_LTCG/mednafen_wswan_libretro$FORMAT.$FORMAT_EXT "$RARCH_DIST_DIR"
-
-      cd ../
-      cd ngp
-      cmd.exe /k $MSVC_NAME.bat
-      cp $MSVC_NAME/$RELEASE_LTCG/mednafen_ngp_libretro$FORMAT.$FORMAT_EXT "$RARCH_DIST_DIR"
-
-      cd ../
-      cd vb
-      cmd.exe /k $MSVC_NAME.bat
-      cp $MSVC_NAME/$RELEASE_LTCG/mednafen_vb_libretro$FORMAT.$FORMAT_EXT "$RARCH_DIST_DIR"
+      cp $MSVC_NAME/$RELEASE_LTCG/${MSVC_NAME}.${FORMAT_EXT} "$RARCH_DIST_DIR"/mednafen_pce_fast_libretro$FORMAT.$FORMAT_EXT
    else
-      echo "Mednafen not fetched, skipping ..."
+      echo "Mednafen PCE Fast not fetched, skipping ..."
+   fi
+}
+
+build_libretro_mednafen_wswan()
+{
+   cd $BASE_DIR
+   if [ -d "libretro-mednafen" ]; then
+      echo "=== Building Mednafen Wswan ==="
+      cd libretro-mednafen
+      cd msvc/wswan
+
+      cmd.exe /k $MSVC_NAME.bat
+      cp $MSVC_NAME/$RELEASE_LTCG/${MSVC_NAME}.${FORMAT_EXT} "$RARCH_DIST_DIR"/mednafen_wswan_libretro$FORMAT.$FORMAT_EXT
+   else
+      echo "Mednafen Wswan not fetched, skipping ..."
+   fi
+}
+
+build_libretro_mednafen_ngp()
+{
+   cd $BASE_DIR
+   if [ -d "libretro-mednafen" ]; then
+      echo "=== Building Mednafen NGP ==="
+      cd libretro-mednafen
+      cd msvc/ngp
+
+      cmd.exe /k $MSVC_NAME.bat
+      cp $MSVC_NAME/$RELEASE_LTCG/${MSVC_NAME}.${FORMAT_EXT} "$RARCH_DIST_DIR"/mednafen_ngp_libretro$FORMAT.$FORMAT_EXT
+   else
+      echo "Mednafen NGP not fetched, skipping ..."
+   fi
+}
+
+build_libretro_mednafen_vb()
+{
+   cd $BASE_DIR
+   if [ -d "libretro-mednafen" ]; then
+      echo "=== Building Mednafen VB ==="
+      cd libretro-mednafen
+      cd msvc/vb
+
+      cmd.exe /k $MSVC_NAME.bat
+      cp $MSVC_NAME/$RELEASE_LTCG/${MSVC_NAME}.${FORMAT_EXT} "$RARCH_DIST_DIR"/mednafen_vb_libretro$FORMAT.$FORMAT_EXT
+   else
+      echo "Mednafen VB not fetched, skipping ..."
+   fi
+}
+
+build_libretro_mednafen_gba()
+{
+   cd $BASE_DIR
+   if [ -d "libretro-mednafen" ]; then
+      echo "=== Building Mednafen GBA ==="
+      cd libretro-mednafen
+      cd msvc/gba
+
+      cmd.exe /k $MSVC_NAME.bat
+      cp $MSVC_NAME/$RELEASE_LTCG/${MSVC_NAME}.${FORMAT_EXT} "$RARCH_DIST_DIR"/mednafen_gba_libretro$FORMAT.$FORMAT_EXT
+   else
+      echo "Mednafen GBA not fetched, skipping ..."
    fi
 }
 
