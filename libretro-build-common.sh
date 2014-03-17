@@ -348,6 +348,48 @@ build_libretro_mame() {
    fi
 }
 
+build_libretro_mame_tiny() {
+   cd "${BASE_DIR}"
+   if [ -d 'libretro-mame' ]; then
+      echo '=== Building MAME ==='
+      cd libretro-mame/0152
+
+      "${MAKE}" -f Makefile.libretro "TARGET=mame" "SUBTARGET=tiny" platform="${FORMAT_COMPILER_TARGET}" ${COMPILER} "-j${JOBS}" clean || die 'Failed to clean MESS'
+      "${MAKE}" -f Makefile.libretro "TARGET=mame" "SUBTARGET=tiny" platform="${FORMAT_COMPILER_TARGET}" ${COMPILER} "-j${JOBS}" || die 'Failed to build MESS'
+      cp "mame_libretro${FORMAT}.${FORMAT_EXT}" "${RARCH_DIST_DIR}\\mame_tiny_libretro${FORMAT}.${FORMAT_EXT}"
+   else
+      echo 'MAME not fetched, skipping ...'
+   fi
+}
+
+build_libretro_mess() {
+   cd "${BASE_DIR}"
+   if [ -d 'libretro-mame' ]; then
+      echo '=== Building MESS ==='
+      cd libretro-mame/0152
+
+      "${MAKE}" -f Makefile.libretro "TARGET=mess" platform="${FORMAT_COMPILER_TARGET}" ${COMPILER} "-j${JOBS}" clean || die 'Failed to clean MESS'
+      "${MAKE}" -f Makefile.libretro "TARGET=mess" platform="${FORMAT_COMPILER_TARGET}" ${COMPILER} "-j${JOBS}" || die 'Failed to build MESS'
+      cp "mess_libretro${FORMAT}.${FORMAT_EXT}" "${RARCH_DIST_DIR}"
+   else
+      echo 'MAME not fetched, skipping ...'
+   fi
+}
+
+build_libretro_mess_tiny() {
+   cd "${BASE_DIR}"
+   if [ -d 'libretro-mame' ]; then
+      echo '=== Building MESS ==='
+      cd libretro-mame/0152
+
+      "${MAKE}" -f Makefile.libretro "TARGET=mess" "SUBTARGET=tiny" platform="${FORMAT_COMPILER_TARGET}" ${COMPILER} "-j${JOBS}" clean || die 'Failed to clean MESS'
+      "${MAKE}" -f Makefile.libretro "TARGET=mess" "SUBTARGET=tiny" platform="${FORMAT_COMPILER_TARGET}" ${COMPILER} "-j${JOBS}" || die 'Failed to build MESS'
+      cp "mess_libretro${FORMAT}.${FORMAT_EXT}" "${RARCH_DIST_DIR}\\mess_tiny_libretro${FORMAT}.${FORMAT_EXT}"
+   else
+      echo 'MAME not fetched, skipping ...'
+   fi
+}
+
 build_libretro_vbam() {
    cd "${BASE_DIR}"
    if [ -d 'libretro-vbam' ]; then
