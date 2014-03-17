@@ -376,6 +376,20 @@ build_libretro_mess() {
    fi
 }
 
+build_libretro_ume() {
+   cd "${BASE_DIR}"
+   if [ -d 'libretro-mame' ]; then
+      echo '=== Building UME ==='
+      cd libretro-mame/0152
+
+      "${MAKE}" -f Makefile.libretro "TARGET=ume" platform="${FORMAT_COMPILER_TARGET}" ${COMPILER} "-j${JOBS}" clean || die 'Failed to clean MESS'
+      "${MAKE}" -f Makefile.libretro "TARGET=ume" platform="${FORMAT_COMPILER_TARGET}" ${COMPILER} "-j${JOBS}" || die 'Failed to build MESS'
+      cp "mess_libretro${FORMAT}.${FORMAT_EXT}" "${RARCH_DIST_DIR}"
+   else
+      echo 'MAME not fetched, skipping ...'
+   fi
+}
+
 build_libretro_mess_tiny() {
    cd "${BASE_DIR}"
    if [ -d 'libretro-mame' ]; then
