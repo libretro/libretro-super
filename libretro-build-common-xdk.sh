@@ -230,7 +230,7 @@ build_libretro_picodrive()
       cmd.exe /k $MSVC_NAME.bat
       cp $MSVC_NAME/$RELEASE_LTCG/${MSVC_NAME}.${FORMAT_EXT} "$RARCH_DIST_DIR"/picodrive_libretro$FORMAT.$FORMAT_EXT
    else
-      echo Picodrive not fetched, skipping ..."
+      echo "Picodrive not fetched, skipping ..."
    fi
 }
 
