@@ -220,6 +220,20 @@ build_libretro_stella()
    fi
 }
 
+build_libretro_picodrive()
+{
+   cd $BASE_DIR
+   if [ -d "libretro-picodrive" ]; then
+      echo "=== Building Picodrive ==="
+      cd libretro-picodrive
+      cd platform/libretro/msvc
+      cmd.exe /k $MSVC_NAME.bat
+      cp $MSVC_NAME/$RELEASE_LTCG/${MSVC_NAME}.${FORMAT_EXT} "$RARCH_DIST_DIR"/picodrive_libretro$FORMAT.$FORMAT_EXT
+   else
+      echo Picodrive not fetched, skipping ..."
+   fi
+}
+
 build_libretro_nestopia()
 {
    cd $BASE_DIR
