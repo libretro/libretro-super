@@ -17,7 +17,7 @@ case "$ARCH" in
       esac;;
 esac
 
-if [ $PROCESSOR_ARCHITEW6432 = "AMD64" ]; then
+if [[ -n "$PROCESSOR_ARCHITEW6432" ]] && $PROCESSOR_ARCHITEW6432="AMD64"; then
    ARCH=x86_64
    X86=true && X86_64=true
 fi
