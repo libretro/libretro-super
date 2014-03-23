@@ -334,21 +334,6 @@ build_libretro_mame078() {
    fi
 }
 
-build_libretro_mame139() {
-   cd "${BASE_DIR}"
-   if [ -d 'libretro-mame139' ]; then
-      echo '=== Building MAME 0.139 ==='
-      cd libretro-mame139
-
-      "${MAKE}" -f Makefile.libretro platform="${FORMAT_COMPILER_TARGET}" ${COMPILER} "-j${JOBS}" clean || die 'Failed to clean MAME 0.139'
-      "${MAKE}" -f Makefile.libretro platform="${FORMAT_COMPILER_TARGET}" "VRENDER=soft" ${COMPILER} "-j${JOBS}" buildtools || die 'Failed to build MAME 0.139'
-      "${MAKE}" -f Makefile.libretro platform="${FORMAT_COMPILER_TARGET}" "VRENDER=soft" ${COMPILER} "-j${JOBS}" || die 'Failed to build MAME 0.139'
-      cp "mame2010_libretro${FORMAT}.${FORMAT_EXT}" "${RARCH_DIST_DIR}"
-   else
-      echo 'MAME 0.139 not fetched, skipping ...'
-   fi
-}
-
 build_libretro_mame() {
    cd "${BASE_DIR}"
    if [ -d 'libretro-mame' ]; then
