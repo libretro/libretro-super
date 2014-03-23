@@ -122,8 +122,8 @@ else
    build_libretro_scummvm
    build_libretro_picodrive
    build_libretro_handy
+   build_libretro_desmume
    if [ $FORMAT_COMPILER_TARGET != "win" ]; then
-      build_libretro_desmume
       build_libretro_pcsx_rearmed
    fi
    check_opengl
