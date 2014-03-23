@@ -1,0 +1,10 @@
+display_name = "Multi (MESS 2014)"
+authors = "MAMEdev"
+supported_extensions = "zip|7z|chd"
+corename = "MESS 2014 (0.152)"
+manufacturer = "Various"
+systemname = "Arcade (various)"
+license = "MAME"
+permissions = ""
+
+notes = "- core supports MESS save states|- core supports extracted MESS cheats|- BIOS files go into the ROM directory|- CHD files go into the ROM directory in a directory with the same name|- ARTWORK, CHEATS, INI, HASH, SAMPLES may go into SYSTEMDIR\MESS into their own directories|- STATES, NVRAM, INPUT, SNAPS, CFG, MEMCARD, DIFF will be saved to SAVEDIR\mame into their own directories|- core supports SOFTWARE LISTS, you need to have the official hash files on the HASH directory"

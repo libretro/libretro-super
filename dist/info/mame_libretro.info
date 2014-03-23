@@ -1,10 +1,10 @@
-display_name = "Arcade (MAME 2013)"
+display_name = "Arcade (MAME 2014)"
 authors = "MAMEdev"
 supported_extensions = "zip|7z|chd"
-corename = "MAME 2013 (0.150)"
+corename = "MAME 2014 (0.150)"
 manufacturer = "Various"
 systemname = "Arcade (various)"
 license = "MAME"
 permissions = ""
 
-notes = "- core supports MAME save states|- core supports extracted MAME cheats|- BIOS files go into the ROM directory|- CHD files go into the ROM directory in a directory with the same name|- ARTWORK, CHEATS, SAMPLES may go into SYSTEMDIR\mame into their own directories|- STATES, NVRAM, INPUT, SNAPS, CFG, MEMCARD, DIFF will be saved to SAVEDIR\mame into their own directories"
+notes = "- core supports MESS save states|- core supports extracted MESS cheats|- BIOS files go into the ROM directory|- CHD files go into the ROM directory in a directory with the same name|- ARTWORK, CHEATS, INI, HASH, SAMPLES may go into SYSTEMDIR\MAME into their own directories|- STATES, NVRAM, INPUT, SNAPS, CFG, MEMCARD, DIFF will be saved to SAVEDIR\mame into their own directories|- core supports SOFTWARE LISTS, you need to have the official hash files on the HASH directory"
