@@ -334,24 +334,29 @@ build_libretro_mame078() {
    fi
 }
 
+build_libretro_mame139() {
+   cd "${BASE_DIR}"
+   if [ -d 'libretro-mame139' ]; then
+      echo '=== Building MAME 0.139 ==='
+      cd libretro-mame139
+
+      "${MAKE}" -f Makefile.libretro platform="${FORMAT_COMPILER_TARGET}" ${COMPILER} "-j${JOBS}" clean || die 'Failed to clean MAME 0.139'
+      "${MAKE}" -f Makefile.libretro platform="${FORMAT_COMPILER_TARGET}" "VRENDER=soft" ${COMPILER} "-j${JOBS}" buildtools || die 'Failed to build MAME 0.139'
+      "${MAKE}" -f Makefile.libretro platform="${FORMAT_COMPILER_TARGET}" "VRENDER=soft" ${COMPILER} "-j${JOBS}" || die 'Failed to build MAME 0.139'
+      cp "mame2010_libretro${FORMAT}.${FORMAT_EXT}" "${RARCH_DIST_DIR}"
+   else
+      echo 'MAME 0.139 not fetched, skipping ...'
+   fi
+}
+
 build_libretro_mame() {
    cd "${BASE_DIR}"
    if [ -d 'libretro-mame' ]; then
-      echo ''
       echo '=== Building MAME ==='
       cd libretro-mame/0152
 
-      if [ X86_64="true" ]; then
-        echo '=== Building MAME64 ==='
-      ping 127.0.0.1 -n 3 >NUL
-        "${MAKE}" PTR64=1 -f Makefile.libretro "TARGET=mame" platform="${FORMAT_COMPILER_TARGET}" ${COMPILER} "-j${JOBS}" clean || die 'Failed to clean MAME'
-        "${MAKE}" PTR64=1 -f Makefile.libretro "TARGET=mame" platform="${FORMAT_COMPILER_TARGET}" ${COMPILER} "-j${JOBS}" || die 'Failed to build MAME'
-      else
-        echo '=== Building MAME32 ==='
-      ping 127.0.0.1 -n 3 >NUL
-        "${MAKE}" -f Makefile.libretro "TARGET=mame" platform="${FORMAT_COMPILER_TARGET}" ${COMPILER} "-j${JOBS}" clean || die 'Failed to clean MAME'
-        "${MAKE}" -f Makefile.libretro "TARGET=mame" platform="${FORMAT_COMPILER_TARGET}" ${COMPILER} "-j${JOBS}" || die 'Failed to build MAME'
-      fi
+      "${MAKE}" -f Makefile.libretro "TARGET=mame" platform="${FORMAT_COMPILER_TARGET}" ${COMPILER} "-j${JOBS}" clean || die 'Failed to clean MAME'
+      "${MAKE}" -f Makefile.libretro "TARGET=mame" platform="${FORMAT_COMPILER_TARGET}" ${COMPILER} "-j${JOBS}" || die 'Failed to build MAME'
       cp "mame_libretro${FORMAT}.${FORMAT_EXT}" "${RARCH_DIST_DIR}"
    else
       echo 'MAME not fetched, skipping ...'
@@ -361,21 +366,11 @@ build_libretro_mame() {
 rebuild_libretro_mame() {
    cd "${BASE_DIR}"
    if [ -d 'libretro-mame' ]; then
-      echo ''
       echo '=== Building MAME ==='
       cd libretro-mame/0152
 
-      if [ X86_64="true" ]; then
-        echo '=== Building MAME64 ==='
-      ping 127.0.0.1 -n 3 >NUL
-        "${MAKE}" PTR64=1 -f Makefile.libretro "TARGET=mame" "PARTIAL=1" platform="${FORMAT_COMPILER_TARGET}" ${COMPILER} "-j${JOBS}" clean || die 'Failed to clean MAME'
-        "${MAKE}" PTR64=1 -f Makefile.libretro "TARGET=mame" platform="${FORMAT_COMPILER_TARGET}" ${COMPILER} "-j${JOBS}" || die 'Failed to build MAME'
-      else
-        echo '=== Building MAME32 ==='
-      ping 127.0.0.1 -n 3 >NUL
-        "${MAKE}" -f Makefile.libretro "TARGET=mame" "PARTIAL=1" platform="${FORMAT_COMPILER_TARGET}" ${COMPILER} "-j${JOBS}" clean || die 'Failed to clean MAME'
-        "${MAKE}" -f Makefile.libretro "TARGET=mame" platform="${FORMAT_COMPILER_TARGET}" ${COMPILER} "-j${JOBS}" || die 'Failed to build MAME'
-      fi
+      "${MAKE}" -f Makefile.libretro "TARGET=mame" "PARTIAL=1" platform="${FORMAT_COMPILER_TARGET}" ${COMPILER} "-j${JOBS}" clean || die 'Failed to clean MAME'
+      "${MAKE}" -f Makefile.libretro "TARGET=mame" platform="${FORMAT_COMPILER_TARGET}" ${COMPILER} "-j${JOBS}" || die 'Failed to build MAME'
       cp "mame_libretro${FORMAT}.${FORMAT_EXT}" "${RARCH_DIST_DIR}"
    else
       echo 'MAME not fetched, skipping ...'
@@ -385,21 +380,11 @@ rebuild_libretro_mame() {
 build_libretro_mess() {
    cd "${BASE_DIR}"
    if [ -d 'libretro-mame' ]; then
-      echo ''
       echo '=== Building MESS ==='
       cd libretro-mame/0152
 
-      if [ X86_64="true" ]; then
-        echo '=== Building MESS64 ==='
-      ping 127.0.0.1 -n 3 >NUL
-        "${MAKE}" PTR64=1 -f Makefile.libretro "TARGET=mess" platform="${FORMAT_COMPILER_TARGET}" ${COMPILER} "-j${JOBS}" clean || die 'Failed to clean MAME'
-        "${MAKE}" PTR64=1 -f Makefile.libretro "TARGET=mess" platform="${FORMAT_COMPILER_TARGET}" ${COMPILER} "-j${JOBS}" || die 'Failed to build MAME'
-      else
-        echo '=== Building MESS32 ==='
-      ping 127.0.0.1 -n 3 >NUL
-        "${MAKE}" -f Makefile.libretro "TARGET=mess" platform="${FORMAT_COMPILER_TARGET}" ${COMPILER} "-j${JOBS}" clean || die 'Failed to clean MAME'
-        "${MAKE}" -f Makefile.libretro "TARGET=mess" platform="${FORMAT_COMPILER_TARGET}" ${COMPILER} "-j${JOBS}" || die 'Failed to build MAME'
-      fi
+      "${MAKE}" -f Makefile.libretro "TARGET=mess" platform="${FORMAT_COMPILER_TARGET}" ${COMPILER} "-j${JOBS}" clean || die 'Failed to clean MESS'
+      "${MAKE}" -f Makefile.libretro "TARGET=mess" platform="${FORMAT_COMPILER_TARGET}" ${COMPILER} "-j${JOBS}" || die 'Failed to build MESS'
       cp "mess_libretro${FORMAT}.${FORMAT_EXT}" "${RARCH_DIST_DIR}"
    else
       echo 'MAME not fetched, skipping ...'
@@ -409,21 +394,11 @@ build_libretro_mess() {
 rebuild_libretro_mess() {
    cd "${BASE_DIR}"
    if [ -d 'libretro-mame' ]; then
-      echo ''
       echo '=== Building MESS ==='
       cd libretro-mame/0152
 
-      if [ X86_64="true" ]; then
-        echo '=== Building MESS64 ==='
-      ping 127.0.0.1 -n 3 >NUL
-        "${MAKE}" PTR64=1 -f Makefile.libretro "TARGET=mess" "PARTIAL=1" platform="${FORMAT_COMPILER_TARGET}" ${COMPILER} "-j${JOBS}" clean || die 'Failed to clean MAME'
-        "${MAKE}" PTR64=1 -f Makefile.libretro "TARGET=mess" platform="${FORMAT_COMPILER_TARGET}" ${COMPILER} "-j${JOBS}" || die 'Failed to build MAME'
-      else
-        echo '=== Building MESS32 ==='
-      ping 127.0.0.1 -n 3 >NUL
-        "${MAKE}" -f Makefile.libretro "TARGET=mess" "PARTIAL=1" platform="${FORMAT_COMPILER_TARGET}" ${COMPILER} "-j${JOBS}" clean || die 'Failed to clean MAME'
-        "${MAKE}" -f Makefile.libretro "TARGET=mess" platform="${FORMAT_COMPILER_TARGET}" ${COMPILER} "-j${JOBS}" || die 'Failed to build MAME'
-      fi
+      "${MAKE}" -f Makefile.libretro "TARGET=mess" "PARTIAL=1" platform="${FORMAT_COMPILER_TARGET}" ${COMPILER} "-j${JOBS}" clean || die 'Failed to clean MESS'
+      "${MAKE}" -f Makefile.libretro "TARGET=mess" platform="${FORMAT_COMPILER_TARGET}" ${COMPILER} "-j${JOBS}" || die 'Failed to build MESS'
       cp "mess_libretro${FORMAT}.${FORMAT_EXT}" "${RARCH_DIST_DIR}"
    else
       echo 'MAME not fetched, skipping ...'
@@ -433,45 +408,11 @@ rebuild_libretro_mess() {
 build_libretro_ume() {
    cd "${BASE_DIR}"
    if [ -d 'libretro-mame' ]; then
-      echo ''
       echo '=== Building UME ==='
       cd libretro-mame/0152
 
-      if [ X86_64="true" ]; then
-        echo '=== Building UME64 ==='
-      ping 127.0.0.1 -n 3 >NUL
-        "${MAKE}" PTR64=1 -f Makefile.libretro "TARGET=ume" platform="${FORMAT_COMPILER_TARGET}" ${COMPILER} "-j${JOBS}" clean || die 'Failed to clean MAME'
-        "${MAKE}" PTR64=1 -f Makefile.libretro "TARGET=ume" platform="${FORMAT_COMPILER_TARGET}" ${COMPILER} "-j${JOBS}" || die 'Failed to build MAME'
-      else
-        echo '=== Building UME32 ==='
-      ping 127.0.0.1 -n 3 >NUL
-        "${MAKE}" -f Makefile.libretro "TARGET=ume" platform="${FORMAT_COMPILER_TARGET}" ${COMPILER} "-j${JOBS}" clean || die 'Failed to clean MAME'
-        "${MAKE}" -f Makefile.libretro "TARGET=ume" platform="${FORMAT_COMPILER_TARGET}" ${COMPILER} "-j${JOBS}" || die 'Failed to build MAME'
-      fi
-      cp "ume_libretro${FORMAT}.${FORMAT_EXT}" "${RARCH_DIST_DIR}"
-   else
-      echo 'MAME not fetched, skipping ...'
-   fi
-}
-
-rebuild_libretro_ume() {
-   cd "${BASE_DIR}"
-   if [ -d 'libretro-mame' ]; then
-      echo ''
-      echo '=== Building MESS ==='
-      cd libretro-mame/0152
-
-      if [ X86_64="true" ]; then
-        echo '=== Building UME64 ==='
-      ping 127.0.0.1 -n 3 >NUL
-        "${MAKE}" PTR64=1 -f Makefile.libretro "TARGET=ume" "PARTIAL=1" platform="${FORMAT_COMPILER_TARGET}" ${COMPILER} "-j${JOBS}" clean || die 'Failed to clean MAME'
-        "${MAKE}" PTR64=1 -f Makefile.libretro "TARGET=ume" platform="${FORMAT_COMPILER_TARGET}" ${COMPILER} "-j${JOBS}" || die 'Failed to build MAME'
-      else
-        echo '=== Building UME32 ==='
-      ping 127.0.0.1 -n 3 >NUL
-        "${MAKE}" -f Makefile.libretro "TARGET=ume" "PARTIAL=1" platform="${FORMAT_COMPILER_TARGET}" ${COMPILER} "-j${JOBS}" clean || die 'Failed to clean MAME'
-        "${MAKE}" -f Makefile.libretro "TARGET=ume" platform="${FORMAT_COMPILER_TARGET}" ${COMPILER} "-j${JOBS}" || die 'Failed to build MAME'
-      fi
+      "${MAKE}" -f Makefile.libretro "TARGET=ume" platform="${FORMAT_COMPILER_TARGET}" ${COMPILER} "-j${JOBS}" clean || die 'Failed to clean MESS'
+      "${MAKE}" -f Makefile.libretro "TARGET=ume" platform="${FORMAT_COMPILER_TARGET}" ${COMPILER} "-j${JOBS}" || die 'Failed to build MESS'
       cp "ume_libretro${FORMAT}.${FORMAT_EXT}" "${RARCH_DIST_DIR}"
    else
       echo 'MAME not fetched, skipping ...'
