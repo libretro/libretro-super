@@ -16,6 +16,12 @@ case "$ARCH" in
          armv7l)   ARMV7=true;;
       esac;;
 esac
+
+if [ $PROCESSOR_ARCHITEW6432 = "AMD64" ]; then
+   ARCH=x86_64
+   X86=true && X86_64=true
+fi
+
 echo "$ARCH CPU detected"
 
 # Platform Assignment
