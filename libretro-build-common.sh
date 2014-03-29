@@ -339,7 +339,7 @@ build_libretro_mame() {
    if [ -d 'libretro-mame' ]; then
       echo ''
       echo '=== Building MAME ==='
-      cd libretro-mame/0152
+      cd libretro-mame
 
       if [ X86_64="true" ]; then
         echo '=== Building MAME64 ==='
@@ -361,7 +361,7 @@ rebuild_libretro_mame() {
    if [ -d 'libretro-mame' ]; then
       echo ''
       echo '=== Building MAME ==='
-      cd libretro-mame/0152
+      cd libretro-mame
 
       if [ X86_64="true" ]; then
         echo '=== Building MAME64 ==='
@@ -383,7 +383,7 @@ build_libretro_mess() {
    if [ -d 'libretro-mame' ]; then
       echo ''
       echo '=== Building MESS ==='
-      cd libretro-mame/0152
+      cd libretro-mame
 
       if [ X86_64="true" ]; then
         echo '=== Building MESS64 ==='
@@ -405,7 +405,7 @@ rebuild_libretro_mess() {
    if [ -d 'libretro-mame' ]; then
       echo ''
       echo '=== Building MESS ==='
-      cd libretro-mame/0152
+      cd libretro-mame
 
       if [ X86_64="true" ]; then
         echo '=== Building MESS64 ==='
@@ -427,7 +427,7 @@ build_libretro_ume() {
    if [ -d 'libretro-mame' ]; then
       echo ''
       echo '=== Building UME ==='
-      cd libretro-mame/0152
+      cd libretro-mame
 
       if [ X86_64="true" ]; then
         echo '=== Building UME64 ==='
@@ -449,7 +449,7 @@ rebuild_libretro_ume() {
    if [ -d 'libretro-mame' ]; then
       echo ''
       echo '=== Building MESS ==='
-      cd libretro-mame/0152
+      cd libretro-mame
 
       if [ X86_64="true" ]; then
         echo '=== Building UME64 ==='
