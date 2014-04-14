@@ -61,7 +61,7 @@ fi
 
 if [ -z "$CC" ]; then
    if [ $FORMAT_COMPILER_TARGET = "osx" ]; then
-      CC=clang
+      CC=cc
    elif uname -s | grep -i MINGW32 > /dev/null 2>&1; then
       CC=mingw32-gcc
    else
