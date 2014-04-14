@@ -22,7 +22,7 @@ else
    #build_libretro_fba_full
    build_libretro_fba_cps2
    build_libretro_vba_next
-   build_libretro_fceu
+   build_libretro_fceumm
    build_libretro_gambatte
    build_libretro_nx
    build_libretro_prboom

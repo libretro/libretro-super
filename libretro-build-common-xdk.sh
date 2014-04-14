@@ -150,17 +150,17 @@ build_libretro_mame078() {
    fi
 }
 
-build_libretro_fceu()
+build_libretro_fceumm()
 {
    cd $BASE_DIR
-   if [ -d "libretro-fceu" ]; then
-      echo "=== Building FCEU ==="
-      cd libretro-fceu
-      cd fceumm-code/src/drivers/libretro/msvc
+   if [ -d "libretro-fceumm" ]; then
+      echo "=== Building FCEUmm ==="
+      cd libretro-fceumm
+      cd src/drivers/libretro/msvc
       cmd.exe /k $MSVC_NAME.bat
       cp $MSVC_NAME/$RELEASE_LTCG/${MSVC_NAME}.${FORMAT_EXT} "$RARCH_DIST_DIR"/fceumm_libretro$FORMAT.$FORMAT_EXT
    else
-      echo "FCEU not fetched, skipping ..."
+      echo "FCEUmm not fetched, skipping ..."
    fi
 }
 

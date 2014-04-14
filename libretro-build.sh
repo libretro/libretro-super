@@ -107,7 +107,7 @@ else
    build_libretro_vbam
    build_libretro_vba_next
    build_libretro_bnes
-   build_libretro_fceu
+   build_libretro_fceumm
    build_libretro_gambatte
    build_libretro_meteor
    build_libretro_nx

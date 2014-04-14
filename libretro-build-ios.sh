@@ -14,7 +14,11 @@ MAKE=make
 CXX11="clang++ -std=c++11 -stdlib=libc++ -miphoneos-version-min=5.0"
 IOS=1
 
+IOSVER=71
+
+ifeq ($(IOSVER),71)
 export IOSSDK=/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS7.1.sdk/
+el
 
 . ./libretro-build-common.sh
 
@@ -33,7 +37,7 @@ else
    build_libretro_fba_full
    build_libretro_vbam
    build_libretro_vba_next
-   build_libretro_fceu
+   build_libretro_fceumm
    build_libretro_gambatte
    #build_libretro_meteor
    build_libretro_nx

@@ -494,11 +494,11 @@ build_libretro_vba_next() {
    fi
 }
 
-build_libretro_fceu() {
+build_libretro_fceumm() {
    cd "${BASE_DIR}"
    if [ -d 'libretro-fceu' ]; then
       echo '=== Building FCEUmm ==='
-      cd libretro-fceu
+      cd libretro-fceumm
 
       "${MAKE}" -C fceumm-code -f Makefile.libretro platform="${FORMAT_COMPILER_TARGET}" ${COMPILER} "-j${JOBS}" clean || die 'Failed to clean FCEUmm'
       "${MAKE}" -C fceumm-code -f Makefile.libretro platform="${FORMAT_COMPILER_TARGET}" ${COMPILER} "-j${JOBS}" || die 'Failed to build FCEUmm'

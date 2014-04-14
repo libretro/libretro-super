@@ -214,20 +214,20 @@ build_libretro_vba_next()
    fi
 }
 
-build_libretro_fceu()
+build_libretro_fceumm()
 {
    cd $BASE_DIR
-   if [ -d "libretro-fceu" ]; then
-      echo "=== Building FCEU ==="
-      cd libretro-fceu
-      cd fceumm-code/src/drivers/libretro/jni
+   if [ -d "libretro-fceumm" ]; then
+      echo "=== Building FCEUmm ==="
+      cd libretro-fceumm
+      cd src/drivers/libretro/jni
       ndk-build clean APP_ABI="armeabi-v7a mips x86"
       ndk-build -j$JOBS APP_ABI="armeabi-v7a mips x86"
       cp ../libs/armeabi-v7a/libretro.${FORMAT_EXT} $RARCH_DIST_DIR/armeabi-v7a/fceumm_libretro${FORMAT}.${FORMAT_EXT}
       cp ../libs/mips/libretro.${FORMAT_EXT} $RARCH_DIST_DIR/mips/fceumm_libretro${FORMAT}.${FORMAT_EXT}
       cp ../libs/x86/libretro.${FORMAT_EXT} $RARCH_DIST_DIR/x86/fceumm_libretro${FORMAT}.${FORMAT_EXT}
    else
-      echo "FCEU not fetched, skipping ..."
+      echo "FCEUmm not fetched, skipping ..."
    fi
 }
 
@@ -607,7 +607,7 @@ else
    build_libretro_vbam
    build_libretro_vba_next
    #build_libretro_bnes
-   build_libretro_fceu
+   build_libretro_fceumm
    build_libretro_gambatte
    build_libretro_meteor
    build_libretro_nx
