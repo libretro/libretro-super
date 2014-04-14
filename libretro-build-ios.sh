@@ -16,6 +16,11 @@ IOS=1
 
 IOSSDKLOC="/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/"
 
+if [ -d "${IOSSDKLOC}iPhoneOS5.0.sdk" ]; then
+   echo "iOS 5.0 SDK detected"
+   IOSVER=50
+   IOSSDKLOC="${IOSSDKLOC}iPhoneOS5.0.sdk"
+fi
 if [ -d "${IOSSDKLOC}iPhoneOS6.0.sdk" ]; then
    echo "iOS 6.0 SDK detected"
    IOSVER=60
