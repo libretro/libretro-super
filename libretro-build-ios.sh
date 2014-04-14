@@ -14,11 +14,23 @@ MAKE=make
 CXX11="clang++ -std=c++11 -stdlib=libc++ -miphoneos-version-min=5.0"
 IOS=1
 
-IOSVER=71
+IOSSDKLOC="/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/"
 
-ifeq ($(IOSVER),71)
-export IOSSDK=/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS7.1.sdk/
-el
+if [ -d "${IOSSDKLOC}iPhoneOS6.0.sdk" ]; then
+   echo "iOS 6.0 SDK detected"
+   IOSVER=60
+   IOSSDKLOC="${IOSSDKLOC}iPhoneOS6.0.sdk"
+fi
+if [ -d "${IOSSDKLOC}iPhoneOS7.0.sdk" ]; then
+   echo "iOS 7.0 SDK detected"
+   IOSVER=70
+   IOSSDKLOC="${IOSSDKLOC}iPhoneOS7.0.sdk"
+fi
+if [ -d "${IOSSDKLOC}iPhoneOS7.1.sdk" ]; then
+   echo "iOS 7.1 SDK detected"
+   IOSVER=71
+   IOSSDKLOC="${IOSSDKLOC}iPhoneOS7.1.sdk"
+fi
 
 . ./libretro-build-common.sh
 
