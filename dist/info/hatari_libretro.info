@@ -1,0 +1,12 @@
+display_name = "Atari ST/STE/TT/Falcon (Hatari)"
+authors = "Nicolas Pomarède"
+supported_extensions = "st"
+corename = "Hatari"
+manufacturer = "Atari"
+systemname = "Atari ST/STE/TT/Falcon"
+license = "GPLv2"
+permissions = ""
+firmware_count = 1
+firmware0_desc = "tos.img (TOS image file)"
+firmware0_path = "tos.img"
+firmware0_opt = "false"
