@@ -1,4 +1,5 @@
 display_name = "Lynx (Handy)"
+authors = "K. Wilkins"
 supported_extensions = "lnx"
 corename = "Handy"
 manufacturer = "Atari"
