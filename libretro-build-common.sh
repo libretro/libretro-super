@@ -160,8 +160,8 @@ build_libretro_mednafen() {
       echo '=== Building Mednafen ==='
       cd libretro-mednafen
 
-      "${MAKE}" core='pce-fast' platform="${FORMAT_COMPILER_TARGET_ALT}" ${COMPILER} "-j${JOBS}" clean || die "Failed to clean mednafen/${core}"
-      "${MAKE}" core='pce-fast' platform="${FORMAT_COMPILER_TARGET_ALT}" ${COMPILER} "-j${JOBS}" || die "Failed to build mednafen/${core}"
+      "${MAKE}" core='pce-fast' platform="${FORMAT_COMPILER_TARGET}" ${COMPILER} "-j${JOBS}" clean || die "Failed to clean mednafen/${core}"
+      "${MAKE}" core='pce-fast' platform="${FORMAT_COMPILER_TARGET}" ${COMPILER} "-j${JOBS}" || die "Failed to build mednafen/${core}"
       cp "mednafen_pce_fast_libretro${FORMAT}.${FORMAT_EXT}" "${RARCH_DIST_DIR}"
       for core in wswan ngp vb; do
          "${MAKE}" core="${core}" platform="${FORMAT_COMPILER_TARGET}" ${COMPILER} "-j${JOBS}" clean || die "Failed to clean mednafen/${core}"
