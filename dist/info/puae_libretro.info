@@ -1,6 +1,6 @@
 display_name = "Amiga (P-UAE)"
 authors = "GnoStiC"
-supported_extensions = "adf|dms|zip"
+supported_extensions = "adf|dms|fdi|ipf|zip"
 corename = "PUAE"
 manufacturer = "Commodore"
 systemname = "Commodore Amiga"
