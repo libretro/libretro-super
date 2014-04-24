@@ -1,0 +1,8 @@
+display_name = "Amiga (P-UAE)"
+authors = "GnoStiC"
+supported_extensions = "adf|dms|zip"
+corename = "PUAE"
+manufacturer = "Commodore"
+systemname = "Commodore Amiga"
+license = "GPLv2"
+permissions = ""
