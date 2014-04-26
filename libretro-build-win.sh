@@ -20,11 +20,8 @@ source $BASE_DIR/libretro-build-common-xdk.sh
 if [ $1 ]; then
    $1
 else
-   build_libretro_mednafen_pce_fast
+   build_libretro_mednafen
    build_libretro_mednafen_gba
-   build_libretro_mednafen_ngp
-   build_libretro_mednafen_vb
-   build_libretro_mednafen_wswan
    build_libretro_s9x
    build_libretro_s9x_next
    build_libretro_genplus
