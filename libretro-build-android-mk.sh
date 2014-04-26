@@ -46,49 +46,15 @@ build_libretro_mednafen()
       echo "=== Building Mednafen cores ==="
       cd libretro-mednafen
       cd jni
-      echo "=== Building Mednafen NGP ==="
-      ndk-build clean APP_ABI="armeabi-v7a mips x86" || die "Failed to clean mednafen_ngp"
-      ndk-build core=ngp clean APP_ABI="armeabi-v7a mips x86" || die "Failed to clean mednafen_ngp"
-      ndk-build core=ngp -j$JOBS APP_ABI="armeabi-v7a mips x86" || die "Failed to build mednafen_ngp"
-      cp ../libs/armeabi-v7a/libretro.${FORMAT_EXT} $RARCH_DIST_DIR/armeabi-v7a/mednafen_ngp_libretro${FORMAT}.${FORMAT_EXT}
-      cp ../libs/mips/libretro.${FORMAT_EXT} $RARCH_DIST_DIR/mips/mednafen_ngp_libretro${FORMAT}.${FORMAT_EXT}
-      cp ../libs/x86/libretro.${FORMAT_EXT} $RARCH_DIST_DIR/x86/mednafen_ngp_libretro${FORMAT}.${FORMAT_EXT}
-
-      echo "=== Building Mednafen WonderSwan ==="
-      ndk-build clean APP_ABI="armeabi-v7a mips x86" || die "Failed to clean mednafen_wswan"
-      ndk-build core=wswan clean APP_ABI="armeabi-v7a mips x86" || die "Failed to clean mednafen_wswan"
-      ndk-build core=wswan -j$JOBS APP_ABI="armeabi-v7a mips x86" || die "Failed to build mednafen_wswan"
-
-      cp ../libs/armeabi-v7a/libretro.${FORMAT_EXT} $RARCH_DIST_DIR/armeabi-v7a/mednafen_wswan_libretro${FORMAT}.${FORMAT_EXT}
-      cp ../libs/mips/libretro.${FORMAT_EXT} $RARCH_DIST_DIR/mips/mednafen_wswan_libretro${FORMAT}.${FORMAT_EXT}
-      cp ../libs/x86/libretro.${FORMAT_EXT} $RARCH_DIST_DIR/x86/mednafen_wswan_libretro${FORMAT}.${FORMAT_EXT}
-
-      echo "=== Building Mednafen VirtualBoy ==="
-      ndk-build clean APP_ABI="armeabi-v7a mips x86" || die "Failed to clean mednafen_vb"
-      ndk-build core=vb clean APP_ABI="armeabi-v7a mips x86" || die "Failed to clean mednafen_vb"
-      ndk-build core=vb -j$JOBS APP_ABI="armeabi-v7a mips x86" || die "Failed to build mednafen_vb"
-
-      cp ../libs/armeabi-v7a/libretro.${FORMAT_EXT} $RARCH_DIST_DIR/armeabi-v7a/mednafen_vb_libretro${FORMAT}.${FORMAT_EXT}
-      cp ../libs/mips/libretro.${FORMAT_EXT} $RARCH_DIST_DIR/mips/mednafen_vb_libretro${FORMAT}.${FORMAT_EXT}
-      cp ../libs/x86/libretro.${FORMAT_EXT} $RARCH_DIST_DIR/x86/mednafen_vb_libretro${FORMAT}.${FORMAT_EXT}
-
-      echo "=== Building Mednafen PCE Fast ==="
-      ndk-build clean APP_ABI="armeabi-v7a mips x86" || die "Failed to clean mednafen_pce_fast"
-      ndk-build core=pce-fast clean APP_ABI="armeabi-v7a mips x86" || die "Failed to clean mednafen_pce_fast"
-      ndk-build core=pce-fast -j$JOBS APP_ABI="armeabi-v7a mips x86" || die "Failed to build mednafen_pce_fast"
-
-      cp ../libs/armeabi-v7a/libretro.${FORMAT_EXT} $RARCH_DIST_DIR/armeabi-v7a/mednafen_pce_fast_libretro${FORMAT}.${FORMAT_EXT}
-      cp ../libs/mips/libretro.${FORMAT_EXT} $RARCH_DIST_DIR/mips/mednafen_pce_fast_libretro${FORMAT}.${FORMAT_EXT}
-      cp ../libs/x86/libretro.${FORMAT_EXT} $RARCH_DIST_DIR/x86/mednafen_pce_fast_libretro${FORMAT}.${FORMAT_EXT}
-
-      echo "=== Building Mednafen PSX ==="
-      ndk-build clean APP_ABI="armeabi-v7a mips x86" || die "Failed to clean mednafen_psx"
-      ndk-build core=psx clean APP_ABI="armeabi-v7a mips x86" || die "Failed to clean mednafen_psx"
-      ndk-build core=psx -j$JOBS APP_ABI="armeabi-v7a mips x86" || die "Failed to build mednafen_psx"
-
-      cp ../libs/armeabi-v7a/libretro.${FORMAT_EXT} $RARCH_DIST_DIR/armeabi-v7a/mednafen_psx_libretro${FORMAT}.${FORMAT_EXT}
-      cp ../libs/mips/libretro.${FORMAT_EXT} $RARCH_DIST_DIR/mips/mednafen_psx_libretro${FORMAT}.${FORMAT_EXT}
-      cp ../libs/x86/libretro.${FORMAT_EXT} $RARCH_DIST_DIR/x86/mednafen_psx_libretro${FORMAT}.${FORMAT_EXT}
+      for core in pce_fast pcfx psx lynx wswan ngp vb; do
+         echo "=== Building Mednafen ${core} ==="
+         ndk-build clean APP_ABI="armeabi-v7a mips x86" || die "Failed to clean mednafen_${core}"
+         ndk-build core=${core} clean APP_ABI="armeabi-v7a mips x86" || die "Failed to clean mednafen_${core}"
+         ndk-build core=${core} APP_ABI="armeabi-v7a mips x86" || die "Failed to build mednafen_${core}"
+         cp ../libs/armeabi-v7a/libretro.${FORMAT_EXT} $RARCH_DIST_DIR/armeabi-v7a/mednafen_${core}_libretro${FORMAT}.${FORMAT_EXT}
+         cp ../libs/mips/libretro.${FORMAT_EXT} $RARCH_DIST_DIR/mips/mednafen_${core}_libretro${FORMAT}.${FORMAT_EXT}
+         cp ../libs/x86/libretro.${FORMAT_EXT} $RARCH_DIST_DIR/x86/mednafen_${core}_libretro${FORMAT}.${FORMAT_EXT}
+      done
    else
       echo "Mednafen not fetched, skipping ..."
    fi
