@@ -47,7 +47,6 @@ else
    build_libretro_mednafen
    build_libretro_mednafen_gba
    #build_libretro_mednafen_snes
-   build_libretro_mednafen_psx
    build_libretro_s9x
    build_libretro_s9x_next
    build_libretro_genplus
