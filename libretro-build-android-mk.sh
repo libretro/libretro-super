@@ -459,7 +459,7 @@ build_libretro_desmume()
    cd $BASE_DIR
    if [ -d "libretro-desmume" ]; then
       echo "=== Building Desmume ==="
-      cd libretro-desmume
+      cd libretro-desmume/desmume/src/libretro
       cd jni
       ndk-build clean
       ndk-build -j$JOBS APP_ABI=armeabi-v7a

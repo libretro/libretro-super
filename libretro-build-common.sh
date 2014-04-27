@@ -248,7 +248,7 @@ build_libretro_desmume() {
    cd "${BASE_DIR}"
    if [ -d 'libretro-desmume' ]; then
       echo '=== Building Desmume ==='
-      cd libretro-desmume
+      cd libretro-desmume/desmume
 
       "${MAKE}" -f Makefile.libretro platform="${FORMAT_COMPILER_TARGET}" "-j${JOBS}" clean || die 'Failed to clean Desmume'
       "${MAKE}" -f Makefile.libretro platform="${FORMAT_COMPILER_TARGET}" "-j${JOBS}" || die 'Failed to build Desmume'
