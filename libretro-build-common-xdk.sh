@@ -8,7 +8,7 @@ die()
 
 build_libretro_mednafen()
 {
-   for core in pce_fast pcfx wswan ngp vb; do
+   for core in pce_fast pcfx wswan ngp gba vb; do
    	cd $BASE_DIR
    	if [ -d "libretro-mednafen" ]; then
       		echo "=== Building Mednafen ${core} ==="
@@ -20,21 +20,6 @@ build_libretro_mednafen()
       		echo "Mednafen not fetched, skipping ..."
    	fi
    done
-}
-
-build_libretro_mednafen_gba()
-{
-   cd $BASE_DIR
-   if [ -d "libretro-mednafen" ]; then
-      echo "=== Building Mednafen GBA ==="
-      cd libretro-mednafen
-      cd msvc/gba
-
-      cmd.exe /k $MSVC_NAME.bat
-      cp $MSVC_NAME/$RELEASE_LTCG/${MSVC_NAME}.${FORMAT_EXT} "$RARCH_DIST_DIR"/mednafen_gba_libretro$FORMAT.$FORMAT_EXT
-   else
-      echo "Mednafen GBA not fetched, skipping ..."
-   fi
 }
 
 build_libretro_s9x()
