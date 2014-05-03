@@ -60,6 +60,7 @@ build_libretro_ffmpeg() {
       echo '=== Checking OpenGL dependencies ==='
       echo '=== Building FFmpeg ==='
       cd libretro-ffmpeg
+      cd libretro
 
       "${MAKE}" platform="${FORMAT_COMPILER_TARGET}" ${COMPILER} "-j${JOBS}" clean || die 'Failed to clean FFmpeg'
       "${MAKE}" platform="${FORMAT_COMPILER_TARGET}" ${COMPILER} "-j${JOBS}"

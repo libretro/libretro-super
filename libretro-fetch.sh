@@ -105,7 +105,7 @@ fetch_project "$REPO_BASE/libretro/libretro-mame.git" "libretro-mame" "libretro/
 fetch_project "$REPO_BASE/libretro/scenewalker-libretro.git" "libretro-gl-scenewalker" "libretro/SceneWalker"
 fetch_project "$REPO_BASE/libretro/modelviewer-libretro.git" "libretro-gl-modelviewer" "libretro/ModelViewer"
 fetch_project "$REPO_BASE/libretro/modelviewer-location-libretro.git" "libretro-gl-modelviewer-location" "libretro/ModelViewer-Location"
-fetch_project "$REPO_BASE/libretro/libretro-ffmpeg.git" "libretro-ffmpeg" "libretro/ffmpeg"
+fetch_project "$REPO_BASE/libretro/FFmpeg.git" "libretro-ffmpeg" "libretro/FFmpeg"
 fetch_project "$REPO_BASE/libretro/bsnes-libretro-cplusplus98.git" "libretro-bsnes-cplusplus98" "libretro/bsnes-cplusplus98"
 fetch_project_submodule "$REPO_BASE/libretro/picodrive.git" "libretro-picodrive" "libretro/picodrive"
 fetch_project_submodule "$REPO_BASE/libretro/ppsspp-libretro.git" "libretro-pppsspp" "libretro/ppsspp"
