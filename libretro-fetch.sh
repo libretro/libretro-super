@@ -114,7 +114,7 @@ fetch_project "$REPO_BASE/libretro/mupen64plus-libretro.git" "libretro-mupen64pl
 fetch_project "$REPO_BASE/libretro/instancingviewer-libretro-gl.git" "libretro-gl-instancingviewer" "libretro/instancingviewer"
 fetch_project "$REPO_BASE/libretro/instancingviewer-camera.git" "libretro-gl-instancingviewer-camera" "libretro/instancingviewer-camera"
 fetch_project "$REPO_BASE/libretro/Dinothawr.git" "libretro-dinothawr" "libretro/Dinothawr"
-fetch_project "$REPO_BASE/libretro/libretro-hatari.git" "libretro-hatari" "libretro/Hatari"
+fetch_project "$REPO_BASE/libretro/hatari-libretro.git" "libretro-hatari" "libretro/Hatari"
 fetch_project "$REPO_BASE/libretro/libretro-uae.git" "libretro-uae" "libretro/UAE"
 fetch_project "$REPO_BASE/libretro/libretro-3dengine.git" "libretro-3dengine" "libretro/3DEngine"
 fetch_project "$REPO_BASE/libretro/libretro-remotejoy.git" "libretro-remotejoy" "libretro/RemoteJoy"
