@@ -1,5 +1,5 @@
 display_name = "SNES / Super Famicom (Mednafen SNES)"
-supported_extensions = "sfc|smc"
+supported_extensions = "smc|fig|bs|st|sfc"
 corename = "Mednafen SNES"
 manufacturer = "Nintendo"
 systemname = "Super Nintendo Entertainment System"

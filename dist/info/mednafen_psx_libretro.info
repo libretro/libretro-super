@@ -1,6 +1,6 @@
 display_name = "PlayStation1 (Mednafen PSX)"
 authors = "Ryphecha"
-supported_extensions = "cue|toc|ccd"
+supported_extensions = "cue|toc|m3u|ccd"
 corename = "Mednafen PSX"
 manufacturer = "Sony"
 systemname = "PlayStation"

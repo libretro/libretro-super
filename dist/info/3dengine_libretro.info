@@ -1,6 +1,6 @@
 authors = "Team Libretro"
 display_name = "3D Engine"
-supported_extensions = "obj|mtl|png|jpg|jpeg|tga"
+supported_extensions = "png|jpg|mtl|obj"
 corename = "3DEngine"
 manufacturer = "Various"
 systemname = "3D Engine"

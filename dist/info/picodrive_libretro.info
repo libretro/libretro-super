@@ -1,6 +1,6 @@
 display_name = "Sega MS/GG/MD/CD/32X (Picodrive)"
 authors = "notaz|fdave"
-supported_extensions = "md|smd|gen|sms|gg|sg|bin|cue|ios|32x"
+supported_extensions = "bin|gen|smd|md|32x|cue|iso|sms"
 corename = "Picodrive"
 manufacturer = "Sega"
 systemname = "Sega 16bit + 32X (Various)"

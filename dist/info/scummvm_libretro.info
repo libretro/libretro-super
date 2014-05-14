@@ -1,6 +1,6 @@
 display_name = "ScummVM"
 authors = "SCUMMVMdev"
-supported_extensions = ""
+supported_extensions = "exe"
 corename = "ScummVM"
 license = "GPLv2"
 permissions = ""

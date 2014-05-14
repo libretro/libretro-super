@@ -1,6 +1,6 @@
 display_name = "SNES / Super Famicom (bSNES Accuracy)"
 authors = "byuu"
-supported_extensions = "smc|sfc|bml"
+supported_extensions = "sfc|smc|bml"
 corename = "bsnes/higan Accuracy"
 manufacturer = "Nintendo"
 systemname = "Super Nintendo Entertainment System"
