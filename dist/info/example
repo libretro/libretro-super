@@ -21,6 +21,12 @@
 # Privacy-specific permissions needed for using the core
 # permissions = ""
 
+# As reported by the core.
+# display_version = "v0.2.97.30"
+# need_fullpath = "false"
+# block_extract = "false"
+# supports_no_game = "false"
+
 # Notes
 #notes = "note1|note2|note3 with spaces|note 4 with spaces|note 5 (test)|note6"
 
