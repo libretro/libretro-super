@@ -14,28 +14,12 @@ MAKE=make
 CXX11="clang++ -std=c++11 -stdlib=libc++ -miphoneos-version-min=5.0"
 IOS=1
 
-IOSSDKLOC="/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/"
-
-if [ -d "${IOSSDKLOC}iPhoneOS5.0.sdk" ]; then
-   echo "iOS 5.0 SDK detected"
-   IOSVER=50
-   IOSSDKLOC="${IOSSDKLOC}iPhoneOS5.0.sdk"
-fi
-if [ -d "${IOSSDKLOC}iPhoneOS6.0.sdk" ]; then
-   echo "iOS 6.0 SDK detected"
-   IOSVER=60
-   IOSSDKLOC="${IOSSDKLOC}iPhoneOS6.0.sdk"
-fi
-if [ -d "${IOSSDKLOC}iPhoneOS7.0.sdk" ]; then
-   echo "iOS 7.0 SDK detected"
-   IOSVER=70
-   IOSSDKLOC="${IOSSDKLOC}iPhoneOS7.0.sdk"
-fi
-if [ -d "${IOSSDKLOC}iPhoneOS7.1.sdk" ]; then
-   echo "iOS 7.1 SDK detected"
-   IOSVER=71
-   IOSSDKLOC="${IOSSDKLOC}iPhoneOS7.1.sdk"
-fi
+IOSSDKLOC=$(xcrun -sdk iphoneos -show-sdk-path)
+IOSVER_MAJOR=$(xcrun -sdk iphoneos -show-sdk-platform-version | cut -c '1')
+IOSVER_MINOR=$(xcrun -sdk iphoneos -show-sdk-platform-version | cut -c '3')
+IOSVER=${IOSVER_MAJOR}${IOSVER_MINOR}
+echo "iOS path: ${IOSSDKLOC}"
+echo "iOS version: ${IOSVER}"
 
 . ./libretro-build-common.sh
 
@@ -43,7 +27,7 @@ if [ $1 ]; then
    $1
 else
    build_libretro_bsnes_cplusplus98
-   build_libretro_bsnes
+   #build_libretro_bsnes
    build_libretro_mednafen
    #build_libretro_mednafen_snes
    build_libretro_s9x
