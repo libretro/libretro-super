@@ -18,7 +18,7 @@ IOSSDK=$(xcrun -sdk iphoneos -show-sdk-path)
 IOSVER_MAJOR=$(xcrun -sdk iphoneos -show-sdk-platform-version | cut -c '1')
 IOSVER_MINOR=$(xcrun -sdk iphoneos -show-sdk-platform-version | cut -c '3')
 IOSVER=${IOSVER_MAJOR}${IOSVER_MINOR}
-echo "iOS path: ${IOSSDKLOC}"
+echo "iOS path: ${IOSSDK}"
 echo "iOS version: ${IOSVER}"
 export IOSSDK
 
