@@ -14,12 +14,13 @@ MAKE=make
 CXX11="clang++ -std=c++11 -stdlib=libc++ -miphoneos-version-min=5.0"
 IOS=1
 
-IOSSDKLOC=$(xcrun -sdk iphoneos -show-sdk-path)
+IOSSDK=$(xcrun -sdk iphoneos -show-sdk-path)
 IOSVER_MAJOR=$(xcrun -sdk iphoneos -show-sdk-platform-version | cut -c '1')
 IOSVER_MINOR=$(xcrun -sdk iphoneos -show-sdk-platform-version | cut -c '3')
 IOSVER=${IOSVER_MAJOR}${IOSVER_MINOR}
 echo "iOS path: ${IOSSDKLOC}"
 echo "iOS version: ${IOSVER}"
+export IOSSDK
 
 . ./libretro-build-common.sh
 
