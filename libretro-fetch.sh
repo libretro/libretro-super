@@ -45,7 +45,7 @@ fetch_project()
       git pull
       cd ..
    else
-      git clone --depth 1 "$1" "$2"
+      git clone "$1" "$2"
    fi
    echo "=== Fetched ==="
 }
