@@ -48,8 +48,10 @@ build_libretro_mednafen()
       cd jni
       for core in pce_fast pcfx psx lynx wswan ngp vb; do
          echo "=== Building Mednafen ${core} ==="
-         ndk-build clean APP_ABI="armeabi-v7a mips x86" || die "Failed to clean mednafen_${core}"
-         ndk-build core=${core} clean APP_ABI="armeabi-v7a mips x86" || die "Failed to clean mednafen_${core}"
+         if [ -z "${NOCLEAN}" ]; then
+            ndk-build clean APP_ABI="armeabi-v7a mips x86" || die "Failed to clean mednafen_${core}"
+            ndk-build core=${core} clean APP_ABI="armeabi-v7a mips x86" || die "Failed to clean mednafen_${core}"
+         fi
          ndk-build core=${core} APP_ABI="armeabi-v7a mips x86" || die "Failed to build mednafen_${core}"
          cp ../libs/armeabi-v7a/libretro.${FORMAT_EXT} $RARCH_DIST_DIR/armeabi-v7a/mednafen_${core}_libretro${FORMAT}.${FORMAT_EXT}
          cp ../libs/mips/libretro.${FORMAT_EXT} $RARCH_DIST_DIR/mips/mednafen_${core}_libretro${FORMAT}.${FORMAT_EXT}
@@ -67,7 +69,9 @@ build_libretro_s9x()
       echo "=== Building SNES9x ==="
       cd libretro-s9x/
       cd libretro/jni
-      ndk-build clean APP_ABI="armeabi-v7a mips x86"
+      if [ -z "${NOCLEAN}" ]; then
+         ndk-build clean APP_ABI="armeabi-v7a mips x86"
+	  fi
       ndk-build -j$JOBS APP_ABI="armeabi-v7a mips x86"
       cp ../libs/armeabi-v7a/libretro.${FORMAT_EXT} $RARCH_DIST_DIR/armeabi-v7a/snes9x_libretro${FORMAT}.${FORMAT_EXT}
       cp ../libs/mips/libretro.${FORMAT_EXT} $RARCH_DIST_DIR/mips/snes9x_libretro${FORMAT}.${FORMAT_EXT}
@@ -84,7 +88,9 @@ build_libretro_s9x_next()
       echo "=== Building SNES9x-Next ==="
       cd libretro-s9x-next/
       cd libretro/jni
-      ndk-build clean APP_ABI="armeabi-v7a mips x86"
+      if [ -z "${NOCLEAN}" ]; then
+         ndk-build clean APP_ABI="armeabi-v7a mips x86"
+      fi
       ndk-build -j$JOBS APP_ABI="armeabi-v7a mips x86"
       cp ../libs/armeabi-v7a/libretro.${FORMAT_EXT} $RARCH_DIST_DIR/armeabi-v7a/snes9x_next_libretro${FORMAT}.${FORMAT_EXT}
       cp ../libs/mips/libretro.${FORMAT_EXT} $RARCH_DIST_DIR/mips/snes9x_next_libretro${FORMAT}.${FORMAT_EXT}
@@ -101,7 +107,9 @@ build_libretro_stella()
       echo "=== Building Stella ==="
       cd libretro-stella/
       cd jni
-      ndk-build clean APP_ABI="armeabi-v7a mips x86"
+      if [ -z "${NOCLEAN}" ]; then
+         ndk-build clean APP_ABI="armeabi-v7a mips x86"
+      fi
       ndk-build -j$JOBS APP_ABI="armeabi-v7a mips x86"
       cp ../libs/armeabi-v7a/libretro.${FORMAT_EXT} $RARCH_DIST_DIR/armeabi-v7a/stella_libretro${FORMAT}.${FORMAT_EXT}
       cp ../libs/mips/libretro.${FORMAT_EXT} $RARCH_DIST_DIR/mips/stella_libretro${FORMAT}.${FORMAT_EXT}
@@ -118,7 +126,9 @@ build_libretro_genplus()
       echo "=== Building Genplus GX ==="
       cd libretro-genplus/
       cd libretro/jni
-      ndk-build clean APP_ABI="armeabi-v7a mips x86"
+      if [ -z "${NOCLEAN}" ]; then
+         ndk-build clean APP_ABI="armeabi-v7a mips x86"
+      fi
       ndk-build -j$JOBS APP_ABI="armeabi-v7a mips x86"
       cp ../libs/armeabi-v7a/libretro.${FORMAT_EXT} $RARCH_DIST_DIR/armeabi-v7a/genesis_plus_gx_libretro${FORMAT}.${FORMAT_EXT}
       cp ../libs/mips/libretro.${FORMAT_EXT} $RARCH_DIST_DIR/mips/genesis_plus_gx_libretro${FORMAT}.${FORMAT_EXT}
@@ -136,7 +146,9 @@ build_libretro_fba_full()
       cd libretro-fba
       cd svn-current/trunk
       cd projectfiles/libretro-android/jni
-      ndk-build clean APP_ABI="armeabi-v7a mips x86"
+      if [ -z "${NOCLEAN}" ]; then
+         ndk-build clean APP_ABI="armeabi-v7a mips x86"
+      fi
       ndk-build -j$JOBS APP_ABI="armeabi-v7a mips x86"
       cp ../libs/armeabi-v7a/libretro.${FORMAT_EXT} $RARCH_DIST_DIR/armeabi-v7a/fb_alpha_libretro${FORMAT}.${FORMAT_EXT}
       cp ../libs/mips/libretro.${FORMAT_EXT} $RARCH_DIST_DIR/mips/fb_alpha_libretro${FORMAT}.${FORMAT_EXT}
@@ -153,7 +165,9 @@ build_libretro_vbam()
       echo '=== Building VBA-M ==='
       cd libretro-vbam/
       cd src/libretro/jni
-      ndk-build clean APP_ABI="armeabi-v7a mips x86"
+      if [ -z "${NOCLEAN}" ]; then
+         ndk-build clean APP_ABI="armeabi-v7a mips x86"
+      fi
       ndk-build -j$JOBS APP_ABI="armeabi-v7a mips x86"
       cp ../libs/armeabi-v7a/libretro.${FORMAT_EXT} $RARCH_DIST_DIR/armeabi-v7a/vbam_libretro${FORMAT}.${FORMAT_EXT}
       cp ../libs/mips/libretro.${FORMAT_EXT} $RARCH_DIST_DIR/mips/vbam_libretro${FORMAT}.${FORMAT_EXT}
@@ -170,7 +184,9 @@ build_libretro_vba_next()
       echo "=== Building VBA-Next ==="
       cd libretro-vba-next/
       cd libretro/jni
-      ndk-build clean APP_ABI="armeabi-v7a mips x86"
+      if [ -z "${NOCLEAN}" ]; then
+         ndk-build clean APP_ABI="armeabi-v7a mips x86"
+      fi
       ndk-build -j$JOBS APP_ABI="armeabi-v7a mips x86"
       cp ../libs/armeabi-v7a/libretro.${FORMAT_EXT} $RARCH_DIST_DIR/armeabi-v7a/vba_next_libretro${FORMAT}.${FORMAT_EXT}
       cp ../libs/mips/libretro.${FORMAT_EXT} $RARCH_DIST_DIR/mips/vba_next_libretro${FORMAT}.${FORMAT_EXT}
@@ -187,7 +203,9 @@ build_libretro_fceumm()
       echo "=== Building FCEUmm ==="
       cd libretro-fceumm
       cd src/drivers/libretro/jni
-      ndk-build clean APP_ABI="armeabi-v7a mips x86"
+      if [ -z "${NOCLEAN}" ]; then
+         ndk-build clean APP_ABI="armeabi-v7a mips x86"
+      fi
       ndk-build -j$JOBS APP_ABI="armeabi-v7a mips x86"
       cp ../libs/armeabi-v7a/libretro.${FORMAT_EXT} $RARCH_DIST_DIR/armeabi-v7a/fceumm_libretro${FORMAT}.${FORMAT_EXT}
       cp ../libs/mips/libretro.${FORMAT_EXT} $RARCH_DIST_DIR/mips/fceumm_libretro${FORMAT}.${FORMAT_EXT}
@@ -204,7 +222,9 @@ build_libretro_gambatte()
       echo "=== Building Gambatte ==="
       cd libretro-gambatte/libgambatte
       cd libretro/jni
-      ndk-build clean APP_ABI="armeabi-v7a mips x86"
+      if [ -z "${NOCLEAN}" ]; then
+         ndk-build clean APP_ABI="armeabi-v7a mips x86"
+      fi
       ndk-build -j$JOBS APP_ABI="armeabi-v7a mips x86"
       cp ../libs/armeabi-v7a/libretro.${FORMAT_EXT} $RARCH_DIST_DIR/armeabi-v7a/gambatte_libretro${FORMAT}.${FORMAT_EXT}
       cp ../libs/mips/libretro.${FORMAT_EXT} $RARCH_DIST_DIR/mips/gambatte_libretro${FORMAT}.${FORMAT_EXT}
@@ -221,7 +241,9 @@ build_libretro_nx()
       echo "=== Building NXEngine ==="
       cd libretro-nx
       cd jni
-      ndk-build clean APP_ABI="armeabi-v7a mips x86"
+      if [ -z "${NOCLEAN}" ]; then
+         ndk-build clean APP_ABI="armeabi-v7a mips x86"
+      fi
       ndk-build -j$JOBS APP_ABI="armeabi-v7a mips x86"
       cp ../libs/armeabi-v7a/libretro.${FORMAT_EXT} $RARCH_DIST_DIR/armeabi-v7a/nxengine_libretro${FORMAT}.${FORMAT_EXT}
       cp ../libs/mips/libretro.${FORMAT_EXT} $RARCH_DIST_DIR/mips/nxengine_libretro${FORMAT}.${FORMAT_EXT}
@@ -238,7 +260,9 @@ build_libretro_prboom()
       echo "=== Building PRBoom ==="
       cd libretro-prboom
       cd libretro/jni
-      ndk-build clean APP_ABI="armeabi-v7a mips x86"
+      if [ -z "${NOCLEAN}" ]; then
+         ndk-build clean APP_ABI="armeabi-v7a mips x86"
+      fi
       ndk-build -j$JOBS APP_ABI="armeabi-v7a mips x86"
       cp ../libs/armeabi-v7a/libretro.${FORMAT_EXT} $RARCH_DIST_DIR/armeabi-v7a/prboom_libretro${FORMAT}.${FORMAT_EXT}
       cp ../libs/mips/libretro.${FORMAT_EXT} $RARCH_DIST_DIR/mips/prboom_libretro${FORMAT}.${FORMAT_EXT}
@@ -255,7 +279,9 @@ build_libretro_dinothawr()
       echo "=== Building Dinothawr ==="
       cd libretro-dinothawr
       cd android/eclipse/jni
-      ndk-build clean APP_ABI="armeabi-v7a mips x86"
+      if [ -z "${NOCLEAN}" ]; then
+         ndk-build clean APP_ABI="armeabi-v7a mips x86"
+      fi
       ndk-build -j$JOBS APP_ABI="armeabi-v7a mips x86"
       cp ../libs/armeabi-v7a/libretro_dino.${FORMAT_EXT} $RARCH_DIST_DIR/armeabi-v7a/dinothawr_libretro${FORMAT}.${FORMAT_EXT}
       cp ../libs/mips/libretro_dino.${FORMAT_EXT} $RARCH_DIST_DIR/mips/dinothawr_libretro${FORMAT}.${FORMAT_EXT}
@@ -272,7 +298,9 @@ build_libretro_nestopia()
       echo "=== Building Nestopia ==="
       cd libretro-nestopia/libretro
       cd jni
-      ndk-build clean APP_ABI="armeabi-v7a mips x86"
+      if [ -z "${NOCLEAN}" ]; then
+         ndk-build clean APP_ABI="armeabi-v7a mips x86"
+      fi
       ndk-build -j$JOBS APP_ABI="armeabi-v7a mips x86"
       cp ../libs/armeabi-v7a/libretro.${FORMAT_EXT} $RARCH_DIST_DIR/armeabi-v7a/nestopia_libretro${FORMAT}.${FORMAT_EXT}
       cp ../libs/mips/libretro.${FORMAT_EXT} $RARCH_DIST_DIR/mips/nestopia_libretro${FORMAT}.${FORMAT_EXT}
@@ -293,7 +321,9 @@ build_libretro_pcsx_rearmed()
       #ndk-build clean APP_ABI=armeabi-v7a
       #ndk-build -j$JOBS NO_NEON=1 APP_ABI=armeabi-v7a
       #cp ../libs/armeabi-v7a/libretro-noneon.${FORMAT_EXT} $RARCH_DIST_DIR/armeabi-v7a/pcsx_rearmed_libretro${FORMAT}.${FORMAT_EXT}
-      ndk-build clean APP_ABI=armeabi-v7a
+      if [ -z "${NOCLEAN}" ]; then
+         ndk-build clean APP_ABI=armeabi-v7a
+      fi
       ndk-build -j$JOBS APP_ABI=armeabi-v7a
       cp ../libs/armeabi-v7a/libretro.${FORMAT_EXT} $RARCH_DIST_DIR/armeabi-v7a/pcsx_rearmed_libretro_neon${FORMAT}.${FORMAT_EXT}
    else
@@ -308,7 +338,9 @@ build_libretro_tyrquake()
       echo "=== Building TyrQuake ==="
       cd libretro-tyrquake
       cd libretro/jni
-      ndk-build clean APP_ABI="armeabi-v7a mips x86"
+      if [ -z "${NOCLEAN}" ]; then
+         ndk-build clean APP_ABI="armeabi-v7a mips x86"
+      fi
       ndk-build -j$JOBS APP_ABI="armeabi-v7a mips x86"
       cp ../libs/armeabi-v7a/libretro.${FORMAT_EXT} $RARCH_DIST_DIR/armeabi-v7a/tyrquake_libretro${FORMAT}.${FORMAT_EXT}
       cp ../libs/mips/libretro.${FORMAT_EXT} $RARCH_DIST_DIR/mips/tyrquake_libretro${FORMAT}.${FORMAT_EXT}
@@ -325,7 +357,9 @@ build_libretro_modelviewer()
       echo "=== Building Modelviewer (GL) ==="
       cd libretro-gl-modelviewer
       cd jni
-      ndk-build clean APP_ABI="armeabi-v7a mips x86"
+      if [ -z "${NOCLEAN}" ]; then
+         ndk-build clean APP_ABI="armeabi-v7a mips x86"
+      fi
       ndk-build -j$JOBS APP_ABI="armeabi-v7a mips x86"
       cp ../libs/armeabi-v7a/libretro.${FORMAT_EXT} $RARCH_DIST_DIR/armeabi-v7a/modelviewer_libretro${FORMAT}.${FORMAT_EXT}
       cp ../libs/mips/libretro.${FORMAT_EXT} $RARCH_DIST_DIR/mips/modelviewer_libretro${FORMAT}.${FORMAT_EXT}
@@ -342,7 +376,9 @@ build_libretro_modelviewer_location()
       echo "=== Building Modelviewer Location (GL) ==="
       cd libretro-gl-modelviewer-location
       cd jni
-      ndk-build clean APP_ABI="armeabi-v7a mips x86"
+      if [ -z "${NOCLEAN}" ]; then
+         ndk-build clean APP_ABI="armeabi-v7a mips x86"
+      fi
       ndk-build -j$JOBS APP_ABI="armeabi-v7a mips x86"
       cp ../libs/armeabi-v7a/libretro.${FORMAT_EXT} $RARCH_DIST_DIR/armeabi-v7a/modelviewer_location_libretro${FORMAT}.${FORMAT_EXT}
       cp ../libs/mips/libretro.${FORMAT_EXT} $RARCH_DIST_DIR/mips/modelviewer_location_libretro${FORMAT}.${FORMAT_EXT}
@@ -359,7 +395,9 @@ build_libretro_instancingviewer()
       echo "=== Building InstancingViewer (GL) ==="
       cd libretro-gl-instancingviewer
       cd jni
-      ndk-build clean APP_ABI="armeabi-v7a mips x86"
+      if [ -z "${NOCLEAN}" ]; then
+         ndk-build clean APP_ABI="armeabi-v7a mips x86"
+      fi
       ndk-build -j$JOBS APP_ABI="armeabi-v7a mips x86"
       cp ../libs/armeabi-v7a/libretro.${FORMAT_EXT} $RARCH_DIST_DIR/armeabi-v7a/instancingviewer_libretro${FORMAT}.${FORMAT_EXT}
       cp ../libs/mips/libretro.${FORMAT_EXT} $RARCH_DIST_DIR/mips/instancingviewer_libretro${FORMAT}.${FORMAT_EXT}
@@ -376,7 +414,9 @@ build_libretro_instancingviewer_camera()
       echo "=== Building InstancingViewer Camera (GL) ==="
       cd libretro-gl-instancingviewer-camera
       cd jni
-      ndk-build clean APP_ABI="armeabi-v7a mips x86"
+      if [ -z "${NOCLEAN}" ]; then
+         ndk-build clean APP_ABI="armeabi-v7a mips x86"
+      fi
       ndk-build -j$JOBS APP_ABI="armeabi-v7a mips x86"
       cp ../libs/armeabi-v7a/libretro.${FORMAT_EXT} $RARCH_DIST_DIR/armeabi-v7a/instancingviewer_camera_libretro${FORMAT}.${FORMAT_EXT}
       cp ../libs/mips/libretro.${FORMAT_EXT} $RARCH_DIST_DIR/mips/instancingviewer_camera_libretro${FORMAT}.${FORMAT_EXT}
@@ -395,7 +435,9 @@ build_libretro_3dengine() {
       cd libretro-${CORENAME}
       cd jni
 
-      ndk-build clean APP_ABI="armeabi-v7a mips x86"
+      if [ -z "${NOCLEAN}" ]; then
+         ndk-build clean APP_ABI="armeabi-v7a mips x86"
+      fi
       ndk-build -j$JOBS APP_ABI="armeabi-v7a mips x86"
       cp ../libs/armeabi-v7a/libretro.${FORMAT_EXT} $RARCH_DIST_DIR/armeabi-v7a/${CORENAME}_libretro${FORMAT}.${FORMAT_EXT}
       cp ../libs/mips/libretro.${FORMAT_EXT} $RARCH_DIST_DIR/mips/${CORENAME}_libretro${FORMAT}.${FORMAT_EXT}
@@ -412,7 +454,9 @@ build_libretro_scenewalker()
       echo "=== Building SceneWalker (GL) ==="
       cd libretro-gl-scenewalker
       cd jni
-      ndk-build clean APP_ABI="armeabi-v7a mips x86"
+      if [ -z "${NOCLEAN}" ]; then
+         ndk-build clean APP_ABI="armeabi-v7a mips x86"
+      fi
       ndk-build -j$JOBS APP_ABI="armeabi-v7a mips x86"
       cp ../libs/armeabi-v7a/libretro.${FORMAT_EXT} $RARCH_DIST_DIR/armeabi-v7a/scenewalker_libretro${FORMAT}.${FORMAT_EXT}
       cp ../libs/mips/libretro.${FORMAT_EXT} $RARCH_DIST_DIR/mips/scenewalker_libretro${FORMAT}.${FORMAT_EXT}
@@ -429,7 +473,9 @@ build_libretro_picodrive()
       echo "=== Building Picodrive ==="
       cd libretro-picodrive
       cd jni
-      ndk-build clean APP_ABI=armeabi-v7a
+      if [ -z "${NOCLEAN}" ]; then
+         ndk-build clean APP_ABI=armeabi-v7a
+      fi
       ndk-build -j$JOBS APP_ABI=armeabi-v7a
       cp ../libs/armeabi-v7a/libretro_picodrive.${FORMAT_EXT} "$RARCH_DIST_DIR"/armeabi-v7a/picodrive_libretro${FORMAT}.${FORMAT_EXT}
    else
@@ -444,7 +490,9 @@ build_libretro_handy()
       echo "=== Building Handy ==="
       cd libretro-handy
       cd libretro/jni
-      ndk-build clean APP_ABI="armeabi-v7a mips x86"
+      if [ -z "${NOCLEAN}" ]; then
+         ndk-build clean APP_ABI="armeabi-v7a mips x86"
+      fi
       ndk-build -j$JOBS APP_ABI="armeabi-v7a mips x86"
       cp ../libs/armeabi-v7a/libretro.${FORMAT_EXT} "$RARCH_DIST_DIR"/armeabi-v7a/handy_libretro${FORMAT}.${FORMAT_EXT}
       cp ../libs/mips/libretro.${FORMAT_EXT} "$RARCH_DIST_DIR"/mips/handy_libretro${FORMAT}.${FORMAT_EXT}
@@ -461,11 +509,14 @@ build_libretro_desmume()
       echo "=== Building Desmume ==="
       cd libretro-desmume/desmume/src/libretro
       cd jni
-      ndk-build clean
+      if [ -z "${NOCLEAN}" ]; then
+         ndk-build clean
+      fi
       ndk-build -j$JOBS APP_ABI=armeabi-v7a
       cp ../libs/armeabi-v7a/libretro.${FORMAT_EXT} "$RARCH_DIST_DIR"/armeabi-v7a/desmume_libretro${FORMAT}.${FORMAT_EXT}
-
-      ndk-build clean
+	  if [ -z "${NOCLEAN}" ]; then
+         ndk-build clean
+      fi
       ndk-build -j$JOBS APP_ABI=x86
       cp ../libs/x86/libretro.${FORMAT_EXT} "$RARCH_DIST_DIR"/x86/desmume_libretro${FORMAT}.${FORMAT_EXT}
    else
@@ -480,7 +531,9 @@ build_libretro_quicknes()
       echo "=== Building QuickNES ==="
       cd libretro-quicknes
       cd libretro/jni
-      ndk-build clean APP_ABI="armeabi-v7a mips x86"
+      if [ -z "${NOCLEAN}" ]; then
+         ndk-build clean APP_ABI="armeabi-v7a mips x86"
+      fi
       ndk-build -j$JOBS APP_ABI="armeabi-v7a mips x86"
       cp ../libs/armeabi-v7a/libretro.${FORMAT_EXT} "$RARCH_DIST_DIR"/armeabi-v7a/quicknes_libretro${FORMAT}.${FORMAT_EXT}
       cp ../libs/mips/libretro.${FORMAT_EXT} "$RARCH_DIST_DIR"/mips/quicknes_libretro${FORMAT}.${FORMAT_EXT}
@@ -531,7 +584,9 @@ build_libretro_bsnes()
       echo "=== Building bsnes (performance core) ==="
       cd libretro-bsnes/perf
       cd target-libretro/jni
-      ndk-build clean APP_ABI="armeabi-v7a x86"
+      if [ -z "${NOCLEAN}" ]; then
+         ndk-build clean APP_ABI="armeabi-v7a x86"
+      fi
       ndk-build -j$JOBS APP_ABI="armeabi-v7a x86"
       cp ../libs/armeabi-v7a/libretro_bsnes_performance.${FORMAT_EXT} $RARCH_DIST_DIR/armeabi-v7a/bsnes_performance_libretro${FORMAT}.${FORMAT_EXT}
       cp ../libs/x86/libretro_bsnes_performance.${FORMAT_EXT} $RARCH_DIST_DIR/x86/bsnes_performance_libretro${FORMAT}.${FORMAT_EXT}
@@ -547,7 +602,9 @@ build_libretro_mupen64()
       echo '=== Building Mupen 64 Plus (ARMv7 dynarec) ==='
       cd libretro-mupen64plus
       cd libretro/jni
-      ndk-build clean APP_ABI="armeabi-v7a"
+      if [ -z "${NOCLEAN}" ]; then
+         ndk-build clean APP_ABI="armeabi-v7a"
+      fi
       ndk-build -j$JOBS APP_ABI="armeabi-v7a"
       cp ../libs/armeabi-v7a/libretro_mupen64plus.${FORMAT_EXT} $RARCH_DIST_DIR/armeabi-v7a/mupen64plus_libretro${FORMAT}.${FORMAT_EXT}
    else
