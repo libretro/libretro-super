@@ -192,6 +192,20 @@ build_libretro_mednafen() {
    fi
 }
 
+build_libretro_mednafen_psx() {
+   cd "${BASE_DIR}"
+   if [ -d 'libretro-mednafen-psx' ]; then
+      echo '=== Building Mednafen PSX ==='
+      cd libretro-mednafen-psx
+
+      "${MAKE}" platform="${FORMAT_COMPILER_TARGET}" ${COMPILER} "-j${JOBS}" clean || die "Failed to clean mednafen/psx"
+      "${MAKE}" platform="${FORMAT_COMPILER_TARGET}" ${COMPILER} "-j${JOBS}" || die "Failed to build mednafen/psx"
+      cp "mednafen_psx_libretro${FORMAT}.${FORMAT_EXT}" "${RARCH_DIST_DIR}"
+   else
+      echo 'Mednafen PSX not fetched, skipping ...'
+   fi
+}
+
 build_libretro_mednafen_snes() {
    cd "${BASE_DIR}"
    if [ -d 'libretro-mednafen' ]; then
