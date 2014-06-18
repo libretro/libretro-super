@@ -180,7 +180,7 @@ build_libretro_mednafen() {
       echo '=== Building Mednafen ==='
       cd libretro-mednafen
 
-      for core in pce_fast pcfx psx lynx wswan ngp gba vb; do
+      for core in pcfx lynx wswan ngp gba vb; do
          if [ -z "${NOCLEAN}" ]; then
             "${MAKE}" core="${core}" platform="${FORMAT_COMPILER_TARGET}" ${COMPILER} "-j${JOBS}" clean || die "Failed to clean mednafen/${core}"
          fi
@@ -189,6 +189,20 @@ build_libretro_mednafen() {
       done
    else
       echo 'Mednafen not fetched, skipping ...'
+   fi
+}
+
+build_libretro_mednafen_pce_fast() {
+   cd "${BASE_DIR}"
+   if [ -d 'libretro-mednafen-pce-fast' ]; then
+      echo '=== Building Mednafen PCE Fast ==='
+      cd libretro-mednafen-pce-fast
+
+      "${MAKE}" platform="${FORMAT_COMPILER_TARGET}" ${COMPILER} "-j${JOBS}" clean || die "Failed to clean mednafen/pce_fast"
+      "${MAKE}" platform="${FORMAT_COMPILER_TARGET}" ${COMPILER} "-j${JOBS}" || die "Failed to build mednafen/pce_fast"
+      cp "mednafen_pce_fast_libretro${FORMAT}.${FORMAT_EXT}" "${RARCH_DIST_DIR}"
+   else
+      echo 'Mednafen PCE Fast not fetched, skipping ...'
    fi
 }
 

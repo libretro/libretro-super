@@ -16,6 +16,7 @@ MAKE=make
 if [ $1 ]; then
    $1
 else
+   build_libretro_mednafen_pce_fast
    build_libretro_mednafen
    build_libretro_s9x_next
    build_libretro_genplus
