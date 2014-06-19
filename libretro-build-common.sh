@@ -373,7 +373,7 @@ build_libretro_mame() {
       echo '=== Building MAME ==='
       cd libretro-mame
 
-      if [ X86_64="true" ]; then
+      if [ "$X86_64" = "true" ]; then
         echo '=== Building MAME64 ==='
         if [ -z "${NOCLEAN}" ]; then
            "${MAKE}" PTR64=1 -f Makefile.libretro "TARGET=mame" platform="${FORMAT_COMPILER_TARGET}" ${COMPILER} "-j${JOBS}" clean || die 'Failed to clean MAME'
@@ -399,7 +399,7 @@ rebuild_libretro_mame() {
       echo '=== Building MAME ==='
       cd libretro-mame
 
-      if [ X86_64="true" ]; then
+      if [ "$X86_64" = "true" ]; then
         echo '=== Building MAME64 ==='
         if [ -z "${NOCLEAN}" ]; then
            "${MAKE}" PTR64=1 -f Makefile.libretro "TARGET=mame" "PARTIAL=1" platform="${FORMAT_COMPILER_TARGET}" ${COMPILER} "-j${JOBS}" clean || die 'Failed to clean MAME'
@@ -425,7 +425,7 @@ build_libretro_mess() {
       echo '=== Building MESS ==='
       cd libretro-mame
 
-      if [ X86_64="true" ]; then
+      if [ "$X86_64" = "true" ]; then
         echo '=== Building MESS64 ==='
         if [ -z "${NOCLEAN}" ]; then
            "${MAKE}" PTR64=1 -f Makefile.libretro "TARGET=mess" platform="${FORMAT_COMPILER_TARGET}" ${COMPILER} "-j${JOBS}" clean || die 'Failed to clean MAME'
@@ -451,7 +451,7 @@ rebuild_libretro_mess() {
       echo '=== Building MESS ==='
       cd libretro-mame
 
-      if [ X86_64="true" ]; then
+      if [ "$X86_64" = "true" ]; then
         echo '=== Building MESS64 ==='
         if [ -z "${NOCLEAN}" ]; then
            "${MAKE}" PTR64=1 -f Makefile.libretro "TARGET=mess" "PARTIAL=1" platform="${FORMAT_COMPILER_TARGET}" ${COMPILER} "-j${JOBS}" clean || die 'Failed to clean MAME'
@@ -477,7 +477,7 @@ build_libretro_ume() {
       echo '=== Building UME ==='
       cd libretro-mame
 
-      if [ X86_64="true" ]; then
+      if [ "$X86_64" = "true" ]; then
         echo '=== Building UME64 ==='
         if [ -z "${NOCLEAN}" ]; then
            "${MAKE}" PTR64=1 -f Makefile.libretro "TARGET=ume" platform="${FORMAT_COMPILER_TARGET}" ${COMPILER} "-j${JOBS}" clean || die 'Failed to clean MAME'
@@ -503,7 +503,7 @@ rebuild_libretro_ume() {
       echo '=== Building MESS ==='
       cd libretro-mame
 
-      if [ X86_64="true" ]; then
+      if [ "$X86_64" = "true" ]; then
         echo '=== Building UME64 ==='
         if [ -z "${NOCLEAN}" ]; then
            "${MAKE}" PTR64=1 -f Makefile.libretro "TARGET=ume" "PARTIAL=1" platform="${FORMAT_COMPILER_TARGET}" ${COMPILER} "-j${JOBS}" clean || die 'Failed to clean MAME'
