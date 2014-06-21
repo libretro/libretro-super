@@ -206,6 +206,20 @@ build_libretro_mednafen_pce_fast() {
    fi
 }
 
+build_libretro_mednafen_vb() {
+   cd "${BASE_DIR}"
+   if [ -d 'libretro-mednafen-vb' ]; then
+      echo '=== Building Mednafen VB ==='
+      cd libretro-mednafen-vb
+
+      "${MAKE}" platform="${FORMAT_COMPILER_TARGET}" ${COMPILER} "-j${JOBS}" clean || die "Failed to clean mednafen/vb"
+      "${MAKE}" platform="${FORMAT_COMPILER_TARGET}" ${COMPILER} "-j${JOBS}" || die "Failed to build mednafen/vb"
+      cp "mednafen_vb_libretro${FORMAT}.${FORMAT_EXT}" "${RARCH_DIST_DIR}"
+   else
+      echo 'Mednafen VB not fetched, skipping ...'
+   fi
+}
+
 build_libretro_mednafen_psx() {
    cd "${BASE_DIR}"
    if [ -d 'libretro-mednafen-psx' ]; then

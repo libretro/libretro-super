@@ -36,6 +36,20 @@ build_libretro_mednafen_pce_fast()
    fi
 }
 
+build_libretro_mednafen_vb()
+{
+   cd $BASE_DIR
+   if [ -d "libretro-mednafen-vb" ]; then
+      echo "=== Building Mednafen VB ==="
+      cd libretro-mednafen-vb
+      cd msvc
+      cmd.exe /k $MSVC_NAME.bat
+      cp $MSVC_NAME/$RELEASE_LTCG/${MSVC_NAME}.${FORMAT_EXT} "$RARCH_DIST_DIR"/mednafen_vb_libretro$FORMAT.$FORMAT_EXT
+   else
+      echo "Mednafen VB not fetched, skipping ..."
+   fi
+}
+
 build_libretro_s9x()
 {
    cd $BASE_DIR

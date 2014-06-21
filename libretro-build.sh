@@ -98,6 +98,7 @@ else
    build_libretro_bsnes
    build_libretro_mednafen
    build_libretro_mednafen_pce_fast
+   build_libretro_mednafen_vb
    build_libretro_mednafen_psx
    build_libretro_mednafen_snes
    build_libretro_s9x

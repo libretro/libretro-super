@@ -97,6 +97,7 @@ fetch_project "$REPO_BASE/libretro/pcsx_rearmed.git" "libretro-pcsx-rearmed" "li
 fetch_project "$REPO_BASE/libretro/mednafen-libretro.git" "libretro-mednafen" "libretro/Mednafen"
 fetch_project "$REPO_BASE/libretro/mednafen-pce-fast-libretro.git" "libretro-mednafen-pce-fast" "libretro/Mednafen PCE Fast"
 fetch_project "$REPO_BASE/libretro/mednafen-psx-libretro.git" "libretro-mednafen-psx" "libretro/Mednafen PSX"
+fetch_project "$REPO_BASE/libretro/mednafen-vb-libretro.git" "libretro-mednafen-vb" "libretro/Mednafen VB"
 fetch_project "$REPO_BASE/libretro/scummvm.git" "libretro-scummvm" "libretro/scummvm"
 fetch_project "$REPO_BASE/libretro/yabause.git" "libretro-yabause" "libretro/yabause"
 fetch_project "$REPO_BASE/libretro/dosbox-libretro.git" "libretro-dosbox" "libretro/dosbox"
