@@ -95,6 +95,7 @@ fetch_project "$REPO_BASE/libretro/nestopia.git" "libretro-nestopia" "libretro/N
 fetch_project "$REPO_BASE/libretro/tyrquake.git" "libretro-tyrquake" "libretro/tyrquake"
 fetch_project "$REPO_BASE/libretro/pcsx_rearmed.git" "libretro-pcsx-rearmed" "libretro/pcsx_rearmed"
 fetch_project "$REPO_BASE/libretro/mednafen-libretro.git" "libretro-mednafen" "libretro/Mednafen"
+fetch_project "$REPO_BASE/libretro/mednafen-ngp-libretro.git" "libretro-mednafen-ngp" "libretro/Mednafen NGP"
 fetch_project "$REPO_BASE/libretro/mednafen-pce-fast-libretro.git" "libretro-mednafen-pce-fast" "libretro/Mednafen PCE Fast"
 fetch_project "$REPO_BASE/libretro/mednafen-psx-libretro.git" "libretro-mednafen-psx" "libretro/Mednafen PSX"
 fetch_project "$REPO_BASE/libretro/mednafen-vb-libretro.git" "libretro-mednafen-vb" "libretro/Mednafen VB"

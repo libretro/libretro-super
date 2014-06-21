@@ -180,7 +180,7 @@ build_libretro_mednafen() {
       echo '=== Building Mednafen ==='
       cd libretro-mednafen
 
-      for core in pcfx lynx wswan ngp gba; do
+      for core in pcfx lynx wswan gba; do
          if [ -z "${NOCLEAN}" ]; then
             "${MAKE}" core="${core}" platform="${FORMAT_COMPILER_TARGET}" ${COMPILER} "-j${JOBS}" clean || die "Failed to clean mednafen/${core}"
          fi
@@ -189,6 +189,20 @@ build_libretro_mednafen() {
       done
    else
       echo 'Mednafen not fetched, skipping ...'
+   fi
+}
+
+build_libretro_mednafen_ngp() {
+   cd "${BASE_DIR}"
+   if [ -d 'libretro-mednafen-ngp' ]; then
+      echo '=== Building Mednafen NGP ==='
+      cd libretro-mednafen-ngp
+
+      "${MAKE}" platform="${FORMAT_COMPILER_TARGET}" ${COMPILER} "-j${JOBS}" clean || die "Failed to clean mednafen/ngp"
+      "${MAKE}" platform="${FORMAT_COMPILER_TARGET}" ${COMPILER} "-j${JOBS}" || die "Failed to build mednafen/ngp"
+      cp "mednafen_ngp_libretro${FORMAT}.${FORMAT_EXT}" "${RARCH_DIST_DIR}"
+   else
+      echo 'Mednafen NGP not fetched, skipping ...'
    fi
 }
 
