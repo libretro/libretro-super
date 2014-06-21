@@ -180,7 +180,7 @@ build_libretro_mednafen() {
       echo '=== Building Mednafen ==='
       cd libretro-mednafen
 
-      for core in pcfx lynx wswan ngp gba vb; do
+      for core in pcfx lynx wswan ngp gba; do
          if [ -z "${NOCLEAN}" ]; then
             "${MAKE}" core="${core}" platform="${FORMAT_COMPILER_TARGET}" ${COMPILER} "-j${JOBS}" clean || die "Failed to clean mednafen/${core}"
          fi

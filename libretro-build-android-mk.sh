@@ -46,7 +46,7 @@ build_libretro_mednafen()
       echo "=== Building Mednafen cores ==="
       cd libretro-mednafen
       cd jni
-      for core in pce_fast pcfx lynx wswan ngp vb; do
+      for core in pce_fast pcfx lynx wswan ngp; do
          echo "=== Building Mednafen ${core} ==="
          if [ -z "${NOCLEAN}" ]; then
             ndk-build clean APP_ABI="armeabi-v7a mips x86" || die "Failed to clean mednafen_${core}"
@@ -79,6 +79,26 @@ build_libretro_mednafen_psx()
       cp ../libs/x86/libretro.${FORMAT_EXT} $RARCH_DIST_DIR/x86/mednafen_psx_libretro${FORMAT}.${FORMAT_EXT}
    else
       echo "Mednafen PSX not fetched, skipping ..."
+   fi
+}
+
+build_libretro_mednafen_vb()
+{
+   cd $BASE_DIR
+   pwd
+   if [ -d "libretro-mednafen-vb" ]; then
+      cd libretro-mednafen-vb
+      cd jni
+      echo "=== Building Mednafen VB ==="
+      if [ -z "${NOCLEAN}" ]; then
+         ndk-build clean APP_ABI="armeabi-v7a mips x86" || die "Failed to clean Mednafen PSX"
+      fi
+      ndk-build APP_ABI="armeabi-v7a mips x86" || die "Failed to build Mednafen VB"
+      cp ../libs/armeabi-v7a/libretro.${FORMAT_EXT} $RARCH_DIST_DIR/armeabi-v7a/mednafen_vb_libretro${FORMAT}.${FORMAT_EXT}
+      cp ../libs/mips/libretro.${FORMAT_EXT} $RARCH_DIST_DIR/mips/mednafen_vb_libretro${FORMAT}.${FORMAT_EXT}
+      cp ../libs/x86/libretro.${FORMAT_EXT} $RARCH_DIST_DIR/x86/mednafen_vb_libretro${FORMAT}.${FORMAT_EXT}
+   else
+      echo "Mednafen VB not fetched, skipping ..."
    fi
 }
 
@@ -661,6 +681,7 @@ else
    build_libretro_bsnes
    build_libretro_mednafen
    build_libretro_mednafen_pce_fast
+   build_libretro_mednafen_vb
    build_libretro_mednafen_psx
    #build_libretro_mednafen_gba
    #build_libretro_mednafen_snes

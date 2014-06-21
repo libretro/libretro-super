@@ -8,7 +8,7 @@ die()
 
 build_libretro_mednafen()
 {
-   for core in pcfx wswan ngp gba vb; do
+   for core in pcfx wswan ngp gba; do
    	cd $BASE_DIR
    	if [ -d "libretro-mednafen" ]; then
       		echo "=== Building Mednafen ${core} ==="
