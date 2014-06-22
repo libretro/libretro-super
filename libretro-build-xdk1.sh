@@ -87,6 +87,7 @@ else
    build_libretro_beetle_pcfx
    build_libretro_beetle_vb
    build_libretro_beetle_wswan
+   #build_libretro_beetle_bsnes
    build_libretro_s9x_next
    build_libretro_genplus
    build_libretro_fba

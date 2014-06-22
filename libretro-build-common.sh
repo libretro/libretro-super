@@ -174,6 +174,21 @@ build_libretro_pcsx_rearmed_interpreter() {
    fi
 }
 
+build_libretro_beetle_bsnes()
+{
+   cd "${BASE_DIR}"
+   if [ -d 'libretro-beetle-bsnes' ]; then
+      echo '=== Building Beetle bSNES ==='
+      cd libretro-beetle-bsnes
+
+      "${MAKE}" platform="${FORMAT_COMPILER_TARGET}" ${COMPILER} "-j${JOBS}" clean || die "Failed to clean beetle/bsnes"
+      "${MAKE}" platform="${FORMAT_COMPILER_TARGET}" ${COMPILER} "-j${JOBS}" || die "Failed to build beetle/bsnes"
+      cp "mednafen_bsnes_libretro${FORMAT}.${FORMAT_EXT}" "${RARCH_DIST_DIR}"
+   else
+      echo 'Beetle bSNES not fetched, skipping ...'
+   fi
+}
+
 build_libretro_beetle_lynx()
 {
    cd "${BASE_DIR}"

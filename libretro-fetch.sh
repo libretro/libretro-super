@@ -102,6 +102,7 @@ fetch_project "$REPO_BASE/libretro/beetle-pce-fast-libretro.git" "libretro-beetl
 fetch_project "$REPO_BASE/libretro/beetle-supergrafx-libretro.git" "libretro-beetle-supergrafx" "libretro/Beetle SuperGrafx"
 fetch_project "$REPO_BASE/libretro/beetle-psx-libretro.git" "libretro-beetle-psx" "libretro/Beetle PSX"
 fetch_project "$REPO_BASE/libretro/beetle-pcfx-libretro.git" "libretro-beetle-pcfx" "libretro/Beetle PCFX"
+fetch_project "$REPO_BASE/libretro/beetle-bsnes-libretro.git" "libretro-beetle-bsnes" "libretro/Beetle bSNES"
 fetch_project "$REPO_BASE/libretro/beetle-vb-libretro.git" "libretro-beetle-vb" "libretro/Beetle VB"
 fetch_project "$REPO_BASE/libretro/beetle-wswan-libretro.git" "libretro-beetle-wswan" "libretro/Beetle WSwan"
 fetch_project "$REPO_BASE/libretro/scummvm.git" "libretro-scummvm" "libretro/scummvm"

@@ -37,6 +37,26 @@ die()
    #exit 1
 }
 
+build_libretro_beetle_bsnes()
+{
+   cd $BASE_DIR
+   pwd
+   if [ -d "libretro-beetle-bsnes" ]; then
+      cd libretro-beetle-bsnes
+      cd jni
+      echo "=== Building Beetle bSNES ==="
+      if [ -z "${NOCLEAN}" ]; then
+         ndk-build clean APP_ABI="armeabi-v7a mips x86" || die "Failed to clean Beetle bSNES"
+      fi
+      ndk-build APP_ABI="armeabi-v7a mips x86" || die "Failed to build Beetle bSNES"
+      cp ../libs/armeabi-v7a/libretro.${FORMAT_EXT} $RARCH_DIST_DIR/armeabi-v7a/mednafen_bsnes_libretro${FORMAT}.${FORMAT_EXT}
+      cp ../libs/mips/libretro.${FORMAT_EXT} $RARCH_DIST_DIR/mips/mednafen_bsnes_libretro${FORMAT}.${FORMAT_EXT}
+      cp ../libs/x86/libretro.${FORMAT_EXT} $RARCH_DIST_DIR/x86/mednafen_bsnes_libretro${FORMAT}.${FORMAT_EXT}
+   else
+      echo "Beetle bSNES not fetched, skipping ..."
+   fi
+}
+
 build_libretro_beetle_lynx()
 {
    cd $BASE_DIR
@@ -772,7 +792,7 @@ if [ $1 ]; then
 else
    #build_libretro_bsnes_cplusplus98
    build_libretro_bsnes
-   #build_libretro_beetle_lynx
+   build_libretro_beetle_lynx
    build_libretro_beetle_gba
    build_libretro_beetle_ngp
    build_libretro_beetle_pce_fast
@@ -781,7 +801,7 @@ else
    build_libretro_beetle_vb
    build_libretro_beetle_wswan
    build_libretro_beetle_psx
-   #build_libretro_beetle_snes
+   build_libretro_beetle_bsnes
    build_libretro_s9x
    build_libretro_s9x_next
    build_libretro_genplus

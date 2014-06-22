@@ -6,20 +6,18 @@ die()
    #exit 1
 }
 
-build_libretro_mednafen()
+build_libretro_beetle_bsnes()
 {
-   for core in gba; do
-   	cd $BASE_DIR
-   	if [ -d "libretro-mednafen" ]; then
-      		echo "=== Building Mednafen ${core} ==="
-      		cd libretro-mednafen
-      		cd msvc/${core}
-      		cmd.exe /k $MSVC_NAME.bat
-      		cp $MSVC_NAME/$RELEASE_LTCG/${MSVC_NAME}.${FORMAT_EXT} "$RARCH_DIST_DIR"/mednafen_${core}_libretro$FORMAT.$FORMAT_EXT
-   	else
-      		echo "Mednafen not fetched, skipping ..."
-   	fi
-   done
+   cd $BASE_DIR
+   if [ -d "libretro-beetle-bsnes" ]; then
+      echo "=== Building Beetle bSNES ==="
+      cd libretro-beetle-bsnes
+      cd msvc
+      cmd.exe /k $MSVC_NAME.bat
+      cp $MSVC_NAME/$RELEASE_LTCG/${MSVC_NAME}.${FORMAT_EXT} "$RARCH_DIST_DIR"/mednafen_bsnes_libretro$FORMAT.$FORMAT_EXT
+   else
+      echo "Beetle bSNES not fetched, skipping ..."
+   fi
 }
 
 build_libretro_beetle_lynx()
