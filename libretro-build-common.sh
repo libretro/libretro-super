@@ -174,25 +174,23 @@ build_libretro_pcsx_rearmed_interpreter() {
    fi
 }
 
-build_libretro_mednafen() {
+build_libretro_beetle_lynx()
+{
    cd "${BASE_DIR}"
-   if [ -d 'libretro-mednafen' ]; then
-      echo '=== Building Mednafen ==='
-      cd libretro-mednafen
+   if [ -d 'libretro-beetle-lynx' ]; then
+      echo '=== Building Beetle Lynx ==='
+      cd libretro-beetle-lynx
 
-      for core in pcfx lynx gba; do
-         if [ -z "${NOCLEAN}" ]; then
-            "${MAKE}" core="${core}" platform="${FORMAT_COMPILER_TARGET}" ${COMPILER} "-j${JOBS}" clean || die "Failed to clean mednafen/${core}"
-         fi
-         "${MAKE}" core="${core}" platform="${FORMAT_COMPILER_TARGET}" ${COMPILER} "-j${JOBS}" || die "Failed to build mednafen/${core}"
-         cp "mednafen_${core//-/_}_libretro${FORMAT}.${FORMAT_EXT}" "${RARCH_DIST_DIR}"
-      done
+      "${MAKE}" platform="${FORMAT_COMPILER_TARGET}" ${COMPILER} "-j${JOBS}" clean || die "Failed to clean beetle/lynx"
+      "${MAKE}" platform="${FORMAT_COMPILER_TARGET}" ${COMPILER} "-j${JOBS}" || die "Failed to build beetle/lynx"
+      cp "mednafen_lynx_libretro${FORMAT}.${FORMAT_EXT}" "${RARCH_DIST_DIR}"
    else
-      echo 'Mednafen not fetched, skipping ...'
+      echo 'Beetle Lynx not fetched, skipping ...'
    fi
 }
 
-build_libretro_beetle_wswan() {
+build_libretro_beetle_wswan()
+{
    cd "${BASE_DIR}"
    if [ -d 'libretro-beetle-wswan' ]; then
       echo '=== Building Beetle WSwan ==='
@@ -206,7 +204,8 @@ build_libretro_beetle_wswan() {
    fi
 }
 
-build_libretro_beetle_gba() {
+build_libretro_beetle_gba()
+{
    cd "${BASE_DIR}"
    if [ -d 'libretro-beetle-gba' ]; then
       echo '=== Building Beetle GBA ==='
@@ -220,7 +219,8 @@ build_libretro_beetle_gba() {
    fi
 }
 
-build_libretro_beetle_ngp() {
+build_libretro_beetle_ngp()
+{
    cd "${BASE_DIR}"
    if [ -d 'libretro-beetle-ngp' ]; then
       echo '=== Building Beetle NGP ==='
@@ -234,7 +234,8 @@ build_libretro_beetle_ngp() {
    fi
 }
 
-build_libretro_beetle_pce_fast() {
+build_libretro_beetle_pce_fast()
+{
    cd "${BASE_DIR}"
    if [ -d 'libretro-beetle-pce-fast' ]; then
       echo '=== Building Beetle PCE Fast ==='
@@ -248,7 +249,8 @@ build_libretro_beetle_pce_fast() {
    fi
 }
 
-build_libretro_beetle_supergrafx() {
+build_libretro_beetle_supergrafx()
+{
    cd "${BASE_DIR}"
    if [ -d 'libretro-beetle-supergrafx' ]; then
       echo '=== Building Beetle SuperGrafx ==='
@@ -262,7 +264,8 @@ build_libretro_beetle_supergrafx() {
    fi
 }
 
-build_libretro_beetle_vb() {
+build_libretro_beetle_vb()
+{
    cd "${BASE_DIR}"
    if [ -d 'libretro-beetle-vb' ]; then
       echo '=== Building Beetle VB ==='
@@ -276,7 +279,8 @@ build_libretro_beetle_vb() {
    fi
 }
 
-build_libretro_beetle_pcfx() {
+build_libretro_beetle_pcfx()
+{
    cd "${BASE_DIR}"
    if [ -d 'libretro-beetle-pcfx' ]; then
       echo '=== Building Beetle PCFX ==='
@@ -290,7 +294,8 @@ build_libretro_beetle_pcfx() {
    fi
 }
 
-build_libretro_beetle_psx() {
+build_libretro_beetle_psx()
+{
    cd "${BASE_DIR}"
    if [ -d 'libretro-beetle-psx' ]; then
       echo '=== Building Beetle PSX ==='
@@ -304,7 +309,8 @@ build_libretro_beetle_psx() {
    fi
 }
 
-build_libretro_beetle_snes() {
+build_libretro_beetle_snes()
+{
    cd "${BASE_DIR}"
    if [ -d 'libretro-mednafen' ]; then
       echo '=== Building Beetle bSNES ==='

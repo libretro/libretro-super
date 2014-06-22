@@ -22,6 +22,20 @@ build_libretro_mednafen()
    done
 }
 
+build_libretro_beetle_lynx()
+{
+   cd $BASE_DIR
+   if [ -d "libretro-beetle-lynx" ]; then
+      echo "=== Building Beetle Lynx ==="
+      cd libretro-beetle-lynx
+      cd msvc
+      cmd.exe /k $MSVC_NAME.bat
+      cp $MSVC_NAME/$RELEASE_LTCG/${MSVC_NAME}.${FORMAT_EXT} "$RARCH_DIST_DIR"/mednafen_lynx_libretro$FORMAT.$FORMAT_EXT
+   else
+      echo "Beetle Lynx not fetched, skipping ..."
+   fi
+}
+
 build_libretro_beetle_wswan()
 {
    cd $BASE_DIR

@@ -29,6 +29,7 @@ if [ $1 ]; then
 else
    build_libretro_bsnes_cplusplus98
    build_libretro_bsnes
+   build_libretro_beetle_lynx
    build_libretro_beetle_gba
    build_libretro_beetle_ngp
    build_libretro_beetle_pce_fast

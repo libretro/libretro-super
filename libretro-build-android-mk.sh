@@ -37,28 +37,23 @@ die()
    #exit 1
 }
 
-build_libretro_mednafen()
+build_libretro_beetle_lynx()
 {
-   #TODO - refactor
    cd $BASE_DIR
    pwd
-   if [ -d "libretro-mednafen" ]; then
-      echo "=== Building Mednafen cores ==="
-      cd libretro-mednafen
+   if [ -d "libretro-beetle-lynx" ]; then
+      cd libretro-beetle-lynx
       cd jni
-      for core in lynx; do
-         echo "=== Building Mednafen ${core} ==="
-         if [ -z "${NOCLEAN}" ]; then
-            ndk-build clean APP_ABI="armeabi-v7a mips x86" || die "Failed to clean mednafen_${core}"
-            ndk-build core=${core} clean APP_ABI="armeabi-v7a mips x86" || die "Failed to clean mednafen_${core}"
-         fi
-         ndk-build core=${core} APP_ABI="armeabi-v7a mips x86" || die "Failed to build mednafen_${core}"
-         cp ../libs/armeabi-v7a/libretro.${FORMAT_EXT} $RARCH_DIST_DIR/armeabi-v7a/mednafen_${core}_libretro${FORMAT}.${FORMAT_EXT}
-         cp ../libs/mips/libretro.${FORMAT_EXT} $RARCH_DIST_DIR/mips/mednafen_${core}_libretro${FORMAT}.${FORMAT_EXT}
-         cp ../libs/x86/libretro.${FORMAT_EXT} $RARCH_DIST_DIR/x86/mednafen_${core}_libretro${FORMAT}.${FORMAT_EXT}
-      done
+      echo "=== Building Beetle Lynx ==="
+      if [ -z "${NOCLEAN}" ]; then
+         ndk-build clean APP_ABI="armeabi-v7a mips x86" || die "Failed to clean Beetle Lynx"
+      fi
+      ndk-build APP_ABI="armeabi-v7a mips x86" || die "Failed to build Beetle Lynx"
+      cp ../libs/armeabi-v7a/libretro.${FORMAT_EXT} $RARCH_DIST_DIR/armeabi-v7a/mednafen_lynx_libretro${FORMAT}.${FORMAT_EXT}
+      cp ../libs/mips/libretro.${FORMAT_EXT} $RARCH_DIST_DIR/mips/mednafen_lynx_libretro${FORMAT}.${FORMAT_EXT}
+      cp ../libs/x86/libretro.${FORMAT_EXT} $RARCH_DIST_DIR/x86/mednafen_lynx_libretro${FORMAT}.${FORMAT_EXT}
    else
-      echo "Mednafen not fetched, skipping ..."
+      echo "Beetle Lynx not fetched, skipping ..."
    fi
 }
 
@@ -777,6 +772,7 @@ if [ $1 ]; then
 else
    #build_libretro_bsnes_cplusplus98
    build_libretro_bsnes
+   #build_libretro_beetle_lynx
    build_libretro_beetle_gba
    build_libretro_beetle_ngp
    build_libretro_beetle_pce_fast
