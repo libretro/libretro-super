@@ -94,7 +94,6 @@ fetch_project "$REPO_BASE/libretro/QuickNES_Core.git" "libretro-quicknes" "libre
 fetch_project "$REPO_BASE/libretro/nestopia.git" "libretro-nestopia" "libretro/Nestopia"
 fetch_project "$REPO_BASE/libretro/tyrquake.git" "libretro-tyrquake" "libretro/tyrquake"
 fetch_project "$REPO_BASE/libretro/pcsx_rearmed.git" "libretro-pcsx-rearmed" "libretro/pcsx_rearmed"
-fetch_project "$REPO_BASE/libretro/mednafen-libretro.git" "libretro-mednafen" "libretro/Mednafen"
 fetch_project "$REPO_BASE/libretro/beetle-gba-libretro.git" "libretro-beetle-gba" "libretro/Beetle GBA"
 fetch_project "$REPO_BASE/libretro/beetle-lynx-libretro.git" "libretro-beetle-lynx" "libretro/Beetle Lynx"
 fetch_project "$REPO_BASE/libretro/beetle-ngp-libretro.git" "libretro-beetle-ngp" "libretro/Beetle NGP"
