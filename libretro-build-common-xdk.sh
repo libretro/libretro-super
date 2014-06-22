@@ -8,7 +8,7 @@ die()
 
 build_libretro_mednafen()
 {
-   for core in pcfx gba; do
+   for core in gba; do
    	cd $BASE_DIR
    	if [ -d "libretro-mednafen" ]; then
       		echo "=== Building Mednafen ${core} ==="
@@ -61,6 +61,20 @@ build_libretro_beetle_pce_fast()
       cp $MSVC_NAME/$RELEASE_LTCG/${MSVC_NAME}.${FORMAT_EXT} "$RARCH_DIST_DIR"/mednafen_pce_fast_libretro$FORMAT.$FORMAT_EXT
    else
       echo "Beetle PCE Fast not fetched, skipping ..."
+   fi
+}
+
+build_libretro_beetle_pcfx()
+{
+   cd $BASE_DIR
+   if [ -d "libretro-beetle-pcfx" ]; then
+      echo "=== Building Beetle PCFX ==="
+      cd libretro-beetle-pcfx
+      cd msvc
+      cmd.exe /k $MSVC_NAME.bat
+      cp $MSVC_NAME/$RELEASE_LTCG/${MSVC_NAME}.${FORMAT_EXT} "$RARCH_DIST_DIR"/mednafen_pcfx_libretro$FORMAT.$FORMAT_EXT
+   else
+      echo "Beetle PCFX Fast not fetched, skipping ..."
    fi
 }
 

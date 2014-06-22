@@ -98,6 +98,7 @@ fetch_project "$REPO_BASE/libretro/mednafen-libretro.git" "libretro-mednafen" "l
 fetch_project "$REPO_BASE/libretro/beetle-ngp-libretro.git" "libretro-beetle-ngp" "libretro/Mednafen NGP"
 fetch_project "$REPO_BASE/libretro/beetle-pce-fast-libretro.git" "libretro-beetle-pce-fast" "libretro/Mednafen PCE Fast"
 fetch_project "$REPO_BASE/libretro/beetle-psx-libretro.git" "libretro-beetle-psx" "libretro/Mednafen PSX"
+fetch_project "$REPO_BASE/libretro/beetle-pcfx-libretro.git" "libretro-beetle-pcfx" "libretro/Mednafen PCFX"
 fetch_project "$REPO_BASE/libretro/beetle-vb-libretro.git" "libretro-beetle-vb" "libretro/Mednafen VB"
 fetch_project "$REPO_BASE/libretro/beetle-wswan-libretro.git" "libretro-beetle-wswan" "libretro/Mednafen WSwan"
 fetch_project "$REPO_BASE/libretro/scummvm.git" "libretro-scummvm" "libretro/scummvm"

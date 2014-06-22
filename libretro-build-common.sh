@@ -248,6 +248,20 @@ build_libretro_beetle_vb() {
    fi
 }
 
+build_libretro_beetle_pcfx() {
+   cd "${BASE_DIR}"
+   if [ -d 'libretro-beetle-pcfx' ]; then
+      echo '=== Building Beetle PCFX ==='
+      cd libretro-beetle-pcfx
+
+      "${MAKE}" platform="${FORMAT_COMPILER_TARGET}" ${COMPILER} "-j${JOBS}" clean || die "Failed to clean Beetle/pcfx"
+      "${MAKE}" platform="${FORMAT_COMPILER_TARGET}" ${COMPILER} "-j${JOBS}" || die "Failed to build Beetle/pcfx"
+      cp "mednafen_pcfx_libretro${FORMAT}.${FORMAT_EXT}" "${RARCH_DIST_DIR}"
+   else
+      echo 'Beetle PCFX not fetched, skipping ...'
+   fi
+}
+
 build_libretro_beetle_psx() {
    cd "${BASE_DIR}"
    if [ -d 'libretro-beetle-psx' ]; then

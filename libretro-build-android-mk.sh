@@ -46,7 +46,7 @@ build_libretro_mednafen()
       echo "=== Building Mednafen cores ==="
       cd libretro-mednafen
       cd jni
-      for core in pce_fast pcfx lynx wswan; do
+      for core in lynx; do
          echo "=== Building Mednafen ${core} ==="
          if [ -z "${NOCLEAN}" ]; then
             ndk-build clean APP_ABI="armeabi-v7a mips x86" || die "Failed to clean mednafen_${core}"
@@ -118,6 +118,25 @@ build_libretro_beetle_psx()
       cp ../libs/x86/libretro.${FORMAT_EXT} $RARCH_DIST_DIR/x86/mednafen_psx_libretro${FORMAT}.${FORMAT_EXT}
    else
       echo "Beetle PSX not fetched, skipping ..."
+   fi
+}
+
+build_libretro_beetle_pcfx()
+{ cd $BASE_DIR
+   pwd
+   if [ -d "libretro-beetle-pcfx" ]; then
+      cd libretro-beetle-pcfx
+      cd jni
+      echo "=== Building Beetle PCFX ==="
+      if [ -z "${NOCLEAN}" ]; then
+         ndk-build clean APP_ABI="armeabi-v7a mips x86" || die "Failed to clean Beetle PCFX"
+      fi
+      ndk-build APP_ABI="armeabi-v7a mips x86" || die "Failed to build Beetle PCFX"
+      cp ../libs/armeabi-v7a/libretro.${FORMAT_EXT} $RARCH_DIST_DIR/armeabi-v7a/mednafen_pcfx_libretro${FORMAT}.${FORMAT_EXT}
+      cp ../libs/mips/libretro.${FORMAT_EXT} $RARCH_DIST_DIR/mips/mednafen_pcfx_libretro${FORMAT}.${FORMAT_EXT}
+      cp ../libs/x86/libretro.${FORMAT_EXT} $RARCH_DIST_DIR/x86/mednafen_pcfx_libretro${FORMAT}.${FORMAT_EXT}
+   else
+      echo "Beetle PCFX not fetched, skipping ..."
    fi
 }
 
@@ -721,6 +740,7 @@ else
    build_libretro_mednafen
    build_libretro_mednafen_ngp
    build_libretro_mednafen_pce_fast
+   build_libretro_mednafen_pcfx
    build_libretro_mednafen_vb
    build_libretro_mednafen_wswan
    build_libretro_mednafen_psx

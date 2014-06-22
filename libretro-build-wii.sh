@@ -20,6 +20,7 @@ else
    build_libretro_mednafen
    build_libretro_beetle_ngp
    build_libretro_beetle_pce_fast
+   build_libretro_beetle_pcfx
    build_libretro_beetle_psx
    build_libretro_beetle_vb
    build_libretro_beetle_wswan
