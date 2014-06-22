@@ -62,83 +62,102 @@ build_libretro_mednafen()
    fi
 }
 
-build_libretro_mednafen_ngp()
+build_libretro_beetle_ngp()
 {
    cd $BASE_DIR
    pwd
-   if [ -d "libretro-mednafen-ngp" ]; then
-      cd libretro-mednafen-ngp
+   if [ -d "libretro-beetle-ngp" ]; then
+      cd libretro-beetle-ngp
       cd jni
-      echo "=== Building Mednafen NGP ==="
+      echo "=== Building Beetle NGP ==="
       if [ -z "${NOCLEAN}" ]; then
-         ndk-build clean APP_ABI="armeabi-v7a mips x86" || die "Failed to clean Mednafen NGP"
+         ndk-build clean APP_ABI="armeabi-v7a mips x86" || die "Failed to clean Beetle NGP"
       fi
-      ndk-build APP_ABI="armeabi-v7a mips x86" || die "Failed to build Mednafen NGP"
+      ndk-build APP_ABI="armeabi-v7a mips x86" || die "Failed to build Beetle NGP"
       cp ../libs/armeabi-v7a/libretro.${FORMAT_EXT} $RARCH_DIST_DIR/armeabi-v7a/mednafen_ngp_libretro${FORMAT}.${FORMAT_EXT}
       cp ../libs/mips/libretro.${FORMAT_EXT} $RARCH_DIST_DIR/mips/mednafen_ngp_libretro${FORMAT}.${FORMAT_EXT}
       cp ../libs/x86/libretro.${FORMAT_EXT} $RARCH_DIST_DIR/x86/mednafen_ngp_libretro${FORMAT}.${FORMAT_EXT}
    else
-      echo "Mednafen NGP not fetched, skipping ..."
+      echo "Beetle NGP not fetched, skipping ..."
    fi
 }
 
-build_libretro_mednafen_psx()
+build_libretro_beetle_wswan()
 {
    cd $BASE_DIR
    pwd
-   if [ -d "libretro-mednafen-psx" ]; then
-      cd libretro-mednafen-psx
+   if [ -d "libretro-beetle-wswan" ]; then
+      cd libretro-beetle-wswan
       cd jni
-      echo "=== Building Mednafen PSX ==="
+      echo "=== Building Beetle WSwan ==="
       if [ -z "${NOCLEAN}" ]; then
-         ndk-build clean APP_ABI="armeabi-v7a mips x86" || die "Failed to clean Mednafen PSX"
+         ndk-build clean APP_ABI="armeabi-v7a mips x86" || die "Failed to clean Beetle WSwan"
       fi
-      ndk-build APP_ABI="armeabi-v7a mips x86" || die "Failed to build Mednafen PSX"
+      ndk-build APP_ABI="armeabi-v7a mips x86" || die "Failed to build Beetle WSwan"
+      cp ../libs/armeabi-v7a/libretro.${FORMAT_EXT} $RARCH_DIST_DIR/armeabi-v7a/mednafen_wswan_libretro${FORMAT}.${FORMAT_EXT}
+      cp ../libs/mips/libretro.${FORMAT_EXT} $RARCH_DIST_DIR/mips/mednafen_wswan_libretro${FORMAT}.${FORMAT_EXT}
+      cp ../libs/x86/libretro.${FORMAT_EXT} $RARCH_DIST_DIR/x86/mednafen_wswan_libretro${FORMAT}.${FORMAT_EXT}
+   else
+      echo "Beetle WSwan not fetched, skipping ..."
+   fi
+}
+
+build_libretro_beetle_psx()
+{ cd $BASE_DIR
+   pwd
+   if [ -d "libretro-beetle-psx" ]; then
+      cd libretro-beetle-psx
+      cd jni
+      echo "=== Building Beetle PSX ==="
+      if [ -z "${NOCLEAN}" ]; then
+         ndk-build clean APP_ABI="armeabi-v7a mips x86" || die "Failed to clean Beetle PSX"
+      fi
+      ndk-build APP_ABI="armeabi-v7a mips x86" || die "Failed to build Beetle PSX"
       cp ../libs/armeabi-v7a/libretro.${FORMAT_EXT} $RARCH_DIST_DIR/armeabi-v7a/mednafen_psx_libretro${FORMAT}.${FORMAT_EXT}
       cp ../libs/mips/libretro.${FORMAT_EXT} $RARCH_DIST_DIR/mips/mednafen_psx_libretro${FORMAT}.${FORMAT_EXT}
       cp ../libs/x86/libretro.${FORMAT_EXT} $RARCH_DIST_DIR/x86/mednafen_psx_libretro${FORMAT}.${FORMAT_EXT}
    else
-      echo "Mednafen PSX not fetched, skipping ..."
+      echo "Beetle PSX not fetched, skipping ..."
    fi
 }
 
-build_libretro_mednafen_vb()
+build_libretro_beetle_vb()
 {
    cd $BASE_DIR
    pwd
-   if [ -d "libretro-mednafen-vb" ]; then
-      cd libretro-mednafen-vb
+   if [ -d "libretro-beetle-vb" ]; then
+      cd libretro-beetle-vb
       cd jni
-      echo "=== Building Mednafen VB ==="
+      echo "=== Building Beetle VB ==="
       if [ -z "${NOCLEAN}" ]; then
-         ndk-build clean APP_ABI="armeabi-v7a mips x86" || die "Failed to clean Mednafen PSX"
+         ndk-build clean APP_ABI="armeabi-v7a mips x86" || die "Failed to clean Beetle VB"
       fi
-      ndk-build APP_ABI="armeabi-v7a mips x86" || die "Failed to build Mednafen VB"
+      ndk-build APP_ABI="armeabi-v7a mips x86" || die "Failed to build Beetle VB"
       cp ../libs/armeabi-v7a/libretro.${FORMAT_EXT} $RARCH_DIST_DIR/armeabi-v7a/mednafen_vb_libretro${FORMAT}.${FORMAT_EXT}
       cp ../libs/mips/libretro.${FORMAT_EXT} $RARCH_DIST_DIR/mips/mednafen_vb_libretro${FORMAT}.${FORMAT_EXT}
       cp ../libs/x86/libretro.${FORMAT_EXT} $RARCH_DIST_DIR/x86/mednafen_vb_libretro${FORMAT}.${FORMAT_EXT}
    else
-      echo "Mednafen VB not fetched, skipping ..."
+      echo "Beetle VB not fetched, skipping ..."
    fi
 }
 
-build_libretro_mednafen_pce_fast()
+build_libretro_beetle_pce_fast()
 {
    cd $BASE_DIR
    pwd
-   if [ -d "libretro-mednafen-pce-fast" ]; then
-      cd libretro-mednafen-pce-fast
+   if [ -d "libretro-beetle-pce-fast" ]; then
+      cd libretro-beetle-pce-fast
       cd jni
-      echo "=== Building Mednafen PCE Fast ==="
+      echo "=== Building Beetle PCE Fast ==="
       if [ -z "${NOCLEAN}" ]; then
-         ndk-build clean APP_ABI="armeabi-v7a mips x86" || die "Failed to clean Mednafen PCE Fast"
+         ndk-build clean APP_ABI="armeabi-v7a mips x86" || die "Failed to clean Beetle PCE Fast"
       fi
-      ndk-build APP_ABI="armeabi-v7a mips x86" || die "Failed to build Mednafen PCE Fast"
+      ndk-build APP_ABI="armeabi-v7a mips x86" || die "Failed to build Beetle PCE Fast"
       cp ../libs/armeabi-v7a/libretro.${FORMAT_EXT} $RARCH_DIST_DIR/armeabi-v7a/mednafen_pce_fast_libretro${FORMAT}.${FORMAT_EXT}
       cp ../libs/mips/libretro.${FORMAT_EXT} $RARCH_DIST_DIR/mips/mednafen_pce_fast_libretro${FORMAT}.${FORMAT_EXT}
       cp ../libs/x86/libretro.${FORMAT_EXT} $RARCH_DIST_DIR/x86/mednafen_pce_fast_libretro${FORMAT}.${FORMAT_EXT}
    else
-      echo "Mednafen PCE Fast not fetched, skipping ..."
+      echo "Beetle PCE Fast not fetched, skipping ..."
    fi
 }
 
@@ -703,6 +722,7 @@ else
    build_libretro_mednafen_ngp
    build_libretro_mednafen_pce_fast
    build_libretro_mednafen_vb
+   build_libretro_mednafen_wswan
    build_libretro_mednafen_psx
    #build_libretro_mednafen_gba
    #build_libretro_mednafen_snes

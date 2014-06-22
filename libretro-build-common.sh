@@ -180,7 +180,7 @@ build_libretro_mednafen() {
       echo '=== Building Mednafen ==='
       cd libretro-mednafen
 
-      for core in pcfx lynx wswan gba; do
+      for core in pcfx lynx gba; do
          if [ -z "${NOCLEAN}" ]; then
             "${MAKE}" core="${core}" platform="${FORMAT_COMPILER_TARGET}" ${COMPILER} "-j${JOBS}" clean || die "Failed to clean mednafen/${core}"
          fi
@@ -192,66 +192,80 @@ build_libretro_mednafen() {
    fi
 }
 
-build_libretro_mednafen_ngp() {
+build_libretro_beetle_wswan() {
    cd "${BASE_DIR}"
-   if [ -d 'libretro-mednafen-ngp' ]; then
-      echo '=== Building Mednafen NGP ==='
-      cd libretro-mednafen-ngp
+   if [ -d 'libretro-beetle-wswan' ]; then
+      echo '=== Building Beetle WSwan ==='
+      cd libretro-beetle-wswan
 
-      "${MAKE}" platform="${FORMAT_COMPILER_TARGET}" ${COMPILER} "-j${JOBS}" clean || die "Failed to clean mednafen/ngp"
-      "${MAKE}" platform="${FORMAT_COMPILER_TARGET}" ${COMPILER} "-j${JOBS}" || die "Failed to build mednafen/ngp"
+      "${MAKE}" platform="${FORMAT_COMPILER_TARGET}" ${COMPILER} "-j${JOBS}" clean || die "Failed to clean beetle/wswan"
+      "${MAKE}" platform="${FORMAT_COMPILER_TARGET}" ${COMPILER} "-j${JOBS}" || die "Failed to build beetle/wswan"
+      cp "mednafen_wswan_libretro${FORMAT}.${FORMAT_EXT}" "${RARCH_DIST_DIR}"
+   else
+      echo 'Beetle WSwan not fetched, skipping ...'
+   fi
+}
+
+build_libretro_beetle_ngp() {
+   cd "${BASE_DIR}"
+   if [ -d 'libretro-beetle-ngp' ]; then
+      echo '=== Building Beetle NGP ==='
+      cd libretro-beetle-ngp
+
+      "${MAKE}" platform="${FORMAT_COMPILER_TARGET}" ${COMPILER} "-j${JOBS}" clean || die "Failed to clean beetle/ngp"
+      "${MAKE}" platform="${FORMAT_COMPILER_TARGET}" ${COMPILER} "-j${JOBS}" || die "Failed to build beetle/ngp"
       cp "mednafen_ngp_libretro${FORMAT}.${FORMAT_EXT}" "${RARCH_DIST_DIR}"
    else
-      echo 'Mednafen NGP not fetched, skipping ...'
+      echo 'Beetle NGP not fetched, skipping ...'
    fi
 }
 
-build_libretro_mednafen_pce_fast() {
+build_libretro_beetle_pce_fast() {
    cd "${BASE_DIR}"
-   if [ -d 'libretro-mednafen-pce-fast' ]; then
-      echo '=== Building Mednafen PCE Fast ==='
-      cd libretro-mednafen-pce-fast
+   if [ -d 'libretro-beetle-pce-fast' ]; then
+      echo '=== Building Beetle PCE Fast ==='
+      cd libretro-beetle-pce-fast
 
-      "${MAKE}" platform="${FORMAT_COMPILER_TARGET}" ${COMPILER} "-j${JOBS}" clean || die "Failed to clean mednafen/pce_fast"
-      "${MAKE}" platform="${FORMAT_COMPILER_TARGET}" ${COMPILER} "-j${JOBS}" || die "Failed to build mednafen/pce_fast"
+      "${MAKE}" platform="${FORMAT_COMPILER_TARGET}" ${COMPILER} "-j${JOBS}" clean || die "Failed to clean beetle/pce_fast"
+      "${MAKE}" platform="${FORMAT_COMPILER_TARGET}" ${COMPILER} "-j${JOBS}" || die "Failed to build beetle/pce_fast"
       cp "mednafen_pce_fast_libretro${FORMAT}.${FORMAT_EXT}" "${RARCH_DIST_DIR}"
    else
-      echo 'Mednafen PCE Fast not fetched, skipping ...'
+      echo 'Beetle PCE Fast not fetched, skipping ...'
    fi
 }
 
-build_libretro_mednafen_vb() {
+build_libretro_beetle_vb() {
    cd "${BASE_DIR}"
-   if [ -d 'libretro-mednafen-vb' ]; then
-      echo '=== Building Mednafen VB ==='
-      cd libretro-mednafen-vb
+   if [ -d 'libretro-beetle-vb' ]; then
+      echo '=== Building Beetle VB ==='
+      cd libretro-beetle-vb
 
-      "${MAKE}" platform="${FORMAT_COMPILER_TARGET}" ${COMPILER} "-j${JOBS}" clean || die "Failed to clean mednafen/vb"
-      "${MAKE}" platform="${FORMAT_COMPILER_TARGET}" ${COMPILER} "-j${JOBS}" || die "Failed to build mednafen/vb"
+      "${MAKE}" platform="${FORMAT_COMPILER_TARGET}" ${COMPILER} "-j${JOBS}" clean || die "Failed to clean beetle/vb"
+      "${MAKE}" platform="${FORMAT_COMPILER_TARGET}" ${COMPILER} "-j${JOBS}" || die "Failed to build beetle/vb"
       cp "mednafen_vb_libretro${FORMAT}.${FORMAT_EXT}" "${RARCH_DIST_DIR}"
    else
-      echo 'Mednafen VB not fetched, skipping ...'
+      echo 'Beetle VB not fetched, skipping ...'
    fi
 }
 
-build_libretro_mednafen_psx() {
+build_libretro_beetle_psx() {
    cd "${BASE_DIR}"
-   if [ -d 'libretro-mednafen-psx' ]; then
-      echo '=== Building Mednafen PSX ==='
-      cd libretro-mednafen-psx
+   if [ -d 'libretro-beetle-psx' ]; then
+      echo '=== Building Beetle PSX ==='
+      cd libretro-beetle-psx
 
-      "${MAKE}" platform="${FORMAT_COMPILER_TARGET}" ${COMPILER} "-j${JOBS}" clean || die "Failed to clean mednafen/psx"
-      "${MAKE}" platform="${FORMAT_COMPILER_TARGET}" ${COMPILER} "-j${JOBS}" || die "Failed to build mednafen/psx"
+      "${MAKE}" platform="${FORMAT_COMPILER_TARGET}" ${COMPILER} "-j${JOBS}" clean || die "Failed to clean Beetle/psx"
+      "${MAKE}" platform="${FORMAT_COMPILER_TARGET}" ${COMPILER} "-j${JOBS}" || die "Failed to build Beetle/psx"
       cp "mednafen_psx_libretro${FORMAT}.${FORMAT_EXT}" "${RARCH_DIST_DIR}"
    else
-      echo 'Mednafen PSX not fetched, skipping ...'
+      echo 'Beetle PSX not fetched, skipping ...'
    fi
 }
 
-build_libretro_mednafen_snes() {
+build_libretro_beetle_snes() {
    cd "${BASE_DIR}"
    if [ -d 'libretro-mednafen' ]; then
-      echo '=== Building Mednafen bSNES ==='
+      echo '=== Building Beetle bSNES ==='
       cd libretro-mednafen
 
       for core in snes; do
@@ -262,7 +276,7 @@ build_libretro_mednafen_snes() {
          cp "mednafen_${core//-/_}_libretro${FORMAT}.${FORMAT_EXT}" "${RARCH_DIST_DIR}"
       done
    else
-      echo 'Mednafen not fetched, skipping ...'
+      echo 'Beetle bSNES not fetched, skipping ...'
    fi
 }
 

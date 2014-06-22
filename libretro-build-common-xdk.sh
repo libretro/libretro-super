@@ -8,7 +8,7 @@ die()
 
 build_libretro_mednafen()
 {
-   for core in pcfx wswan gba; do
+   for core in pcfx gba; do
    	cd $BASE_DIR
    	if [ -d "libretro-mednafen" ]; then
       		echo "=== Building Mednafen ${core} ==="
@@ -22,45 +22,59 @@ build_libretro_mednafen()
    done
 }
 
-build_libretro_mednafen_ngp()
+build_libretro_beetle_wswan()
 {
    cd $BASE_DIR
-   if [ -d "libretro-mednafen-ngp" ]; then
-      echo "=== Building Mednafen NGP ==="
-      cd libretro-mednafen-ngp
+   if [ -d "libretro-beetle-wswan" ]; then
+      echo "=== Building Beetle WSwan ==="
+      cd libretro-beetle-wswan
+      cd msvc
+      cmd.exe /k $MSVC_NAME.bat
+      cp $MSVC_NAME/$RELEASE_LTCG/${MSVC_NAME}.${FORMAT_EXT} "$RARCH_DIST_DIR"/mednafen_wswan_libretro$FORMAT.$FORMAT_EXT
+   else
+      echo "Beetle WSwan not fetched, skipping ..."
+   fi
+}
+
+build_libretro_beetle_ngp()
+{
+   cd $BASE_DIR
+   if [ -d "libretro-beetle-ngp" ]; then
+      echo "=== Building Beetle NGP ==="
+      cd libretro-beetle-ngp
       cd msvc
       cmd.exe /k $MSVC_NAME.bat
       cp $MSVC_NAME/$RELEASE_LTCG/${MSVC_NAME}.${FORMAT_EXT} "$RARCH_DIST_DIR"/mednafen_ngp_libretro$FORMAT.$FORMAT_EXT
    else
-      echo "Mednafen NGP not fetched, skipping ..."
+      echo "Beetle NGP not fetched, skipping ..."
    fi
 }
 
-build_libretro_mednafen_pce_fast()
+build_libretro_beetle_pce_fast()
 {
    cd $BASE_DIR
-   if [ -d "libretro-mednafen-pce-fast" ]; then
-      echo "=== Building Mednafen PCE Fast ==="
-      cd libretro-mednafen-pce-fast
+   if [ -d "libretro-beetle-pce-fast" ]; then
+      echo "=== Building Beetle PCE Fast ==="
+      cd libretro-beetle-pce-fast
       cd msvc
       cmd.exe /k $MSVC_NAME.bat
       cp $MSVC_NAME/$RELEASE_LTCG/${MSVC_NAME}.${FORMAT_EXT} "$RARCH_DIST_DIR"/mednafen_pce_fast_libretro$FORMAT.$FORMAT_EXT
    else
-      echo "Mednafen PCE Fast not fetched, skipping ..."
+      echo "Beetle PCE Fast not fetched, skipping ..."
    fi
 }
 
-build_libretro_mednafen_vb()
+build_libretro_beetle_vb()
 {
    cd $BASE_DIR
-   if [ -d "libretro-mednafen-vb" ]; then
-      echo "=== Building Mednafen VB ==="
-      cd libretro-mednafen-vb
+   if [ -d "libretro-beetle-vb" ]; then
+      echo "=== Building Beetle VB ==="
+      cd libretro-beetle-vb
       cd msvc
       cmd.exe /k $MSVC_NAME.bat
       cp $MSVC_NAME/$RELEASE_LTCG/${MSVC_NAME}.${FORMAT_EXT} "$RARCH_DIST_DIR"/mednafen_vb_libretro$FORMAT.$FORMAT_EXT
    else
-      echo "Mednafen VB not fetched, skipping ..."
+      echo "Beetle VB not fetched, skipping ..."
    fi
 }
 
