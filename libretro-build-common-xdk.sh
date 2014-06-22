@@ -64,6 +64,20 @@ build_libretro_beetle_pce_fast()
    fi
 }
 
+build_libretro_beetle_supergrafx()
+{
+   cd $BASE_DIR
+   if [ -d "libretro-beetle-supergrafx" ]; then
+      echo "=== Building Beetle SuperGrafx ==="
+      cd libretro-beetle-supergrafx
+      cd msvc
+      cmd.exe /k $MSVC_NAME.bat
+      cp $MSVC_NAME/$RELEASE_LTCG/${MSVC_NAME}.${FORMAT_EXT} "$RARCH_DIST_DIR"/mednafen_supergrafx_libretro$FORMAT.$FORMAT_EXT
+   else
+      echo "Beetle SuperGrafx not fetched, skipping ..."
+   fi
+}
+
 build_libretro_beetle_pcfx()
 {
    cd $BASE_DIR

@@ -234,6 +234,20 @@ build_libretro_beetle_pce_fast() {
    fi
 }
 
+build_libretro_beetle_supergrafx() {
+   cd "${BASE_DIR}"
+   if [ -d 'libretro-beetle-supergrafx' ]; then
+      echo '=== Building Beetle SuperGrafx ==='
+      cd libretro-beetle-supergrafx
+
+      "${MAKE}" platform="${FORMAT_COMPILER_TARGET}" ${COMPILER} "-j${JOBS}" clean || die "Failed to clean beetle/supergrafx"
+      "${MAKE}" platform="${FORMAT_COMPILER_TARGET}" ${COMPILER} "-j${JOBS}" || die "Failed to build beetle/supergrafx"
+      cp "mednafen_supergrafx_libretro${FORMAT}.${FORMAT_EXT}" "${RARCH_DIST_DIR}"
+   else
+      echo 'Beetle SuperGrafx not fetched, skipping ...'
+   fi
+}
+
 build_libretro_beetle_vb() {
    cd "${BASE_DIR}"
    if [ -d 'libretro-beetle-vb' ]; then

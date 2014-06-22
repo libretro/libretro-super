@@ -180,6 +180,26 @@ build_libretro_beetle_pce_fast()
    fi
 }
 
+build_libretro_beetle_supergrafx()
+{
+   cd $BASE_DIR
+   pwd
+   if [ -d "libretro-beetle-supergrafx" ]; then
+      cd libretro-beetle-supergrafx
+      cd jni
+      echo "=== Building Beetle SuperGrafx ==="
+      if [ -z "${NOCLEAN}" ]; then
+         ndk-build clean APP_ABI="armeabi-v7a mips x86" || die "Failed to clean Beetle SuperGrafx"
+      fi
+      ndk-build APP_ABI="armeabi-v7a mips x86" || die "Failed to build Beetle SuperGrafx"
+      cp ../libs/armeabi-v7a/libretro.${FORMAT_EXT} $RARCH_DIST_DIR/armeabi-v7a/mednafen_supergrafx_libretro${FORMAT}.${FORMAT_EXT}
+      cp ../libs/mips/libretro.${FORMAT_EXT} $RARCH_DIST_DIR/mips/mednafen_supergrafx_libretro${FORMAT}.${FORMAT_EXT}
+      cp ../libs/x86/libretro.${FORMAT_EXT} $RARCH_DIST_DIR/x86/mednafen_supergrafx_libretro${FORMAT}.${FORMAT_EXT}
+   else
+      echo "Beetle SuperGrafx not fetched, skipping ..."
+   fi
+}
+
 build_libretro_s9x()
 {
    cd $BASE_DIR
@@ -740,6 +760,7 @@ else
    build_libretro_mednafen
    build_libretro_mednafen_ngp
    build_libretro_mednafen_pce_fast
+   build_libretro_mednafen_supergrafx
    build_libretro_mednafen_pcfx
    build_libretro_mednafen_vb
    build_libretro_mednafen_wswan
