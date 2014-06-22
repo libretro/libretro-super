@@ -1,7 +1,7 @@
 display_name = "PC Engine (Mednafen PCE Fast)"
 authors = "Ryphecha"
 supported_extensions = "pce|cue|ccd"
-corename = "Mednafen PCE Fast"
+corename = "Mednafen/Beetle PCE Fast"
 manufacturer = "NEC"
 systemname = "PC Engine"
 license = "GPLv2"

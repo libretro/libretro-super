@@ -1,7 +1,7 @@
 display_name = "PlayStation1 (Mednafen PSX)"
 authors = "Ryphecha"
 supported_extensions = "cue|toc|m3u|ccd|exe"
-corename = "Mednafen PSX"
+corename = "Mednafen/Beetle PSX"
 manufacturer = "Sony"
 systemname = "PlayStation"
 license = "GPLv2"

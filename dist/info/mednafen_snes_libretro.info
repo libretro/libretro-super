@@ -1,6 +1,6 @@
 display_name = "SNES / Super Famicom (Mednafen SNES)"
 supported_extensions = "smc|fig|bs|st|sfc"
-corename = "Mednafen SNES"
+corename = "Mednafen/Beetle bSNES"
 manufacturer = "Nintendo"
 systemname = "Super Nintendo Entertainment System"
 license = "GPLv2"
