@@ -1,6 +1,6 @@
-display_name = "WonderSwan/Color (Mednafen Cygne)"
+display_name = "WonderSwan/Color (Beetle Cygne)"
 supported_extensions = "ws|wsc"
-corename = "Mednafen WonderSwan"
+corename = "Beetle WonderSwan"
 manufacturer = "Bandai"
 systemname = "WonderSwan/Color"
 license = "GPLv2"
