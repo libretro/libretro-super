@@ -62,6 +62,26 @@ build_libretro_mednafen()
    fi
 }
 
+build_libretro_beetle_gba()
+{
+   cd $BASE_DIR
+   pwd
+   if [ -d "libretro-beetle-gba" ]; then
+      cd libretro-beetle-gba
+      cd jni
+      echo "=== Building Beetle GBA ==="
+      if [ -z "${NOCLEAN}" ]; then
+         ndk-build clean APP_ABI="armeabi-v7a mips x86" || die "Failed to clean Beetle GBA"
+      fi
+      ndk-build APP_ABI="armeabi-v7a mips x86" || die "Failed to build Beetle GBA"
+      cp ../libs/armeabi-v7a/libretro.${FORMAT_EXT} $RARCH_DIST_DIR/armeabi-v7a/mednafen_gba_libretro${FORMAT}.${FORMAT_EXT}
+      cp ../libs/mips/libretro.${FORMAT_EXT} $RARCH_DIST_DIR/mips/mednafen_gba_libretro${FORMAT}.${FORMAT_EXT}
+      cp ../libs/x86/libretro.${FORMAT_EXT} $RARCH_DIST_DIR/x86/mednafen_gba_libretro${FORMAT}.${FORMAT_EXT}
+   else
+      echo "Beetle GBA not fetched, skipping ..."
+   fi
+}
+
 build_libretro_beetle_ngp()
 {
    cd $BASE_DIR
@@ -757,16 +777,15 @@ if [ $1 ]; then
 else
    #build_libretro_bsnes_cplusplus98
    build_libretro_bsnes
-   build_libretro_mednafen
-   build_libretro_mednafen_ngp
-   build_libretro_mednafen_pce_fast
-   build_libretro_mednafen_supergrafx
-   build_libretro_mednafen_pcfx
-   build_libretro_mednafen_vb
-   build_libretro_mednafen_wswan
-   build_libretro_mednafen_psx
-   #build_libretro_mednafen_gba
-   #build_libretro_mednafen_snes
+   build_libretro_beetle_gba
+   build_libretro_beetle_ngp
+   build_libretro_beetle_pce_fast
+   build_libretro_beetle_supergrafx
+   build_libretro_beetle_pcfx
+   build_libretro_beetle_vb
+   build_libretro_beetle_wswan
+   build_libretro_beetle_psx
+   #build_libretro_beetle_snes
    build_libretro_s9x
    build_libretro_s9x_next
    build_libretro_genplus

@@ -206,6 +206,20 @@ build_libretro_beetle_wswan() {
    fi
 }
 
+build_libretro_beetle_gba() {
+   cd "${BASE_DIR}"
+   if [ -d 'libretro-beetle-gba' ]; then
+      echo '=== Building Beetle GBA ==='
+      cd libretro-beetle-gba
+
+      "${MAKE}" platform="${FORMAT_COMPILER_TARGET}" ${COMPILER} "-j${JOBS}" clean || die "Failed to clean beetle/gba"
+      "${MAKE}" platform="${FORMAT_COMPILER_TARGET}" ${COMPILER} "-j${JOBS}" || die "Failed to build beetle/gba"
+      cp "mednafen_gba_libretro${FORMAT}.${FORMAT_EXT}" "${RARCH_DIST_DIR}"
+   else
+      echo 'Beetle GBA not fetched, skipping ...'
+   fi
+}
+
 build_libretro_beetle_ngp() {
    cd "${BASE_DIR}"
    if [ -d 'libretro-beetle-ngp' ]; then
