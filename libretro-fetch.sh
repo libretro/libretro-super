@@ -116,6 +116,7 @@ fetch_project "$REPO_BASE/libretro/modelviewer-libretro.git" "libretro-gl-modelv
 fetch_project "$REPO_BASE/libretro/modelviewer-location-libretro.git" "libretro-gl-modelviewer-location" "libretro/ModelViewer-Location"
 fetch_project "$REPO_BASE/libretro/FFmpeg.git" "libretro-ffmpeg" "libretro/FFmpeg"
 fetch_project "$REPO_BASE/libretro/bsnes-libretro-cplusplus98.git" "libretro-bsnes-cplusplus98" "libretro/bsnes-cplusplus98"
+fetch_project "$REPO_BASE/libretro/bsnes-mercury.git" "libretro-bsnes-mercury" "libretro/bsnes-mercury"
 fetch_project_submodule "$REPO_BASE/libretro/picodrive.git" "libretro-picodrive" "libretro/picodrive"
 fetch_project_submodule "$REPO_BASE/libretro/ppsspp-libretro.git" "libretro-pppsspp" "libretro/ppsspp"
 fetch_project "$REPO_BASE/libretro/tgbdual-libretro.git" "libretro-tgbdual" "libretro/tgbdual"
