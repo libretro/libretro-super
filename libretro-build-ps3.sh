@@ -16,6 +16,7 @@ MAKE=make
 if [ $1 ]; then
    $1
 else
+   build_libretro_bluemsx
    build_libretro_beetle_lynx
    build_libretro_beetle_gba
    build_libretro_beetle_ngp
