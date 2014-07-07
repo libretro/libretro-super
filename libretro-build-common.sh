@@ -343,6 +343,36 @@ build_libretro_beetle_snes()
    fi
 }
 
+build_libretro_fmsx()
+{
+   cd "${BASE_DIR}"
+   if [ -d 'libretro-fmsx' ]; then
+      echo '=== Building fMSX ==='
+      cd libretro-fmsx
+
+      "${MAKE}" platform="${FORMAT_COMPILER_TARGET}" ${COMPILER} "-j${JOBS}" clean || die "Failed to clean fMSX"
+      "${MAKE}" platform="${FORMAT_COMPILER_TARGET}" ${COMPILER} "-j${JOBS}" || die "Failed to build fMSX"
+      cp "fmsx_libretro${FORMAT}.${FORMAT_EXT}" "${RARCH_DIST_DIR}"
+   else
+      echo 'fMSX not fetched, skipping ...'
+   fi
+}
+
+build_libretro_bluemsx()
+{
+   cd "${BASE_DIR}"
+   if [ -d 'libretro-bluemsx' ]; then
+      echo '=== Building blueMSX ==='
+      cd libretro-bluemsx
+
+      "${MAKE}" -f Makefile.libretro platform="${FORMAT_COMPILER_TARGET}" ${COMPILER} "-j${JOBS}" clean || die "Failed to clean blueMSX"
+      "${MAKE}" -f Makefile.libretro platform="${FORMAT_COMPILER_TARGET}" ${COMPILER} "-j${JOBS}" || die "Failed to build blueMSX"
+      cp "bluemsx_libretro${FORMAT}.${FORMAT_EXT}" "${RARCH_DIST_DIR}"
+   else
+      echo 'blueMSX not fetched, skipping ...'
+   fi
+}
+
 build_libretro_stella() {
    cd "${BASE_DIR}"
    if [ -d 'libretro-stella' ]; then
