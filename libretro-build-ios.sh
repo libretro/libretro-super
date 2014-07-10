@@ -40,7 +40,7 @@ else
    build_libretro_beetle_vb
    build_libretro_beetle_wswan
    build_libretro_beetle_psx
-   build_libretro_beetle_bsnes
+   #build_libretro_beetle_bsnes
    build_libretro_s9x
    build_libretro_s9x_next
    build_libretro_genplus
@@ -59,7 +59,7 @@ else
    build_libretro_mame078
    #build_libretro_mame
    #build_libretro_dosbox
-   build_libretro_scummvm
+   #build_libretro_scummvm
    build_libretro_picodrive
    build_libretro_handy
    build_libretro_desmume
