@@ -40,5 +40,5 @@ else
    build_libretro_quicknes
    build_libretro_nestopia
    build_libretro_tyrquake
-   build_libretro_yabause
+   #build_libretro_yabause
 fi
