@@ -70,6 +70,7 @@ else
    build_libretro_instancingviewer
    build_libretro_instancingviewer_camera
    build_libretro_mupen64
+   build_libretro_yabause
    #build_libretro_ffmpeg
    build_libretro_dinothawr
    build_libretro_3dengine
