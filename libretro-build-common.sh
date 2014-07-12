@@ -1066,6 +1066,22 @@ build_libretro_picodrive() {
    fi
 }
 
+build_libretro_yabause() {
+   cd "${BASE_DIR}"
+   if [ -d 'libretro-yabause' ]; then
+      echo '=== Building Yabause ==='
+      cd libretro-yabause/libretro
+
+      if [ -z "${NOCLEAN}" ]; then
+         "${MAKE}" -f Makefile platform="${FORMAT_COMPILER_TARGET}" ${COMPILER} "-j${JOBS}" clean || die 'Failed to clean Yabause'
+      fi
+      "${MAKE}" -f Makefile platform="${FORMAT_COMPILER_TARGET}" ${COMPILER} "-j${JOBS}" || die 'Failed to build Yabause'
+      cp "yabause_libretro${FORMAT}.${FORMAT_EXT}" "${RARCH_DIST_DIR}"
+   else
+      echo 'Yabause not fetched, skipping ...'
+   fi
+}
+
 create_dist_dir() {
    if [ -d "${RARCH_DIST_DIR}" ]; then
       echo "Directory ${RARCH_DIST_DIR} already exists, skipping creation..."
