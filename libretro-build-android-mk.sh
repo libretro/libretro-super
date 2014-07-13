@@ -785,6 +785,25 @@ build_libretro_mupen64()
    fi
 }
 
+build_libretro_yabause()
+{
+   cd $BASE_DIR
+   if [ -d "libretro-yabause" ]; then
+      echo '=== Building Yabause ==='
+      cd libretro-yabause
+      cd libretro/jni
+      if [ -z "${NOCLEAN}" ]; then
+         ndk-build clean APP_ABI="armeabi-v7a mips x86"
+      fi
+      ndk-build -j$JOBS APP_ABI="armeabi-v7a mips x86"
+      cp ../libs/armeabi-v7a/libretro.${FORMAT_EXT} "$RARCH_DIST_DIR"/armeabi-v7a/yabause_libretro${FORMAT}.${FORMAT_EXT}
+      cp ../libs/mips/libretro.${FORMAT_EXT} "$RARCH_DIST_DIR"/mips/yabause_libretro${FORMAT}.${FORMAT_EXT}
+      cp ../libs/x86/libretro.${FORMAT_EXT} "$RARCH_DIST_DIR"/x86/yabause_libretro${FORMAT}.${FORMAT_EXT}
+   else
+      echo 'Yabause not fetched, skipping ...'
+   fi
+}
+
 create_dist_dir
 
 if [ $1 ]; then
@@ -832,6 +851,7 @@ else
    build_libretro_instancingviewer_camera
    build_libretro_mupen64
    #build_libretro_ffmpeg
+   build_libretro_yabause
    build_libretro_dinothawr
    build_libretro_3dengine
 fi
