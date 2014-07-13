@@ -20,6 +20,7 @@ echo "Compiler: ${COMPILER}"
 [[ "${ARM_SOFTFLOAT}" ]] && echo '=== ARM softfloat ABI enabled... ===' && export FORMAT_COMPILER_TARGET="${FORMAT_COMPILER_TARGET}-softfloat"
 [[ "${X86}" ]] && echo '=== x86 CPU detected... ==='
 [[ "${X86}" ]] && [[ "${X86_64}" ]] && echo '=== x86_64 CPU detected... ==='
+[[ "${IOS}" ]] && echo '=== iOS =='
 
 echo "${FORMAT_COMPILER_TARGET}"
 echo "${FORMAT_COMPILER_TARGET_ALT}"
@@ -508,7 +509,14 @@ build_libretro_mame() {
       echo '=== Building MAME ==='
       cd libretro-mame
 
-      if [ "$X86_64" = "true" ]; then
+      if [ "$IOS" ]; then
+        echo '=== Building MAME (iOS) ==='
+        if [ -z "${NOCLEAN}" ]; then
+           "${MAKE}" -f Makefile.libretro "TARGET=mame" platform="${FORMAT_COMPILER_TARGET}" ${COMPILER} "-j${JOBS}" clean || die 'Failed to clean MAME'
+        fi
+        "${MAKE}" -f Makefile.libretro "TARGET=mame" platform="osx" ${COMPILER} "NATIVE=1" buildtools "-j${JOBS}" || die 'Failed to build MAME buildtools'
+        "${MAKE}" -f Makefile.libretro "TARGET=mame" platform="${FORMAT_COMPILER_TARGET}" ${COMPILER} emulator "-j${JOBS}" || die 'Failed to build MAME (iOS)'
+      elif [ "$X86_64" = "true" ]; then
         echo '=== Building MAME64 ==='
         if [ -z "${NOCLEAN}" ]; then
            "${MAKE}" PTR64=1 -f Makefile.libretro "TARGET=mame" platform="${FORMAT_COMPILER_TARGET}" ${COMPILER} "-j${JOBS}" clean || die 'Failed to clean MAME'
