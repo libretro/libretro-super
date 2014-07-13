@@ -57,7 +57,7 @@ else
    build_libretro_nestopia
    build_libretro_tyrquake
    build_libretro_mame078
-   #build_libretro_mame
+   build_libretro_mame
    #build_libretro_dosbox
    build_libretro_scummvm
    build_libretro_picodrive
