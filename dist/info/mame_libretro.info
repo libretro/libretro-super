@@ -7,4 +7,4 @@ systemname = "Arcade (various)"
 license = "MAME"
 permissions = ""
 
-notes = "- All the core options require a restart|- core supports MAME save states|- core supports extracted MAME cheats|- BIOS files go into the ROM directory|- CHD files go into the ROM directory in a directory with the same name|- ARTWORK, CHEATS, INI, HASH, SAMPLES may go into SYSTEMDIR\MAME into their own directories|- STATES, NVRAM, INPUT, SNAPS, CFG, DIFF will be saved to SAVEDIR\mame into their own directories|- core supports SOFTWARE LISTS, you need to have the official hash files on the HASH directory"
+notes = "- All the core options require a restart|- core supports MAME save states|- core supports extracted MAME cheats|- BIOS files go into the ROM directory|- CHD files go into the ROM directory in a directory with the same name|- ARTWORK, CHEATS, INI, HASH, SAMPLES may go into SYSTEMDIR\MAME into their own directories|- STATES, NVRAM, INPUT, SNAPS, CFG, DIFF will be saved to SAVEDIR\MAME into their own directories|- core supports SOFTWARE LISTS, you need to have the official hash files on the HASH directory"
