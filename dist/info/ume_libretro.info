@@ -1,10 +1,10 @@
 display_name = "Multi (UME 2014)"
 authors = "MAMEdev"
 supported_extensions = "zip|7z|chd"
-corename = "MESS 2014 (0.152)"
+corename = "UME 2014 (0.154)"
 manufacturer = "Various"
-systemname = "Arcade (various)"
+systemname = "Arcade/Console/Computer (various)"
 license = "MAME"
 permissions = ""
 
-notes = "- core supports UME save states|- core supports extracted UME cheats|- BIOS files go into the ROM directory|- CHD files go into the ROM directory in a directory with the same name|- ARTWORK, CHEATS, INI, HASH, SAMPLES may go into SYSTEMDIR\UME into their own directories|- STATES, NVRAM, INPUT, SNAPS, CFG, MEMCARD, DIFF will be saved to SAVEDIR\mame into their own directories|- core supports SOFTWARE LISTS, you need to have the official hash files on the HASH directory"
+notes = "- All the core options require a restart|- core supports UME save states|- core supports extracted UME cheats|- BIOS files go into the ROM directory|- CHD files go into the ROM directory in a directory with the same name|- ARTWORK, CHEATS, INI, HASH, SAMPLES may go into SYSTEMDIR\UME into their own directories|- STATES, NVRAM, INPUT, SNAPS, CFG, DIFF will be saved to SAVEDIR\UME into their own directories|- core supports SOFTWARE LISTS, you need to have the official hash files on the HASH directory"
