@@ -1,10 +1,15 @@
 display_name = "Multi (MESS 2014)"
 authors = "MAMEdev"
 supported_extensions = "zip|7z|chd"
-corename = "MESS 2014 (0.154)"
+corename = "MESS 2014 (git)"
 manufacturer = "Various"
 systemname = "Console/Computer (various)"
 license = "MESS"
 permissions = ""
+display_version = "0.153+ (git)"
+need_fullpath = "true"
+block_extract = "true"
+supports_no_game = "false"
+
 
 notes = "- All the core options require a restart|- Core supports MESS save states|- Core supports extracted MESS cheats|- BIOS files go into the ROM directory|- CHD files go into the ROM directory in a directory with the same name|- ARTWORK, CHEATS, INI, HASH, SAMPLES may go into SYSTEMDIR\MESS into their own directories|- STATES, NVRAM, INPUT, SNAPS, CFG, DIFF will be saved to SAVEDIR\MESS into their own directories|- Core supports SOFTWARE LISTS, you need to have the official hash files on the HASH directory"
