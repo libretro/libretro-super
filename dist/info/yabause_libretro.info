@@ -9,3 +9,7 @@ display_version = "v0.9.12"
 need_fullpath = "true"
 block_extract = "false"
 supports_no_game = "false"
+firmware_count = 1
+firmware0_desc = "saturn_bios.bin (Saturn BIOS)"
+firmware0_path = "saturn_bios.bin"
+firmware0_opt = "true"
