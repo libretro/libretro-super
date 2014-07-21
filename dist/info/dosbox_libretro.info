@@ -1,6 +1,7 @@
 display_name = "DOS (DOSBox)"
 supported_extensions = "exe|com|bat|conf"
 corename = "DOSBox"
+systemname = "DOS"
 license = "GPLv2"
 permissions = ""
 display_version = "svn"
