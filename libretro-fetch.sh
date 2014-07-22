@@ -131,3 +131,4 @@ fetch_project "$REPO_BASE/libretro/libretro-3dengine.git" "libretro-3dengine" "l
 fetch_project "$REPO_BASE/libretro/libretro-remotejoy.git" "libretro-remotejoy" "libretro/RemoteJoy"
 fetch_project "$REPO_BASE/libretro/blueMSX-libretro.git" "libretro-bluemsx" "libretro/blueMSX"
 fetch_project "$REPO_BASE/libretro/fmsx-libretro.git" "libretro-fmsx" "libretro/fmsx"
+fetch_project "$REPO_BASE/libretro/libretro-2048.git" "libretro-2048" "libretro/2048"
