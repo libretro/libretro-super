@@ -24,6 +24,12 @@ fi
 
 echo "$ARCH CPU detected"
 
+if command -v nproc >/dev/null; then
+   JOBS=$(nproc)
+else
+   JOBS=4
+fi
+
 # Platform Assignment
 [ -z "$platform" ] && platform="$(uname)"
 case "$platform" in
