@@ -29,10 +29,6 @@ if [ -z "$RARCH_DIST_DIR" ]; then
    RARCH_DIST_DIR="$RARCH_DIR/$DIST_DIR"
 fi
 
-if [ -z "$JOBS" ]; then
-   JOBS=4
-fi
-
 die()
 {
    echo $1

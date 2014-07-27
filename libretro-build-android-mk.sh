@@ -1,5 +1,7 @@
 #!/bin/bash
 
+. ./libretro-config.sh
+
 # BSDs don't have readlink -f
 read_link()
 {
@@ -27,10 +29,6 @@ RARCH_DIST_DIR=$RARCH_DIR/android
 FORMAT=_android
 FORMAT_EXT=so
 
-if [ -z "$JOBS" ]; then
-   JOBS=4
-fi
-
 die()
 {
    echo $1
@@ -48,7 +46,7 @@ build_libretro_beetle_bsnes()
       if [ -z "${NOCLEAN}" ]; then
          ndk-build clean APP_ABI="armeabi-v7a mips x86" || die "Failed to clean Beetle bSNES"
       fi
-      ndk-build APP_ABI="armeabi-v7a mips x86" || die "Failed to build Beetle bSNES"
+      ndk-build -j$JOBS APP_ABI="armeabi-v7a mips x86" || die "Failed to build Beetle bSNES"
       cp ../libs/armeabi-v7a/libretro.${FORMAT_EXT} $RARCH_DIST_DIR/armeabi-v7a/mednafen_bsnes_libretro${FORMAT}.${FORMAT_EXT}
       cp ../libs/mips/libretro.${FORMAT_EXT} $RARCH_DIST_DIR/mips/mednafen_bsnes_libretro${FORMAT}.${FORMAT_EXT}
       cp ../libs/x86/libretro.${FORMAT_EXT} $RARCH_DIST_DIR/x86/mednafen_bsnes_libretro${FORMAT}.${FORMAT_EXT}
@@ -68,7 +66,7 @@ build_libretro_beetle_lynx()
       if [ -z "${NOCLEAN}" ]; then
          ndk-build clean APP_ABI="armeabi-v7a mips x86" || die "Failed to clean Beetle Lynx"
       fi
-      ndk-build APP_ABI="armeabi-v7a mips x86" || die "Failed to build Beetle Lynx"
+      ndk-build -j$JOBS APP_ABI="armeabi-v7a mips x86" || die "Failed to build Beetle Lynx"
       cp ../libs/armeabi-v7a/libretro.${FORMAT_EXT} $RARCH_DIST_DIR/armeabi-v7a/mednafen_lynx_libretro${FORMAT}.${FORMAT_EXT}
       cp ../libs/mips/libretro.${FORMAT_EXT} $RARCH_DIST_DIR/mips/mednafen_lynx_libretro${FORMAT}.${FORMAT_EXT}
       cp ../libs/x86/libretro.${FORMAT_EXT} $RARCH_DIST_DIR/x86/mednafen_lynx_libretro${FORMAT}.${FORMAT_EXT}
@@ -88,7 +86,7 @@ build_libretro_beetle_gba()
       if [ -z "${NOCLEAN}" ]; then
          ndk-build clean APP_ABI="armeabi-v7a mips x86" || die "Failed to clean Beetle GBA"
       fi
-      ndk-build APP_ABI="armeabi-v7a mips x86" || die "Failed to build Beetle GBA"
+      ndk-build -j$JOBS APP_ABI="armeabi-v7a mips x86" || die "Failed to build Beetle GBA"
       cp ../libs/armeabi-v7a/libretro.${FORMAT_EXT} $RARCH_DIST_DIR/armeabi-v7a/mednafen_gba_libretro${FORMAT}.${FORMAT_EXT}
       cp ../libs/mips/libretro.${FORMAT_EXT} $RARCH_DIST_DIR/mips/mednafen_gba_libretro${FORMAT}.${FORMAT_EXT}
       cp ../libs/x86/libretro.${FORMAT_EXT} $RARCH_DIST_DIR/x86/mednafen_gba_libretro${FORMAT}.${FORMAT_EXT}
@@ -108,7 +106,7 @@ build_libretro_beetle_ngp()
       if [ -z "${NOCLEAN}" ]; then
          ndk-build clean APP_ABI="armeabi-v7a mips x86" || die "Failed to clean Beetle NGP"
       fi
-      ndk-build APP_ABI="armeabi-v7a mips x86" || die "Failed to build Beetle NGP"
+      ndk-build -j$JOBS APP_ABI="armeabi-v7a mips x86" || die "Failed to build Beetle NGP"
       cp ../libs/armeabi-v7a/libretro.${FORMAT_EXT} $RARCH_DIST_DIR/armeabi-v7a/mednafen_ngp_libretro${FORMAT}.${FORMAT_EXT}
       cp ../libs/mips/libretro.${FORMAT_EXT} $RARCH_DIST_DIR/mips/mednafen_ngp_libretro${FORMAT}.${FORMAT_EXT}
       cp ../libs/x86/libretro.${FORMAT_EXT} $RARCH_DIST_DIR/x86/mednafen_ngp_libretro${FORMAT}.${FORMAT_EXT}
@@ -128,7 +126,7 @@ build_libretro_beetle_wswan()
       if [ -z "${NOCLEAN}" ]; then
          ndk-build clean APP_ABI="armeabi-v7a mips x86" || die "Failed to clean Beetle WSwan"
       fi
-      ndk-build APP_ABI="armeabi-v7a mips x86" || die "Failed to build Beetle WSwan"
+      ndk-build -j$JOBS APP_ABI="armeabi-v7a mips x86" || die "Failed to build Beetle WSwan"
       cp ../libs/armeabi-v7a/libretro.${FORMAT_EXT} $RARCH_DIST_DIR/armeabi-v7a/mednafen_wswan_libretro${FORMAT}.${FORMAT_EXT}
       cp ../libs/mips/libretro.${FORMAT_EXT} $RARCH_DIST_DIR/mips/mednafen_wswan_libretro${FORMAT}.${FORMAT_EXT}
       cp ../libs/x86/libretro.${FORMAT_EXT} $RARCH_DIST_DIR/x86/mednafen_wswan_libretro${FORMAT}.${FORMAT_EXT}
@@ -147,7 +145,7 @@ build_libretro_beetle_psx()
       if [ -z "${NOCLEAN}" ]; then
          ndk-build clean APP_ABI="armeabi-v7a mips x86" || die "Failed to clean Beetle PSX"
       fi
-      ndk-build APP_ABI="armeabi-v7a mips x86" || die "Failed to build Beetle PSX"
+      ndk-build -j$JOBS APP_ABI="armeabi-v7a mips x86" || die "Failed to build Beetle PSX"
       cp ../libs/armeabi-v7a/libretro.${FORMAT_EXT} $RARCH_DIST_DIR/armeabi-v7a/mednafen_psx_libretro${FORMAT}.${FORMAT_EXT}
       cp ../libs/mips/libretro.${FORMAT_EXT} $RARCH_DIST_DIR/mips/mednafen_psx_libretro${FORMAT}.${FORMAT_EXT}
       cp ../libs/x86/libretro.${FORMAT_EXT} $RARCH_DIST_DIR/x86/mednafen_psx_libretro${FORMAT}.${FORMAT_EXT}
@@ -166,7 +164,7 @@ build_libretro_beetle_pcfx()
       if [ -z "${NOCLEAN}" ]; then
          ndk-build clean APP_ABI="armeabi-v7a mips x86" || die "Failed to clean Beetle PCFX"
       fi
-      ndk-build APP_ABI="armeabi-v7a mips x86" || die "Failed to build Beetle PCFX"
+      ndk-build -j$JOBS APP_ABI="armeabi-v7a mips x86" || die "Failed to build Beetle PCFX"
       cp ../libs/armeabi-v7a/libretro.${FORMAT_EXT} $RARCH_DIST_DIR/armeabi-v7a/mednafen_pcfx_libretro${FORMAT}.${FORMAT_EXT}
       cp ../libs/mips/libretro.${FORMAT_EXT} $RARCH_DIST_DIR/mips/mednafen_pcfx_libretro${FORMAT}.${FORMAT_EXT}
       cp ../libs/x86/libretro.${FORMAT_EXT} $RARCH_DIST_DIR/x86/mednafen_pcfx_libretro${FORMAT}.${FORMAT_EXT}
@@ -186,7 +184,7 @@ build_libretro_beetle_vb()
       if [ -z "${NOCLEAN}" ]; then
          ndk-build clean APP_ABI="armeabi-v7a mips x86" || die "Failed to clean Beetle VB"
       fi
-      ndk-build APP_ABI="armeabi-v7a mips x86" || die "Failed to build Beetle VB"
+      ndk-build -j$JOBS APP_ABI="armeabi-v7a mips x86" || die "Failed to build Beetle VB"
       cp ../libs/armeabi-v7a/libretro.${FORMAT_EXT} $RARCH_DIST_DIR/armeabi-v7a/mednafen_vb_libretro${FORMAT}.${FORMAT_EXT}
       cp ../libs/mips/libretro.${FORMAT_EXT} $RARCH_DIST_DIR/mips/mednafen_vb_libretro${FORMAT}.${FORMAT_EXT}
       cp ../libs/x86/libretro.${FORMAT_EXT} $RARCH_DIST_DIR/x86/mednafen_vb_libretro${FORMAT}.${FORMAT_EXT}
@@ -206,7 +204,7 @@ build_libretro_beetle_pce_fast()
       if [ -z "${NOCLEAN}" ]; then
          ndk-build clean APP_ABI="armeabi-v7a mips x86" || die "Failed to clean Beetle PCE Fast"
       fi
-      ndk-build APP_ABI="armeabi-v7a mips x86" || die "Failed to build Beetle PCE Fast"
+      ndk-build -j$JOBS APP_ABI="armeabi-v7a mips x86" || die "Failed to build Beetle PCE Fast"
       cp ../libs/armeabi-v7a/libretro.${FORMAT_EXT} $RARCH_DIST_DIR/armeabi-v7a/mednafen_pce_fast_libretro${FORMAT}.${FORMAT_EXT}
       cp ../libs/mips/libretro.${FORMAT_EXT} $RARCH_DIST_DIR/mips/mednafen_pce_fast_libretro${FORMAT}.${FORMAT_EXT}
       cp ../libs/x86/libretro.${FORMAT_EXT} $RARCH_DIST_DIR/x86/mednafen_pce_fast_libretro${FORMAT}.${FORMAT_EXT}
@@ -226,7 +224,7 @@ build_libretro_beetle_supergrafx()
       if [ -z "${NOCLEAN}" ]; then
          ndk-build clean APP_ABI="armeabi-v7a mips x86" || die "Failed to clean Beetle SuperGrafx"
       fi
-      ndk-build APP_ABI="armeabi-v7a mips x86" || die "Failed to build Beetle SuperGrafx"
+      ndk-build -j$JOBS APP_ABI="armeabi-v7a mips x86" || die "Failed to build Beetle SuperGrafx"
       cp ../libs/armeabi-v7a/libretro.${FORMAT_EXT} $RARCH_DIST_DIR/armeabi-v7a/mednafen_supergrafx_libretro${FORMAT}.${FORMAT_EXT}
       cp ../libs/mips/libretro.${FORMAT_EXT} $RARCH_DIST_DIR/mips/mednafen_supergrafx_libretro${FORMAT}.${FORMAT_EXT}
       cp ../libs/x86/libretro.${FORMAT_EXT} $RARCH_DIST_DIR/x86/mednafen_supergrafx_libretro${FORMAT}.${FORMAT_EXT}
