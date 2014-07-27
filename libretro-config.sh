@@ -27,7 +27,7 @@ echo "$ARCH CPU detected"
 if command -v nproc >/dev/null; then
    JOBS=$(nproc)
 else
-   JOBS=4
+   JOBS=1
 fi
 
 # Platform Assignment
