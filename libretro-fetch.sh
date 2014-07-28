@@ -133,3 +133,4 @@ fetch_project "$REPO_BASE/libretro/blueMSX-libretro.git" "libretro-bluemsx" "lib
 fetch_project "$REPO_BASE/libretro/fmsx-libretro.git" "libretro-fmsx" "libretro/fmsx"
 fetch_project "$REPO_BASE/libretro/libretro-2048.git" "libretro-2048" "libretro/2048"
 fetch_project "$REPO_BASE/libretro/libretro-vecx.git" "libretro-vecx" "libretro/vecx"
+fetch_project "$REPO_BASE/libretro/retroarch-joypad-autoconfig.git" "libretro-joypad-autoconfig" "libretro/joypad-autoconfig"
