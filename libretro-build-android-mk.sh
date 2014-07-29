@@ -271,6 +271,25 @@ build_libretro_s9x_next()
    fi
 }
 
+build_libretro_2048()
+{
+   cd $BASE_DIR
+   if [ -d "libretro-2048" ]; then
+      echo "=== Building 2048 ==="
+      cd libretro-2048/
+      cd jni
+      if [ -z "${NOCLEAN}" ]; then
+         ndk-build clean APP_ABI="armeabi-v7a mips x86"
+      fi
+      ndk-build -j$JOBS APP_ABI="armeabi-v7a mips x86"
+      cp ../libs/armeabi-v7a/libretro.${FORMAT_EXT} $RARCH_DIST_DIR/armeabi-v7a/2048_libretro${FORMAT}.${FORMAT_EXT}
+      cp ../libs/mips/libretro.${FORMAT_EXT} $RARCH_DIST_DIR/mips/2048_libretro${FORMAT}.${FORMAT_EXT}
+      cp ../libs/x86/libretro.${FORMAT_EXT} $RARCH_DIST_DIR/x86/2048_libretro${FORMAT}.${FORMAT_EXT}
+   else
+      echo "2048 not fetched, skipping ..."
+   fi
+}
+
 build_libretro_stella()
 {
    cd $BASE_DIR
@@ -807,6 +826,7 @@ create_dist_dir
 if [ $1 ]; then
    $1
 else
+   build_libretro_2048
    #build_libretro_bsnes_cplusplus98
    build_libretro_bsnes
    build_libretro_beetle_lynx
