@@ -789,14 +789,15 @@ build_libretro_mupen64()
 {
    cd $BASE_DIR
    if [ -d "libretro-mupen64plus" ]; then
-      echo '=== Building Mupen 64 Plus (ARMv7 dynarec) ==='
+      echo '=== Building Mupen 64 Plus ==='
       cd libretro-mupen64plus
       cd libretro/jni
       if [ -z "${NOCLEAN}" ]; then
-         ndk-build clean APP_ABI="armeabi-v7a"
+         ndk-build clean APP_ABI="armeabi-v7a x86"
       fi
-      ndk-build -j$JOBS APP_ABI="armeabi-v7a"
+      ndk-build -j$JOBS APP_ABI="armeabi-v7a x86"
       cp ../libs/armeabi-v7a/libretro_mupen64plus.${FORMAT_EXT} $RARCH_DIST_DIR/armeabi-v7a/mupen64plus_libretro${FORMAT}.${FORMAT_EXT}
+      cp ../libs/x86/libretro_mupen64plus.${FORMAT_EXT} $RARCH_DIST_DIR/x86/mupen64plus_libretro${FORMAT}.${FORMAT_EXT}
    else
       echo 'Mupen64 Plus not fetched, skipping ...'
    fi
