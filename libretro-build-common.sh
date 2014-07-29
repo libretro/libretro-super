@@ -344,6 +344,21 @@ build_libretro_beetle_snes()
    fi
 }
 
+build_libretro_2048()
+{
+   cd "${BASE_DIR}"
+   if [ -d 'libretro-2048' ]; then
+      echo '=== Building 2048 ==='
+      cd libretro-2048
+
+      "${MAKE}" -f Makefile.libretro platform="${FORMAT_COMPILER_TARGET}" ${COMPILER} "-j${JOBS}" clean || die "Failed to clean 2048"
+      "${MAKE}" -f Makefile.libretro platform="${FORMAT_COMPILER_TARGET}" ${COMPILER} "-j${JOBS}" || die "Failed to build 2048"
+      cp "2048_libretro${FORMAT}.${FORMAT_EXT}" "${RARCH_DIST_DIR}"
+   else
+      echo '2048 not fetched, skipping ...'
+   fi
+}
+
 build_libretro_fmsx()
 {
    cd "${BASE_DIR}"
