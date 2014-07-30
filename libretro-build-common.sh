@@ -983,6 +983,44 @@ build_libretro_dosbox() {
    fi
 }
 
+build_libretro_bsnes_mercury() {
+   cd "${BASE_DIR}"
+   if [ -d 'libretro-bsnes-mercury/perf' ]; then
+      echo '=== Building bSNES Mercury performance ==='
+      cd libretro-bsnes-mercury/perf
+
+      rm -f obj/*.{o,"${FORMAT_EXT}"}
+      "${MAKE}" -f Makefile platform="${FORMAT_COMPILER_TARGET}" compiler="${CXX11}" ui='target-libretro' profile='performance' "-j${JOBS}" || die 'Failed to build bSNES Mercury performance core'
+      cp -f "out/bsnes_mercury_libretro${FORMAT}.${FORMAT_EXT}" "${RARCH_DIST_DIR}/bsnes_mercury_performance_libretro${FORMAT}.${FORMAT_EXT}"
+   else
+      echo 'bSNES Mercury performance not fetched, skipping ...'
+   fi
+
+   cd "${BASE_DIR}"
+   if [ -d 'libretro-bsnes-mercury/balanced' ]; then
+      echo '=== Building bSNES Mercury balanced ==='
+      cd libretro-bsnes-mercury/balanced
+
+      rm -f obj/*.{o,"${FORMAT_EXT}"}
+      "${MAKE}" -f Makefile platform="${FORMAT_COMPILER_TARGET}" compiler="${CXX11}" ui='target-libretro' profile='balanced' "-j${JOBS}" || die 'Failed to build bSNES Mercury balanced core'
+      cp -f "out/bsnes_mercury_libretro${FORMAT}.${FORMAT_EXT}" "${RARCH_DIST_DIR}/bsnes_mercury_balanced_libretro${FORMAT}.${FORMAT_EXT}"
+   else
+      echo 'bSNES Mercury compat not fetched, skipping ...'
+   fi
+
+   cd "${BASE_DIR}"
+   if [ -d 'libretro-bsnes-mercury' ]; then
+      echo '=== Building bSNES Mercury accuracy ==='
+      cd libretro-bsnes-mercury
+
+      rm -f obj/*.{o,"${FORMAT_EXT}"}
+      "${MAKE}" -f Makefile platform="${FORMAT_COMPILER_TARGET}" compiler="${CXX11}" ui='target-libretro' profile='accuracy' "-j${JOBS}" || die 'Failed to build bSNES Mercury accuracy core'
+      cp -f "out/bsnes_mercury_libretro${FORMAT}.${FORMAT_EXT}" "${RARCH_DIST_DIR}/bsnes_mercury_accuracy_libretro${FORMAT}.${FORMAT_EXT}"
+   else
+      echo 'bSNES Mercury accuracy not fetched, skipping ...'
+   fi
+}
+
 build_libretro_bsnes() {
    cd "${BASE_DIR}"
    if [ -d 'libretro-bsnes/perf' ]; then
@@ -1016,6 +1054,8 @@ build_libretro_bsnes() {
       rm -f obj/*.{o,"${FORMAT_EXT}"}
       "${MAKE}" -f Makefile platform="${FORMAT_COMPILER_TARGET}" compiler="${CXX11}" ui='target-libretro' profile='accuracy' "-j${JOBS}" || die 'Failed to build bSNES accuracy core'
       cp -f "out/bsnes_libretro${FORMAT}.${FORMAT_EXT}" "${RARCH_DIST_DIR}/bsnes_accuracy_libretro${FORMAT}.${FORMAT_EXT}"
+   else
+      echo 'bSNES accuracy not fetched, skipping ...'
    fi
 }
 
