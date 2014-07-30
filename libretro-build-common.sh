@@ -175,7 +175,7 @@ build_libretro_pcsx_rearmed_interpreter() {
    fi
 }
 
-build_libretro_beetle_bsnes()
+build_libretro_beetle_snes()
 {
    cd "${BASE_DIR}"
    if [ -d 'libretro-beetle-bsnes' ]; then
@@ -184,7 +184,7 @@ build_libretro_beetle_bsnes()
 
       "${MAKE}" platform="${FORMAT_COMPILER_TARGET}" ${COMPILER} "-j${JOBS}" clean || die "Failed to clean beetle/bsnes"
       "${MAKE}" platform="${FORMAT_COMPILER_TARGET}" ${COMPILER} "-j${JOBS}" || die "Failed to build beetle/bsnes"
-      cp "mednafen_bsnes_libretro${FORMAT}.${FORMAT_EXT}" "${RARCH_DIST_DIR}"
+      cp "mednafen_snes_libretro${FORMAT}.${FORMAT_EXT}" "${RARCH_DIST_DIR}"
    else
       echo 'Beetle bSNES not fetched, skipping ...'
    fi
@@ -325,24 +325,6 @@ build_libretro_beetle_psx()
    fi
 }
 
-build_libretro_beetle_snes()
-{
-   cd "${BASE_DIR}"
-   if [ -d 'libretro-mednafen' ]; then
-      echo '=== Building Beetle bSNES ==='
-      cd libretro-mednafen
-
-      for core in snes; do
-         if [ -z "${NOCLEAN}" ]; then
-            "${MAKE}" core="${core}" platform="${FORMAT_COMPILER_TARGET}" ${COMPILER} "-j${JOBS}" clean || die "Failed to clean mednafen/${core}"
-         fi
-	 "${MAKE}" core="${core}" platform="${FORMAT_COMPILER_TARGET}" ${COMPILER} "-j${JOBS}" || die "Failed to build mednafen/${core}"
-         cp "mednafen_${core//-/_}_libretro${FORMAT}.${FORMAT_EXT}" "${RARCH_DIST_DIR}"
-      done
-   else
-      echo 'Beetle bSNES not fetched, skipping ...'
-   fi
-}
 
 build_libretro_2048()
 {
