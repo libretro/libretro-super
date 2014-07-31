@@ -1,6 +1,6 @@
 display_name = "Vectrex (vecx)"
 authors = "Valavan Manohararajah|John Hawthorn|Nikita Zimin|Demeth"
-supported_extensions = "vec"
+supported_extensions = "bin|vec"
 corename = "vecx"
 manufacturer = "Smith Engineering"
 systemname = "Vectrex"
