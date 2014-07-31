@@ -75,4 +75,5 @@ else
    #build_libretro_ffmpeg
    build_libretro_dinothawr
    build_libretro_3dengine
+   build_libretro_vecx
 fi
