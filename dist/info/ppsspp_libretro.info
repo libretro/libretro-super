@@ -1,6 +1,6 @@
 display_name = "PSP (PlayStation Portable)"
 authors = "Henrik Hrydgard"
-supported_extensions = "elf|iso|cso|prx"
+supported_extensions = "elf|iso|cso|prx|pbp"
 corename = "PPSSPP"
 manufacturer = "Sony"
 systemname = "PSP"
