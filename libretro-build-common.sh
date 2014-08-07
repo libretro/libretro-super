@@ -181,8 +181,9 @@ build_libretro_beetle_snes()
    if [ -d 'libretro-beetle-bsnes' ]; then
       echo '=== Building Beetle bSNES ==='
       cd libretro-beetle-bsnes
-
-      "${MAKE}" platform="${FORMAT_COMPILER_TARGET}" ${COMPILER} "-j${JOBS}" clean || die "Failed to clean beetle/bsnes"
+      if [ -z "${NOCLEAN}" ]; then
+      	"${MAKE}" platform="${FORMAT_COMPILER_TARGET}" ${COMPILER} "-j${JOBS}" clean || die "Failed to clean beetle/bsnes"
+      fi
       "${MAKE}" platform="${FORMAT_COMPILER_TARGET}" ${COMPILER} "-j${JOBS}" || die "Failed to build beetle/bsnes"
       cp "mednafen_snes_libretro${FORMAT}.${FORMAT_EXT}" "${RARCH_DIST_DIR}"
    else
@@ -196,8 +197,9 @@ build_libretro_beetle_lynx()
    if [ -d 'libretro-beetle-lynx' ]; then
       echo '=== Building Beetle Lynx ==='
       cd libretro-beetle-lynx
-
-      "${MAKE}" platform="${FORMAT_COMPILER_TARGET}" ${COMPILER} "-j${JOBS}" clean || die "Failed to clean beetle/lynx"
+      if [ -z "${NOCLEAN}" ]; then
+      	"${MAKE}" platform="${FORMAT_COMPILER_TARGET}" ${COMPILER} "-j${JOBS}" clean || die "Failed to clean beetle/lynx"
+      fi
       "${MAKE}" platform="${FORMAT_COMPILER_TARGET}" ${COMPILER} "-j${JOBS}" || die "Failed to build beetle/lynx"
       cp "mednafen_lynx_libretro${FORMAT}.${FORMAT_EXT}" "${RARCH_DIST_DIR}"
    else
@@ -211,8 +213,9 @@ build_libretro_beetle_wswan()
    if [ -d 'libretro-beetle-wswan' ]; then
       echo '=== Building Beetle WSwan ==='
       cd libretro-beetle-wswan
-
+      if [ -z "${NOCLEAN}" ]; then
       "${MAKE}" platform="${FORMAT_COMPILER_TARGET}" ${COMPILER} "-j${JOBS}" clean || die "Failed to clean beetle/wswan"
+      fi
       "${MAKE}" platform="${FORMAT_COMPILER_TARGET}" ${COMPILER} "-j${JOBS}" || die "Failed to build beetle/wswan"
       cp "mednafen_wswan_libretro${FORMAT}.${FORMAT_EXT}" "${RARCH_DIST_DIR}"
    else
@@ -226,8 +229,9 @@ build_libretro_beetle_gba()
    if [ -d 'libretro-beetle-gba' ]; then
       echo '=== Building Beetle GBA ==='
       cd libretro-beetle-gba
-
-      "${MAKE}" platform="${FORMAT_COMPILER_TARGET}" ${COMPILER} "-j${JOBS}" clean || die "Failed to clean beetle/gba"
+      if [ -z "${NOCLEAN}" ]; then
+      	"${MAKE}" platform="${FORMAT_COMPILER_TARGET}" ${COMPILER} "-j${JOBS}" clean || die "Failed to clean beetle/gba"
+      fi
       "${MAKE}" platform="${FORMAT_COMPILER_TARGET}" ${COMPILER} "-j${JOBS}" || die "Failed to build beetle/gba"
       cp "mednafen_gba_libretro${FORMAT}.${FORMAT_EXT}" "${RARCH_DIST_DIR}"
    else
@@ -241,8 +245,9 @@ build_libretro_beetle_ngp()
    if [ -d 'libretro-beetle-ngp' ]; then
       echo '=== Building Beetle NGP ==='
       cd libretro-beetle-ngp
-
-      "${MAKE}" platform="${FORMAT_COMPILER_TARGET}" ${COMPILER} "-j${JOBS}" clean || die "Failed to clean beetle/ngp"
+      if [ -z "${NOCLEAN}" ]; then
+      	"${MAKE}" platform="${FORMAT_COMPILER_TARGET}" ${COMPILER} "-j${JOBS}" clean || die "Failed to clean beetle/ngp"
+      fi
       "${MAKE}" platform="${FORMAT_COMPILER_TARGET}" ${COMPILER} "-j${JOBS}" || die "Failed to build beetle/ngp"
       cp "mednafen_ngp_libretro${FORMAT}.${FORMAT_EXT}" "${RARCH_DIST_DIR}"
    else
@@ -256,8 +261,9 @@ build_libretro_beetle_pce_fast()
    if [ -d 'libretro-beetle-pce-fast' ]; then
       echo '=== Building Beetle PCE Fast ==='
       cd libretro-beetle-pce-fast
-
-      "${MAKE}" platform="${FORMAT_COMPILER_TARGET}" ${COMPILER} "-j${JOBS}" clean || die "Failed to clean beetle/pce_fast"
+      if [ -z "${NOCLEAN}" ]; then
+      	"${MAKE}" platform="${FORMAT_COMPILER_TARGET}" ${COMPILER} "-j${JOBS}" clean || die "Failed to clean beetle/pce_fast"
+      fi
       "${MAKE}" platform="${FORMAT_COMPILER_TARGET}" ${COMPILER} "-j${JOBS}" || die "Failed to build beetle/pce_fast"
       cp "mednafen_pce_fast_libretro${FORMAT}.${FORMAT_EXT}" "${RARCH_DIST_DIR}"
    else
@@ -271,8 +277,9 @@ build_libretro_beetle_supergrafx()
    if [ -d 'libretro-beetle-supergrafx' ]; then
       echo '=== Building Beetle SuperGrafx ==='
       cd libretro-beetle-supergrafx
-
-      "${MAKE}" platform="${FORMAT_COMPILER_TARGET}" ${COMPILER} "-j${JOBS}" clean || die "Failed to clean beetle/supergrafx"
+      if [ -z "${NOCLEAN}" ]; then
+      	"${MAKE}" platform="${FORMAT_COMPILER_TARGET}" ${COMPILER} "-j${JOBS}" clean || die "Failed to clean beetle/supergrafx"
+      fi
       "${MAKE}" platform="${FORMAT_COMPILER_TARGET}" ${COMPILER} "-j${JOBS}" || die "Failed to build beetle/supergrafx"
       cp "mednafen_supergrafx_libretro${FORMAT}.${FORMAT_EXT}" "${RARCH_DIST_DIR}"
    else
@@ -286,8 +293,9 @@ build_libretro_beetle_vb()
    if [ -d 'libretro-beetle-vb' ]; then
       echo '=== Building Beetle VB ==='
       cd libretro-beetle-vb
-
-      "${MAKE}" platform="${FORMAT_COMPILER_TARGET}" ${COMPILER} "-j${JOBS}" clean || die "Failed to clean beetle/vb"
+      if [ -z "${NOCLEAN}" ]; then
+      	"${MAKE}" platform="${FORMAT_COMPILER_TARGET}" ${COMPILER} "-j${JOBS}" clean || die "Failed to clean beetle/vb"
+      fi
       "${MAKE}" platform="${FORMAT_COMPILER_TARGET}" ${COMPILER} "-j${JOBS}" || die "Failed to build beetle/vb"
       cp "mednafen_vb_libretro${FORMAT}.${FORMAT_EXT}" "${RARCH_DIST_DIR}"
    else
@@ -301,8 +309,9 @@ build_libretro_beetle_pcfx()
    if [ -d 'libretro-beetle-pcfx' ]; then
       echo '=== Building Beetle PCFX ==='
       cd libretro-beetle-pcfx
-
-      "${MAKE}" platform="${FORMAT_COMPILER_TARGET}" ${COMPILER} "-j${JOBS}" clean || die "Failed to clean Beetle/pcfx"
+      if [ -z "${NOCLEAN}" ]; then
+      	"${MAKE}" platform="${FORMAT_COMPILER_TARGET}" ${COMPILER} "-j${JOBS}" clean || die "Failed to clean Beetle/pcfx"
+      fi
       "${MAKE}" platform="${FORMAT_COMPILER_TARGET}" ${COMPILER} "-j${JOBS}" || die "Failed to build Beetle/pcfx"
       cp "mednafen_pcfx_libretro${FORMAT}.${FORMAT_EXT}" "${RARCH_DIST_DIR}"
    else
@@ -316,8 +325,9 @@ build_libretro_beetle_psx()
    if [ -d 'libretro-beetle-psx' ]; then
       echo '=== Building Beetle PSX ==='
       cd libretro-beetle-psx
-
-      "${MAKE}" platform="${FORMAT_COMPILER_TARGET}" ${COMPILER} "-j${JOBS}" clean || die "Failed to clean Beetle/psx"
+      if [ -z "${NOCLEAN}" ]; then
+      	"${MAKE}" platform="${FORMAT_COMPILER_TARGET}" ${COMPILER} "-j${JOBS}" clean || die "Failed to clean Beetle/psx"
+      fi
       "${MAKE}" platform="${FORMAT_COMPILER_TARGET}" ${COMPILER} "-j${JOBS}" || die "Failed to build Beetle/psx"
       cp "mednafen_psx_libretro${FORMAT}.${FORMAT_EXT}" "${RARCH_DIST_DIR}"
    else
@@ -332,8 +342,9 @@ build_libretro_2048()
    if [ -d 'libretro-2048' ]; then
       echo '=== Building 2048 ==='
       cd libretro-2048
-
-      "${MAKE}" -f Makefile.libretro platform="${FORMAT_COMPILER_TARGET}" ${COMPILER} "-j${JOBS}" clean || die "Failed to clean 2048"
+      if [ -z "${NOCLEAN}" ]; then
+      	"${MAKE}" -f Makefile.libretro platform="${FORMAT_COMPILER_TARGET}" ${COMPILER} "-j${JOBS}" clean || die "Failed to clean 2048"
+      fi
       "${MAKE}" -f Makefile.libretro platform="${FORMAT_COMPILER_TARGET}" ${COMPILER} "-j${JOBS}" || die "Failed to build 2048"
       cp "2048_libretro${FORMAT}.${FORMAT_EXT}" "${RARCH_DIST_DIR}"
    else
@@ -347,8 +358,9 @@ build_libretro_fmsx()
    if [ -d 'libretro-fmsx' ]; then
       echo '=== Building fMSX ==='
       cd libretro-fmsx
-
-      "${MAKE}" platform="${FORMAT_COMPILER_TARGET}" ${COMPILER} "-j${JOBS}" clean || die "Failed to clean fMSX"
+      if [ -z "${NOCLEAN}" ]; then
+      	"${MAKE}" platform="${FORMAT_COMPILER_TARGET}" ${COMPILER} "-j${JOBS}" clean || die "Failed to clean fMSX"
+      fi
       "${MAKE}" platform="${FORMAT_COMPILER_TARGET}" ${COMPILER} "-j${JOBS}" || die "Failed to build fMSX"
       cp "fmsx_libretro${FORMAT}.${FORMAT_EXT}" "${RARCH_DIST_DIR}"
    else
@@ -362,8 +374,9 @@ build_libretro_bluemsx()
    if [ -d 'libretro-bluemsx' ]; then
       echo '=== Building blueMSX ==='
       cd libretro-bluemsx
-
-      "${MAKE}" -f Makefile.libretro platform="${FORMAT_COMPILER_TARGET}" ${COMPILER} "-j${JOBS}" clean || die "Failed to clean blueMSX"
+      if [ -z "${NOCLEAN}" ]; then
+      	"${MAKE}" -f Makefile.libretro platform="${FORMAT_COMPILER_TARGET}" ${COMPILER} "-j${JOBS}" clean || die "Failed to clean blueMSX"
+      fi
       "${MAKE}" -f Makefile.libretro platform="${FORMAT_COMPILER_TARGET}" ${COMPILER} "-j${JOBS}" || die "Failed to build blueMSX"
       cp "bluemsx_libretro${FORMAT}.${FORMAT_EXT}" "${RARCH_DIST_DIR}"
    else
