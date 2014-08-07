@@ -50,6 +50,13 @@ fetch_project()
    echo "=== Fetched ==="
 }
 
+fetch_project_no_pull()
+{
+   echo "=== Fetching $3 ==="
+   git clone "$1" "$2"
+   echo "=== Fetched ==="
+}
+
 fetch_project_submodule()
 {
    echo "=== Fetching $3 ==="
@@ -135,5 +142,5 @@ fetch_project "$REPO_BASE/libretro/libretro-vecx.git" "libretro-vecx" "libretro/
 fetch_project "$REPO_BASE/libretro/retroarch-joypad-autoconfig.git" "libretro-joypad-autoconfig" "libretro/joypad-autoconfig"
 fetch_project "$REPO_BASE/libretro/libretro-manifest.git" "libretro-manifest" "libretro/libretro-manifest"
 fetch_project "$REPO_BASE/libretro/libretro-ppsspp.git" "libretro-ppsspp" "libretro/ppsspp"
-fetch_project "$REPO_BASE/libretro/ppsspp-native.git" "libretro-ppsspp/native" "libretro/ppsspp/native"
-fetch_project "$REPO_BASE/libretro/ppsspp-ffmpeg.git" "libretro-ppsspp/ffmpeg" "libretro/ppsspp/ffmpeg"
+fetch_project_no_pull "$REPO_BASE/libretro/ppsspp-native.git" "libretro-ppsspp/native" "libretro/ppsspp/native"
+fetch_project_no_pull "$REPO_BASE/libretro/ppsspp-ffmpeg.git" "libretro-ppsspp/ffmpeg" "libretro/ppsspp/ffmpeg"
