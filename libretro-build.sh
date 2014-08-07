@@ -148,5 +148,6 @@ else
    build_libretro_dinothawr
    build_libretro_3dengine
    build_libretro_vecx
+   build_libretro_tgbdual
    build_libretro_ppsspp
 fi
