@@ -120,7 +120,9 @@ build_retroarch()
       cd retroarch
       check_deps
       ./configure $ENABLE_GLES $ENABLE_NEON
-      ${MAKE} -f Makefile platform=${FORMAT_COMPILER_TARGET} CC="gcc ${RARCHCFLAGS}" $COMPILER -j$JOBS clean || die "Failed to clean RetroArch"
+      if [ -z "${NOCLEAN}" ]; then
+      	${MAKE} -f Makefile platform=${FORMAT_COMPILER_TARGET} CC="gcc ${RARCHCFLAGS}" $COMPILER -j$JOBS clean || die "Failed to clean RetroArch"
+      fi
       ${MAKE} -f Makefile platform=${FORMAT_COMPILER_TARGET} CC="gcc ${RARCHCFLAGS}" $COMPILER -j$JOBS || die "Failed to build RetroArch"
    else
       echo "RetroArch not fetched, skipping ..."
