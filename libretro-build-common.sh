@@ -577,32 +577,6 @@ build_libretro_mame() {
    fi
 }
 
-rebuild_libretro_mame() {
-   cd "${BASE_DIR}"
-   if [ -d 'libretro-mame' ]; then
-      echo ''
-      echo '=== Building MAME ==='
-      cd libretro-mame
-
-      if [ "$X86_64" = "true" ]; then
-        echo '=== Building MAME64 ==='
-        if [ -z "${NOCLEAN}" ]; then
-           "${MAKE}" PTR64=1 -f Makefile.libretro "TARGET=mame" "PARTIAL=1" platform="${FORMAT_COMPILER_TARGET}" ${COMPILER} "-j${JOBS}" clean || die 'Failed to clean MAME'
-        fi
-        "${MAKE}" PTR64=1 -f Makefile.libretro "TARGET=mame" platform="${FORMAT_COMPILER_TARGET}" ${COMPILER} "-j${JOBS}" || die 'Failed to build MAME'
-      else
-        echo '=== Building MAME32 ==='
-        if [ -z "${NOCLEAN}" ]; then
-           "${MAKE}" -f Makefile.libretro "TARGET=mame" "PARTIAL=1" platform="${FORMAT_COMPILER_TARGET}" ${COMPILER} "-j${JOBS}" clean || die 'Failed to clean MAME'
-        fi
-        "${MAKE}" -f Makefile.libretro "TARGET=mame" platform="${FORMAT_COMPILER_TARGET}" ${COMPILER} "-j${JOBS}" || die 'Failed to build MAME'
-      fi
-      cp "mame_libretro${FORMAT}.${FORMAT_EXT}" "${RARCH_DIST_DIR}"
-   else
-      echo 'MAME not fetched, skipping ...'
-   fi
-}
-
 build_libretro_mess() {
    cd "${BASE_DIR}"
    if [ -d 'libretro-mame' ]; then
