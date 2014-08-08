@@ -144,3 +144,4 @@ fetch_project "$REPO_BASE/libretro/libretro-manifest.git" "libretro-manifest" "l
 fetch_project "$REPO_BASE/libretro/libretro-ppsspp.git" "libretro-ppsspp" "libretro/ppsspp"
 fetch_project_no_pull "$REPO_BASE/libretro/ppsspp-native.git" "libretro-ppsspp/native" "libretro/ppsspp/native"
 fetch_project_no_pull "$REPO_BASE/libretro/ppsspp-ffmpeg.git" "libretro-ppsspp/ffmpeg" "libretro/ppsspp/ffmpeg"
+fetch_project "$REPO_BASE/libretro/prosystem-libretro.git" "libretro-prosystem" "libretro/prosystem"
