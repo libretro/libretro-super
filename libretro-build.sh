@@ -150,4 +150,5 @@ else
    build_libretro_vecx
    build_libretro_tgbdual
    build_libretro_ppsspp
+   build_libretro_prosystem
 fi

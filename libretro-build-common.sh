@@ -496,6 +496,22 @@ build_libretro_vecx() {
    fi
 }
 
+build_libretro_prosystem() {
+   cd "${BASE_DIR}"
+   if [ -d 'libretro-prosystem' ]; then
+      echo '=== Building ProSystem ==='
+      cd libretro-prosystem/
+
+      if [ -z "${NOCLEAN}" ]; then
+         "${MAKE}" -f Makefile platform="${FORMAT_COMPILER_TARGET}" ${COMPILER} "-j${JOBS}" clean || die 'Failed to build ProSystem'
+      fi
+      "${MAKE}" -f Makefile platform="${FORMAT_COMPILER_TARGET}" ${COMPILER} "-j${JOBS}" || die 'Failed to build ProSystem'
+      cp "prosystem_libretro${FORMAT}.${FORMAT_EXT}" "${RARCH_DIST_DIR}"
+   else
+      echo 'ProSystem not fetched, skipping ...'
+   fi
+}
+
 build_libretro_genplus() {
    cd "${BASE_DIR}"
    if [ -d 'libretro-genplus' ]; then
