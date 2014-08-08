@@ -65,4 +65,5 @@ else
    build_libretro_3dengine
    build_libretro_vecx
    build_libretro_tgbdual
+   build_libretro_prosystem
 fi
