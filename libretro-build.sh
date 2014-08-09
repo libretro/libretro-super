@@ -136,6 +136,12 @@ else
    if [ $FORMAT_COMPILER_TARGET != "win" ]; then
       build_libretro_pcsx_rearmed
    fi
+   build_libretro_yabause
+   build_libretro_vecx
+   build_libretro_tgbdual
+   build_libretro_prosystem
+   
+   #========ONLY OPENGL/ES AWARE PROJECTS BELOW========
    check_opengl
    build_libretro_modelviewer
    build_libretro_modelviewer_location
@@ -143,12 +149,9 @@ else
    build_libretro_instancingviewer
    build_libretro_instancingviewer_camera
    build_libretro_mupen64
-   build_libretro_yabause
    build_libretro_ffmpeg
    build_libretro_dinothawr
    build_libretro_3dengine
-   build_libretro_vecx
-   build_libretro_tgbdual
    build_libretro_ppsspp
-   build_libretro_prosystem
+   #======END ONLY OPENGL/ES AWARE PROJECTS END=========
 fi
