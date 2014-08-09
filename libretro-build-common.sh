@@ -512,6 +512,22 @@ build_libretro_prosystem() {
    fi
 }
 
+build_libretro_virtualjaguar() {
+   cd "${BASE_DIR}"
+   if [ -d 'libretro-virtualjaguar' ]; then
+      echo '=== Building VirtualJaguar ==='
+      cd libretro-virtualjaguar/
+
+      if [ -z "${NOCLEAN}" ]; then
+         "${MAKE}" -f Makefile platform="${FORMAT_COMPILER_TARGET}" ${COMPILER} "-j${JOBS}" clean || die 'Failed to build VirtualJaguar'
+      fi
+      "${MAKE}" -f Makefile platform="${FORMAT_COMPILER_TARGET}" ${COMPILER} "-j${JOBS}" || die 'Failed to build VirtualJaguar'
+      cp "virtualjaguar_libretro${FORMAT}.${FORMAT_EXT}" "${RARCH_DIST_DIR}"
+   else
+      echo 'VirtualJaguar not fetched, skipping ...'
+   fi
+}
+
 build_libretro_genplus() {
    cd "${BASE_DIR}"
    if [ -d 'libretro-genplus' ]; then
