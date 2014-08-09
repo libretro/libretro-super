@@ -22,13 +22,13 @@ if [[ -n "$PROCESSOR_ARCHITEW6432" && $PROCESSOR_ARCHITEW6432 -eq "AMD64" ]]; th
    X86=true && X86_64=true
 fi
 
-echo "$ARCH CPU detected"
-
 if command -v nproc >/dev/null; then
    JOBS=$(nproc)
 else
    JOBS=1
 fi
+
+echo "$JOBS core $ARCH CPU detected"
 
 # Platform Assignment
 [ -z "$platform" ] && platform="$(uname)"
