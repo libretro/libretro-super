@@ -25,22 +25,6 @@ echo "Compiler: ${COMPILER}"
 echo "${FORMAT_COMPILER_TARGET}"
 echo "${FORMAT_COMPILER_TARGET_ALT}"
 
-check_opengl() {
-   if [ "${BUILD_LIBRETRO_GL}" ]; then
-      if [ "${ENABLE_GLES}" ]; then
-         echo '=== OpenGL ES enabled ==='
-         export FORMAT_COMPILER_TARGET="${FORMAT_COMPILER_TARGET}-gles"
-         export FORMAT_COMPILER_TARGET_ALT="${FORMAT_COMPILER_TARGET}"
-      else
-         echo '=== OpenGL enabled ==='
-         export FORMAT_COMPILER_TARGET="${FORMAT_COMPILER_TARGET}-opengl"
-         export FORMAT_COMPILER_TARGET_ALT="${FORMAT_COMPILER_TARGET}"
-      fi
-   else
-      echo '=== OpenGL disabled in build ==='
-   fi
-}
-
 build_libretro_bsnes_cplusplus98() {
    cd "${BASE_DIR}"
    if [ -d 'libretro-bsnes-cplusplus98' ]; then
