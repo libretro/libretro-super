@@ -58,6 +58,7 @@ build_libretro_bsnes_cplusplus98() {
 }
 
 build_libretro_ffmpeg() {
+   check_opengl
    cd "${BASE_DIR}"
    if [ -d 'libretro-ffmpeg' ]; then
       echo '=== Checking OpenGL dependencies ==='
@@ -874,6 +875,7 @@ build_libretro_tyrquake() {
 }
 
 build_libretro_modelviewer() {
+   check_opengl
    cd "${BASE_DIR}"
    if [ -d 'libretro-gl-modelviewer' ]; then
       echo '=== Building Modelviewer (GL) ==='
@@ -890,6 +892,7 @@ build_libretro_modelviewer() {
 }
 
 build_libretro_modelviewer_location() {
+   check_opengl
    cd "${BASE_DIR}"
    if [ -d 'libretro-gl-modelviewer-location' ]; then
       echo '=== Building Modelviewer Location (GL) ==='
@@ -906,6 +909,7 @@ build_libretro_modelviewer_location() {
 }
 
 build_libretro_3dengine() {
+   check_opengl
    cd "${BASE_DIR}"
    if [ -d 'libretro-3dengine' ]; then
       echo '=== Building 3DEngine (GL) ==='
@@ -922,6 +926,7 @@ build_libretro_3dengine() {
 }
 
 build_libretro_scenewalker() {
+   check_opengl
    cd "${BASE_DIR}"
    if [ -d 'libretro-gl-scenewalker' ]; then
       echo '=== Building SceneWalker (GL) ==='
@@ -938,6 +943,7 @@ build_libretro_scenewalker() {
 }
 
 build_libretro_instancingviewer() {
+   check_opengl
    cd "${BASE_DIR}"
    if [ -d 'libretro-gl-instancingviewer' ]; then
       echo '=== Building Instancing Viewer (GL) ==='
@@ -954,6 +960,7 @@ build_libretro_instancingviewer() {
 }
 
 build_libretro_instancingviewer_camera() {
+   check_opengl
    cd "${BASE_DIR}"
    if [ -d 'libretro-gl-instancingviewer-camera' ]; then
       echo '=== Building Instancing Viewer Camera (GL) ==='
@@ -1105,6 +1112,7 @@ build_libretro_bnes() {
 }
 
 build_libretro_mupen64() {
+   check_opengl
    cd "${BASE_DIR}"
    if [ -d 'libretro-mupen64plus' ]; then
       cd libretro-mupen64plus
@@ -1158,6 +1166,7 @@ build_libretro_picodrive() {
 }
 
 build_libretro_ppsspp() {
+   check_opengl
    cd "${BASE_DIR}"
    if [ -d 'libretro-ppsspp' ]; then
       echo '=== Building PPSSPP ==='
