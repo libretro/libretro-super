@@ -37,10 +37,11 @@ die()
 
 build_libretro_beetle_bsnes()
 {
+   CORENAME="beetle-bsnes"
    cd $BASE_DIR
    pwd
-   if [ -d "libretro-beetle-bsnes" ]; then
-      cd libretro-beetle-bsnes
+   if [ -d "libretro-${CORENAME}" ]; then
+      cd libretro-${CORENAME}
       cd jni
       echo "=== Building Beetle bSNES ==="
       if [ -z "${NOCLEAN}" ]; then
@@ -57,10 +58,11 @@ build_libretro_beetle_bsnes()
 
 build_libretro_beetle_lynx()
 {
+   CORENAME="beetle-lynx"
    cd $BASE_DIR
    pwd
-   if [ -d "libretro-beetle-lynx" ]; then
-      cd libretro-beetle-lynx
+   if [ -d "libretro-${CORENAME}" ]; then
+      cd libretro-${CORENAME}
       cd jni
       echo "=== Building Beetle Lynx ==="
       if [ -z "${NOCLEAN}" ]; then
@@ -77,10 +79,11 @@ build_libretro_beetle_lynx()
 
 build_libretro_beetle_gba()
 {
+   CORENAME="beetle-gba"
    cd $BASE_DIR
    pwd
-   if [ -d "libretro-beetle-gba" ]; then
-      cd libretro-beetle-gba
+   if [ -d "libretro-${CORENAME}" ]; then
+      cd libretro-${CORENAME}
       cd jni
       echo "=== Building Beetle GBA ==="
       if [ -z "${NOCLEAN}" ]; then
@@ -97,10 +100,11 @@ build_libretro_beetle_gba()
 
 build_libretro_beetle_ngp()
 {
+   CORENAME="beetle-ngp"
    cd $BASE_DIR
    pwd
-   if [ -d "libretro-beetle-ngp" ]; then
-      cd libretro-beetle-ngp
+   if [ -d "libretro-${CORENAME}" ]; then
+      cd libretro-${CORENAME}
       cd jni
       echo "=== Building Beetle NGP ==="
       if [ -z "${NOCLEAN}" ]; then
@@ -117,10 +121,11 @@ build_libretro_beetle_ngp()
 
 build_libretro_beetle_wswan()
 {
+   CORENAME="beetle-wswan"
    cd $BASE_DIR
    pwd
-   if [ -d "libretro-beetle-wswan" ]; then
-      cd libretro-beetle-wswan
+   if [ -d "libretro-${CORENAME}" ]; then
+      cd libretro-${CORENAME}
       cd jni
       echo "=== Building Beetle WSwan ==="
       if [ -z "${NOCLEAN}" ]; then
@@ -136,10 +141,12 @@ build_libretro_beetle_wswan()
 }
 
 build_libretro_beetle_psx()
-{ cd $BASE_DIR
+{
+   CORENAME="beetle-psx"
+   cd $BASE_DIR
    pwd
-   if [ -d "libretro-beetle-psx" ]; then
-      cd libretro-beetle-psx
+   if [ -d "libretro-${CORENAME}" ]; then
+      cd libretro-${CORENAME}
       cd jni
       echo "=== Building Beetle PSX ==="
       if [ -z "${NOCLEAN}" ]; then
@@ -155,10 +162,12 @@ build_libretro_beetle_psx()
 }
 
 build_libretro_beetle_pcfx()
-{ cd $BASE_DIR
+{
+   CORENAME="beetle-pcfx"
+   cd $BASE_DIR
    pwd
-   if [ -d "libretro-beetle-pcfx" ]; then
-      cd libretro-beetle-pcfx
+   if [ -d "libretro-${CORENAME}" ]; then
+      cd libretro-${CORENAME}
       cd jni
       echo "=== Building Beetle PCFX ==="
       if [ -z "${NOCLEAN}" ]; then
@@ -175,10 +184,11 @@ build_libretro_beetle_pcfx()
 
 build_libretro_beetle_vb()
 {
+   CORENAME="beetle-vb"
    cd $BASE_DIR
    pwd
-   if [ -d "libretro-beetle-vb" ]; then
-      cd libretro-beetle-vb
+   if [ -d "libretro-${CORENAME}" ]; then
+      cd libretro-${CORENAME}
       cd jni
       echo "=== Building Beetle VB ==="
       if [ -z "${NOCLEAN}" ]; then
@@ -195,10 +205,11 @@ build_libretro_beetle_vb()
 
 build_libretro_beetle_pce_fast()
 {
+   CORENAME="beetle-pce-fast"
    cd $BASE_DIR
    pwd
-   if [ -d "libretro-beetle-pce-fast" ]; then
-      cd libretro-beetle-pce-fast
+   if [ -d "libretro-${CORENAME}" ]; then
+      cd libretro-${CORENAME}
       cd jni
       echo "=== Building Beetle PCE Fast ==="
       if [ -z "${NOCLEAN}" ]; then
@@ -215,10 +226,11 @@ build_libretro_beetle_pce_fast()
 
 build_libretro_beetle_supergrafx()
 {
+   CORENAME="beetle-supergrafx"
    cd $BASE_DIR
    pwd
-   if [ -d "libretro-beetle-supergrafx" ]; then
-      cd libretro-beetle-supergrafx
+   if [ -d "libretro-${CORENAME}" ]; then
+      cd libretro-${CORENAME}
       cd jni
       echo "=== Building Beetle SuperGrafx ==="
       if [ -z "${NOCLEAN}" ]; then
@@ -235,10 +247,11 @@ build_libretro_beetle_supergrafx()
 
 build_libretro_s9x()
 {
+   CORENAME="s9x"
    cd $BASE_DIR
-   if [ -d "libretro-s9x" ]; then
+   if [ -d "libretro-${CORENAME}" ]; then
       echo "=== Building SNES9x ==="
-      cd libretro-s9x/
+      cd libretro-${CORENAME}/
       cd libretro/jni
       if [ -z "${NOCLEAN}" ]; then
          ndk-build clean APP_ABI="armeabi-v7a mips x86"
@@ -254,10 +267,11 @@ build_libretro_s9x()
 
 build_libretro_s9x_next()
 {
+   CORENAME="s9x-next"
    cd $BASE_DIR
-   if [ -d "libretro-s9x-next" ]; then
+   if [ -d "libretro-${CORENAME}" ]; then
       echo "=== Building SNES9x-Next ==="
-      cd libretro-s9x-next/
+      cd libretro-${CORENAME}/
       cd libretro/jni
       if [ -z "${NOCLEAN}" ]; then
          ndk-build clean APP_ABI="armeabi-v7a mips x86"
@@ -273,10 +287,11 @@ build_libretro_s9x_next()
 
 build_libretro_2048()
 {
+   CORENAME="2048"
    cd $BASE_DIR
-   if [ -d "libretro-2048" ]; then
+   if [ -d "libretro-${CORENAME}" ]; then
       echo "=== Building 2048 ==="
-      cd libretro-2048/
+      cd libretro-${CORENAME}/
       cd jni
       if [ -z "${NOCLEAN}" ]; then
          ndk-build clean APP_ABI="armeabi-v7a mips x86"
@@ -292,10 +307,11 @@ build_libretro_2048()
 
 build_libretro_stella()
 {
+   CORENAME="stella"
    cd $BASE_DIR
-   if [ -d "libretro-stella" ]; then
+   if [ -d "libretro-${CORENAME}" ]; then
       echo "=== Building Stella ==="
-      cd libretro-stella/
+      cd libretro-${CORENAME}/
       cd jni
       if [ -z "${NOCLEAN}" ]; then
          ndk-build clean APP_ABI="armeabi-v7a mips x86"
@@ -311,10 +327,11 @@ build_libretro_stella()
 
 build_libretro_genplus()
 {
+   CORENAME="genplus"
    cd $BASE_DIR
-   if [ -d "libretro-genplus" ]; then
+   if [ -d "libretro-${CORENAME}" ]; then
       echo "=== Building Genplus GX ==="
-      cd libretro-genplus/
+      cd libretro-${CORENAME}/
       cd libretro/jni
       if [ -z "${NOCLEAN}" ]; then
          ndk-build clean APP_ABI="armeabi-v7a mips x86"
@@ -330,10 +347,11 @@ build_libretro_genplus()
 
 build_libretro_fba_full()
 {
+   CORENAME="fba"
    cd $BASE_DIR
-   if [ -d "libretro-fba" ]; then
+   if [ -d "libretro-${CORENAME}" ]; then
       echo "=== Building Final Burn Alpha ==="
-      cd libretro-fba
+      cd libretro-${CORENAME}
       cd svn-current/trunk
       cd projectfiles/libretro-android/jni
       if [ -z "${NOCLEAN}" ]; then
@@ -350,10 +368,11 @@ build_libretro_fba_full()
 
 build_libretro_vbam()
 {
+   CORENAME="vbam"
    cd $BASE_DIR
-   if [ -d "libretro-vbam" ]; then
+   if [ -d "libretro-${CORENAME}" ]; then
       echo '=== Building VBA-M ==='
-      cd libretro-vbam/
+      cd libretro-${CORENAME}/
       cd src/libretro/jni
       if [ -z "${NOCLEAN}" ]; then
          ndk-build clean APP_ABI="armeabi-v7a mips x86"
@@ -369,10 +388,11 @@ build_libretro_vbam()
 
 build_libretro_vba_next()
 {
+   CORENAME="vba-next"
    cd $BASE_DIR
-   if [ -d "libretro-vba-next" ]; then
+   if [ -d "libretro-${CORENAME}" ]; then
       echo "=== Building VBA-Next ==="
-      cd libretro-vba-next/
+      cd libretro-${CORENAME}/
       cd libretro/jni
       if [ -z "${NOCLEAN}" ]; then
          ndk-build clean APP_ABI="armeabi-v7a mips x86"
@@ -388,10 +408,11 @@ build_libretro_vba_next()
 
 build_libretro_fceumm()
 {
+   CORENAME="fceumm"
    cd $BASE_DIR
-   if [ -d "libretro-fceumm" ]; then
+   if [ -d "libretro-${CORENAME}" ]; then
       echo "=== Building FCEUmm ==="
-      cd libretro-fceumm
+      cd libretro-${CORENAME}
       cd src/drivers/libretro/jni
       if [ -z "${NOCLEAN}" ]; then
          ndk-build clean APP_ABI="armeabi-v7a mips x86"
@@ -407,11 +428,12 @@ build_libretro_fceumm()
 
 build_libretro_gambatte()
 {
+   CORENAME="gambatte"
    cd $BASE_DIR
-   if [ -d "libretro-gambatte" ]; then
+   if [ -d "libretro-${CORENAME}" ]; then
       echo "=== Building Gambatte ==="
-      cd libretro-gambatte/libgambatte
-      cd libretro/jni
+      cd libretro-${CORENAME}/
+      cd libgambatte/libretro/jni
       if [ -z "${NOCLEAN}" ]; then
          ndk-build clean APP_ABI="armeabi-v7a mips x86"
       fi
@@ -426,10 +448,11 @@ build_libretro_gambatte()
 
 build_libretro_nx()
 {
+   CORENAME="nx"
    cd $BASE_DIR
-   if [ -d "libretro-nx" ]; then
+   if [ -d "libretro-${CORENAME}" ]; then
       echo "=== Building NXEngine ==="
-      cd libretro-nx
+      cd libretro-${CORENAME}
       cd jni
       if [ -z "${NOCLEAN}" ]; then
          ndk-build clean APP_ABI="armeabi-v7a mips x86"
@@ -445,10 +468,11 @@ build_libretro_nx()
 
 build_libretro_prboom()
 {
+   CORENAME="prboom"
    cd $BASE_DIR
-   if [ -d "libretro-prboom" ]; then
+   if [ -d "libretro-${CORENAME}" ]; then
       echo "=== Building PRBoom ==="
-      cd libretro-prboom
+      cd libretro-${CORENAME}
       cd libretro/jni
       if [ -z "${NOCLEAN}" ]; then
          ndk-build clean APP_ABI="armeabi-v7a mips x86"
@@ -464,10 +488,11 @@ build_libretro_prboom()
 
 build_libretro_dinothawr()
 {
+   CORENAME="dinothawr"
    cd $BASE_DIR
-   if [ -d "libretro-dinothawr" ]; then
+   if [ -d "libretro-${CORENAME}" ]; then
       echo "=== Building Dinothawr ==="
-      cd libretro-dinothawr
+      cd libretro-${CORENAME}
       cd android/eclipse/jni
       if [ -z "${NOCLEAN}" ]; then
          ndk-build clean APP_ABI="armeabi-v7a mips x86"
@@ -483,11 +508,12 @@ build_libretro_dinothawr()
 
 build_libretro_nestopia()
 {
+   CORENAME="nestopia"
    cd $BASE_DIR
-   if [ -d "libretro-nestopia" ]; then
+   if [ -d "libretro-${CORENAME}" ]; then
       echo "=== Building Nestopia ==="
-      cd libretro-nestopia/libretro
-      cd jni
+      cd libretro-${CORENAME}/
+      cd libretro/jni
       if [ -z "${NOCLEAN}" ]; then
          ndk-build clean APP_ABI="armeabi-v7a mips x86"
       fi
@@ -502,11 +528,12 @@ build_libretro_nestopia()
 
 build_libretro_pcsx_rearmed()
 {
+   CORENAME="pcsx-rearmed"
    cd $BASE_DIR
    pwd
-   if [ -d "libretro-pcsx-rearmed" ]; then
+   if [ -d "libretro-${CORENAME}" ]; then
       echo "=== Building PCSX ReARMed ==="
-      cd libretro-pcsx-rearmed
+      cd libretro-${CORENAME}
       cd jni
       #ndk-build clean APP_ABI=armeabi-v7a
       #ndk-build -j$JOBS NO_NEON=1 APP_ABI=armeabi-v7a
@@ -523,10 +550,11 @@ build_libretro_pcsx_rearmed()
 
 build_libretro_tyrquake()
 {
+   CORENAME="tyrquake"
    cd $BASE_DIR
-   if [ -d "libretro-tyrquake" ]; then
+   if [ -d "libretro-${CORENAME}" ]; then
       echo "=== Building TyrQuake ==="
-      cd libretro-tyrquake
+      cd libretro-${CORENAME}
       cd libretro/jni
       if [ -z "${NOCLEAN}" ]; then
          ndk-build clean APP_ABI="armeabi-v7a mips x86"
@@ -542,10 +570,11 @@ build_libretro_tyrquake()
 
 build_libretro_modelviewer()
 {
+   CORENAME="gl-modelviewer"
    cd $BASE_DIR
-   if [ -d "libretro-gl-modelviewer" ]; then
+   if [ -d "libretro-${CORENAME}" ]; then
       echo "=== Building Modelviewer (GL) ==="
-      cd libretro-gl-modelviewer
+      cd libretro-${CORENAME}
       cd jni
       if [ -z "${NOCLEAN}" ]; then
          ndk-build clean APP_ABI="armeabi-v7a mips x86"
@@ -561,10 +590,11 @@ build_libretro_modelviewer()
 
 build_libretro_modelviewer_location()
 {
+   CORENAME="gl-modelviewer-location"
    cd $BASE_DIR
-   if [ -d "libretro-gl-modelviewer-location" ]; then
+   if [ -d "libretro-${CORENAME}" ]; then
       echo "=== Building Modelviewer Location (GL) ==="
-      cd libretro-gl-modelviewer-location
+      cd libretro-${CORENAME}
       cd jni
       if [ -z "${NOCLEAN}" ]; then
          ndk-build clean APP_ABI="armeabi-v7a mips x86"
@@ -580,10 +610,11 @@ build_libretro_modelviewer_location()
 
 build_libretro_instancingviewer()
 {
+   CORENAME="gl-instancingviewer"
    cd $BASE_DIR
-   if [ -d "libretro-gl-instancingviewer" ]; then
+   if [ -d "libretro-${CORENAME}" ]; then
       echo "=== Building InstancingViewer (GL) ==="
-      cd libretro-gl-instancingviewer
+      cd libretro-${CORENAME}
       cd jni
       if [ -z "${NOCLEAN}" ]; then
          ndk-build clean APP_ABI="armeabi-v7a mips x86"
@@ -599,10 +630,11 @@ build_libretro_instancingviewer()
 
 build_libretro_instancingviewer_camera()
 {
+   CORENAME="gl-instancingviewer-camera"
    cd $BASE_DIR
-   if [ -d "libretro-gl-instancingviewer-camera" ]; then
+   if [ -d "libretro-${CORENAME}" ]; then
       echo "=== Building InstancingViewer Camera (GL) ==="
-      cd libretro-gl-instancingviewer-camera
+      cd libretro-${CORENAME}
       cd jni
       if [ -z "${NOCLEAN}" ]; then
          ndk-build clean APP_ABI="armeabi-v7a mips x86"
@@ -616,11 +648,10 @@ build_libretro_instancingviewer_camera()
    fi
 }
 
-CORENAME="3dengine"
-
 build_libretro_3dengine() {
+   CORENAME="3dengine"
    cd "${BASE_DIR}"
-   if [ -d 'libretro-3dengine' ]; then
+   if [ -d 'libretro-${CORENAME}' ]; then
       echo '=== Building 3DEngine (GL) ==='
       cd libretro-${CORENAME}
       cd jni
@@ -639,10 +670,11 @@ build_libretro_3dengine() {
 
 build_libretro_scenewalker()
 {
+   CORENAME="gl-scenewalker"
    cd $BASE_DIR
-   if [ -d "libretro-gl-scenewalker" ]; then
+   if [ -d "libretro-${CORENAME}" ]; then
       echo "=== Building SceneWalker (GL) ==="
-      cd libretro-gl-scenewalker
+      cd libretro-${CORENAME}
       cd jni
       if [ -z "${NOCLEAN}" ]; then
          ndk-build clean APP_ABI="armeabi-v7a mips x86"
@@ -658,10 +690,11 @@ build_libretro_scenewalker()
 
 build_libretro_picodrive()
 {
+   CORENAME="picodrive"
    cd $BASE_DIR
-   if [ -d "libretro-picodrive" ]; then
+   if [ -d "libretro-${CORENAME}" ]; then
       echo "=== Building Picodrive ==="
-      cd libretro-picodrive
+      cd libretro-${CORENAME}
       cd jni
       if [ -z "${NOCLEAN}" ]; then
          ndk-build clean APP_ABI=armeabi-v7a
@@ -675,10 +708,11 @@ build_libretro_picodrive()
 
 build_libretro_handy()
 {
+   CORENAME="handy"
    cd $BASE_DIR
-   if [ -d "libretro-handy" ]; then
+   if [ -d "libretro-${CORENAME}" ]; then
       echo "=== Building Handy ==="
-      cd libretro-handy
+      cd libretro-${CORENAME}
       cd libretro/jni
       if [ -z "${NOCLEAN}" ]; then
          ndk-build clean APP_ABI="armeabi-v7a mips x86"
@@ -694,11 +728,12 @@ build_libretro_handy()
 
 build_libretro_desmume()
 {
+   CORENAME="desmume"
    cd $BASE_DIR
-   if [ -d "libretro-desmume" ]; then
+   if [ -d "libretro-${CORENAME}" ]; then
       echo "=== Building Desmume ==="
-      cd libretro-desmume/desmume/src/libretro
-      cd jni
+      cd libretro-${CORENAME}/
+      cd desmume/src/libretro/jni
       if [ -z "${NOCLEAN}" ]; then
          ndk-build clean
       fi
@@ -716,10 +751,11 @@ build_libretro_desmume()
 
 build_libretro_quicknes()
 {
+   CORENAME="quicknes"
    cd $BASE_DIR
-   if [ -d "libretro-quicknes" ]; then
+   if [ -d "libretro-${CORENAME}" ]; then
       echo "=== Building QuickNES ==="
-      cd libretro-quicknes
+      cd libretro-${CORENAME}/
       cd libretro/jni
       if [ -z "${NOCLEAN}" ]; then
          ndk-build clean APP_ABI="armeabi-v7a mips x86"
@@ -768,12 +804,13 @@ create_dist_dir()
 
 build_libretro_bsnes()
 {
+   CORENAME="bsnes"
    #TODO - maybe accuracy/balanced cores as well
    cd $BASE_DIR
-   if [ -d "libretro-bsnes" ]; then
+   if [ -d "libretro-${CORENAME}" ]; then
       echo "=== Building bsnes (performance core) ==="
-      cd libretro-bsnes/perf
-      cd target-libretro/jni
+      cd libretro-${CORENAME}/
+      cd perf/target-libretro/jni
       if [ -z "${NOCLEAN}" ]; then
          ndk-build clean APP_ABI="armeabi-v7a x86"
       fi
@@ -787,10 +824,11 @@ build_libretro_bsnes()
 
 build_libretro_mupen64()
 {
+   CORENAME="mupen64plus"
    cd $BASE_DIR
-   if [ -d "libretro-mupen64plus" ]; then
+   if [ -d "libretro-${CORENAME}" ]; then
       echo '=== Building Mupen 64 Plus ==='
-      cd libretro-mupen64plus
+      cd libretro-${CORENAME}/
       cd libretro/jni
       if [ -z "${NOCLEAN}" ]; then
          ndk-build clean APP_ABI="armeabi-v7a x86"
@@ -805,10 +843,11 @@ build_libretro_mupen64()
 
 build_libretro_yabause()
 {
+   CORENAME="yabause"
    cd $BASE_DIR
-   if [ -d "libretro-yabause" ]; then
+   if [ -d "libretro-${CORENAME}" ]; then
       echo '=== Building Yabause ==='
-      cd libretro-yabause
+      cd libretro-${CORENAME}/
       cd libretro/jni
       if [ -z "${NOCLEAN}" ]; then
          ndk-build clean APP_ABI="armeabi-v7a mips x86"
