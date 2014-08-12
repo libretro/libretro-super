@@ -142,9 +142,6 @@ else
    build_libretro_prosystem
    build_libretro_dinothawr
    build_libretro_virtualjaguar
-   
-   #========ONLY OPENGL/ES AWARE PROJECTS BELOW========
-   check_opengl
    build_libretro_modelviewer
    build_libretro_modelviewer_location
    build_libretro_scenewalker
@@ -154,5 +151,4 @@ else
    build_libretro_ffmpeg
    build_libretro_3dengine
    build_libretro_ppsspp
-   #======END ONLY OPENGL/ES AWARE PROJECTS END=========
 fi
