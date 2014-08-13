@@ -1,5 +1,5 @@
 display_name = "Atari ST/STE/TT/Falcon (Hatari)"
-authors = "Nicolas Pomarède"
+authors = "Nicolas PomarÃ¨de"
 supported_extensions = "st|msa|zip"
 corename = "Hatari"
 manufacturer = "Atari"
