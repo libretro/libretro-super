@@ -80,8 +80,8 @@ else
 fi
 
 fetch_project "$REPO_BASE/libretro/RetroArch.git" "retroarch" "libretro/RetroArch"
-
-fetch_project "$REPO_BASE/libretro/common-overlays.git" "libretro-overlays" "libretro/common-overlays"
+fetch_project "$REPO_BASE/libretro/common-shaders.git" "retroarch/media/shaders" "libretro/common-shaders"
+fetch_project "$REPO_BASE/libretro/common-overlays.git" "retroarch/media/overlays" "libretro/common-overlays"
 fetch_project_bsnes "git://gitorious.org/bsnes/bsnes.git --branch libretro" "libretro-bsnes" "libretro/bSNES"
 fetch_project "$REPO_BASE/libretro/snes9x.git" "libretro-s9x" "libretro/SNES9x"
 fetch_project "$REPO_BASE/libretro/snes9x-next.git" "libretro-s9x-next" "libretro/SNES9x-Next"
