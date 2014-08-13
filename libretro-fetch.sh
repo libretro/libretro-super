@@ -50,10 +50,35 @@ fetch_project()
    echo "=== Fetched ==="
 }
 
-fetch_project_no_pull()
+fetch_subproject()
 {
-   echo "=== Fetching $3 ==="
-   git clone "$1" "$2"
+   echo "=== Fetching $4 ==="
+   cd "$2"
+   if [ -d "$3" ]; then
+      cd "$3"
+      git pull
+      cd ..
+   else
+      git clone "$1" "$3"
+   fi
+   cd ..
+   echo "=== Fetched ==="
+}
+
+fetch_subprojects()
+{
+   echo "=== Fetching $5 ==="
+   cd "$2"
+   cd "$3"
+   if [ -d "$4" ]; then
+      cd "$4"
+      git pull
+      cd ..
+   else
+      git clone "$1" "$4"
+   fi
+   cd ..
+   cd ..
    echo "=== Fetched ==="
 }
 
@@ -80,8 +105,9 @@ else
 fi
 
 fetch_project "$REPO_BASE/libretro/RetroArch.git" "retroarch" "libretro/RetroArch"
-fetch_project "$REPO_BASE/libretro/common-shaders.git" "retroarch/media/shaders" "libretro/common-shaders"
-fetch_project "$REPO_BASE/libretro/common-overlays.git" "retroarch/media/overlays" "libretro/common-overlays"
+fetch_subprojects "$REPO_BASE/libretro/common-shaders.git" "retroarch" "media" "shaders" "libretro/common-shaders"
+fetch_subprojects "$REPO_BASE/libretro/common-overlays.git" "retroarch" "media" "overlays" "libretro/common-overlays"
+fetch_subprojects "$REPO_BASE/libretro/retroarch-assets.git" "retroarch" "media" "assets" "libretro/retroarch-assets"
 fetch_project_bsnes "git://gitorious.org/bsnes/bsnes.git --branch libretro" "libretro-bsnes" "libretro/bSNES"
 fetch_project "$REPO_BASE/libretro/snes9x.git" "libretro-s9x" "libretro/SNES9x"
 fetch_project "$REPO_BASE/libretro/snes9x-next.git" "libretro-s9x-next" "libretro/SNES9x-Next"
@@ -142,6 +168,6 @@ fetch_project "$REPO_BASE/libretro/libretro-vecx.git" "libretro-vecx" "libretro/
 fetch_project "$REPO_BASE/libretro/retroarch-joypad-autoconfig.git" "libretro-joypad-autoconfig" "libretro/joypad-autoconfig"
 fetch_project "$REPO_BASE/libretro/libretro-manifest.git" "libretro-manifest" "libretro/libretro-manifest"
 fetch_project "$REPO_BASE/libretro/libretro-ppsspp.git" "libretro-ppsspp" "libretro/ppsspp"
-fetch_project_no_pull "$REPO_BASE/libretro/ppsspp-native.git" "libretro-ppsspp/native" "libretro/ppsspp/native"
-fetch_project_no_pull "$REPO_BASE/libretro/ppsspp-ffmpeg.git" "libretro-ppsspp/ffmpeg" "libretro/ppsspp/ffmpeg"
+fetch_subproject "$REPO_BASE/libretro/ppsspp-native.git" "libretro-ppsspp" "native" "libretro/ppsspp/native"
+fetch_subproject "$REPO_BASE/libretro/ppsspp-ffmpeg.git" "libretro-ppsspp" "ffmpeg" "libretro/ppsspp/ffmpeg"
 fetch_project "$REPO_BASE/libretro/prosystem-libretro.git" "libretro-prosystem" "libretro/prosystem"
