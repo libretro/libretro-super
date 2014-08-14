@@ -1,5 +1,5 @@
 display_name = "Cave Story (NXEngine)"
-authors = "Caithlin Shaw"
+authors = "Caitlin Shaw"
 supported_extensions = "exe"
 corename = "NXEngine"
 systemname = "Cave Story game engine"
