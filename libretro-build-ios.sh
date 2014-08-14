@@ -79,4 +79,5 @@ else
    build_libretro_prosystem
    build_libretro_dinothawr
    build_libretro_virtualjaguar
+   build_libretro_o2em
 fi
