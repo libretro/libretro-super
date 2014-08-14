@@ -371,7 +371,7 @@ build_libretro_vbam()
    CORENAME="vbam"
    cd $BASE_DIR
    if [ -d "libretro-${CORENAME}" ]; then
-      echo '=== Building ${CORENAME} ==='
+      echo "=== Building ${CORENAME} ==="
       cd libretro-${CORENAME}/
       cd src/libretro/jni
       if [ -z "${NOCLEAN}" ]; then
@@ -382,7 +382,7 @@ build_libretro_vbam()
       cp ../libs/mips/libretro.${FORMAT_EXT} $RARCH_DIST_DIR/mips/vbam_libretro${FORMAT}.${FORMAT_EXT}
       cp ../libs/x86/libretro.${FORMAT_EXT} $RARCH_DIST_DIR/x86/vbam_libretro${FORMAT}.${FORMAT_EXT}
    else
-      echo '${CORENAME} not fetched, skipping ...'
+      echo "${CORENAME} not fetched, skipping ..."
    fi
 }
 
@@ -652,7 +652,7 @@ build_libretro_3dengine() {
    CORENAME="3dengine"
    cd "${BASE_DIR}"
    if [ -d 'libretro-${CORENAME}' ]; then
-      echo '=== Building ${CORENAME} ==='
+      echo "=== Building ${CORENAME} ==="
       cd libretro-${CORENAME}
       cd jni
 
@@ -664,7 +664,7 @@ build_libretro_3dengine() {
       cp ../libs/mips/libretro.${FORMAT_EXT} $RARCH_DIST_DIR/mips/${CORENAME}_libretro${FORMAT}.${FORMAT_EXT}
       cp ../libs/x86/libretro.${FORMAT_EXT} $RARCH_DIST_DIR/x86/${CORENAME}_libretro${FORMAT}.${FORMAT_EXT}
    else
-      echo '${CORENAME} not fetched, skipping ...'
+      echo "${CORENAME} not fetched, skipping ..."
    fi
 }
 
@@ -827,7 +827,7 @@ build_libretro_mupen64()
    CORENAME="mupen64plus"
    cd $BASE_DIR
    if [ -d "libretro-${CORENAME}" ]; then
-      echo '=== Building ${CORENAME} ==='
+      echo "=== Building ${CORENAME} =="
       cd libretro-${CORENAME}/
       cd libretro/jni
       if [ -z "${NOCLEAN}" ]; then
@@ -837,7 +837,7 @@ build_libretro_mupen64()
       cp ../libs/armeabi-v7a/libretro_mupen64plus.${FORMAT_EXT} $RARCH_DIST_DIR/armeabi-v7a/mupen64plus_libretro${FORMAT}.${FORMAT_EXT}
       cp ../libs/x86/libretro_mupen64plus.${FORMAT_EXT} $RARCH_DIST_DIR/x86/mupen64plus_libretro${FORMAT}.${FORMAT_EXT}
    else
-      echo '${CORENAME} not fetched, skipping ...'
+      echo "${CORENAME} not fetched, skipping ..."
    fi
 }
 
@@ -846,7 +846,7 @@ build_libretro_yabause()
    CORENAME="yabause"
    cd $BASE_DIR
    if [ -d "libretro-${CORENAME}" ]; then
-      echo '=== Building ${CORENAME} ==='
+      echo "=== Building ${CORENAME} ==="
       cd libretro-${CORENAME}/
       cd libretro/jni
       if [ -z "${NOCLEAN}" ]; then
@@ -857,7 +857,7 @@ build_libretro_yabause()
       cp ../libs/mips/libretro.${FORMAT_EXT} "$RARCH_DIST_DIR"/mips/yabause_libretro${FORMAT}.${FORMAT_EXT}
       cp ../libs/x86/libretro.${FORMAT_EXT} "$RARCH_DIST_DIR"/x86/yabause_libretro${FORMAT}.${FORMAT_EXT}
    else
-      echo '${CORENAME} not fetched, skipping ...'
+      echo "${CORENAME} not fetched, skipping ..."
    fi
 }
 
