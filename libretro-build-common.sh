@@ -513,6 +513,22 @@ build_libretro_prosystem() {
    fi
 }
 
+build_libretro_o2em() {
+   cd "${BASE_DIR}"
+   if [ -d 'libretro-o2em' ]; then
+      echo '=== Building o2em ==='
+      cd libretro-o2em/
+
+      if [ -z "${NOCLEAN}" ]; then
+         "${MAKE}" -f Makefile platform="${FORMAT_COMPILER_TARGET}" ${COMPILER} "-j${JOBS}" clean || die 'Failed to build o2em'
+      fi
+      "${MAKE}" -f Makefile platform="${FORMAT_COMPILER_TARGET}" ${COMPILER} "-j${JOBS}" || die 'Failed to build o2em'
+      cp "o2em_libretro${FORMAT}.${FORMAT_EXT}" "${RARCH_DIST_DIR}"
+   else
+      echo 'o2em not fetched, skipping ...'
+   fi
+}
+
 build_libretro_virtualjaguar() {
    cd "${BASE_DIR}"
    if [ -d 'libretro-virtualjaguar' ]; then
