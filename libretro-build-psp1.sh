@@ -48,4 +48,5 @@ else
    build_libretro_vecx
    build_libretro_tgbdual
    build_libretro_prosystem
+   build_libretro_o2em
 fi
