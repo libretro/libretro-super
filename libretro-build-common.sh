@@ -74,6 +74,8 @@ build_libretro_ffmpeg() {
    else
       echo 'FFmpeg not fetched, skipping ...'
    fi
+   # reset check_opengl
+   export FORMAT_COMPILER_TARGET="${FORMAT_COMPILER_TARGET}"
 }
 
 build_libretro_fba_full() {
@@ -905,6 +907,8 @@ build_libretro_modelviewer() {
    else
       echo 'ModelViewer not fetched, skipping ...'
    fi
+   # reset check_opengl
+   export FORMAT_COMPILER_TARGET="${FORMAT_COMPILER_TARGET}"
 }
 
 build_libretro_modelviewer_location() {
@@ -922,6 +926,8 @@ build_libretro_modelviewer_location() {
    else
       echo 'ModelViewer Location not fetched, skipping ...'
    fi
+   # reset check_opengl
+   export FORMAT_COMPILER_TARGET="${FORMAT_COMPILER_TARGET}"
 }
 
 build_libretro_3dengine() {
@@ -939,6 +945,8 @@ build_libretro_3dengine() {
    else
       echo '3DEngine not fetched, skipping ...'
    fi
+   # reset check_opengl
+   export FORMAT_COMPILER_TARGET="${FORMAT_COMPILER_TARGET}"
 }
 
 build_libretro_scenewalker() {
@@ -956,6 +964,8 @@ build_libretro_scenewalker() {
    else
       echo 'SceneWalker not fetched, skipping ...'
    fi
+   # reset check_opengl
+   export FORMAT_COMPILER_TARGET="${FORMAT_COMPILER_TARGET}"
 }
 
 build_libretro_instancingviewer() {
@@ -973,6 +983,8 @@ build_libretro_instancingviewer() {
    else
       echo 'InstancingViewer not fetched, skipping ...'
    fi
+   # reset check_opengl
+   export FORMAT_COMPILER_TARGET="${FORMAT_COMPILER_TARGET}"
 }
 
 build_libretro_instancingviewer_camera() {
@@ -990,6 +1002,8 @@ build_libretro_instancingviewer_camera() {
    else
       echo 'InstancingViewer Camera not fetched, skipping ...'
    fi
+   # reset check_opengl
+   export FORMAT_COMPILER_TARGET="${FORMAT_COMPILER_TARGET}"
 }
 
 build_libretro_scummvm() {
@@ -1163,6 +1177,8 @@ build_libretro_mupen64() {
    else
       echo 'Mupen64 Plus not fetched, skipping ...'
    fi
+   # reset check_opengl
+   export FORMAT_COMPILER_TARGET="${FORMAT_COMPILER_TARGET}"
 }
 
 build_libretro_picodrive() {
@@ -1196,6 +1212,8 @@ build_libretro_ppsspp() {
    else
       echo 'PPSSPP not fetched, skipping ...'
    fi
+   # reset check_opengl
+   export FORMAT_COMPILER_TARGET="${FORMAT_COMPILER_TARGET}"
 }
 
 build_libretro_yabause() {
