@@ -117,4 +117,4 @@ fi
 export NDK_GL_HEADER_VER = android-18
 
 # android version target if GLES is not in use
-export NDK_GL_HEADER_VER = android-9
+export NDK_NO_GL_HEADER_VER = android-9
