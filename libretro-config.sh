@@ -112,3 +112,9 @@ fi
 
 #uncomment to define NDK standalone toolchain for x86
 #export NDK_ROOT_DIR_X86 =
+
+# android version target if GLES is in use
+export NDK_GL_HEADER_VER = android-18
+
+# android version target if GLES is not in use
+export NDK_GL_HEADER_VER = android-9
