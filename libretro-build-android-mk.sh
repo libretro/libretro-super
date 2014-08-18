@@ -2,6 +2,9 @@
 
 . ./libretro-config.sh
 
+#split TARGET_ABI string into an array we can iterate over
+IFS=' ' read -ra ABIS <<< "$TARGET_ABIS"
+
 # BSDs don't have readlink -f
 read_link()
 {
@@ -45,12 +48,12 @@ build_libretro_beetle_bsnes()
       cd jni
       echo "=== Building ${CORENAME} ==="
       if [ -z "${NOCLEAN}" ]; then
-         ndk-build clean APP_ABI="armeabi-v7a mips x86" || die "Failed to clean ${CORENAME}"
+         ndk-build clean APP_ABI=${TARGET_ABIS} || die "Failed to clean ${CORENAME}"
       fi
-      ndk-build -j$JOBS APP_ABI="armeabi-v7a mips x86" || die "Failed to build ${CORENAME}"
-      cp ../libs/armeabi-v7a/libretro.${FORMAT_EXT} $RARCH_DIST_DIR/armeabi-v7a/mednafen_bsnes_libretro${FORMAT}.${FORMAT_EXT}
-      cp ../libs/mips/libretro.${FORMAT_EXT} $RARCH_DIST_DIR/mips/mednafen_bsnes_libretro${FORMAT}.${FORMAT_EXT}
-      cp ../libs/x86/libretro.${FORMAT_EXT} $RARCH_DIST_DIR/x86/mednafen_bsnes_libretro${FORMAT}.${FORMAT_EXT}
+      ndk-build -j$JOBS APP_ABI=${TARGET_ABIS} || die "Failed to build ${CORENAME}"
+      for a in "${ABIS[@]}"; do
+         cp ../libs/${a}/libretro.${FORMAT_EXT} $RARCH_DIST_DIR/${a}/mednafen_bsnes_libretro${FORMAT}.${FORMAT_EXT}
+      done
    else
       echo "${CORENAME} not fetched, skipping ..."
    fi
@@ -66,12 +69,12 @@ build_libretro_beetle_lynx()
       cd jni
       echo "=== Building ${CORENAME} ==="
       if [ -z "${NOCLEAN}" ]; then
-         ndk-build clean APP_ABI="armeabi-v7a mips x86" || die "Failed to clean ${CORENAME}"
+         ndk-build clean APP_ABI=${TARGET_ABIS} || die "Failed to clean ${CORENAME}"
       fi
-      ndk-build -j$JOBS APP_ABI="armeabi-v7a mips x86" || die "Failed to build ${CORENAME}"
-      cp ../libs/armeabi-v7a/libretro.${FORMAT_EXT} $RARCH_DIST_DIR/armeabi-v7a/mednafen_lynx_libretro${FORMAT}.${FORMAT_EXT}
-      cp ../libs/mips/libretro.${FORMAT_EXT} $RARCH_DIST_DIR/mips/mednafen_lynx_libretro${FORMAT}.${FORMAT_EXT}
-      cp ../libs/x86/libretro.${FORMAT_EXT} $RARCH_DIST_DIR/x86/mednafen_lynx_libretro${FORMAT}.${FORMAT_EXT}
+      ndk-build -j$JOBS APP_ABI=${TARGET_ABIS} || die "Failed to build ${CORENAME}"
+      for a in "${ABIS[@]}"; do
+         cp ../libs/${a}/libretro.${FORMAT_EXT} $RARCH_DIST_DIR/${a}/mednafen_lynx_libretro${FORMAT}.${FORMAT_EXT}
+      done
    else
       echo "${CORENAME} not fetched, skipping ..."
    fi
@@ -87,12 +90,12 @@ build_libretro_beetle_gba()
       cd jni
       echo "=== Building ${CORENAME} ==="
       if [ -z "${NOCLEAN}" ]; then
-         ndk-build clean APP_ABI="armeabi-v7a mips x86" || die "Failed to clean ${CORENAME}"
+         ndk-build clean APP_ABI=${TARGET_ABIS} || die "Failed to clean ${CORENAME}"
       fi
-      ndk-build -j$JOBS APP_ABI="armeabi-v7a mips x86" || die "Failed to build ${CORENAME}"
-      cp ../libs/armeabi-v7a/libretro.${FORMAT_EXT} $RARCH_DIST_DIR/armeabi-v7a/mednafen_gba_libretro${FORMAT}.${FORMAT_EXT}
-      cp ../libs/mips/libretro.${FORMAT_EXT} $RARCH_DIST_DIR/mips/mednafen_gba_libretro${FORMAT}.${FORMAT_EXT}
-      cp ../libs/x86/libretro.${FORMAT_EXT} $RARCH_DIST_DIR/x86/mednafen_gba_libretro${FORMAT}.${FORMAT_EXT}
+      ndk-build -j$JOBS APP_ABI=${TARGET_ABIS} || die "Failed to build ${CORENAME}"
+      for a in "${ABIS[@]}"; do
+         cp ../libs/${a}/libretro.${FORMAT_EXT} $RARCH_DIST_DIR/${a}/mednafen_gba_libretro${FORMAT}.${FORMAT_EXT}
+      done
    else
       echo "${CORENAME} not fetched, skipping ..."
    fi
@@ -108,12 +111,12 @@ build_libretro_beetle_ngp()
       cd jni
       echo "=== Building ${CORENAME} ==="
       if [ -z "${NOCLEAN}" ]; then
-         ndk-build clean APP_ABI="armeabi-v7a mips x86" || die "Failed to clean ${CORENAME}"
+         ndk-build clean APP_ABI=${TARGET_ABIS} || die "Failed to clean ${CORENAME}"
       fi
-      ndk-build -j$JOBS APP_ABI="armeabi-v7a mips x86" || die "Failed to build ${CORENAME}"
-      cp ../libs/armeabi-v7a/libretro.${FORMAT_EXT} $RARCH_DIST_DIR/armeabi-v7a/mednafen_ngp_libretro${FORMAT}.${FORMAT_EXT}
-      cp ../libs/mips/libretro.${FORMAT_EXT} $RARCH_DIST_DIR/mips/mednafen_ngp_libretro${FORMAT}.${FORMAT_EXT}
-      cp ../libs/x86/libretro.${FORMAT_EXT} $RARCH_DIST_DIR/x86/mednafen_ngp_libretro${FORMAT}.${FORMAT_EXT}
+      ndk-build -j$JOBS APP_ABI=${TARGET_ABIS} || die "Failed to build ${CORENAME}"
+      for a in "${ABIS[@]}"; do
+         cp ../libs/${a}/libretro.${FORMAT_EXT} $RARCH_DIST_DIR/${a}/mednafen_ngp_libretro${FORMAT}.${FORMAT_EXT}
+      done
    else
       echo "${CORENAME} not fetched, skipping ..."
    fi
@@ -129,12 +132,12 @@ build_libretro_beetle_wswan()
       cd jni
       echo "=== Building ${CORENAME} ==="
       if [ -z "${NOCLEAN}" ]; then
-         ndk-build clean APP_ABI="armeabi-v7a mips x86" || die "Failed to clean ${CORENAME}"
+         ndk-build clean APP_ABI=${TARGET_ABIS} || die "Failed to clean ${CORENAME}"
       fi
-      ndk-build -j$JOBS APP_ABI="armeabi-v7a mips x86" || die "Failed to build ${CORENAME}"
-      cp ../libs/armeabi-v7a/libretro.${FORMAT_EXT} $RARCH_DIST_DIR/armeabi-v7a/mednafen_wswan_libretro${FORMAT}.${FORMAT_EXT}
-      cp ../libs/mips/libretro.${FORMAT_EXT} $RARCH_DIST_DIR/mips/mednafen_wswan_libretro${FORMAT}.${FORMAT_EXT}
-      cp ../libs/x86/libretro.${FORMAT_EXT} $RARCH_DIST_DIR/x86/mednafen_wswan_libretro${FORMAT}.${FORMAT_EXT}
+      ndk-build -j$JOBS APP_ABI=${TARGET_ABIS} || die "Failed to build ${CORENAME}"
+      for a in "${ABIS[@]}"; do
+         cp ../libs/${a}/libretro.${FORMAT_EXT} $RARCH_DIST_DIR/${a}/mednafen_wswan_libretro${FORMAT}.${FORMAT_EXT}
+      done
    else
       echo "${CORENAME} not fetched, skipping ..."
    fi
@@ -150,12 +153,12 @@ build_libretro_beetle_psx()
       cd jni
       echo "=== Building ${CORENAME} ==="
       if [ -z "${NOCLEAN}" ]; then
-         ndk-build clean APP_ABI="armeabi-v7a mips x86" || die "Failed to clean ${CORENAME}"
+         ndk-build clean APP_ABI=${TARGET_ABIS} || die "Failed to clean ${CORENAME}"
       fi
-      ndk-build -j$JOBS APP_ABI="armeabi-v7a mips x86" || die "Failed to build ${CORENAME}"
-      cp ../libs/armeabi-v7a/libretro.${FORMAT_EXT} $RARCH_DIST_DIR/armeabi-v7a/mednafen_psx_libretro${FORMAT}.${FORMAT_EXT}
-      cp ../libs/mips/libretro.${FORMAT_EXT} $RARCH_DIST_DIR/mips/mednafen_psx_libretro${FORMAT}.${FORMAT_EXT}
-      cp ../libs/x86/libretro.${FORMAT_EXT} $RARCH_DIST_DIR/x86/mednafen_psx_libretro${FORMAT}.${FORMAT_EXT}
+      ndk-build -j$JOBS APP_ABI=${TARGET_ABIS} || die "Failed to build ${CORENAME}"
+      for a in "${ABIS[@]}"; do
+         cp ../libs/${a}/libretro.${FORMAT_EXT} $RARCH_DIST_DIR/${a}/mednafen_psx_libretro${FORMAT}.${FORMAT_EXT}
+      done
    else
       echo "${CORENAME} not fetched, skipping ..."
    fi
@@ -171,12 +174,12 @@ build_libretro_beetle_pcfx()
       cd jni
       echo "=== Building ${CORENAME} ==="
       if [ -z "${NOCLEAN}" ]; then
-         ndk-build clean APP_ABI="armeabi-v7a mips x86" || die "Failed to clean ${CORENAME}"
+         ndk-build clean APP_ABI=${TARGET_ABIS} || die "Failed to clean ${CORENAME}"
       fi
-      ndk-build -j$JOBS APP_ABI="armeabi-v7a mips x86" || die "Failed to build ${CORENAME}"
-      cp ../libs/armeabi-v7a/libretro.${FORMAT_EXT} $RARCH_DIST_DIR/armeabi-v7a/mednafen_pcfx_libretro${FORMAT}.${FORMAT_EXT}
-      cp ../libs/mips/libretro.${FORMAT_EXT} $RARCH_DIST_DIR/mips/mednafen_pcfx_libretro${FORMAT}.${FORMAT_EXT}
-      cp ../libs/x86/libretro.${FORMAT_EXT} $RARCH_DIST_DIR/x86/mednafen_pcfx_libretro${FORMAT}.${FORMAT_EXT}
+      ndk-build -j$JOBS APP_ABI=${TARGET_ABIS} || die "Failed to build ${CORENAME}"
+      for a in "${ABIS[@]}"; do
+         cp ../libs/${a}/libretro.${FORMAT_EXT} $RARCH_DIST_DIR/${a}/mednafen_pcfx_libretro${FORMAT}.${FORMAT_EXT}
+      done
    else
       echo "${CORENAME} not fetched, skipping ..."
    fi
@@ -192,12 +195,12 @@ build_libretro_beetle_vb()
       cd jni
       echo "=== Building ${CORENAME} ==="
       if [ -z "${NOCLEAN}" ]; then
-         ndk-build clean APP_ABI="armeabi-v7a mips x86" || die "Failed to clean ${CORENAME}"
+         ndk-build clean APP_ABI=${TARGET_ABIS} || die "Failed to clean ${CORENAME}"
       fi
-      ndk-build -j$JOBS APP_ABI="armeabi-v7a mips x86" || die "Failed to build ${CORENAME}"
-      cp ../libs/armeabi-v7a/libretro.${FORMAT_EXT} $RARCH_DIST_DIR/armeabi-v7a/mednafen_vb_libretro${FORMAT}.${FORMAT_EXT}
-      cp ../libs/mips/libretro.${FORMAT_EXT} $RARCH_DIST_DIR/mips/mednafen_vb_libretro${FORMAT}.${FORMAT_EXT}
-      cp ../libs/x86/libretro.${FORMAT_EXT} $RARCH_DIST_DIR/x86/mednafen_vb_libretro${FORMAT}.${FORMAT_EXT}
+      ndk-build -j$JOBS APP_ABI=${TARGET_ABIS} || die "Failed to build ${CORENAME}"
+      for a in "${ABIS[@]}"; do
+         cp ../libs/${a}/libretro.${FORMAT_EXT} $RARCH_DIST_DIR/${a}/mednafen_vb_libretro${FORMAT}.${FORMAT_EXT}
+      done
    else
       echo "${CORENAME} not fetched, skipping ..."
    fi
@@ -213,12 +216,12 @@ build_libretro_beetle_pce_fast()
       cd jni
       echo "=== Building ${CORENAME} ==="
       if [ -z "${NOCLEAN}" ]; then
-         ndk-build clean APP_ABI="armeabi-v7a mips x86" || die "Failed to clean ${CORENAME}"
+         ndk-build clean APP_ABI=${TARGET_ABIS} || die "Failed to clean ${CORENAME}"
       fi
-      ndk-build -j$JOBS APP_ABI="armeabi-v7a mips x86" || die "Failed to build ${CORENAME}"
-      cp ../libs/armeabi-v7a/libretro.${FORMAT_EXT} $RARCH_DIST_DIR/armeabi-v7a/mednafen_pce_fast_libretro${FORMAT}.${FORMAT_EXT}
-      cp ../libs/mips/libretro.${FORMAT_EXT} $RARCH_DIST_DIR/mips/mednafen_pce_fast_libretro${FORMAT}.${FORMAT_EXT}
-      cp ../libs/x86/libretro.${FORMAT_EXT} $RARCH_DIST_DIR/x86/mednafen_pce_fast_libretro${FORMAT}.${FORMAT_EXT}
+      ndk-build -j$JOBS APP_ABI=${TARGET_ABIS} || die "Failed to build ${CORENAME}"
+      for a in "${ABIS[@]}"; do
+         cp ../libs/${a}/libretro.${FORMAT_EXT} $RARCH_DIST_DIR/${a}/mednafen_pce_libretro${FORMAT}.${FORMAT_EXT}
+      done
    else
       echo "${CORENAME} not fetched, skipping ..."
    fi
@@ -234,12 +237,12 @@ build_libretro_beetle_supergrafx()
       cd jni
       echo "=== Building ${CORENAME} ==="
       if [ -z "${NOCLEAN}" ]; then
-         ndk-build clean APP_ABI="armeabi-v7a mips x86" || die "Failed to clean ${CORENAME}"
+         ndk-build clean APP_ABI=${TARGET_ABIS} || die "Failed to clean ${CORENAME}"
       fi
-      ndk-build -j$JOBS APP_ABI="armeabi-v7a mips x86" || die "Failed to build ${CORENAME}"
-      cp ../libs/armeabi-v7a/libretro.${FORMAT_EXT} $RARCH_DIST_DIR/armeabi-v7a/mednafen_supergrafx_libretro${FORMAT}.${FORMAT_EXT}
-      cp ../libs/mips/libretro.${FORMAT_EXT} $RARCH_DIST_DIR/mips/mednafen_supergrafx_libretro${FORMAT}.${FORMAT_EXT}
-      cp ../libs/x86/libretro.${FORMAT_EXT} $RARCH_DIST_DIR/x86/mednafen_supergrafx_libretro${FORMAT}.${FORMAT_EXT}
+      ndk-build -j$JOBS APP_ABI=${TARGET_ABIS} || die "Failed to build ${CORENAME}"
+      for a in "${ABIS[@]}"; do
+         cp ../libs/${a}/libretro.${FORMAT_EXT} $RARCH_DIST_DIR/${a}/mednafen_supergrafx_libretro${FORMAT}.${FORMAT_EXT}
+      done
    else
       echo "${CORENAME} not fetched, skipping ..."
    fi
@@ -254,12 +257,12 @@ build_libretro_s9x()
       cd libretro-${CORENAME}/
       cd libretro/jni
       if [ -z "${NOCLEAN}" ]; then
-         ndk-build clean APP_ABI="armeabi-v7a mips x86"
+         ndk-build clean APP_ABI=${TARGET_ABIS} || die "Failed to clean ${CORENAME}"
 	  fi
-      ndk-build -j$JOBS APP_ABI="armeabi-v7a mips x86"
-      cp ../libs/armeabi-v7a/libretro.${FORMAT_EXT} $RARCH_DIST_DIR/armeabi-v7a/snes9x_libretro${FORMAT}.${FORMAT_EXT}
-      cp ../libs/mips/libretro.${FORMAT_EXT} $RARCH_DIST_DIR/mips/snes9x_libretro${FORMAT}.${FORMAT_EXT}
-      cp ../libs/x86/libretro.${FORMAT_EXT} $RARCH_DIST_DIR/x86/snes9x_libretro${FORMAT}.${FORMAT_EXT}
+      ndk-build -j$JOBS APP_ABI=${TARGET_ABIS}
+      for a in "${ABIS[@]}"; do
+         cp ../libs/${a}/libretro.${FORMAT_EXT} $RARCH_DIST_DIR/${a}/snes9x_libretro${FORMAT}.${FORMAT_EXT}
+      done
    else
       echo "${CORENAME} not fetched, skipping ..."
    fi
@@ -274,12 +277,12 @@ build_libretro_s9x_next()
       cd libretro-${CORENAME}/
       cd libretro/jni
       if [ -z "${NOCLEAN}" ]; then
-         ndk-build clean APP_ABI="armeabi-v7a mips x86"
+         ndk-build clean APP_ABI=${TARGET_ABIS} || die "Failed to clean ${CORENAME}"
       fi
-      ndk-build -j$JOBS APP_ABI="armeabi-v7a mips x86"
-      cp ../libs/armeabi-v7a/libretro.${FORMAT_EXT} $RARCH_DIST_DIR/armeabi-v7a/snes9x_next_libretro${FORMAT}.${FORMAT_EXT}
-      cp ../libs/mips/libretro.${FORMAT_EXT} $RARCH_DIST_DIR/mips/snes9x_next_libretro${FORMAT}.${FORMAT_EXT}
-      cp ../libs/x86/libretro.${FORMAT_EXT} $RARCH_DIST_DIR/x86/snes9x_next_libretro${FORMAT}.${FORMAT_EXT}
+      ndk-build -j$JOBS APP_ABI=${TARGET_ABIS} || die "Failed to build ${CORENAME}"
+      for a in "${ABIS[@]}"; do
+         cp ../libs/${a}/libretro.${FORMAT_EXT} $RARCH_DIST_DIR/${a}/snes9x_next_libretro${FORMAT}.${FORMAT_EXT}
+      done
    else
       echo "${CORENAME} not fetched, skipping ..."
    fi
@@ -294,12 +297,12 @@ build_libretro_2048()
       cd libretro-${CORENAME}/
       cd jni
       if [ -z "${NOCLEAN}" ]; then
-         ndk-build clean APP_ABI="armeabi-v7a mips x86"
+         ndk-build clean APP_ABI=${TARGET_ABIS} || die "Failed to clean ${CORENAME}"
       fi
-      ndk-build -j$JOBS APP_ABI="armeabi-v7a mips x86"
-      cp ../libs/armeabi-v7a/libretro.${FORMAT_EXT} $RARCH_DIST_DIR/armeabi-v7a/2048_libretro${FORMAT}.${FORMAT_EXT}
-      cp ../libs/mips/libretro.${FORMAT_EXT} $RARCH_DIST_DIR/mips/2048_libretro${FORMAT}.${FORMAT_EXT}
-      cp ../libs/x86/libretro.${FORMAT_EXT} $RARCH_DIST_DIR/x86/2048_libretro${FORMAT}.${FORMAT_EXT}
+      ndk-build -j$JOBS APP_ABI=${TARGET_ABIS} || die "Failed to build ${CORENAME}"
+      for a in "${ABIS[@]}"; do
+         cp ../libs/${a}/libretro.${FORMAT_EXT} $RARCH_DIST_DIR/${a}/${CORENAME}_libretro${FORMAT}.${FORMAT_EXT}
+      done
    else
       echo "${CORENAME} not fetched, skipping ..."
    fi
@@ -314,12 +317,12 @@ build_libretro_stella()
       cd libretro-${CORENAME}/
       cd jni
       if [ -z "${NOCLEAN}" ]; then
-         ndk-build clean APP_ABI="armeabi-v7a mips x86"
+         ndk-build clean APP_ABI=${TARGET_ABIS} || die "Failed to clean ${CORENAME}"
       fi
-      ndk-build -j$JOBS APP_ABI="armeabi-v7a mips x86"
-      cp ../libs/armeabi-v7a/libretro.${FORMAT_EXT} $RARCH_DIST_DIR/armeabi-v7a/stella_libretro${FORMAT}.${FORMAT_EXT}
-      cp ../libs/mips/libretro.${FORMAT_EXT} $RARCH_DIST_DIR/mips/stella_libretro${FORMAT}.${FORMAT_EXT}
-      cp ../libs/x86/libretro.${FORMAT_EXT} $RARCH_DIST_DIR/x86/stella_libretro${FORMAT}.${FORMAT_EXT}
+      ndk-build -j$JOBS APP_ABI=${TARGET_ABIS} || die "Failed to build ${CORENAME}"
+      for a in "${ABIS[@]}"; do
+         cp ../libs/${a}/libretro.${FORMAT_EXT} $RARCH_DIST_DIR/${a}/${CORENAME}_libretro${FORMAT}.${FORMAT_EXT}
+      done
    else
       echo "${CORENAME} not fetched, skipping ..."
    fi
@@ -334,12 +337,12 @@ build_libretro_genplus()
       cd libretro-${CORENAME}/
       cd libretro/jni
       if [ -z "${NOCLEAN}" ]; then
-         ndk-build clean APP_ABI="armeabi-v7a mips x86"
+         ndk-build clean APP_ABI=${TARGET_ABIS} || die "Failed to clean ${CORENAME}"
       fi
-      ndk-build -j$JOBS APP_ABI="armeabi-v7a mips x86"
-      cp ../libs/armeabi-v7a/libretro.${FORMAT_EXT} $RARCH_DIST_DIR/armeabi-v7a/genesis_plus_gx_libretro${FORMAT}.${FORMAT_EXT}
-      cp ../libs/mips/libretro.${FORMAT_EXT} $RARCH_DIST_DIR/mips/genesis_plus_gx_libretro${FORMAT}.${FORMAT_EXT}
-      cp ../libs/x86/libretro.${FORMAT_EXT} $RARCH_DIST_DIR/x86/genesis_plus_gx_libretro${FORMAT}.${FORMAT_EXT}
+      ndk-build -j$JOBS APP_ABI=${TARGET_ABIS} || die "Failed to build ${CORENAME}"
+      for a in "${ABIS[@]}"; do
+         cp ../libs/${a}/libretro.${FORMAT_EXT} $RARCH_DIST_DIR/${a}/genesis_plus_gx_libretro${FORMAT}.${FORMAT_EXT}
+      done
    else
       echo "${CORENAME} not fetched, skipping ..."
    fi
@@ -355,12 +358,12 @@ build_libretro_fba_full()
       cd svn-current/trunk
       cd projectfiles/libretro-android/jni
       if [ -z "${NOCLEAN}" ]; then
-         ndk-build clean APP_ABI="armeabi-v7a mips x86"
+         ndk-build clean APP_ABI=${TARGET_ABIS} || die "Failed to clean ${CORENAME}"
       fi
-      ndk-build -j$JOBS APP_ABI="armeabi-v7a mips x86"
-      cp ../libs/armeabi-v7a/libretro.${FORMAT_EXT} $RARCH_DIST_DIR/armeabi-v7a/fb_alpha_libretro${FORMAT}.${FORMAT_EXT}
-      cp ../libs/mips/libretro.${FORMAT_EXT} $RARCH_DIST_DIR/mips/fb_alpha_libretro${FORMAT}.${FORMAT_EXT}
-      cp ../libs/x86/libretro.${FORMAT_EXT} $RARCH_DIST_DIR/x86/fb_alpha_libretro${FORMAT}.${FORMAT_EXT}
+      ndk-build -j$JOBS APP_ABI=${TARGET_ABIS} || die "Failed to build ${CORENAME}"
+      for a in "${ABIS[@]}"; do
+         cp ../libs/${a}/libretro.${FORMAT_EXT} $RARCH_DIST_DIR/${a}/fb_alpha_libretro${FORMAT}.${FORMAT_EXT}
+      done
    else
       echo "${CORENAME} not fetched, skipping ..."
    fi
@@ -375,12 +378,12 @@ build_libretro_vbam()
       cd libretro-${CORENAME}/
       cd src/libretro/jni
       if [ -z "${NOCLEAN}" ]; then
-         ndk-build clean APP_ABI="armeabi-v7a mips x86"
+         ndk-build clean APP_ABI=${TARGET_ABIS} || die "Failed to clean ${CORENAME}"
       fi
-      ndk-build -j$JOBS APP_ABI="armeabi-v7a mips x86"
-      cp ../libs/armeabi-v7a/libretro.${FORMAT_EXT} $RARCH_DIST_DIR/armeabi-v7a/vbam_libretro${FORMAT}.${FORMAT_EXT}
-      cp ../libs/mips/libretro.${FORMAT_EXT} $RARCH_DIST_DIR/mips/vbam_libretro${FORMAT}.${FORMAT_EXT}
-      cp ../libs/x86/libretro.${FORMAT_EXT} $RARCH_DIST_DIR/x86/vbam_libretro${FORMAT}.${FORMAT_EXT}
+      ndk-build -j$JOBS APP_ABI=${TARGET_ABIS} || die "Failed to build ${CORENAME}"
+      for a in "${ABIS[@]}"; do
+         cp ../libs/${a}/libretro.${FORMAT_EXT} $RARCH_DIST_DIR/${a}/${CORENAME}_libretro${FORMAT}.${FORMAT_EXT}
+      done
    else
       echo "${CORENAME} not fetched, skipping ..."
    fi
@@ -395,12 +398,12 @@ build_libretro_vba_next()
       cd libretro-${CORENAME}/
       cd libretro/jni
       if [ -z "${NOCLEAN}" ]; then
-         ndk-build clean APP_ABI="armeabi-v7a mips x86"
+         ndk-build clean APP_ABI=${TARGET_ABIS} || die "Failed to clean ${CORENAME}"
       fi
-      ndk-build -j$JOBS APP_ABI="armeabi-v7a mips x86"
-      cp ../libs/armeabi-v7a/libretro.${FORMAT_EXT} $RARCH_DIST_DIR/armeabi-v7a/vba_next_libretro${FORMAT}.${FORMAT_EXT}
-      cp ../libs/mips/libretro.${FORMAT_EXT} $RARCH_DIST_DIR/mips/vba_next_libretro${FORMAT}.${FORMAT_EXT}
-      cp ../libs/x86/libretro.${FORMAT_EXT} $RARCH_DIST_DIR/x86/vba_next_libretro${FORMAT}.${FORMAT_EXT}
+      ndk-build -j$JOBS APP_ABI=${TARGET_ABIS} || die "Failed to build ${CORENAME}"
+      for a in "${ABIS[@]}"; do
+         cp ../libs/${a}/libretro.${FORMAT_EXT} $RARCH_DIST_DIR/${a}/vba_next_libretro${FORMAT}.${FORMAT_EXT}
+      done
    else
       echo "${CORENAME} not fetched, skipping ..."
    fi
@@ -415,12 +418,12 @@ build_libretro_fceumm()
       cd libretro-${CORENAME}
       cd src/drivers/libretro/jni
       if [ -z "${NOCLEAN}" ]; then
-         ndk-build clean APP_ABI="armeabi-v7a mips x86"
+         ndk-build clean APP_ABI=${TARGET_ABIS} || die "Failed to clean ${CORENAME}"
       fi
-      ndk-build -j$JOBS APP_ABI="armeabi-v7a mips x86"
-      cp ../libs/armeabi-v7a/libretro.${FORMAT_EXT} $RARCH_DIST_DIR/armeabi-v7a/fceumm_libretro${FORMAT}.${FORMAT_EXT}
-      cp ../libs/mips/libretro.${FORMAT_EXT} $RARCH_DIST_DIR/mips/fceumm_libretro${FORMAT}.${FORMAT_EXT}
-      cp ../libs/x86/libretro.${FORMAT_EXT} $RARCH_DIST_DIR/x86/fceumm_libretro${FORMAT}.${FORMAT_EXT}
+      ndk-build -j$JOBS APP_ABI=${TARGET_ABIS} || die "Failed to build ${CORENAME}"
+      for a in "${ABIS[@]}"; do
+         cp ../libs/${a}/libretro.${FORMAT_EXT} $RARCH_DIST_DIR/${a}/${CORENAME}_libretro${FORMAT}.${FORMAT_EXT}
+      done
    else
       echo "${CORENAME} not fetched, skipping ..."
    fi
@@ -435,12 +438,12 @@ build_libretro_gambatte()
       cd libretro-${CORENAME}/
       cd libgambatte/libretro/jni
       if [ -z "${NOCLEAN}" ]; then
-         ndk-build clean APP_ABI="armeabi-v7a mips x86"
+         ndk-build clean APP_ABI=${TARGET_ABIS} || die "Failed to clean ${CORENAME}"
       fi
-      ndk-build -j$JOBS APP_ABI="armeabi-v7a mips x86"
-      cp ../libs/armeabi-v7a/libretro.${FORMAT_EXT} $RARCH_DIST_DIR/armeabi-v7a/gambatte_libretro${FORMAT}.${FORMAT_EXT}
-      cp ../libs/mips/libretro.${FORMAT_EXT} $RARCH_DIST_DIR/mips/gambatte_libretro${FORMAT}.${FORMAT_EXT}
-      cp ../libs/x86/libretro.${FORMAT_EXT} $RARCH_DIST_DIR/x86/gambatte_libretro${FORMAT}.${FORMAT_EXT}
+      ndk-build -j$JOBS APP_ABI=${TARGET_ABIS} || die "Failed to build ${CORENAME}"
+      for a in "${ABIS[@]}"; do
+         cp ../libs/${a}/libretro.${FORMAT_EXT} $RARCH_DIST_DIR/${a}/${CORENAME}_libretro${FORMAT}.${FORMAT_EXT}
+      done
    else
       echo "${CORENAME} not fetched, skipping ..."
    fi
@@ -455,12 +458,12 @@ build_libretro_nx()
       cd libretro-${CORENAME}
       cd jni
       if [ -z "${NOCLEAN}" ]; then
-         ndk-build clean APP_ABI="armeabi-v7a mips x86"
+         ndk-build clean APP_ABI=${TARGET_ABIS} || die "Failed to clean ${CORENAME}"
       fi
-      ndk-build -j$JOBS APP_ABI="armeabi-v7a mips x86"
-      cp ../libs/armeabi-v7a/libretro.${FORMAT_EXT} $RARCH_DIST_DIR/armeabi-v7a/nxengine_libretro${FORMAT}.${FORMAT_EXT}
-      cp ../libs/mips/libretro.${FORMAT_EXT} $RARCH_DIST_DIR/mips/nxengine_libretro${FORMAT}.${FORMAT_EXT}
-      cp ../libs/x86/libretro.${FORMAT_EXT} $RARCH_DIST_DIR/x86/nxengine_libretro${FORMAT}.${FORMAT_EXT}
+      ndk-build -j$JOBS APP_ABI=${TARGET_ABIS} || die "Failed to build ${CORENAME}"
+      for a in "${ABIS[@]}"; do
+         cp ../libs/${a}/libretro.${FORMAT_EXT} $RARCH_DIST_DIR/${a}/nxengine_libretro${FORMAT}.${FORMAT_EXT}
+      done
    else
       echo "${CORENAME} not fetched, skipping ..."
    fi
@@ -475,12 +478,12 @@ build_libretro_prboom()
       cd libretro-${CORENAME}
       cd libretro/jni
       if [ -z "${NOCLEAN}" ]; then
-         ndk-build clean APP_ABI="armeabi-v7a mips x86"
+         ndk-build clean APP_ABI=${TARGET_ABIS} || die "Failed to clean ${CORENAME}"
       fi
-      ndk-build -j$JOBS APP_ABI="armeabi-v7a mips x86"
-      cp ../libs/armeabi-v7a/libretro.${FORMAT_EXT} $RARCH_DIST_DIR/armeabi-v7a/prboom_libretro${FORMAT}.${FORMAT_EXT}
-      cp ../libs/mips/libretro.${FORMAT_EXT} $RARCH_DIST_DIR/mips/prboom_libretro${FORMAT}.${FORMAT_EXT}
-      cp ../libs/x86/libretro.${FORMAT_EXT} $RARCH_DIST_DIR/x86/prboom_libretro${FORMAT}.${FORMAT_EXT}
+      ndk-build -j$JOBS APP_ABI=${TARGET_ABIS} || die "Failed to build ${CORENAME}"
+      for a in "${ABIS[@]}"; do
+         cp ../libs/${a}/libretro.${FORMAT_EXT} $RARCH_DIST_DIR/${a}/${CORENAME}_libretro${FORMAT}.${FORMAT_EXT}
+      done
    else
       echo "${CORENAME} not fetched, skipping ..."
    fi
@@ -495,12 +498,12 @@ build_libretro_dinothawr()
       cd libretro-${CORENAME}
       cd android/eclipse/jni
       if [ -z "${NOCLEAN}" ]; then
-         ndk-build clean APP_ABI="armeabi-v7a mips x86"
+         ndk-build clean APP_ABI=${TARGET_ABIS} || die "Failed to clean ${CORENAME}"
       fi
-      ndk-build -j$JOBS APP_ABI="armeabi-v7a mips x86"
-      cp ../libs/armeabi-v7a/libretro_dino.${FORMAT_EXT} $RARCH_DIST_DIR/armeabi-v7a/dinothawr_libretro${FORMAT}.${FORMAT_EXT}
-      cp ../libs/mips/libretro_dino.${FORMAT_EXT} $RARCH_DIST_DIR/mips/dinothawr_libretro${FORMAT}.${FORMAT_EXT}
-      cp ../libs/x86/libretro_dino.${FORMAT_EXT} $RARCH_DIST_DIR/x86/dinothawr_libretro${FORMAT}.${FORMAT_EXT}
+      ndk-build -j$JOBS APP_ABI=${TARGET_ABIS} || die "Failed to build ${CORENAME}"
+      for a in "${ABIS[@]}"; do
+         cp ../libs/${a}/libretro.${FORMAT_EXT} $RARCH_DIST_DIR/${a}/${CORENAME}_libretro${FORMAT}.${FORMAT_EXT}
+      done
    else
       echo "${CORENAME} not fetched, skipping ..."
    fi
@@ -515,12 +518,12 @@ build_libretro_nestopia()
       cd libretro-${CORENAME}/
       cd libretro/jni
       if [ -z "${NOCLEAN}" ]; then
-         ndk-build clean APP_ABI="armeabi-v7a mips x86"
+         ndk-build clean APP_ABI=${TARGET_ABIS} || die "Failed to clean ${CORENAME}"
       fi
-      ndk-build -j$JOBS APP_ABI="armeabi-v7a mips x86"
-      cp ../libs/armeabi-v7a/libretro.${FORMAT_EXT} $RARCH_DIST_DIR/armeabi-v7a/nestopia_libretro${FORMAT}.${FORMAT_EXT}
-      cp ../libs/mips/libretro.${FORMAT_EXT} $RARCH_DIST_DIR/mips/nestopia_libretro${FORMAT}.${FORMAT_EXT}
-      cp ../libs/x86/libretro.${FORMAT_EXT} $RARCH_DIST_DIR/x86/nestopia_libretro${FORMAT}.${FORMAT_EXT}
+      ndk-build -j$JOBS APP_ABI=${TARGET_ABIS} || die "Failed to build ${CORENAME}"
+      for a in "${ABIS[@]}"; do
+         cp ../libs/${a}/libretro.${FORMAT_EXT} $RARCH_DIST_DIR/${a}/${CORENAME}_libretro${FORMAT}.${FORMAT_EXT}
+      done
    else
       echo "${CORENAME} not fetched, skipping ..."
    fi
@@ -535,14 +538,13 @@ build_libretro_pcsx_rearmed()
       echo "=== Building ${CORENAME} ==="
       cd libretro-${CORENAME}
       cd jni
-      #ndk-build clean APP_ABI=armeabi-v7a
-      #ndk-build -j$JOBS NO_NEON=1 APP_ABI=armeabi-v7a
-      #cp ../libs/armeabi-v7a/libretro-noneon.${FORMAT_EXT} $RARCH_DIST_DIR/armeabi-v7a/pcsx_rearmed_libretro${FORMAT}.${FORMAT_EXT}
       if [ -z "${NOCLEAN}" ]; then
-         ndk-build clean APP_ABI=armeabi-v7a
+         ndk-build clean APP_ABI=${TARGET_ABIS} || die "Failed to clean ${CORENAME}"
       fi
-      ndk-build -j$JOBS APP_ABI=armeabi-v7a
-      cp ../libs/armeabi-v7a/libretro.${FORMAT_EXT} $RARCH_DIST_DIR/armeabi-v7a/pcsx_rearmed_libretro_neon${FORMAT}.${FORMAT_EXT}
+      ndk-build -j$JOBS APP_ABI=${TARGET_ABIS} || die "Failed to build ${CORENAME}"
+      for a in "${ABIS[@]}"; do
+         cp ../libs/${a}/libretro.${FORMAT_EXT} $RARCH_DIST_DIR/${a}/pcsx_rearmed_libretro_neon${FORMAT}.${FORMAT_EXT}
+      done
    else
       echo "${CORENAME} not fetched, skipping ..."
    fi
@@ -557,12 +559,12 @@ build_libretro_tyrquake()
       cd libretro-${CORENAME}
       cd libretro/jni
       if [ -z "${NOCLEAN}" ]; then
-         ndk-build clean APP_ABI="armeabi-v7a mips x86"
+         ndk-build clean APP_ABI=${TARGET_ABIS} || die "Failed to clean ${CORENAME}"
       fi
-      ndk-build -j$JOBS APP_ABI="armeabi-v7a mips x86"
-      cp ../libs/armeabi-v7a/libretro.${FORMAT_EXT} $RARCH_DIST_DIR/armeabi-v7a/tyrquake_libretro${FORMAT}.${FORMAT_EXT}
-      cp ../libs/mips/libretro.${FORMAT_EXT} $RARCH_DIST_DIR/mips/tyrquake_libretro${FORMAT}.${FORMAT_EXT}
-      cp ../libs/x86/libretro.${FORMAT_EXT} $RARCH_DIST_DIR/x86/tyrquake_libretro${FORMAT}.${FORMAT_EXT}
+      ndk-build -j$JOBS APP_ABI=${TARGET_ABIS} || die "Failed to build ${CORENAME}"
+      for a in "${ABIS[@]}"; do
+         cp ../libs/${a}/libretro.${FORMAT_EXT} $RARCH_DIST_DIR/${a}/${CORENAME}_libretro${FORMAT}.${FORMAT_EXT}
+      done
    else
       echo "${CORENAME} not fetched, skipping ..."
    fi
@@ -577,12 +579,12 @@ build_libretro_modelviewer()
       cd libretro-${CORENAME}
       cd jni
       if [ -z "${NOCLEAN}" ]; then
-         ndk-build clean APP_ABI="armeabi-v7a mips x86"
+         ndk-build clean APP_ABI=${TARGET_ABIS} || die "Failed to clean ${CORENAME}"
       fi
-      ndk-build -j$JOBS APP_ABI="armeabi-v7a mips x86"
-      cp ../libs/armeabi-v7a/libretro.${FORMAT_EXT} $RARCH_DIST_DIR/armeabi-v7a/modelviewer_libretro${FORMAT}.${FORMAT_EXT}
-      cp ../libs/mips/libretro.${FORMAT_EXT} $RARCH_DIST_DIR/mips/modelviewer_libretro${FORMAT}.${FORMAT_EXT}
-      cp ../libs/x86/libretro.${FORMAT_EXT} $RARCH_DIST_DIR/x86/modelviewer_libretro${FORMAT}.${FORMAT_EXT}
+      ndk-build -j$JOBS APP_ABI=${TARGET_ABIS} || die "Failed to build ${CORENAME}"
+      for a in "${ABIS[@]}"; do
+         cp ../libs/${a}/libretro.${FORMAT_EXT} $RARCH_DIST_DIR/${a}/modelviewer_libretro${FORMAT}.${FORMAT_EXT}
+      done
    else
       echo "${CORENAME} not fetched, skipping ..."
    fi
@@ -597,12 +599,12 @@ build_libretro_modelviewer_location()
       cd libretro-${CORENAME}
       cd jni
       if [ -z "${NOCLEAN}" ]; then
-         ndk-build clean APP_ABI="armeabi-v7a mips x86"
+         ndk-build clean APP_ABI=${TARGET_ABIS} || die "Failed to clean ${CORENAME}"
       fi
-      ndk-build -j$JOBS APP_ABI="armeabi-v7a mips x86"
-      cp ../libs/armeabi-v7a/libretro.${FORMAT_EXT} $RARCH_DIST_DIR/armeabi-v7a/modelviewer_location_libretro${FORMAT}.${FORMAT_EXT}
-      cp ../libs/mips/libretro.${FORMAT_EXT} $RARCH_DIST_DIR/mips/modelviewer_location_libretro${FORMAT}.${FORMAT_EXT}
-      cp ../libs/x86/libretro.${FORMAT_EXT} $RARCH_DIST_DIR/x86/modelviewer_location_libretro${FORMAT}.${FORMAT_EXT}
+      ndk-build -j$JOBS APP_ABI=${TARGET_ABIS} || die "Failed to build ${CORENAME}"
+      for a in "${ABIS[@]}"; do
+         cp ../libs/${a}/libretro.${FORMAT_EXT} $RARCH_DIST_DIR/${a}/modelviewer_location_libretro${FORMAT}.${FORMAT_EXT}
+      done
    else
       echo "${CORENAME} not fetched, skipping ..."
    fi
@@ -617,12 +619,12 @@ build_libretro_instancingviewer()
       cd libretro-${CORENAME}
       cd jni
       if [ -z "${NOCLEAN}" ]; then
-         ndk-build clean APP_ABI="armeabi-v7a mips x86"
+         ndk-build clean APP_ABI=${TARGET_ABIS} || die "Failed to clean ${CORENAME}"
       fi
-      ndk-build -j$JOBS APP_ABI="armeabi-v7a mips x86"
-      cp ../libs/armeabi-v7a/libretro.${FORMAT_EXT} $RARCH_DIST_DIR/armeabi-v7a/instancingviewer_libretro${FORMAT}.${FORMAT_EXT}
-      cp ../libs/mips/libretro.${FORMAT_EXT} $RARCH_DIST_DIR/mips/instancingviewer_libretro${FORMAT}.${FORMAT_EXT}
-      cp ../libs/x86/libretro.${FORMAT_EXT} $RARCH_DIST_DIR/x86/instancingviewer_libretro${FORMAT}.${FORMAT_EXT}
+      ndk-build -j$JOBS APP_ABI=${TARGET_ABIS} || die "Failed to build ${CORENAME}"
+      for a in "${ABIS[@]}"; do
+         cp ../libs/${a}/libretro.${FORMAT_EXT} $RARCH_DIST_DIR/${a}/instancingviewer_location_libretro${FORMAT}.${FORMAT_EXT}
+      done
    else
       echo "${CORENAME} not fetched, skipping ..."
    fi
@@ -637,12 +639,12 @@ build_libretro_instancingviewer_camera()
       cd libretro-${CORENAME}
       cd jni
       if [ -z "${NOCLEAN}" ]; then
-         ndk-build clean APP_ABI="armeabi-v7a mips x86"
+         ndk-build clean APP_ABI=${TARGET_ABIS} || die "Failed to clean ${CORENAME}"
       fi
-      ndk-build -j$JOBS APP_ABI="armeabi-v7a mips x86"
-      cp ../libs/armeabi-v7a/libretro.${FORMAT_EXT} $RARCH_DIST_DIR/armeabi-v7a/instancingviewer_camera_libretro${FORMAT}.${FORMAT_EXT}
-      cp ../libs/mips/libretro.${FORMAT_EXT} $RARCH_DIST_DIR/mips/instancingviewer_camera_libretro${FORMAT}.${FORMAT_EXT}
-      cp ../libs/x86/libretro.${FORMAT_EXT} $RARCH_DIST_DIR/x86/instancingviewer_camera_libretro${FORMAT}.${FORMAT_EXT}
+      ndk-build -j$JOBS APP_ABI=${TARGET_ABIS} || die "Failed to build ${CORENAME}"
+      for a in "${ABIS[@]}"; do
+         cp ../libs/${a}/libretro.${FORMAT_EXT} $RARCH_DIST_DIR/${a}/instancingviewer_camera_libretro${FORMAT}.${FORMAT_EXT}
+      done
    else
       echo "${CORENAME} not fetched, skipping ..."
    fi
@@ -657,12 +659,12 @@ build_libretro_3dengine() {
       cd jni
 
       if [ -z "${NOCLEAN}" ]; then
-         ndk-build clean APP_ABI="armeabi-v7a mips x86"
+         ndk-build clean APP_ABI=${TARGET_ABIS} || die "Failed to clean ${CORENAME}"
       fi
-      ndk-build -j$JOBS APP_ABI="armeabi-v7a mips x86"
-      cp ../libs/armeabi-v7a/libretro.${FORMAT_EXT} $RARCH_DIST_DIR/armeabi-v7a/${CORENAME}_libretro${FORMAT}.${FORMAT_EXT}
-      cp ../libs/mips/libretro.${FORMAT_EXT} $RARCH_DIST_DIR/mips/${CORENAME}_libretro${FORMAT}.${FORMAT_EXT}
-      cp ../libs/x86/libretro.${FORMAT_EXT} $RARCH_DIST_DIR/x86/${CORENAME}_libretro${FORMAT}.${FORMAT_EXT}
+      ndk-build -j$JOBS APP_ABI=${TARGET_ABIS} || die "Failed to build ${CORENAME}"
+      for a in "${ABIS[@]}"; do
+         cp ../libs/${a}/libretro.${FORMAT_EXT} $RARCH_DIST_DIR/${a}/${CORENAME}_libretro${FORMAT}.${FORMAT_EXT}
+      done
    else
       echo "${CORENAME} not fetched, skipping ..."
    fi
@@ -677,12 +679,12 @@ build_libretro_scenewalker()
       cd libretro-${CORENAME}
       cd jni
       if [ -z "${NOCLEAN}" ]; then
-         ndk-build clean APP_ABI="armeabi-v7a mips x86"
+         ndk-build clean APP_ABI=${TARGET_ABIS} || die "Failed to clean ${CORENAME}"
       fi
-      ndk-build -j$JOBS APP_ABI="armeabi-v7a mips x86"
-      cp ../libs/armeabi-v7a/libretro.${FORMAT_EXT} $RARCH_DIST_DIR/armeabi-v7a/scenewalker_libretro${FORMAT}.${FORMAT_EXT}
-      cp ../libs/mips/libretro.${FORMAT_EXT} $RARCH_DIST_DIR/mips/scenewalker_libretro${FORMAT}.${FORMAT_EXT}
-      cp ../libs/x86/libretro.${FORMAT_EXT} $RARCH_DIST_DIR/x86/scenewalker_libretro${FORMAT}.${FORMAT_EXT}
+      ndk-build -j$JOBS APP_ABI=${TARGET_ABIS} || die "Failed to build ${CORENAME}"
+      for a in "${ABIS[@]}"; do
+         cp ../libs/${a}/libretro.${FORMAT_EXT} $RARCH_DIST_DIR/${a}/scenewalker_libretro${FORMAT}.${FORMAT_EXT}
+      done
    else
       echo "${CORENAME} not fetched, skipping ..."
    fi
@@ -697,10 +699,12 @@ build_libretro_picodrive()
       cd libretro-${CORENAME}
       cd jni
       if [ -z "${NOCLEAN}" ]; then
-         ndk-build clean APP_ABI=armeabi-v7a
+         ndk-build clean APP_ABI=${TARGET_ABIS} || die "Failed to clean ${CORENAME}"
       fi
-      ndk-build -j$JOBS APP_ABI=armeabi-v7a
-      cp ../libs/armeabi-v7a/libretro_picodrive.${FORMAT_EXT} "$RARCH_DIST_DIR"/armeabi-v7a/picodrive_libretro${FORMAT}.${FORMAT_EXT}
+      ndk-build -j$JOBS APP_ABI=${TARGET_ABIS} || die "Failed to build ${CORENAME}"
+      for a in "${ABIS[@]}"; do
+         cp ../libs/${a}/libretro.${FORMAT_EXT} $RARCH_DIST_DIR/${a}/${CORENAME}_libretro${FORMAT}.${FORMAT_EXT}
+      done
    else
       echo "${CORENAME} not fetched, skipping ..."
    fi
@@ -715,12 +719,12 @@ build_libretro_handy()
       cd libretro-${CORENAME}
       cd libretro/jni
       if [ -z "${NOCLEAN}" ]; then
-         ndk-build clean APP_ABI="armeabi-v7a mips x86"
+         ndk-build clean APP_ABI=${TARGET_ABIS} || die "Failed to clean ${CORENAME}"
       fi
-      ndk-build -j$JOBS APP_ABI="armeabi-v7a mips x86"
-      cp ../libs/armeabi-v7a/libretro.${FORMAT_EXT} "$RARCH_DIST_DIR"/armeabi-v7a/handy_libretro${FORMAT}.${FORMAT_EXT}
-      cp ../libs/mips/libretro.${FORMAT_EXT} "$RARCH_DIST_DIR"/mips/handy_libretro${FORMAT}.${FORMAT_EXT}
-      cp ../libs/x86/libretro.${FORMAT_EXT} "$RARCH_DIST_DIR"/x86/handy_libretro${FORMAT}.${FORMAT_EXT}
+      ndk-build -j$JOBS APP_ABI=${TARGET_ABIS} || die "Failed to build ${CORENAME}"
+      for a in "${ABIS[@]}"; do
+         cp ../libs/${a}/libretro.${FORMAT_EXT} $RARCH_DIST_DIR/${a}/${CORENAME}_libretro${FORMAT}.${FORMAT_EXT}
+      done
    else
       echo "${CORENAME} not fetched, skipping ..."
    fi
@@ -735,15 +739,12 @@ build_libretro_desmume()
       cd libretro-${CORENAME}/
       cd desmume/src/libretro/jni
       if [ -z "${NOCLEAN}" ]; then
-         ndk-build clean
+         ndk-build clean APP_ABI=${TARGET_ABIS} || die "Failed to clean ${CORENAME}"
       fi
-      ndk-build -j$JOBS APP_ABI=armeabi-v7a
-      cp ../libs/armeabi-v7a/libretro.${FORMAT_EXT} "$RARCH_DIST_DIR"/armeabi-v7a/desmume_libretro${FORMAT}.${FORMAT_EXT}
-	  if [ -z "${NOCLEAN}" ]; then
-         ndk-build clean
-      fi
-      ndk-build -j$JOBS APP_ABI=x86
-      cp ../libs/x86/libretro.${FORMAT_EXT} "$RARCH_DIST_DIR"/x86/desmume_libretro${FORMAT}.${FORMAT_EXT}
+      ndk-build -j$JOBS APP_ABI=${TARGET_ABIS} || die "Failed to build ${CORENAME}"
+      for a in "${ABIS[@]}"; do
+         cp ../libs/${a}/libretro.${FORMAT_EXT} $RARCH_DIST_DIR/${a}/${CORENAME}_libretro${FORMAT}.${FORMAT_EXT}
+      done
    else
       echo "${CORENAME} not fetched, skipping ..."
    fi
@@ -758,12 +759,12 @@ build_libretro_quicknes()
       cd libretro-${CORENAME}/
       cd libretro/jni
       if [ -z "${NOCLEAN}" ]; then
-         ndk-build clean APP_ABI="armeabi-v7a mips x86"
+         ndk-build clean APP_ABI=${TARGET_ABIS} || die "Failed to clean ${CORENAME}"
       fi
-      ndk-build -j$JOBS APP_ABI="armeabi-v7a mips x86"
-      cp ../libs/armeabi-v7a/libretro.${FORMAT_EXT} "$RARCH_DIST_DIR"/armeabi-v7a/quicknes_libretro${FORMAT}.${FORMAT_EXT}
-      cp ../libs/mips/libretro.${FORMAT_EXT} "$RARCH_DIST_DIR"/mips/quicknes_libretro${FORMAT}.${FORMAT_EXT}
-      cp ../libs/x86/libretro.${FORMAT_EXT} "$RARCH_DIST_DIR"/x86/quicknes_libretro${FORMAT}.${FORMAT_EXT}
+      ndk-build -j$JOBS APP_ABI=${TARGET_ABIS} || die "Failed to build ${CORENAME}"
+      for a in "${ABIS[@]}"; do
+         cp ../libs/${a}/libretro.${FORMAT_EXT} $RARCH_DIST_DIR/${a}/${CORENAME}_libretro${FORMAT}.${FORMAT_EXT}
+      done
    else
       echo "${CORENAME} not fetched, skipping ..."
    fi
@@ -812,11 +813,12 @@ build_libretro_bsnes()
       cd libretro-${CORENAME}/
       cd perf/target-libretro/jni
       if [ -z "${NOCLEAN}" ]; then
-         ndk-build clean APP_ABI="armeabi-v7a x86"
+         ndk-build clean APP_ABI=${TARGET_ABIS} || die "Failed to clean ${CORENAME}"
       fi
-      ndk-build -j$JOBS APP_ABI="armeabi-v7a x86"
-      cp ../libs/armeabi-v7a/libretro_bsnes_performance.${FORMAT_EXT} $RARCH_DIST_DIR/armeabi-v7a/bsnes_performance_libretro${FORMAT}.${FORMAT_EXT}
-      cp ../libs/x86/libretro_bsnes_performance.${FORMAT_EXT} $RARCH_DIST_DIR/x86/bsnes_performance_libretro${FORMAT}.${FORMAT_EXT}
+      ndk-build -j$JOBS APP_ABI=${TARGET_ABIS} || die "Failed to build ${CORENAME}"
+      for a in "${ABIS[@]}"; do
+         cp ../libs/${a}/libretro.${FORMAT_EXT} $RARCH_DIST_DIR/${a}/bsnes_performance_libretro${FORMAT}.${FORMAT_EXT}
+      done
    else
       echo "${CORENAME} not fetched, skipping ..."
    fi
@@ -831,11 +833,12 @@ build_libretro_mupen64()
       cd libretro-${CORENAME}/
       cd libretro/jni
       if [ -z "${NOCLEAN}" ]; then
-         ndk-build clean APP_ABI="armeabi-v7a x86"
+         ndk-build clean APP_ABI=${TARGET_ABIS} || die "Failed to clean ${CORENAME}"
       fi
-      ndk-build -j$JOBS APP_ABI="armeabi-v7a x86"
-      cp ../libs/armeabi-v7a/libretro_mupen64plus.${FORMAT_EXT} $RARCH_DIST_DIR/armeabi-v7a/mupen64plus_libretro${FORMAT}.${FORMAT_EXT}
-      cp ../libs/x86/libretro_mupen64plus.${FORMAT_EXT} $RARCH_DIST_DIR/x86/mupen64plus_libretro${FORMAT}.${FORMAT_EXT}
+      ndk-build -j$JOBS APP_ABI=${TARGET_ABIS} || die "Failed to build ${CORENAME}"
+      for a in "${ABIS[@]}"; do
+         cp ../libs/${a}/libretro.${FORMAT_EXT} $RARCH_DIST_DIR/${a}/${CORENAME}_libretro${FORMAT}.${FORMAT_EXT}
+      done
    else
       echo "${CORENAME} not fetched, skipping ..."
    fi
@@ -850,12 +853,12 @@ build_libretro_yabause()
       cd libretro-${CORENAME}/
       cd libretro/jni
       if [ -z "${NOCLEAN}" ]; then
-         ndk-build clean APP_ABI="armeabi-v7a mips x86"
+         ndk-build clean APP_ABI=${TARGET_ABIS} || die "Failed to clean ${CORENAME}"
       fi
-      ndk-build -j$JOBS APP_ABI="armeabi-v7a mips x86"
-      cp ../libs/armeabi-v7a/libretro.${FORMAT_EXT} "$RARCH_DIST_DIR"/armeabi-v7a/yabause_libretro${FORMAT}.${FORMAT_EXT}
-      cp ../libs/mips/libretro.${FORMAT_EXT} "$RARCH_DIST_DIR"/mips/yabause_libretro${FORMAT}.${FORMAT_EXT}
-      cp ../libs/x86/libretro.${FORMAT_EXT} "$RARCH_DIST_DIR"/x86/yabause_libretro${FORMAT}.${FORMAT_EXT}
+      ndk-build -j$JOBS APP_ABI=${TARGET_ABIS} || die "Failed to build ${CORENAME}"
+      for a in "${ABIS[@]}"; do
+         cp ../libs/${a}/libretro.${FORMAT_EXT} $RARCH_DIST_DIR/${a}/${CORENAME}_libretro${FORMAT}.${FORMAT_EXT}
+      done
    else
       echo "${CORENAME} not fetched, skipping ..."
    fi
