@@ -104,6 +104,8 @@ fi
 #ANDROID DEFINES
 #================
 
+export TARGET_ABIS = "armeabi-v7a mips x86"
+
 #uncomment to define NDK standalone toolchain for ARM
 #export NDK_ROOT_DIR_ARM = 
 
