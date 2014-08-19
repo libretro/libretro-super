@@ -337,15 +337,16 @@ build_libretro_genplus()
       cd libretro-${CORENAME}/
       cd libretro/jni
       if [ -z "${NOCLEAN}" ]; then
-      for a in "${ABIS[@]}"; do
-         if [ -z "${NOCLEAN}" ]; then
-            ndk-build clean APP_ABI=${a} || die "Failed to clean ${a} ${CORENAME}"
-         fi
-         ndk-build -j$JOBS APP_ABI=${a} || die "Failed to build  ${a} ${CORENAME}"
-         cp ../libs/${a}/libretro.${FORMAT_EXT} $RARCH_DIST_DIR/${a}/genesis_plus_gx_libretro${FORMAT}.${FORMAT_EXT}
-      done
-   else
-      echo "${CORENAME} not fetched, skipping ..."
+         for a in "${ABIS[@]}"; do
+            if [ -z "${NOCLEAN}" ]; then
+               ndk-build clean APP_ABI=${a} || die "Failed to clean ${a} ${CORENAME}"
+            fi
+            ndk-build -j$JOBS APP_ABI=${a} || die "Failed to build  ${a} ${CORENAME}"
+            cp ../libs/${a}/libretro.${FORMAT_EXT} $RARCH_DIST_DIR/${a}/genesis_plus_gx_libretro${FORMAT}.${FORMAT_EXT}
+         done
+      else
+         echo "${CORENAME} not fetched, skipping ..."
+      fi
    fi
 }
 
