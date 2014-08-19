@@ -6,7 +6,7 @@
 fetch_project_bsnes()
 {
    echo "=== Fetching $3 ==="
-   if [ -d "$2" ]; then
+   if [ -d "$2/.git" ]; then
       cd "$2"
       git pull
       cd ..
@@ -17,7 +17,7 @@ fetch_project_bsnes()
    if [ -d "$2" ]; then
       cd "$2"
 
-      if [ -d "perf" ]; then
+      if [ -d "perf/.git" ]; then
          cd perf
          git pull ..
          cd ..
@@ -25,7 +25,7 @@ fetch_project_bsnes()
          git clone . perf
       fi
 
-      if [ -d "balanced" ]; then
+      if [ -d "balanced/.git" ]; then
          cd balanced
          git pull ..
          cd ..
@@ -40,7 +40,7 @@ fetch_project_bsnes()
 fetch_project()
 {
    echo "=== Fetching $3 ==="
-   if [ -d "$2" ]; then
+   if [ -d "$2/.git" ]; then
       cd "$2"
       git pull
       cd ..
@@ -54,7 +54,7 @@ fetch_subproject()
 {
    echo "=== Fetching $4 ==="
    cd "$2"
-   if [ -d "$3" ]; then
+   if [ -d "$3/.git" ]; then
       cd "$3"
       git pull
       cd ..
@@ -70,7 +70,7 @@ fetch_subprojects()
    echo "=== Fetching $5 ==="
    cd "$2"
    cd "$3"
-   if [ -d "$4" ]; then
+   if [ -d "$4/.git" ]; then
       cd "$4"
       git pull
       cd ..
@@ -85,7 +85,7 @@ fetch_subprojects()
 fetch_project_submodule()
 {
    echo "=== Fetching $3 ==="
-   if [ -d "$2" ]; then
+   if [ -d "$2/.git" ]; then
       cd "$2"
       git pull
       cd ..
