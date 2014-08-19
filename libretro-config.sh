@@ -116,7 +116,10 @@ export TARGET_ABIS="armeabi-v7a mips x86"
 #export NDK_ROOT_DIR_X86 =
 
 # android version target if GLES is in use
-export NDK_GL_HEADER_VER=android-18
+export NDK_GL_HEADER_VER=android-20
 
 # android version target if GLES is not in use
 export NDK_NO_GL_HEADER_VER=android-9
+
+# Retroarch target android API level
+export RA_ANDROID_API=android-20
