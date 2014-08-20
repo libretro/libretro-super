@@ -785,24 +785,14 @@ create_dist_dir()
    else
       mkdir $RARCH_DIST_DIR
    fi
-
-   if [ -d $RARCH_DIST_DIR/armeabi-v7a ]; then
-      echo "Directory $RARCH_DIST_DIR/armeabi-v7a already exists, skipping creation..."
-   else
-      mkdir $RARCH_DIST_DIR/armeabi-v7a
-   fi
-
-   if [ -d $RARCH_DIST_DIR/mips ]; then
-      echo "Directory $RARCH_DIST_DIR/mips already exists, skipping creation..."
-   else
-      mkdir $RARCH_DIST_DIR/mips
-   fi
-
-   if [ -d $RARCH_DIST_DIR/x86 ]; then
-      echo "Directory $RARCH_DIST_DIR/x86 already exists, skipping creation..."
-   else
-      mkdir $RARCH_DIST_DIR/x86
-   fi
+   
+   for a in "${ABIS[@]}"; do
+      if [ -d $RARCH_DIST_DIR/${a} ]; then
+         echo "Directory $RARCH_DIST_DIR/${a} already exists, skipping creation..."
+      else
+         mkdir $RARCH_DIST_DIR/${a}
+      fi
+   done
 }
 
 build_libretro_bsnes()
@@ -814,11 +804,11 @@ build_libretro_bsnes()
       echo "=== Building ${CORENAME} ==="
       cd libretro-${CORENAME}/
       cd perf/target-libretro/jni
-      if [ -z "${NOCLEAN}" ]; then
-         ndk-build clean APP_ABI=${TARGET_ABIS} || die "Failed to clean ${CORENAME}"
-      fi
-      ndk-build -j$JOBS APP_ABI=${TARGET_ABIS} || die "Failed to build ${CORENAME}"
       for a in "${ABIS[@]}"; do
+        if [ -z "${NOCLEAN}" ]; then
+            ndk-build clean APP_ABI=${a} || die "Failed to clean ${a} ${CORENAME}"
+         fi
+         ndk-build -j$JOBS APP_ABI=${a} || die "Failed to build ${a} ${CORENAME}"
          cp ../libs/${a}/libretro.${FORMAT_EXT} $RARCH_DIST_DIR/${a}/bsnes_performance_libretro${FORMAT}.${FORMAT_EXT}
       done
    else
