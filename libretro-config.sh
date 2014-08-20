@@ -53,19 +53,6 @@ esac
 
 export FORMAT_COMPILER_TARGET_ALT="$FORMAT_COMPILER_TARGET"
 
-#USER DEFINES
-#------------
-#These options should be defined inside your own
-#local libretro-config-user.sh file rather than here.
-#The following below is just a sample.
-
-if [ -f "libretro-config-user.sh" ]; then
-. ./libretro-config-user.sh
-else
-# Sane defaults
-export BUILD_LIBRETRO_GL=1
-fi
-
 #if uncommented, will fetch repos with read+write access. Useful for committers
 #export WRITERIGHTS=1
 
@@ -126,3 +113,16 @@ export RA_ANDROID_API=android-18
 
 # Retroarch minimum API level (defines low end android version compatability)
 export RA_ANDROID_MIN_API=android-9
+
+#USER DEFINES
+#------------
+#These options should be defined inside your own
+#local libretro-config-user.sh file rather than here.
+#The following below is just a sample.
+
+if [ -f "libretro-config-user.sh" ]; then
+. ./libretro-config-user.sh
+else
+# Sane defaults
+export BUILD_LIBRETRO_GL=1
+fi
