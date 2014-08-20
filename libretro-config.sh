@@ -120,3 +120,9 @@ export NDK_GL_HEADER_VER=android-18
 
 # android version target if GLES is not in use
 export NDK_NO_GL_HEADER_VER=android-9
+
+# Retroarch target android API level
+export RA_ANDROID_API=android-18
+
+# Retroarch minimum API level (defines low end android version compatability)
+export RA_ANDROID_MIN_API=android-9
