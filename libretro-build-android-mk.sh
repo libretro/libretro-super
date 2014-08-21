@@ -504,7 +504,7 @@ build_libretro_dinothawr()
             ndk-build clean APP_ABI=${a} || die "Failed to clean ${a} ${CORENAME}"
          fi
          ndk-build -j$JOBS APP_ABI=${a} || die "Failed to build  ${a} ${CORENAME}"
-         cp ../libs/${a}/libretro.${FORMAT_EXT} $RARCH_DIST_DIR/${a}/${CORENAME}_libretro${FORMAT}.${FORMAT_EXT}
+         cp ../libs/${a}/libretro_dino.${FORMAT_EXT} $RARCH_DIST_DIR/${a}/${CORENAME}_libretro${FORMAT}.${FORMAT_EXT}
       done
    else
       echo "${CORENAME} not fetched, skipping ..."
@@ -705,7 +705,7 @@ build_libretro_picodrive()
             ndk-build clean APP_ABI=${a} || die "Failed to clean ${a} ${CORENAME}"
          fi
          ndk-build -j$JOBS APP_ABI=${a} || die "Failed to build  ${a} ${CORENAME}"
-         cp ../libs/${a}/libretro.${FORMAT_EXT} $RARCH_DIST_DIR/${a}/${CORENAME}_libretro${FORMAT}.${FORMAT_EXT}
+         cp ../libs/${a}/libretro_picodrive.${FORMAT_EXT} $RARCH_DIST_DIR/${a}/${CORENAME}_libretro${FORMAT}.${FORMAT_EXT}
       done
    else
       echo "${CORENAME} not fetched, skipping ..."
@@ -809,7 +809,7 @@ build_libretro_bsnes()
             ndk-build clean APP_ABI=${a} || die "Failed to clean ${a} ${CORENAME}"
          fi
          ndk-build -j$JOBS APP_ABI=${a} || die "Failed to build ${a} ${CORENAME}"
-         cp ../libs/${a}/libretro.${FORMAT_EXT} $RARCH_DIST_DIR/${a}/bsnes_performance_libretro${FORMAT}.${FORMAT_EXT}
+         cp ../libs/${a}/libretro_bsnes_performance.${FORMAT_EXT} $RARCH_DIST_DIR/${a}/bsnes_performance_libretro${FORMAT}.${FORMAT_EXT}
       done
    else
       echo "${CORENAME} not fetched, skipping ..."
@@ -883,7 +883,7 @@ else
    #build_libretro_bnes
    build_libretro_fceumm
    build_libretro_gambatte
-   build_libretro_meteor
+   #build_libretro_meteor
    build_libretro_nx
    build_libretro_prboom
    build_libretro_stella
