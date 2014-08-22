@@ -473,6 +473,10 @@ build_libretro_pcsx_rearmed() {
    build_libretro_generic_makefile_rootdir "pcsx_rearmed" "Makefile.libretro" ${FORMAT_COMPILER_TARGET}
 }
 
+build_libretro_fceumm() {
+   build_libretro_generic_makefile_rootdir "fceumm" "Makefile.libretro" ${FORMAT_COMPILER_TARGET}
+}
+
 build_libretro_mame() {
    cd "${BASE_DIR}"
    if [ -d 'libretro-mame' ]; then
@@ -627,21 +631,6 @@ build_libretro_vbam() {
 }
 
 
-build_libretro_fceumm() {
-   cd "${BASE_DIR}"
-   if [ -d 'libretro-fceumm' ]; then
-      echo '=== Building FCEUmm ==='
-      cd libretro-fceumm
-
-      if [ -z "${NOCLEAN}" ]; then
-         "${MAKE}" -f Makefile.libretro platform="${FORMAT_COMPILER_TARGET}" ${COMPILER} "-j${JOBS}" clean || die 'Failed to clean FCEUmm'
-      fi
-      "${MAKE}" -f Makefile.libretro platform="${FORMAT_COMPILER_TARGET}" ${COMPILER} "-j${JOBS}" || die 'Failed to build FCEUmm'
-      cp "fceumm_libretro${FORMAT}.${FORMAT_EXT}" "${RARCH_DIST_DIR}"
-   else
-      echo 'FCEUmm not fetched, skipping ...'
-   fi
-}
 
 build_libretro_gambatte() {
    cd "${BASE_DIR}"
