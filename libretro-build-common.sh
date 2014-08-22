@@ -440,7 +440,7 @@ rebuild_libretro_ume() {
 # $1 is corename
 # $2 is profile shortname.
 # $3 is profile name
-build_libretro_modern() {
+build_libretro_bsnes_modern() {
    cd "${BASE_DIR}"
    if [ -d "libretro-${1}/${2}" ]; then
       echo "=== Building ${1} ${3} ==="
@@ -457,15 +457,15 @@ build_libretro_modern() {
 }
 
 build_libretro_bsnes() {
-   build_libretro_modern "bsnes" "perf" "performance"
-   build_libretro_modern "bsnes" "balanced" "balanced"
-   build_libretro_modern "bsnes" "." "accuracy"
+   build_libretro_bsnes_modern "bsnes" "perf" "performance"
+   build_libretro_bsnes_modern "bsnes" "balanced" "balanced"
+   build_libretro_bsnes_modern "bsnes" "." "accuracy"
 }
 
 build_libretro_bsnes_mercury() {
-   build_libretro_modern "bsnes_mercury" "perf" "performance"
-   build_libretro_modern "bsnes_mercury" "balanced" "balanced"
-   build_libretro_modern "bsnes_mercury" "." "accuracy"
+   build_libretro_bsnes_modern "bsnes_mercury" "perf" "performance"
+   build_libretro_bsnes_modern "bsnes_mercury" "balanced" "balanced"
+   build_libretro_bsnes_modern "bsnes_mercury" "." "accuracy"
 }
 
 build_libretro_bsnes_cplusplus98() {
