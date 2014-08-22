@@ -179,7 +179,7 @@ build_libretro_tyrquake() {
 }
 
 build_libretro_2048() {
-   build_libretro_generic_makefile "2048" "." "Makefile" ${FORMAT_COMPILER_TARGET}
+   build_libretro_generic_makefile "2048" "." "Makefile.libretro" ${FORMAT_COMPILER_TARGET}
 }
 
 build_libretro_vecx() {
@@ -191,7 +191,7 @@ build_libretro_stella() {
 }
 
 build_libretro_bluemsx() {
-   build_libretro_generic_makefile "bluemsx" "." "Makefile" ${FORMAT_COMPILER_TARGET}
+   build_libretro_generic_makefile "bluemsx" "." "Makefile.libretro" ${FORMAT_COMPILER_TARGET}
 }
 
 build_libretro_handy() {
