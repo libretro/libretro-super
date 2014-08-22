@@ -82,7 +82,7 @@ export FORMAT_COMPILER_TARGET_ALT="$FORMAT_COMPILER_TARGET"
 #==============
 
 #if uncommented, will build libretro GL cores. Ignored for mobile platforms - GL cores will always be built there.
-#export BUILD_LIBRETRO_GL=1
+export BUILD_LIBRETRO_GL=1
 
 #if uncommented, will build cores with OpenGL ES 2 support. Not needed
 #for platform-specific cores - only for generic core builds (ie. libretro-build.sh)
@@ -91,7 +91,7 @@ export FORMAT_COMPILER_TARGET_ALT="$FORMAT_COMPILER_TARGET"
 #ANDROID DEFINES
 #================
 
-export TARGET_ABIS="armeabi-v7a mips x86"
+export TARGET_ABIS="armeabi armeabi-v7a mips x86"
 
 #uncomment to define NDK standalone toolchain for ARM
 #export NDK_ROOT_DIR_ARM = 
@@ -122,7 +122,4 @@ export RA_ANDROID_MIN_API=android-9
 
 if [ -f "libretro-config-user.sh" ]; then
 . ./libretro-config-user.sh
-else
-# Sane defaults
-export BUILD_LIBRETRO_GL=1
 fi
