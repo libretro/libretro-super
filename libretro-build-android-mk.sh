@@ -40,7 +40,7 @@ die()
 
 build_libretro_beetle_bsnes()
 {
-   CORENAME="beetle-bsnes"
+   CORENAME="mednafen_snes"
    cd $BASE_DIR
    pwd
    if [ -d "libretro-${CORENAME}" ]; then
@@ -52,7 +52,7 @@ build_libretro_beetle_bsnes()
             ndk-build clean APP_ABI=${a} || die "Failed to clean ${a} ${CORENAME}"
          fi
          ndk-build -j$JOBS APP_ABI=${a} || die "Failed to build  ${a} ${CORENAME}"
-         cp ../libs/${a}/libretro.${FORMAT_EXT} $RARCH_DIST_DIR/${a}/mednafen_bsnes_libretro${FORMAT}.${FORMAT_EXT}
+         cp ../libs/${a}/libretro.${FORMAT_EXT} $RARCH_DIST_DIR/${a}/${CORENAME}_libretro${FORMAT}.${FORMAT_EXT}
       done
    else
       echo "${CORENAME} not fetched, skipping ..."
@@ -61,7 +61,7 @@ build_libretro_beetle_bsnes()
 
 build_libretro_beetle_lynx()
 {
-   CORENAME="beetle-lynx"
+   CORENAME="mednafen_lynx"
    cd $BASE_DIR
    pwd
    if [ -d "libretro-${CORENAME}" ]; then
@@ -73,7 +73,7 @@ build_libretro_beetle_lynx()
             ndk-build clean APP_ABI=${a} || die "Failed to clean ${a} ${CORENAME}"
          fi
          ndk-build -j$JOBS APP_ABI=${a} || die "Failed to build  ${a} ${CORENAME}"
-         cp ../libs/${a}/libretro.${FORMAT_EXT} $RARCH_DIST_DIR/${a}/mednafen_lynx_libretro${FORMAT}.${FORMAT_EXT}
+         cp ../libs/${a}/libretro.${FORMAT_EXT} $RARCH_DIST_DIR/${a}/${CORENAME}_libretro${FORMAT}.${FORMAT_EXT}
       done
    else
       echo "${CORENAME} not fetched, skipping ..."
@@ -82,7 +82,7 @@ build_libretro_beetle_lynx()
 
 build_libretro_beetle_gba()
 {
-   CORENAME="beetle-gba"
+   CORENAME="mednafen_gba"
    cd $BASE_DIR
    pwd
    if [ -d "libretro-${CORENAME}" ]; then
@@ -94,7 +94,7 @@ build_libretro_beetle_gba()
             ndk-build clean APP_ABI=${a} || die "Failed to clean ${a} ${CORENAME}"
          fi
          ndk-build -j$JOBS APP_ABI=${a} || die "Failed to build  ${a} ${CORENAME}"
-         cp ../libs/${a}/libretro.${FORMAT_EXT} $RARCH_DIST_DIR/${a}/mednafen_gba_libretro${FORMAT}.${FORMAT_EXT}
+         cp ../libs/${a}/libretro.${FORMAT_EXT} $RARCH_DIST_DIR/${a}/${CORENAME}_libretro${FORMAT}.${FORMAT_EXT}
       done
    else
       echo "${CORENAME} not fetched, skipping ..."
@@ -103,7 +103,7 @@ build_libretro_beetle_gba()
 
 build_libretro_beetle_ngp()
 {
-   CORENAME="beetle-ngp"
+   CORENAME="mednafen_ngp"
    cd $BASE_DIR
    pwd
    if [ -d "libretro-${CORENAME}" ]; then
@@ -115,7 +115,7 @@ build_libretro_beetle_ngp()
             ndk-build clean APP_ABI=${a} || die "Failed to clean ${a} ${CORENAME}"
          fi
          ndk-build -j$JOBS APP_ABI=${a} || die "Failed to build  ${a} ${CORENAME}"
-         cp ../libs/${a}/libretro.${FORMAT_EXT} $RARCH_DIST_DIR/${a}/mednafen_ngp_libretro${FORMAT}.${FORMAT_EXT}
+         cp ../libs/${a}/libretro.${FORMAT_EXT} $RARCH_DIST_DIR/${a}/${CORENAME}_libretro${FORMAT}.${FORMAT_EXT}
       done
    else
       echo "${CORENAME} not fetched, skipping ..."
@@ -124,7 +124,7 @@ build_libretro_beetle_ngp()
 
 build_libretro_beetle_wswan()
 {
-   CORENAME="beetle-wswan"
+   CORENAME="mednafen_wswan"
    cd $BASE_DIR
    pwd
    if [ -d "libretro-${CORENAME}" ]; then
@@ -136,7 +136,7 @@ build_libretro_beetle_wswan()
             ndk-build clean APP_ABI=${a} || die "Failed to clean ${a} ${CORENAME}"
          fi
          ndk-build -j$JOBS APP_ABI=${a} || die "Failed to build  ${a} ${CORENAME}"
-         cp ../libs/${a}/libretro.${FORMAT_EXT} $RARCH_DIST_DIR/${a}/mednafen_wswan_libretro${FORMAT}.${FORMAT_EXT}
+         cp ../libs/${a}/libretro.${FORMAT_EXT} $RARCH_DIST_DIR/${a}/${CORENAME}_libretro${FORMAT}.${FORMAT_EXT}
       done
    else
       echo "${CORENAME} not fetched, skipping ..."
@@ -145,7 +145,7 @@ build_libretro_beetle_wswan()
 
 build_libretro_beetle_psx()
 {
-   CORENAME="beetle-psx"
+   CORENAME="mednafen_psx"
    cd $BASE_DIR
    pwd
    if [ -d "libretro-${CORENAME}" ]; then
@@ -157,7 +157,7 @@ build_libretro_beetle_psx()
             ndk-build clean APP_ABI=${a} || die "Failed to clean ${a} ${CORENAME}"
          fi
          ndk-build -j$JOBS APP_ABI=${a} || die "Failed to build  ${a} ${CORENAME}"
-         cp ../libs/${a}/libretro.${FORMAT_EXT} $RARCH_DIST_DIR/${a}/mednafen_psx_libretro${FORMAT}.${FORMAT_EXT}
+         cp ../libs/${a}/libretro.${FORMAT_EXT} $RARCH_DIST_DIR/${a}/${CORENAME}_libretro${FORMAT}.${FORMAT_EXT}
       done
    else
       echo "${CORENAME} not fetched, skipping ..."
@@ -166,7 +166,7 @@ build_libretro_beetle_psx()
 
 build_libretro_beetle_pcfx()
 {
-   CORENAME="beetle-pcfx"
+   CORENAME="mednafen_pcfx"
    cd $BASE_DIR
    pwd
    if [ -d "libretro-${CORENAME}" ]; then
@@ -178,7 +178,7 @@ build_libretro_beetle_pcfx()
             ndk-build clean APP_ABI=${a} || die "Failed to clean ${a} ${CORENAME}"
          fi
          ndk-build -j$JOBS APP_ABI=${a} || die "Failed to build  ${a} ${CORENAME}"
-         cp ../libs/${a}/libretro.${FORMAT_EXT} $RARCH_DIST_DIR/${a}/mednafen_pcfx_libretro${FORMAT}.${FORMAT_EXT}
+         cp ../libs/${a}/libretro.${FORMAT_EXT} $RARCH_DIST_DIR/${a}/${CORENAME}_libretro${FORMAT}.${FORMAT_EXT}
       done
    else
       echo "${CORENAME} not fetched, skipping ..."
@@ -187,7 +187,7 @@ build_libretro_beetle_pcfx()
 
 build_libretro_beetle_vb()
 {
-   CORENAME="beetle-vb"
+   CORENAME="mednafen_vb"
    cd $BASE_DIR
    pwd
    if [ -d "libretro-${CORENAME}" ]; then
@@ -199,7 +199,7 @@ build_libretro_beetle_vb()
             ndk-build clean APP_ABI=${a} || die "Failed to clean ${a} ${CORENAME}"
          fi
          ndk-build -j$JOBS APP_ABI=${a} || die "Failed to build  ${a} ${CORENAME}"
-         cp ../libs/${a}/libretro.${FORMAT_EXT} $RARCH_DIST_DIR/${a}/mednafen_vb_libretro${FORMAT}.${FORMAT_EXT}
+         cp ../libs/${a}/libretro.${FORMAT_EXT} $RARCH_DIST_DIR/${a}/${CORENAME}_libretro${FORMAT}.${FORMAT_EXT}
       done
    else
       echo "${CORENAME} not fetched, skipping ..."
@@ -208,7 +208,7 @@ build_libretro_beetle_vb()
 
 build_libretro_beetle_pce_fast()
 {
-   CORENAME="beetle-pce-fast"
+   CORENAME="mednafen_pce_fast"
    cd $BASE_DIR
    pwd
    if [ -d "libretro-${CORENAME}" ]; then
@@ -220,7 +220,7 @@ build_libretro_beetle_pce_fast()
             ndk-build clean APP_ABI=${a} || die "Failed to clean ${a} ${CORENAME}"
          fi
          ndk-build -j$JOBS APP_ABI=${a} || die "Failed to build  ${a} ${CORENAME}"
-         cp ../libs/${a}/libretro.${FORMAT_EXT} $RARCH_DIST_DIR/${a}/mednafen_pce_libretro${FORMAT}.${FORMAT_EXT}
+         cp ../libs/${a}/libretro.${FORMAT_EXT} $RARCH_DIST_DIR/${a}/${CORENAME}_libretro${FORMAT}.${FORMAT_EXT}
       done
    else
       echo "${CORENAME} not fetched, skipping ..."
@@ -229,7 +229,7 @@ build_libretro_beetle_pce_fast()
 
 build_libretro_beetle_supergrafx()
 {
-   CORENAME="beetle-supergrafx"
+   CORENAME="mednafen_supergrafx"
    cd $BASE_DIR
    pwd
    if [ -d "libretro-${CORENAME}" ]; then
@@ -241,7 +241,7 @@ build_libretro_beetle_supergrafx()
             ndk-build clean APP_ABI=${a} || die "Failed to clean ${a} ${CORENAME}"
          fi
          ndk-build -j$JOBS APP_ABI=${a} || die "Failed to build  ${a} ${CORENAME}"
-         cp ../libs/${a}/libretro.${FORMAT_EXT} $RARCH_DIST_DIR/${a}/mednafen_supergrafx_libretro${FORMAT}.${FORMAT_EXT}
+         cp ../libs/${a}/libretro.${FORMAT_EXT} $RARCH_DIST_DIR/${a}/${CORENAME}_libretro${FORMAT}.${FORMAT_EXT}
       done
    else
       echo "${CORENAME} not fetched, skipping ..."
@@ -261,7 +261,7 @@ build_libretro_snes9x()
             ndk-build clean APP_ABI=${a} || die "Failed to clean ${a} ${CORENAME}"
          fi
          ndk-build -j$JOBS APP_ABI=${a} || die "Failed to build  ${a} ${CORENAME}"
-         cp ../libs/${a}/libretro.${FORMAT_EXT} $RARCH_DIST_DIR/${a}/snes9x_libretro${FORMAT}.${FORMAT_EXT}
+         cp ../libs/${a}/libretro.${FORMAT_EXT} $RARCH_DIST_DIR/${a}/${CORENAME}_libretro${FORMAT}.${FORMAT_EXT}
       done
    else
       echo "${CORENAME} not fetched, skipping ..."
@@ -404,7 +404,7 @@ build_libretro_vba_next()
             ndk-build clean APP_ABI=${a} || die "Failed to clean ${a} ${CORENAME}"
          fi
          ndk-build -j$JOBS APP_ABI=${a} || die "Failed to build  ${a} ${CORENAME}"
-         cp ../libs/${a}/libretro.${FORMAT_EXT} $RARCH_DIST_DIR/${a}/vba_next_libretro${FORMAT}.${FORMAT_EXT}
+         cp ../libs/${a}/libretro.${FORMAT_EXT} $RARCH_DIST_DIR/${a}/${CORENAME}_libretro${FORMAT}.${FORMAT_EXT}
       done
    else
       echo "${CORENAME} not fetched, skipping ..."
