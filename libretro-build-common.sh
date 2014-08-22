@@ -468,6 +468,10 @@ build_libretro_snes9x_next() {
    build_libretro_generic_makefile_rootdir "snes9x_next" "Makefile.libretro" ${FORMAT_COMPILER_TARGET_ALT}
 }
 
+build_libretro_dinothawr() {
+   build_libretro_generic_makefile_rootdir "dinothawr" "Makefile" ${FORMAT_COMPILER_TARGET_ALT}
+}
+
 build_libretro_genplus() {
    cd "${BASE_DIR}"
    if [ -d 'libretro-genplus' ]; then
@@ -691,21 +695,6 @@ build_libretro_prboom() {
    fi
 }
 
-build_libretro_dinothawr() {
-   cd "${BASE_DIR}"
-   if [ -d 'libretro-dinothawr' ]; then
-      echo '=== Building Dinothawr ==='
-      cd libretro-dinothawr
-
-      if [ -z "${NOCLEAN}" ]; then
-         "${MAKE}" platform="${FORMAT_COMPILER_TARGET_ALT}" ${COMPILER} "-j${JOBS}" clean || die 'Failed to clean Dinothawr'
-      fi
-      "${MAKE}" platform="${FORMAT_COMPILER_TARGET_ALT}" ${COMPILER} "-j${JOBS}" || die 'Failed to build Dinothawr'
-      cp "dinothawr_libretro${FORMAT}.${FORMAT_EXT}" "${RARCH_DIST_DIR}"
-   else
-      echo 'Dinothawr not fetched, skipping ...'
-   fi
-}
 
 build_libretro_meteor() {
    cd "${BASE_DIR}"
