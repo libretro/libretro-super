@@ -232,9 +232,9 @@ build_libretro_gambatte()
 build_libretro_nx()
 {
    cd $BASE_DIR
-   if [ -d "libretro-nx" ]; then
+   if [ -d "libretro-nxengine" ]; then
       echo "=== Building NXEngine ==="
-      cd libretro-nx
+      cd libretro-nxengine
       cd nxengine-1.0.0.4/libretro/msvc
       cmd.exe /k $MSVC_NAME.bat
       cp $MSVC_NAME/$RELEASE_LTCG/${MSVC_NAME}.${FORMAT_EXT} "$RARCH_DIST_DIR"/nxengine_libretro$FORMAT.$FORMAT_EXT

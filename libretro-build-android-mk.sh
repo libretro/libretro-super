@@ -453,7 +453,7 @@ build_libretro_gambatte()
 
 build_libretro_nx()
 {
-   CORENAME="nx"
+   CORENAME="nxengine"
    cd $BASE_DIR
    if [ -d "libretro-${CORENAME}" ]; then
       echo "=== Building ${CORENAME} ==="
@@ -464,7 +464,7 @@ build_libretro_nx()
             ndk-build clean APP_ABI=${a} || die "Failed to clean ${a} ${CORENAME}"
          fi
          ndk-build -j$JOBS APP_ABI=${a} || die "Failed to build  ${a} ${CORENAME}"
-         cp ../libs/${a}/libretro.${FORMAT_EXT} $RARCH_DIST_DIR/${a}/nxengine_libretro${FORMAT}.${FORMAT_EXT}
+         cp ../libs/${a}/libretro.${FORMAT_EXT} $RARCH_DIST_DIR/${a}/${CORENAME}_libretro${FORMAT}.${FORMAT_EXT}
       done
    else
       echo "${CORENAME} not fetched, skipping ..."
