@@ -38,318 +38,6 @@ die()
    #exit 1
 }
 
-build_libretro_beetle_bsnes()
-{
-   CORENAME="mednafen_snes"
-   cd $BASE_DIR
-   pwd
-   if [ -d "libretro-${CORENAME}" ]; then
-      cd libretro-${CORENAME}
-      cd jni
-      echo "=== Building ${CORENAME} ==="
-      for a in "${ABIS[@]}"; do
-         if [ -z "${NOCLEAN}" ]; then
-            ndk-build clean APP_ABI=${a} || die "Failed to clean ${a} ${CORENAME}"
-         fi
-         ndk-build -j$JOBS APP_ABI=${a} || die "Failed to build  ${a} ${CORENAME}"
-         cp ../libs/${a}/libretro.${FORMAT_EXT} $RARCH_DIST_DIR/${a}/${CORENAME}_libretro${FORMAT}.${FORMAT_EXT}
-      done
-   else
-      echo "${CORENAME} not fetched, skipping ..."
-   fi
-}
-
-build_libretro_beetle_lynx()
-{
-   CORENAME="mednafen_lynx"
-   cd $BASE_DIR
-   pwd
-   if [ -d "libretro-${CORENAME}" ]; then
-      cd libretro-${CORENAME}
-      cd jni
-      echo "=== Building ${CORENAME} ==="
-      for a in "${ABIS[@]}"; do
-         if [ -z "${NOCLEAN}" ]; then
-            ndk-build clean APP_ABI=${a} || die "Failed to clean ${a} ${CORENAME}"
-         fi
-         ndk-build -j$JOBS APP_ABI=${a} || die "Failed to build  ${a} ${CORENAME}"
-         cp ../libs/${a}/libretro.${FORMAT_EXT} $RARCH_DIST_DIR/${a}/${CORENAME}_libretro${FORMAT}.${FORMAT_EXT}
-      done
-   else
-      echo "${CORENAME} not fetched, skipping ..."
-   fi
-}
-
-build_libretro_beetle_gba()
-{
-   CORENAME="mednafen_gba"
-   cd $BASE_DIR
-   pwd
-   if [ -d "libretro-${CORENAME}" ]; then
-      cd libretro-${CORENAME}
-      cd jni
-      echo "=== Building ${CORENAME} ==="
-      for a in "${ABIS[@]}"; do
-         if [ -z "${NOCLEAN}" ]; then
-            ndk-build clean APP_ABI=${a} || die "Failed to clean ${a} ${CORENAME}"
-         fi
-         ndk-build -j$JOBS APP_ABI=${a} || die "Failed to build  ${a} ${CORENAME}"
-         cp ../libs/${a}/libretro.${FORMAT_EXT} $RARCH_DIST_DIR/${a}/${CORENAME}_libretro${FORMAT}.${FORMAT_EXT}
-      done
-   else
-      echo "${CORENAME} not fetched, skipping ..."
-   fi
-}
-
-build_libretro_beetle_ngp()
-{
-   CORENAME="mednafen_ngp"
-   cd $BASE_DIR
-   pwd
-   if [ -d "libretro-${CORENAME}" ]; then
-      cd libretro-${CORENAME}
-      cd jni
-      echo "=== Building ${CORENAME} ==="
-      for a in "${ABIS[@]}"; do
-         if [ -z "${NOCLEAN}" ]; then
-            ndk-build clean APP_ABI=${a} || die "Failed to clean ${a} ${CORENAME}"
-         fi
-         ndk-build -j$JOBS APP_ABI=${a} || die "Failed to build  ${a} ${CORENAME}"
-         cp ../libs/${a}/libretro.${FORMAT_EXT} $RARCH_DIST_DIR/${a}/${CORENAME}_libretro${FORMAT}.${FORMAT_EXT}
-      done
-   else
-      echo "${CORENAME} not fetched, skipping ..."
-   fi
-}
-
-build_libretro_beetle_wswan()
-{
-   CORENAME="mednafen_wswan"
-   cd $BASE_DIR
-   pwd
-   if [ -d "libretro-${CORENAME}" ]; then
-      cd libretro-${CORENAME}
-      cd jni
-      echo "=== Building ${CORENAME} ==="
-      for a in "${ABIS[@]}"; do
-         if [ -z "${NOCLEAN}" ]; then
-            ndk-build clean APP_ABI=${a} || die "Failed to clean ${a} ${CORENAME}"
-         fi
-         ndk-build -j$JOBS APP_ABI=${a} || die "Failed to build  ${a} ${CORENAME}"
-         cp ../libs/${a}/libretro.${FORMAT_EXT} $RARCH_DIST_DIR/${a}/${CORENAME}_libretro${FORMAT}.${FORMAT_EXT}
-      done
-   else
-      echo "${CORENAME} not fetched, skipping ..."
-   fi
-}
-
-build_libretro_beetle_psx()
-{
-   CORENAME="mednafen_psx"
-   cd $BASE_DIR
-   pwd
-   if [ -d "libretro-${CORENAME}" ]; then
-      cd libretro-${CORENAME}
-      cd jni
-      echo "=== Building ${CORENAME} ==="
-      for a in "${ABIS[@]}"; do
-         if [ -z "${NOCLEAN}" ]; then
-            ndk-build clean APP_ABI=${a} || die "Failed to clean ${a} ${CORENAME}"
-         fi
-         ndk-build -j$JOBS APP_ABI=${a} || die "Failed to build  ${a} ${CORENAME}"
-         cp ../libs/${a}/libretro.${FORMAT_EXT} $RARCH_DIST_DIR/${a}/${CORENAME}_libretro${FORMAT}.${FORMAT_EXT}
-      done
-   else
-      echo "${CORENAME} not fetched, skipping ..."
-   fi
-}
-
-build_libretro_beetle_pcfx()
-{
-   CORENAME="mednafen_pcfx"
-   cd $BASE_DIR
-   pwd
-   if [ -d "libretro-${CORENAME}" ]; then
-      cd libretro-${CORENAME}
-      cd jni
-      echo "=== Building ${CORENAME} ==="
-      for a in "${ABIS[@]}"; do
-         if [ -z "${NOCLEAN}" ]; then
-            ndk-build clean APP_ABI=${a} || die "Failed to clean ${a} ${CORENAME}"
-         fi
-         ndk-build -j$JOBS APP_ABI=${a} || die "Failed to build  ${a} ${CORENAME}"
-         cp ../libs/${a}/libretro.${FORMAT_EXT} $RARCH_DIST_DIR/${a}/${CORENAME}_libretro${FORMAT}.${FORMAT_EXT}
-      done
-   else
-      echo "${CORENAME} not fetched, skipping ..."
-   fi
-}
-
-build_libretro_beetle_vb()
-{
-   CORENAME="mednafen_vb"
-   cd $BASE_DIR
-   pwd
-   if [ -d "libretro-${CORENAME}" ]; then
-      cd libretro-${CORENAME}
-      cd jni
-      echo "=== Building ${CORENAME} ==="
-      for a in "${ABIS[@]}"; do
-         if [ -z "${NOCLEAN}" ]; then
-            ndk-build clean APP_ABI=${a} || die "Failed to clean ${a} ${CORENAME}"
-         fi
-         ndk-build -j$JOBS APP_ABI=${a} || die "Failed to build  ${a} ${CORENAME}"
-         cp ../libs/${a}/libretro.${FORMAT_EXT} $RARCH_DIST_DIR/${a}/${CORENAME}_libretro${FORMAT}.${FORMAT_EXT}
-      done
-   else
-      echo "${CORENAME} not fetched, skipping ..."
-   fi
-}
-
-build_libretro_beetle_pce_fast()
-{
-   CORENAME="mednafen_pce_fast"
-   cd $BASE_DIR
-   pwd
-   if [ -d "libretro-${CORENAME}" ]; then
-      cd libretro-${CORENAME}
-      cd jni
-      echo "=== Building ${CORENAME} ==="
-      for a in "${ABIS[@]}"; do
-         if [ -z "${NOCLEAN}" ]; then
-            ndk-build clean APP_ABI=${a} || die "Failed to clean ${a} ${CORENAME}"
-         fi
-         ndk-build -j$JOBS APP_ABI=${a} || die "Failed to build  ${a} ${CORENAME}"
-         cp ../libs/${a}/libretro.${FORMAT_EXT} $RARCH_DIST_DIR/${a}/${CORENAME}_libretro${FORMAT}.${FORMAT_EXT}
-      done
-   else
-      echo "${CORENAME} not fetched, skipping ..."
-   fi
-}
-
-build_libretro_beetle_supergrafx()
-{
-   CORENAME="mednafen_supergrafx"
-   cd $BASE_DIR
-   pwd
-   if [ -d "libretro-${CORENAME}" ]; then
-      cd libretro-${CORENAME}
-      cd jni
-      echo "=== Building ${CORENAME} ==="
-      for a in "${ABIS[@]}"; do
-         if [ -z "${NOCLEAN}" ]; then
-            ndk-build clean APP_ABI=${a} || die "Failed to clean ${a} ${CORENAME}"
-         fi
-         ndk-build -j$JOBS APP_ABI=${a} || die "Failed to build  ${a} ${CORENAME}"
-         cp ../libs/${a}/libretro.${FORMAT_EXT} $RARCH_DIST_DIR/${a}/${CORENAME}_libretro${FORMAT}.${FORMAT_EXT}
-      done
-   else
-      echo "${CORENAME} not fetched, skipping ..."
-   fi
-}
-
-build_libretro_snes9x()
-{
-   CORENAME="snes9x"
-   cd $BASE_DIR
-   if [ -d "libretro-${CORENAME}" ]; then
-      echo "=== Building ${CORENAME} ==="
-      cd libretro-${CORENAME}/
-      cd libretro/jni
-      for a in "${ABIS[@]}"; do
-         if [ -z "${NOCLEAN}" ]; then
-            ndk-build clean APP_ABI=${a} || die "Failed to clean ${a} ${CORENAME}"
-         fi
-         ndk-build -j$JOBS APP_ABI=${a} || die "Failed to build  ${a} ${CORENAME}"
-         cp ../libs/${a}/libretro.${FORMAT_EXT} $RARCH_DIST_DIR/${a}/${CORENAME}_libretro${FORMAT}.${FORMAT_EXT}
-      done
-   else
-      echo "${CORENAME} not fetched, skipping ..."
-   fi
-}
-
-build_libretro_snes9x_next()
-{
-   CORENAME="snes9x_next"
-   cd $BASE_DIR
-   if [ -d "libretro-${CORENAME}" ]; then
-      echo "=== Building ${CORENAME} ==="
-      cd libretro-${CORENAME}/
-      cd libretro/jni
-      for a in "${ABIS[@]}"; do
-         if [ -z "${NOCLEAN}" ]; then
-            ndk-build clean APP_ABI=${a} || die "Failed to clean ${a} ${CORENAME}"
-         fi
-         ndk-build -j$JOBS APP_ABI=${a} || die "Failed to build  ${a} ${CORENAME}"
-         cp ../libs/${a}/libretro.${FORMAT_EXT} $RARCH_DIST_DIR/${a}/snes9x_next_libretro${FORMAT}.${FORMAT_EXT}
-      done
-   else
-      echo "${CORENAME} not fetched, skipping ..."
-   fi
-}
-
-build_libretro_2048()
-{
-   CORENAME="2048"
-   cd $BASE_DIR
-   if [ -d "libretro-${CORENAME}" ]; then
-      echo "=== Building ${CORENAME} ==="
-      cd libretro-${CORENAME}/
-      cd jni
-      for a in "${ABIS[@]}"; do
-         if [ -z "${NOCLEAN}" ]; then
-            ndk-build clean APP_ABI=${a} || die "Failed to clean ${a} ${CORENAME}"
-         fi
-         ndk-build -j$JOBS APP_ABI=${a} || die "Failed to build  ${a} ${CORENAME}"
-         cp ../libs/${a}/libretro.${FORMAT_EXT} $RARCH_DIST_DIR/${a}/${CORENAME}_libretro${FORMAT}.${FORMAT_EXT}
-      done
-   else
-      echo "${CORENAME} not fetched, skipping ..."
-   fi
-}
-
-build_libretro_stella()
-{
-   CORENAME="stella"
-   cd $BASE_DIR
-   if [ -d "libretro-${CORENAME}" ]; then
-      echo "=== Building ${CORENAME} ==="
-      cd libretro-${CORENAME}/
-      cd jni
-      for a in "${ABIS[@]}"; do
-         if [ -z "${NOCLEAN}" ]; then
-            ndk-build clean APP_ABI=${a} || die "Failed to clean ${a} ${CORENAME}"
-         fi
-         ndk-build -j$JOBS APP_ABI=${a} || die "Failed to build  ${a} ${CORENAME}"
-         cp ../libs/${a}/libretro.${FORMAT_EXT} $RARCH_DIST_DIR/${a}/${CORENAME}_libretro${FORMAT}.${FORMAT_EXT}
-      done
-   else
-      echo "${CORENAME} not fetched, skipping ..."
-   fi
-}
-
-build_libretro_genplus()
-{
-   CORENAME="genplus"
-   cd $BASE_DIR
-   if [ -d "libretro-${CORENAME}" ]; then
-      echo "=== Building ${CORENAME} ==="
-      cd libretro-${CORENAME}/
-      cd libretro/jni
-      if [ -z "${NOCLEAN}" ]; then
-         for a in "${ABIS[@]}"; do
-            if [ -z "${NOCLEAN}" ]; then
-               ndk-build clean APP_ABI=${a} || die "Failed to clean ${a} ${CORENAME}"
-            fi
-            ndk-build -j$JOBS APP_ABI=${a} || die "Failed to build  ${a} ${CORENAME}"
-            cp ../libs/${a}/libretro.${FORMAT_EXT} $RARCH_DIST_DIR/${a}/genesis_plus_gx_libretro${FORMAT}.${FORMAT_EXT}
-         done
-      else
-         echo "${CORENAME} not fetched, skipping ..."
-      fi
-   fi
-}
-
 build_libretro_fba_full()
 {
    CORENAME="fba"
@@ -391,24 +79,108 @@ build_libretro_vbam()
    fi
 }
 
-build_libretro_vba_next()
+# $1 is core name
+build_libretro_generic_makefile_libretrodir()
 {
-   CORENAME="vba_next"
    cd $BASE_DIR
-   if [ -d "libretro-${CORENAME}" ]; then
-      echo "=== Building ${CORENAME} ==="
-      cd libretro-${CORENAME}/
+   if [ -d "libretro-${1}" ]; then
+      echo "=== Building ${1} ==="
+      cd libretro-${1}/
       cd libretro/jni
       for a in "${ABIS[@]}"; do
          if [ -z "${NOCLEAN}" ]; then
-            ndk-build clean APP_ABI=${a} || die "Failed to clean ${a} ${CORENAME}"
+            ndk-build clean APP_ABI=${a} || die "Failed to clean ${a} ${1}"
          fi
-         ndk-build -j$JOBS APP_ABI=${a} || die "Failed to build  ${a} ${CORENAME}"
-         cp ../libs/${a}/libretro.${FORMAT_EXT} $RARCH_DIST_DIR/${a}/${CORENAME}_libretro${FORMAT}.${FORMAT_EXT}
+         ndk-build -j$JOBS APP_ABI=${a} || die "Failed to build  ${a} ${1}"
+         cp ../libs/${a}/libretro.${FORMAT_EXT} $RARCH_DIST_DIR/${a}/${1}_libretro${FORMAT}.${FORMAT_EXT}
       done
    else
-      echo "${CORENAME} not fetched, skipping ..."
+      echo "${1} not fetched, skipping ..."
    fi
+}
+
+# $1 is core name
+build_libretro_generic_makefile_rootdir()
+{
+   cd $BASE_DIR
+   if [ -d "libretro-${1}" ]; then
+      echo "=== Building ${1} ==="
+      cd libretro-${1}
+      cd jni
+      for a in "${ABIS[@]}"; do
+         if [ -z "${NOCLEAN}" ]; then
+            ndk-build clean APP_ABI=${a} || die "Failed to clean ${a} ${1}"
+         fi
+         ndk-build -j$JOBS APP_ABI=${a} || die "Failed to build  ${a} ${1}"
+         cp ../libs/${a}/libretro.${FORMAT_EXT} $RARCH_DIST_DIR/${a}/${1}_libretro${FORMAT}.${FORMAT_EXT}
+      done
+   else
+      echo "${1} not fetched, skipping ..."
+   fi
+}
+
+build_libretro_2048() {
+   build_libretro_generic_makefile_rootdir "2048"
+}
+
+build_libretro_stella() {
+   build_libretro_generic_makefile_rootdir "stella"
+}
+
+build_libretro_genesis_plus_gx() {
+   build_libretro_generic_makefile_libretrodir "genesis_plus_gx"
+}
+
+build_libretro_vba_next() {
+   build_libretro_generic_makefile_libretrodir "vba_next"
+}
+
+build_libretro_snes9x() {
+   build_libretro_generic_makefile_libretrodir "snes9x"
+}
+
+build_libretro_snes9x_next() {
+   build_libretro_generic_makefile_libretrodir "snes9x_next"
+}
+
+build_libretro_beetle_bsnes() {
+   build_libretro_generic_makefile_rootdir "mednafen_snes"
+}
+
+build_libretro_beetle_lynx() {
+   build_libretro_generic_makefile_rootdir "mednafen_lynx"
+}
+
+build_libretro_beetle_gba() {
+   build_libretro_generic_makefile_rootdir "mednafen_gba"
+}
+
+build_libretro_beetle_ngp() {
+   build_libretro_generic_makefile_rootdir "mednafen_ngp"
+}
+
+build_libretro_beetle_wswan() {
+   build_libretro_generic_makefile_rootdir "mednafen_wswan"
+}
+
+build_libretro_beetle_psx() {
+   build_libretro_generic_makefile_rootdir "mednafen_psx"
+}
+
+build_libretro_beetle_pcfx() {
+   build_libretro_generic_makefile_rootdir "mednafen_pcfx"
+}
+
+build_libretro_beetle_vb() {
+   build_libretro_generic_makefile_rootdir "mednafen_vb"
+}
+
+build_libretro_beetle_pce_fast() {
+   build_libretro_generic_makefile_rootdir "mednafen_pce_fast"
+}
+
+build_libretro_beetle_supergrafx() {
+   build_libretro_generic_makefile_rootdir "mednafen_supergrafx"
 }
 
 build_libretro_fceumm()
@@ -451,44 +223,13 @@ build_libretro_gambatte()
    fi
 }
 
-build_libretro_nx()
-{
-   CORENAME="nxengine"
-   cd $BASE_DIR
-   if [ -d "libretro-${CORENAME}" ]; then
-      echo "=== Building ${CORENAME} ==="
-      cd libretro-${CORENAME}
-      cd jni
-      for a in "${ABIS[@]}"; do
-         if [ -z "${NOCLEAN}" ]; then
-            ndk-build clean APP_ABI=${a} || die "Failed to clean ${a} ${CORENAME}"
-         fi
-         ndk-build -j$JOBS APP_ABI=${a} || die "Failed to build  ${a} ${CORENAME}"
-         cp ../libs/${a}/libretro.${FORMAT_EXT} $RARCH_DIST_DIR/${a}/${CORENAME}_libretro${FORMAT}.${FORMAT_EXT}
-      done
-   else
-      echo "${CORENAME} not fetched, skipping ..."
-   fi
+build_libretro_nx() {
+   build_libretro_generic_makefile_rootdir "nxengine"
 }
 
 build_libretro_prboom()
 {
-   CORENAME="prboom"
-   cd $BASE_DIR
-   if [ -d "libretro-${CORENAME}" ]; then
-      echo "=== Building ${CORENAME} ==="
-      cd libretro-${CORENAME}
-      cd libretro/jni
-      for a in "${ABIS[@]}"; do
-         if [ -z "${NOCLEAN}" ]; then
-            ndk-build clean APP_ABI=${a} || die "Failed to clean ${a} ${CORENAME}"
-         fi
-         ndk-build -j$JOBS APP_ABI=${a} || die "Failed to build  ${a} ${CORENAME}"
-         cp ../libs/${a}/libretro.${FORMAT_EXT} $RARCH_DIST_DIR/${a}/${CORENAME}_libretro${FORMAT}.${FORMAT_EXT}
-      done
-   else
-      echo "${CORENAME} not fetched, skipping ..."
-   fi
+   build_libretro_generic_makefile_libretrodir "prboom"
 }
 
 build_libretro_dinothawr()
@@ -511,65 +252,38 @@ build_libretro_dinothawr()
    fi
 }
 
-build_libretro_nestopia()
-{
-   CORENAME="nestopia"
-   cd $BASE_DIR
-   if [ -d "libretro-${CORENAME}" ]; then
-      echo "=== Building ${CORENAME} ==="
-      cd libretro-${CORENAME}/
-      cd libretro/jni
-      for a in "${ABIS[@]}"; do
-         if [ -z "${NOCLEAN}" ]; then
-            ndk-build clean APP_ABI=${a} || die "Failed to clean ${a} ${CORENAME}"
-         fi
-         ndk-build -j$JOBS APP_ABI=${a} || die "Failed to build  ${a} ${CORENAME}"
-         cp ../libs/${a}/libretro.${FORMAT_EXT} $RARCH_DIST_DIR/${a}/${CORENAME}_libretro${FORMAT}.${FORMAT_EXT}
-      done
-   else
-      echo "${CORENAME} not fetched, skipping ..."
-   fi
+build_libretro_nestopia() {
+   build_libretro_generic_makefile_libretrodir "nestopia"
 }
 
 build_libretro_pcsx_rearmed()
 {
-   CORENAME="pcsx_rearmed"
-   cd $BASE_DIR
-   pwd
-   if [ -d "libretro-${CORENAME}" ]; then
-      echo "=== Building ${CORENAME} ==="
-      cd libretro-${CORENAME}
-      cd jni
-      for a in "${ABIS[@]}"; do
-         if [ -z "${NOCLEAN}" ]; then
-            ndk-build clean APP_ABI=${a} || die "Failed to clean ${a} ${CORENAME}"
-         fi
-         ndk-build -j$JOBS APP_ABI=${a} || die "Failed to build  ${a} ${CORENAME}"
-         cp ../libs/${a}/libretro.${FORMAT_EXT} $RARCH_DIST_DIR/${a}/${CORENAME}_libretro_neon${FORMAT}.${FORMAT_EXT}
-      done
-   else
-      echo "${CORENAME} not fetched, skipping ..."
-   fi
+   build_libretro_generic_makefile_rootdir "pcsx_rearmed"
 }
 
-build_libretro_tyrquake()
+build_libretro_tyrquake() {
+   build_libretro_generic_makefile_libretrodir "tyrquake"
+}
+
+build_libretro_picodrive() {
+   build_libretro_generic_makefile_rootdir "picodrive"
+}
+
+build_libretro_quicknes() {
+   build_libretro_generic_makefile_libretrodir "quicknes"
+}
+
+build_libretro_handy() {
+   build_libretro_generic_makefile_libretrodir "handy"
+}
+
+build_libretro_yabause() {
+   build_libretro_generic_makefile_libretrodir "yabause"
+}
+
+build_libretro_mupen64()
 {
-   CORENAME="tyrquake"
-   cd $BASE_DIR
-   if [ -d "libretro-${CORENAME}" ]; then
-      echo "=== Building ${CORENAME} ==="
-      cd libretro-${CORENAME}
-      cd libretro/jni
-      for a in "${ABIS[@]}"; do
-         if [ -z "${NOCLEAN}" ]; then
-            ndk-build clean APP_ABI=${a} || die "Failed to clean ${a} ${CORENAME}"
-         fi
-         ndk-build -j$JOBS APP_ABI=${a} || die "Failed to build  ${a} ${CORENAME}"
-         cp ../libs/${a}/libretro.${FORMAT_EXT} $RARCH_DIST_DIR/${a}/${CORENAME}_libretro${FORMAT}.${FORMAT_EXT}
-      done
-   else
-      echo "${CORENAME} not fetched, skipping ..."
-   fi
+   build_libretro_generic_makefile_libretrodir "mupen64plus"
 }
 
 build_libretro_modelviewer()
@@ -653,23 +367,7 @@ build_libretro_instancingviewer_camera()
 }
 
 build_libretro_3dengine() {
-   CORENAME="3dengine"
-   cd "${BASE_DIR}"
-   if [ -d 'libretro-${CORENAME}' ]; then
-      echo "=== Building ${CORENAME} ==="
-      cd libretro-${CORENAME}
-      cd jni
-
-      for a in "${ABIS[@]}"; do
-         if [ -z "${NOCLEAN}" ]; then
-            ndk-build clean APP_ABI=${a} || die "Failed to clean ${a} ${CORENAME}"
-         fi
-         ndk-build -j$JOBS APP_ABI=${a} || die "Failed to build  ${a} ${CORENAME}"
-         cp ../libs/${a}/libretro.${FORMAT_EXT} $RARCH_DIST_DIR/${a}/${CORENAME}_libretro${FORMAT}.${FORMAT_EXT}
-      done
-   else
-      echo "${CORENAME} not fetched, skipping ..."
-   fi
+   build_libretro_generic_makefile_rootdir "3dengine"
 }
 
 build_libretro_scenewalker()
@@ -692,45 +390,7 @@ build_libretro_scenewalker()
    fi
 }
 
-build_libretro_picodrive()
-{
-   CORENAME="picodrive"
-   cd $BASE_DIR
-   if [ -d "libretro-${CORENAME}" ]; then
-      echo "=== Building ${CORENAME} ==="
-      cd libretro-${CORENAME}
-      cd jni
-      for a in "${ABIS[@]}"; do
-         if [ -z "${NOCLEAN}" ]; then
-            ndk-build clean APP_ABI=${a} || die "Failed to clean ${a} ${CORENAME}"
-         fi
-         ndk-build -j$JOBS APP_ABI=${a} || die "Failed to build  ${a} ${CORENAME}"
-         cp ../libs/${a}/libretro_picodrive.${FORMAT_EXT} $RARCH_DIST_DIR/${a}/${CORENAME}_libretro${FORMAT}.${FORMAT_EXT}
-      done
-   else
-      echo "${CORENAME} not fetched, skipping ..."
-   fi
-}
 
-build_libretro_handy()
-{
-   CORENAME="handy"
-   cd $BASE_DIR
-   if [ -d "libretro-${CORENAME}" ]; then
-      echo "=== Building ${CORENAME} ==="
-      cd libretro-${CORENAME}
-      cd libretro/jni
-      for a in "${ABIS[@]}"; do
-         if [ -z "${NOCLEAN}" ]; then
-            ndk-build clean APP_ABI=${a} || die "Failed to clean ${a} ${CORENAME}"
-         fi
-         ndk-build -j$JOBS APP_ABI=${a} || die "Failed to build  ${a} ${CORENAME}"
-         cp ../libs/${a}/libretro.${FORMAT_EXT} $RARCH_DIST_DIR/${a}/${CORENAME}_libretro${FORMAT}.${FORMAT_EXT}
-      done
-   else
-      echo "${CORENAME} not fetched, skipping ..."
-   fi
-}
 
 build_libretro_desmume()
 {
@@ -752,25 +412,6 @@ build_libretro_desmume()
    fi
 }
 
-build_libretro_quicknes()
-{
-   CORENAME="quicknes"
-   cd $BASE_DIR
-   if [ -d "libretro-${CORENAME}" ]; then
-      echo "=== Building ${CORENAME} ==="
-      cd libretro-${CORENAME}/
-      cd libretro/jni
-      for a in "${ABIS[@]}"; do
-         if [ -z "${NOCLEAN}" ]; then
-            ndk-build clean APP_ABI=${a} || die "Failed to clean ${a} ${CORENAME}"
-         fi
-         ndk-build -j$JOBS APP_ABI=${a} || die "Failed to build  ${a} ${CORENAME}"
-         cp ../libs/${a}/libretro.${FORMAT_EXT} $RARCH_DIST_DIR/${a}/${CORENAME}_libretro${FORMAT}.${FORMAT_EXT}
-      done
-   else
-      echo "${CORENAME} not fetched, skipping ..."
-   fi
-}
 
 create_dist_dir()
 {
@@ -816,45 +457,7 @@ build_libretro_bsnes()
    fi
 }
 
-build_libretro_mupen64()
-{
-   CORENAME="mupen64plus"
-   cd $BASE_DIR
-   if [ -d "libretro-${CORENAME}" ]; then
-      echo "=== Building ${CORENAME} =="
-      cd libretro-${CORENAME}/
-      cd libretro/jni
-      for a in "${ABIS[@]}"; do
-         if [ -z "${NOCLEAN}" ]; then
-            ndk-build clean APP_ABI=${a} || die "Failed to clean ${a} ${CORENAME}"
-         fi
-         ndk-build -j$JOBS APP_ABI=${a} || die "Failed to build  ${a} ${CORENAME}"
-         cp ../libs/${a}/libretro.${FORMAT_EXT} $RARCH_DIST_DIR/${a}/${CORENAME}_libretro${FORMAT}.${FORMAT_EXT}
-      done
-   else
-      echo "${CORENAME} not fetched, skipping ..."
-   fi
-}
 
-build_libretro_yabause()
-{
-   CORENAME="yabause"
-   cd $BASE_DIR
-   if [ -d "libretro-${CORENAME}" ]; then
-      echo "=== Building ${CORENAME} ==="
-      cd libretro-${CORENAME}/
-      cd libretro/jni
-      for a in "${ABIS[@]}"; do
-         if [ -z "${NOCLEAN}" ]; then
-            ndk-build clean APP_ABI=${a} || die "Failed to clean ${a} ${CORENAME}"
-         fi
-         ndk-build -j$JOBS APP_ABI=${a} || die "Failed to build  ${a} ${CORENAME}"
-         cp ../libs/${a}/libretro.${FORMAT_EXT} $RARCH_DIST_DIR/${a}/${CORENAME}_libretro${FORMAT}.${FORMAT_EXT}
-      done
-   else
-      echo "${CORENAME} not fetched, skipping ..."
-   fi
-}
 
 create_dist_dir
 
