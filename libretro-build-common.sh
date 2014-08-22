@@ -440,6 +440,7 @@ rebuild_libretro_ume() {
 # $1 is corename
 # $2 is profile shortname.
 # $3 is profile name
+# $4 is compiler
 build_libretro_bsnes_modern() {
    cd "${BASE_DIR}"
    if [ -d "libretro-${1}/${2}" ]; then
@@ -449,7 +450,7 @@ build_libretro_bsnes_modern() {
       if [ -z "${NOCLEAN}" ]; then
         rm -f obj/*.{o,"${FORMAT_EXT}"}
       fi
-      "${MAKE}" -f Makefile platform="${FORMAT_COMPILER_TARGET}" compiler="${CXX11}" ui='target-libretro' profile="${3}" "-j${JOBS}" || die "Failed to build ${1} ${3} core"
+      "${MAKE}" -f Makefile platform="${FORMAT_COMPILER_TARGET}" compiler="${4}" ui='target-libretro' profile="${3}" "-j${JOBS}" || die "Failed to build ${1} ${3} core"
       cp -f "out/${1}_libretro${FORMAT}.${FORMAT_EXT}" "${RARCH_DIST_DIR}/${1}_${3}_libretro${FORMAT}.${FORMAT_EXT}"
    else
       echo "${1} ${3} not fetched, skipping ..."
@@ -457,15 +458,15 @@ build_libretro_bsnes_modern() {
 }
 
 build_libretro_bsnes() {
-   build_libretro_bsnes_modern "bsnes" "perf" "performance"
-   build_libretro_bsnes_modern "bsnes" "balanced" "balanced"
-   build_libretro_bsnes_modern "bsnes" "." "accuracy"
+   build_libretro_bsnes_modern "bsnes" "perf" "performance" ${CXX11}
+   build_libretro_bsnes_modern "bsnes" "balanced" "balanced" ${CXX11}
+   build_libretro_bsnes_modern "bsnes" "." "accuracy" ${CXX11}
 }
 
 build_libretro_bsnes_mercury() {
-   build_libretro_bsnes_modern "bsnes_mercury" "perf" "performance"
-   build_libretro_bsnes_modern "bsnes_mercury" "balanced" "balanced"
-   build_libretro_bsnes_modern "bsnes_mercury" "." "accuracy"
+   build_libretro_bsnes_modern "bsnes_mercury" "perf" "performance" ${CXX11}
+   build_libretro_bsnes_modern "bsnes_mercury" "balanced" "balanced" ${CXX11}
+   build_libretro_bsnes_modern "bsnes_mercury" "." "accuracy" ${CXX11}
 }
 
 build_libretro_bsnes_cplusplus98() {
