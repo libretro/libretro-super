@@ -163,165 +163,7 @@ build_libretro_pcsx_rearmed_interpreter() {
    fi
 }
 
-build_libretro_beetle_snes()
-{
-   cd "${BASE_DIR}"
-   if [ -d 'libretro-beetle-bsnes' ]; then
-      echo '=== Building Beetle bSNES ==='
-      cd libretro-beetle-bsnes
-      if [ -z "${NOCLEAN}" ]; then
-      	"${MAKE}" platform="${FORMAT_COMPILER_TARGET}" ${COMPILER} "-j${JOBS}" clean || die "Failed to clean beetle/bsnes"
-      fi
-      "${MAKE}" platform="${FORMAT_COMPILER_TARGET}" ${COMPILER} "-j${JOBS}" || die "Failed to build beetle/bsnes"
-      cp "mednafen_snes_libretro${FORMAT}.${FORMAT_EXT}" "${RARCH_DIST_DIR}"
-   else
-      echo 'Beetle bSNES not fetched, skipping ...'
-   fi
-}
 
-build_libretro_beetle_lynx()
-{
-   cd "${BASE_DIR}"
-   if [ -d 'libretro-beetle-lynx' ]; then
-      echo '=== Building Beetle Lynx ==='
-      cd libretro-beetle-lynx
-      if [ -z "${NOCLEAN}" ]; then
-      	"${MAKE}" platform="${FORMAT_COMPILER_TARGET}" ${COMPILER} "-j${JOBS}" clean || die "Failed to clean beetle/lynx"
-      fi
-      "${MAKE}" platform="${FORMAT_COMPILER_TARGET}" ${COMPILER} "-j${JOBS}" || die "Failed to build beetle/lynx"
-      cp "mednafen_lynx_libretro${FORMAT}.${FORMAT_EXT}" "${RARCH_DIST_DIR}"
-   else
-      echo 'Beetle Lynx not fetched, skipping ...'
-   fi
-}
-
-build_libretro_beetle_wswan()
-{
-   cd "${BASE_DIR}"
-   if [ -d 'libretro-beetle-wswan' ]; then
-      echo '=== Building Beetle WSwan ==='
-      cd libretro-beetle-wswan
-      if [ -z "${NOCLEAN}" ]; then
-      "${MAKE}" platform="${FORMAT_COMPILER_TARGET}" ${COMPILER} "-j${JOBS}" clean || die "Failed to clean beetle/wswan"
-      fi
-      "${MAKE}" platform="${FORMAT_COMPILER_TARGET}" ${COMPILER} "-j${JOBS}" || die "Failed to build beetle/wswan"
-      cp "mednafen_wswan_libretro${FORMAT}.${FORMAT_EXT}" "${RARCH_DIST_DIR}"
-   else
-      echo 'Beetle WSwan not fetched, skipping ...'
-   fi
-}
-
-build_libretro_beetle_gba()
-{
-   cd "${BASE_DIR}"
-   if [ -d 'libretro-beetle-gba' ]; then
-      echo '=== Building Beetle GBA ==='
-      cd libretro-beetle-gba
-      if [ -z "${NOCLEAN}" ]; then
-      	"${MAKE}" platform="${FORMAT_COMPILER_TARGET}" ${COMPILER} "-j${JOBS}" clean || die "Failed to clean beetle/gba"
-      fi
-      "${MAKE}" platform="${FORMAT_COMPILER_TARGET}" ${COMPILER} "-j${JOBS}" || die "Failed to build beetle/gba"
-      cp "mednafen_gba_libretro${FORMAT}.${FORMAT_EXT}" "${RARCH_DIST_DIR}"
-   else
-      echo 'Beetle GBA not fetched, skipping ...'
-   fi
-}
-
-build_libretro_beetle_ngp()
-{
-   cd "${BASE_DIR}"
-   if [ -d 'libretro-beetle-ngp' ]; then
-      echo '=== Building Beetle NGP ==='
-      cd libretro-beetle-ngp
-      if [ -z "${NOCLEAN}" ]; then
-      	"${MAKE}" platform="${FORMAT_COMPILER_TARGET}" ${COMPILER} "-j${JOBS}" clean || die "Failed to clean beetle/ngp"
-      fi
-      "${MAKE}" platform="${FORMAT_COMPILER_TARGET}" ${COMPILER} "-j${JOBS}" || die "Failed to build beetle/ngp"
-      cp "mednafen_ngp_libretro${FORMAT}.${FORMAT_EXT}" "${RARCH_DIST_DIR}"
-   else
-      echo 'Beetle NGP not fetched, skipping ...'
-   fi
-}
-
-build_libretro_beetle_pce_fast()
-{
-   cd "${BASE_DIR}"
-   if [ -d 'libretro-beetle-pce-fast' ]; then
-      echo '=== Building Beetle PCE Fast ==='
-      cd libretro-beetle-pce-fast
-      if [ -z "${NOCLEAN}" ]; then
-      	"${MAKE}" platform="${FORMAT_COMPILER_TARGET}" ${COMPILER} "-j${JOBS}" clean || die "Failed to clean beetle/pce_fast"
-      fi
-      "${MAKE}" platform="${FORMAT_COMPILER_TARGET}" ${COMPILER} "-j${JOBS}" || die "Failed to build beetle/pce_fast"
-      cp "mednafen_pce_fast_libretro${FORMAT}.${FORMAT_EXT}" "${RARCH_DIST_DIR}"
-   else
-      echo 'Beetle PCE Fast not fetched, skipping ...'
-   fi
-}
-
-build_libretro_beetle_supergrafx()
-{
-   cd "${BASE_DIR}"
-   if [ -d 'libretro-beetle-supergrafx' ]; then
-      echo '=== Building Beetle SuperGrafx ==='
-      cd libretro-beetle-supergrafx
-      if [ -z "${NOCLEAN}" ]; then
-      	"${MAKE}" platform="${FORMAT_COMPILER_TARGET}" ${COMPILER} "-j${JOBS}" clean || die "Failed to clean beetle/supergrafx"
-      fi
-      "${MAKE}" platform="${FORMAT_COMPILER_TARGET}" ${COMPILER} "-j${JOBS}" || die "Failed to build beetle/supergrafx"
-      cp "mednafen_supergrafx_libretro${FORMAT}.${FORMAT_EXT}" "${RARCH_DIST_DIR}"
-   else
-      echo 'Beetle SuperGrafx not fetched, skipping ...'
-   fi
-}
-
-build_libretro_beetle_vb()
-{
-   cd "${BASE_DIR}"
-   if [ -d 'libretro-beetle-vb' ]; then
-      echo '=== Building Beetle VB ==='
-      cd libretro-beetle-vb
-      if [ -z "${NOCLEAN}" ]; then
-      	"${MAKE}" platform="${FORMAT_COMPILER_TARGET}" ${COMPILER} "-j${JOBS}" clean || die "Failed to clean beetle/vb"
-      fi
-      "${MAKE}" platform="${FORMAT_COMPILER_TARGET}" ${COMPILER} "-j${JOBS}" || die "Failed to build beetle/vb"
-      cp "mednafen_vb_libretro${FORMAT}.${FORMAT_EXT}" "${RARCH_DIST_DIR}"
-   else
-      echo 'Beetle VB not fetched, skipping ...'
-   fi
-}
-
-build_libretro_beetle_pcfx()
-{
-   cd "${BASE_DIR}"
-   if [ -d 'libretro-beetle-pcfx' ]; then
-      echo '=== Building Beetle PCFX ==='
-      cd libretro-beetle-pcfx
-      if [ -z "${NOCLEAN}" ]; then
-      	"${MAKE}" platform="${FORMAT_COMPILER_TARGET}" ${COMPILER} "-j${JOBS}" clean || die "Failed to clean Beetle/pcfx"
-      fi
-      "${MAKE}" platform="${FORMAT_COMPILER_TARGET}" ${COMPILER} "-j${JOBS}" || die "Failed to build Beetle/pcfx"
-      cp "mednafen_pcfx_libretro${FORMAT}.${FORMAT_EXT}" "${RARCH_DIST_DIR}"
-   else
-      echo 'Beetle PCFX not fetched, skipping ...'
-   fi
-}
-
-build_libretro_beetle_psx()
-{
-   cd "${BASE_DIR}"
-   if [ -d 'libretro-beetle-psx' ]; then
-      echo '=== Building Beetle PSX ==='
-      cd libretro-beetle-psx
-      if [ -z "${NOCLEAN}" ]; then
-      	"${MAKE}" platform="${FORMAT_COMPILER_TARGET}" ${COMPILER} "-j${JOBS}" clean || die "Failed to clean Beetle/psx"
-      fi
-      "${MAKE}" platform="${FORMAT_COMPILER_TARGET}" ${COMPILER} "-j${JOBS}" || die "Failed to build Beetle/psx"
-      cp "mednafen_psx_libretro${FORMAT}.${FORMAT_EXT}" "${RARCH_DIST_DIR}"
-   else
-      echo 'Beetle PSX not fetched, skipping ...'
-   fi
-}
 
 build_libretro_quicknes() {
    cd "${BASE_DIR}"
@@ -370,9 +212,6 @@ build_libretro_snes9x() {
       echo 'SNES9x not fetched, skipping ...'
    fi
 }
-
-
-
 
 # $1 is corename
 # $2 is Makefile name
@@ -475,6 +314,46 @@ build_libretro_pcsx_rearmed() {
 
 build_libretro_fceumm() {
    build_libretro_generic_makefile_rootdir "fceumm" "Makefile.libretro" ${FORMAT_COMPILER_TARGET}
+}
+
+build_libretro_beetle_snes() {
+   build_libretro_generic_makefile_rootdir "mednafen_snes" "Makefile" ${FORMAT_COMPILER_TARGET}
+}
+
+build_libretro_beetle_lynx() {
+   build_libretro_generic_makefile_rootdir "mednafen_lynx" "Makefile" ${FORMAT_COMPILER_TARGET}
+}
+
+build_libretro_beetle_wswan() {
+   build_libretro_generic_makefile_rootdir "mednafen_wswan" "Makefile" ${FORMAT_COMPILER_TARGET}
+}
+
+build_libretro_beetle_gba() {
+   build_libretro_generic_makefile_rootdir "mednafen_gba" "Makefile" ${FORMAT_COMPILER_TARGET}
+}
+
+build_libretro_beetle_ngp() {
+   build_libretro_generic_makefile_rootdir "mednafen_ngp" "Makefile" ${FORMAT_COMPILER_TARGET}
+}
+
+build_libretro_beetle_pce_fast() {
+   build_libretro_generic_makefile_rootdir "mednafen_pce_fast" "Makefile" ${FORMAT_COMPILER_TARGET}
+}
+
+build_libretro_beetle_vb() {
+   build_libretro_generic_makefile_rootdir "mednafen_vb" "Makefile" ${FORMAT_COMPILER_TARGET}
+}
+
+build_libretro_beetle_pcfx() {
+   build_libretro_generic_makefile_rootdir "mednafen_pcfx" "Makefile" ${FORMAT_COMPILER_TARGET}
+}
+
+build_libretro_beetle_psx() {
+   build_libretro_generic_makefile_rootdir "mednafen_psx" "Makefile" ${FORMAT_COMPILER_TARGET}
+}
+
+build_libretro_beetle_supergrafx() {
+   build_libretro_generic_makefile_rootdir "mednafen_supergrafx" "Makefile" ${FORMAT_COMPILER_TARGET}
 }
 
 build_libretro_mame() {
