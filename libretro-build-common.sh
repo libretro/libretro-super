@@ -299,22 +299,6 @@ build_libretro_ppsspp() {
    export FORMAT_COMPILER_TARGET="${FORMAT_COMPILER_TARGET}"
 }
 
-build_libretro_bsnes_cplusplus98() {
-   CORENAME="bsnes_cplusplus98"
-   cd "${BASE_DIR}"
-   if [ -d "libretro-${CORENAME}" ]; then
-      echo "=== Building ${CORENAME} ==="
-      cd libretro-${CORENAME}
-
-      if [ -z "${NOCLEAN}" ]; then
-         "${MAKE}" clean || die "Failed to clean ${CORENAME}"
-      fi
-      "${MAKE}" platform="${FORMAT_COMPILER_TARGET}" ${COMPILER} "-j${JOBS}"
-      cp "out/libretro.${FORMAT_EXT}" "${RARCH_DIST_DIR}/${CORENAME}_libretro${FORMAT}.${FORMAT_EXT}"
-   else
-      echo "${CORENAME} not fetched, skipping ..."
-   fi
-}
 
 build_libretro_mame() {
    cd "${BASE_DIR}"
@@ -453,90 +437,51 @@ rebuild_libretro_ume() {
    fi
 }
 
-build_libretro_bsnes_mercury() {
+# $1 is corename
+# $2 is profile shortname.
+# $3 is profile name
+build_libretro_modern() {
    cd "${BASE_DIR}"
-   if [ -d 'libretro-bsnes-mercury/perf' ]; then
-      echo '=== Building bSNES Mercury performance ==='
-      cd libretro-bsnes-mercury/perf
+   if [ -d "libretro-${1}/${2}" ]; then
+      echo "=== Building ${1} ${3} ==="
+      cd libretro-${1}/${2}
       
       if [ -z "${NOCLEAN}" ]; then
         rm -f obj/*.{o,"${FORMAT_EXT}"}
       fi
-      "${MAKE}" -f Makefile platform="${FORMAT_COMPILER_TARGET}" compiler="${CXX11}" ui='target-libretro' profile='performance' "-j${JOBS}" || die 'Failed to build bSNES Mercury performance core'
-      cp -f "out/bsnes_mercury_libretro${FORMAT}.${FORMAT_EXT}" "${RARCH_DIST_DIR}/bsnes_mercury_performance_libretro${FORMAT}.${FORMAT_EXT}"
+      "${MAKE}" -f Makefile platform="${FORMAT_COMPILER_TARGET}" compiler="${CXX11}" ui='target-libretro' profile="${3}" "-j${JOBS}" || die "Failed to build ${1} ${3} core"
+      cp -f "out/${1}_libretro${FORMAT}.${FORMAT_EXT}" "${RARCH_DIST_DIR}/${1}_${3}_libretro${FORMAT}.${FORMAT_EXT}"
    else
-      echo 'bSNES Mercury performance not fetched, skipping ...'
-   fi
-
-   cd "${BASE_DIR}"
-   if [ -d 'libretro-bsnes-mercury/balanced' ]; then
-      echo '=== Building bSNES Mercury balanced ==='
-      cd libretro-bsnes-mercury/balanced
-      
-      if [ -z "${NOCLEAN}" ]; then
-        rm -f obj/*.{o,"${FORMAT_EXT}"}
-      fi
-      "${MAKE}" -f Makefile platform="${FORMAT_COMPILER_TARGET}" compiler="${CXX11}" ui='target-libretro' profile='balanced' "-j${JOBS}" || die 'Failed to build bSNES Mercury balanced core'
-      cp -f "out/bsnes_mercury_libretro${FORMAT}.${FORMAT_EXT}" "${RARCH_DIST_DIR}/bsnes_mercury_balanced_libretro${FORMAT}.${FORMAT_EXT}"
-   else
-      echo 'bSNES Mercury compat not fetched, skipping ...'
-   fi
-
-   cd "${BASE_DIR}"
-   if [ -d 'libretro-bsnes-mercury' ]; then
-      echo '=== Building bSNES Mercury accuracy ==='
-      cd libretro-bsnes-mercury
-      
-      if [ -z "${NOCLEAN}" ]; then
-        rm -f obj/*.{o,"${FORMAT_EXT}"}
-      fi
-      "${MAKE}" -f Makefile platform="${FORMAT_COMPILER_TARGET}" compiler="${CXX11}" ui='target-libretro' profile='accuracy' "-j${JOBS}" || die 'Failed to build bSNES Mercury accuracy core'
-      cp -f "out/bsnes_mercury_libretro${FORMAT}.${FORMAT_EXT}" "${RARCH_DIST_DIR}/bsnes_mercury_accuracy_libretro${FORMAT}.${FORMAT_EXT}"
-   else
-      echo 'bSNES Mercury accuracy not fetched, skipping ...'
+      echo "${1} ${3} not fetched, skipping ..."
    fi
 }
 
 build_libretro_bsnes() {
-   cd "${BASE_DIR}"
-   if [ -d 'libretro-bsnes/perf' ]; then
-      echo '=== Building bSNES performance ==='
-      cd libretro-bsnes/perf
-      
-      if [ -z "${NOCLEAN}" ]; then
-        rm -f obj/*.{o,"${FORMAT_EXT}"}
-      fi
-      "${MAKE}" -f Makefile platform="${FORMAT_COMPILER_TARGET}" compiler="${CXX11}" ui='target-libretro' profile='performance' "-j${JOBS}" || die 'Failed to build bSNES performance core'
-      cp -f "out/bsnes_libretro${FORMAT}.${FORMAT_EXT}" "${RARCH_DIST_DIR}/bsnes_performance_libretro${FORMAT}.${FORMAT_EXT}"
-   else
-      echo 'bSNES performance not fetched, skipping ...'
-   fi
+   build_libretro_modern "bsnes" "perf" "performance"
+   build_libretro_modern "bsnes" "balanced" "balanced"
+   build_libretro_modern "bsnes" "." "accuracy"
+}
 
-   cd "${BASE_DIR}"
-   if [ -d 'libretro-bsnes/balanced' ]; then
-      echo '=== Building bSNES balanced ==='
-      cd libretro-bsnes/balanced
-      
-      if [ -z "${NOCLEAN}" ]; then
-      	rm -f obj/*.{o,"${FORMAT_EXT}"}
-      fi
-      "${MAKE}" -f Makefile platform="${FORMAT_COMPILER_TARGET}" compiler="${CXX11}" ui='target-libretro' profile='balanced' "-j${JOBS}" || die 'Failed to build bSNES balanced core'
-      cp -f "out/bsnes_libretro${FORMAT}.${FORMAT_EXT}" "${RARCH_DIST_DIR}/bsnes_balanced_libretro${FORMAT}.${FORMAT_EXT}"
-   else
-      echo 'bSNES compat not fetched, skipping ...'
-   fi
+build_libretro_bsnes_mercury() {
+   build_libretro_modern "bsnes_mercury" "perf" "performance"
+   build_libretro_modern "bsnes_mercury" "balanced" "balanced"
+   build_libretro_modern "bsnes_mercury" "." "accuracy"
+}
 
+build_libretro_bsnes_cplusplus98() {
+   CORENAME="bsnes_cplusplus98"
    cd "${BASE_DIR}"
-   if [ -d 'libretro-bsnes' ]; then
-      echo '=== Building bSNES accuracy ==='
-      cd libretro-bsnes
+   if [ -d "libretro-${CORENAME}" ]; then
+      echo "=== Building ${CORENAME} ==="
+      cd libretro-${CORENAME}
+
       if [ -z "${NOCLEAN}" ]; then
-      	rm -f obj/*.{o,"${FORMAT_EXT}"}
+         "${MAKE}" clean || die "Failed to clean ${CORENAME}"
       fi
-      "${MAKE}" -f Makefile platform="${FORMAT_COMPILER_TARGET}" compiler="${CXX11}" ui='target-libretro' profile='accuracy' "-j${JOBS}" || die 'Failed to build bSNES accuracy core'
-      cp -f "out/bsnes_libretro${FORMAT}.${FORMAT_EXT}" "${RARCH_DIST_DIR}/bsnes_accuracy_libretro${FORMAT}.${FORMAT_EXT}"
+      "${MAKE}" platform="${FORMAT_COMPILER_TARGET}" ${COMPILER} "-j${JOBS}"
+      cp "out/libretro.${FORMAT_EXT}" "${RARCH_DIST_DIR}/${CORENAME}_libretro${FORMAT}.${FORMAT_EXT}"
    else
-      echo 'bSNES accuracy not fetched, skipping ...'
+      echo "${CORENAME} not fetched, skipping ..."
    fi
 }
 
