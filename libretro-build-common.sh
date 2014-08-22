@@ -338,87 +338,6 @@ build_libretro_beetle_psx()
    fi
 }
 
-
-build_libretro_2048()
-{
-   cd "${BASE_DIR}"
-   if [ -d 'libretro-2048' ]; then
-      echo '=== Building 2048 ==='
-      cd libretro-2048
-      if [ -z "${NOCLEAN}" ]; then
-      	"${MAKE}" -f Makefile.libretro platform="${FORMAT_COMPILER_TARGET}" ${COMPILER} "-j${JOBS}" clean || die "Failed to clean 2048"
-      fi
-      "${MAKE}" -f Makefile.libretro platform="${FORMAT_COMPILER_TARGET}" ${COMPILER} "-j${JOBS}" || die "Failed to build 2048"
-      cp "2048_libretro${FORMAT}.${FORMAT_EXT}" "${RARCH_DIST_DIR}"
-   else
-      echo '2048 not fetched, skipping ...'
-   fi
-}
-
-build_libretro_fmsx()
-{
-   cd "${BASE_DIR}"
-   if [ -d 'libretro-fmsx' ]; then
-      echo '=== Building fMSX ==='
-      cd libretro-fmsx
-      if [ -z "${NOCLEAN}" ]; then
-      	"${MAKE}" platform="${FORMAT_COMPILER_TARGET}" ${COMPILER} "-j${JOBS}" clean || die "Failed to clean fMSX"
-      fi
-      "${MAKE}" platform="${FORMAT_COMPILER_TARGET}" ${COMPILER} "-j${JOBS}" || die "Failed to build fMSX"
-      cp "fmsx_libretro${FORMAT}.${FORMAT_EXT}" "${RARCH_DIST_DIR}"
-   else
-      echo 'fMSX not fetched, skipping ...'
-   fi
-}
-
-build_libretro_bluemsx()
-{
-   cd "${BASE_DIR}"
-   if [ -d 'libretro-bluemsx' ]; then
-      echo '=== Building blueMSX ==='
-      cd libretro-bluemsx
-      if [ -z "${NOCLEAN}" ]; then
-      	"${MAKE}" -f Makefile.libretro platform="${FORMAT_COMPILER_TARGET}" ${COMPILER} "-j${JOBS}" clean || die "Failed to clean blueMSX"
-      fi
-      "${MAKE}" -f Makefile.libretro platform="${FORMAT_COMPILER_TARGET}" ${COMPILER} "-j${JOBS}" || die "Failed to build blueMSX"
-      cp "bluemsx_libretro${FORMAT}.${FORMAT_EXT}" "${RARCH_DIST_DIR}"
-   else
-      echo 'blueMSX not fetched, skipping ...'
-   fi
-}
-
-build_libretro_stella() {
-   cd "${BASE_DIR}"
-   if [ -d 'libretro-stella' ]; then
-      echo '=== Building Stella ==='
-      cd libretro-stella
-
-      if [ -z "${NOCLEAN}" ]; then
-         "${MAKE}" -f Makefile platform="${FORMAT_COMPILER_TARGET}" ${COMPILER} "-j${JOBS}" clean || die 'Failed to clean Stella'
-      fi
-      "${MAKE}" -f Makefile platform="${FORMAT_COMPILER_TARGET}" ${COMPILER} "-j${JOBS}" || die 'Failed to build Stella'
-      cp "stella_libretro${FORMAT}.${FORMAT_EXT}" "${RARCH_DIST_DIR}"
-   else
-      echo 'Stella not fetched, skipping ...'
-   fi
-}
-
-build_libretro_handy() {
-   cd "${BASE_DIR}"
-   if [ -d 'libretro-handy' ]; then
-      echo '=== Building Handy ==='
-      cd libretro-handy
-
-      if [ -z "${NOCLEAN}" ]; then
-         "${MAKE}" -f Makefile platform="${FORMAT_COMPILER_TARGET}" ${COMPILER} "-j${JOBS}" clean || die 'Failed to clean Handy'
-      fi
-      "${MAKE}" -f Makefile platform="${FORMAT_COMPILER_TARGET}" ${COMPILER} "-j${JOBS}" || die 'Failed to build Handy'
-      cp "handy_libretro${FORMAT}.${FORMAT_EXT}" "${RARCH_DIST_DIR}"
-   else
-      echo 'Handy not fetched, skipping ...'
-   fi
-}
-
 build_libretro_quicknes() {
    cd "${BASE_DIR}"
    if [ -d 'libretro-quicknes' ]; then
@@ -483,21 +402,6 @@ build_libretro_s9x_next() {
    fi
 }
 
-build_libretro_vecx() {
-   cd "${BASE_DIR}"
-   if [ -d 'libretro-vecx' ]; then
-      echo '=== Building VecX ==='
-      cd libretro-vecx/
-
-      if [ -z "${NOCLEAN}" ]; then
-         "${MAKE}" -f Makefile.libretro platform="${FORMAT_COMPILER_TARGET}" ${COMPILER} "-j${JOBS}" clean || die 'Failed to build VecX'
-      fi
-      "${MAKE}" -f Makefile.libretro platform="${FORMAT_COMPILER_TARGET}" ${COMPILER} "-j${JOBS}" || die 'Failed to build VecX'
-      cp "vecx_libretro${FORMAT}.${FORMAT_EXT}" "${RARCH_DIST_DIR}"
-   else
-      echo 'VecX not fetched, skipping ...'
-   fi
-}
 
 
 # $1 is corename
@@ -528,6 +432,64 @@ build_libretro_o2em() {
 
 build_libretro_virtualjaguar() {
    build_libretro_generic_makefile_rootdir "virtualjaguar" "Makefile"
+}
+
+build_libretro_tgbdual() {
+   build_libretro_generic_makefile_rootdir "tgbdual" "Makefile"
+}
+
+build_libretro_nx() {
+   build_libretro_generic_makefile_rootdir "nxengine" "Makefile"
+}
+
+build_libretro_picodrive() {
+   build_libretro_generic_makefile_rootdir "picodrive" "Makefile.libretro"
+}
+
+build_libretro_tyrquake() {
+   build_libretro_generic_makefile_rootdir "tyrquake" "Makefile.libretro"
+}
+
+build_libretro_2048() {
+   build_libretro_generic_makefile_rootdir "2048" "Makefile.libretro"
+}
+
+build_libretro_vecx()
+{
+   build_libretro_generic_makefile_rootdir "vecx" "Makefile.libretro"
+}
+
+build_libretro_stella()
+{
+   build_libretro_generic_makefile_rootdir "stella" "Makefile"
+}
+
+build_libretro_bluemsx() {
+   build_libretro_generic_makefile_rootdir "bluemsx" "Makefile.libretro"
+}
+
+build_libretro_handy() {
+   build_libretro_generic_makefile_rootdir "handy" "Makefile"
+}
+
+build_libretro_fmsx() {
+   build_libretro_generic_makefile_rootdir "fmsx" "Makefile"
+}
+
+build_libretro_vba_next() {
+   cd "${BASE_DIR}"
+   if [ -d 'libretro-vba-next' ]; then
+      echo '=== Building VBA-Next ==='
+      cd libretro-vba-next/
+
+      if [ -z "${NOCLEAN}" ]; then
+         "${MAKE}" -f Makefile.libretro platform="${FORMAT_COMPILER_TARGET_ALT}" ${COMPILER} "-j${JOBS}" clean || die 'Failed to clean VBA-Next'
+      fi
+      "${MAKE}" -f Makefile.libretro platform="${FORMAT_COMPILER_TARGET_ALT}" ${COMPILER} "-j${JOBS}" || die 'Failed to build VBA-Next'
+      cp "vba_next_libretro${FORMAT}.${FORMAT_EXT}" "${RARCH_DIST_DIR}"
+   else
+      echo 'VBA-Next not fetched, skipping ...'
+   fi
 }
 
 build_libretro_genplus() {
@@ -703,21 +665,6 @@ build_libretro_vbam() {
    fi
 }
 
-build_libretro_vba_next() {
-   cd "${BASE_DIR}"
-   if [ -d 'libretro-vba-next' ]; then
-      echo '=== Building VBA-Next ==='
-      cd libretro-vba-next/
-
-      if [ -z "${NOCLEAN}" ]; then
-         "${MAKE}" -f Makefile.libretro platform="${FORMAT_COMPILER_TARGET_ALT}" ${COMPILER} "-j${JOBS}" clean || die 'Failed to clean VBA-Next'
-      fi
-      "${MAKE}" -f Makefile.libretro platform="${FORMAT_COMPILER_TARGET_ALT}" ${COMPILER} "-j${JOBS}" || die 'Failed to build VBA-Next'
-      cp "vba_next_libretro${FORMAT}.${FORMAT_EXT}" "${RARCH_DIST_DIR}"
-   else
-      echo 'VBA-Next not fetched, skipping ...'
-   fi
-}
 
 build_libretro_fceumm() {
    cd "${BASE_DIR}"
@@ -751,37 +698,6 @@ build_libretro_gambatte() {
    fi
 }
 
-build_libretro_tgbdual() {
-   cd "${BASE_DIR}"
-   if [ -d 'libretro-tgbdual' ]; then
-      echo '=== Building TGBDual ==='
-      cd libretro-tgbdual
-
-      if [ -z "${NOCLEAN}" ]; then
-         "${MAKE}" -f Makefile platform="${FORMAT_COMPILER_TARGET_ALT}" ${COMPILER} "-j${JOBS}" clean || die 'Failed to clean TGBDual'
-      fi
-      "${MAKE}" -f Makefile platform="${FORMAT_COMPILER_TARGET_ALT}" ${COMPILER} "-j${JOBS}" || die 'Failed to build TGBDual'
-      cp "tgbdual_libretro${FORMAT}.${FORMAT_EXT}" "${RARCH_DIST_DIR}"
-   else
-      echo 'TGBDual not fetched, skipping ...'
-   fi
-}
-
-build_libretro_nx() {
-   cd "${BASE_DIR}"
-   if [ -d 'libretro-nx' ]; then
-      echo '=== Building NXEngine ==='
-      cd libretro-nx
-
-      if [ -z "${NOCLEAN}" ]; then
-         "${MAKE}" platform="${FORMAT_COMPILER_TARGET}" ${COMPILER} "-j${JOBS}" clean || die 'Failed to clean NXEngine'
-      fi
-      "${MAKE}" platform="${FORMAT_COMPILER_TARGET}" ${COMPILER} "-j${JOBS}" || die 'Failed to build NXEngine'
-      cp "nxengine_libretro${FORMAT}.${FORMAT_EXT}" "${RARCH_DIST_DIR}"
-   else
-      echo 'NXEngine not fetched, skipping ...'
-   fi
-}
 
 build_libretro_prboom() {
    cd "${BASE_DIR}"
@@ -847,21 +763,6 @@ build_libretro_nestopia() {
    fi
 }
 
-build_libretro_tyrquake() {
-   cd "${BASE_DIR}"
-   if [ -d 'libretro-tyrquake' ]; then
-      echo '=== Building Tyr Quake ==='
-      cd libretro-tyrquake
-
-      if [ -z "${NOCLEAN}" ]; then
-         "${MAKE}" -f Makefile.libretro platform="${FORMAT_COMPILER_TARGET}" ${COMPILER} "-j${JOBS}" clean || die 'Failed to clean Tyr Quake'
-      fi
-      "${MAKE}" -f Makefile.libretro platform="${FORMAT_COMPILER_TARGET}" ${COMPILER} "-j${JOBS}" || die 'Failed to build Tyr Quake'
-      cp "tyrquake_libretro${FORMAT}.${FORMAT_EXT}" "${RARCH_DIST_DIR}"
-   else
-      echo 'Tyr Quake not fetched, skipping ...'
-   fi
-}
 
 build_libretro_modelviewer() {
    check_opengl
@@ -1152,21 +1053,6 @@ build_libretro_mupen64() {
    export FORMAT_COMPILER_TARGET="${FORMAT_COMPILER_TARGET}"
 }
 
-build_libretro_picodrive() {
-   cd "${BASE_DIR}"
-   if [ -d 'libretro-picodrive' ]; then
-      echo '=== Building Picodrive ==='
-      cd libretro-picodrive
-
-      if [ -z "${NOCLEAN}" ]; then
-         "${MAKE}" -f Makefile.libretro platform="${FORMAT_COMPILER_TARGET}" ${COMPILER} "-j${JOBS}" clean || die 'Failed to clean Picodrive'
-      fi
-      "${MAKE}" -f Makefile.libretro platform="${FORMAT_COMPILER_TARGET}" ${COMPILER} "-j${JOBS}" || die 'Failed to build Picodrive'
-      cp "picodrive_libretro${FORMAT}.${FORMAT_EXT}" "${RARCH_DIST_DIR}"
-   else
-      echo 'Picodrive not fetched, skipping ...'
-   fi
-}
 
 build_libretro_ppsspp() {
    check_opengl
