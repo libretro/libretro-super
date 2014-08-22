@@ -41,42 +41,7 @@ check_opengl() {
    fi
 }
 
-build_libretro_bsnes_cplusplus98() {
-   cd "${BASE_DIR}"
-   if [ -d 'libretro-bsnes-cplusplus98' ]; then
-      echo '=== Building bSNES C++98 ==='
-      cd libretro-bsnes-cplusplus98
 
-      if [ -z "${NOCLEAN}" ]; then
-         "${MAKE}" clean || die 'Failed to clean bSNES C++98'
-      fi
-      "${MAKE}" platform="${FORMAT_COMPILER_TARGET}" ${COMPILER} "-j${JOBS}"
-      cp "out/libretro.${FORMAT_EXT}" "${RARCH_DIST_DIR}/bsnes_cplusplus98_libretro${FORMAT}.${FORMAT_EXT}"
-   else
-      echo 'bSNES C++98 not fetched, skipping ...'
-   fi
-}
-
-build_libretro_ffmpeg() {
-   check_opengl
-   cd "${BASE_DIR}"
-   if [ -d 'libretro-ffmpeg' ]; then
-      echo '=== Checking OpenGL dependencies ==='
-      echo '=== Building FFmpeg ==='
-      cd libretro-ffmpeg
-      cd libretro
-      
-      if [ -z "${NOCLEAN}" ]; then
-         "${MAKE}" platform="${FORMAT_COMPILER_TARGET}" ${COMPILER} "-j${JOBS}" clean || die 'Failed to clean FFmpeg'
-      fi
-      "${MAKE}" platform="${FORMAT_COMPILER_TARGET}" ${COMPILER} "-j${JOBS}"
-      cp "ffmpeg_libretro${FORMAT}.${FORMAT_EXT}" "${RARCH_DIST_DIR}"
-   else
-      echo 'FFmpeg not fetched, skipping ...'
-   fi
-   # reset check_opengl
-   export FORMAT_COMPILER_TARGET="${FORMAT_COMPILER_TARGET}"
-}
 
 build_libretro_fba_full() {
    cd "${BASE_DIR}"
@@ -165,67 +130,20 @@ build_libretro_pcsx_rearmed_interpreter() {
 
 
 
-build_libretro_quicknes() {
-   cd "${BASE_DIR}"
-   if [ -d 'libretro-quicknes' ]; then
-      echo '=== Building QuickNES ==='
-      cd libretro-quicknes/libretro
-
-      if [ -z "${NOCLEAN}" ]; then
-         "${MAKE}" -f Makefile platform="${FORMAT_COMPILER_TARGET}" ${COMPILER} "-j${JOBS}" clean || die 'Failed to clean QuickNES'
-      fi
-      "${MAKE}" -f Makefile platform="${FORMAT_COMPILER_TARGET}" ${COMPILER} "-j${JOBS}" || die 'Failed to build QuickNES'
-      cp "quicknes_libretro${FORMAT}.${FORMAT_EXT}" "${RARCH_DIST_DIR}"
-   else
-      echo 'QuickNES not fetched, skipping ...'
-   fi
-}
-
-build_libretro_desmume() {
-   cd "${BASE_DIR}"
-   if [ -d 'libretro-desmume' ]; then
-      echo '=== Building Desmume ==='
-      cd libretro-desmume/desmume
-
-      if [ -z "${NOCLEAN}" ]; then
-         "${MAKE}" -f Makefile.libretro platform="${FORMAT_COMPILER_TARGET}" "-j${JOBS}" clean || die 'Failed to clean Desmume'
-      fi
-      "${MAKE}" -f Makefile.libretro platform="${FORMAT_COMPILER_TARGET}" "-j${JOBS}" || die 'Failed to build Desmume'
-      cp "desmume_libretro${FORMAT}.${FORMAT_EXT}" "${RARCH_DIST_DIR}"
-   else
-      echo 'Desmume not fetched, skipping ...'
-   fi
-}
-
-build_libretro_snes9x() {
-   cd "${BASE_DIR}"
-   if [ -d 'libretro-snes9x' ]; then
-      echo '=== Building SNES9x ==='
-      cd libretro-snes9x/libretro
-
-      if [ -z "${NOCLEAN}" ]; then
-         "${MAKE}" -f Makefile platform="${FORMAT_COMPILER_TARGET}" ${COMPILER} "-j${JOBS}" clean || die 'Failed to clean SNES9x'
-      fi
-      "${MAKE}" -f Makefile platform="${FORMAT_COMPILER_TARGET}" ${COMPILER} "-j${JOBS}" || die 'Failed to build SNES9x'
-      cp "snes9x_libretro${FORMAT}.${FORMAT_EXT}" "${RARCH_DIST_DIR}"
-   else
-      echo 'SNES9x not fetched, skipping ...'
-   fi
-}
-
 # $1 is corename
 # $2 is Makefile name
 # $3 is preferred platform
-build_libretro_generic_makefile_rootdir() {
+build_libretro_generic_makefile() {
    cd "${BASE_DIR}"
    if [ -d "libretro-${1}" ]; then
       echo "=== Building ${1} ==="
-      cd libretro-${1}/
+      cd libretro-${1}
+      cd ${2}
 
       if [ -z "${NOCLEAN}" ]; then
-         "${MAKE}" -f ${2} platform="${3}" ${COMPILER} "-j${JOBS}" clean || die "Failed to build ${1}"
+         "${MAKE}" -f ${3} platform="${4}" ${COMPILER} "-j${JOBS}" clean || die "Failed to build ${1}"
       fi
-      "${MAKE}" -f ${2} platform="${3}" ${COMPILER} "-j${JOBS}" || die "Failed to build ${1}"
+      "${MAKE}" -f ${3} platform="${4}" ${COMPILER} "-j${JOBS}" || die "Failed to build ${1}"
       cp "${1}_libretro${FORMAT}.${FORMAT_EXT}" "${RARCH_DIST_DIR}"
    else
       echo "${1} not fetched, skipping ..."
@@ -233,127 +151,204 @@ build_libretro_generic_makefile_rootdir() {
 }
 
 build_libretro_prosystem() {
-   build_libretro_generic_makefile_rootdir "prosystem" "Makefile" ${FORMAT_COMPILER_TARGET}
+   build_libretro_generic_makefile "prosystem" "." "Makefile" ${FORMAT_COMPILER_TARGET}
 }
 
 build_libretro_o2em() {
-   build_libretro_generic_makefile_rootdir "o2em" "Makefile" ${FORMAT_COMPILER_TARGET}
+   build_libretro_generic_makefile "o2em" "." "Makefile" ${FORMAT_COMPILER_TARGET}
 }
 
 build_libretro_virtualjaguar() {
-   build_libretro_generic_makefile_rootdir "virtualjaguar" "Makefile" ${FORMAT_COMPILER_TARGET}
+   build_libretro_generic_makefile "virtualjaguar" "." "Makefile" ${FORMAT_COMPILER_TARGET}
 }
 
 build_libretro_tgbdual() {
-   build_libretro_generic_makefile_rootdir "tgbdual" "Makefile" ${FORMAT_COMPILER_TARGET}
+   build_libretro_generic_makefile "tgbdual" "." "Makefile" ${FORMAT_COMPILER_TARGET}
 }
 
 build_libretro_nx() {
-   build_libretro_generic_makefile_rootdir "nxengine" "Makefile" ${FORMAT_COMPILER_TARGET}
+   build_libretro_generic_makefile "nxengine" "." "Makefile" ${FORMAT_COMPILER_TARGET}
 }
 
 build_libretro_picodrive() {
-   build_libretro_generic_makefile_rootdir "picodrive" "Makefile.libretro" ${FORMAT_COMPILER_TARGET}
+   build_libretro_generic_makefile "picodrive" "." "Makefile.libretro" ${FORMAT_COMPILER_TARGET}
 }
 
 build_libretro_tyrquake() {
-   build_libretro_generic_makefile_rootdir "tyrquake" "Makefile" ${FORMAT_COMPILER_TARGET}
+   build_libretro_generic_makefile "tyrquake" "." "Makefile" ${FORMAT_COMPILER_TARGET}
 }
 
 build_libretro_2048() {
-   build_libretro_generic_makefile_rootdir "2048" "Makefile" ${FORMAT_COMPILER_TARGET}
+   build_libretro_generic_makefile "2048" "." "Makefile" ${FORMAT_COMPILER_TARGET}
 }
 
 build_libretro_vecx() {
-   build_libretro_generic_makefile_rootdir "vecx" "Makefile" ${FORMAT_COMPILER_TARGET}
+   build_libretro_generic_makefile "vecx" "." "Makefile" ${FORMAT_COMPILER_TARGET}
 }
 
 build_libretro_stella() {
-   build_libretro_generic_makefile_rootdir "stella" "Makefile" ${FORMAT_COMPILER_TARGET}
+   build_libretro_generic_makefile "stella" "." "Makefile" ${FORMAT_COMPILER_TARGET}
 }
 
 build_libretro_bluemsx() {
-   build_libretro_generic_makefile_rootdir "bluemsx" "Makefile" ${FORMAT_COMPILER_TARGET}
+   build_libretro_generic_makefile "bluemsx" "." "Makefile" ${FORMAT_COMPILER_TARGET}
 }
 
 build_libretro_handy() {
-   build_libretro_generic_makefile_rootdir "handy" "Makefile" ${FORMAT_COMPILER_TARGET}
+   build_libretro_generic_makefile "handy" "." "Makefile" ${FORMAT_COMPILER_TARGET}
 }
 
 build_libretro_fmsx() { 
-   build_libretro_generic_makefile_rootdir "fmsx" "Makefile" ${FORMAT_COMPILER_TARGET}
+   build_libretro_generic_makefile "fmsx" "." "Makefile" ${FORMAT_COMPILER_TARGET}
 }
 
 build_libretro_vba_next() {
-   build_libretro_generic_makefile_rootdir "vba_next" "Makefile.libretro" ${FORMAT_COMPILER_TARGET_ALT}
+   build_libretro_generic_makefile "vba_next" "." "Makefile.libretro" ${FORMAT_COMPILER_TARGET_ALT}
+}
+
+build_libretro_vbam() {
+   build_libretro_generic_makefile "vbam" "src/libretro" "Makefile" ${FORMAT_COMPILER_TARGET_ALT}
 }
 
 build_libretro_snes9x_next() {
-   build_libretro_generic_makefile_rootdir "snes9x_next" "Makefile.libretro" ${FORMAT_COMPILER_TARGET_ALT}
+   build_libretro_generic_makefile "snes9x_next" "." "Makefile.libretro" ${FORMAT_COMPILER_TARGET_ALT}
 }
 
 build_libretro_dinothawr() {
-   build_libretro_generic_makefile_rootdir "dinothawr" "Makefile" ${FORMAT_COMPILER_TARGET_ALT}
+   build_libretro_generic_makefile "dinothawr" "." "Makefile" ${FORMAT_COMPILER_TARGET_ALT}
 }
 
 build_libretro_genesis_plus_gx() {
-   build_libretro_generic_makefile_rootdir "genesis_plus_gx" "Makefile.libretro" ${FORMAT_COMPILER_TARGET}
+   build_libretro_generic_makefile "genesis_plus_gx" "." "Makefile.libretro" ${FORMAT_COMPILER_TARGET}
 }
 
 build_libretro_mame078() {
-   build_libretro_generic_makefile_rootdir "mame078" "makefile" ${FORMAT_COMPILER_TARGET}
+   build_libretro_generic_makefile "mame078" "makefile" ${FORMAT_COMPILER_TARGET}
 }
 
 build_libretro_prboom() {
-   build_libretro_generic_makefile_rootdir "prboom" "Makefile" ${FORMAT_COMPILER_TARGET_ALT}
+   build_libretro_generic_makefile "prboom" "." "Makefile" ${FORMAT_COMPILER_TARGET_ALT}
 }
 
 build_libretro_pcsx_rearmed() {
-   build_libretro_generic_makefile_rootdir "pcsx_rearmed" "Makefile.libretro" ${FORMAT_COMPILER_TARGET}
+   build_libretro_generic_makefile "pcsx_rearmed" "." "Makefile.libretro" ${FORMAT_COMPILER_TARGET}
 }
 
 build_libretro_fceumm() {
-   build_libretro_generic_makefile_rootdir "fceumm" "Makefile.libretro" ${FORMAT_COMPILER_TARGET}
+   build_libretro_generic_makefile "fceumm" "." "Makefile.libretro" ${FORMAT_COMPILER_TARGET}
 }
 
 build_libretro_beetle_snes() {
-   build_libretro_generic_makefile_rootdir "mednafen_snes" "Makefile" ${FORMAT_COMPILER_TARGET}
+   build_libretro_generic_makefile "mednafen_snes" "." "Makefile" ${FORMAT_COMPILER_TARGET}
 }
 
 build_libretro_beetle_lynx() {
-   build_libretro_generic_makefile_rootdir "mednafen_lynx" "Makefile" ${FORMAT_COMPILER_TARGET}
+   build_libretro_generic_makefile "mednafen_lynx" "." "Makefile" ${FORMAT_COMPILER_TARGET}
 }
 
 build_libretro_beetle_wswan() {
-   build_libretro_generic_makefile_rootdir "mednafen_wswan" "Makefile" ${FORMAT_COMPILER_TARGET}
+   build_libretro_generic_makefile "mednafen_wswan" "." "Makefile" ${FORMAT_COMPILER_TARGET}
 }
 
 build_libretro_beetle_gba() {
-   build_libretro_generic_makefile_rootdir "mednafen_gba" "Makefile" ${FORMAT_COMPILER_TARGET}
+   build_libretro_generic_makefile "mednafen_gba" "." "Makefile" ${FORMAT_COMPILER_TARGET}
 }
 
 build_libretro_beetle_ngp() {
-   build_libretro_generic_makefile_rootdir "mednafen_ngp" "Makefile" ${FORMAT_COMPILER_TARGET}
+   build_libretro_generic_makefile "mednafen_ngp" "." "Makefile" ${FORMAT_COMPILER_TARGET}
 }
 
 build_libretro_beetle_pce_fast() {
-   build_libretro_generic_makefile_rootdir "mednafen_pce_fast" "Makefile" ${FORMAT_COMPILER_TARGET}
+   build_libretro_generic_makefile "mednafen_pce_fast" "." "Makefile" ${FORMAT_COMPILER_TARGET}
 }
 
 build_libretro_beetle_vb() {
-   build_libretro_generic_makefile_rootdir "mednafen_vb" "Makefile" ${FORMAT_COMPILER_TARGET}
+   build_libretro_generic_makefile "mednafen_vb" "." "Makefile" ${FORMAT_COMPILER_TARGET}
 }
 
 build_libretro_beetle_pcfx() {
-   build_libretro_generic_makefile_rootdir "mednafen_pcfx" "Makefile" ${FORMAT_COMPILER_TARGET}
+   build_libretro_generic_makefile "mednafen_pcfx" "." "Makefile" ${FORMAT_COMPILER_TARGET}
 }
 
 build_libretro_beetle_psx() {
-   build_libretro_generic_makefile_rootdir "mednafen_psx" "Makefile" ${FORMAT_COMPILER_TARGET}
+   build_libretro_generic_makefile "mednafen_psx" "." "Makefile" ${FORMAT_COMPILER_TARGET}
 }
 
 build_libretro_beetle_supergrafx() {
-   build_libretro_generic_makefile_rootdir "mednafen_supergrafx" "Makefile" ${FORMAT_COMPILER_TARGET}
+   build_libretro_generic_makefile "mednafen_supergrafx" "." "Makefile" ${FORMAT_COMPILER_TARGET}
+}
+
+build_libretro_meteor() {
+   build_libretro_generic_makefile "meteor" "libretro" "Makefile" ${FORMAT_COMPILER_TARGET}
+}
+
+build_libretro_nestopia() {
+   build_libretro_generic_makefile "meteor" "libretro" "Makefile" ${FORMAT_COMPILER_TARGET}
+}
+
+build_libretro_gambatte() {
+   build_libretro_generic_makefile "gambatte" "libgambatte" "Makefile.libretro" ${FORMAT_COMPILER_TARGET_ALT}
+}
+
+build_libretro_yabause() {
+   build_libretro_generic_makefile "yabause" "libretro" "Makefile" ${FORMAT_COMPILER_TARGET}
+}
+
+build_libretro_desmume() {
+   build_libretro_generic_makefile "desmume" "desmume" "Makefile.libretro" ${FORMAT_COMPILER_TARGET}
+}
+
+build_libretro_snes9x() {
+   build_libretro_generic_makefile "snes9x" "libretro" "Makefile" ${FORMAT_COMPILER_TARGET}
+}
+
+build_libretro_quicknes() {
+   build_libretro_generic_makefile "quicknes" "libretro" "Makefile" ${FORMAT_COMPILER_TARGET}
+}
+
+build_libretro_dosbox() {
+   build_libretro_generic_makefile "dosbox" "." "Makefile.libretro" ${FORMAT_COMPILER_TARGET}
+}
+
+build_libretro_ffmpeg() {
+   check_opengl
+   build_libretro_generic_makefile "ffmpeg" "libretro" "Makefile" ${FORMAT_COMPILER_TARGET}
+   # reset check_opengl
+   export FORMAT_COMPILER_TARGET="${FORMAT_COMPILER_TARGET}"
+}
+
+build_libretro_3dengine() {
+   check_opengl
+   build_libretro_generic_makefile "3dengine" "." "Makefile" ${FORMAT_COMPILER_TARGET}
+   # reset check_opengl
+   export FORMAT_COMPILER_TARGET="${FORMAT_COMPILER_TARGET}"
+}
+
+build_libretro_scummvm() {
+   build_libretro_generic_makefile "scummvm" "backends/platform/libretro/build" "Makefile" ${FORMAT_COMPILER_TARGET}
+}
+
+build_libretro_ppsspp() {
+   check_opengl
+   build_libretro_generic_makefile "ppsspp" "libretro" "Makefile" ${FORMAT_COMPILER_TARGET}
+   # reset check_opengl
+   export FORMAT_COMPILER_TARGET="${FORMAT_COMPILER_TARGET}"
+}
+
+build_libretro_bsnes_cplusplus98() {
+   cd "${BASE_DIR}"
+   if [ -d 'libretro-bsnes-cplusplus98' ]; then
+      echo '=== Building bSNES C++98 ==='
+      cd libretro-bsnes-cplusplus98
+
+      if [ -z "${NOCLEAN}" ]; then
+         "${MAKE}" clean || die 'Failed to clean bSNES C++98'
+      fi
+      "${MAKE}" platform="${FORMAT_COMPILER_TARGET}" ${COMPILER} "-j${JOBS}"
+      cp "out/libretro.${FORMAT_EXT}" "${RARCH_DIST_DIR}/bsnes_cplusplus98_libretro${FORMAT}.${FORMAT_EXT}"
+   else
+      echo 'bSNES C++98 not fetched, skipping ...'
+   fi
 }
 
 build_libretro_mame() {
@@ -493,75 +488,6 @@ rebuild_libretro_ume() {
    fi
 }
 
-build_libretro_vbam() {
-   cd "${BASE_DIR}"
-   if [ -d 'libretro-vbam' ]; then
-      echo '=== Building VBA-M ==='
-      cd libretro-vbam/src/libretro
-
-      if [ -z "${NOCLEAN}" ]; then
-         "${MAKE}" -f Makefile platform="${FORMAT_COMPILER_TARGET_ALT}" ${COMPILER} "-j${JOBS}" clean || die 'Failed to clean VBA-M'
-      fi
-      "${MAKE}" -f Makefile platform="${FORMAT_COMPILER_TARGET_ALT}" ${COMPILER} "-j${JOBS}" || die 'Failed to build VBA-M'
-      cp "vbam_libretro${FORMAT}.${FORMAT_EXT}" "${RARCH_DIST_DIR}"
-   else
-      echo 'VBA-M not fetched, skipping ...'
-   fi
-}
-
-
-
-build_libretro_gambatte() {
-   cd "${BASE_DIR}"
-   if [ -d 'libretro-gambatte' ]; then
-      echo '=== Building Gambatte ==='
-      cd libretro-gambatte/libgambatte
-
-      if [ -z "${NOCLEAN}" ]; then
-         "${MAKE}" -f Makefile.libretro platform="${FORMAT_COMPILER_TARGET_ALT}" ${COMPILER} "-j${JOBS}" clean || die 'Failed to clean Gambatte'
-      fi
-      "${MAKE}" -f Makefile.libretro platform="${FORMAT_COMPILER_TARGET_ALT}" ${COMPILER} "-j${JOBS}" || die 'Failed to build Gambatte'
-      cp "gambatte_libretro${FORMAT}.${FORMAT_EXT}" "${RARCH_DIST_DIR}"
-   else
-      echo 'Gambatte not fetched, skipping ...'
-   fi
-}
-
-
-
-
-build_libretro_meteor() {
-   cd "${BASE_DIR}"
-   if [ -d 'libretro-meteor' ]; then
-      echo '=== Building Meteor ==='
-      cd libretro-meteor/libretro
-
-      if [ -z "${NOCLEAN}" ]; then
-         "${MAKE}" -f Makefile platform="${FORMAT_COMPILER_TARGET}" ${COMPILER} "-j${JOBS}" clean || die 'Failed to clean Meteor'
-      fi
-      "${MAKE}" -f Makefile platform="${FORMAT_COMPILER_TARGET}" ${COMPILER} "-j${JOBS}" || die 'Failed to build Meteor'
-      cp "meteor_libretro${FORMAT}.${FORMAT_EXT}" "${RARCH_DIST_DIR}"
-   else
-      echo 'Meteor not fetched, skipping ...'
-   fi
-}
-
-build_libretro_nestopia() {
-   cd "${BASE_DIR}"
-   if [ -d 'libretro-nestopia' ]; then
-      echo '=== Building Nestopia ==='
-      cd libretro-nestopia/libretro
-
-      if [ -z "${NOCLEAN}" ]; then
-         "${MAKE}" platform="${FORMAT_COMPILER_TARGET}" ${COMPILER} "-j${JOBS}" clean || die 'Failed to clean Nestopia'
-      fi
-      "${MAKE}" platform="${FORMAT_COMPILER_TARGET}" ${COMPILER} "-j${JOBS}" || die 'Failed to build Nestopia'
-      cp "nestopia_libretro${FORMAT}.${FORMAT_EXT}" "${RARCH_DIST_DIR}"
-   else
-      echo 'Nestopia not fetched, skipping ...'
-   fi
-}
-
 
 build_libretro_modelviewer() {
    check_opengl
@@ -601,24 +527,6 @@ build_libretro_modelviewer_location() {
    export FORMAT_COMPILER_TARGET="${FORMAT_COMPILER_TARGET}"
 }
 
-build_libretro_3dengine() {
-   check_opengl
-   cd "${BASE_DIR}"
-   if [ -d 'libretro-3dengine' ]; then
-      echo '=== Building 3DEngine (GL) ==='
-      cd libretro-3dengine
-
-      if [ -z "${NOCLEAN}" ]; then
-         "${MAKE}" -f Makefile platform="${FORMAT_COMPILER_TARGET}" ${COMPILER} "-j${JOBS}" clean || die 'Failed to clean SceneWalker'
-      fi
-      "${MAKE}" -f Makefile platform="${FORMAT_COMPILER_TARGET}" ${COMPILER} "-j${JOBS}" || die 'Failed to build SceneWalker'
-      cp "3dengine_libretro${FORMAT}.${FORMAT_EXT}" "${RARCH_DIST_DIR}"
-   else
-      echo '3DEngine not fetched, skipping ...'
-   fi
-   # reset check_opengl
-   export FORMAT_COMPILER_TARGET="${FORMAT_COMPILER_TARGET}"
-}
 
 build_libretro_scenewalker() {
    check_opengl
@@ -677,36 +585,7 @@ build_libretro_instancingviewer_camera() {
    export FORMAT_COMPILER_TARGET="${FORMAT_COMPILER_TARGET}"
 }
 
-build_libretro_scummvm() {
-   cd "${BASE_DIR}"
-   if [ -d 'libretro-scummvm' ]; then
-      echo '=== Building ScummVM ==='
-      cd libretro-scummvm/backends/platform/libretro/build
 
-      if [ -z "${NOCLEAN}" ]; then
-         "${MAKE}" -f Makefile platform="${FORMAT_COMPILER_TARGET}" ${COMPILER} "-j${JOBS}" clean || die 'Failed to clean ScummVM'
-      fi
-      "${MAKE}" -f Makefile platform="${FORMAT_COMPILER_TARGET}" ${COMPILER} "-j${JOBS}" || die 'Failed to build ScummVM'
-      cp "scummvm_libretro${FORMAT}.${FORMAT_EXT}" "${RARCH_DIST_DIR}"
-   else
-      echo 'ScummVM not fetched, skipping ...'
-   fi
-}
-
-build_libretro_dosbox() {
-   cd "${BASE_DIR}"
-   if [ -d 'libretro-dosbox' ]; then
-      echo '=== Building DOSbox ==='
-      cd libretro-dosbox
-      if [ -z "${NOCLEAN}" ]; then
-         "${MAKE}" -f Makefile.libretro platform="${FORMAT_COMPILER_TARGET}" ${COMPILER} "-j${JOBS}" clean || die 'Failed to clean DOSbox'
-      fi
-      "${MAKE}" -f Makefile.libretro platform="${FORMAT_COMPILER_TARGET}" ${COMPILER} "-j${JOBS}" || die 'Failed to build DOSbox'
-      cp "dosbox_libretro${FORMAT}.${FORMAT_EXT}" "${RARCH_DIST_DIR}"
-   else
-      echo 'DOSbox not fetched, skipping ...'
-   fi
-}
 
 build_libretro_bsnes_mercury() {
    cd "${BASE_DIR}"
@@ -850,42 +729,6 @@ build_libretro_mupen64() {
    fi
    # reset check_opengl
    export FORMAT_COMPILER_TARGET="${FORMAT_COMPILER_TARGET}"
-}
-
-
-build_libretro_ppsspp() {
-   check_opengl
-   cd "${BASE_DIR}"
-   if [ -d 'libretro-ppsspp' ]; then
-      echo '=== Building PPSSPP ==='
-      cd libretro-ppsspp/libretro
-
-      if [ -z "${NOCLEAN}" ]; then
-         "${MAKE}" -f Makefile platform="${FORMAT_COMPILER_TARGET}" ${COMPILER} "-j${JOBS}" clean || die 'Failed to clean PPSSPP'
-      fi
-      "${MAKE}" -f Makefile platform="${FORMAT_COMPILER_TARGET}" ${COMPILER} "-j${JOBS}" || die 'Failed to build PPSSPP'
-      cp "ppsspp_libretro${FORMAT}.${FORMAT_EXT}" "${RARCH_DIST_DIR}"
-   else
-      echo 'PPSSPP not fetched, skipping ...'
-   fi
-   # reset check_opengl
-   export FORMAT_COMPILER_TARGET="${FORMAT_COMPILER_TARGET}"
-}
-
-build_libretro_yabause() {
-   cd "${BASE_DIR}"
-   if [ -d 'libretro-yabause' ]; then
-      echo '=== Building Yabause ==='
-      cd libretro-yabause/libretro
-
-      if [ -z "${NOCLEAN}" ]; then
-         "${MAKE}" -f Makefile platform="${FORMAT_COMPILER_TARGET}" ${COMPILER} "-j${JOBS}" clean || die 'Failed to clean Yabause'
-      fi
-      "${MAKE}" -f Makefile platform="${FORMAT_COMPILER_TARGET}" ${COMPILER} "-j${JOBS}" || die 'Failed to build Yabause'
-      cp "yabause_libretro${FORMAT}.${FORMAT_EXT}" "${RARCH_DIST_DIR}"
-   else
-      echo 'Yabause not fetched, skipping ...'
-   fi
 }
 
 create_dist_dir() {
