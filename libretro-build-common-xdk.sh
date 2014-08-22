@@ -6,311 +6,110 @@ die()
    #exit 1
 }
 
-build_libretro_beetle_bsnes()
-{
-   cd $BASE_DIR
-   if [ -d "libretro-beetle-bsnes" ]; then
-      echo "=== Building Beetle bSNES ==="
-      cd libretro-beetle-bsnes
+# $1 is corename
+# $2 subdir. If there is no subdir, input "." here
+# $3 build configuration - ie. release or release_ltcg
+build_libretro_generic_makefile() {
+   cd "$BASE_DIR"
+   if [ -d "libretro-${1}" ]; then
+      echo "=== Building ${1} ==="
+      cd libretro-${1}
+      cd ${2}
       cd msvc
       cmd.exe /k $MSVC_NAME.bat
-      cp $MSVC_NAME/$RELEASE_LTCG/${MSVC_NAME}.${FORMAT_EXT} "$RARCH_DIST_DIR"/mednafen_bsnes_libretro$FORMAT.$FORMAT_EXT
+      cp $MSVC_NAME/${3}/${MSVC_NAME}.${FORMAT_EXT} "$RARCH_DIST_DIR"/${1}_libretro$FORMAT.$FORMAT_EXT
    else
-      echo "Beetle bSNES not fetched, skipping ..."
+      echo "${1} not fetched, skipping ..."
    fi
 }
 
-build_libretro_beetle_lynx()
-{
-   cd $BASE_DIR
-   if [ -d "libretro-beetle-lynx" ]; then
-      echo "=== Building Beetle Lynx ==="
-      cd libretro-beetle-lynx
-      cd msvc
-      cmd.exe /k $MSVC_NAME.bat
-      cp $MSVC_NAME/$RELEASE_LTCG/${MSVC_NAME}.${FORMAT_EXT} "$RARCH_DIST_DIR"/mednafen_lynx_libretro$FORMAT.$FORMAT_EXT
-   else
-      echo "Beetle Lynx not fetched, skipping ..."
-   fi
+build_libretro_beetle_bsnes() {
+   build_libretro_generic_makefile "mednafen_snes" "." $RELEASE_LTCG
 }
 
-build_libretro_beetle_wswan()
-{
-   cd $BASE_DIR
-   if [ -d "libretro-beetle-wswan" ]; then
-      echo "=== Building Beetle WSwan ==="
-      cd libretro-beetle-wswan
-      cd msvc
-      cmd.exe /k $MSVC_NAME.bat
-      cp $MSVC_NAME/$RELEASE_LTCG/${MSVC_NAME}.${FORMAT_EXT} "$RARCH_DIST_DIR"/mednafen_wswan_libretro$FORMAT.$FORMAT_EXT
-   else
-      echo "Beetle WSwan not fetched, skipping ..."
-   fi
+build_libretro_beetle_lynx() {
+   build_libretro_generic_makefile "mednafen_lynx" "." $RELEASE_LTCG
 }
 
-build_libretro_beetle_gba()
-{
-   cd $BASE_DIR
-   if [ -d "libretro-beetle-gba" ]; then
-      echo "=== Building Beetle GBA ==="
-      cd libretro-beetle-gba
-      cd msvc
-      cmd.exe /k $MSVC_NAME.bat
-      cp $MSVC_NAME/$RELEASE_LTCG/${MSVC_NAME}.${FORMAT_EXT} "$RARCH_DIST_DIR"/mednafen_gba_libretro$FORMAT.$FORMAT_EXT
-   else
-      echo "Beetle GBA not fetched, skipping ..."
-   fi
+build_libretro_beetle_wswan() {
+   build_libretro_generic_makefile "mednafen_wswan" "." $RELEASE_LTCG
 }
 
-build_libretro_beetle_ngp()
-{
-   cd $BASE_DIR
-   if [ -d "libretro-beetle-ngp" ]; then
-      echo "=== Building Beetle NGP ==="
-      cd libretro-beetle-ngp
-      cd msvc
-      cmd.exe /k $MSVC_NAME.bat
-      cp $MSVC_NAME/$RELEASE_LTCG/${MSVC_NAME}.${FORMAT_EXT} "$RARCH_DIST_DIR"/mednafen_ngp_libretro$FORMAT.$FORMAT_EXT
-   else
-      echo "Beetle NGP not fetched, skipping ..."
-   fi
+build_libretro_beetle_gba() {
+   build_libretro_generic_makefile "mednafen_gba" "." $RELEASE_LTCG
 }
 
-build_libretro_beetle_pce_fast()
-{
-   cd $BASE_DIR
-   if [ -d "libretro-beetle-pce-fast" ]; then
-      echo "=== Building Beetle PCE Fast ==="
-      cd libretro-beetle-pce-fast
-      cd msvc
-      cmd.exe /k $MSVC_NAME.bat
-      cp $MSVC_NAME/$RELEASE_LTCG/${MSVC_NAME}.${FORMAT_EXT} "$RARCH_DIST_DIR"/mednafen_pce_fast_libretro$FORMAT.$FORMAT_EXT
-   else
-      echo "Beetle PCE Fast not fetched, skipping ..."
-   fi
+build_libretro_beetle_ngp() {
+   build_libretro_generic_makefile "mednafen_ngp" "." $RELEASE_LTCG
 }
 
-build_libretro_beetle_supergrafx()
-{
-   cd $BASE_DIR
-   if [ -d "libretro-beetle-supergrafx" ]; then
-      echo "=== Building Beetle SuperGrafx ==="
-      cd libretro-beetle-supergrafx
-      cd msvc
-      cmd.exe /k $MSVC_NAME.bat
-      cp $MSVC_NAME/$RELEASE_LTCG/${MSVC_NAME}.${FORMAT_EXT} "$RARCH_DIST_DIR"/mednafen_supergrafx_libretro$FORMAT.$FORMAT_EXT
-   else
-      echo "Beetle SuperGrafx not fetched, skipping ..."
-   fi
+build_libretro_beetle_pce_fast() {
+   build_libretro_generic_makefile "mednafen_pce_fast" "." $RELEASE_LTCG
 }
 
-build_libretro_beetle_pcfx()
-{
-   cd $BASE_DIR
-   if [ -d "libretro-beetle-pcfx" ]; then
-      echo "=== Building Beetle PCFX ==="
-      cd libretro-beetle-pcfx
-      cd msvc
-      cmd.exe /k $MSVC_NAME.bat
-      cp $MSVC_NAME/$RELEASE_LTCG/${MSVC_NAME}.${FORMAT_EXT} "$RARCH_DIST_DIR"/mednafen_pcfx_libretro$FORMAT.$FORMAT_EXT
-   else
-      echo "Beetle PCFX Fast not fetched, skipping ..."
-   fi
+build_libretro_beetle_supergrafx() {
+   build_libretro_generic_makefile "mednafen_supergrafx" "." $RELEASE_LTCG
 }
 
-build_libretro_beetle_vb()
-{
-   cd $BASE_DIR
-   if [ -d "libretro-beetle-vb" ]; then
-      echo "=== Building Beetle VB ==="
-      cd libretro-beetle-vb
-      cd msvc
-      cmd.exe /k $MSVC_NAME.bat
-      cp $MSVC_NAME/$RELEASE_LTCG/${MSVC_NAME}.${FORMAT_EXT} "$RARCH_DIST_DIR"/mednafen_vb_libretro$FORMAT.$FORMAT_EXT
-   else
-      echo "Beetle VB not fetched, skipping ..."
-   fi
+build_libretro_beetle_pcfx() {
+   build_libretro_generic_makefile "mednafen_pcfx" "." $RELEASE_LTCG
 }
 
-build_libretro_snes9x()
-{
-   cd $BASE_DIR
-   if [ -d "libretro-snes9x" ]; then
-      echo "=== Building SNES9x ==="
-      cd libretro-snes9x/
-      cd libretro/msvc
-      cmd.exe /k $MSVC_NAME.bat
-      cp $MSVC_NAME/$RELEASE_LTCG/${MSVC_NAME}.${FORMAT_EXT} "$RARCH_DIST_DIR"/snes9x_libretro$FORMAT.$FORMAT_EXT
-   else
-      echo "SNES9x not fetched, skipping ..."
-   fi
+build_libretro_beetle_vb() {
+   build_libretro_generic_makefile "mednafen_vb" "." $RELEASE_LTCG
 }
 
-build_libretro_s9x_next()
-{
-   cd $BASE_DIR
-   if [ -d "libretro-snes9x_next" ]; then
-      echo "=== Building SNES9x-Next ==="
-      cd libretro-snes9x_next/
-      cd libretro/msvc
-      cmd.exe /k $MSVC_NAME.bat
-      cp $MSVC_NAME/$RELEASE_LTCG/${MSVC_NAME}.${FORMAT_EXT} "$RARCH_DIST_DIR"/snes9x_next_libretro$FORMAT.$FORMAT_EXT
-   else
-      echo "SNES9x-Next not fetched, skipping ..."
-   fi
+build_libretro_snes9x() {
+   build_libretro_generic_makefile "snes9x" "libretro" $RELEASE_LTCG
 }
 
-build_libretro_genesis_plus_gx()
-{
-   cd $BASE_DIR
-   if [ -d "libretro-genesis_plus_gx" ]; then
-      echo "=== Building Genplus GX ==="
-      cd libretro-genesis_plus_gx/
-      cd libretro/msvc
-      cmd.exe /k $MSVC_NAME.bat
-      cp $MSVC_NAME/$RELEASE_LTCG/${MSVC_NAME}.${FORMAT_EXT} "$RARCH_DIST_DIR"/genesis_plus_gx_libretro$FORMAT.$FORMAT_EXT
-   else
-      echo "Genplus GX not fetched, skipping ..."
-   fi
+build_libretro_s9x_next() {
+   build_libretro_generic_makefile "snes9x_next" "libretro" $RELEASE_LTCG
 }
 
-build_libretro_vba_next()
-{
-   cd $BASE_DIR
-   if [ -d "libretro-vba_next" ]; then
-      echo "=== Building VBA-Next ==="
-      cd libretro-vba_next/
-      cd libretro/msvc
-      cmd.exe /k $MSVC_NAME.bat
-      cp $MSVC_NAME/$RELEASE/${MSVC_NAME}.${FORMAT_EXT} "$RARCH_DIST_DIR"/vba_next_libretro$FORMAT.$FORMAT_EXT
-   else
-      echo "VBA-Next not fetched, skipping ..."
-   fi
+build_libretro_genesis_plus_gx() {
+   build_libretro_generic_makefile "genesis_plus_gx" "libretro" $RELEASE_LTCG
+}
+
+build_libretro_vba_next() {
+   build_libretro_generic_makefile "genesis_plus_gx" "libretro" $RELEASE
 }
 
 build_libretro_mame078() {
-   cd "${BASE_DIR}"
-   if [ -d 'libretro-mame078' ]; then
-      echo '=== Building MAME 0.78 ==='
-      cd libretro-mame078
-      cd src/libretro/msvc
-      cmd.exe /k $MSVC_NAME.bat
-      cp $MSVC_NAME/$RELEASE_LTCG/${MSVC_NAME}.${FORMAT_EXT} "$RARCH_DIST_DIR"/mame078_libretro$FORMAT.$FORMAT_EXT
-   else
-      echo 'MAME 0.78 not fetched, skipping ...'
-   fi
+   build_libretro_generic_makefile "mame078" "libretro" $RELEASE
 }
 
-build_libretro_fceumm()
-{
-   cd $BASE_DIR
-   if [ -d "libretro-fceumm" ]; then
-      echo "=== Building FCEUmm ==="
-      cd libretro-fceumm
-      cd src/drivers/libretro/msvc
-      cmd.exe /k $MSVC_NAME.bat
-      cp $MSVC_NAME/$RELEASE_LTCG/${MSVC_NAME}.${FORMAT_EXT} "$RARCH_DIST_DIR"/fceumm_libretro$FORMAT.$FORMAT_EXT
-   else
-      echo "FCEUmm not fetched, skipping ..."
-   fi
+build_libretro_fceumm() {
+   build_libretro_generic_makefile "fceumm" "src/drivers/libretro" $RELEASE_LTCG
 }
 
 build_libretro_gambatte()
 {
-   cd $BASE_DIR
-   if [ -d "libretro-gambatte" ]; then
-      echo "=== Building Gambatte ==="
-      cd libretro-gambatte/libgambatte
-      cd libretro/msvc
-      cmd.exe /k $MSVC_NAME.bat
-      cp $MSVC_NAME/$RELEASE_LTCG/${MSVC_NAME}.${FORMAT_EXT} "$RARCH_DIST_DIR"/gambatte_libretro$FORMAT.$FORMAT_EXT
-   else
-      echo "Gambatte not fetched, skipping ..."
-   fi
+   build_libretro_generic_makefile "gambatte" "libgambatte/libretro" $RELEASE_LTCG
 }
 
-build_libretro_nx()
-{
-   cd $BASE_DIR
-   if [ -d "libretro-nxengine" ]; then
-      echo "=== Building NXEngine ==="
-      cd libretro-nxengine
-      cd nxengine-1.0.0.4/libretro/msvc
-      cmd.exe /k $MSVC_NAME.bat
-      cp $MSVC_NAME/$RELEASE_LTCG/${MSVC_NAME}.${FORMAT_EXT} "$RARCH_DIST_DIR"/nxengine_libretro$FORMAT.$FORMAT_EXT
-   else
-      echo "NXEngine not fetched, skipping ..."
-   fi
+build_libretro_nx() {
+   build_libretro_generic_makefile "nxengine" "nxengine-1.0.0.4/libretro" $RELEASE_LTCG
 }
 
-build_libretro_prboom()
-{
-   cd $BASE_DIR
-   if [ -d "libretro-prboom" ]; then
-      echo "=== Building PRBoom ==="
-      cd libretro-prboom
-      cd libretro/msvc
-      cmd.exe /k $MSVC_NAME.bat
-      cp $MSVC_NAME/$RELEASE_LTCG/${MSVC_NAME}.${FORMAT_EXT} "$RARCH_DIST_DIR"/prboom_libretro$FORMAT.$FORMAT_EXT
-   else
-      echo "PRBoom not fetched, skipping ..."
-   fi
+build_libretro_prboom() {
+   build_libretro_generic_makefile "prboom" "libretro" $RELEASE_LTCG
 }
 
-build_libretro_stella()
-{
-   cd $BASE_DIR
-   if [ -d "libretro-stella" ]; then
-      echo "=== Building Stella ==="
-      cd libretro-stella
-      cd msvc
-      cmd.exe /k $MSVC_NAME.bat
-      cp $MSVC_NAME/$RELEASE_LTCG/${MSVC_NAME}.${FORMAT_EXT} "$RARCH_DIST_DIR"/stella_libretro$FORMAT.$FORMAT_EXT
-   else
-      echo "Stella not fetched, skipping ..."
-   fi
+build_libretro_stella() {
+   build_libretro_generic_makefile "stella" "." $RELEASE_LTCG
 }
 
-build_libretro_picodrive()
-{
-   cd $BASE_DIR
-   if [ -d "libretro-picodrive" ]; then
-      echo "=== Building Picodrive ==="
-      cd libretro-picodrive
-      cd platform/libretro/msvc
-      cmd.exe /k $MSVC_NAME.bat
-      cp $MSVC_NAME/$RELEASE_LTCG/${MSVC_NAME}.${FORMAT_EXT} "$RARCH_DIST_DIR"/picodrive_libretro$FORMAT.$FORMAT_EXT
-   else
-      echo "Picodrive not fetched, skipping ..."
-   fi
+build_libretro_picodrive() {
+   build_libretro_generic_makefile "picodrive" "platform/libretro" $RELEASE_LTCG
 }
 
-build_libretro_nestopia()
-{
-   cd $BASE_DIR
-   if [ -d "libretro-nestopia" ]; then
-      echo "=== Building Nestopia ==="
-      cd libretro-nestopia/libretro
-      cd msvc
-      cmd.exe /k $MSVC_NAME.bat
-      cp $MSVC_NAME/$RELEASE_LTCG/${MSVC_NAME}.${FORMAT_EXT} "$RARCH_DIST_DIR"/nestopia_libretro$FORMAT.$FORMAT_EXT
-   else
-      echo "Nestopia not fetched, skipping ..."
-   fi
+build_libretro_nestopia() {
+   build_libretro_generic_makefile "nestopia" "libretro" $RELEASE_LTCG
 }
 
-build_libretro_tyrquake()
-{
-   cd $BASE_DIR
-   if [ -d "libretro-tyrquake" ]; then
-      echo "=== Building TyrQuake ==="
-      cd libretro-tyrquake
-      cd libretro/msvc
-      cmd.exe /k $MSVC_NAME.bat
-      cp $MSVC_NAME/$RELEASE/${MSVC_NAME}.${FORMAT_EXT} "$RARCH_DIST_DIR"/tyrquake_libretro$FORMAT.$FORMAT_EXT
-   else
-      echo "TyrQuake not fetched, skipping ..."
-   fi
+build_libretro_tyrquake() {
+   build_libretro_generic_makefile "tyrquake" "libretro" $RELEASE_LTCG
 }
 
 create_dist_dir()
