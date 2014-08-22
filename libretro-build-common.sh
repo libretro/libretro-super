@@ -386,26 +386,12 @@ build_libretro_snes9x() {
    fi
 }
 
-build_libretro_snes9x_next() {
-   cd "${BASE_DIR}"
-   if [ -d 'libretro-snes9x_next' ]; then
-      echo '=== Building SNES9x-Next ==='
-      cd libretro-snes9x_next/
-
-      if [ -z "${NOCLEAN}" ]; then
-         "${MAKE}" -f Makefile.libretro platform="${FORMAT_COMPILER_TARGET_ALT}" ${COMPILER} "-j${JOBS}" clean || die 'Failed to build SNES9x-Next'
-      fi
-      "${MAKE}" -f Makefile.libretro platform="${FORMAT_COMPILER_TARGET_ALT}" ${COMPILER} "-j${JOBS}" || die 'Failed to build SNES9x-Next'
-      cp "snes9x_next_libretro${FORMAT}.${FORMAT_EXT}" "${RARCH_DIST_DIR}"
-   else
-      echo 'SNES9x-Next not fetched, skipping ...'
-   fi
-}
 
 
 
 # $1 is corename
 # $2 is Makefile name
+# $3 is preferred platform
 build_libretro_generic_makefile_rootdir() {
    cd "${BASE_DIR}"
    if [ -d "libretro-${1}" ]; then
@@ -413,9 +399,9 @@ build_libretro_generic_makefile_rootdir() {
       cd libretro-${1}/
 
       if [ -z "${NOCLEAN}" ]; then
-         "${MAKE}" -f ${2} platform="${FORMAT_COMPILER_TARGET}" ${COMPILER} "-j${JOBS}" clean || die "Failed to build ${1}"
+         "${MAKE}" -f ${2} platform="${3}" ${COMPILER} "-j${JOBS}" clean || die "Failed to build ${1}"
       fi
-      "${MAKE}" -f ${2} platform="${FORMAT_COMPILER_TARGET}" ${COMPILER} "-j${JOBS}" || die "Failed to build ${1}"
+      "${MAKE}" -f ${2} platform="${3}" ${COMPILER} "-j${JOBS}" || die "Failed to build ${1}"
       cp "${1}_libretro${FORMAT}.${FORMAT_EXT}" "${RARCH_DIST_DIR}"
    else
       echo "${1} not fetched, skipping ..."
@@ -423,73 +409,63 @@ build_libretro_generic_makefile_rootdir() {
 }
 
 build_libretro_prosystem() {
-   build_libretro_generic_makefile_rootdir "prosystem" "Makefile"
+   build_libretro_generic_makefile_rootdir "prosystem" "Makefile" ${FORMAT_COMPILER_TARGET}
 }
 
 build_libretro_o2em() {
-   build_libretro_generic_makefile_rootdir "o2em" "Makefile"
+   build_libretro_generic_makefile_rootdir "o2em" "Makefile" ${FORMAT_COMPILER_TARGET}
 }
 
 build_libretro_virtualjaguar() {
-   build_libretro_generic_makefile_rootdir "virtualjaguar" "Makefile"
+   build_libretro_generic_makefile_rootdir "virtualjaguar" "Makefile" ${FORMAT_COMPILER_TARGET}
 }
 
 build_libretro_tgbdual() {
-   build_libretro_generic_makefile_rootdir "tgbdual" "Makefile"
+   build_libretro_generic_makefile_rootdir "tgbdual" "Makefile" ${FORMAT_COMPILER_TARGET}
 }
 
 build_libretro_nx() {
-   build_libretro_generic_makefile_rootdir "nxengine" "Makefile"
+   build_libretro_generic_makefile_rootdir "nxengine" "Makefile" ${FORMAT_COMPILER_TARGET}
 }
 
 build_libretro_picodrive() {
-   build_libretro_generic_makefile_rootdir "picodrive" "Makefile.libretro"
+   build_libretro_generic_makefile_rootdir "picodrive" "Makefile.libretro" ${FORMAT_COMPILER_TARGET}
 }
 
 build_libretro_tyrquake() {
-   build_libretro_generic_makefile_rootdir "tyrquake" "Makefile.libretro"
+   build_libretro_generic_makefile_rootdir "tyrquake" "Makefile" ${FORMAT_COMPILER_TARGET}
 }
 
 build_libretro_2048() {
-   build_libretro_generic_makefile_rootdir "2048" "Makefile.libretro"
+   build_libretro_generic_makefile_rootdir "2048" "Makefile" ${FORMAT_COMPILER_TARGET}
 }
 
-build_libretro_vecx()
-{
-   build_libretro_generic_makefile_rootdir "vecx" "Makefile.libretro"
+build_libretro_vecx() {
+   build_libretro_generic_makefile_rootdir "vecx" "Makefile" ${FORMAT_COMPILER_TARGET}
 }
 
-build_libretro_stella()
-{
-   build_libretro_generic_makefile_rootdir "stella" "Makefile"
+build_libretro_stella() {
+   build_libretro_generic_makefile_rootdir "stella" "Makefile" ${FORMAT_COMPILER_TARGET}
 }
 
 build_libretro_bluemsx() {
-   build_libretro_generic_makefile_rootdir "bluemsx" "Makefile.libretro"
+   build_libretro_generic_makefile_rootdir "bluemsx" "Makefile" ${FORMAT_COMPILER_TARGET}
 }
 
 build_libretro_handy() {
-   build_libretro_generic_makefile_rootdir "handy" "Makefile"
+   build_libretro_generic_makefile_rootdir "handy" "Makefile" ${FORMAT_COMPILER_TARGET}
 }
 
-build_libretro_fmsx() {
-   build_libretro_generic_makefile_rootdir "fmsx" "Makefile"
+build_libretro_fmsx() { 
+   build_libretro_generic_makefile_rootdir "fmsx" "Makefile" ${FORMAT_COMPILER_TARGET}
 }
 
 build_libretro_vba_next() {
-   cd "${BASE_DIR}"
-   if [ -d 'libretro-vba_next' ]; then
-      echo '=== Building VBA-Next ==='
-      cd libretro-vba_next/
+   build_libretro_generic_makefile_rootdir "vba_next" "Makefile.libretro" ${FORMAT_COMPILER_TARGET_ALT}
+}
 
-      if [ -z "${NOCLEAN}" ]; then
-         "${MAKE}" -f Makefile.libretro platform="${FORMAT_COMPILER_TARGET_ALT}" ${COMPILER} "-j${JOBS}" clean || die 'Failed to clean VBA-Next'
-      fi
-      "${MAKE}" -f Makefile.libretro platform="${FORMAT_COMPILER_TARGET_ALT}" ${COMPILER} "-j${JOBS}" || die 'Failed to build VBA-Next'
-      cp "vba_next_libretro${FORMAT}.${FORMAT_EXT}" "${RARCH_DIST_DIR}"
-   else
-      echo 'VBA-Next not fetched, skipping ...'
-   fi
+build_libretro_snes9x_next() {
+   build_libretro_generic_makefile_rootdir "snes9x_next" "Makefile.libretro" ${FORMAT_COMPILER_TARGET_ALT}
 }
 
 build_libretro_genplus() {
