@@ -41,61 +41,6 @@ check_opengl() {
    fi
 }
 
-
-
-
-build_libretro_fba_cps1()
-{
-   cd $BASE_DIR
-   if [ -d "libretro-fba" ]; then
-      echo "=== Building Final Burn Alpha Cores (CPS1) ==="
-      cd libretro-fba/
-      cd svn-current/trunk
-      cd fbacores/cps1
-
-      if [ -z "${NOCLEAN}" ]; then
-         make -f makefile.libretro platform=$FORMAT_COMPILER_TARGET -j$JOBS clean || die "Failed to clean Final Burn Alpha Cores CPS1"
-      fi
-      make -f makefile.libretro platform=$FORMAT_COMPILER_TARGET -j$JOBS || die "Failed to build Final Burn Alpha Cores CPS1"
-      cp fba_cores_cps1_libretro$FORMAT.${FORMAT_EXT} $RARCH_DIST_DIR/fba_cores_cps1_libretro$FORMAT.${FORMAT_EXT}
-   fi
-}
-
-build_libretro_fba_cps2()
-{
-   cd $BASE_DIR
-   if [ -d "libretro-fba" ]; then
-      echo "=== Building Final Burn Alpha Cores (CPS2) ==="
-      cd libretro-fba/
-      cd svn-current/trunk
-      cd fbacores/cps2
-
-      if [ -z "${NOCLEAN}" ]; then
-         make -f makefile.libretro platform=$FORMAT_COMPILER_TARGET -j$JOBS clean || die "Failed to clean Final Burn Alpha Cores CPS2"
-      fi
-      make -f makefile.libretro platform=$FORMAT_COMPILER_TARGET -j$JOBS || die "Failed to build Final Burn Alpha Cores CPS2"
-      cp fba_cores_cps2_libretro$FORMAT.${FORMAT_EXT} $RARCH_DIST_DIR/fba_cores_cps2_libretro$FORMAT.${FORMAT_EXT}
-   fi
-}
-
-build_libretro_fba_neogeo()
-{
-   cd $BASE_DIR
-   if [ -d "libretro-fba" ]; then
-      echo "=== Building Final Burn Alpha Cores (NeoGeo) ==="
-      cd libretro-fba/
-      cd svn-current/trunk
-      cd fbacores/neogeo
-
-      if [ -z "${NOCLEAN}" ]; then
-         make -f makefile.libretro platform=$FORMAT_COMPILER_TARGET -j$JOBS clean || die "Failed to clean Final Burn Alpha Cores NeoGeo"
-      fi
-      make -f makefile.libretro platform=$FORMAT_COMPILER_TARGET -j$JOBS || die "Failed to build Final Burn Alpha Cores NeoGeo"
-      cp fba_cores_neo_libretro$FORMAT.${FORMAT_EXT} $RARCH_DIST_DIR/fba_cores_neo_libretro$FORMAT.${FORMAT_EXT}
-   fi
-}
-
-
 build_libretro_pcsx_rearmed_interpreter() {
    cd "${BASE_DIR}"
    if [ -d 'libretro-pcsx-rearmed' ]; then
@@ -112,11 +57,42 @@ build_libretro_pcsx_rearmed_interpreter() {
    fi
 }
 
+# $1 is corename
+# $2 is subcorename
+# $3 is subdir. In case there is no subdir, enter "." here
+# $4 is Makefile name
+# $5 is preferred platform
+build_libretro_generic_makefile_subcore() {
+   cd $BASE_DIR
+   if [ -d "libretro-${1}" ]; then
+      echo "=== Building ${2} ==="
+      cd libretro-${1}/
+      cd ${3}
 
+      if [ -z "${NOCLEAN}" ]; then
+         make -f ${4} platform=${5} -j$JOBS clean || die "Failed to clean ${2}"
+      fi
+      make -f ${4} platform=${5} -j$JOBS || die "Failed to build ${2}"
+      cp ${2}_libretro$FORMAT.${FORMAT_EXT} $RARCH_DIST_DIR/${2}_libretro$FORMAT.${FORMAT_EXT}
+   fi
+}
+
+build_libretro_fba_cps2() {
+   build_libretro_generic_makefile_subcore "fb_alpha" "fba_cores_cps2" "svn-current/trunk/fbacores/cps2" "makefile.libretro" ${FORMAT_COMPILER_TARGET}
+}
+
+build_libretro_fba_neogeo() {
+   build_libretro_generic_makefile_subcore "fb_alpha" "fba_cores_neo" "svn-current/trunk/fbacores/neogeo" "makefile.libretro" ${FORMAT_COMPILER_TARGET}
+}
+
+build_libretro_fba_cps1() {
+   build_libretro_generic_makefile_subcore "fb_alpha" "fba_cores_cps1" "svn-current/trunk/fbacores/cps1" "makefile.libretro" ${FORMAT_COMPILER_TARGET}
+}
 
 # $1 is corename
-# $2 is Makefile name
-# $3 is preferred platform
+# $2 is subdir. In case there is no subdir, enter "." here
+# $3 is Makefile name
+# $4 is preferred platform
 build_libretro_generic_makefile() {
    cd "${BASE_DIR}"
    if [ -d "libretro-${1}" ]; then
