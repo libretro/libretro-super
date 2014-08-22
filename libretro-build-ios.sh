@@ -42,8 +42,8 @@ else
    build_libretro_beetle_wswan
    build_libretro_beetle_psx
    #build_libretro_beetle_bsnes
-   build_libretro_s9x
-   build_libretro_s9x_next
+   build_libretro_snes9x
+   build_libretro_snes9x_next
    build_libretro_genplus
    build_libretro_fba_full
    build_libretro_vbam

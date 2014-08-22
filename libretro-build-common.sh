@@ -370,11 +370,11 @@ build_libretro_desmume() {
    fi
 }
 
-build_libretro_s9x() {
+build_libretro_snes9x() {
    cd "${BASE_DIR}"
-   if [ -d 'libretro-s9x' ]; then
+   if [ -d 'libretro-snes9x' ]; then
       echo '=== Building SNES9x ==='
-      cd libretro-s9x/libretro
+      cd libretro-snes9x/libretro
 
       if [ -z "${NOCLEAN}" ]; then
          "${MAKE}" -f Makefile platform="${FORMAT_COMPILER_TARGET}" ${COMPILER} "-j${JOBS}" clean || die 'Failed to clean SNES9x'
@@ -386,11 +386,11 @@ build_libretro_s9x() {
    fi
 }
 
-build_libretro_s9x_next() {
+build_libretro_snes9x_next() {
    cd "${BASE_DIR}"
-   if [ -d 'libretro-s9x-next' ]; then
+   if [ -d 'libretro-snes9x_next' ]; then
       echo '=== Building SNES9x-Next ==='
-      cd libretro-s9x-next/
+      cd libretro-snes9x_next/
 
       if [ -z "${NOCLEAN}" ]; then
          "${MAKE}" -f Makefile.libretro platform="${FORMAT_COMPILER_TARGET_ALT}" ${COMPILER} "-j${JOBS}" clean || die 'Failed to build SNES9x-Next'
@@ -478,9 +478,9 @@ build_libretro_fmsx() {
 
 build_libretro_vba_next() {
    cd "${BASE_DIR}"
-   if [ -d 'libretro-vba-next' ]; then
+   if [ -d 'libretro-vba_next' ]; then
       echo '=== Building VBA-Next ==='
-      cd libretro-vba-next/
+      cd libretro-vba_next/
 
       if [ -z "${NOCLEAN}" ]; then
          "${MAKE}" -f Makefile.libretro platform="${FORMAT_COMPILER_TARGET_ALT}" ${COMPILER} "-j${JOBS}" clean || die 'Failed to clean VBA-Next'

@@ -248,9 +248,9 @@ build_libretro_beetle_supergrafx()
    fi
 }
 
-build_libretro_s9x()
+build_libretro_snes9x()
 {
-   CORENAME="s9x"
+   CORENAME="snes9x"
    cd $BASE_DIR
    if [ -d "libretro-${CORENAME}" ]; then
       echo "=== Building ${CORENAME} ==="
@@ -268,9 +268,9 @@ build_libretro_s9x()
    fi
 }
 
-build_libretro_s9x_next()
+build_libretro_snes9x_next()
 {
-   CORENAME="s9x-next"
+   CORENAME="snes9x_next"
    cd $BASE_DIR
    if [ -d "libretro-${CORENAME}" ]; then
       echo "=== Building ${CORENAME} ==="
@@ -393,7 +393,7 @@ build_libretro_vbam()
 
 build_libretro_vba_next()
 {
-   CORENAME="vba-next"
+   CORENAME="vba_next"
    cd $BASE_DIR
    if [ -d "libretro-${CORENAME}" ]; then
       echo "=== Building ${CORENAME} ==="
@@ -874,8 +874,8 @@ else
    build_libretro_beetle_wswan
    build_libretro_beetle_psx
    build_libretro_beetle_bsnes
-   build_libretro_s9x
-   build_libretro_s9x_next
+   build_libretro_snes9x
+   build_libretro_snes9x_next
    build_libretro_genplus
    build_libretro_fba_full
    build_libretro_vbam

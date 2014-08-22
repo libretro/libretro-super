@@ -132,12 +132,12 @@ build_libretro_beetle_vb()
    fi
 }
 
-build_libretro_s9x()
+build_libretro_snes9x()
 {
    cd $BASE_DIR
-   if [ -d "libretro-s9x" ]; then
+   if [ -d "libretro-snes9x" ]; then
       echo "=== Building SNES9x ==="
-      cd libretro-s9x/
+      cd libretro-snes9x/
       cd libretro/msvc
       cmd.exe /k $MSVC_NAME.bat
       cp $MSVC_NAME/$RELEASE_LTCG/${MSVC_NAME}.${FORMAT_EXT} "$RARCH_DIST_DIR"/snes9x_libretro$FORMAT.$FORMAT_EXT
@@ -149,9 +149,9 @@ build_libretro_s9x()
 build_libretro_s9x_next()
 {
    cd $BASE_DIR
-   if [ -d "libretro-s9x-next" ]; then
+   if [ -d "libretro-snes9x_next" ]; then
       echo "=== Building SNES9x-Next ==="
-      cd libretro-s9x-next/
+      cd libretro-snes9x_next/
       cd libretro/msvc
       cmd.exe /k $MSVC_NAME.bat
       cp $MSVC_NAME/$RELEASE_LTCG/${MSVC_NAME}.${FORMAT_EXT} "$RARCH_DIST_DIR"/snes9x_next_libretro$FORMAT.$FORMAT_EXT
@@ -177,9 +177,9 @@ build_libretro_genplus()
 build_libretro_vba_next()
 {
    cd $BASE_DIR
-   if [ -d "libretro-vba-next" ]; then
+   if [ -d "libretro-vba_next" ]; then
       echo "=== Building VBA-Next ==="
-      cd libretro-vba-next/
+      cd libretro-vba_next/
       cd libretro/msvc
       cmd.exe /k $MSVC_NAME.bat
       cp $MSVC_NAME/$RELEASE/${MSVC_NAME}.${FORMAT_EXT} "$RARCH_DIST_DIR"/vba_next_libretro$FORMAT.$FORMAT_EXT
