@@ -499,52 +499,35 @@ build_libretro_vecx() {
    fi
 }
 
-build_libretro_prosystem() {
+
+# $1 is corename
+# $2 is Makefile name
+build_libretro_generic_makefile_rootdir() {
    cd "${BASE_DIR}"
-   if [ -d 'libretro-prosystem' ]; then
-      echo '=== Building ProSystem ==='
-      cd libretro-prosystem/
+   if [ -d "libretro-${1}" ]; then
+      echo "=== Building ${1} ==="
+      cd libretro-${1}/
 
       if [ -z "${NOCLEAN}" ]; then
-         "${MAKE}" -f Makefile platform="${FORMAT_COMPILER_TARGET}" ${COMPILER} "-j${JOBS}" clean || die 'Failed to build ProSystem'
+         "${MAKE}" -f ${2} platform="${FORMAT_COMPILER_TARGET}" ${COMPILER} "-j${JOBS}" clean || die "Failed to build ${1}"
       fi
-      "${MAKE}" -f Makefile platform="${FORMAT_COMPILER_TARGET}" ${COMPILER} "-j${JOBS}" || die 'Failed to build ProSystem'
-      cp "prosystem_libretro${FORMAT}.${FORMAT_EXT}" "${RARCH_DIST_DIR}"
+      "${MAKE}" -f ${2} platform="${FORMAT_COMPILER_TARGET}" ${COMPILER} "-j${JOBS}" || die "Failed to build ${1}"
+      cp "${1}_libretro${FORMAT}.${FORMAT_EXT}" "${RARCH_DIST_DIR}"
    else
-      echo 'ProSystem not fetched, skipping ...'
+      echo "${1} not fetched, skipping ..."
    fi
+}
+
+build_libretro_prosystem() {
+   build_libretro_generic_makefile_rootdir "prosystem" "Makefile"
 }
 
 build_libretro_o2em() {
-   cd "${BASE_DIR}"
-   if [ -d 'libretro-o2em' ]; then
-      echo '=== Building o2em ==='
-      cd libretro-o2em/
-
-      if [ -z "${NOCLEAN}" ]; then
-         "${MAKE}" -f Makefile platform="${FORMAT_COMPILER_TARGET}" ${COMPILER} "-j${JOBS}" clean || die 'Failed to build o2em'
-      fi
-      "${MAKE}" -f Makefile platform="${FORMAT_COMPILER_TARGET}" ${COMPILER} "-j${JOBS}" || die 'Failed to build o2em'
-      cp "o2em_libretro${FORMAT}.${FORMAT_EXT}" "${RARCH_DIST_DIR}"
-   else
-      echo 'o2em not fetched, skipping ...'
-   fi
+   build_libretro_generic_makefile_rootdir "o2em" "Makefile"
 }
 
 build_libretro_virtualjaguar() {
-   cd "${BASE_DIR}"
-   if [ -d 'libretro-virtualjaguar' ]; then
-      echo '=== Building VirtualJaguar ==='
-      cd libretro-virtualjaguar/
-
-      if [ -z "${NOCLEAN}" ]; then
-         "${MAKE}" -f Makefile platform="${FORMAT_COMPILER_TARGET}" ${COMPILER} "-j${JOBS}" clean || die 'Failed to build VirtualJaguar'
-      fi
-      "${MAKE}" -f Makefile platform="${FORMAT_COMPILER_TARGET}" ${COMPILER} "-j${JOBS}" || die 'Failed to build VirtualJaguar'
-      cp "virtualjaguar_libretro${FORMAT}.${FORMAT_EXT}" "${RARCH_DIST_DIR}"
-   else
-      echo 'VirtualJaguar not fetched, skipping ...'
-   fi
+   build_libretro_generic_makefile_rootdir "virtualjaguar" "Makefile"
 }
 
 build_libretro_genplus() {
@@ -564,19 +547,7 @@ build_libretro_genplus() {
 }
 
 build_libretro_mame078() {
-   cd "${BASE_DIR}"
-   if [ -d 'libretro-mame078' ]; then
-      echo '=== Building MAME 0.78 ==='
-      cd libretro-mame078
-
-      if [ -z "${NOCLEAN}" ]; then
-         "${MAKE}" -f makefile platform="${FORMAT_COMPILER_TARGET}" ${COMPILER} "-j1" clean || die 'Failed to clean MAME 0.78'
-      fi
-      "${MAKE}" -f makefile platform="${FORMAT_COMPILER_TARGET}" ${COMPILER} "-j1" || die 'Failed to build MAME 0.78'
-      cp "mame078_libretro${FORMAT}.${FORMAT_EXT}" "${RARCH_DIST_DIR}"
-   else
-      echo 'MAME 0.78 not fetched, skipping ...'
-   fi
+   build_libretro_generic_makefile_rootdir "mame078" "makefile"
 }
 
 build_libretro_mame() {
