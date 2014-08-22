@@ -43,22 +43,6 @@ check_opengl() {
 
 
 
-build_libretro_fba_full() {
-   cd "${BASE_DIR}"
-   if [ -d 'libretro-fba' ]; then
-		echo '=== Building Final Burn Alpha (Full) ==='
-      cd libretro-fba/
-      cd svn-current/trunk
-
-      if [ -z "${NOCLEAN}" ]; then
-         "${MAKE}" -f makefile.libretro platform="${FORMAT_COMPILER_TARGET}" ${COMPILER} "-j${JOBS}" clean || die 'Failed to clean Final Burn Alpha'
-      fi
-      "${MAKE}" -f makefile.libretro platform="${FORMAT_COMPILER_TARGET}" ${COMPILER} "-j${JOBS}" || die 'Failed to build Final Burn Alpha'
-      cp "fb_alpha_libretro${FORMAT}.${FORMAT_EXT}" "${RARCH_DIST_DIR}"
-   else
-      echo 'Final Burn Alpha not fetched, skipping ...'
-   fi
-}
 
 build_libretro_fba_cps1()
 {
@@ -308,6 +292,10 @@ build_libretro_quicknes() {
 
 build_libretro_dosbox() {
    build_libretro_generic_makefile "dosbox" "." "Makefile.libretro" ${FORMAT_COMPILER_TARGET}
+}
+
+build_libretro_fb_alpha() {
+   build_libretro_generic_makefile "fb_alpha" "svn-current/trunk" "makefile.libretro" ${FORMAT_COMPILER_TARGET}
 }
 
 build_libretro_ffmpeg() {

@@ -16,7 +16,7 @@ build_libretro_fba_cps2_gx()
 
 build_libretro_fba()
 {
-   build_libretro_fba_full
+   build_libretro_fb_alpha
    build_libretro_fba_cps1
    build_libretro_fba_cps2_gx
    build_libretro_fba_neogeo

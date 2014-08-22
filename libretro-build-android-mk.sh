@@ -38,26 +38,6 @@ die()
    #exit 1
 }
 
-build_libretro_fba_full()
-{
-   CORENAME="fba"
-   cd $BASE_DIR
-   if [ -d "libretro-${CORENAME}" ]; then
-      echo "=== Building ${CORENAME} ==="
-      cd libretro-${CORENAME}
-      cd svn-current/trunk
-      cd projectfiles/libretro-android/jni
-      for a in "${ABIS[@]}"; do
-         if [ -z "${NOCLEAN}" ]; then
-            ndk-build clean APP_ABI=${a} || die "Failed to clean ${a} ${CORENAME}"
-         fi
-         ndk-build -j$JOBS APP_ABI=${a} || die "Failed to build  ${a} ${CORENAME}"
-         cp ../libs/${a}/libretro.${FORMAT_EXT} $RARCH_DIST_DIR/${a}/fb_alpha_libretro${FORMAT}.${FORMAT_EXT}
-      done
-   else
-      echo "${CORENAME} not fetched, skipping ..."
-   fi
-}
 
 
 # $1 is core name
@@ -209,11 +189,13 @@ build_libretro_dinothawr() {
    build_libretro_generic_makefile "dinothawr" "android/eclipse/jni"
 }
 
-build_libretro_desmume()
-{
+build_libretro_desmume() {
    build_libretro_generic_makefile "desmume" "desmume/src/libretro/jni"
 }
 
+build_libretro_fb_alpha() {
+   build_libretro_generic_makefile "fb_alpha" "svn-current/trunk/projectfiles/libretro-android/jni"
+}
 
 create_dist_dir()
 {
@@ -282,7 +264,7 @@ else
    build_libretro_snes9x
    build_libretro_snes9x_next
    build_libretro_genesis_plus_gx
-   build_libretro_fba_full
+   build_libretro_fb_alpha
    build_libretro_vbam
    build_libretro_vba_next
    #build_libretro_bnes
