@@ -286,111 +286,9 @@ build_libretro_mupen64()
    build_libretro_generic_makefile_libretrodir "mupen64plus"
 }
 
-build_libretro_modelviewer()
-{
-   CORENAME="gl-modelviewer"
-   cd $BASE_DIR
-   if [ -d "libretro-${CORENAME}" ]; then
-      echo "=== Building ${CORENAME} ==="
-      cd libretro-${CORENAME}
-      cd jni
-      for a in "${ABIS[@]}"; do
-         if [ -z "${NOCLEAN}" ]; then
-            ndk-build clean APP_ABI=${a} || die "Failed to clean ${a} ${CORENAME}"
-         fi
-         ndk-build -j$JOBS APP_ABI=${a} || die "Failed to build  ${a} ${CORENAME}"
-         cp ../libs/${a}/libretro.${FORMAT_EXT} $RARCH_DIST_DIR/${a}/modelviewer_libretro${FORMAT}.${FORMAT_EXT}
-      done
-   else
-      echo "${CORENAME} not fetched, skipping ..."
-   fi
-}
-
-build_libretro_modelviewer_location()
-{
-   CORENAME="gl-modelviewer-location"
-   cd $BASE_DIR
-   if [ -d "libretro-${CORENAME}" ]; then
-      echo "=== Building ${CORENAME} ==="
-      cd libretro-${CORENAME}
-      cd jni
-      for a in "${ABIS[@]}"; do
-         if [ -z "${NOCLEAN}" ]; then
-            ndk-build clean APP_ABI=${a} || die "Failed to clean ${a} ${CORENAME}"
-         fi
-         ndk-build -j$JOBS APP_ABI=${a} || die "Failed to build  ${a} ${CORENAME}"
-         cp ../libs/${a}/libretro.${FORMAT_EXT} $RARCH_DIST_DIR/${a}/modelviewer_location_libretro${FORMAT}.${FORMAT_EXT}
-      done
-   else
-      echo "${CORENAME} not fetched, skipping ..."
-   fi
-}
-
-build_libretro_instancingviewer()
-{
-   CORENAME="gl-instancingviewer"
-   cd $BASE_DIR
-   if [ -d "libretro-${CORENAME}" ]; then
-      echo "=== Building ${CORENAME} ==="
-      cd libretro-${CORENAME}
-      cd jni
-      for a in "${ABIS[@]}"; do
-         if [ -z "${NOCLEAN}" ]; then
-            ndk-build clean APP_ABI=${a} || die "Failed to clean ${a} ${CORENAME}"
-         fi
-         ndk-build -j$JOBS APP_ABI=${a} || die "Failed to build  ${a} ${CORENAME}"
-         cp ../libs/${a}/libretro.${FORMAT_EXT} $RARCH_DIST_DIR/${a}/instancingviewer_location_libretro${FORMAT}.${FORMAT_EXT}
-      done
-   else
-      echo "${CORENAME} not fetched, skipping ..."
-   fi
-}
-
-build_libretro_instancingviewer_camera()
-{
-   CORENAME="gl-instancingviewer-camera"
-   cd $BASE_DIR
-   if [ -d "libretro-${CORENAME}" ]; then
-      echo "=== Building ${CORENAME} ==="
-      cd libretro-${CORENAME}
-      cd jni
-      for a in "${ABIS[@]}"; do
-         if [ -z "${NOCLEAN}" ]; then
-            ndk-build clean APP_ABI=${a} || die "Failed to clean ${a} ${CORENAME}"
-         fi
-         ndk-build -j$JOBS APP_ABI=${a} || die "Failed to build  ${a} ${CORENAME}"
-         cp ../libs/${a}/libretro.${FORMAT_EXT} $RARCH_DIST_DIR/${a}/instancingviewer_camera_libretro${FORMAT}.${FORMAT_EXT}
-      done
-   else
-      echo "${CORENAME} not fetched, skipping ..."
-   fi
-}
-
 build_libretro_3dengine() {
    build_libretro_generic_makefile_rootdir "3dengine"
 }
-
-build_libretro_scenewalker()
-{
-   CORENAME="gl-scenewalker"
-   cd $BASE_DIR
-   if [ -d "libretro-${CORENAME}" ]; then
-      echo "=== Building ${CORENAME} ==="
-      cd libretro-${CORENAME}
-      cd jni
-      for a in "${ABIS[@]}"; do
-         if [ -z "${NOCLEAN}" ]; then
-            ndk-build clean APP_ABI=${a} || die "Failed to clean ${a} ${CORENAME}"
-         fi
-         ndk-build -j$JOBS APP_ABI=${a} || die "Failed to build  ${a} ${CORENAME}"
-         cp ../libs/${a}/libretro.${FORMAT_EXT} $RARCH_DIST_DIR/${a}/scenewalker_libretro${FORMAT}.${FORMAT_EXT}
-      done
-   else
-      echo "${CORENAME} not fetched, skipping ..."
-   fi
-}
-
-
 
 build_libretro_desmume()
 {
@@ -501,10 +399,6 @@ else
    build_libretro_handy
    build_libretro_desmume
    build_libretro_pcsx_rearmed
-   build_libretro_modelviewer
-   build_libretro_scenewalker
-   build_libretro_instancingviewer
-   build_libretro_instancingviewer_camera
    build_libretro_mupen64
    #build_libretro_ffmpeg
    build_libretro_yabause
