@@ -146,21 +146,6 @@ build_libretro_fba_neogeo()
    fi
 }
 
-build_libretro_pcsx_rearmed() {
-   cd "${BASE_DIR}"
-   if [ -d 'libretro-pcsx-rearmed' ]; then
-      echo '=== Building PCSX ReARMed ==='
-      cd libretro-pcsx-rearmed
-
-      if [ -z "${NOCLEAN}" ]; then
-         "${MAKE}" -f Makefile.libretro platform="${FORMAT_COMPILER_TARGET}" ${COMPILER} "-j${JOBS}" clean || die 'Failed to clean PCSX ReARMed'
-      fi
-      "${MAKE}" -f Makefile.libretro platform="${FORMAT_COMPILER_TARGET}" ${COMPILER} "-j${JOBS}" || die 'Failed to build PCSX ReARMed'
-      cp "pcsx_rearmed_libretro${FORMAT}.${FORMAT_EXT}" "${RARCH_DIST_DIR}"
-   else
-      echo 'PCSX ReARMed not fetched, skipping ...'
-   fi
-}
 
 build_libretro_pcsx_rearmed_interpreter() {
    cd "${BASE_DIR}"
@@ -473,23 +458,19 @@ build_libretro_dinothawr() {
 }
 
 build_libretro_genesis_plus_gx() {
-   cd "${BASE_DIR}"
-   if [ -d 'libretro-genesis_plus_gx' ]; then
-      echo '=== Building Genplus GX ==='
-      cd libretro-genesis_plus_gx/
-
-      if [ -z "${NOCLEAN}" ]; then
-         "${MAKE}" -f Makefile.libretro platform="${FORMAT_COMPILER_TARGET}" ${COMPILER} "-j${JOBS}" clean || die 'Failed to clean Genplus GX'
-      fi
-      "${MAKE}" -f Makefile.libretro platform="${FORMAT_COMPILER_TARGET}" ${COMPILER} "-j${JOBS}" || die 'Failed to build Genplus GX'
-      cp "genesis_plus_gx_libretro${FORMAT}.${FORMAT_EXT}" "${RARCH_DIST_DIR}"
-   else
-      echo 'Genplus GX not fetched, skipping ...'
-   fi
+   build_libretro_generic_makefile_rootdir "genesis_plus_gx" "Makefile.libretro" ${FORMAT_COMPILER_TARGET}
 }
 
 build_libretro_mame078() {
-   build_libretro_generic_makefile_rootdir "mame078" "makefile"
+   build_libretro_generic_makefile_rootdir "mame078" "makefile" ${FORMAT_COMPILER_TARGET}
+}
+
+build_libretro_prboom() {
+   build_libretro_generic_makefile_rootdir "prboom" "Makefile" ${FORMAT_COMPILER_TARGET_ALT}
+}
+
+build_libretro_pcsx_rearmed() {
+   build_libretro_generic_makefile_rootdir "pcsx_rearmed" "Makefile.libretro" ${FORMAT_COMPILER_TARGET}
 }
 
 build_libretro_mame() {
@@ -679,21 +660,6 @@ build_libretro_gambatte() {
 }
 
 
-build_libretro_prboom() {
-   cd "${BASE_DIR}"
-   if [ -d 'libretro-prboom' ]; then
-      echo '=== Building PRBoom ==='
-      cd libretro-prboom
-
-      if [ -z "${NOCLEAN}" ]; then
-         "${MAKE}" platform="${FORMAT_COMPILER_TARGET_ALT}" ${COMPILER} "-j${JOBS}" clean || die 'Failed to clean PRBoom'
-      fi
-      "${MAKE}" platform="${FORMAT_COMPILER_TARGET_ALT}" ${COMPILER} "-j${JOBS}" || die 'Failed to build PRBoom'
-      cp "prboom_libretro${FORMAT}.${FORMAT_EXT}" "${RARCH_DIST_DIR}"
-   else
-      echo 'PRBoom not fetched, skipping ...'
-   fi
-}
 
 
 build_libretro_meteor() {

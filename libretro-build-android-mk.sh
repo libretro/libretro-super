@@ -533,7 +533,7 @@ build_libretro_nestopia()
 
 build_libretro_pcsx_rearmed()
 {
-   CORENAME="pcsx-rearmed"
+   CORENAME="pcsx_rearmed"
    cd $BASE_DIR
    pwd
    if [ -d "libretro-${CORENAME}" ]; then
@@ -545,7 +545,7 @@ build_libretro_pcsx_rearmed()
             ndk-build clean APP_ABI=${a} || die "Failed to clean ${a} ${CORENAME}"
          fi
          ndk-build -j$JOBS APP_ABI=${a} || die "Failed to build  ${a} ${CORENAME}"
-         cp ../libs/${a}/libretro.${FORMAT_EXT} $RARCH_DIST_DIR/${a}/pcsx_rearmed_libretro_neon${FORMAT}.${FORMAT_EXT}
+         cp ../libs/${a}/libretro.${FORMAT_EXT} $RARCH_DIST_DIR/${a}/${CORENAME}_libretro_neon${FORMAT}.${FORMAT_EXT}
       done
    else
       echo "${CORENAME} not fetched, skipping ..."
