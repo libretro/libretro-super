@@ -99,7 +99,7 @@ else
    build_libretro_fmsx
    build_libretro_bsnes_cplusplus98
    build_libretro_bsnes
-   #build_libretro_bsnes_mercury
+   build_libretro_bsnes_mercury
    build_libretro_beetle_lynx
    build_libretro_beetle_gba
    build_libretro_beetle_ngp
