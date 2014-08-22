@@ -472,11 +472,11 @@ build_libretro_dinothawr() {
    build_libretro_generic_makefile_rootdir "dinothawr" "Makefile" ${FORMAT_COMPILER_TARGET_ALT}
 }
 
-build_libretro_genplus() {
+build_libretro_genesis_plus_gx() {
    cd "${BASE_DIR}"
-   if [ -d 'libretro-genplus' ]; then
+   if [ -d 'libretro-genesis_plus_gx' ]; then
       echo '=== Building Genplus GX ==='
-      cd libretro-genplus/
+      cd libretro-genesis_plus_gx/
 
       if [ -z "${NOCLEAN}" ]; then
          "${MAKE}" -f Makefile.libretro platform="${FORMAT_COMPILER_TARGET}" ${COMPILER} "-j${JOBS}" clean || die 'Failed to clean Genplus GX'
