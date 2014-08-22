@@ -336,18 +336,19 @@ build_libretro_ppsspp() {
 }
 
 build_libretro_bsnes_cplusplus98() {
+   CORENAME="bsnes_cplusplus98"
    cd "${BASE_DIR}"
-   if [ -d 'libretro-bsnes-cplusplus98' ]; then
-      echo '=== Building bSNES C++98 ==='
-      cd libretro-bsnes-cplusplus98
+   if [ -d "libretro-${CORENAME}" ]; then
+      echo "=== Building ${CORENAME} ==="
+      cd libretro-${CORENAME}
 
       if [ -z "${NOCLEAN}" ]; then
-         "${MAKE}" clean || die 'Failed to clean bSNES C++98'
+         "${MAKE}" clean || die "Failed to clean ${CORENAME}"
       fi
       "${MAKE}" platform="${FORMAT_COMPILER_TARGET}" ${COMPILER} "-j${JOBS}"
-      cp "out/libretro.${FORMAT_EXT}" "${RARCH_DIST_DIR}/bsnes_cplusplus98_libretro${FORMAT}.${FORMAT_EXT}"
+      cp "out/libretro.${FORMAT_EXT}" "${RARCH_DIST_DIR}/${CORENAME}_libretro${FORMAT}.${FORMAT_EXT}"
    else
-      echo 'bSNES C++98 not fetched, skipping ...'
+      echo "${CORENAME} not fetched, skipping ..."
    fi
 }
 
