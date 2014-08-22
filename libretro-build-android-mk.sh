@@ -59,54 +59,16 @@ build_libretro_fba_full()
    fi
 }
 
-build_libretro_vbam()
-{
-   CORENAME="vbam"
-   cd $BASE_DIR
-   if [ -d "libretro-${CORENAME}" ]; then
-      echo "=== Building ${CORENAME} ==="
-      cd libretro-${CORENAME}/
-      cd src/libretro/jni
-      for a in "${ABIS[@]}"; do
-         if [ -z "${NOCLEAN}" ]; then
-            ndk-build clean APP_ABI=${a} || die "Failed to clean ${a} ${CORENAME}"
-         fi
-         ndk-build -j$JOBS APP_ABI=${a} || die "Failed to build  ${a} ${CORENAME}"
-         cp ../libs/${a}/libretro.${FORMAT_EXT} $RARCH_DIST_DIR/${a}/${CORENAME}_libretro${FORMAT}.${FORMAT_EXT}
-      done
-   else
-      echo "${CORENAME} not fetched, skipping ..."
-   fi
-}
 
 # $1 is core name
-build_libretro_generic_makefile_libretrodir()
-{
-   cd $BASE_DIR
-   if [ -d "libretro-${1}" ]; then
-      echo "=== Building ${1} ==="
-      cd libretro-${1}/
-      cd libretro/jni
-      for a in "${ABIS[@]}"; do
-         if [ -z "${NOCLEAN}" ]; then
-            ndk-build clean APP_ABI=${a} || die "Failed to clean ${a} ${1}"
-         fi
-         ndk-build -j$JOBS APP_ABI=${a} || die "Failed to build  ${a} ${1}"
-         cp ../libs/${a}/libretro.${FORMAT_EXT} $RARCH_DIST_DIR/${a}/${1}_libretro${FORMAT}.${FORMAT_EXT}
-      done
-   else
-      echo "${1} not fetched, skipping ..."
-   fi
-}
-
-# $1 is core name
-build_libretro_generic_makefile_rootdir()
+# $2 is subdir (if there's no subdir, put "." here)
+build_libretro_generic_makefile()
 {
    cd $BASE_DIR
    if [ -d "libretro-${1}" ]; then
       echo "=== Building ${1} ==="
       cd libretro-${1}
-      cd jni
+      cd ${2}
       for a in "${ABIS[@]}"; do
          if [ -z "${NOCLEAN}" ]; then
             ndk-build clean APP_ABI=${a} || die "Failed to clean ${a} ${1}"
@@ -120,194 +82,136 @@ build_libretro_generic_makefile_rootdir()
 }
 
 build_libretro_2048() {
-   build_libretro_generic_makefile_rootdir "2048"
+   build_libretro_generic_makefile "2048" "jni"
 }
 
 build_libretro_stella() {
-   build_libretro_generic_makefile_rootdir "stella"
+   build_libretro_generic_makefile "stella" "jni"
 }
 
 build_libretro_genesis_plus_gx() {
-   build_libretro_generic_makefile_libretrodir "genesis_plus_gx"
+   build_libretro_generic_makefile "genesis_plus_gx" "libretro/jni"
 }
 
 build_libretro_vba_next() {
-   build_libretro_generic_makefile_libretrodir "vba_next"
+   build_libretro_generic_makefile "vba_next" "libretro/jni"
+}
+
+build_libretro_vbam() {
+   build_libretro_generic_makefile "vbam" "libretro/jni"
 }
 
 build_libretro_snes9x() {
-   build_libretro_generic_makefile_libretrodir "snes9x"
+   build_libretro_generic_makefile "snes9x" "libretro/jni"
 }
 
 build_libretro_snes9x_next() {
-   build_libretro_generic_makefile_libretrodir "snes9x_next"
+   build_libretro_generic_makefile "snes9x_next" "libretro/jni"
 }
 
 build_libretro_beetle_bsnes() {
-   build_libretro_generic_makefile_rootdir "mednafen_snes"
+   build_libretro_generic_makefile "mednafen_snes" "jni"
 }
 
 build_libretro_beetle_lynx() {
-   build_libretro_generic_makefile_rootdir "mednafen_lynx"
+   build_libretro_generic_makefile "mednafen_lynx" "jni"
 }
 
 build_libretro_beetle_gba() {
-   build_libretro_generic_makefile_rootdir "mednafen_gba"
+   build_libretro_generic_makefile "mednafen_gba" "jni"
 }
 
 build_libretro_beetle_ngp() {
-   build_libretro_generic_makefile_rootdir "mednafen_ngp"
+   build_libretro_generic_makefile "mednafen_ngp" "jni"
 }
 
 build_libretro_beetle_wswan() {
-   build_libretro_generic_makefile_rootdir "mednafen_wswan"
+   build_libretro_generic_makefile "mednafen_wswan" "jni"
 }
 
 build_libretro_beetle_psx() {
-   build_libretro_generic_makefile_rootdir "mednafen_psx"
+   build_libretro_generic_makefile "mednafen_psx" "jni"
 }
 
 build_libretro_beetle_pcfx() {
-   build_libretro_generic_makefile_rootdir "mednafen_pcfx"
+   build_libretro_generic_makefile "mednafen_pcfx" "jni"
 }
 
 build_libretro_beetle_vb() {
-   build_libretro_generic_makefile_rootdir "mednafen_vb"
+   build_libretro_generic_makefile "mednafen_vb" "jni"
 }
 
 build_libretro_beetle_pce_fast() {
-   build_libretro_generic_makefile_rootdir "mednafen_pce_fast"
+   build_libretro_generic_makefile "mednafen_pce_fast" "jni"
 }
 
 build_libretro_beetle_supergrafx() {
-   build_libretro_generic_makefile_rootdir "mednafen_supergrafx"
-}
-
-build_libretro_fceumm()
-{
-   CORENAME="fceumm"
-   cd $BASE_DIR
-   if [ -d "libretro-${CORENAME}" ]; then
-      echo "=== Building ${CORENAME} ==="
-      cd libretro-${CORENAME}
-      cd src/drivers/libretro/jni
-      for a in "${ABIS[@]}"; do
-         if [ -z "${NOCLEAN}" ]; then
-            ndk-build clean APP_ABI=${a} || die "Failed to clean ${a} ${CORENAME}"
-         fi
-         ndk-build -j$JOBS APP_ABI=${a} || die "Failed to build  ${a} ${CORENAME}"
-         cp ../libs/${a}/libretro.${FORMAT_EXT} $RARCH_DIST_DIR/${a}/${CORENAME}_libretro${FORMAT}.${FORMAT_EXT}
-      done
-   else
-      echo "${CORENAME} not fetched, skipping ..."
-   fi
-}
-
-build_libretro_gambatte()
-{
-   CORENAME="gambatte"
-   cd $BASE_DIR
-   if [ -d "libretro-${CORENAME}" ]; then
-      echo "=== Building ${CORENAME} ==="
-      cd libretro-${CORENAME}/
-      cd libgambatte/libretro/jni
-      for a in "${ABIS[@]}"; do
-         if [ -z "${NOCLEAN}" ]; then
-            ndk-build clean APP_ABI=${a} || die "Failed to clean ${a} ${CORENAME}"
-         fi
-         ndk-build -j$JOBS APP_ABI=${a} || die "Failed to build  ${a} ${CORENAME}"
-         cp ../libs/${a}/libretro.${FORMAT_EXT} $RARCH_DIST_DIR/${a}/${CORENAME}_libretro${FORMAT}.${FORMAT_EXT}
-      done
-   else
-      echo "${CORENAME} not fetched, skipping ..."
-   fi
+   build_libretro_generic_makefile "mednafen_supergrafx" "jni"
 }
 
 build_libretro_nx() {
-   build_libretro_generic_makefile_rootdir "nxengine"
+   build_libretro_generic_makefile "nxengine" "jni"
 }
 
 build_libretro_prboom()
 {
-   build_libretro_generic_makefile_libretrodir "prboom"
-}
-
-build_libretro_dinothawr()
-{
-   CORENAME="dinothawr"
-   cd $BASE_DIR
-   if [ -d "libretro-${CORENAME}" ]; then
-      echo "=== Building ${CORENAME} ==="
-      cd libretro-${CORENAME}
-      cd android/eclipse/jni
-      for a in "${ABIS[@]}"; do
-         if [ -z "${NOCLEAN}" ]; then
-            ndk-build clean APP_ABI=${a} || die "Failed to clean ${a} ${CORENAME}"
-         fi
-         ndk-build -j$JOBS APP_ABI=${a} || die "Failed to build  ${a} ${CORENAME}"
-         cp ../libs/${a}/libretro_dino.${FORMAT_EXT} $RARCH_DIST_DIR/${a}/${CORENAME}_libretro${FORMAT}.${FORMAT_EXT}
-      done
-   else
-      echo "${CORENAME} not fetched, skipping ..."
-   fi
+   build_libretro_generic_makefile "prboom" "libretro/jni"
 }
 
 build_libretro_nestopia() {
-   build_libretro_generic_makefile_libretrodir "nestopia"
-}
-
-build_libretro_pcsx_rearmed()
-{
-   build_libretro_generic_makefile_rootdir "pcsx_rearmed"
+   build_libretro_generic_makefile "nestopia" "libretro/jni"
 }
 
 build_libretro_tyrquake() {
-   build_libretro_generic_makefile_libretrodir "tyrquake"
+   build_libretro_generic_makefile "tyrquake" "libretro/jni"
 }
 
+build_libretro_pcsx_rearmed() {
+   build_libretro_generic_makefile "pcsx_rearmed" "jni"
+}
+
+
 build_libretro_picodrive() {
-   build_libretro_generic_makefile_rootdir "picodrive"
+   build_libretro_generic_makefile "picodrive" "jni"
 }
 
 build_libretro_quicknes() {
-   build_libretro_generic_makefile_libretrodir "quicknes"
+   build_libretro_generic_makefile "quicknes" "libretro/jni"
 }
 
 build_libretro_handy() {
-   build_libretro_generic_makefile_libretrodir "handy"
+   build_libretro_generic_makefile "handy" "libretro/jni"
 }
 
 build_libretro_yabause() {
-   build_libretro_generic_makefile_libretrodir "yabause"
+   build_libretro_generic_makefile "yabause" "libretro/jni"
 }
 
 build_libretro_mupen64()
 {
-   build_libretro_generic_makefile_libretrodir "mupen64plus"
+   build_libretro_generic_makefile "mupen64plus" "libretro/jni"
 }
 
 build_libretro_3dengine() {
-   build_libretro_generic_makefile_rootdir "3dengine"
+   build_libretro_generic_makefile "3dengine" "jni"
+}
+
+build_libretro_fceumm() {
+   build_libretro_generic_makefile "fceumm" "src/drivers/libretro/jni"
+}
+
+build_libretro_gambatte() {
+   build_libretro_generic_makefile "gambatte" "libgambatte/libretro/jni"
+}
+
+
+build_libretro_dinothawr() {
+   build_libretro_generic_makefile "dinothawr" "android/eclipse/jni"
 }
 
 build_libretro_desmume()
 {
-   CORENAME="desmume"
-   cd $BASE_DIR
-   if [ -d "libretro-${CORENAME}" ]; then
-      echo "=== Building ${CORENAME} ==="
-      cd libretro-${CORENAME}/
-      cd desmume/src/libretro/jni
-      for a in "${ABIS[@]}"; do
-         if [ -z "${NOCLEAN}" ]; then
-            ndk-build clean APP_ABI=${a} || die "Failed to clean ${a} ${CORENAME}"
-         fi
-         ndk-build -j$JOBS APP_ABI=${a} || die "Failed to build  ${a} ${CORENAME}"
-         cp ../libs/${a}/libretro.${FORMAT_EXT} $RARCH_DIST_DIR/${a}/${CORENAME}_libretro${FORMAT}.${FORMAT_EXT}
-      done
-   else
-      echo "${CORENAME} not fetched, skipping ..."
-   fi
+   build_libretro_generic_makefile "desmume" "desmume/src/libretro/jni"
 }
 
 
