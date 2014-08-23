@@ -147,7 +147,7 @@ build_libretro_2048() {
 }
 
 build_libretro_vecx() {
-   build_libretro_generic_makefile "vecx" "." "Makefile" ${FORMAT_COMPILER_TARGET}
+   build_libretro_generic_makefile "vecx" "." "Makefile.libretro" ${FORMAT_COMPILER_TARGET}
 }
 
 build_libretro_stella() {
@@ -187,7 +187,7 @@ build_libretro_genesis_plus_gx() {
 }
 
 build_libretro_mame078() {
-   build_libretro_generic_makefile "mame078" "makefile" ${FORMAT_COMPILER_TARGET}
+   build_libretro_generic_makefile "mame078" "." "makefile" ${FORMAT_COMPILER_TARGET}
 }
 
 build_libretro_prboom() {
@@ -247,7 +247,7 @@ build_libretro_meteor() {
 }
 
 build_libretro_nestopia() {
-   build_libretro_generic_makefile "meteor" "libretro" "Makefile" ${FORMAT_COMPILER_TARGET}
+   build_libretro_generic_makefile "nestopia" "libretro" "Makefile" ${FORMAT_COMPILER_TARGET}
 }
 
 build_libretro_gambatte() {
