@@ -54,7 +54,7 @@ else
    build_libretro_handy
    #build_libretro_desmume
    build_libretro_pcsx_rearmed
-   #build_libretro_mupen64
+   build_libretro_mupen64
    #build_libretro_yabause
    #build_libretro_ffmpeg
    #build_libretro_dinothawr
