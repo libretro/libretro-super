@@ -114,6 +114,10 @@ build_libretro_prosystem() {
    build_libretro_generic_makefile "prosystem" "." "Makefile" ${FORMAT_COMPILER_TARGET}
 }
 
+build_libretro_4do() {
+   build_libretro_generic_makefile "4do" "." "Makefile" ${FORMAT_COMPILER_TARGET}
+}
+
 build_libretro_o2em() {
    build_libretro_generic_makefile "o2em" "." "Makefile" ${FORMAT_COMPILER_TARGET}
 }
