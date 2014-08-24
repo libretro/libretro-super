@@ -50,21 +50,6 @@ fetch_project()
    echo "=== Fetched ==="
 }
 
-fetch_subproject()
-{
-   echo "=== Fetching $4 ==="
-   cd "$2"
-   if [ -d "$3/.git" ]; then
-      cd "$3"
-      git pull
-      cd ..
-   else
-      git clone "$1" "$3"
-   fi
-   cd ..
-   echo "=== Fetched ==="
-}
-
 fetch_subprojects()
 {
    echo "=== Fetching $5 ==="
@@ -73,6 +58,7 @@ fetch_subprojects()
    if [ -d "$4/.git" ]; then
       cd "$4"
       git pull
+      git submodule foreach git pull origin master
       cd ..
    else
       git clone "$1" "$4"
@@ -88,12 +74,13 @@ fetch_project_submodule()
    if [ -d "$2/.git" ]; then
       cd "$2"
       git pull
+      git submodule foreach git pull origin master
       cd ..
    else
       git clone "$1" "$2"
-   cd "$2"
-   git submodule update --init
-   cd ..
+      cd "$2"
+      git submodule update --init
+      cd ..
    fi
    echo "=== Fetched ==="
 }
