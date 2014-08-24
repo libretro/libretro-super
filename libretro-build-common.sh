@@ -139,7 +139,7 @@ build_libretro_picodrive() {
 }
 
 build_libretro_tyrquake() {
-   build_libretro_generic_makefile "tyrquake" "." "Makefile" ${FORMAT_COMPILER_TARGET}
+   build_libretro_generic_makefile "tyrquake" "." "Makefile.libretro" ${FORMAT_COMPILER_TARGET}
 }
 
 build_libretro_2048() {
