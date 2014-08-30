@@ -10,4 +10,4 @@ display_version = "svn"
 need_fullpath = "true"
 block_extract = "false"
 supports_no_game = "false"
-notes = "- BIOS files go into the System\Machines folder|
+notes = "- BIOS files go into the System\Machines folder"
