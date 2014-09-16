@@ -32,7 +32,7 @@ else
    LIBRETRO_DIR="$1"
 fi
 
-mkdir "$LIBRETRO_DIR"
+mkdir -p "$LIBRETRO_DIR"
 for lib in "$RARCH_DIST_DIR"/*
 do
    if [ -f "$lib" ]; then
