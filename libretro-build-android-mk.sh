@@ -78,7 +78,7 @@ build_libretro_vba_next() {
 }
 
 build_libretro_vbam() {
-   build_libretro_generic_makefile "vbam" "libretro/jni"
+   build_libretro_generic_makefile "vbam" "src/libretro/jni"
 }
 
 build_libretro_snes9x() {
