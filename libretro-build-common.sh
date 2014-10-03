@@ -447,9 +447,9 @@ rebuild_libretro_ume() {
 # $4 is compiler
 build_libretro_bsnes_modern() {
    cd "${BASE_DIR}"
-   if [ -d "libretro-${1}/${2}" ]; then
+   if [ -d "libretro-${1}" ]; then
       echo "=== Building ${1} ${3} ==="
-      cd libretro-${1}/${2}
+      cd libretro-${1}
       
       if [ -z "${NOCLEAN}" ]; then
         rm -f obj/*.{o,"${FORMAT_EXT}"}
