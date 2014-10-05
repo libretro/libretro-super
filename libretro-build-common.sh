@@ -22,23 +22,24 @@ echo "Compiler: ${COMPILER}"
 [[ "${X86}" ]] && [[ "${X86_64}" ]] && echo '=== x86_64 CPU detected... ==='
 [[ "${IOS}" ]] && echo '=== iOS =='
 
-# Plain compiler target
 echo "${FORMAT_COMPILER_TARGET}"
-# Alternative - currently just for OpenGL
 echo "${FORMAT_COMPILER_TARGET_ALT}"
 
-# Checking OpenGL...
-if [ "${BUILD_LIBRETRO_GL}" ]; then
-    if [ "${ENABLE_GLES}" ]; then
-        echo '=== OpenGL ES enabled ==='
-         export FORMAT_COMPILER_TARGET_ALT="${FORMAT_COMPILER_TARGET}-gles"
+check_opengl() {
+   if [ "${BUILD_LIBRETRO_GL}" ]; then
+      if [ "${ENABLE_GLES}" ]; then
+         echo '=== OpenGL ES enabled ==='
+         export FORMAT_COMPILER_TARGET="${FORMAT_COMPILER_TARGET}-gles"
+         export FORMAT_COMPILER_TARGET_ALT="${FORMAT_COMPILER_TARGET}"
       else
          echo '=== OpenGL enabled ==='
-         export FORMAT_COMPILER_TARGET_ALT="${FORMAT_COMPILER_TARGET}-opengl"
+         export FORMAT_COMPILER_TARGET="${FORMAT_COMPILER_TARGET}-opengl"
+         export FORMAT_COMPILER_TARGET_ALT="${FORMAT_COMPILER_TARGET}"
       fi
    else
       echo '=== OpenGL disabled in build ==='
-fi
+   fi
+}
 
 build_libretro_pcsx_rearmed_interpreter() {
    cd "${BASE_DIR}"
@@ -166,19 +167,19 @@ build_libretro_fmsx() {
 }
 
 build_libretro_vba_next() {
-   build_libretro_generic_makefile "vba_next" "." "Makefile.libretro" ${FORMAT_COMPILER_TARGET}
+   build_libretro_generic_makefile "vba_next" "." "Makefile.libretro" ${FORMAT_COMPILER_TARGET_ALT}
 }
 
 build_libretro_vbam() {
-   build_libretro_generic_makefile "vbam" "src/libretro" "Makefile" ${FORMAT_COMPILER_TARGET}
+   build_libretro_generic_makefile "vbam" "src/libretro" "Makefile" ${FORMAT_COMPILER_TARGET_ALT}
 }
 
 build_libretro_snes9x_next() {
-   build_libretro_generic_makefile "snes9x_next" "." "Makefile.libretro" ${FORMAT_COMPILER_TARGET}
+   build_libretro_generic_makefile "snes9x_next" "." "Makefile.libretro" ${FORMAT_COMPILER_TARGET_ALT}
 }
 
 build_libretro_dinothawr() {
-   build_libretro_generic_makefile "dinothawr" "." "Makefile" ${FORMAT_COMPILER_TARGET}
+   build_libretro_generic_makefile "dinothawr" "." "Makefile" ${FORMAT_COMPILER_TARGET_ALT}
 }
 
 build_libretro_genesis_plus_gx() {
@@ -190,7 +191,7 @@ build_libretro_mame078() {
 }
 
 build_libretro_prboom() {
-   build_libretro_generic_makefile "prboom" "." "Makefile" ${FORMAT_COMPILER_TARGET}
+   build_libretro_generic_makefile "prboom" "." "Makefile" ${FORMAT_COMPILER_TARGET_ALT}
 }
 
 build_libretro_pcsx_rearmed() {
@@ -250,7 +251,7 @@ build_libretro_nestopia() {
 }
 
 build_libretro_gambatte() {
-   build_libretro_generic_makefile "gambatte" "libgambatte" "Makefile.libretro" ${FORMAT_COMPILER_TARGET}
+   build_libretro_generic_makefile "gambatte" "libgambatte" "Makefile.libretro" ${FORMAT_COMPILER_TARGET_ALT}
 }
 
 build_libretro_yabause() {
@@ -278,11 +279,17 @@ build_libretro_fb_alpha() {
 }
 
 build_libretro_ffmpeg() {
-   build_libretro_generic_makefile "ffmpeg" "libretro" "Makefile" ${FORMAT_COMPILER_TARGET_ALT}
+   check_opengl
+   build_libretro_generic_makefile "ffmpeg" "libretro" "Makefile" ${FORMAT_COMPILER_TARGET}
+   # reset check_opengl
+   export FORMAT_COMPILER_TARGET="${FORMAT_COMPILER_TARGET}"
 }
 
 build_libretro_3dengine() {
-   build_libretro_generic_makefile "3dengine" "." "Makefile" ${FORMAT_COMPILER_TARGET_ALT}
+   check_opengl
+   build_libretro_generic_makefile "3dengine" "." "Makefile" ${FORMAT_COMPILER_TARGET}
+   # reset check_opengl
+   export FORMAT_COMPILER_TARGET="${FORMAT_COMPILER_TARGET}"
 }
 
 build_libretro_scummvm() {
@@ -290,7 +297,10 @@ build_libretro_scummvm() {
 }
 
 build_libretro_ppsspp() {
-   build_libretro_generic_makefile "ppsspp" "libretro" "Makefile" ${FORMAT_COMPILER_TARGET_ALT}
+   check_opengl
+   build_libretro_generic_makefile "ppsspp" "libretro" "Makefile" ${FORMAT_COMPILER_TARGET}
+   # reset check_opengl
+   export FORMAT_COMPILER_TARGET="${FORMAT_COMPILER_TARGET}"
 }
 
 
@@ -498,6 +508,7 @@ build_libretro_bnes() {
 }
 
 build_libretro_mupen64() {
+   check_opengl
    cd "${BASE_DIR}"
    if [ -d 'libretro-mupen64plus' ]; then
       cd libretro-mupen64plus
@@ -532,6 +543,8 @@ build_libretro_mupen64() {
    else
       echo 'Mupen64 Plus not fetched, skipping ...'
    fi
+   # reset check_opengl
+   export FORMAT_COMPILER_TARGET="${FORMAT_COMPILER_TARGET}"
 }
 
 create_dist_dir() {
