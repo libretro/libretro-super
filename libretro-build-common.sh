@@ -24,6 +24,8 @@ echo "Compiler: ${COMPILER}"
 
 echo "${FORMAT_COMPILER_TARGET}"
 echo "${FORMAT_COMPILER_TARGET_ALT}"
+RESET_FORMAT_COMPILER_TARGET=$FORMAT_COMPILER_TARGET
+RESET_FORMAT_COMPILER_TARGET_ALT=$FORMAT_COMPILER_TARGET_ALT
 
 check_opengl() {
    if [ "${BUILD_LIBRETRO_GL}" ]; then
@@ -39,6 +41,11 @@ check_opengl() {
    else
       echo '=== OpenGL disabled in build ==='
    fi
+}
+
+reset_compiler_targets() {
+   export FORMAT_COMPILER_TARGET=$RESET_FORMAT_COMPILER_TARGET
+   export FORMAT_COMPILER_TARGET_ALT=$RESET_FORMAT_COMPILER_TARGET_ALT
 }
 
 build_libretro_pcsx_rearmed_interpreter() {
@@ -281,15 +288,13 @@ build_libretro_fb_alpha() {
 build_libretro_ffmpeg() {
    check_opengl
    build_libretro_generic_makefile "ffmpeg" "libretro" "Makefile" ${FORMAT_COMPILER_TARGET}
-   # reset check_opengl
-   export FORMAT_COMPILER_TARGET="${FORMAT_COMPILER_TARGET}"
+   reset_compiler_targets
 }
 
 build_libretro_3dengine() {
    check_opengl
    build_libretro_generic_makefile "3dengine" "." "Makefile" ${FORMAT_COMPILER_TARGET}
-   # reset check_opengl
-   export FORMAT_COMPILER_TARGET="${FORMAT_COMPILER_TARGET}"
+   reset_compiler_targets
 }
 
 build_libretro_scummvm() {
@@ -299,8 +304,7 @@ build_libretro_scummvm() {
 build_libretro_ppsspp() {
    check_opengl
    build_libretro_generic_makefile "ppsspp" "libretro" "Makefile" ${FORMAT_COMPILER_TARGET}
-   # reset check_opengl
-   export FORMAT_COMPILER_TARGET="${FORMAT_COMPILER_TARGET}"
+   reset_compiler_targets
 }
 
 
@@ -543,8 +547,7 @@ build_libretro_mupen64() {
    else
       echo 'Mupen64 Plus not fetched, skipping ...'
    fi
-   # reset check_opengl
-   export FORMAT_COMPILER_TARGET="${FORMAT_COMPILER_TARGET}"
+   reset_compiler_targets
 }
 
 create_dist_dir() {
