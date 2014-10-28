@@ -132,7 +132,7 @@ fetch_project "$REPO_BASE/libretro/dosbox-libretro.git" "libretro-dosbox" "libre
 fetch_project "$REPO_BASE/libretro/virtualjaguar-libretro.git" "libretro-virtualjaguar" "libretro/virtualjaguar"
 fetch_project "$REPO_BASE/libretro/mame2003-libretro.git" "libretro-mame078" "libretro/mame078"
 fetch_project "$REPO_BASE/libretro/mame2010-libretro.git" "libretro-mame139" "libretro/mame139"
-fetch_project "$REPO_BASE/libretro/libretro-mame.git" "libretro-mame" "libretro/mame"
+fetch_project "$REPO_BASE/libretro/mame.git" "libretro-mame" "libretro/mame"
 fetch_project "$REPO_BASE/libretro/FFmpeg.git" "libretro-ffmpeg" "libretro/FFmpeg"
 fetch_project "$REPO_BASE/libretro/bsnes-libretro-cplusplus98.git" "libretro-bsnes_cplusplus98" "libretro/bsnes-cplusplus98"
 fetch_project "$REPO_BASE/libretro/bsnes-mercury.git" "libretro-bsnes_mercury" "libretro/bsnes-mercury"
