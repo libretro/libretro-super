@@ -141,6 +141,10 @@ build_libretro_nx() {
    build_libretro_generic_makefile "nxengine" "." "Makefile" ${FORMAT_COMPILER_TARGET}
 }
 
+build_libretro_catsfc() {
+   build_libretro_generic_makefile "catsfc" "." "Makefile" ${FORMAT_COMPILER_TARGET}
+}
+
 build_libretro_picodrive() {
    build_libretro_generic_makefile "picodrive" "." "Makefile.libretro" ${FORMAT_COMPILER_TARGET}
 }
