@@ -461,6 +461,7 @@ build_libretro_bsnes_modern() {
       
       if [ -z "${NOCLEAN}" ]; then
         rm -f obj/*.{o,"${FORMAT_EXT}"}
+        rm -f out/*.{o,"${FORMAT_EXT}"}
       fi
       "${MAKE}" -f Makefile platform="${FORMAT_COMPILER_TARGET}" compiler="${4}" ui='target-libretro' profile="${3}" "-j${JOBS}" || die "Failed to build ${1} ${3} core"
       cp -f "out/${1}_libretro${FORMAT}.${FORMAT_EXT}" "${RARCH_DIST_DIR}/${1}_${3}_libretro${FORMAT}.${FORMAT_EXT}"
