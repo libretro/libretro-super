@@ -153,3 +153,4 @@ fetch_project_submodule "$REPO_BASE/libretro/ppsspp.git" "libretro-ppsspp" "libr
 fetch_project "$REPO_BASE/libretro/prosystem-libretro.git" "libretro-prosystem" "libretro/prosystem"
 fetch_project "$REPO_BASE/libretro/libretro-o2em.git" "libretro-o2em" "libretro/o2em"
 fetch_project "$REPO_BASE/libretro/4do-libretro.git" "libretro-4do" "libretro/4do"
+fetch_project "$REPO_BASE/libretro/CATSFC-libretro.git" "libretro-catsfc" "libretro/CATSFC"
