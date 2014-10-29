@@ -1,6 +1,8 @@
 display_name = "Quake 1 (TyrQuake)"
+authors = "Kevin Shanahan (Tyrann)"
 supported_extensions = "pak"
 corename = "TyrQuake"
+manufacturer = "Id Software"
 systemname = "Quake 1 game engine"
 license = "GPLv2"
 permissions = ""
