@@ -95,6 +95,7 @@ if [ $1 ]; then
    $1
 else
    build_libretro_2048
+   build_libretro_4do
    build_libretro_bluemsx
    build_libretro_fmsx
    build_libretro_bsnes_cplusplus98
