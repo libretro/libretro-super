@@ -41,10 +41,14 @@ case "$platform" in
       FORMAT_EXT='dylib'
       FORMAT_COMPILER_TARGET=osx
       DIST_DIR=osx;;
-   win|*mingw*|*MINGW*)
+   win|*mingw32*|*MINGW32*)
       FORMAT_EXT='dll'
       FORMAT_COMPILER_TARGET=win
-      DIST_DIR=win;;
+      DIST_DIR=win_x86;;
+   win64|*mingw64*|*MINGW64*)
+      FORMAT_EXT='dll'
+      FORMAT_COMPILER_TARGET=win
+      DIST_DIR=win_x64;;
    *)
       FORMAT_EXT='so'
       FORMAT_COMPILER_TARGET=unix
