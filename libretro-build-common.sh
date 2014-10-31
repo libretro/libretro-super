@@ -50,9 +50,9 @@ reset_compiler_targets() {
 
 build_libretro_pcsx_rearmed_interpreter() {
    cd "${BASE_DIR}"
-   if [ -d 'libretro-pcsx-rearmed' ]; then
+   if [ -d 'libretro-pcsx_rearmed' ]; then
       echo '=== Building PCSX ReARMed Interpreter ==='
-      cd libretro-pcsx-rearmed
+      cd libretro-pcsx_rearmed
 
       if [ -z "${NOCLEAN}" ]; then
          "${MAKE}" -f Makefile.libretro platform="${FORMAT_COMPILER_TARGET}" ${COMPILER} "-j${JOBS}" clean || die 'Failed to clean PCSX ReARMed'
