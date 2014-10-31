@@ -42,6 +42,7 @@ else
    build_libretro_beetle_wswan
    build_libretro_beetle_psx
    #build_libretro_beetle_bsnes
+   build_libretro_catsfc
    build_libretro_snes9x
    build_libretro_snes9x_next
    build_libretro_genesis_plus_gx
