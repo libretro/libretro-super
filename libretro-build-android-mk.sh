@@ -197,6 +197,10 @@ build_libretro_dinothawr() {
    build_libretro_generic_makefile "dinothawr" "android/eclipse/jni"
 }
 
+build_libretro_virtualjaguar() {
+   build_libretro_generic_makefile "virtualjaguar" "jni"
+}
+
 build_libretro_desmume() {
    build_libretro_generic_makefile "desmume" "desmume/src/libretro/jni"
 }
@@ -257,8 +261,12 @@ if [ $1 ]; then
    $1
 else
    build_libretro_2048
+   #build_libretro_4do
+   #build_libretro_bluemsx
+   #build_libretro_fmsx
    #build_libretro_bsnes_cplusplus98
    build_libretro_bsnes
+   #build_libretro_bsnes_mercury
    build_libretro_beetle_lynx
    #build_libretro_beetle_gba
    build_libretro_beetle_ngp
@@ -294,10 +302,15 @@ else
    build_libretro_handy
    build_libretro_desmume
    build_libretro_pcsx_rearmed
-   build_libretro_mupen64
-   #build_libretro_ffmpeg
    build_libretro_yabause
    build_libretro_vecx
+   #build_libretro_tgbdual
+   #build_libretro_prosystem
    build_libretro_dinothawr
+   build_libretro_virtualjaguar
+   build_libretro_mupen64
+   #build_libretro_ffmpeg
    build_libretro_3dengine
+   #build_libretro_ppsspp
+   #build_libretro_o2em
 fi
