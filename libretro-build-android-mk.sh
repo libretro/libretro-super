@@ -192,6 +192,10 @@ build_libretro_3dengine() {
    build_libretro_generic_makefile "3dengine" "jni"
 }
 
+build_libretro_o2em() {
+   build_libretro_generic_makefile "o2em" "jni"
+}
+
 build_libretro_fceumm() {
    build_libretro_generic_makefile "fceumm" "src/drivers/libretro/jni"
 }
