@@ -167,6 +167,10 @@ build_libretro_yabause() {
    build_libretro_generic_makefile "yabause" "libretro/jni"
 }
 
+build_libretro_vecx() {
+   build_libretro_generic_makefile "vecx" "libretro/jni"
+}
+
 build_libretro_mupen64()
 {
    build_libretro_generic_makefile "mupen64plus" "libretro/jni"
@@ -228,7 +232,7 @@ build_libretro_bsnes()
    if [ -d "libretro-${CORENAME}" ]; then
       echo "=== Building ${CORENAME} ==="
       cd libretro-${CORENAME}/
-      cd perf/target-libretro/jni
+      cd target-libretro/jni
       for a in "${ABIS[@]}"; do
         if [ -z "${NOCLEAN}" ]; then
             ndk-build clean APP_ABI=${a} || die "Failed to clean ${a} ${CORENAME}"
@@ -252,7 +256,7 @@ else
    #build_libretro_bsnes_cplusplus98
    build_libretro_bsnes
    build_libretro_beetle_lynx
-   build_libretro_beetle_gba
+   #build_libretro_beetle_gba
    build_libretro_beetle_ngp
    build_libretro_beetle_pce_fast
    build_libretro_beetle_supergrafx
@@ -260,7 +264,7 @@ else
    build_libretro_beetle_vb
    build_libretro_beetle_wswan
    build_libretro_beetle_psx
-   build_libretro_beetle_bsnes
+   #build_libretro_beetle_bsnes
    build_libretro_snes9x
    build_libretro_snes9x_next
    build_libretro_genesis_plus_gx
@@ -288,6 +292,7 @@ else
    build_libretro_mupen64
    #build_libretro_ffmpeg
    build_libretro_yabause
+   build_libretro_vecx
    build_libretro_dinothawr
    build_libretro_3dengine
 fi
