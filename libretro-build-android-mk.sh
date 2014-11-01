@@ -81,6 +81,10 @@ build_libretro_vbam() {
    build_libretro_generic_makefile "vbam" "src/libretro/jni"
 }
 
+build_libretro_catsfc() {
+   build_libretro_generic_makefile "catsfc" "jni"
+}
+
 build_libretro_snes9x() {
    build_libretro_generic_makefile "snes9x" "libretro/jni"
 }
@@ -265,6 +269,7 @@ else
    build_libretro_beetle_wswan
    build_libretro_beetle_psx
    #build_libretro_beetle_bsnes
+   build_libretro_catsfc
    build_libretro_snes9x
    build_libretro_snes9x_next
    build_libretro_genesis_plus_gx
