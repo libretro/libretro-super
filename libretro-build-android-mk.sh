@@ -166,6 +166,9 @@ build_libretro_pcsx_rearmed() {
    build_libretro_generic_makefile "pcsx_rearmed" "jni"
 }
 
+build_libretro_ppsspp() {
+   build_libretro_generic_makefile "ppsspp" "libretro/jni"
+}
 
 build_libretro_picodrive() {
    build_libretro_generic_makefile "picodrive" "jni"
