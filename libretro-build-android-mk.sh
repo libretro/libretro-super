@@ -85,6 +85,14 @@ build_libretro_catsfc() {
    build_libretro_generic_makefile "catsfc" "jni"
 }
 
+build_libretro_prosystem() {
+   build_libretro_generic_makefile "prosystem" "jni"
+}
+
+build_libretro_tgbdual() {
+   build_libretro_generic_makefile "tgbdual" "libretro/jni"
+}
+
 build_libretro_snes9x() {
    build_libretro_generic_makefile "snes9x" "libretro/jni"
 }
@@ -304,8 +312,8 @@ else
    build_libretro_pcsx_rearmed
    build_libretro_yabause
    build_libretro_vecx
-   #build_libretro_tgbdual
-   #build_libretro_prosystem
+   build_libretro_tgbdual
+   build_libretro_prosystem
    build_libretro_dinothawr
    build_libretro_virtualjaguar
    build_libretro_mupen64
