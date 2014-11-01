@@ -69,6 +69,10 @@ build_libretro_4do() {
    build_libretro_generic_makefile "4do" "jni"
 }
 
+build_libretro_fmsx() {
+   build_libretro_generic_makefile "fmsx" "jni"
+}
+
 build_libretro_stella() {
    build_libretro_generic_makefile "stella" "jni"
 }
@@ -282,7 +286,7 @@ else
    build_libretro_2048
    build_libretro_4do
    #build_libretro_bluemsx
-   #build_libretro_fmsx
+   build_libretro_fmsx
    #build_libretro_bsnes_cplusplus98
    build_libretro_bsnes
    #build_libretro_bsnes_mercury
