@@ -215,6 +215,10 @@ build_libretro_gambatte() {
    build_libretro_generic_makefile "gambatte" "libgambatte/libretro/jni"
 }
 
+build_libretro_meteor() {
+   build_libretro_generic_makefile "meteor" "libretro/jni"
+}
+
 
 build_libretro_dinothawr() {
    build_libretro_generic_makefile "dinothawr" "android/eclipse/jni"
@@ -310,7 +314,7 @@ else
    #build_libretro_bnes
    build_libretro_fceumm
    build_libretro_gambatte
-   #build_libretro_meteor
+   build_libretro_meteor
    build_libretro_nx
    build_libretro_prboom
    build_libretro_stella
