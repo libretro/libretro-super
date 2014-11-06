@@ -22,8 +22,6 @@ if [[ -n "$PROCESSOR_ARCHITEW6432" && $PROCESSOR_ARCHITEW6432 -eq "AMD64" ]]; th
    X86=true && X86_64=true
 fi
 
-echo "$ARCH CPU detected"
-
 if command -v nproc >/dev/null; then
    JOBS=$(nproc)
 else
@@ -56,6 +54,11 @@ case "$platform" in
 esac
 
 export FORMAT_COMPILER_TARGET_ALT="$FORMAT_COMPILER_TARGET"
+
+echo "PLATFORM: $platform"
+echo "ARCHITECTURE: $ARCH"
+echo "TARGET: $FORMAT_COMPILER_TARGET"
+
 
 #if uncommented, will fetch repos with read+write access. Useful for committers
 #export WRITERIGHTS=1
@@ -127,3 +130,4 @@ export RA_ANDROID_MIN_API=android-9
 if [ -f "libretro-config-user.sh" ]; then
 . ./libretro-config-user.sh
 fi
+
