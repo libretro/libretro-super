@@ -28,7 +28,7 @@ nestopia libretro-nestopia https://github.com/libretro/nestopia.git PROJECT NO G
 nxengine libretro-nxengine https://github.com/libretro/nxengine-libretro.git PROJECT NO GENERIC Makefile .
 o2em libretro-o2em https://github.com/libretro/libretro-o2em.git PROJECT NO GENERIC Makefile .
 pcsx_rearmed libretro-pcsx_rearmed https://github.com/libretro/pcsx_rearmed.git PROJECT NO GENERIC Makefile.libretro . USE_DYNAREC=0
-picodrive libretro-picodrive https://github.com/libretro/picodrive.git SUBMODULE YES GENERIC Makefile.libretro .
+picodrive libretro-picodrive https://github.com/libretro/picodrive.git SUBMODULE NO GENERIC Makefile.libretro .
 prosystem libretro-prosystem https://github.com/libretro/prosystem-libretro.git PROJECT NO GENERIC Makefile .
 snes9x libretro-snes9x https://github.com/libretro/snes9x.git PROJECT NO GENERIC Makefile libretro
 snes9x_next libretro-snes9x_next https://github.com/libretro/snes9x-next.git PROJECT NO GENERIC_ALT Makefile.libretro .
@@ -38,3 +38,9 @@ vba_next libretro-vba_next https://github.com/libretro/vba-next.git PROJECT NO G
 vbam libretro-vbam https://github.com/libretro/vbam-libretro.git PROJECT NO GENERIC_ALT Makefile src/libretro
 virtualjaguar libretro-virtualjaguar https://github.com/libretro/virtualjaguar-libretro.git PROJECT NO GENERIC Makefile .
 yabause libretro-yabause https://github.com/libretro/yabause.git PROJECT NO GENERIC Makefile libretro
+meteor libretro-meteor  https://github.com/libretro/meteor-libretro.git PROJECT YES GENERIC Makefile libretro ===>BROKEN
+prboom libretro-prboom  https://github.com/libretro/libretro-prboom.git PROJECT YES GENERIC_ALT Makefile .
+stella libretro-stella  https://github.com/libretro/stella-libretro.git PROJECT YES GENERIC Makefile .
+vecx libretro-vecx  https://github.com/libretro/libretro-vecx.git PROJECT YES GENERIC Makefile.libretro .
+
+
