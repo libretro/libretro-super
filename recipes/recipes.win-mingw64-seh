@@ -1,9 +1,3 @@
-
-
-
-
-
-
 4do libretro-4do https://github.com/libretro/4do-libretro.git PROJECT NO GENERIC Makefile .
 bluemsx libretro-bluemsx https://github.com/libretro/blueMSX-libretro.git PROJECT NO GENERIC Makefile.libretro .
 bsnes libretro-bsnes https://github.com/libretro/bsnes-libretro.git PROJECT NO BSNES Makefile .
