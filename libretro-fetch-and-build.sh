@@ -175,6 +175,56 @@ build_libretro_generic_makefile() {
 	
 }
 
+build_libretro_generic_gl_makefile() {
+
+
+    NAME=$1
+    DIR=$2
+    SUBDIR=$3
+    MAKEFILE=$4
+    PLATFORM=$5
+    ARGS=$6
+
+    cd $DIR
+    cd $SUBDIR
+
+    check_opengl
+
+    if [ -z "${NOCLEAN}" ]; 
+    then
+	echo "cleaning up..."
+        echo "cleanup command: ${MAKE} -f ${MAKEFILE} platform=${PLATFORM} ${COMPILER} -j${JOBS} clean"
+	${MAKE} -f ${MAKEFILE} platform=${PLATFORM} ${COMPILER} -j${JOBS} clean
+	if [ $? -eq 0 ];
+        then 
+            echo success!
+        else
+            echo error while cleaning up
+        fi
+    fi
+
+    echo "compiling..."
+    if [ -z ${ARGS} ];
+    then
+        echo "buid command: ${MAKE} -f ${MAKEFILE} platform=${PLATFORM} ${COMPILER} -j${JOBS}"
+        ${MAKE} -f ${MAKEFILE} platform=${PLATFORM} ${COMPILER} -j${JOBS}
+    else
+        echo "buid command: ${MAKE} -f ${MAKEFILE} platform=${PLATFORM} ${COMPILER} -j${JOBS} ${ARGS}"
+        ${MAKE} -f ${MAKEFILE} platform=${PLATFORM} ${COMPILER} -j${JOBS} ${ARGS}
+    fi
+
+    if [ $? -eq 0 ];
+    then 
+        echo success!
+        cp ${NAME}_libretro$FORMAT.${FORMAT_EXT} $RARCH_DIST_DIR/${NAME}_libretro$FORMAT.${FORMAT_EXT}
+    else
+        echo error while compiling $1
+    fi
+
+    reset_compiler_targets
+	
+}
+
 #fetch a project and mark it for building if there have been any changes
 
 #sleep 10
@@ -251,6 +301,9 @@ while read line; do
 	    echo building core...
 	    if [ "${COMMAND}" == "GENERIC" ]; then
 		    build_libretro_generic_makefile $NAME $DIR $SUBDIR $MAKEFILE ${FORMAT_COMPILER_TARGET} "${ARGS}"
+            elif [ "${COMMAND}" == "GL" ]; then
+                    build_libretro_generic_gl_makefile $NAME $DIR $SUBDIR $MAKEFILE ${FORMAT_COMPILER_TARGET} "${ARGS}"
+
 	    fi
 	else
 	    echo core already up-to-date...
