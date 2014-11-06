@@ -1,0 +1,3 @@
+mame libretro-mame https://github.com/libretro/mame.git project YES GENERIC Makefile.libretro . TARGET=mame PTR64=1
+mame libretro-mame https://github.com/libretro/mame.git project YES GENERIC Makefile.libretro . TARGET=mess PTR64=1
+mame libretro-mame https://github.com/libretro/mame.git project YES GENERIC Makefile.libretro . TARGET=ume PTR64=1
