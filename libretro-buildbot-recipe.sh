@@ -271,29 +271,78 @@ while read line; do
         then
            ARGS="${ARGS} ${TEMP}"
         fi
+        TEMP=""
+        TEMP=`echo $line | cut --fields=12 --delimiter=" "`
+        if [ -n ${TEMP} ];
+        then
+           ARGS="${ARGS} ${TEMP}"
+        fi
+        TEMP=""
+        TEMP=`echo $line | cut --fields=13 --delimiter=" "`
+        if [ -n ${TEMP} ];
+        then
+           ARGS="${ARGS} ${TEMP}"
+        fi
+        TEMP=""
+        TEMP=`echo $line | cut --fields=14 --delimiter=" "`
+        if [ -n ${TEMP} ];
+        then
+           ARGS="${ARGS} ${TEMP}"
+        fi
 
         echo ARGS: $ARGS
 	echo
 	echo
 
-        if [ -d "${DIR}/.git" ];
+        if [ "${TYPE}" == "PROJECT" ];
         then
-            cd $DIR
-            echo "pulling from repo... "
-            OUT=`git pull`
-            if [[ $OUT == *"Already up-to-date"* ]]
+            if [ -d "${DIR}/.git" ];
             then
-                BUILD="NO"
+
+                cd $DIR
+                echo "pulling from repo... "
+                OUT=`git pull`
+                if [[ $OUT == *"Already up-to-date"* ]]
+                then
+                    BUILD="NO"
+       	        else
+		    BUILD="YES"
+                fi
+
+                cd ..
+
 	    else
-		BUILD="YES"
+                echo "cloning repo..."
+                git clone --depth=1 "$URL" "$DIR"
+                BUILD="YES"
             fi
+        elif [ "${TYPE}" == "SUBMODULE" ]; 
+	then
+            if [ -d "${DIR}/.git" ];
+            then
 
-            cd ..
+                cd $DIR
+                echo "pulling from repo... "
+                OUT=`git pull`
+                OUT=`git submodule foreach git pull origin master`
+                if [[ $OUT == *"Already up-to-date"* ]]
+                then
+                    BUILD="NO"
+       	        else
+		    BUILD="YES"
+                fi
 
-	else
-            echo "cloning repo..."
-            git clone --depth=1 "$URL" "$DIR"
-            BUILD="YES"
+                cd ..
+
+	    else
+                echo "cloning repo..."
+                git clone --depth=1 "$URL" "$DIR"
+                cd $DIR
+                git submodule update --init
+                BUILD="YES"
+            fi
+            
+
         fi
 
         if [ "${BUILD}" == "YES" -o "${FORCE}" == "YES" ];
@@ -301,8 +350,10 @@ while read line; do
 	    echo building core...
 	    if [ "${COMMAND}" == "GENERIC" ]; then
 		    build_libretro_generic_makefile $NAME $DIR $SUBDIR $MAKEFILE ${FORMAT_COMPILER_TARGET} "${ARGS}"
-            elif [ "${COMMAND}" == "GL" ]; then
+            elif [ "${COMMAND}" == "GENERIC_GL" ]; then
                     build_libretro_generic_gl_makefile $NAME $DIR $SUBDIR $MAKEFILE ${FORMAT_COMPILER_TARGET} "${ARGS}"
+	    elif [ "${COMMAND}" == "GENERIC_ALT" ]; then
+		    build_libretro_generic_makefile $NAME $DIR $SUBDIR $MAKEFILE ${FORMAT_COMPILER_TARGET_ALT} "${ARGS}"
 
 	    fi
 	else
