@@ -11,6 +11,18 @@
 echo configuring build environment
 . ./libretro-config.sh
 
+echo
+[[ "${ARM_NEON}" ]] && echo 'ARM NEON opts enabled...' && export FORMAT_COMPILER_TARGET="${FORMAT_COMPILER_TARGET}-neon"
+[[ "${CORTEX_A8}" ]] && echo 'Cortex A8 opts enabled...' && export FORMAT_COMPILER_TARGET="${FORMAT_COMPILER_TARGET}-cortexa8"
+[[ "${CORTEX_A9}" ]] && echo 'Cortex A9 opts enabled...' && export FORMAT_COMPILER_TARGET="${FORMAT_COMPILER_TARGET}-cortexa9"
+[[ "${ARM_HARDFLOAT}" ]] && echo 'ARM hardfloat ABI enabled...' && export FORMAT_COMPILER_TARGET="${FORMAT_COMPILER_TARGET}-hardfloat"
+[[ "${ARM_SOFTFLOAT}" ]] && echo 'ARM softfloat ABI enabled...' && export FORMAT_COMPILER_TARGET="${FORMAT_COMPILER_TARGET}-softfloat"
+[[ "${IOS}" ]] && echo 'iOS detected...'
+
+echo "${FORMAT_COMPILER_TARGET}"
+echo "${FORMAT_COMPILER_TARGET_ALT}"
+
+
 # BSDs don't have readlink -f
 read_link()
 {
@@ -88,6 +100,32 @@ echo "CXX = $CXX"
 echo "STRIP = $STRIP"
 echo
 
+RESET_FORMAT_COMPILER_TARGET=$FORMAT_COMPILER_TARGET
+RESET_FORMAT_COMPILER_TARGET_ALT=$FORMAT_COMPILER_TARGET_ALT
+
+check_opengl() {
+   if [ "${BUILD_LIBRETRO_GL}" ]; then
+      if [ "${ENABLE_GLES}" ]; then
+         echo '=== OpenGL ES enabled ==='
+         export FORMAT_COMPILER_TARGET="${FORMAT_COMPILER_TARGET}-gles"
+         export FORMAT_COMPILER_TARGET_ALT="${FORMAT_COMPILER_TARGET}"
+      else
+         echo '=== OpenGL enabled ==='
+         export FORMAT_COMPILER_TARGET="${FORMAT_COMPILER_TARGET}-opengl"
+         export FORMAT_COMPILER_TARGET_ALT="${FORMAT_COMPILER_TARGET}"
+      fi
+   else
+      echo '=== OpenGL disabled in build ==='
+   fi
+}
+
+reset_compiler_targets() {
+   export FORMAT_COMPILER_TARGET=$RESET_FORMAT_COMPILER_TARGET
+   export FORMAT_COMPILER_TARGET_ALT=$RESET_FORMAT_COMPILER_TARGET_ALT
+}
+
+
+
 cd "${BASE_DIR}"
 
 ####build commands
@@ -99,7 +137,7 @@ build_libretro_generic_makefile() {
     SUBDIR=$3
     MAKEFILE=$4
     PLATFORM=$5
-    SILENT=$5
+    ARGS=$6
 
     cd $DIR
     cd $SUBDIR
@@ -118,8 +156,15 @@ build_libretro_generic_makefile() {
     fi
 
     echo "compiling..."
-    echo "buid command: ${MAKE} -f ${MAKEFILE} platform=${PLATFORM} ${COMPILER} -j${JOBS}"
-    ${MAKE} -f ${MAKEFILE} platform=${PLATFORM} ${COMPILER} -j${JOBS}
+    if [ -z ${ARGS} ];
+    then
+        echo "buid command: ${MAKE} -f ${MAKEFILE} platform=${PLATFORM} ${COMPILER} -j${JOBS}"
+        ${MAKE} -f ${MAKEFILE} platform=${PLATFORM} ${COMPILER} -j${JOBS}
+    else
+        echo "buid command: ${MAKE} -f ${MAKEFILE} platform=${PLATFORM} ${COMPILER} -j${JOBS} ${ARGS}"
+        ${MAKE} -f ${MAKEFILE} platform=${PLATFORM} ${COMPILER} -j${JOBS} ${ARGS}
+    fi
+
     if [ $? -eq 0 ];
     then 
         echo success!
@@ -130,8 +175,61 @@ build_libretro_generic_makefile() {
 	
 }
 
+build_libretro_generic_gl_makefile() {
+
+
+    NAME=$1
+    DIR=$2
+    SUBDIR=$3
+    MAKEFILE=$4
+    PLATFORM=$5
+    ARGS=$6
+
+    cd $DIR
+    cd $SUBDIR
+
+    check_opengl
+
+    if [ -z "${NOCLEAN}" ]; 
+    then
+	echo "cleaning up..."
+        echo "cleanup command: ${MAKE} -f ${MAKEFILE} platform=${PLATFORM} ${COMPILER} -j${JOBS} clean"
+	${MAKE} -f ${MAKEFILE} platform=${PLATFORM} ${COMPILER} -j${JOBS} clean
+	if [ $? -eq 0 ];
+        then 
+            echo success!
+        else
+            echo error while cleaning up
+        fi
+    fi
+
+    echo "compiling..."
+    if [ -z ${ARGS} ];
+    then
+        echo "buid command: ${MAKE} -f ${MAKEFILE} platform=${PLATFORM} ${COMPILER} -j${JOBS}"
+        ${MAKE} -f ${MAKEFILE} platform=${PLATFORM} ${COMPILER} -j${JOBS}
+    else
+        echo "buid command: ${MAKE} -f ${MAKEFILE} platform=${PLATFORM} ${COMPILER} -j${JOBS} ${ARGS}"
+        ${MAKE} -f ${MAKEFILE} platform=${PLATFORM} ${COMPILER} -j${JOBS} ${ARGS}
+    fi
+
+    if [ $? -eq 0 ];
+    then 
+        echo success!
+        cp ${NAME}_libretro$FORMAT.${FORMAT_EXT} $RARCH_DIST_DIR/${NAME}_libretro$FORMAT.${FORMAT_EXT}
+    else
+        echo error while compiling $1
+    fi
+
+    reset_compiler_targets
+	
+}
 
 #fetch a project and mark it for building if there have been any changes
+
+#sleep 10
+echo
+echo
 
 while read line; do
     
@@ -153,8 +251,6 @@ while read line; do
 	echo ENABLED: $ENABLED
         echo COMMAND: $COMMAND
    	echo MAKEFILE: $MAKEFILE
-	echo
- 	echo
 
         ARGS=""
 
@@ -177,6 +273,8 @@ while read line; do
         fi
 
         echo ARGS: $ARGS
+	echo
+	echo
 
         if [ -d "${DIR}/.git" ];
         then
@@ -202,15 +300,20 @@ while read line; do
 	then
 	    echo building core...
 	    if [ "${COMMAND}" == "GENERIC" ]; then
-		    build_libretro_generic_makefile $NAME $DIR $SUBDIR $MAKEFILE ${FORMAT_COMPILER_TARGET}
+		    build_libretro_generic_makefile $NAME $DIR $SUBDIR $MAKEFILE ${FORMAT_COMPILER_TARGET} "${ARGS}"
+            elif [ "${COMMAND}" == "GL" ]; then
+                    build_libretro_generic_gl_makefile $NAME $DIR $SUBDIR $MAKEFILE ${FORMAT_COMPILER_TARGET} "${ARGS}"
+
 	    fi
 	else
 	    echo core already up-to-date...
 	fi
+        echo
 
     fi
     
     cd "${BASE_DIR}"
+    
 
 done  < $1
 
