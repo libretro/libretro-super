@@ -8,7 +8,29 @@
 # eg: FORCE=YES MAKE=mingw32-make ./libretro-fetch-and-build.sh buildbot.conf
 
 ####environment configuration:
-echo configuring build environment
+echo "Setting up Environment for $1"
+echo ============================================
+
+ORIGPATH=$PATH
+
+echo Original PATH: $PATH
+
+while read line; do
+    KEY=`echo $line | cut --fields=1 --delimiter=" "`
+    VALUE=`echo $line | cut --fields=2 --delimiter=" "`
+
+    if [ "${KEY}" == "PATH" ];
+    then
+        export PATH=${ORIGPATH}:${VALUE}
+        echo New PATH: $PATH
+
+    else
+        export ${KEY}=${VALUE}
+        echo $KEY: $VALUE   
+     
+    fi
+done  < $1.conf
+
 . ./libretro-config.sh
 
 echo
@@ -446,3 +468,4 @@ while read line; do
 
 done  < $1
 
+PATH=$ORIGPATH

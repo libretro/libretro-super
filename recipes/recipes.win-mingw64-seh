@@ -1,4 +1,4 @@
-2048 libretro-2048  https://github.com/libretro/libretro-2048.git PROJECT NO GENERIC Makefile.libretro .
+2048 libretro-2048  https://github.com/libretro/libretro-2048.git PROJECT YES GENERIC Makefile.libretro .
 3dengine libretro-3dengine  https://github.com/libretro/libretro-3dengine.git PROJECT NO GENERIC_GL Makefile .
 4do libretro-4do https://github.com/libretro/4do-libretro.git PROJECT NO GENERIC Makefile .
 bluemsx libretro-bluemsx https://github.com/libretro/blueMSX-libretro.git PROJECT NO GENERIC Makefile.libretro .
