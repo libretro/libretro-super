@@ -142,6 +142,7 @@ build_libretro_generic_makefile() {
     cd $DIR
     cd $SUBDIR
 
+
     if [ -z "${NOCLEAN}" ]; 
     then
 	echo "cleaning up..."
@@ -172,6 +173,7 @@ build_libretro_generic_makefile() {
     else
         echo error while compiling $1
     fi
+ 
 	
 }
 
@@ -185,10 +187,11 @@ build_libretro_generic_gl_makefile() {
     PLATFORM=$5
     ARGS=$6
 
-    cd $DIR
-    cd $SUBDIR
 
     check_opengl
+
+    cd $DIR
+    cd $SUBDIR
 
     if [ -z "${NOCLEAN}" ]; 
     then
@@ -222,6 +225,77 @@ build_libretro_generic_gl_makefile() {
     fi
 
     reset_compiler_targets
+
+	
+}
+
+
+build_libretro_bsnes() {
+
+
+    NAME=$1
+    DIR=$2
+    PROFILE=$3
+    MAKEFILE=$4
+    PLATFORM=$5
+    BSNESCOMPILER=$6
+
+
+    cd $DIR
+
+
+    if [ -z "${NOCLEAN}" ]; 
+    then
+	echo "cleaning up..."
+
+        rm -f obj/*.{o,"${FORMAT_EXT}"}
+        rm -f out/*.{o,"${FORMAT_EXT}"}	
+
+
+        if [ "${PROFILE}" == "cpp98" -o "${PROFILE}" == "bnes" ];
+	then
+	    ${MAKE} clean
+	fi
+
+
+        if [ $? -eq 0 ];
+        then 
+            echo success!
+        else
+            echo error while cleaning up
+        fi
+    fi
+
+    echo "compiling..."
+
+
+    if [ "${PROFILE}" == "cpp98" ];
+    then
+        ${MAKE} platform="${PLATFORM}" ${COMPILER} "-j${JOBS}"
+    elif [ "${PROFILE}" == "bnes" ];
+    then
+        ${MAKE} -f Makefile ${COMPILER} "-j${JOBS}" compiler=${BSNESCOMPILER}
+    else
+        echo "buid command: ${MAKE} -f ${MAKEFILE} platform=${PLATFORM} compiler=${BSNESCOMPILER} ui='target-libretro' profile=${PROFILE} -j${JOBS}"
+        ${MAKE} -f ${MAKEFILE} platform=${PLATFORM} compiler=${BSNESCOMPILER} ui='target-libretro' profile=${PROFILE} -j${JOBS}
+    fi
+
+    if [ $? -eq 0 ];
+    then 
+        echo success!
+        if [ "${PROFILE}" == "cpp98" ];
+        then
+            cp -fv "out/libretro.${FORMAT_EXT}" "${RARCH_DIST_DIR}/${NAME}_libretro${FORMAT}.${FORMAT_EXT}"
+        elif [ "${PROFILE}" == "bnes" ];
+        then
+            cp -fv "libretro.${FORMAT_EXT}" "${RARCH_DIST_DIR}/${NAME}_libretro${FORMAT}.${FORMAT_EXT}"
+        else
+            cp -fv "out/${NAME}_libretro$FORMAT.${FORMAT_EXT}" $RARCH_DIST_DIR/${NAME}_${PROFILE}_libretro$FORMAT.${FORMAT_EXT}
+        fi
+    else
+        echo error while compiling $1
+    fi
+
 	
 }
 
@@ -290,6 +364,8 @@ while read line; do
            ARGS="${ARGS} ${TEMP}"
         fi
 
+	ARGS="${ARGS%"${ARGS##*[![:space:]]}"}"  
+
         echo ARGS: $ARGS
 	echo
 	echo
@@ -354,6 +430,8 @@ while read line; do
                     build_libretro_generic_gl_makefile $NAME $DIR $SUBDIR $MAKEFILE ${FORMAT_COMPILER_TARGET} "${ARGS}"
 	    elif [ "${COMMAND}" == "GENERIC_ALT" ]; then
 		    build_libretro_generic_makefile $NAME $DIR $SUBDIR $MAKEFILE ${FORMAT_COMPILER_TARGET_ALT} "${ARGS}"
+	    elif [ "${COMMAND}" == "BSNES" ]; then
+		    build_libretro_bsnes $NAME $DIR "${ARGS}" $MAKEFILE ${FORMAT_COMPILER_TARGET} ${CXX11}
 
 	    fi
 	else
