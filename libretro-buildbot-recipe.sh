@@ -406,6 +406,13 @@ while read line; do
        	        else
 		    BUILD="YES"
                 fi
+                if [ "${PREVCORE}" == "BSNES" -a "${PREVBUILD}" == "YES" -a "${COMMAND}" == "BSNES" ]; then
+                    FORCE="YES"
+                    BUILD="YES"
+                else
+                    FORCE="NO"
+                fi
+
 
                 cd ..
 
@@ -464,6 +471,8 @@ while read line; do
     fi
     
     cd "${BASE_DIR}"
+    PREVCORE=$COMMAND
+    PREVBUILD=$BUILD
     
 
 done  < $1
