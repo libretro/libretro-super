@@ -168,8 +168,8 @@ build_libretro_generic_makefile() {
     if [ -z "${NOCLEAN}" ]; 
     then
 	echo "cleaning up..."
-        echo "cleanup command: ${MAKE} -f ${MAKEFILE} platform=${PLATFORM} ${COMPILER} -j${JOBS} clean"
-	${MAKE} -f ${MAKEFILE} platform=${PLATFORM} ${COMPILER} -j${JOBS} clean
+        echo "cleanup command: ${MAKE} -f ${MAKEFILE} platform=${PLATFORM} ${COMPILER} -j${JOBS} ${ARGS} clean"
+	${MAKE} -f ${MAKEFILE} platform=${PLATFORM} ${COMPILER} -j${JOBS} ${ARGS} clean
 	if [ $? -eq 0 ];
         then 
             echo success!
@@ -179,7 +179,7 @@ build_libretro_generic_makefile() {
     fi
 
     echo "compiling..."
-    if [ -z ${ARGS} ];
+    if [ -z "${ARGS}" ]
     then
         echo "buid command: ${MAKE} -f ${MAKEFILE} platform=${PLATFORM} ${COMPILER} -j${JOBS}"
         ${MAKE} -f ${MAKEFILE} platform=${PLATFORM} ${COMPILER} -j${JOBS}
@@ -229,7 +229,7 @@ build_libretro_generic_gl_makefile() {
     fi
 
     echo "compiling..."
-    if [ -z ${ARGS} ];
+    if [ -z "${ARGS}" ];
     then
         echo "buid command: ${MAKE} -f ${MAKEFILE} platform=${PLATFORM} ${COMPILER} -j${JOBS}"
         ${MAKE} -f ${MAKEFILE} platform=${PLATFORM} ${COMPILER} -j${JOBS}
