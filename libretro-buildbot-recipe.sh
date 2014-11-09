@@ -409,8 +409,6 @@ while read line; do
                 if [ "${PREVCORE}" == "BSNES" -a "${PREVBUILD}" == "YES" -a "${COMMAND}" == "BSNES" ]; then
                     FORCE="YES"
                     BUILD="YES"
-                else
-                    FORCE="NO"
                 fi
 
 
