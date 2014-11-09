@@ -1,3 +1,5 @@
-mame libretro-mame https://github.com/libretro/mame.git PROJECT NO GENERIC Makefile.libretro . TARGET=mame PTR64=1
+dosbox libretro-dosbox https://github.com/libretro/dosbox-libretro.git PROJECT YES GENERIC Makefile.libretro .
+mame libretro-mame https://github.com/libretro/mame.git PROJECT YES GENERIC Makefile.libretro . TARGET=mame PTR64=1 PARTIAL=1
 mess libretro-mame https://github.com/libretro/mame.git PROJECT YES GENERIC Makefile.libretro . TARGET=mess PTR64=1 PARTIAL=1
 ume libretro-mame https://github.com/libretro/mame.git PROJECT YES GENERIC Makefile.libretro . TARGET=ume PTR64=1 PARTIAL=1
+prboom libretro-prboom  https://github.com/libretro/libretro-prboom.git PROJECT YES GENERIC_ALT Makefile .

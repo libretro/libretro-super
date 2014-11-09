@@ -191,7 +191,7 @@ build_libretro_generic_makefile() {
     if [ $? -eq 0 ];
     then 
         echo success!
-        cp ${NAME}_libretro$FORMAT.${FORMAT_EXT} $RARCH_DIST_DIR/${NAME}_libretro$FORMAT.${FORMAT_EXT}
+        cp -v ${NAME}_libretro$FORMAT.${FORMAT_EXT} $RARCH_DIST_DIR/${NAME}_libretro$FORMAT.${FORMAT_EXT}
     else
         echo error while compiling $1
     fi
@@ -241,7 +241,7 @@ build_libretro_generic_gl_makefile() {
     if [ $? -eq 0 ];
     then 
         echo success!
-        cp ${NAME}_libretro$FORMAT.${FORMAT_EXT} $RARCH_DIST_DIR/${NAME}_libretro$FORMAT.${FORMAT_EXT}
+        cp -v ${NAME}_libretro$FORMAT.${FORMAT_EXT} $RARCH_DIST_DIR/${NAME}_libretro$FORMAT.${FORMAT_EXT}
     else
         echo error while compiling $1
     fi
@@ -406,7 +406,18 @@ while read line; do
        	        else
 		    BUILD="YES"
                 fi
-                if [ "${PREVCORE}" == "BSNES" -a "${PREVBUILD}" == "YES" -a "${COMMAND}" == "BSNES" ]; then
+
+                if [ "${PREVCORE}" == "bsnes" -a "${PREVBUILD}" == "YES" -a "${COMMAND}" == "BSNES" ]; then
+                    FORCE="YES"
+                    BUILD="YES"
+                fi
+
+                if [ "${PREVCORE}" == "mame" -a "${PREVBUILD}" == "YES" -a "${NAME}" == "mess" ]; then
+                    FORCE="YES"
+                    BUILD="YES"
+                fi
+
+                if [ "${PREVCORE}" == "mess" -a "${PREVBUILD}" == "YES" -a "${NAME}" == "ume" ]; then
                     FORCE="YES"
                     BUILD="YES"
                 fi
@@ -469,7 +480,7 @@ while read line; do
     fi
     
     cd "${BASE_DIR}"
-    PREVCORE=$COMMAND
+    PREVCORE=$NAME
     PREVBUILD=$BUILD
     
 
