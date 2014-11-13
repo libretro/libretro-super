@@ -69,6 +69,10 @@ build_libretro_4do() {
    build_libretro_generic_makefile "4do" "jni"
 }
 
+build_libretro_bluemsx() {
+   build_libretro_generic_makefile "bluemsx" "jni"
+}
+
 build_libretro_fmsx() {
    build_libretro_generic_makefile "fmsx" "jni"
 }
