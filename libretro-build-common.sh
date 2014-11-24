@@ -117,25 +117,7 @@ build_libretro_generic_makefile() {
    fi
 }
 
-build_libretro_generic_makefile_with_target() {
-   cd "${BASE_DIR}"
-   if [ -d "libretro-${1}" ]; then
-      echo "=== Building ${1} ==="
-      cd libretro-${1}
-      cd ${2}
-
-      if [ -z "${NOCLEAN}" ]; then
-         "${MAKE}" -f ${3} ${5} platform="${4}" ${COMPILER} "-j${JOBS}" clean || die "Failed to build ${1}"
-      fi
-      "${MAKE}" -f ${3} ${5} platform="${4}" ${COMPILER} "-j${JOBS}" || die "Failed to build ${1}"
-      cp "${1}_libretro${FORMAT}.${FORMAT_EXT}" "${RARCH_DIST_DIR}"
-   else
-      echo "${1} not fetched, skipping ..."
-   fi
-}
-
 build_libretro_stonesoup() {
-   build_libretro_generic_makefile_with_target "stonesoup" "crawl-ref" "Makefile.libretro" ${FORMAT_COMPILER_TARGET} "generate"
    build_libretro_generic_makefile "stonesoup" "crawl-ref" "Makefile.libretro" ${FORMAT_COMPILER_TARGET}
 }
 
