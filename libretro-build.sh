@@ -149,4 +149,5 @@ else
    build_libretro_3dengine
    build_libretro_ppsspp
    build_libretro_o2em
+   build_libretro_hatari
 fi

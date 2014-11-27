@@ -121,6 +121,10 @@ build_libretro_stonesoup() {
    build_libretro_generic_makefile "stonesoup" "crawl-ref" "Makefile.libretro" ${FORMAT_COMPILER_TARGET}
 }
 
+build_libretro_hatari() {
+   build_libretro_generic_makefile "hatari" "." "Makefile.libretro" ${FORMAT_COMPILER_TARGET}
+}
+
 build_libretro_prosystem() {
    build_libretro_generic_makefile "prosystem" "." "Makefile" ${FORMAT_COMPILER_TARGET}
 }
