@@ -68,6 +68,22 @@ fetch_subprojects()
    echo "=== Fetched ==="
 }
 
+fetch_project_submodule_no_update()
+{
+   echo "=== Fetching $3 ==="
+   if [ -d "$2/.git" ]; then
+      cd "$2"
+      git pull
+      cd ..
+   else
+      git clone "$1" "$2"
+      cd "$2"
+      git submodule update --init
+      cd ..
+   fi
+   echo "=== Fetched ==="
+}
+
 fetch_project_submodule()
 {
    echo "=== Fetching $3 ==="
@@ -154,4 +170,4 @@ fetch_project "$REPO_BASE/libretro/libretro-o2em.git" "libretro-o2em" "libretro/
 fetch_project "$REPO_BASE/libretro/4do-libretro.git" "libretro-4do" "libretro/4do"
 fetch_project "$REPO_BASE/libretro/CATSFC-libretro.git" "libretro-catsfc" "libretro/CATSFC"
 fetch_project "$REPO_BASE/libretro/crawl-ref.git" "libretro-stonesoup" "libretro/DungeonCrawler StoneSoup"
-fetch_project "$REPO_BASE/libretro/hatari.git" "libretro-hatari" "libretro/hatari"
+fetch_project_submodule_no_update "$REPO_BASE/libretro/hatari.git" "libretro-hatari" "libretro/hatari"
