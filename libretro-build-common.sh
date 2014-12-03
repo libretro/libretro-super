@@ -254,6 +254,10 @@ build_libretro_beetle_pcfx() {
 }
 
 build_libretro_beetle_psx() {
+   build_libretro_generic_makefile "beetle_psx" "." "Makefile" ${FORMAT_COMPILER_TARGET}
+}
+
+build_libretro_mednafen_psx() {
    build_libretro_generic_makefile "mednafen_psx" "." "Makefile" ${FORMAT_COMPILER_TARGET}
 }
 
