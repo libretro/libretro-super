@@ -110,6 +110,7 @@ else
    build_libretro_beetle_vb
    build_libretro_beetle_wswan
    build_libretro_beetle_psx
+   build_libretro_mednafen_psx
    build_libretro_beetle_snes
    build_libretro_catsfc
    build_libretro_snes9x
@@ -149,4 +150,5 @@ else
    build_libretro_3dengine
    build_libretro_ppsspp
    build_libretro_o2em
+   build_libretro_hatari
 fi

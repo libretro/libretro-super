@@ -68,6 +68,22 @@ fetch_subprojects()
    echo "=== Fetched ==="
 }
 
+fetch_project_submodule_no_update()
+{
+   echo "=== Fetching $3 ==="
+   if [ -d "$2/.git" ]; then
+      cd "$2"
+      git pull
+      cd ..
+   else
+      git clone "$1" "$2"
+      cd "$2"
+      git submodule update --init
+      cd ..
+   fi
+   echo "=== Fetched ==="
+}
+
 fetch_project_submodule()
 {
    echo "=== Fetching $3 ==="
@@ -121,7 +137,8 @@ fetch_project "$REPO_BASE/libretro/beetle-lynx-libretro.git" "libretro-mednafen_
 fetch_project "$REPO_BASE/libretro/beetle-ngp-libretro.git" "libretro-mednafen_ngp" "libretro/Beetle NGP"
 fetch_project "$REPO_BASE/libretro/beetle-pce-fast-libretro.git" "libretro-mednafen_pce_fast" "libretro/Beetle PCE Fast"
 fetch_project "$REPO_BASE/libretro/beetle-supergrafx-libretro.git" "libretro-mednafen_supergrafx" "libretro/Beetle SuperGrafx"
-fetch_project "$REPO_BASE/libretro/beetle-psx-libretro.git" "libretro-mednafen_psx" "libretro/Beetle PSX"
+fetch_project "$REPO_BASE/libretro/beetle-psx-libretro.git" "libretro-beetle_psx" "libretro/Beetle PSX"
+fetch_project "$REPO_BASE/libretro/mednafen-psx-libretro.git" "libretro-mednafen_psx" "libretro/Mednafen PSX"
 fetch_project "$REPO_BASE/libretro/beetle-pcfx-libretro.git" "libretro-mednafen_pcfx" "libretro/Beetle PCFX"
 fetch_project "$REPO_BASE/libretro/beetle-bsnes-libretro.git" "libretro-mednafen_snes" "libretro/Beetle bSNES"
 fetch_project "$REPO_BASE/libretro/beetle-vb-libretro.git" "libretro-mednafen_vb" "libretro/Beetle VB"
@@ -140,7 +157,6 @@ fetch_project_submodule "$REPO_BASE/libretro/picodrive.git" "libretro-picodrive"
 fetch_project "$REPO_BASE/libretro/tgbdual-libretro.git" "libretro-tgbdual" "libretro/tgbdual"
 fetch_project "$REPO_BASE/libretro/mupen64plus-libretro.git" "libretro-mupen64plus" "libretro/mupen64plus"
 fetch_project "$REPO_BASE/libretro/Dinothawr.git" "libretro-dinothawr" "libretro/Dinothawr"
-fetch_project "$REPO_BASE/libretro/hatari-libretro.git" "libretro-hatari" "libretro/Hatari"
 fetch_project "$REPO_BASE/libretro/libretro-uae.git" "libretro-uae" "libretro/UAE"
 fetch_project "$REPO_BASE/libretro/libretro-3dengine.git" "libretro-3dengine" "libretro/3DEngine"
 fetch_project "$REPO_BASE/libretro/libretro-remotejoy.git" "libretro-remotejoy" "libretro/RemoteJoy"
@@ -154,4 +170,6 @@ fetch_project "$REPO_BASE/libretro/prosystem-libretro.git" "libretro-prosystem" 
 fetch_project "$REPO_BASE/libretro/libretro-o2em.git" "libretro-o2em" "libretro/o2em"
 fetch_project "$REPO_BASE/libretro/4do-libretro.git" "libretro-4do" "libretro/4do"
 fetch_project "$REPO_BASE/libretro/CATSFC-libretro.git" "libretro-catsfc" "libretro/CATSFC"
-fetch_project_submodule "$REPO_BASE/libretro/crawl-ref.git" "libretro-stonesoup" "libretro/DungeonCrawler StoneSoup"
+fetch_project_submodule_no_update "$REPO_BASE/libretro/crawl-ref.git" "libretro-stonesoup" "libretro/DungeonCrawler StoneSoup"
+fetch_project "$REPO_BASE/libretro/hatari.git" "libretro-hatari" "libretro/hatari"
+fetch_project "$REPO_BASE/libretro/TempGBA-libretro.git" "libretro-tempgba" "libretro/TempGBA"
