@@ -172,3 +172,4 @@ fetch_project "$REPO_BASE/libretro/4do-libretro.git" "libretro-4do" "libretro/4d
 fetch_project "$REPO_BASE/libretro/CATSFC-libretro.git" "libretro-catsfc" "libretro/CATSFC"
 fetch_project_submodule_no_update "$REPO_BASE/libretro/crawl-ref.git" "libretro-stonesoup" "libretro/DungeonCrawler StoneSoup"
 fetch_project "$REPO_BASE/libretro/hatari.git" "libretro-hatari" "libretro/hatari"
+fetch_project "$REPO_BASE/libretro/TempGBA-libretro.git" "libretro-tempgba" "libretro/TempGBA"
