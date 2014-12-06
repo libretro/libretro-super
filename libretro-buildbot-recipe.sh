@@ -5,7 +5,7 @@
 # if you want to force all enabled cores to rebuild prepend FORCE=YES
 # you may need to specify your make command by prepending it to the commandline, for instance MAKE=mingw32-make
 #
-# eg: FORCE=YES MAKE=mingw32-make ./libretro-fetch-and-build.sh buildbot.conf
+# eg: FORCE=YES MAKE=mingw32-make ./libretro-fetch-and-build.sh buildbot
 
 ####environment configuration:
 echo "Setting up Environment for $1"
@@ -21,7 +21,7 @@ while read line; do
 
     if [ "${KEY}" == "PATH" ];
     then
-        export PATH=${ORIGPATH}:${VALUE}
+        export PATH=${VALUE}:${ORIGPATH}
         echo New PATH: $PATH
 
     else
@@ -30,6 +30,8 @@ while read line; do
      
     fi
 done  < $1.conf
+echo
+echo
 
 . ./libretro-config.sh
 
@@ -40,10 +42,6 @@ echo
 [[ "${ARM_HARDFLOAT}" ]] && echo 'ARM hardfloat ABI enabled...' && export FORMAT_COMPILER_TARGET="${FORMAT_COMPILER_TARGET}-hardfloat"
 [[ "${ARM_SOFTFLOAT}" ]] && echo 'ARM softfloat ABI enabled...' && export FORMAT_COMPILER_TARGET="${FORMAT_COMPILER_TARGET}-softfloat"
 [[ "${IOS}" ]] && echo 'iOS detected...'
-
-echo "${FORMAT_COMPILER_TARGET}"
-echo "${FORMAT_COMPILER_TARGET_ALT}"
-
 
 # BSDs don't have readlink -f
 read_link()
@@ -116,10 +114,17 @@ if [ -z "$CXX" ]; then
    fi
 fi
 
+if [ "${CC}" ] && [ "${CXX}" ]; then
+   COMPILER="CC=\"${CC}\" CXX=\"${CXX}\""
+else
+   COMPILER=""
+fi
+
 echo
 echo "CC = $CC"
 echo "CXX = $CXX"
 echo "STRIP = $STRIP"
+echo "COMPILER = $COMPILER"
 echo
 
 RESET_FORMAT_COMPILER_TARGET=$FORMAT_COMPILER_TARGET
@@ -274,7 +279,7 @@ build_libretro_bsnes() {
         rm -f out/*.{o,"${FORMAT_EXT}"}	
 
 
-        if [ "${PROFILE}" == "cpp98" -o "${PROFILE}" == "bnes" ];
+    if [ "${PROFILE}" == "cpp98" -o "${PROFILE}" == "bnes" ];
 	then
 	    ${MAKE} clean
 	fi
@@ -296,7 +301,8 @@ build_libretro_bsnes() {
         ${MAKE} platform="${PLATFORM}" ${COMPILER} "-j${JOBS}"
     elif [ "${PROFILE}" == "bnes" ];
     then
-        ${MAKE} -f Makefile ${COMPILER} "-j${JOBS}" compiler=${BSNESCOMPILER}
+		echo "buid command: ${MAKE} -f Makefile ${COMPILER} "-j${JOBS}" compiler=${BSNESCOMPILER}" platform=${FORMAT_COMPILER_TARGET}
+		${MAKE} -f Makefile ${COMPILER} "-j${JOBS}" compiler="${BSNESCOMPILER}" platform=${FORMAT_COMPILER_TARGET}
     else
         echo "buid command: ${MAKE} -f ${MAKEFILE} platform=${PLATFORM} compiler=${BSNESCOMPILER} ui='target-libretro' profile=${PROFILE} -j${JOBS}"
         ${MAKE} -f ${MAKEFILE} platform=${PLATFORM} compiler=${BSNESCOMPILER} ui='target-libretro' profile=${PROFILE} -j${JOBS}
