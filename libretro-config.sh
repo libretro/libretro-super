@@ -47,6 +47,10 @@ case "$platform" in
       FORMAT_EXT='dll'
       FORMAT_COMPILER_TARGET=win
       DIST_DIR=win_x64;;
+   *psp1*)
+      FORMAT_EXT='a'
+	  FORMAT_COMPILER_TARGET=psp1
+	  DIST_DIR=psp1;;
    *)
       FORMAT_EXT='so'
       FORMAT_COMPILER_TARGET=unix

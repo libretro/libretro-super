@@ -196,7 +196,7 @@ build_libretro_generic_makefile() {
     if [ $? -eq 0 ];
     then 
         echo success!
-        cp -v ${NAME}_libretro$FORMAT.${FORMAT_EXT} $RARCH_DIST_DIR/${NAME}_libretro$FORMAT.${FORMAT_EXT}
+        cp -v ${NAME}_libretro${FORMAT}${SUFFIX}.${FORMAT_EXT} $RARCH_DIST_DIR/${NAME}_libretro${FORMAT}${SUFFIX}.${FORMAT_EXT}
     else
         echo error while compiling $1
     fi
@@ -246,7 +246,7 @@ build_libretro_generic_gl_makefile() {
     if [ $? -eq 0 ];
     then 
         echo success!
-        cp -v ${NAME}_libretro$FORMAT.${FORMAT_EXT} $RARCH_DIST_DIR/${NAME}_libretro$FORMAT.${FORMAT_EXT}
+        cp -v ${NAME}_libretro${FORMAT}${SUFFIX}.${FORMAT_EXT} $RARCH_DIST_DIR/${NAME}_libretro${FORMAT}${SUFFIX}.${FORMAT_EXT}
     else
         echo error while compiling $1
     fi
@@ -313,12 +313,12 @@ build_libretro_bsnes() {
         echo success!
         if [ "${PROFILE}" == "cpp98" ];
         then
-            cp -fv "out/libretro.${FORMAT_EXT}" "${RARCH_DIST_DIR}/${NAME}_libretro${FORMAT}.${FORMAT_EXT}"
+            cp -fv "out/libretro.${FORMAT_EXT}" "${RARCH_DIST_DIR}/${NAME}_libretro${FORMAT}${SUFFIX}.${FORMAT_EXT}"
         elif [ "${PROFILE}" == "bnes" ];
         then
-            cp -fv "libretro.${FORMAT_EXT}" "${RARCH_DIST_DIR}/${NAME}_libretro${FORMAT}.${FORMAT_EXT}"
+            cp -fv "libretro.${FORMAT_EXT}" "${RARCH_DIST_DIR}/${NAME}_libretro${FORMAT}${SUFFIX}.${FORMAT_EXT}"
         else
-            cp -fv "out/${NAME}_libretro$FORMAT.${FORMAT_EXT}" $RARCH_DIST_DIR/${NAME}_${PROFILE}_libretro$FORMAT.${FORMAT_EXT}
+            cp -fv "out/${NAME}_libretro$FORMAT.${FORMAT_EXT}" $RARCH_DIST_DIR/${NAME}_${PROFILE}_libretro${FORMAT}${SUFFIX}.${FORMAT_EXT}
         fi
     else
         echo error while compiling $1
@@ -394,7 +394,7 @@ while read line; do
 
 	ARGS="${ARGS%"${ARGS##*[![:space:]]}"}"  
 
-        echo ARGS: $ARGS
+    echo ARGS: $ARGS
 	echo
 	echo
 
@@ -410,7 +410,7 @@ while read line; do
                 then
                     BUILD="NO"
        	        else
-		    BUILD="YES"
+					BUILD="YES"
                 fi
 
                 if [ "${PREVCORE}" == "bsnes" -a "${PREVBUILD}" == "YES" -a "${COMMAND}" == "BSNES" ]; then
@@ -431,13 +431,38 @@ while read line; do
 
                 cd ..
 
-	    else
+			else
                 echo "cloning repo..."
                 git clone --depth=1 "$URL" "$DIR"
                 BUILD="YES"
-            fi
+			fi
+		elif [ "${TYPE}" == "psp_hw_render" ]; 
+		then
+            if [ -d "${DIR}/.git" ];
+            then
+
+                cd $DIR
+                echo "pulling from repo... "
+                OUT=`git pull`				
+                if [[ $OUT == *"Already up-to-date"* ]]
+                then
+                    BUILD="NO"
+       	        else
+					BUILD="YES"
+                fi
+                cd ..
+
+			else
+                echo "cloning repo..."
+                git clone "$URL" "$DIR"
+				cd $DIR				
+				git checkout $TYPE
+				cd ..
+                BUILD="YES"
+			fi		
+		
         elif [ "${TYPE}" == "SUBMODULE" ]; 
-	then
+		then
             if [ -d "${DIR}/.git" ];
             then
 
@@ -449,20 +474,17 @@ while read line; do
                 then
                     BUILD="NO"
        	        else
-		    BUILD="YES"
+					BUILD="YES"
                 fi
 
                 cd ..
-
 	    else
                 echo "cloning repo..."
                 git clone --depth=1 "$URL" "$DIR"
                 cd $DIR
                 git submodule update --init
                 BUILD="YES"
-            fi
-            
-
+            fi            
         fi
 
         if [ "${BUILD}" == "YES" -o "${FORCE}" == "YES" ];
@@ -491,5 +513,25 @@ while read line; do
     
 
 done  < $1
+
+echo "Building RetroArch"
+echo ============================================
+
+if [ "${PLATFORM}" == "psp1" ];
+then
+
+	cd retroarch
+	git pull
+	rm -rfv psp1/pkg/
+	cd dist-scripts
+	rm *.a
+	cp -v $RARCH_DIST_DIR/* .
+	sh ./psp1-cores.sh
+	
+	
+	
+
+fi
+
 
 PATH=$ORIGPATH
