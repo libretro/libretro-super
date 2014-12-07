@@ -127,6 +127,9 @@ echo "STRIP = $STRIP"
 echo "COMPILER = $COMPILER"
 echo
 
+export CC=$CC
+export CXX=$CXX
+
 RESET_FORMAT_COMPILER_TARGET=$FORMAT_COMPILER_TARGET
 RESET_FORMAT_COMPILER_TARGET_ALT=$FORMAT_COMPILER_TARGET_ALT
 
@@ -187,10 +190,10 @@ build_libretro_generic_makefile() {
     if [ -z "${ARGS}" ]
     then
         echo "buid command: ${MAKE} -f ${MAKEFILE} platform=${PLATFORM} ${COMPILER} -j${JOBS}"
-        ${MAKE} -f ${MAKEFILE} platform=${PLATFORM} ${COMPILER} -j${JOBS}
+        ${MAKE} -f ${MAKEFILE} platform=${PLATFORM} -j${JOBS}
     else
         echo "buid command: ${MAKE} -f ${MAKEFILE} platform=${PLATFORM} ${COMPILER} -j${JOBS} ${ARGS}"
-        ${MAKE} -f ${MAKEFILE} platform=${PLATFORM} ${COMPILER} -j${JOBS} ${ARGS}
+        ${MAKE} -f ${MAKEFILE} platform=${PLATFORM} -j${JOBS} ${ARGS}
     fi
 
     if [ $? -eq 0 ];
