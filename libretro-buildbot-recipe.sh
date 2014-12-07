@@ -115,7 +115,7 @@ if [ -z "$CXX" ]; then
 fi
 
 if [ "${CC}" ] && [ "${CXX}" ]; then
-   COMPILER="CC=\"${CC}\" CXX=\"${CXX}\""
+   COMPILER="CC=${CC} CXX=${CXX}"
 else
    COMPILER=""
 fi
@@ -189,10 +189,10 @@ build_libretro_generic_makefile() {
     echo "compiling..."
     if [ -z "${ARGS}" ]
     then
-        echo "buid command: ${MAKE} -f ${MAKEFILE} platform=${PLATFORM} ${COMPILER} -j${JOBS}"
+        echo "buid command: ${MAKE} -f ${MAKEFILE} platform=${PLATFORM} -j${JOBS}"
         ${MAKE} -f ${MAKEFILE} platform=${PLATFORM} -j${JOBS}
     else
-        echo "buid command: ${MAKE} -f ${MAKEFILE} platform=${PLATFORM} ${COMPILER} -j${JOBS} ${ARGS}"
+        echo "buid command: ${MAKE} -f ${MAKEFILE} platform=${PLATFORM} -j${JOBS} ${ARGS}"
         ${MAKE} -f ${MAKEFILE} platform=${PLATFORM} -j${JOBS} ${ARGS}
     fi
 
@@ -226,8 +226,8 @@ build_libretro_generic_gl_makefile() {
     if [ -z "${NOCLEAN}" ]; 
     then
 	echo "cleaning up..."
-        echo "cleanup command: ${MAKE} -f ${MAKEFILE} platform=${PLATFORM} ${COMPILER} -j${JOBS} clean"
-	${MAKE} -f ${MAKEFILE} platform=${PLATFORM} ${COMPILER} -j${JOBS} clean
+        echo "cleanup command: ${MAKE} -f ${MAKEFILE} platform=${PLATFORM} -j${JOBS} clean"
+	${MAKE} -f ${MAKEFILE} platform=${PLATFORM} -j${JOBS} clean
 	if [ $? -eq 0 ];
         then 
             echo success!
@@ -239,11 +239,11 @@ build_libretro_generic_gl_makefile() {
     echo "compiling..."
     if [ -z "${ARGS}" ];
     then
-        echo "buid command: ${MAKE} -f ${MAKEFILE} platform=${PLATFORM} ${COMPILER} -j${JOBS}"
-        ${MAKE} -f ${MAKEFILE} platform=${PLATFORM} ${COMPILER} -j${JOBS}
+        echo "buid command: ${MAKE} -f ${MAKEFILE} platform=${PLATFORM} -j${JOBS}"
+        ${MAKE} -f ${MAKEFILE} platform=${PLATFORM} -j${JOBS}
     else
         echo "buid command: ${MAKE} -f ${MAKEFILE} platform=${PLATFORM} ${COMPILER} -j${JOBS} ${ARGS}"
-        ${MAKE} -f ${MAKEFILE} platform=${PLATFORM} ${COMPILER} -j${JOBS} ${ARGS}
+        ${MAKE} -f ${MAKEFILE} platform=${PLATFORM} -j${JOBS} ${ARGS}
     fi
 
     if [ $? -eq 0 ];
