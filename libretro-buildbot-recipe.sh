@@ -176,8 +176,8 @@ build_libretro_generic_makefile() {
     if [ -z "${NOCLEAN}" ]; 
     then
 	echo "cleaning up..."
-        echo "cleanup command: ${MAKE} -f ${MAKEFILE} platform=${PLATFORM} ${COMPILER} -j${JOBS} ${ARGS} clean"
-	${MAKE} -f ${MAKEFILE} platform=${PLATFORM} ${COMPILER} -j${JOBS} ${ARGS} clean
+        echo "cleanup command: ${MAKE} -f ${MAKEFILE} platform=${PLATFORM} -j${JOBS} ${ARGS} clean"
+	${MAKE} -f ${MAKEFILE} platform=${PLATFORM} -j${JOBS} ${ARGS} clean
 	if [ $? -eq 0 ];
         then 
             echo success!
