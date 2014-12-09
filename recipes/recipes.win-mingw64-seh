@@ -1,6 +1,7 @@
 2048 libretro-2048  https://github.com/libretro/libretro-2048.git PROJECT YES GENERIC Makefile.libretro .
 3dengine libretro-3dengine  https://github.com/libretro/libretro-3dengine.git PROJECT YES GENERIC_GL Makefile .
 4do libretro-4do https://github.com/libretro/4do-libretro.git PROJECT YES GENERIC Makefile .
+beetle_psx libretro-beetle_psx https://github.com/libretro/beetle-psx-libretro.git PROJECT YES GENERIC Makefile .
 bluemsx libretro-bluemsx https://github.com/libretro/blueMSX-libretro.git PROJECT YES GENERIC Makefile.libretro .
 bnes libretro-bnes https://github.com/libretro/bnes-libretro.git PROJECT YES BSNES Makefile . bnes
 bsnes libretro-bsnes https://github.com/libretro/bsnes-libretro.git PROJECT YES BSNES Makefile . accuracy
@@ -30,7 +31,6 @@ mednafen_ngp libretro-mednafen_ngp https://github.com/libretro/beetle-ngp-libret
 mednafen_pce_fast libretro-mednafen_pce_fast https://github.com/libretro/beetle-pce-fast-libretro.git PROJECT YES GENERIC Makefile .
 mednafen_pcfx libretro-mednafen_pcfx https://github.com/libretro/beetle-pcfx-libretro.git PROJECT YES GENERIC Makefile .
 mednafen_psx libretro-mednafen_psx https://github.com/libretro/mednafen-psx-libretro.git PROJECT YES GENERIC Makefile .
-beetle_psx libretro-beetle_psx https://github.com/libretro/beetle-psx-libretro.git PROJECT YES GENERIC Makefile .
 mednafen_snes libretro-mednafen_snes https://github.com/libretro/beetle-bsnes-libretro.git PROJECT YES GENERIC Makefile .
 mednafen_supergrafx libretro-mednafen_supergrafx https://github.com/libretro/beetle-supergrafx-libretro.git PROJECT YES GENERIC Makefile .
 mednafen_vb libretro-mednafen_vb https://github.com/libretro/beetle-vb-libretro.git PROJECT YES GENERIC Makefile .
