@@ -110,6 +110,7 @@ build_libretro_generic_makefile() {
       if [ -z "${NOCLEAN}" ]; then
          "${MAKE}" -f ${3} platform="${4}" ${COMPILER} "-j${JOBS}" clean || die "Failed to build ${1}"
       fi
+      echo "${MAKE}" -f ${3} platform="${4}" ${COMPILER} "-j${JOBS}"
       "${MAKE}" -f ${3} platform="${4}" ${COMPILER} "-j${JOBS}" || die "Failed to build ${1}"
       cp "${1}_libretro${FORMAT}.${FORMAT_EXT}" "${RARCH_DIST_DIR}"
    else
@@ -270,6 +271,7 @@ build_libretro_meteor() {
 }
 
 build_libretro_nestopia() {
+   echo command build_libretro_generic_makefile "nestopia" "libretro" "Makefile" ${FORMAT_COMPILER_TARGET}
    build_libretro_generic_makefile "nestopia" "libretro" "Makefile" ${FORMAT_COMPILER_TARGET}
 }
 
