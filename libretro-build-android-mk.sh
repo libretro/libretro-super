@@ -85,6 +85,10 @@ build_libretro_genesis_plus_gx() {
    build_libretro_generic_makefile "genesis_plus_gx" "libretro/jni"
 }
 
+build_libretro_gpsp() {
+   build_libretro_generic_makefile "gpsp" "jni"
+}
+
 build_libretro_vba_next() {
    build_libretro_generic_makefile "vba_next" "libretro/jni"
 }
@@ -365,4 +369,5 @@ else
    build_libretro_3dengine
    #build_libretro_ppsspp
    build_libretro_o2em
+   build_libretro_gpsp
 fi
