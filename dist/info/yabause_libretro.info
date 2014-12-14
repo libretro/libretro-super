@@ -7,7 +7,6 @@ categories = "Emulator"
 systemname = "Saturn"
 license = "GPLv2"
 display_version = "v0.9.14"
-block_extract = "false"
 supports_no_game = "false"
 firmware_count = 1
 firmware0_desc = "saturn_bios.bin (Saturn BIOS)"

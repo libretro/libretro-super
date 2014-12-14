@@ -8,7 +8,6 @@ systemname = "Sega 16bit + 32X (Various)"
 license = "MAME"
 permissions = "dynarec_optional"
 display_version = "1.91"
-block_extract = "false"
 supports_no_game = "false"
 firmware_count = 3
 firmware0_desc = "bios_CD_E.bin (MegaCD EU BIOS)"

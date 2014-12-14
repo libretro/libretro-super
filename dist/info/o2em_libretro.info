@@ -8,7 +8,6 @@ systemname = "Magnavox Odyssey 2/VideoPac"
 license = "Artistic License"
 permissions = ""
 display_version = "1.18"
-block_extract = "false"
 supports_no_game = "false"
 firmware_count = 1
 firmware0_desc = "o2rom.bin (Odyssey 2 BIOS)"

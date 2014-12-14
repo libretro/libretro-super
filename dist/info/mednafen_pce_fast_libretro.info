@@ -8,7 +8,6 @@ systemname = "PC Engine/PCE-CD"
 license = "GPLv2"
 permissions = ""
 display_version = "v0.9.36.1"
-block_extract = "false"
 supports_no_game = "false"
 firmware_count = 1
 firmware0_desc = "syscard3.pce (PCE-CD BIOS)"

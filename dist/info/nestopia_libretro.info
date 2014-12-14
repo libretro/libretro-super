@@ -8,7 +8,6 @@ systemname = "Nintendo Entertainment System"
 license = "GPLv2"
 permissions = ""
 display_version = "v1.46.2"
-block_extract = "false"
 supports_no_game = "false"
 firmware_count = 1
 firmware0_desc = "disksys.rom (Famicom Disk System BIOS)"

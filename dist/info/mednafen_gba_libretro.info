@@ -8,7 +8,6 @@ systemname = "Game Boy Advance"
 license = "GPLv2"
 permissions = ""
 display_version = "v0.9.36"
-block_extract = "false"
 supports_no_game = "false"
 firmware_count = 1
 firmware0_desc = "gba_bios.bin (GBA BIOS)"

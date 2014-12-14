@@ -8,7 +8,6 @@ systemname = "Super Nintendo Entertainment System"
 license = "GPLv3"
 permissions = ""
 display:version = "v094 (Performance)"
-block_extract = "false"
 supports_no_game = "false"
 
 firmware_count = 17
