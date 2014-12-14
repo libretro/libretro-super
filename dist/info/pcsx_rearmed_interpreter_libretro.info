@@ -3,6 +3,7 @@ authors = "PCSX Team|notaz|Exophase"
 supported_extensions = "bin|cue|img|mdf|pbp|cbn|toc"
 corename = "PCSX ReARMed [Interpreter]"
 manufacturer = "Sony"
+categories = "Emulator"
 systemname = "PlayStation"
 license = "GPLv2"
 firmware_count = 3

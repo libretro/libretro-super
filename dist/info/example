@@ -11,6 +11,9 @@
 
 # The developer.
 # manufacturer = "Nintendo"
+#
+# Categories that the core belongs to (optional).
+# categories = "Emulator"
 
 # Name of the system that the core targets (optional).
 # systemname = "Nintendo Entertainment System"
