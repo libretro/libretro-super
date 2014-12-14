@@ -8,7 +8,6 @@ systemname = "3DO"
 license = "LGPL with additional notes"
 permissions = ""
 display_version = "v1.3.2.3"
-need_fullpath = "true"
 block_extract = "false"
 supports_no_game = "false"
 firmware_count = 1

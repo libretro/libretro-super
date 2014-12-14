@@ -26,7 +26,6 @@
 
 # As reported by the core.
 # display_version = "v0.2.97.30"
-# need_fullpath = "false"
 # block_extract = "false"
 # supports_no_game = "false"
 

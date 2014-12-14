@@ -8,7 +8,6 @@ systemname = "Sega 8/16bit (Various)"
 license = "Non-commercial"
 permissions = ""
 display:version = "v1.7.4"
-need_fullpath = "true"
 block_extract = "false"
 supports_no_game = "false"
 firmware_count = 11

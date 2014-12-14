@@ -8,7 +8,6 @@ systemname = "MULTI (various)"
 license = "MAME"
 permissions = ""
 display_version = "Git"
-need_fullpath = "true"
 block_extract = "true"
 supports_no_game = "false"
 

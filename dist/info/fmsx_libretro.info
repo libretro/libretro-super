@@ -8,7 +8,6 @@ systemname = "MSX"
 license = "Non-commercial"
 permissions = ""
 display_version = "3.9"
-need_fullpath = "true"
 block_extract = "false"
 supports_no_game = "false"
 firmware_count = 5

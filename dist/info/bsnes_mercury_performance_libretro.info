@@ -8,7 +8,6 @@ systemname = "Super Nintendo Entertainment System"
 license = "GPLv3"
 permissions = ""
 display:version = "v094 (Mercury Performance)"
-need_fullpath = "false"
 block_extract = "false"
 supports_no_game = "false"
 
