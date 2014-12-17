@@ -590,6 +590,7 @@ then
                 cd $DIR
                 echo "pulling from repo... "
                 OUT=`git pull`
+                echo $OUT
                 if [[ $OUT == *"Already up-to-date"* ]]
                 then
                     BUILD="NO"
