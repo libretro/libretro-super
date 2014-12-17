@@ -397,7 +397,7 @@ while read line; do
 
 	ARGS="${ARGS%"${ARGS##*[![:space:]]}"}"  
 
-    echo ARGS: $ARGS
+        echo ARGS: $ARGS
 	echo
 	echo
 
@@ -451,7 +451,7 @@ while read line; do
                 then
                     BUILD="NO"
        	        else
-					BUILD="YES"
+    		    BUILD="YES"
                 fi
                 cd ..
 
@@ -462,7 +462,7 @@ while read line; do
 				git checkout $TYPE
 				cd ..
                 BUILD="YES"
-			fi		
+            fi		
 		
         elif [ "${TYPE}" == "SUBMODULE" ]; 
 		then
@@ -514,7 +514,6 @@ while read line; do
     PREVCORE=$NAME
     PREVBUILD=$BUILD
     
-
 done  < $1
 
 echo "Building RetroArch"
@@ -523,18 +522,103 @@ echo ============================================
 if [ "${PLATFORM}" == "psp1" ];
 then
 
-	cd retroarch
-	git pull
-	rm -rfv psp1/pkg/
-	cd dist-scripts
-	rm *.a
-	cp -v $RARCH_DIST_DIR/* .
-	sh ./psp1-cores.sh
-	
-	
-	
+    while read line; do
+
+         NAME=`echo $line | cut --fields=1 --delimiter=" "`
+         DIR=`echo $line | cut --fields=2 --delimiter=" "`
+         URL=`echo $line | cut --fields=3 --delimiter=" "`
+         TYPE=`echo $line | cut --fields=4 --delimiter=" "`
+         ENABLED=`echo $line | cut --fields=5 --delimiter=" "`
+         SUBDIR=`echo $line | cut --fields=8 --delimiter=" "`
+   
+         if [ "${ENABLED}" == "YES" ];
+         then
+            echo "Processing $NAME"
+            echo ============================================
+            echo NAME: $NAME
+            echo DIR: $DIR
+            echo SUBDIR: $SUBDIR
+            echo URL: $URL
+            echo REPO TYPE: $TYPE
+	    echo ENABLED: $ENABLED
+
+            ARGS=""
+
+            TEMP=`echo $line | cut --fields=9 --delimiter=" "`
+            if [ -n ${TEMP} ];
+            then
+               ARGS="${TEMP}"
+            fi
+            TEMP=""
+            TEMP=`echo $line | cut --fields=10 --delimiter=" "`
+            if [ -n ${TEMP} ];
+            then
+                ARGS="${ARGS} ${TEMP}"
+            fi
+            TEMP=""
+            TEMP=`echo $line | cut --fields=11 --delimiter=" "`
+            if [ -n ${TEMP} ];
+            then
+               ARGS="${ARGS} ${TEMP}"
+            fi
+            TEMP=""
+            TEMP=`echo $line | cut --fields=12 --delimiter=" "`
+            if [ -n ${TEMP} ];
+            then
+               ARGS="${ARGS} ${TEMP}"
+            fi
+            TEMP=""
+            TEMP=`echo $line | cut --fields=13 --delimiter=" "`
+            if [ -n ${TEMP} ];
+            then
+                ARGS="${ARGS} ${TEMP}"
+            fi
+            TEMP=""
+            TEMP=`echo $line | cut --fields=14 --delimiter=" "`
+            if [ -n ${TEMP} ];
+            then
+                ARGS="${ARGS} ${TEMP}"
+            fi
+
+     	    ARGS="${ARGS%"${ARGS##*[![:space:]]}"}"  
+
+            echo ARGS: $ARGS
+ 
+            if [ -d "${DIR}/.git" ];
+            then
+
+                cd $DIR
+                echo "pulling from repo... "
+                OUT=`git pull`
+                if [[ $OUT == *"Already up-to-date"* ]]
+                then
+                    BUILD="NO"
+                else
+                    BUILD="YES"
+                fi
+                cd ..
+
+            else
+                echo "cloning repo..."
+                git clone "$URL" "$DIR"
+                cd $DIR
+                BUILD="YES"
+                cd ..
+            fi
+        fi
+
+        if [ "${BUILD}" == "YES" -o "${FORCE}" == "YES" ];
+        then
+            cd $DIR
+    	    rm -rfv psp1/pkg/
+	    cd dist-scripts
+	    rm *.a
+	    cp -v $RARCH_DIST_DIR/* .
+	    sh ./psp1-cores.sh
+        fi
+
+    done  < $1.ra
 
 fi
-
 
 PATH=$ORIGPATH
