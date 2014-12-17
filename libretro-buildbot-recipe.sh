@@ -12,6 +12,7 @@ echo "Setting up Environment for $1"
 echo ============================================
 
 ORIGPATH=$PATH
+WORK=$PWD
 
 echo Original PATH: $PATH
 
@@ -457,7 +458,7 @@ while read line; do
 
 			else
                 echo "cloning repo..."
-                git clone "$URL" "$DIR"
+                git clone "$URL" "$DIR" --depth=1
 				cd $DIR				
 				git checkout $TYPE
 				cd ..
@@ -518,6 +519,8 @@ done  < $1
 
 echo "Building RetroArch"
 echo ============================================
+cd $WORK
+BUILD=""
 
 if [ "${PLATFORM}" == "psp1" ];
 then
@@ -601,7 +604,7 @@ then
 
             else
                 echo "cloning repo..."
-                git clone "$URL" "$DIR"
+                git clone "$URL" "$DIR" --depth=1
                 cd $DIR
                 BUILD="YES"
                 cd ..
@@ -619,6 +622,144 @@ then
         fi
 
     done  < $1.ra
+
+fi
+
+if [ "${PLATFORM}" == "ndk" ];
+then
+
+    while read line; do
+
+         NAME=`echo $line | cut --fields=1 --delimiter=" "`
+         DIR=`echo $line | cut --fields=2 --delimiter=" "`
+         URL=`echo $line | cut --fields=3 --delimiter=" "`
+         TYPE=`echo $line | cut --fields=4 --delimiter=" "`
+         ENABLED=`echo $line | cut --fields=5 --delimiter=" "`
+         PARENTDIR=`echo $line | cut --fields=6 --delimiter=" "`
+   
+         if [ "${ENABLED}" == "YES" ];
+         then
+            echo "Processing $NAME"
+            echo ============================================
+            echo NAME: $NAME
+            echo DIR: $DIR
+            echo PARENT: $PARENTDIR
+            echo URL: $URL
+            echo REPO TYPE: $TYPE
+	    echo ENABLED: $ENABLED
+
+            ARGS=""
+
+            TEMP=`echo $line | cut --fields=9 --delimiter=" "`
+            if [ -n ${TEMP} ];
+            then
+               ARGS="${TEMP}"
+            fi
+            TEMP=""
+            TEMP=`echo $line | cut --fields=10 --delimiter=" "`
+            if [ -n ${TEMP} ];
+            then
+                ARGS="${ARGS} ${TEMP}"
+            fi
+            TEMP=""
+            TEMP=`echo $line | cut --fields=11 --delimiter=" "`
+            if [ -n ${TEMP} ];
+            then
+               ARGS="${ARGS} ${TEMP}"
+            fi
+            TEMP=""
+            TEMP=`echo $line | cut --fields=12 --delimiter=" "`
+            if [ -n ${TEMP} ];
+            then
+               ARGS="${ARGS} ${TEMP}"
+            fi
+            TEMP=""
+            TEMP=`echo $line | cut --fields=13 --delimiter=" "`
+            if [ -n ${TEMP} ];
+            then
+                ARGS="${ARGS} ${TEMP}"
+            fi
+            TEMP=""
+            TEMP=`echo $line | cut --fields=14 --delimiter=" "`
+            if [ -n ${TEMP} ];
+            then
+                ARGS="${ARGS} ${TEMP}"
+            fi
+
+     	    ARGS="${ARGS%"${ARGS##*[![:space:]]}"}"  
+
+            echo ARGS: $ARGS
+ 
+            if [ -d "${PARENTDIR}/${DIR}/.git" ];
+            then
+		cd $PARENTDIR
+                cd $DIR
+                echo "pulling from repo... "
+                OUT=`git pull`
+                echo $OUT
+				if [ "${TYPE}" == "PROJECT" ];
+				then
+				    RADIR=$DIR
+                    if [[ $OUT == *"Already up-to-date"* ]]
+                    then
+                        BUILD="NO"
+                    else
+                        BUILD="YES"
+                    fi
+				fi
+                cd $WORK
+
+            else
+                echo "cloning repo..."
+		cd $PARENTDIR
+                git clone "$URL" "$DIR" --depth=1
+                cd $DIR
+				if [ "${TYPE}" == "PROJECT" ];
+				then
+                    BUILD="YES"
+			    fi
+                cd $WORK
+            fi
+        fi
+				
+	echo
+	echo
+    done  < $1.ra
+    if [ "${BUILD}" == "YES" -o "${FORCE}" == "YES" ];	
+    then
+        echo "Compiling Shaders"
+        echo ============================================
+		
+		cd $RADIR
+		$MAKE -f Makefile.griffin shaders-convert-glsl PYTHON3=$PYTHON
+
+		echo "Processing Assets"
+        echo ============================================
+		
+		rm -Rv android/phoenix/assets/overlays
+		cp -Rv media/overlays android/phoenix/assets/
+		rm -Rv android/phoenix/assets/shaders_glsl
+		cp -Rv media/shaders_glsl android/phoenix/assets/
+		rm -Rv android/phoenix/assets/autoconfig
+		cp -Rv media/autoconfig android/phoenix/assets/
+		rm -Rv android/phoenix/assets/info
+		cp -Rv $RARCH_DIR/info android/phoenix/assets/
+		
+		echo "Building"
+        echo ============================================		
+		
+		cd android/phoenix
+		rm bin/*.apk
+		android.bat update project --path . --target android-21
+		android.bat update project --path libs/googleplay --target android-21
+		android.bat update project --path libs/appcompat --target android-21
+		
+		ant clean
+		ant debug
+    fi
+
+
+
 
 fi
 
