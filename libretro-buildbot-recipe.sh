@@ -230,40 +230,37 @@ build_libretro_generic_jni() {
     cd $DIR
     cd $SUBDIR
 
-	for a in "${ABIS[@]}"; do
+    for a in "${ABIS[@]}"; do
         if [ -z "${NOCLEAN}" ]; 
         then
-	        echo "cleaning up..."
-            echo "cleanup command: ${NDK} -j${JOBS} ${ARGS} APP_ABI=${a} clean"
+	    echo "cleaning up..."
+	    echo "cleanup command: ${NDK} -j${JOBS} ${ARGS} APP_ABI=${a} clean"
 	        ${NDK} -j${JOBS} ${ARGS} APP_ABI=${a} clean
 	        if [ $? -eq 0 ];
-            then 
-                echo success!
-            else
-                echo error while cleaning up
-            fi
+	    then 
+	        echo success!
+	    else
+	        echo error while cleaning up
+	    fi
         fi
-
-    
 	
-		echo "compiling for ${a}..."
+	echo "compiling for ${a}..."
         if [ -z "${ARGS}" ]
         then
-            echo "buid command: ${NDK} -j${JOBS} APP_ABI=${a}"
-            ${NDK} -j${JOBS} APP_ABI=${a}
+	    echo "buid command: ${NDK} -j${JOBS} APP_ABI=${a}"
+	    ${NDK} -j${JOBS} APP_ABI=${a}
         else
-            echo "buid command: ${NDK} -j${JOBS} APP_ABI=${a} ${ARGS} "
-            ${NDK} -j${JOBS} APP_ABI=${a} ${ARGS} 
+	    echo "buid command: ${NDK} -j${JOBS} APP_ABI=${a} ${ARGS} "
+	    ${NDK} -j${JOBS} APP_ABI=${a} ${ARGS} 
         fi
         if [ $? -eq 0 ];
         then 
-            echo success!		
-            cp -v ../libs/${a}/libretro.${FORMAT_EXT} $RARCH_DIST_DIR/${a}/${1}_libretro${FORMAT}.${FORMAT_EXT}      
+	    echo success!		
+	    cp -v ../libs/${a}/libretro.${FORMAT_EXT} $RARCH_DIST_DIR/${a}/${1}_libretro${FORMAT}.${FORMAT_EXT}      
         else
-            echo error while compiling $1
+	    echo error while compiling $1
         fi
-	done
-
+    done
 }
 
 
