@@ -230,22 +230,22 @@ build_libretro_generic_jni() {
     cd $DIR
     cd $SUBDIR
 
-
-    if [ -z "${NOCLEAN}" ]; 
-    then
-	echo "cleaning up..."
-        echo "cleanup command: ${NDK} -j${JOBS} ${ARGS} clean"
-	    ${NDK} -j${JOBS} ${ARGS} clean
-	if [ $? -eq 0 ];
-        then 
-            echo success!
-        else
-            echo error while cleaning up
+	for a in "${ABIS[@]}"; do
+        if [ -z "${NOCLEAN}" ]; 
+        then
+	        echo "cleaning up..."
+            echo "cleanup command: ${NDK} -j${JOBS} ${ARGS} APP_ABI=${a} clean"
+	        ${NDK} -j${JOBS} ${ARGS} APP_ABI=${a} clean
+	        if [ $? -eq 0 ];
+            then 
+                echo success!
+            else
+                echo error while cleaning up
+            fi
         fi
-    fi
 
     
-	for a in "${ABIS[@]}"; do
+	
 		echo "compiling for ${a}..."
         if [ -z "${ARGS}" ]
         then
@@ -255,19 +255,15 @@ build_libretro_generic_jni() {
             echo "buid command: ${NDK} -j${JOBS} APP_ABI=${a} ${ARGS} "
             ${NDK} -j${JOBS} APP_ABI=${a} ${ARGS} 
         fi
+        if [ $? -eq 0 ];
+        then 
+            echo success!		
+            cp -v ../libs/${a}/libretro.${FORMAT_EXT} $RARCH_DIST_DIR/${a}/${1}_libretro${FORMAT}.${FORMAT_EXT}      
+        else
+            echo error while compiling $1
+        fi
 	done
 
-    if [ $? -eq 0 ];
-    then 
-        echo success!		
-        for a in "${ABIS[@]}"; do
-           cp -v ../obj/local/${a}/libretro.${FORMAT_EXT} $RARCH_DIST_DIR/${a}/${1}_libretro${FORMAT}.${FORMAT_EXT}      
-        done
-    else
-        echo error while compiling $1
-    fi
- 
-	
 }
 
 
@@ -536,7 +532,7 @@ while read line; do
                 cd $DIR
                 echo "pulling from repo... "
                 OUT=`git pull`
-                OUT=`git submodule foreach git pull origin master`
+                OUT=`git submodule --depth=1 foreach git pull origin master`
                 if [[ $OUT == *"Already up-to-date"* ]]
                 then
                     BUILD="NO"
