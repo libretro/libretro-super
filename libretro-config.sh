@@ -51,6 +51,10 @@ case "$platform" in
       FORMAT_EXT='a'
 	  FORMAT_COMPILER_TARGET=psp1
 	  DIST_DIR=psp1;;
+   *android*)
+      FORMAT_EXT='so'
+	  FORMAT_COMPILER_TARGET=android
+	  DIST_DIR=android;;	  
    *)
       FORMAT_EXT='so'
       FORMAT_COMPILER_TARGET=unix

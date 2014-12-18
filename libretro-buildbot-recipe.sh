@@ -70,7 +70,16 @@ if [ -z "$RARCH_DIST_DIR" ]; then
 fi
 
 mkdir -p "$RARCH_DIST_DIR"
-
+IFS=' ' read -ra ABIS <<< "$TARGET_ABIS"
+   for a in "${ABIS[@]}"; do
+   echo $a
+      if [ -d $RARCH_DIST_DIR/${a} ]; then
+         echo "Directory $RARCH_DIST_DIR/${a} already exists, skipping creation..."
+      else
+         mkdir $RARCH_DIST_DIR/${a}
+      fi
+   done
+   
 if [ "$HOST_CC" ]; then
     CC="${HOST_CC}-gcc"
     CXX="${HOST_CC}-g++"
@@ -207,6 +216,60 @@ build_libretro_generic_makefile() {
  
 	
 }
+
+build_libretro_generic_jni() {
+
+
+    NAME=$1
+    DIR=$2
+    SUBDIR=$3
+    MAKEFILE=$4
+    PLATFORM=$5
+    ARGS=$6
+
+    cd $DIR
+    cd $SUBDIR
+
+
+    if [ -z "${NOCLEAN}" ]; 
+    then
+	echo "cleaning up..."
+        echo "cleanup command: ${NDK} -j${JOBS} ${ARGS} clean"
+	    ${NDK} -j${JOBS} ${ARGS} clean
+	if [ $? -eq 0 ];
+        then 
+            echo success!
+        else
+            echo error while cleaning up
+        fi
+    fi
+
+    
+	for a in "${ABIS[@]}"; do
+		echo "compiling for ${a}..."
+        if [ -z "${ARGS}" ]
+        then
+            echo "buid command: ${NDK} -j${JOBS} APP_ABI=${a}"
+            ${NDK} -j${JOBS} APP_ABI=${a}
+        else
+            echo "buid command: ${NDK} -j${JOBS} APP_ABI=${a} ${ARGS} "
+            ${NDK} -j${JOBS} APP_ABI=${a} ${ARGS} 
+        fi
+	done
+
+    if [ $? -eq 0 ];
+    then 
+        echo success!		
+        for a in "${ABIS[@]}"; do
+           cp -v ../obj/local/${a}/libretro.${FORMAT_EXT} $RARCH_DIST_DIR/${a}/${1}_libretro${FORMAT}.${FORMAT_EXT}      
+        done
+    else
+        echo error while compiling $1
+    fi
+ 
+	
+}
+
 
 build_libretro_generic_gl_makefile() {
 
@@ -500,6 +563,8 @@ while read line; do
                     build_libretro_generic_gl_makefile $NAME $DIR $SUBDIR $MAKEFILE ${FORMAT_COMPILER_TARGET} "${ARGS}"
 	    elif [ "${COMMAND}" == "GENERIC_ALT" ]; then
 		    build_libretro_generic_makefile $NAME $DIR $SUBDIR $MAKEFILE ${FORMAT_COMPILER_TARGET_ALT} "${ARGS}"
+	    elif [ "${COMMAND}" == "GENERIC_JNI" ]; then
+		    build_libretro_generic_jni $NAME $DIR $SUBDIR $MAKEFILE ${FORMAT_COMPILER_TARGET_ALT} "${ARGS}"			
 	    elif [ "${COMMAND}" == "BSNES" ]; then
 		    build_libretro_bsnes $NAME $DIR "${ARGS}" $MAKEFILE ${FORMAT_COMPILER_TARGET} ${CXX11}
 
@@ -625,7 +690,7 @@ then
 
 fi
 
-if [ "${PLATFORM}" == "ndk" ];
+if [ "${PLATFORM}" == "android" ];
 then
 
     while read line; do
@@ -750,11 +815,13 @@ then
 		
 		cd android/phoenix
 		rm bin/*.apk
+
+        ndk-build.cmd clean
+        ndk-build.cmd -j8
 		android.bat update project --path . --target android-21
 		android.bat update project --path libs/googleplay --target android-21
 		android.bat update project --path libs/appcompat --target android-21
 		
-		ant clean
 		ant debug
     fi
 
