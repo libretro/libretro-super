@@ -11,6 +11,9 @@
 
 # The developer.
 # manufacturer = "Nintendo"
+#
+# Categories that the core belongs to (optional).
+# categories = "Emulator"
 
 # Name of the system that the core targets (optional).
 # systemname = "Nintendo Entertainment System"
@@ -23,8 +26,6 @@
 
 # As reported by the core.
 # display_version = "v0.2.97.30"
-# need_fullpath = "false"
-# block_extract = "false"
 # supports_no_game = "false"
 
 # Notes

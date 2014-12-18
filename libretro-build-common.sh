@@ -186,6 +186,10 @@ build_libretro_fmsx() {
    build_libretro_generic_makefile "fmsx" "." "Makefile" ${FORMAT_COMPILER_TARGET}
 }
 
+build_libretro_gpsp() {
+   build_libretro_generic_makefile "gpsp" "." "Makefile" ${FORMAT_COMPILER_TARGET_ALT}
+}
+
 build_libretro_vba_next() {
    build_libretro_generic_makefile "vba_next" "." "Makefile.libretro" ${FORMAT_COMPILER_TARGET_ALT}
 }
