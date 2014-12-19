@@ -31,3 +31,12 @@ ppsspp libretro-ppsspp https://github.com/libretro/ppsspp.git SUBMODULE YES GENE
 prosystem libretro-prosystem https://github.com/libretro/prosystem-libretro.git PROJECT YES GENERIC_JNI Makefile jni
 snes9x libretro-snes9x https://github.com/libretro/snes9x.git PROJECT YES GENERIC_JNI Makefile libretro/jni
 snes9x_next libretro-snes9x_next https://github.com/libretro/snes9x-next.git PROJECT YES GENERIC_JNI Makefile.libretro libretro/jni
+tgbdual libretro-tgbdual https://github.com/libretro/tgbdual-libretro.git PROJECT YES GENERIC_JNI Makefile libretro/jni
+vba_next libretro-vba_next https://github.com/libretro/vba-next.git PROJECT YES GENERIC_JNI Makefile.libretro libretro/jni
+vbam libretro-vbam https://github.com/libretro/vbam-libretro.git PROJECT YES GENERIC_JNI Makefile src/libretro/jni
+fb_alpha libretro-fba https://github.com/libretro/fba-libretro.git PROJECT YES GENERIC_JNI makefile.libretro svn-current/trunk/projectfiles/libretro-android/jni
+stella libretro-stella https://github.com/libretro/stella-libretro.git PROJECT YES GENERIC_JNI Makefile jni
+tyrquake libretro-tyrquake https://github.com/libretro/tyrquake.git PROJECT YES GENERIC_JNI Makefile.libretro libretro/jni
+vecx libretro-vecx https://github.com/libretro/libretro-vecx.git PROJECT YES GENERIC_JNI Makefile.libretro libretro/jni
+virtualjaguar libretro-virtualjaguar https://github.com/libretro/virtualjaguar-libretro.git PROJECT YES GENERIC_JNI Makefile jni
+yabause libretro-yabause https://github.com/libretro/yabause.git PROJECT YES GENERIC_JNI Makefile libretro/jni
