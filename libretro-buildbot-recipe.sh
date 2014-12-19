@@ -529,14 +529,13 @@ while read line; do
                 cd $DIR
                 echo "pulling from repo... "
                 OUT=`git pull`
-                OUT=`git submodule --depth=1 foreach git pull origin master`
                 if [[ $OUT == *"Already up-to-date"* ]]
                 then
                     BUILD="NO"
        	        else
 					BUILD="YES"
                 fi
-
+                OUT=`git submodule foreach git pull origin master`
                 cd ..
 	    else
                 echo "cloning repo..."
