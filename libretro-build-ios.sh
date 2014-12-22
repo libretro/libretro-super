@@ -79,4 +79,5 @@ else
    build_libretro_o2em
    build_libretro_4do
    build_libretro_gpsp
+   build_libretro_emux
 fi
