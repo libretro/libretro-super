@@ -174,3 +174,4 @@ fetch_project_submodule_no_update "$REPO_BASE/libretro/crawl-ref.git" "libretro-
 fetch_project "$REPO_BASE/libretro/hatari.git" "libretro-hatari" "libretro/hatari"
 fetch_project "$REPO_BASE/libretro/TempGBA-libretro.git" "libretro-tempgba" "libretro/TempGBA"
 fetch_project "$REPO_BASE/libretro/gpsp.git" "libretro-gpsp" "libretro/gpsp"
+fetch_project "$REPO_BASE/libretro/emux.git" "libretro-emux" "libretro/Emux"
