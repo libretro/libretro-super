@@ -152,4 +152,5 @@ else
    build_libretro_o2em
    build_libretro_hatari
    build_libretro_gpsp
+   build_libretro_emux
 fi

@@ -96,6 +96,11 @@ build_libretro_fba_cps1() {
    build_libretro_generic_makefile_subcore "fb_alpha" "fba_cores_cps1" "svn-current/trunk/fbacores/cps1" "makefile.libretro" ${FORMAT_COMPILER_TARGET}
 }
 
+
+copy_core_to_dist() {
+   cp "${1}_libretro${FORMAT}.${FORMAT_EXT}" "${RARCH_DIST_DIR}"
+}
+
 # $1 is corename
 # $2 is subdir. In case there is no subdir, enter "." here
 # $3 is Makefile name
@@ -112,7 +117,9 @@ build_libretro_generic_makefile() {
       fi
       echo "${MAKE}" -f ${3} platform="${4}" ${COMPILER} "-j${JOBS}"
       "${MAKE}" -f ${3} platform="${4}" ${COMPILER} "-j${JOBS}" || die "Failed to build ${1}"
-      cp "${1}_libretro${FORMAT}.${FORMAT_EXT}" "${RARCH_DIST_DIR}"
+      if [ -z "${5}" ]; then
+         copy_core_to_dist $1
+      fi
    else
       echo "${1} not fetched, skipping ..."
    fi
@@ -152,6 +159,14 @@ build_libretro_nx() {
 
 build_libretro_catsfc() {
    build_libretro_generic_makefile "catsfc" "." "Makefile" ${FORMAT_COMPILER_TARGET}
+}
+
+build_libretro_emux() {
+   build_libretro_generic_makefile "emux" "libretro" "Makefile" ${FORMAT_COMPILER_TARGET} 1
+   copy_core_to_dist "emux_chip8"
+   copy_core_to_dist "emux_gb"
+   copy_core_to_dist "emux_nes"
+   copy_core_to_dist "emux_sms"
 }
 
 build_libretro_picodrive() {
