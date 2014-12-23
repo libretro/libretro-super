@@ -27,8 +27,7 @@ while read line; do
 
     else
         export ${KEY}=${VALUE}
-        echo $KEY: $VALUE   
-     
+        echo $KEY: $VALUE
     fi
 done  < $1.conf
 echo
@@ -79,7 +78,7 @@ IFS=' ' read -ra ABIS <<< "$TARGET_ABIS"
          mkdir $RARCH_DIST_DIR/${a}
       fi
    done
-   
+
 if [ "$HOST_CC" ]; then
     CC="${HOST_CC}-gcc"
     CXX="${HOST_CC}-g++"
@@ -213,8 +212,7 @@ build_libretro_generic_makefile() {
     else
         echo error while compiling $1
     fi
- 
-	
+
 }
 
 build_libretro_generic_jni() {
@@ -227,8 +225,9 @@ build_libretro_generic_jni() {
     PLATFORM=$5
     ARGS=$6
 
-    cd $DIR
-    cd $SUBDIR
+    echo DIR=$2 SUBDIR=$3
+
+    cd ${DIR}/${SUBDIR}
 
     for a in "${ABIS[@]}"; do
         if [ -z "${NOCLEAN}" ]; 
@@ -243,7 +242,7 @@ build_libretro_generic_jni() {
 	        echo error while cleaning up
 	    fi
         fi
-	
+
 	echo "compiling for ${a}..."
         if [ -z "${ARGS}" ]
         then
@@ -251,12 +250,12 @@ build_libretro_generic_jni() {
 	    ${NDK} -j${JOBS} APP_ABI=${a}
         else
 	    echo "buid command: ${NDK} -j${JOBS} APP_ABI=${a} ${ARGS} "
-	    ${NDK} -j${JOBS} APP_ABI=${a} ${ARGS} 
+	    ${NDK} -j${JOBS} APP_ABI=${a} ${ARGS}
         fi
         if [ $? -eq 0 ];
-        then 
-	    echo success!		
-	    cp -v ../libs/${a}/libretro.${FORMAT_EXT} $RARCH_DIST_DIR/${a}/${1}_libretro${FORMAT}.${FORMAT_EXT}      
+        then
+	    echo success!
+	    cp -v ../libs/${a}/libretro.${FORMAT_EXT} $RARCH_DIST_DIR/${a}/${1}_libretro${FORMAT}.${FORMAT_EXT}
         else
 	    echo error while compiling $1
         fi
@@ -313,7 +312,7 @@ build_libretro_generic_gl_makefile() {
 
     reset_compiler_targets
 
-	
+
 }
 
 
@@ -346,7 +345,7 @@ build_libretro_bsnes() {
 
 
         if [ $? -eq 0 ];
-        then 
+        then
             echo success!
         else
             echo error while cleaning up
@@ -369,7 +368,7 @@ build_libretro_bsnes() {
     fi
 
     if [ $? -eq 0 ];
-    then 
+    then
         echo success!
         if [ "${PROFILE}" == "cpp98" ];
         then
@@ -384,7 +383,6 @@ build_libretro_bsnes() {
         echo error while compiling $1
     fi
 
-	
 }
 
 #fetch a project and mark it for building if there have been any changes
@@ -394,7 +392,7 @@ echo
 echo
 
 while read line; do
-    
+
     NAME=`echo $line | cut --fields=1 --delimiter=" "`
     DIR=`echo $line | cut --fields=2 --delimiter=" "`
     URL=`echo $line | cut --fields=3 --delimiter=" "`
@@ -403,7 +401,7 @@ while read line; do
     COMMAND=`echo $line | cut --fields=6 --delimiter=" "`
     MAKEFILE=`echo $line | cut --fields=7 --delimiter=" "`
     SUBDIR=`echo $line | cut --fields=8 --delimiter=" "`
-   
+
     if [ "${ENABLED}" == "YES" ];
     then
         echo "Processing $NAME"
@@ -503,7 +501,7 @@ while read line; do
 
                 cd $DIR
                 echo "pulling from repo... "
-                OUT=`git pull`				
+                OUT=`git pull`
                 if [[ $OUT == *"Already up-to-date"* ]]
                 then
                     BUILD="NO"
@@ -515,12 +513,12 @@ while read line; do
 			else
                 echo "cloning repo..."
                 git clone "$URL" "$DIR" --depth=1
-				cd $DIR				
+				cd $DIR
 				git checkout $TYPE
 				cd ..
                 BUILD="YES"
-            fi		
-		
+            fi
+
         elif [ "${TYPE}" == "SUBMODULE" ]; 
 		then
             if [ -d "${DIR}/.git" ];
@@ -543,7 +541,7 @@ while read line; do
                 cd $DIR
                 git submodule update --init
                 BUILD="YES"
-            fi            
+            fi
         fi
 
         if [ "${BUILD}" == "YES" -o "${FORCE}" == "YES" ];
@@ -556,7 +554,7 @@ while read line; do
 	    elif [ "${COMMAND}" == "GENERIC_ALT" ]; then
 		    build_libretro_generic_makefile $NAME $DIR $SUBDIR $MAKEFILE ${FORMAT_COMPILER_TARGET_ALT} "${ARGS}"
 	    elif [ "${COMMAND}" == "GENERIC_JNI" ]; then
-		    build_libretro_generic_jni $NAME $DIR $SUBDIR $MAKEFILE ${FORMAT_COMPILER_TARGET_ALT} "${ARGS}"			
+		    build_libretro_generic_jni $NAME $DIR $SUBDIR $MAKEFILE ${FORMAT_COMPILER_TARGET_ALT} "${ARGS}"
 	    elif [ "${COMMAND}" == "BSNES" ]; then
 		    build_libretro_bsnes $NAME $DIR "${ARGS}" $MAKEFILE ${FORMAT_COMPILER_TARGET} ${CXX11}
 
@@ -567,11 +565,11 @@ while read line; do
         echo
 
     fi
-    
+
     cd "${BASE_DIR}"
     PREVCORE=$NAME
     PREVBUILD=$BUILD
-    
+
 done  < $1
 
 echo "Building RetroArch"
@@ -590,7 +588,7 @@ then
          TYPE=`echo $line | cut --fields=4 --delimiter=" "`
          ENABLED=`echo $line | cut --fields=5 --delimiter=" "`
          SUBDIR=`echo $line | cut --fields=8 --delimiter=" "`
-   
+
          if [ "${ENABLED}" == "YES" ];
          then
             echo "Processing $NAME"
@@ -643,7 +641,7 @@ then
      	    ARGS="${ARGS%"${ARGS##*[![:space:]]}"}"  
 
             echo ARGS: $ARGS
- 
+
             if [ -d "${DIR}/.git" ];
             then
 
@@ -693,7 +691,7 @@ then
          TYPE=`echo $line | cut --fields=4 --delimiter=" "`
          ENABLED=`echo $line | cut --fields=5 --delimiter=" "`
          PARENTDIR=`echo $line | cut --fields=6 --delimiter=" "`
-   
+
          if [ "${ENABLED}" == "YES" ];
          then
             echo "Processing $NAME"
@@ -743,10 +741,10 @@ then
                 ARGS="${ARGS} ${TEMP}"
             fi
 
-     	    ARGS="${ARGS%"${ARGS##*[![:space:]]}"}"  
+     	    ARGS="${ARGS%"${ARGS##*[![:space:]]}"}"
 
             echo ARGS: $ARGS
- 
+
             if [ -d "${PARENTDIR}/${DIR}/.git" ];
             then
 		cd $PARENTDIR
@@ -754,16 +752,16 @@ then
                 echo "pulling from repo... "
                 OUT=`git pull`
                 echo $OUT
-				if [ "${TYPE}" == "PROJECT" ];
-				then
-				    RADIR=$DIR
+		if [ "${TYPE}" == "PROJECT" ];
+		then
+		    RADIR=$DIR
                     if [[ $OUT == *"Already up-to-date"* ]]
                     then
                         BUILD="NO"
                     else
                         BUILD="YES"
                     fi
-				fi
+                fi
                 cd $WORK
 
             else
@@ -771,54 +769,52 @@ then
 		cd $PARENTDIR
                 git clone "$URL" "$DIR" --depth=1
                 cd $DIR
-				if [ "${TYPE}" == "PROJECT" ];
-				then
+		if [ "${TYPE}" == "PROJECT" ];
+		then
                     BUILD="YES"
-			    fi
+		    RADIR=$DIR
+
+                fi
                 cd $WORK
             fi
         fi
-				
+
 	echo
 	echo
     done  < $1.ra
-    if [ "${BUILD}" == "YES" -o "${FORCE}" == "YES" ];	
+    if [ "${BUILD}" == "YES" -o "${FORCE}" == "YES" ];
     then
         echo "Compiling Shaders"
         echo ============================================
-		
-		cd $RADIR
-		$MAKE -f Makefile.griffin shaders-convert-glsl PYTHON3=$PYTHON
+
+	echo RADIR $RADIR
+	cd $RADIR
+	$MAKE -f Makefile.griffin shaders-convert-glsl PYTHON3=$PYTHON
 
 		echo "Processing Assets"
         echo ============================================
-		
-		rm -Rv android/phoenix/assets/overlays
-		cp -Rv media/overlays android/phoenix/assets/
-		rm -Rv android/phoenix/assets/shaders_glsl
-		cp -Rv media/shaders_glsl android/phoenix/assets/
-		rm -Rv android/phoenix/assets/autoconfig
-		cp -Rv media/autoconfig android/phoenix/assets/
-		rm -Rv android/phoenix/assets/info
-		cp -Rv $RARCH_DIR/info android/phoenix/assets/
-		
-		echo "Building"
-        echo ============================================		
-		
-		cd android/phoenix
-		rm bin/*.apk
 
-        ndk-build.cmd clean
-        ndk-build.cmd -j8
-		android.bat update project --path . --target android-21
-		android.bat update project --path libs/googleplay --target android-21
-		android.bat update project --path libs/appcompat --target android-21
-		
-		ant debug
+	rm -Rv android/phoenix/assets/overlays
+	cp -Rv media/overlays android/phoenix/assets/
+	rm -Rv android/phoenix/assets/shaders_glsl
+	cp -Rv media/shaders_glsl android/phoenix/assets/
+	rm -Rv android/phoenix/assets/autoconfig
+	cp -Rv media/autoconfig android/phoenix/assets/
+	rm -Rv android/phoenix/assets/info
+	cp -Rv $RARCH_DIR/info android/phoenix/assets/
+
+	echo "Building"
+        echo ============================================
+	cd android/phoenix
+	rm bin/*.apk
+
+        $NDK clean
+        $NDK -j8
+	android update project --path . --target android-21
+	android update project --path libs/googleplay --target android-21
+	android update project --path libs/appcompat --target android-21
+	ant debug
     fi
-
-
-
 
 fi
 
