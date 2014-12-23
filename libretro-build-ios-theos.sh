@@ -48,7 +48,7 @@ else
    #build_libretro_prboom
    #build_libretro_stella
    #build_libretro_quicknes
-   #build_libretro_nestopia
+   build_libretro_nestopia
    build_libretro_tyrquake
    #build_libretro_mame078
    #build_libretro_mame
