@@ -1,0 +1,5 @@
+2048 libretro-2048  https://github.com/libretro/libretro-2048.git PROJECT YES GENERIC_THEOS Makefile.libretro . 
+catsfc libretro-catsfc https://github.com/libretro/CATSFC-libretro.git PROJECT YES GENERIC_THEOS Makefile . 
+fceumm libretro-fceuumm  https://github.com/libretro/libretro-fceumm.git PROJECT YES GENERIC_THEOS Makefile.libretro . 
+
+
