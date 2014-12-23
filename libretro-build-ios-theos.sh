@@ -41,8 +41,8 @@ else
    #build_libretro_fb_alpha
    #build_libretro_vbam
    #build_libretro_vba_next
-   #build_libretro_fceumm
-   #build_libretro_gambatte
+   build_libretro_fceumm
+   build_libretro_gambatte
    #build_libretro_meteor
    #build_libretro_nx
    #build_libretro_prboom
@@ -62,7 +62,7 @@ else
    #build_libretro_mupen64
    #build_libretro_yabause
    #build_libretro_ffmpeg
-   #build_libretro_3dengine
+   build_libretro_3dengine
    #build_libretro_vecx
    #build_libretro_tgbdual
    #build_libretro_prosystem
