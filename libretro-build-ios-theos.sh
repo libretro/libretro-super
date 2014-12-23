@@ -45,9 +45,9 @@ else
    build_libretro_gambatte
    #build_libretro_meteor
    build_libretro_nx
-   #build_libretro_prboom
+   build_libretro_prboom
    #build_libretro_stella
-   #build_libretro_quicknes
+   build_libretro_quicknes
    build_libretro_nestopia
    build_libretro_tyrquake
    #build_libretro_mame078
