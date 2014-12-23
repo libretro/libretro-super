@@ -49,7 +49,7 @@ else
    #build_libretro_stella
    #build_libretro_quicknes
    #build_libretro_nestopia
-   #build_libretro_tyrquake
+   build_libretro_tyrquake
    #build_libretro_mame078
    #build_libretro_mame
    #build_libretro_dosbox
@@ -70,6 +70,6 @@ else
    #build_libretro_virtualjaguar
    #build_libretro_o2em
    #build_libretro_4do
-   #build_libretro_gpsp
+   build_libretro_gpsp
    #build_libretro_emux
 fi
