@@ -69,6 +69,10 @@ if [ -z "$RARCH_DIST_DIR" ]; then
 fi
 
 mkdir -p "$RARCH_DIST_DIR"
+
+if [ "${PLATFORM}" == "android" ];
+then
+
 IFS=' ' read -ra ABIS <<< "$TARGET_ABIS"
    for a in "${ABIS[@]}"; do
    echo $a
@@ -78,6 +82,7 @@ IFS=' ' read -ra ABIS <<< "$TARGET_ABIS"
          mkdir $RARCH_DIST_DIR/${a}
       fi
    done
+fi
 
 if [ "$HOST_CC" ]; then
     CC="${HOST_CC}-gcc"
@@ -182,7 +187,7 @@ build_libretro_generic_makefile() {
     cd $SUBDIR
 
 
-    if [ -z "${NOCLEAN}" ]; 
+    if [ -z "${NOCLEAN}" ];
     then
 	echo "cleaning up..."
         echo "cleanup command: ${MAKE} -f ${MAKEFILE} platform=${PLATFORM} -j${JOBS} ${ARGS} clean"
@@ -215,7 +220,7 @@ build_libretro_generic_makefile() {
 
 }
 
-build_libretro_generic_jni() {
+build_libretro_generic_makefile() {
 
 
     NAME=$1
@@ -225,7 +230,102 @@ build_libretro_generic_jni() {
     PLATFORM=$5
     ARGS=$6
 
-    echo DIR=$2 SUBDIR=$3
+    cd $DIR
+    cd $SUBDIR
+
+
+    if [ -z "${NOCLEAN}" ];
+    then
+	echo "cleaning up..."
+        echo "cleanup command: ${MAKE} -f ${MAKEFILE} platform=${PLATFORM} -j${JOBS} ${ARGS} clean"
+	${MAKE} -f ${MAKEFILE} platform=${PLATFORM} -j${JOBS} ${ARGS} clean
+	if [ $? -eq 0 ];
+        then 
+            echo success!
+        else
+            echo error while cleaning up
+        fi
+    fi
+
+    echo "compiling..."
+    if [ -z "${ARGS}" ]
+    then
+        echo "buid command: ${MAKE} -f ${MAKEFILE} platform=${PLATFORM} -j${JOBS}"
+        ${MAKE} -f ${MAKEFILE} platform=${PLATFORM} -j${JOBS}
+    else
+        echo "buid command: ${MAKE} -f ${MAKEFILE} platform=${PLATFORM} -j${JOBS} ${ARGS}"
+        ${MAKE} -f ${MAKEFILE} platform=${PLATFORM} -j${JOBS} ${ARGS}
+    fi
+
+    if [ $? -eq 0 ];
+    then
+        echo success!
+        cp -v ${NAME}_libretro${FORMAT}${SUFFIX}.${FORMAT_EXT} $RARCH_DIST_DIR/${NAME}_libretro${FORMAT}${SUFFIX}.${FORMAT_EXT}
+    else
+        echo error while compiling $1
+    fi
+
+}
+
+build_libretro_generic_theos() {
+
+    echo PARAMETERS: DIR $2, SUBDIR: $3, MAKEFILE: $4
+
+    NAME=$1
+    DIR=$2
+    SUBDIR=$3
+    MAKEFILE=$4
+    PLATFORM=$5
+    ARGS=$6
+
+    cd $DIR
+    cd $SUBDIR
+
+    ln -s $THEOS theos
+
+
+    if [ -z "${NOCLEAN}" ];
+    then
+	echo "cleaning up..."
+        echo "cleanup command: ${MAKE} -f ${MAKEFILE} platform=${PLATFORM} -j${JOBS} ${ARGS} clean"
+	${MAKE} -f ${MAKEFILE} platform=${PLATFORM} -j${JOBS} ${ARGS} clean
+	if [ $? -eq 0 ];
+        then
+            echo success!
+        else
+            echo error while cleaning up
+        fi
+    fi
+
+    echo "compiling..."
+    if [ -z "${ARGS}" ]
+    then
+        echo "buid command: ${MAKE} -f ${MAKEFILE} platform=${PLATFORM} -j${JOBS}"
+        ${MAKE} -f ${MAKEFILE} platform=${PLATFORM} -j${JOBS}
+    else
+        echo "buid command: ${MAKE} -f ${MAKEFILE} platform=${PLATFORM} -j${JOBS} ${ARGS}"
+        ${MAKE} -f ${MAKEFILE} platform=${PLATFORM} -j${JOBS} ${ARGS}
+    fi
+
+    if [ $? -eq 0 ];
+    then
+        echo success!
+        cp -v objs/obj/${NAME}_libretro${FORMAT}${SUFFIX}.${FORMAT_EXT} $RARCH_DIST_DIR/${NAME}_libretro${FORMAT}${SUFFIX}.${FORMAT_EXT}
+    else
+        echo error while compiling $1
+    fi
+
+}
+
+build_libretro_generic_jni() {
+
+
+    NAME=$1
+    DIR=$2
+    SUBDIR=$3
+    MAKEFILE=$4
+    PLATFORM=$5
+    ARGS=$6
 
     cd ${DIR}/${SUBDIR}
 
@@ -411,6 +511,9 @@ while read line; do
 	echo ENABLED: $ENABLED
         echo COMMAND: $COMMAND
    	echo MAKEFILE: $MAKEFILE
+        echo DIR: $DIR
+        echo SUBDIR: $DIR
+
 
         ARGS=""
 
@@ -555,6 +658,8 @@ while read line; do
 		    build_libretro_generic_makefile $NAME $DIR $SUBDIR $MAKEFILE ${FORMAT_COMPILER_TARGET_ALT} "${ARGS}"
 	    elif [ "${COMMAND}" == "GENERIC_JNI" ]; then
 		    build_libretro_generic_jni $NAME $DIR $SUBDIR $MAKEFILE ${FORMAT_COMPILER_TARGET_ALT} "${ARGS}"
+	    elif [ "${COMMAND}" == "GENERIC_THEOS" ]; then
+		    build_libretro_generic_theos $NAME $DIR $SUBDIR $MAKEFILE ${FORMAT_COMPILER_TARGET_ALT} "${ARGS}"
 	    elif [ "${COMMAND}" == "BSNES" ]; then
 		    build_libretro_bsnes $NAME $DIR "${ARGS}" $MAKEFILE ${FORMAT_COMPILER_TARGET} ${CXX11}
 
