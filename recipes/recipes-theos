@@ -2,8 +2,8 @@
 2048 libretro-2048  https://github.com/libretro/libretro-2048.git PROJECT YES GENERIC_THEOS Makefile.libretro . 
 catsfc libretro-catsfc https://github.com/libretro/CATSFC-libretro.git PROJECT YES GENERIC_THEOS Makefile . 
 fceumm libretro-fceuumm  https://github.com/libretro/libretro-fceumm.git PROJECT YES GENERIC_THEOS Makefile.libretro . 
-snes9x libretro-snes9x https://github.com/libretro/snes9x.git PROJECT YES GENERIC_THEOS Makefile libretro 
-snes9x_next libretro-snes9x_next https://github.com/libretro/snes9x-next.git PROJECT YES GENERIC_THEOS Makefile.libretro . 
 gambatte libretro-gambatte https://github.com/libretro/gambatte-libretro.git PROJECT YES GENERIC_THEOS Makefile.libretro libgambatte 
 genesis_plus_gx libretro-genesis_plus_gx https://github.com/libretro/Genesis-Plus-GX.git PROJECT YES GENERIC_THEOS Makefile.libretro . 
 gpsp libretro-gpsp https://github.com/libretro/gpsp.git PROJECT YES GENERIC_THEOS Makefile . 
+snes9x libretro-snes9x https://github.com/libretro/snes9x.git PROJECT YES GENERIC_THEOS Makefile libretro 
+snes9x_next libretro-snes9x_next https://github.com/libretro/snes9x-next.git PROJECT YES GENERIC_THEOS Makefile.libretro . 
