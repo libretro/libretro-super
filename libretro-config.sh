@@ -49,12 +49,16 @@ case "$platform" in
       DIST_DIR=win_x64;;
    *psp1*)
       FORMAT_EXT='a'
-	  FORMAT_COMPILER_TARGET=psp1
-	  DIST_DIR=psp1;;
+      FORMAT_COMPILER_TARGET=psp1
+      DIST_DIR=psp1;;
+   *ios|theos_ios*)
+      FORMAT_EXT='dylib'
+      FORMAT_COMPILER_TARGET=theos_ios
+      DIST_DIR=theos;;
    *android*)
       FORMAT_EXT='so'
-	  FORMAT_COMPILER_TARGET=android
-	  DIST_DIR=android;;	  
+      FORMAT_COMPILER_TARGET=android
+      DIST_DIR=android;;
    *)
       FORMAT_EXT='so'
       FORMAT_COMPILER_TARGET=unix

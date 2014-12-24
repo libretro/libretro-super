@@ -98,7 +98,11 @@ build_libretro_fba_cps1() {
 
 
 copy_core_to_dist() {
-   cp "${1}_libretro${FORMAT}.${FORMAT_EXT}" "${RARCH_DIST_DIR}"
+   if [ "$FORMAT_COMPILER_TARGET" = "theos_ios" ]; then
+      cp "objs/obj/${1}_libretro${FORMAT}.${FORMAT_EXT}" "${RARCH_DIST_DIR}"
+   else
+      cp "${1}_libretro${FORMAT}.${FORMAT_EXT}" "${RARCH_DIST_DIR}"
+   fi
 }
 
 # $1 is corename
