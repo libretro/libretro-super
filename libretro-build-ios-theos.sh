@@ -39,14 +39,14 @@ else
    build_libretro_snes9x_next
    build_libretro_genesis_plus_gx
    build_libretro_fb_alpha
-   #build_libretro_vbam
-   #build_libretro_vba_next
+   build_libretro_vbam
+   build_libretro_vba_next
    build_libretro_fceumm
    build_libretro_gambatte
-   #build_libretro_meteor
+   build_libretro_meteor
    build_libretro_nx
    build_libretro_prboom
-   #build_libretro_stella
+   build_libretro_stella
    build_libretro_quicknes
    build_libretro_nestopia
    build_libretro_tyrquake
@@ -55,7 +55,7 @@ else
    #build_libretro_dosbox
    #build_libretro_scummvm
    #build_libretro_picodrive
-   #build_libretro_handy
+   build_libretro_handy
    #build_libretro_desmume
    #build_libretro_pcsx_rearmed
    #build_libretro_pcsx_rearmed_interpreter
@@ -67,7 +67,7 @@ else
    build_libretro_tgbdual
    build_libretro_prosystem
    #build_libretro_dinothawr
-   #build_libretro_virtualjaguar
+   build_libretro_virtualjaguar
    build_libretro_o2em
    build_libretro_4do
    build_libretro_gpsp
