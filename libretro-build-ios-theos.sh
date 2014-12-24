@@ -67,7 +67,7 @@ else
    build_libretro_tgbdual
    build_libretro_prosystem
    #build_libretro_dinothawr
-   #build_libretro_virtualjaguar
+   build_libretro_virtualjaguar
    build_libretro_o2em
    build_libretro_4do
    build_libretro_gpsp
