@@ -785,7 +785,7 @@ then
 
 fi
 
-if [ "${PLATFORM}" == "android" ];
+if [ "${PLATFORM}" == "android" ] && [ "${RA}" == "YES" ];
 then
 
     while read line; do
