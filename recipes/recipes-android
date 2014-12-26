@@ -40,3 +40,5 @@ vbam libretro-vbam https://github.com/libretro/vbam-libretro.git PROJECT YES GEN
 vecx libretro-vecx https://github.com/libretro/libretro-vecx.git PROJECT YES GENERIC_JNI Makefile.libretro libretro/jni 
 virtualjaguar libretro-virtualjaguar https://github.com/libretro/virtualjaguar-libretro.git PROJECT YES GENERIC_JNI Makefile jni 
 yabause libretro-yabause https://github.com/libretro/yabause.git PROJECT YES GENERIC_JNI Makefile libretro/jni 
+bsnes libretro-bsnes https://github.com/libretro/bsnes-libretro.git PROJECT YES BSNES_JNI Makefile target-libretro/jni performance 
+bsnes_mercury libretro-bsnes_mercury https://github.com/libretro/bsnes-mercury.git PROJECT YES BSNES_JNI Makefile target-libretro/jni performance 
