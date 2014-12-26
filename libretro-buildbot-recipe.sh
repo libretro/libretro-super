@@ -319,6 +319,7 @@ build_libretro_generic_theos() {
 
 build_libretro_generic_jni() {
 
+    echo PARAMETERS: DIR $2, SUBDIR: $3
 
     NAME=$1
     DIR=$2
@@ -356,6 +357,54 @@ build_libretro_generic_jni() {
         then
 	    echo success!
 	    cp -v ../libs/${a}/libretro.${FORMAT_EXT} $RARCH_DIST_DIR/${a}/${1}_libretro${FORMAT}.${FORMAT_EXT}
+        else
+	    echo error while compiling $1
+        fi
+    done
+}
+
+build_libretro_bsnes_jni() {
+
+    echo PARAMETERS: DIR $2, SUBDIR: $3
+
+    NAME=$1
+    DIR=$2
+    SUBDIR=$3
+    MAKEFILE=$4
+    PLATFORM=$5
+    PROFILE=$6
+
+    CORENAME=bsnes
+
+    cd ${DIR}/${SUBDIR}
+
+    for a in "${ABIS[@]}"; do
+        if [ -z "${NOCLEAN}" ];
+        then
+	    echo "cleaning up..."
+	    echo "cleanup command: ${NDK} -j${JOBS} APP_ABI=${a} clean"
+	        ${NDK} -j${JOBS} APP_ABI=${a} clean
+	        if [ $? -eq 0 ];
+	    then
+	        echo success!
+	    else
+	        echo error while cleaning up
+	    fi
+        fi
+
+	echo "compiling for ${a}..."
+        if [ -z "${ARGS}" ]
+        then
+	    echo "buid command: ${NDK} -j${JOBS} APP_ABI=${a}"
+	    ${NDK} -j${JOBS} APP_ABI=${a}
+        else
+	    echo "buid command: ${NDK} -j${JOBS} APP_ABI=${a}"
+	    ${NDK} -j${JOBS} APP_ABI=${a}
+        fi
+        if [ $? -eq 0 ];
+        then
+	    echo success!
+	    cp -v ../libs/${a}/libretro_${CORENAME}_${PROFILE}.${FORMAT_EXT} $RARCH_DIST_DIR/${a}/${NAME}_libretro_${PROFILE}${FORMAT}.${FORMAT_EXT}
         else
 	    echo error while compiling $1
         fi
@@ -512,7 +561,7 @@ while read line; do
         echo COMMAND: $COMMAND
    	echo MAKEFILE: $MAKEFILE
         echo DIR: $DIR
-        echo SUBDIR: $DIR
+        echo SUBDIR: $SUBDIR
 
 
         ARGS=""
@@ -658,6 +707,8 @@ while read line; do
 		    build_libretro_generic_makefile $NAME $DIR $SUBDIR $MAKEFILE ${FORMAT_COMPILER_TARGET_ALT} "${ARGS}"
 	    elif [ "${COMMAND}" == "GENERIC_JNI" ]; then
 		    build_libretro_generic_jni $NAME $DIR $SUBDIR $MAKEFILE ${FORMAT_COMPILER_TARGET_ALT} "${ARGS}"
+	    elif [ "${COMMAND}" == "BSNES_JNI" ]; then
+		    build_libretro_bsnes_jni $NAME $DIR $SUBDIR $MAKEFILE ${FORMAT_COMPILER_TARGET_ALT} "${ARGS}"
 	    elif [ "${COMMAND}" == "GENERIC_THEOS" ]; then
 		    build_libretro_generic_theos $NAME $DIR $SUBDIR $MAKEFILE ${FORMAT_COMPILER_TARGET_ALT} "${ARGS}"
 	    elif [ "${COMMAND}" == "BSNES" ]; then
@@ -785,7 +836,7 @@ then
 
 fi
 
-if [ "${PLATFORM}" == "android" ];
+if [ "${PLATFORM}" == "android" ] && [ "${RA}" == "YES" ];
 then
 
     while read line; do

@@ -1,0 +1,1 @@
+mupen64plus libretro-mupen64plus https://github.com/libretro/mupen64plus-libretro.git PROJECT YES GENERIC_JNI Makefile libretro/jni 
