@@ -404,7 +404,7 @@ build_libretro_bsnes_jni() {
         if [ $? -eq 0 ];
         then
 	    echo success!
-	    cp -v ../libs/${a}/libretro_${CORENAME}_${PROFILE}.${FORMAT_EXT} $RARCH_DIST_DIR/${a}/${NAME}_libretro_${PROFILE}${FORMAT}.${FORMAT_EXT}
+	    cp -v ../libs/${a}/libretro_${CORENAME}_${PROFILE}.${FORMAT_EXT} $RARCH_DIST_DIR/${a}/${NAME}_${PROFILE}_libretro${FORMAT}.${FORMAT_EXT}
         else
 	    echo error while compiling $1
         fi
