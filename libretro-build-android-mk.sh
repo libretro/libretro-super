@@ -331,7 +331,7 @@ else
    build_libretro_beetle_pcfx
    build_libretro_beetle_vb
    build_libretro_beetle_wswan
-   build_libretro_beetle_psx
+   build_libretro_mednafen_psx
    #build_libretro_beetle_bsnes
    build_libretro_catsfc
    build_libretro_snes9x
