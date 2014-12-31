@@ -137,7 +137,6 @@ fetch_project "$REPO_BASE/libretro/beetle-lynx-libretro.git" "libretro-mednafen_
 fetch_project "$REPO_BASE/libretro/beetle-ngp-libretro.git" "libretro-mednafen_ngp" "libretro/Beetle NGP"
 fetch_project "$REPO_BASE/libretro/beetle-pce-fast-libretro.git" "libretro-mednafen_pce_fast" "libretro/Beetle PCE Fast"
 fetch_project "$REPO_BASE/libretro/beetle-supergrafx-libretro.git" "libretro-mednafen_supergrafx" "libretro/Beetle SuperGrafx"
-fetch_project "$REPO_BASE/libretro/beetle-psx-libretro.git" "libretro-beetle_psx" "libretro/Beetle PSX"
 fetch_project "$REPO_BASE/libretro/mednafen-psx-libretro.git" "libretro-mednafen_psx" "libretro/Mednafen PSX"
 fetch_project "$REPO_BASE/libretro/beetle-pcfx-libretro.git" "libretro-mednafen_pcfx" "libretro/Beetle PCFX"
 fetch_project "$REPO_BASE/libretro/beetle-bsnes-libretro.git" "libretro-mednafen_snes" "libretro/Beetle bSNES"
