@@ -69,11 +69,6 @@ if [ -z "$RARCH_DIST_DIR" ]; then
     RARCH_DIST_DIR="$RARCH_DIR/$DIST_DIR"
 fi
 
-if [ "${PURGE}" == "YES" ]; then
-   echo PURGE=$PURGE, cleaning up old cores
-   rm -rv "$RARCH_DIST_DIR"
-fi
-
 mkdir -v -p "$RARCH_DIST_DIR"
 
 if [ "${PLATFORM}" == "android" ];
