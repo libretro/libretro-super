@@ -77,6 +77,10 @@ build_libretro_fmsx() {
    build_libretro_generic_makefile "fmsx" "jni"
 }
 
+build_libretro_dosbox() {
+   build_libretro_generic_makefile "dosbox" "jni"
+}
+
 build_libretro_stella() {
    build_libretro_generic_makefile "stella" "jni"
 }
