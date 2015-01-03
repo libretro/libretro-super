@@ -14,6 +14,7 @@ handy libretro-handy https://github.com/libretro/libretro-handy.git PROJECT YES 
 meteor libretro-meteor  https://github.com/libretro/meteor-libretro.git PROJECT YES GENERIC_THEOS Makefile libretro 
 nxengine libretro-nxengine https://github.com/libretro/nxengine-libretro.git PROJECT YES GENERIC_THEOS Makefile . 
 o2em libretro-o2em https://github.com/libretro/libretro-o2em.git PROJECT YES GENERIC_THEOS Makefile . 
+prboom libretro-prboom  https://github.com/libretro/libretro-prboom.git PROJECT YES GENERIC_THEOS Makefile libretro 
 prosystem libretro-prosystem https://github.com/libretro/prosystem-libretro.git PROJECT YES GENERIC_THEOS Makefile . 
 quicknes libretro-quicknes  https://github.com/libretro/QuickNES_Core.git PROJECT YES GENERIC_THEOS Makefile libretro 
 snes9x libretro-snes9x https://github.com/libretro/snes9x.git PROJECT YES GENERIC_THEOS Makefile libretro 
