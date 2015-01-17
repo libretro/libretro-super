@@ -367,10 +367,10 @@ build_libretro_generic_jni() {
         fi
         if [ $? -eq 0 ];
         then
-	    echo $jobid $1 $a build success!
+	    echo $jobid $a $1 build success!
 	    cp -v ../libs/${a}/libretro.${FORMAT_EXT} $RARCH_DIST_DIR/${a}/${1}_libretro${FORMAT}.${FORMAT_EXT}
         else
-	    echo $jobid $1 $a build failure!
+	    echo $jobid $a $1 build failure!
         fi
     done
 }
