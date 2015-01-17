@@ -1096,21 +1096,22 @@ then
 	echo "Building"
         echo ============================================
 	cd apple/iOS
-	rm RetroArch.app -rfv
+	rm RetroArch.app -rf
 
-	rm -rv *.deb 
+	rm -rv *.deb
 	ln -s $THEOS theos
-
+	export PRODUCT_NAME=RetroArch
         $MAKE clean
         $MAKE -j8
 	./package.sh
 
         mkdir obj/RetroArch.app/modules
-        cp -rv ../../../dist/theos/*.* obj/RetroArch.app/modules
-        cp -rv ../../../dist/info/*.* obj/RetroArch.app/modules
+        cp -r ../../../dist/theos/*.* obj/RetroArch.app/modules
+        cp -r ../../../dist/info/*.* obj/RetroArch.app/modules
+
         $MAKE package
 
-	cp -rv *.deb /home/buildbot/www/.radius/
+	cp -r *.deb /home/buildbot/www/.radius/
     fi
 
 fi
