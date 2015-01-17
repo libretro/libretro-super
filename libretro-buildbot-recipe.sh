@@ -187,6 +187,12 @@ build_libretro_generic_makefile() {
     cd $DIR
     cd $SUBDIR
 
+    if [ "${NAME}" == "mame078" ];
+    then
+        JOBS=1
+    fi
+
+
 
     if [ -z "${NOCLEAN}" ];
     then
@@ -194,10 +200,10 @@ build_libretro_generic_makefile() {
         echo "cleanup command: ${MAKE} -f ${MAKEFILE} platform=${PLATFORM} -j${JOBS} ${ARGS} clean"
 	${MAKE} -f ${MAKEFILE} platform=${PLATFORM} -j${JOBS} ${ARGS} clean
 	if [ $? -eq 0 ];
-        then 
-            echo $1 cleanup success!
+        then
+            echo $jobid $1 cleanup success!
         else
-            echo $1 cleanup failure!
+            echo $jobid $1 cleanup failure!
         fi
     fi
 
@@ -213,10 +219,10 @@ build_libretro_generic_makefile() {
 
     if [ $? -eq 0 ];
     then 
-        echo $1 build success!
+        echo $jobid $1 build success!
         cp -v ${NAME}_libretro${FORMAT}${SUFFIX}.${FORMAT_EXT} $RARCH_DIST_DIR/${NAME}_libretro${FORMAT}.${FORMAT_EXT}
     else
-        echo $1 build failure!
+        echo $jobid $1 build failure!
     fi
 
 }
@@ -234,6 +240,11 @@ build_libretro_generic_makefile() {
     cd $DIR
     cd $SUBDIR
 
+    if [ "${NAME}" == "mame078" ];
+    then
+        JOBS=1
+    fi
+
 
     if [ -z "${NOCLEAN}" ];
     then
@@ -242,9 +253,9 @@ build_libretro_generic_makefile() {
 	${MAKE} -f ${MAKEFILE} platform=${PLATFORM} -j${JOBS} ${ARGS} clean
 	if [ $? -eq 0 ];
         then 
-            echo $1 cleanup success!
+            echo $jobid $1 cleanup success!
         else
-            echo $1 cleanup failure!
+            echo $jobid $1 cleanup failure!
         fi
     fi
 
@@ -260,10 +271,10 @@ build_libretro_generic_makefile() {
 
     if [ $? -eq 0 ];
     then
-        echo $1 build success!
+        echo $jobid $1 build success!
         cp -v ${NAME}_libretro${FORMAT}${SUFFIX}.${FORMAT_EXT} $RARCH_DIST_DIR/${NAME}_libretro${FORMAT}.${FORMAT_EXT}
     else
-        echo $1 build failure!
+        echo $jobid $1 build failure!
     fi
 
 }
@@ -292,9 +303,9 @@ build_libretro_generic_theos() {
 	${MAKE} -f ${MAKEFILE} platform=${PLATFORM} -j${JOBS} ${ARGS} clean
 	if [ $? -eq 0 ];
         then
-            echo $1 cleanup success!
+            echo $jobid $1 cleanup success!
         else
-            echo $1 cleanup failure!
+            echo $jobid $1 cleanup failure!
         fi
     fi
 
@@ -310,10 +321,10 @@ build_libretro_generic_theos() {
 
     if [ $? -eq 0 ];
     then
-        echo $1 build success!
+        echo $jobid $1 build success!
         cp -v objs/obj/${NAME}_libretro${FORMAT}${SUFFIX}.${FORMAT_EXT} $RARCH_DIST_DIR/${NAME}_libretro${FORMAT}${SUFFIX}.${FORMAT_EXT}
     else
-        echo $1 build failure!
+        echo $jobid $1 build failure!
     fi
 
 }
@@ -339,9 +350,9 @@ build_libretro_generic_jni() {
 	        ${NDK} -j${JOBS} ${ARGS} APP_ABI=${a} clean
 	        if [ $? -eq 0 ];
 	    then 
-	        echo $1 cleanup success!
+	        echo $jobid $a $1 cleanup success!
 	    else
-	        echo $1 cleanup failure!
+	        echo $jobid $a $1 cleanup failure!
 	    fi
         fi
 
@@ -356,10 +367,10 @@ build_libretro_generic_jni() {
         fi
         if [ $? -eq 0 ];
         then
-	    echo $1 build success!
+	    echo $jobid $1 $a build success!
 	    cp -v ../libs/${a}/libretro.${FORMAT_EXT} $RARCH_DIST_DIR/${a}/${1}_libretro${FORMAT}.${FORMAT_EXT}
         else
-	    echo $1 build failure!
+	    echo $jobid $1 $a build failure!
         fi
     done
 }
@@ -387,9 +398,9 @@ build_libretro_bsnes_jni() {
 	        ${NDK} -j${JOBS} APP_ABI=${a} clean
 	        if [ $? -eq 0 ];
 	    then
-	        echo $1 cleanup success!
+	        echo $jobid $1 cleanup success!
 	    else
-	        echo $1 cleanup failure!
+	        echo $jobid $1 cleanup failure!
 	    fi
         fi
 
@@ -404,10 +415,10 @@ build_libretro_bsnes_jni() {
         fi
         if [ $? -eq 0 ];
         then
-	    echo $1 build success!
+	    echo $jobid $1 build success!
 	    cp -v ../libs/${a}/libretro_${CORENAME}_${PROFILE}.${FORMAT_EXT} $RARCH_DIST_DIR/${a}/${NAME}_${PROFILE}_libretro${FORMAT}.${FORMAT_EXT}
         else
-	    echo $1 build failure!
+	    echo $jobid $1 build failure!
         fi
     done
 }
@@ -436,9 +447,9 @@ build_libretro_generic_gl_makefile() {
 	${MAKE} -f ${MAKEFILE} platform=${PLATFORM} -j${JOBS} clean
 	if [ $? -eq 0 ];
         then 
-            echo $1 cleanup success!
+            echo $jobid $1 cleanup success!
         else
-            echo $1 cleanup failure!
+            echo $jobid $1 cleanup failure!
         fi
     fi
 
@@ -454,10 +465,10 @@ build_libretro_generic_gl_makefile() {
 
     if [ $? -eq 0 ];
     then 
-        echo $1 build success!
+        echo $jobid $1 build success!
         cp -v ${NAME}_libretro${FORMAT}${SUFFIX}.${FORMAT_EXT} $RARCH_DIST_DIR/${NAME}_libretro${FORMAT}${SUFFIX}.${FORMAT_EXT}
     else
-        echo $1 build failure!
+        echo $jobid $1 build failure!
     fi
 
     reset_compiler_targets
@@ -496,9 +507,9 @@ build_libretro_bsnes() {
 
         if [ $? -eq 0 ];
         then
-            echo $1 cleanup success!
+            echo $jobid $1 cleanup success!
         else
-            echo $1 cleanup failure!
+            echo $jobid $1 cleanup failure!
         fi
     fi
 
@@ -519,7 +530,7 @@ build_libretro_bsnes() {
 
     if [ $? -eq 0 ];
     then
-        echo $1 build success!
+        echo $jobid $1 build success!
         if [ "${PROFILE}" == "cpp98" ];
         then
             cp -fv "out/libretro.${FORMAT_EXT}" "${RARCH_DIST_DIR}/${NAME}_libretro${FORMAT}${SUFFIX}.${FORMAT_EXT}"
@@ -530,7 +541,7 @@ build_libretro_bsnes() {
             cp -fv "out/${NAME}_libretro$FORMAT.${FORMAT_EXT}" $RARCH_DIST_DIR/${NAME}_${PROFILE}_libretro${FORMAT}${SUFFIX}.${FORMAT_EXT}
         fi
     else
-        echo $1 build failure!
+        echo $jobid $1 build failure!
     fi
 
 }
@@ -538,7 +549,7 @@ build_libretro_bsnes() {
 #fetch a project and mark it for building if there have been any changes
 
 #sleep 10
-echo jobid $1
+export jobid=$1
 
 echo
 echo
@@ -622,7 +633,7 @@ while read line; do
                 then
                     BUILD="NO"
        	        else
-					BUILD="YES"
+		    BUILD="YES"
                 fi
 
                 if [ "${PREVCORE}" == "bsnes" -a "${PREVBUILD}" == "YES" -a "${COMMAND}" == "BSNES" ]; then
@@ -718,7 +729,7 @@ while read line; do
 
 	    fi
 	else
-	    echo core already up-to-date...
+	    echo $jobid $NAME already up-to-date...
 	fi
         echo
 
