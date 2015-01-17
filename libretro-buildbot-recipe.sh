@@ -213,10 +213,10 @@ build_libretro_generic_makefile() {
 
     if [ $? -eq 0 ];
     then 
-        echo success!
+        echo $1 build success!
         cp -v ${NAME}_libretro${FORMAT}${SUFFIX}.${FORMAT_EXT} $RARCH_DIST_DIR/${NAME}_libretro${FORMAT}.${FORMAT_EXT}
     else
-        echo error while compiling $1
+        echo $1 build failure!
     fi
 
 }
@@ -538,9 +538,10 @@ build_libretro_bsnes() {
 #fetch a project and mark it for building if there have been any changes
 
 #sleep 10
-echo
-echo
+echo jobid $1
 
+echo
+echo
 while read line; do
 
     NAME=`echo $line | cut --fields=1 --delimiter=" "`
