@@ -195,9 +195,9 @@ build_libretro_generic_makefile() {
 	${MAKE} -f ${MAKEFILE} platform=${PLATFORM} -j${JOBS} ${ARGS} clean
 	if [ $? -eq 0 ];
         then 
-            echo success!
+            echo $1 cleanup success!
         else
-            echo error while cleaning up
+            echo $1 cleanup failure!
         fi
     fi
 
@@ -242,9 +242,9 @@ build_libretro_generic_makefile() {
 	${MAKE} -f ${MAKEFILE} platform=${PLATFORM} -j${JOBS} ${ARGS} clean
 	if [ $? -eq 0 ];
         then 
-            echo success!
+            echo $1 cleanup success!
         else
-            echo error while cleaning up
+            echo $1 cleanup failure!
         fi
     fi
 
@@ -260,10 +260,10 @@ build_libretro_generic_makefile() {
 
     if [ $? -eq 0 ];
     then
-        echo success!
+        echo $1 build success!
         cp -v ${NAME}_libretro${FORMAT}${SUFFIX}.${FORMAT_EXT} $RARCH_DIST_DIR/${NAME}_libretro${FORMAT}.${FORMAT_EXT}
     else
-        echo error while compiling $1
+        echo $1 build failure!
     fi
 
 }
@@ -292,9 +292,9 @@ build_libretro_generic_theos() {
 	${MAKE} -f ${MAKEFILE} platform=${PLATFORM} -j${JOBS} ${ARGS} clean
 	if [ $? -eq 0 ];
         then
-            echo success!
+            echo $1 cleanup success!
         else
-            echo error while cleaning up
+            echo $1 cleanup failure!
         fi
     fi
 
@@ -310,10 +310,10 @@ build_libretro_generic_theos() {
 
     if [ $? -eq 0 ];
     then
-        echo success!
+        echo $1 build success!
         cp -v objs/obj/${NAME}_libretro${FORMAT}${SUFFIX}.${FORMAT_EXT} $RARCH_DIST_DIR/${NAME}_libretro${FORMAT}${SUFFIX}.${FORMAT_EXT}
     else
-        echo error while compiling $1
+        echo $1 build failure!
     fi
 
 }
@@ -339,9 +339,9 @@ build_libretro_generic_jni() {
 	        ${NDK} -j${JOBS} ${ARGS} APP_ABI=${a} clean
 	        if [ $? -eq 0 ];
 	    then 
-	        echo success!
+	        echo $1 cleanup success!
 	    else
-	        echo error while cleaning up
+	        echo $1 cleanup failure!
 	    fi
         fi
 
@@ -356,10 +356,10 @@ build_libretro_generic_jni() {
         fi
         if [ $? -eq 0 ];
         then
-	    echo success!
+	    echo $1 build success!
 	    cp -v ../libs/${a}/libretro.${FORMAT_EXT} $RARCH_DIST_DIR/${a}/${1}_libretro${FORMAT}.${FORMAT_EXT}
         else
-	    echo error while compiling $1
+	    echo $1 build failure!
         fi
     done
 }
@@ -387,9 +387,9 @@ build_libretro_bsnes_jni() {
 	        ${NDK} -j${JOBS} APP_ABI=${a} clean
 	        if [ $? -eq 0 ];
 	    then
-	        echo success!
+	        echo $1 cleanup success!
 	    else
-	        echo error while cleaning up
+	        echo $1 cleanup failure!
 	    fi
         fi
 
@@ -404,10 +404,10 @@ build_libretro_bsnes_jni() {
         fi
         if [ $? -eq 0 ];
         then
-	    echo success!
+	    echo $1 build success!
 	    cp -v ../libs/${a}/libretro_${CORENAME}_${PROFILE}.${FORMAT_EXT} $RARCH_DIST_DIR/${a}/${NAME}_${PROFILE}_libretro${FORMAT}.${FORMAT_EXT}
         else
-	    echo error while compiling $1
+	    echo $1 build failure!
         fi
     done
 }
@@ -436,9 +436,9 @@ build_libretro_generic_gl_makefile() {
 	${MAKE} -f ${MAKEFILE} platform=${PLATFORM} -j${JOBS} clean
 	if [ $? -eq 0 ];
         then 
-            echo success!
+            echo $1 cleanup success!
         else
-            echo error while cleaning up
+            echo $1 cleanup failure!
         fi
     fi
 
@@ -454,10 +454,10 @@ build_libretro_generic_gl_makefile() {
 
     if [ $? -eq 0 ];
     then 
-        echo success!
+        echo $1 build success!
         cp -v ${NAME}_libretro${FORMAT}${SUFFIX}.${FORMAT_EXT} $RARCH_DIST_DIR/${NAME}_libretro${FORMAT}${SUFFIX}.${FORMAT_EXT}
     else
-        echo error while compiling $1
+        echo $1 build failure!
     fi
 
     reset_compiler_targets
@@ -496,9 +496,9 @@ build_libretro_bsnes() {
 
         if [ $? -eq 0 ];
         then
-            echo success!
+            echo $1 cleanup success!
         else
-            echo error while cleaning up
+            echo $1 cleanup failure!
         fi
     fi
 
@@ -519,7 +519,7 @@ build_libretro_bsnes() {
 
     if [ $? -eq 0 ];
     then
-        echo success!
+        echo $1 build success!
         if [ "${PROFILE}" == "cpp98" ];
         then
             cp -fv "out/libretro.${FORMAT_EXT}" "${RARCH_DIST_DIR}/${NAME}_libretro${FORMAT}${SUFFIX}.${FORMAT_EXT}"
@@ -530,7 +530,7 @@ build_libretro_bsnes() {
             cp -fv "out/${NAME}_libretro$FORMAT.${FORMAT_EXT}" $RARCH_DIST_DIR/${NAME}_${PROFILE}_libretro${FORMAT}${SUFFIX}.${FORMAT_EXT}
         fi
     else
-        echo error while compiling $1
+        echo $1 build failure!
     fi
 
 }
