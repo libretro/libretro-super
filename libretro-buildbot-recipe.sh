@@ -214,7 +214,7 @@ build_libretro_generic_makefile() {
     if [ $? -eq 0 ];
     then 
         echo success!
-        cp -v ${NAME}_libretro${FORMAT}${SUFFIX}.${FORMAT_EXT} $RARCH_DIST_DIR/${NAME}_libretro${FORMAT}${SUFFIX}.${FORMAT_EXT}
+        cp -v ${NAME}_libretro${FORMAT}${SUFFIX}.${FORMAT_EXT} $RARCH_DIST_DIR/${NAME}_libretro${FORMAT}.${FORMAT_EXT}
     else
         echo error while compiling $1
     fi
@@ -261,7 +261,7 @@ build_libretro_generic_makefile() {
     if [ $? -eq 0 ];
     then
         echo success!
-        cp -v ${NAME}_libretro${FORMAT}${SUFFIX}.${FORMAT_EXT} $RARCH_DIST_DIR/${NAME}_libretro${FORMAT}${SUFFIX}.${FORMAT_EXT}
+        cp -v ${NAME}_libretro${FORMAT}${SUFFIX}.${FORMAT_EXT} $RARCH_DIST_DIR/${NAME}_libretro${FORMAT}.${FORMAT_EXT}
     else
         echo error while compiling $1
     fi
@@ -951,14 +951,14 @@ then
 	echo "Processing Assets"
         echo ============================================
 
-	rm -Rv android/phoenix/assets/overlays
-	cp -Rv media/overlays android/phoenix/assets/
-	rm -Rv android/phoenix/assets/shaders_glsl
-	cp -Rv media/shaders_glsl android/phoenix/assets/
-	rm -Rv android/phoenix/assets/autoconfig
-	cp -Rv media/autoconfig android/phoenix/assets/
-	rm -Rv android/phoenix/assets/info
-	cp -Rv $RARCH_DIR/info android/phoenix/assets/
+	rm -Rfv android/phoenix/assets/overlays
+	cp -Rfv media/overlays android/phoenix/assets/
+	rm -Rfv android/phoenix/assets/shaders_glsl
+	cp -Rfv media/shaders_glsl android/phoenix/assets/
+	rm -Rfv android/phoenix/assets/autoconfig
+	cp -Rfv media/autoconfig android/phoenix/assets/
+	rm -Rfv android/phoenix/assets/info
+	cp -Rfv $RARCH_DIR/info android/phoenix/assets/
 
 	echo "Building"
         echo ============================================
@@ -1098,7 +1098,7 @@ then
 	cd apple/iOS
 	rm RetroArch.app -rf
 
-	rm -rv *.deb
+	rm -rfv *.deb
 	ln -s $THEOS theos
 	export PRODUCT_NAME=RetroArch
         $MAKE clean
@@ -1106,8 +1106,8 @@ then
 	./package.sh
 
         mkdir obj/RetroArch.app/modules
-        cp -r ../../../dist/theos/*.* obj/RetroArch.app/modules
-        cp -r ../../../dist/info/*.* obj/RetroArch.app/modules
+        cp -rfv ../../../dist/theos/*.* obj/RetroArch.app/modules
+        cp -rfv ../../../dist/info/*.* obj/RetroArch.app/modules
 
         $MAKE package
 

@@ -55,10 +55,14 @@ case "$platform" in
       FORMAT_EXT='dylib'
       FORMAT_COMPILER_TARGET=theos_ios
       DIST_DIR=theos;;
-   *android*)
+   android)
       FORMAT_EXT='so'
       FORMAT_COMPILER_TARGET=android
       DIST_DIR=android;;
+   *android-armv7*)
+      FORMAT_EXT='so'
+      FORMAT_COMPILER_TARGET=android-armv7
+      DIST_DIR=android/armeabi-v7a;;
    *)
       FORMAT_EXT='so'
       FORMAT_COMPILER_TARGET=unix
