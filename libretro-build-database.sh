@@ -24,9 +24,10 @@ echo "Script: $SCRIPT"
 BASE_DIR=$(dirname "$SCRIPT")
 RDB_DIR="$BASE_DIR/dist/rdb"
 LIBRETRODB_BASE_DIR=libretrodb
-LIBRETRODATABASE_DAT_DIR=$BASE_DIR/libretro-database/dat
-LIBRETRODATABASE_META_DAT_DIR=$BASE_DIR/libretro-database/metadat
-LIBRETRODATABASE_META_DAT_DIR_EDGE=$LIBRETRODATABASE_METADAT_DIR/magazines/edge
+LIBRETRODATABASE_DAT_DIR=${BASE_DIR}/libretro-database/dat
+LIBRETRODATABASE_META_DAT_DIR=${BASE_DIR}/libretro-database/metadat
+LIBRETRODATABASE_META_DAT_DIR_EDGE=${LIBRETRODATABASE_META_DAT_DIR}/magazines/edge
+LIBRETRODATABASE_META_DAT_DIR_FRANCHISES=${LIBRETRODATABASE_META_DAT_DIR}/franchises
 
 die()
 {
@@ -72,6 +73,11 @@ build_libretro_database() {
       #Check if meta magazine DAT is there
       if [ -f "${LIBRETRODATABASE_META_DAT_DIR_EDGE}/${1}.dat" ]; then
          COMMAND+=' "${LIBRETRODATABASE_META_DAT_DIR_EDGE}/${1}.dat"'
+      fi
+
+      #Check if meta franchise DAT is there
+      if [ -f "${LIBRETRODATABASE_META_DAT_DIR_FRANCHISES}/${1}.dat" ]; then
+         COMMAND+=' "${LIBRETRODATABASE_META_DAT_DIR_FRANCHISES}/${1}.dat"'
       fi
 
       eval ${COMMAND}
