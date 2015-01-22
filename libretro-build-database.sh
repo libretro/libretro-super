@@ -25,8 +25,8 @@ BASE_DIR=$(dirname "$SCRIPT")
 RDB_DIR="$BASE_DIR/dist/rdb"
 LIBRETRODB_BASE_DIR=libretrodb
 LIBRETRODATABASE_DAT_DIR=$BASE_DIR/libretro-database/dat
-LIBRETRODATABASE_METADAT_DIR=$BASE_DIR/libretro-database/metadat
-LIBRETRODATABASE_EDGE_METADAT_DIR=$LIBRETRODATABASE_METADAT_DIR/magazines/edge
+LIBRETRODATABASE_META_DAT_DIR=$BASE_DIR/libretro-database/metadat
+LIBRETRODATABASE_META_DAT_DIR_EDGE=$LIBRETRODATABASE_METADAT_DIR/magazines/edge
 
 die()
 {
@@ -51,56 +51,45 @@ build_libretrodb() {
 
 # $1 is name
 # $2 is match key
-build_libretro_database_meta_edge() {
-   cd $BASE_DIR
-   if [ -d "$LIBRETRODB_BASE_DIR" ]; then
-      echo "=== Building ${1} ==="
-      cd ${LIBRETRODB_BASE_DIR}/
-      ./dat_converter db.rdb "${2}" "${LIBRETRODATABASE_DAT_DIR}/${1}.dat" "${LIBRETRODATABASE_METADAT_DIR}/${1}.dat" \
-         "${LIBRETRODATABASE_EDGE_METADAT_DIR}/${1}.dat"
-      if [ -f "db.rdb" ]; then
-         mv db.rdb "${RDB_DIR}/${1}.rdb"
-      fi
-   fi
-}
-
-# $1 is name
-# $2 is match key
-build_libretro_database_meta() {
-   cd $BASE_DIR
-   if [ -d "$LIBRETRODB_BASE_DIR" ]; then
-      echo "=== Building ${1} ==="
-      cd ${LIBRETRODB_BASE_DIR}/
-      ./dat_converter db.rdb "${2}" "${LIBRETRODATABASE_DAT_DIR}/${1}.dat" "${LIBRETRODATABASE_METADAT_DIR}/${1}.dat"
-      if [ -f "db.rdb" ]; then
-         mv db.rdb "${RDB_DIR}/${1}.rdb"
-      fi
-   fi
-}
-
-# $1 is name
-# $2 is match key
 build_libretro_database() {
    cd $BASE_DIR
    if [ -d "$LIBRETRODB_BASE_DIR" ]; then
-      echo "=== Building ${1} ==="
+      DBFILE=${BASE_DIR}/${LIBRETRODB_BASE_DIR}/db.rdb
       cd ${LIBRETRODB_BASE_DIR}/
-      ./dat_converter db.rdb "${2}" "${LIBRETRODATABASE_DAT_DIR}/${1}.dat"
-      if [ -f "db.rdb" ]; then
-         mv db.rdb "${RDB_DIR}/${1}.rdb"
+      echo "=== Building ${1} ==="
+      COMMAND='${BASE_DIR}/${LIBRETRODB_BASE_DIR}/dat_converter ${DBFILE} "${2}"'
+
+      #Check if main DAT is there
+      if [ -f "${LIBRETRODATABASE_DAT_DIR}/${1}.dat" ]; then
+         COMMAND+=' "${LIBRETRODATABASE_DAT_DIR}/${1}.dat"'
+      fi
+
+      #Check if meta DAT is there
+      if [ -f "${LIBRETRODATABASE_META_DAT_DIR}/${1}.dat" ]; then
+         COMMAND+=' "${LIBRETRODATABASE_META_DAT_DIR}/${1}.dat"'
+      fi
+
+      #Check if meta magazine DAT is there
+      if [ -f "${LIBRETRODATABASE_META_DAT_DIR_EDGE}/${1}.dat" ]; then
+         COMMAND+=' "${LIBRETRODATABASE_META_DAT_DIR_EDGE}/${1}.dat"'
+      fi
+
+      eval ${COMMAND}
+      if [ -f ${DBFILE} ]; then
+         mv ${DBFILE} "${RDB_DIR}/${1}.rdb"
       fi
    fi
 }
 
 build_libretro_databases_meta_edge() {
-   build_libretro_database_meta_edge "Nintendo - Super Nintendo Entertainment System" "rom.crc"
-   build_libretro_database_meta_edge "Sony - PlayStation" "rom.serial"
-   build_libretro_database_meta_edge "Atari - Jaguar" "rom.crc"
-   build_libretro_database_meta_edge "Nintendo - Nintendo 64" "rom.crc"
+   build_libretro_database "Nintendo - Super Nintendo Entertainment System" "rom.crc"
+   build_libretro_database "Sony - PlayStation" "rom.serial"
+   build_libretro_database "Atari - Jaguar" "rom.crc"
+   build_libretro_database "Nintendo - Nintendo 64" "rom.crc"
 }
 
 build_libretro_databases_meta() {
-   build_libretro_database_meta "Nintendo - Virtual Boy" "rom.crc"
+   build_libretro_database "Nintendo - Virtual Boy" "rom.crc"
 }
 
 build_libretro_databases() {
