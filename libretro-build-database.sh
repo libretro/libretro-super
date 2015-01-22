@@ -26,8 +26,6 @@ RDB_DIR="$BASE_DIR/dist/rdb"
 LIBRETRODB_BASE_DIR=libretrodb
 LIBRETRODATABASE_DAT_DIR=${BASE_DIR}/libretro-database/dat
 LIBRETRODATABASE_META_DAT_DIR=${BASE_DIR}/libretro-database/metadat
-LIBRETRODATABASE_META_DAT_DIR_EDGE=${LIBRETRODATABASE_META_DAT_DIR}/magazines/edge
-LIBRETRODATABASE_META_DAT_DIR_FRANCHISES=${LIBRETRODATABASE_META_DAT_DIR}/franchises
 
 die()
 {
@@ -71,13 +69,18 @@ build_libretro_database() {
       fi
 
       #Check if meta magazine DAT is there
-      if [ -f "${LIBRETRODATABASE_META_DAT_DIR_EDGE}/${1}.dat" ]; then
-         COMMAND+=' "${LIBRETRODATABASE_META_DAT_DIR_EDGE}/${1}.dat"'
+      if [ -f "${LIBRETRODATABASE_META_DAT_DIR}/magazines/edge/${1}.dat" ]; then
+         COMMAND+=' "${LIBRETRODATABASE_META_DAT_DIR}/magazines/edge/${1}.dat"'
       fi
 
       #Check if meta franchise DAT is there
-      if [ -f "${LIBRETRODATABASE_META_DAT_DIR_FRANCHISES}/${1}.dat" ]; then
-         COMMAND+=' "${LIBRETRODATABASE_META_DAT_DIR_FRANCHISES}/${1}.dat"'
+      if [ -f "${LIBRETRODATABASE_META_DAT_DIR}/franchises/${1}.dat" ]; then
+         COMMAND+=' "${LIBRETRODATABASE_META_DAT_DIR}/franchises/${1}.dat"'
+      fi
+      
+      #Check if meta ESRB DAT is there
+      if [ -f "${LIBRETRODATABASE_META_DAT_DIR}/esrb/${1}.dat" ]; then
+         COMMAND+=' "${LIBRETRODATABASE_META_DAT_DIR}/esrb/${1}.dat"'
       fi
 
       eval ${COMMAND}
