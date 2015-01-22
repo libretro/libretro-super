@@ -83,6 +83,11 @@ build_libretro_database() {
          COMMAND+=' "${LIBRETRODATABASE_META_DAT_DIR}/esrb/${1}.dat"'
       fi
 
+      #Check if meta publisher DAT is there
+      if [ -f "${LIBRETRODATABASE_META_DAT_DIR}/publisher/${1}.dat" ]; then
+         COMMAND+=' "${LIBRETRODATABASE_META_DAT_DIR}/publisher/${1}.dat"'
+      fi
+
       eval ${COMMAND}
       if [ -f ${DBFILE} ]; then
          mv ${DBFILE} "${RDB_DIR}/${1}.rdb"
