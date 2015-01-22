@@ -68,19 +68,54 @@ build_libretro_database() {
          COMMAND+=' "${LIBRETRODATABASE_META_DAT_DIR}/${1}.dat"'
       fi
 
-      #Check if meta magazine DAT is there
-      if [ -f "${LIBRETRODATABASE_META_DAT_DIR}/magazine/edge/${1}.dat" ]; then
-         COMMAND+=' "${LIBRETRODATABASE_META_DAT_DIR}/magazine/edge/${1}.dat"'
+      #Check if meta analog DAT is there
+      if [ -f "${LIBRETRODATABASE_META_DAT_DIR}/analog/${1}.dat" ]; then
+         COMMAND+=' "${LIBRETRODATABASE_META_DAT_DIR}/analog/${1}.dat"'
+      fi
+
+      #Check if meta barcode DAT is there
+      if [ -f "${LIBRETRODATABASE_META_DAT_DIR}/barcode/${1}.dat" ]; then
+         COMMAND+=' "${LIBRETRODATABASE_META_DAT_DIR}/barcode/${1}.dat"'
+      fi
+
+      #Check if meta BBFC DAT is there
+      if [ -f "${LIBRETRODATABASE_META_DAT_DIR}/bbfc/${1}.dat" ]; then
+         COMMAND+=' "${LIBRETRODATABASE_META_DAT_DIR}/bbfc/${1}.dat"'
+      fi
+
+      #Check if meta developer DAT is there
+      if [ -f "${LIBRETRODATABASE_META_DAT_DIR}/developer/${1}.dat" ]; then
+         COMMAND+=' "${LIBRETRODATABASE_META_DAT_DIR}/developer/${1}.dat"'
+      fi
+
+      #Check if meta ELSPA DAT is there
+      if [ -f "${LIBRETRODATABASE_META_DAT_DIR}/elspa/${1}.dat" ]; then
+         COMMAND+=' "${LIBRETRODATABASE_META_DAT_DIR}/elspa/${1}.dat"'
+      fi
+
+      #Check if meta ESRB DAT is there
+      if [ -f "${LIBRETRODATABASE_META_DAT_DIR}/esrb/${1}.dat" ]; then
+         COMMAND+=' "${LIBRETRODATABASE_META_DAT_DIR}/esrb/${1}.dat"'
       fi
 
       #Check if meta franchise DAT is there
       if [ -f "${LIBRETRODATABASE_META_DAT_DIR}/franchise/${1}.dat" ]; then
          COMMAND+=' "${LIBRETRODATABASE_META_DAT_DIR}/franchise/${1}.dat"'
       fi
-      
-      #Check if meta ESRB DAT is there
-      if [ -f "${LIBRETRODATABASE_META_DAT_DIR}/esrb/${1}.dat" ]; then
-         COMMAND+=' "${LIBRETRODATABASE_META_DAT_DIR}/esrb/${1}.dat"'
+
+      #Check if meta magazine DAT is there
+      if [ -f "${LIBRETRODATABASE_META_DAT_DIR}/magazine/edge/${1}.dat" ]; then
+         COMMAND+=' "${LIBRETRODATABASE_META_DAT_DIR}/magazine/edge/${1}.dat"'
+      fi
+
+      #Check if meta maxusers DAT is there
+      if [ -f "${LIBRETRODATABASE_META_DAT_DIR}/maxusers/${1}.dat" ]; then
+         COMMAND+=' "${LIBRETRODATABASE_META_DAT_DIR}/maxusers/${1}.dat"'
+      fi
+
+      #Check if meta origin DAT is there
+      if [ -f "${LIBRETRODATABASE_META_DAT_DIR}/origin/${1}.dat" ]; then
+         COMMAND+=' "${LIBRETRODATABASE_META_DAT_DIR}/origin/${1}.dat"'
       fi
 
       #Check if meta publisher DAT is there
@@ -98,9 +133,14 @@ build_libretro_database() {
          COMMAND+=' "${LIBRETRODATABASE_META_DAT_DIR}/releaseyear/${1}.dat"'
       fi
 
-      #Check if meta origin DAT is there
-      if [ -f "${LIBRETRODATABASE_META_DAT_DIR}/origin/${1}.dat" ]; then
-         COMMAND+=' "${LIBRETRODATABASE_META_DAT_DIR}/origin/${1}.dat"'
+      #Check if meta rumble DAT is there
+      if [ -f "${LIBRETRODATABASE_META_DAT_DIR}/rumble/${1}.dat" ]; then
+         COMMAND+=' "${LIBRETRODATABASE_META_DAT_DIR}/rumble/${1}.dat"'
+      fi
+
+      #Check if meta serial DAT is there
+      if [ -f "${LIBRETRODATABASE_META_DAT_DIR}/serial/${1}.dat" ]; then
+         COMMAND+=' "${LIBRETRODATABASE_META_DAT_DIR}/serial/${1}.dat"'
       fi
 
       eval ${COMMAND}
