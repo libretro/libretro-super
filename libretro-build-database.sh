@@ -26,6 +26,7 @@ RDB_DIR="$BASE_DIR/dist/rdb"
 LIBRETRODB_BASE_DIR=libretrodb
 LIBRETRODATABASE_DAT_DIR=$BASE_DIR/libretro-database/dat
 LIBRETRODATABASE_METADAT_DIR=$BASE_DIR/libretro-database/metadat
+LIBRETRODATABASE_EDGE_METADAT_DIR=$LIBRETRODATABASE_METADAT_DIR/magazines/edge
 
 die()
 {
@@ -45,6 +46,21 @@ build_libretrodb() {
          make -j$JOBS clean || die "Failed to clean ${2}"
       fi
       make -j$JOBS || die "Failed to build ${2}"
+   fi
+}
+
+# $1 is name
+# $2 is match key
+build_libretro_database_meta_edge() {
+   cd $BASE_DIR
+   if [ -d "$LIBRETRODB_BASE_DIR" ]; then
+      echo "=== Building ${1} ==="
+      cd ${LIBRETRODB_BASE_DIR}/
+      ./dat_converter db.rdb "${2}" "${LIBRETRODATABASE_DAT_DIR}/${1}.dat" "${LIBRETRODATABASE_METADAT_DIR}/${1}.dat" \
+         "${LIBRETRODATABASE_EDGE_METADAT_DIR}/${1}.dat"
+      if [ -f "db.rdb" ]; then
+         mv db.rdb "${RDB_DIR}/${1}.rdb"
+      fi
    fi
 }
 
@@ -76,10 +92,14 @@ build_libretro_database() {
    fi
 }
 
+build_libretro_databases_meta_edge() {
+   build_libretro_database_meta_edge "Nintendo - Super Nintendo Entertainment System" "rom.crc"
+   build_libretro_database_meta_edge "Sony - PlayStation" "rom.serial"
+   build_libretro_database_meta_edge "Atari - Jaguar" "rom.crc"
+   build_libretro_database_meta_edge "Nintendo - Nintendo 64" "rom.crc"
+}
+
 build_libretro_databases_meta() {
-   build_libretro_database_meta "Sony - PlayStation" "rom.serial"
-   build_libretro_database_meta "Nintendo - Super Nintendo Entertainment System" "rom.crc"
-   build_libretro_database_meta "Atari - Jaguar" "rom.crc"
    build_libretro_database_meta "Nintendo - Virtual Boy" "rom.crc"
 }
 
@@ -114,7 +134,6 @@ build_libretro_databases() {
    build_libretro_database "Nintendo - Game Boy Color" "rom.crc"
    build_libretro_database "Nintendo - Nintendo 3DS" "rom.crc"
    build_libretro_database "Nintendo - Nintendo 3DS (DLC)" "rom.crc"
-   build_libretro_database "Nintendo - Nintendo 64" "rom.crc"
    build_libretro_database "Nintendo - Nintendo DS Decrypted" "rom.crc"
    build_libretro_database "Nintendo - Nintendo DS (Download Play) (BETA)" "rom.crc"
    build_libretro_database "Nintendo - Nintendo DSi Decrypted" "rom.crc"
@@ -150,5 +169,6 @@ build_libretro_databases() {
 }
 
 build_libretrodb
+build_libretro_databases_meta_edge
 build_libretro_databases_meta
 build_libretro_databases
