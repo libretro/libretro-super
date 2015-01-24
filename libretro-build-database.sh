@@ -103,9 +103,14 @@ build_libretro_database() {
          COMMAND+=' "${LIBRETRODATABASE_META_DAT_DIR}/franchise/${1}.dat"'
       fi
 
-      #Check if meta magazine DAT is there
+      #Check if meta Edge magazine DAT is there
       if [ -f "${LIBRETRODATABASE_META_DAT_DIR}/magazine/edge/${1}.dat" ]; then
          COMMAND+=' "${LIBRETRODATABASE_META_DAT_DIR}/magazine/edge/${1}.dat"'
+      fi
+
+      #Check if meta Edge magazine review DAT is there
+      if [ -f "${LIBRETRODATABASE_META_DAT_DIR}/magazine/edge_review/${1}.dat" ]; then
+         COMMAND+=' "${LIBRETRODATABASE_META_DAT_DIR}/magazine/edge_review/${1}.dat"'
       fi
 
       #Check if meta maxusers DAT is there
