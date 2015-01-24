@@ -22,7 +22,7 @@ read_link()
 SCRIPT=$(read_link "$0")
 echo "Script: $SCRIPT"
 BASE_DIR=$(dirname "$SCRIPT")
-RDB_DIR="$BASE_DIR/dist/rdb"
+RDB_DIR="$BASE_DIR/libretro-database/rdb"
 LIBRETRODB_BASE_DIR=libretrodb
 LIBRETRODATABASE_DAT_DIR=${BASE_DIR}/libretro-database/dat
 LIBRETRODATABASE_META_DAT_DIR=${BASE_DIR}/libretro-database/metadat
