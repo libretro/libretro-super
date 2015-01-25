@@ -1,6 +1,6 @@
 display_name = "Game Boy Advance (Meteor)"
-supported_extensions = "gba"
 authors = "Philippe Daouadi"
+supported_extensions = "gba"
 corename = "Meteor"
 manufacturer = "Nintendo"
 categories = "Emulator"

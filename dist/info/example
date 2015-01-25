@@ -3,6 +3,9 @@
 # Name displayed when the user is selecting the core.
 # display_name = "NES / Famicom"
 
+# The authors.
+# authors = "Martin Freij|R. Belmont|R. Danbrook"
+
 # List of supported extensions.
 # supported_extensions = "nes|fds"
 
@@ -18,18 +21,20 @@
 # Name of the system that the core targets (optional).
 # systemname = "Nintendo Entertainment System"
 
+# Name of the database that the core supports (optional).
+# database = "Nintendo - Nintendo Entertainment System|Nintendo - Famicom Disk System"
+
 # License of the core's sourcecode
 # license = "GPLv3"
 
 # Privacy-specific permissions needed for using the core
 # permissions = ""
 
-# As reported by the core.
+# Version of the core.
 # display_version = "v0.2.97.30"
-# supports_no_game = "false"
 
-# Notes
-#notes = "note1|note2|note3 with spaces|note 4 with spaces|note 5 (test)|note6"
+# Whether or not the core requires an external file to work.
+# supports_no_game = "false"
 
 # The number of mandatory/optional firmware files the core needs
 # firmware_count = 7
@@ -42,3 +47,5 @@
 # Is firmware optional or not, if not defined RetroArch will assume it is required
 # firmware0_opt = "true/false"
 
+# Notes
+#notes = "note1|note2|note3 with spaces|note 4 with spaces|note 5 (test)|note6"
