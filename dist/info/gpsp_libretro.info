@@ -13,4 +13,4 @@ supports_no_game = "false"
 firmware_count = 1
 firmware0_desc = "gba_bios.bin (GBA BIOS)"
 firmware0_path = "gba_bios.bin"
-firmware0_opt = "true"
+firmware0_opt = "false"
