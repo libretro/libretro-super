@@ -10,7 +10,6 @@ license = "GPLv3"
 permissions = ""
 display_version = "v094 (Performance)"
 supports_no_game = "false"
-
 firmware_count = 17
 firmware0_desc = "dsp1.data.rom (DSP1 DATA)"
 firmware0_path = "dsp1.data.rom"
@@ -63,5 +62,4 @@ firmware15_opt = "true"
 firmware16_desc = "sgb.boot.rom (SGB BOOT)"
 firmware16_path = "sgb.boot.rom"
 firmware16_opt = "true"
-
 notes = "- core uses split ROMS for special chip games|- notable DSP1/DSP1B games: Super Mario Kart / Pilotwings|- notable DSP2 games: Dungeon Master|- notable DSP3 games: SD Gundam GX|- notable DSP4 games: Top Gear 3000|- Cx4 emulation broken"

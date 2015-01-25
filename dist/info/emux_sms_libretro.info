@@ -1,6 +1,6 @@
 display_name = "Sega Master System (Emux)"
-supported_extensions = "sms|bin|rom"
 authors = "Sebastien Ronsse"
+supported_extensions = "sms|bin|rom"
 corename = "Emux SMS"
 manufacturer = "Sega"
 categories = "Emulator"
