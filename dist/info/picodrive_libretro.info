@@ -7,6 +7,7 @@ categories = "Emulator"
 systemname = "Sega 16-bit + 32X (Various)"
 license = "MAME"
 permissions = "dynarec_optional"
+database = "Sega - Mega Drive - Genesis|Sega - 32X"
 display_version = "1.91"
 supports_no_game = "false"
 firmware_count = 3

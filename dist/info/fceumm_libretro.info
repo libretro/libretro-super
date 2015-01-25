@@ -5,6 +5,7 @@ corename = "FCEUmm"
 manufacturer = "Nintendo"
 categories = "Emulator"
 systemname = "Nintendo Entertainment System"
+database = "Nintendo - Nintendo Entertainment System|Nintendo - Famicom Disk System"
 license = "GPLv2"
 permissions = ""
 firmware_count = 1

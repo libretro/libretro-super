@@ -5,6 +5,7 @@ corename = "PCSX ReARMed [Interpreter]"
 manufacturer = "Sony"
 categories = "Emulator"
 systemname = "PlayStation"
+database = "Sony - PlayStation"
 license = "GPLv2"
 firmware_count = 3
 firmware0_desc = "scph5500.bin (PS1 JP BIOS)"

@@ -7,6 +7,7 @@ categories = "Emulator"
 systemname = "PlayStation"
 license = "GPLv2"
 permissions = "dynarec"
+database = "Sony - PlayStation"
 display_version = "r19"
 supports_no_game = "false"
 firmware_count = 3
