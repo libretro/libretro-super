@@ -22,10 +22,11 @@ read_link()
 SCRIPT=$(read_link "$0")
 echo "Script: $SCRIPT"
 BASE_DIR=$(dirname "$SCRIPT")
-RDB_DIR="$BASE_DIR/libretro-database/rdb"
+LIBRETRODATABASE_BASE_DIR="$BASE_DIR/retroarch/media/libretrodb"
+RDB_DIR="${LIBRETRODATABASE_BASE_DIR}/rdb"
 LIBRETRODB_BASE_DIR=libretrodb
-LIBRETRODATABASE_DAT_DIR=${BASE_DIR}/libretro-database/dat
-LIBRETRODATABASE_META_DAT_DIR=${BASE_DIR}/libretro-database/metadat
+LIBRETRODATABASE_DAT_DIR=${LIBRETRODATABASE_BASE_DIR}/dat
+LIBRETRODATABASE_META_DAT_DIR=${LIBRETRODATABASE_BASE_DIR}/metadat
 
 die()
 {
@@ -33,7 +34,7 @@ die()
    #exit 1
 }
 
-mkdir -p "$RDB_DIR"
+echo $LIBRETRODB_BASE
 
 build_libretrodb() {
    cd $BASE_DIR
