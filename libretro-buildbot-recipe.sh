@@ -189,6 +189,7 @@ build_libretro_generic_makefile() {
 
     if [ "${NAME}" == "mame078" ];
     then
+	OLDJ=$JOBS
         JOBS=1
     fi
 
@@ -225,6 +226,8 @@ build_libretro_generic_makefile() {
         echo $jobid $1 build failure!
     fi
 
+    JOBS=$OLDJ
+
 }
 
 build_libretro_generic_makefile() {
@@ -243,6 +246,7 @@ build_libretro_generic_makefile() {
     if [ "${NAME}" == "mame078" ];
     then
         JOBS=1
+	OLDJ=$JOBS
     fi
 
 
@@ -276,6 +280,8 @@ build_libretro_generic_makefile() {
     else
         echo $jobid $1 build failure!
     fi
+
+    JOBS=$OLDJ
 
 }
 
@@ -1266,7 +1272,7 @@ then
 
 fi
 
-echo $ARCH
+echo $PLATFORM
 if [ "${PLATFORM}" == "MINGW64" ] && [ "${RA}" == "YES" ];
 then
 
@@ -1380,9 +1386,18 @@ then
 	echo "Building"
         echo ============================================
 	
+	echo "cleaning up..."
+	echo "cleanup command: $MAKE clean"
         $MAKE clean
-	./configure
-        $MAKE 
+
+	echo "cconfiguring..."
+	echo "configure command: $CONFIGURE"
+
+	${CONFIGURE}
+
+	echo "building..."
+	echo "build command: $MAKE -j${JOBS}"
+        $MAKE -j${JOBS}
 
 	
 
