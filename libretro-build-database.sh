@@ -149,6 +149,11 @@ build_libretro_database() {
          COMMAND+=' "${LIBRETRODATABASE_META_DAT_DIR}/serial/${1}.dat"'
       fi
 
+      #Check if meta enhancement HW DAT is there
+      if [ -f "${LIBRETRODATABASE_META_DAT_DIR}/enhancement_hw/${1}.dat" ]; then
+         COMMAND+=' "${LIBRETRODATABASE_META_DAT_DIR}/enhancement_hw/${1}.dat"'
+      fi
+
       eval ${COMMAND}
       if [ -f ${DBFILE} ]; then
          mv ${DBFILE} "${RDB_DIR}/${1}.rdb"
@@ -157,6 +162,7 @@ build_libretro_database() {
 }
 
 build_libretro_databases() {
+   build_libretro_database "ScummVM" "rom.sha1"
    build_libretro_database "Nintendo - Super Nintendo Entertainment System" "rom.crc"
    build_libretro_database "Sony - PlayStation" "rom.serial"
    build_libretro_database "Atari - Jaguar" "rom.crc"
