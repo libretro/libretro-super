@@ -157,6 +157,7 @@ build_libretro_database() {
 }
 
 build_libretro_databases() {
+   build_libretro_database "ScummVM" "rom.sha1"
    build_libretro_database "Nintendo - Super Nintendo Entertainment System" "rom.crc"
    build_libretro_database "Sony - PlayStation" "rom.serial"
    build_libretro_database "Atari - Jaguar" "rom.crc"
