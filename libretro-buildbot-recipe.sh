@@ -189,7 +189,7 @@ build_libretro_generic_makefile() {
 
     if [ "${NAME}" == "mame078" ];
     then
-	OLDJ=$JOBS
+    OLDJ=$JOBS
         JOBS=1
     fi
 
@@ -197,10 +197,10 @@ build_libretro_generic_makefile() {
 
     if [ -z "${NOCLEAN}" ];
     then
-	echo "cleaning up..."
+    echo "cleaning up..."
         echo "cleanup command: ${MAKE} -f ${MAKEFILE} platform=${PLATFORM} -j${JOBS} ${ARGS} clean"
-	${MAKE} -f ${MAKEFILE} platform=${PLATFORM} -j${JOBS} ${ARGS} clean
-	if [ $? -eq 0 ];
+    ${MAKE} -f ${MAKEFILE} platform=${PLATFORM} -j${JOBS} ${ARGS} clean
+    if [ $? -eq 0 ];
         then
             echo $jobid $1 cleanup success!
         else
@@ -230,61 +230,6 @@ build_libretro_generic_makefile() {
 
 }
 
-build_libretro_generic_makefile() {
-
-
-    NAME=$1
-    DIR=$2
-    SUBDIR=$3
-    MAKEFILE=$4
-    PLATFORM=$5
-    ARGS=$6
-
-    cd $DIR
-    cd $SUBDIR
-
-    if [ "${NAME}" == "mame078" ];
-    then
-        JOBS=1
-	OLDJ=$JOBS
-    fi
-
-
-    if [ -z "${NOCLEAN}" ];
-    then
-	echo "cleaning up..."
-        echo "cleanup command: ${MAKE} -f ${MAKEFILE} platform=${PLATFORM} -j${JOBS} ${ARGS} clean"
-	${MAKE} -f ${MAKEFILE} platform=${PLATFORM} -j${JOBS} ${ARGS} clean
-	if [ $? -eq 0 ];
-        then 
-            echo $jobid $1 cleanup success!
-        else
-            echo $jobid $1 cleanup failure!
-        fi
-    fi
-
-    echo "compiling..."
-    if [ -z "${ARGS}" ]
-    then
-        echo "buid command: ${MAKE} -f ${MAKEFILE} platform=${PLATFORM} -j${JOBS}"
-        ${MAKE} -f ${MAKEFILE} platform=${PLATFORM} -j${JOBS}
-    else
-        echo "buid command: ${MAKE} -f ${MAKEFILE} platform=${PLATFORM} -j${JOBS} ${ARGS}"
-        ${MAKE} -f ${MAKEFILE} platform=${PLATFORM} -j${JOBS} ${ARGS}
-    fi
-
-    if [ $? -eq 0 ];
-    then
-        echo $jobid $1 build success!
-        cp -v ${NAME}_libretro${FORMAT}${SUFFIX}.${FORMAT_EXT} $RARCH_DIST_DIR/${NAME}_libretro${FORMAT}.${FORMAT_EXT}
-    else
-        echo $jobid $1 build failure!
-    fi
-
-    JOBS=$OLDJ
-
-}
-
 build_libretro_generic_theos() {
 
     echo PARAMETERS: DIR $2, SUBDIR: $3, MAKEFILE: $4
@@ -304,10 +249,10 @@ build_libretro_generic_theos() {
 
     if [ -z "${NOCLEAN}" ];
     then
-	echo "cleaning up..."
+    echo "cleaning up..."
         echo "cleanup command: ${MAKE} -f ${MAKEFILE} platform=${PLATFORM} -j${JOBS} ${ARGS} clean"
-	${MAKE} -f ${MAKEFILE} platform=${PLATFORM} -j${JOBS} ${ARGS} clean
-	if [ $? -eq 0 ];
+    ${MAKE} -f ${MAKEFILE} platform=${PLATFORM} -j${JOBS} ${ARGS} clean
+    if [ $? -eq 0 ];
         then
             echo $jobid $1 cleanup success!
         else
@@ -351,32 +296,32 @@ build_libretro_generic_jni() {
     for a in "${ABIS[@]}"; do
         if [ -z "${NOCLEAN}" ]; 
         then
-	    echo "cleaning up..."
-	    echo "cleanup command: ${NDK} -j${JOBS} ${ARGS} APP_ABI=${a} clean"
-	        ${NDK} -j${JOBS} ${ARGS} APP_ABI=${a} clean
-	        if [ $? -eq 0 ];
-	    then 
-	        echo $jobid $a $1 cleanup success!
-	    else
-	        echo $jobid $a $1 cleanup failure!
-	    fi
+        echo "cleaning up..."
+        echo "cleanup command: ${NDK} -j${JOBS} ${ARGS} APP_ABI=${a} clean"
+            ${NDK} -j${JOBS} ${ARGS} APP_ABI=${a} clean
+            if [ $? -eq 0 ];
+        then 
+            echo $jobid $a $1 cleanup success!
+        else
+            echo $jobid $a $1 cleanup failure!
+        fi
         fi
 
-	echo "compiling for ${a}..."
+    echo "compiling for ${a}..."
         if [ -z "${ARGS}" ]
         then
-	    echo "buid command: ${NDK} -j${JOBS} APP_ABI=${a}"
-	    ${NDK} -j${JOBS} APP_ABI=${a}
+        echo "buid command: ${NDK} -j${JOBS} APP_ABI=${a}"
+        ${NDK} -j${JOBS} APP_ABI=${a}
         else
-	    echo "buid command: ${NDK} -j${JOBS} APP_ABI=${a} ${ARGS} "
-	    ${NDK} -j${JOBS} APP_ABI=${a} ${ARGS}
+        echo "buid command: ${NDK} -j${JOBS} APP_ABI=${a} ${ARGS} "
+        ${NDK} -j${JOBS} APP_ABI=${a} ${ARGS}
         fi
         if [ $? -eq 0 ];
         then
-	    echo $jobid $a $1 build success!
-	    cp -v ../libs/${a}/libretro.${FORMAT_EXT} $RARCH_DIST_DIR/${a}/${1}_libretro${FORMAT}.${FORMAT_EXT}
+        echo $jobid $a $1 build success!
+        cp -v ../libs/${a}/libretro.${FORMAT_EXT} $RARCH_DIST_DIR/${a}/${1}_libretro${FORMAT}.${FORMAT_EXT}
         else
-	    echo $jobid $a $1 build failure!
+        echo $jobid $a $1 build failure!
         fi
     done
 }
@@ -399,32 +344,32 @@ build_libretro_bsnes_jni() {
     for a in "${ABIS[@]}"; do
         if [ -z "${NOCLEAN}" ];
         then
-	    echo "cleaning up..."
-	    echo "cleanup command: ${NDK} -j${JOBS} APP_ABI=${a} clean"
-	        ${NDK} -j${JOBS} APP_ABI=${a} clean
-	        if [ $? -eq 0 ];
-	    then
-	        echo $jobid $1 cleanup success!
-	    else
-	        echo $jobid $1 cleanup failure!
-	    fi
+        echo "cleaning up..."
+        echo "cleanup command: ${NDK} -j${JOBS} APP_ABI=${a} clean"
+            ${NDK} -j${JOBS} APP_ABI=${a} clean
+            if [ $? -eq 0 ];
+        then
+            echo $jobid $1 cleanup success!
+        else
+            echo $jobid $1 cleanup failure!
+        fi
         fi
 
-	echo "compiling for ${a}..."
+    echo "compiling for ${a}..."
         if [ -z "${ARGS}" ]
         then
-	    echo "buid command: ${NDK} -j${JOBS} APP_ABI=${a}"
-	    ${NDK} -j${JOBS} APP_ABI=${a}
+        echo "buid command: ${NDK} -j${JOBS} APP_ABI=${a}"
+        ${NDK} -j${JOBS} APP_ABI=${a}
         else
-	    echo "buid command: ${NDK} -j${JOBS} APP_ABI=${a}"
-	    ${NDK} -j${JOBS} APP_ABI=${a}
+        echo "buid command: ${NDK} -j${JOBS} APP_ABI=${a}"
+        ${NDK} -j${JOBS} APP_ABI=${a}
         fi
         if [ $? -eq 0 ];
         then
-	    echo $jobid $1 build success!
-	    cp -v ../libs/${a}/libretro_${CORENAME}_${PROFILE}.${FORMAT_EXT} $RARCH_DIST_DIR/${a}/${NAME}_${PROFILE}_libretro${FORMAT}.${FORMAT_EXT}
+        echo $jobid $1 build success!
+        cp -v ../libs/${a}/libretro_${CORENAME}_${PROFILE}.${FORMAT_EXT} $RARCH_DIST_DIR/${a}/${NAME}_${PROFILE}_libretro${FORMAT}.${FORMAT_EXT}
         else
-	    echo $jobid $1 build failure!
+        echo $jobid $1 build failure!
         fi
     done
 }
@@ -448,10 +393,10 @@ build_libretro_generic_gl_makefile() {
 
     if [ -z "${NOCLEAN}" ]; 
     then
-	echo "cleaning up..."
+    echo "cleaning up..."
         echo "cleanup command: ${MAKE} -f ${MAKEFILE} platform=${PLATFORM} -j${JOBS} clean"
-	${MAKE} -f ${MAKEFILE} platform=${PLATFORM} -j${JOBS} clean
-	if [ $? -eq 0 ];
+    ${MAKE} -f ${MAKEFILE} platform=${PLATFORM} -j${JOBS} clean
+    if [ $? -eq 0 ];
         then 
             echo $jobid $1 cleanup success!
         else
@@ -499,16 +444,16 @@ build_libretro_bsnes() {
 
     if [ -z "${NOCLEAN}" ]; 
     then
-	echo "cleaning up..."
+    echo "cleaning up..."
 
         rm -f obj/*.{o,"${FORMAT_EXT}"}
-        rm -f out/*.{o,"${FORMAT_EXT}"}	
+        rm -f out/*.{o,"${FORMAT_EXT}"}    
 
 
     if [ "${PROFILE}" == "cpp98" -o "${PROFILE}" == "bnes" ];
-	then
-	    ${MAKE} clean
-	fi
+    then
+        ${MAKE} clean
+    fi
 
 
         if [ $? -eq 0 ];
@@ -527,8 +472,8 @@ build_libretro_bsnes() {
         ${MAKE} platform="${PLATFORM}" ${COMPILER} "-j${JOBS}"
     elif [ "${PROFILE}" == "bnes" ];
     then
-		echo "buid command: ${MAKE} -f Makefile ${COMPILER} "-j${JOBS}" compiler=${BSNESCOMPILER}" platform=${FORMAT_COMPILER_TARGET}
-		${MAKE} -f Makefile ${COMPILER} "-j${JOBS}" compiler="${BSNESCOMPILER}" platform=${FORMAT_COMPILER_TARGET}
+        echo "buid command: ${MAKE} -f Makefile ${COMPILER} "-j${JOBS}" compiler=${BSNESCOMPILER}" platform=${FORMAT_COMPILER_TARGET}
+        ${MAKE} -f Makefile ${COMPILER} "-j${JOBS}" compiler="${BSNESCOMPILER}" platform=${FORMAT_COMPILER_TARGET}
     else
         echo "buid command: ${MAKE} -f ${MAKEFILE} platform=${PLATFORM} compiler=${BSNESCOMPILER} ui='target-libretro' profile=${PROFILE} -j${JOBS}"
         ${MAKE} -f ${MAKEFILE} platform=${PLATFORM} compiler=${BSNESCOMPILER} ui='target-libretro' profile=${PROFILE} -j${JOBS}
@@ -574,11 +519,11 @@ while read line; do
     then
         echo "Processing $NAME"
         echo ============================================
-	echo URL: $URL
+    echo URL: $URL
         echo REPO TYPE: $TYPE
-	echo ENABLED: $ENABLED
+    echo ENABLED: $ENABLED
         echo COMMAND: $COMMAND
-   	echo MAKEFILE: $MAKEFILE
+       echo MAKEFILE: $MAKEFILE
         echo DIR: $DIR
         echo SUBDIR: $SUBDIR
 
@@ -621,11 +566,11 @@ while read line; do
            ARGS="${ARGS} ${TEMP}"
         fi
 
-	ARGS="${ARGS%"${ARGS##*[![:space:]]}"}"  
+    ARGS="${ARGS%"${ARGS##*[![:space:]]}"}"  
 
         echo ARGS: $ARGS
-	echo
-	echo
+    echo
+    echo
 
         if [ "${TYPE}" == "PROJECT" ];
         then
@@ -638,8 +583,8 @@ while read line; do
                 if [[ $OUT == *"Already up-to-date"* ]]
                 then
                     BUILD="NO"
-       	        else
-		    BUILD="YES"
+                   else
+            BUILD="YES"
                 fi
 
                 if [ "${PREVCORE}" == "bsnes" -a "${PREVBUILD}" == "YES" -a "${COMMAND}" == "BSNES" ]; then
@@ -660,13 +605,13 @@ while read line; do
 
                 cd ..
 
-			else
+            else
                 echo "cloning repo..."
                 git clone --depth=1 "$URL" "$DIR"
                 BUILD="YES"
-			fi
-		elif [ "${TYPE}" == "psp_hw_render" ]; 
-		then
+            fi
+        elif [ "${TYPE}" == "psp_hw_render" ]; 
+        then
             if [ -d "${DIR}/.git" ];
             then
 
@@ -676,22 +621,22 @@ while read line; do
                 if [[ $OUT == *"Already up-to-date"* ]]
                 then
                     BUILD="NO"
-       	        else
-    		    BUILD="YES"
+                   else
+                BUILD="YES"
                 fi
                 cd ..
 
-			else
+            else
                 echo "cloning repo..."
                 git clone "$URL" "$DIR" --depth=1
-				cd $DIR
-				git checkout $TYPE
-				cd ..
+                cd $DIR
+                git checkout $TYPE
+                cd ..
                 BUILD="YES"
             fi
 
         elif [ "${TYPE}" == "SUBMODULE" ]; 
-		then
+        then
             if [ -d "${DIR}/.git" ];
             then
 
@@ -701,12 +646,12 @@ while read line; do
                 if [[ $OUT == *"Already up-to-date"* ]]
                 then
                     BUILD="NO"
-       	        else
-					BUILD="YES"
+                   else
+                    BUILD="YES"
                 fi
                 OUT=`git submodule foreach git pull origin master`
                 cd ..
-	    else
+        else
                 echo "cloning repo..."
                 git clone --depth=1 "$URL" "$DIR"
                 cd $DIR
@@ -716,27 +661,27 @@ while read line; do
         fi
 
         if [ "${BUILD}" == "YES" -o "${FORCE}" == "YES" ];
-	then
-	    echo building core...
-	    if [ "${COMMAND}" == "GENERIC" ]; then
-		    build_libretro_generic_makefile $NAME $DIR $SUBDIR $MAKEFILE ${FORMAT_COMPILER_TARGET} "${ARGS}"
+    then
+        echo building core...
+        if [ "${COMMAND}" == "GENERIC" ]; then
+            build_libretro_generic_makefile $NAME $DIR $SUBDIR $MAKEFILE ${FORMAT_COMPILER_TARGET} "${ARGS}"
             elif [ "${COMMAND}" == "GENERIC_GL" ]; then
                     build_libretro_generic_gl_makefile $NAME $DIR $SUBDIR $MAKEFILE ${FORMAT_COMPILER_TARGET} "${ARGS}"
-	    elif [ "${COMMAND}" == "GENERIC_ALT" ]; then
-		    build_libretro_generic_makefile $NAME $DIR $SUBDIR $MAKEFILE ${FORMAT_COMPILER_TARGET_ALT} "${ARGS}"
-	    elif [ "${COMMAND}" == "GENERIC_JNI" ]; then
-		    build_libretro_generic_jni $NAME $DIR $SUBDIR $MAKEFILE ${FORMAT_COMPILER_TARGET_ALT} "${ARGS}"
-	    elif [ "${COMMAND}" == "BSNES_JNI" ]; then
-		    build_libretro_bsnes_jni $NAME $DIR $SUBDIR $MAKEFILE ${FORMAT_COMPILER_TARGET_ALT} "${ARGS}"
-	    elif [ "${COMMAND}" == "GENERIC_THEOS" ]; then
-		    build_libretro_generic_theos $NAME $DIR $SUBDIR $MAKEFILE ${FORMAT_COMPILER_TARGET_ALT} "${ARGS}"
-	    elif [ "${COMMAND}" == "BSNES" ]; then
-		    build_libretro_bsnes $NAME $DIR "${ARGS}" $MAKEFILE ${FORMAT_COMPILER_TARGET} ${CXX11}
+        elif [ "${COMMAND}" == "GENERIC_ALT" ]; then
+            build_libretro_generic_makefile $NAME $DIR $SUBDIR $MAKEFILE ${FORMAT_COMPILER_TARGET_ALT} "${ARGS}"
+        elif [ "${COMMAND}" == "GENERIC_JNI" ]; then
+            build_libretro_generic_jni $NAME $DIR $SUBDIR $MAKEFILE ${FORMAT_COMPILER_TARGET_ALT} "${ARGS}"
+        elif [ "${COMMAND}" == "BSNES_JNI" ]; then
+            build_libretro_bsnes_jni $NAME $DIR $SUBDIR $MAKEFILE ${FORMAT_COMPILER_TARGET_ALT} "${ARGS}"
+        elif [ "${COMMAND}" == "GENERIC_THEOS" ]; then
+            build_libretro_generic_theos $NAME $DIR $SUBDIR $MAKEFILE ${FORMAT_COMPILER_TARGET_ALT} "${ARGS}"
+        elif [ "${COMMAND}" == "BSNES" ]; then
+            build_libretro_bsnes $NAME $DIR "${ARGS}" $MAKEFILE ${FORMAT_COMPILER_TARGET} ${CXX11}
 
-	    fi
-	else
-	    echo $jobid $NAME already up-to-date...
-	fi
+        fi
+    else
+        echo $jobid $NAME already up-to-date...
+    fi
         echo
 
     fi
@@ -776,7 +721,7 @@ then
             echo SUBDIR: $SUBDIR
             echo URL: $URL
             echo REPO TYPE: $TYPE
-	    echo ENABLED: $ENABLED
+        echo ENABLED: $ENABLED
 
             ARGS=""
 
@@ -816,7 +761,7 @@ then
                 ARGS="${ARGS} ${TEMP}"
             fi
 
-     	    ARGS="${ARGS%"${ARGS##*[![:space:]]}"}"  
+             ARGS="${ARGS%"${ARGS##*[![:space:]]}"}"  
 
             echo ARGS: $ARGS
 
@@ -847,11 +792,11 @@ then
         if [ "${BUILD}" == "YES" -o "${FORCE}" == "YES" ];
         then
             cd $DIR
-    	    rm -rfv psp1/pkg/
-	    cd dist-scripts
-	    rm *.a
-	    cp -v $RARCH_DIST_DIR/* .
-	    sh ./psp1-cores.sh
+            rm -rfv psp1/pkg/
+        cd dist-scripts
+        rm *.a
+        cp -v $RARCH_DIST_DIR/* .
+        sh ./psp1-cores.sh
         fi
 
     done  < $1.ra
@@ -879,7 +824,7 @@ then
             echo PARENT: $PARENTDIR
             echo URL: $URL
             echo REPO TYPE: $TYPE
-	    echo ENABLED: $ENABLED
+        echo ENABLED: $ENABLED
 
             ARGS=""
 
@@ -919,20 +864,20 @@ then
                 ARGS="${ARGS} ${TEMP}"
             fi
 
-     	    ARGS="${ARGS%"${ARGS##*[![:space:]]}"}"
+             ARGS="${ARGS%"${ARGS##*[![:space:]]}"}"
 
             echo ARGS: $ARGS
 
             if [ -d "${PARENTDIR}/${DIR}/.git" ];
             then
-		cd $PARENTDIR
+        cd $PARENTDIR
                 cd $DIR
                 echo "pulling from repo... "
                 OUT=`git pull`
                 echo $OUT
-		if [ "${TYPE}" == "PROJECT" ];
-		then
-		    RADIR=$DIR
+        if [ "${TYPE}" == "PROJECT" ];
+        then
+            RADIR=$DIR
                     if [[ $OUT == *"Already up-to-date"* ]]
                     then
                         BUILD="NO"
@@ -944,54 +889,54 @@ then
 
             else
                 echo "cloning repo..."
-		cd $PARENTDIR
+        cd $PARENTDIR
                 git clone "$URL" "$DIR" --depth=1
                 cd $DIR
-		if [ "${TYPE}" == "PROJECT" ];
-		then
+        if [ "${TYPE}" == "PROJECT" ];
+        then
                     BUILD="YES"
-		    RADIR=$DIR
+            RADIR=$DIR
 
                 fi
                 cd $WORK
             fi
         fi
 
-	echo
-	echo
+    echo
+    echo
     done  < $1.ra
     if [ "${BUILD}" == "YES" -o "${FORCE}" == "YES" ];
     then
         echo "Compiling Shaders"
         echo ============================================
 
-	echo RADIR $RADIR
-	cd $RADIR
-	$MAKE -f Makefile.griffin shaders-convert-glsl PYTHON3=$PYTHON
+    echo RADIR $RADIR
+    cd $RADIR
+    $MAKE -f Makefile.griffin shaders-convert-glsl PYTHON3=$PYTHON
 
-	echo "Processing Assets"
+    echo "Processing Assets"
         echo ============================================
 
-	rm -Rfv android/phoenix/assets/overlays
-	cp -Rfv media/overlays android/phoenix/assets/
-	rm -Rfv android/phoenix/assets/shaders_glsl
-	cp -Rfv media/shaders_glsl android/phoenix/assets/
-	rm -Rfv android/phoenix/assets/autoconfig
-	cp -Rfv media/autoconfig android/phoenix/assets/
-	rm -Rfv android/phoenix/assets/info
-	cp -Rfv $RARCH_DIR/info android/phoenix/assets/
+    rm -Rfv android/phoenix/assets/overlays
+    cp -Rfv media/overlays android/phoenix/assets/
+    rm -Rfv android/phoenix/assets/shaders_glsl
+    cp -Rfv media/shaders_glsl android/phoenix/assets/
+    rm -Rfv android/phoenix/assets/autoconfig
+    cp -Rfv media/autoconfig android/phoenix/assets/
+    rm -Rfv android/phoenix/assets/info
+    cp -Rfv $RARCH_DIR/info android/phoenix/assets/
 
-	echo "Building"
+    echo "Building"
         echo ============================================
-	cd android/phoenix
-	rm bin/*.apk
+    cd android/phoenix
+    rm bin/*.apk
 
         $NDK clean
         $NDK -j8
-	android update project --path . --target android-21
-	android update project --path libs/googleplay --target android-21
-	android update project --path libs/appcompat --target android-21
-	ant debug
+    android update project --path . --target android-21
+    android update project --path libs/googleplay --target android-21
+    android update project --path libs/appcompat --target android-21
+    ant debug
     fi
 
 fi
@@ -1017,7 +962,7 @@ then
             echo PARENT: $PARENTDIR
             echo URL: $URL
             echo REPO TYPE: $TYPE
-	    echo ENABLED: $ENABLED
+        echo ENABLED: $ENABLED
 
             ARGS=""
 
@@ -1057,20 +1002,20 @@ then
                 ARGS="${ARGS} ${TEMP}"
             fi
 
-     	    ARGS="${ARGS%"${ARGS##*[![:space:]]}"}"
+             ARGS="${ARGS%"${ARGS##*[![:space:]]}"}"
 
             echo ARGS: $ARGS
 
             if [ -d "${PARENTDIR}/${DIR}/.git" ];
             then
-		cd $PARENTDIR
+        cd $PARENTDIR
                 cd $DIR
                 echo "pulling from repo... "
                 OUT=`git pull`
                 echo $OUT
-		if [ "${TYPE}" == "PROJECT" ];
-		then
-		    RADIR=$DIR
+        if [ "${TYPE}" == "PROJECT" ];
+        then
+            RADIR=$DIR
                     if [[ $OUT == *"Already up-to-date"* ]]
                     then
                         BUILD="NO"
@@ -1082,46 +1027,46 @@ then
 
             else
                 echo "cloning repo..."
-		cd $PARENTDIR
+        cd $PARENTDIR
                 git clone "$URL" "$DIR" --depth=1
                 cd $DIR
-		if [ "${TYPE}" == "PROJECT" ];
-		then
+        if [ "${TYPE}" == "PROJECT" ];
+        then
                     BUILD="YES"
-		    RADIR=$DIR
+            RADIR=$DIR
 
                 fi
                 cd $WORK
             fi
         fi
 
-	echo
-	echo
+    echo
+    echo
     done  < $1.ra
     if [ "${BUILD}" == "YES" -o "${FORCE}" == "YES" ];
     then
         echo "Compiling Shaders"
         echo ============================================
 
-	echo RADIR $RADIR
-	cd $RADIR
-	$MAKE -f Makefile.griffin shaders-convert-glsl PYTHON3=$PYTHON
+    echo RADIR $RADIR
+    cd $RADIR
+    $MAKE -f Makefile.griffin shaders-convert-glsl PYTHON3=$PYTHON
 
-	echo "Processing Assets"
+    echo "Processing Assets"
         echo ============================================
 
 
-	echo "Building"
+    echo "Building"
         echo ============================================
-	cd apple/iOS
-	rm RetroArch.app -rf
+    cd apple/iOS
+    rm RetroArch.app -rf
 
-	rm -rfv *.deb
-	ln -s $THEOS theos
-	export PRODUCT_NAME=RetroArch
+    rm -rfv *.deb
+    ln -s $THEOS theos
+    export PRODUCT_NAME=RetroArch
         $MAKE clean
         $MAKE -j8
-	./package.sh
+    ./package.sh
 
         mkdir obj/RetroArch.app/modules
         cp -rfv ../../../dist/theos/*.* obj/RetroArch.app/modules
@@ -1129,7 +1074,7 @@ then
 
         $MAKE package
 
-	cp -r *.deb /home/buildbot/www/.radius/
+    cp -r *.deb /home/buildbot/www/.radius/
     fi
 
 fi
@@ -1155,7 +1100,7 @@ then
             echo PARENT: $PARENTDIR
             echo URL: $URL
             echo REPO TYPE: $TYPE
-	    echo ENABLED: $ENABLED
+        echo ENABLED: $ENABLED
 
             ARGS=""
 
@@ -1195,20 +1140,20 @@ then
                 ARGS="${ARGS} ${TEMP}"
             fi
 
-     	    ARGS="${ARGS%"${ARGS##*[![:space:]]}"}"
+             ARGS="${ARGS%"${ARGS##*[![:space:]]}"}"
 
             echo ARGS: $ARGS
 
             if [ -d "${PARENTDIR}/${DIR}/.git" ];
             then
-		cd $PARENTDIR
+        cd $PARENTDIR
                 cd $DIR
                 echo "pulling from repo... "
                 OUT=`git pull`
                 echo $OUT
-		if [ "${TYPE}" == "PROJECT" ];
-		then
-		    RADIR=$DIR
+        if [ "${TYPE}" == "PROJECT" ];
+        then
+            RADIR=$DIR
                     if [[ $OUT == *"Already up-to-date"* ]]
                     then
                         BUILD="NO"
@@ -1220,46 +1165,46 @@ then
 
             else
                 echo "cloning repo..."
-		cd $PARENTDIR
+        cd $PARENTDIR
                 git clone "$URL" "$DIR" --depth=1
                 cd $DIR
-		if [ "${TYPE}" == "PROJECT" ];
-		then
+        if [ "${TYPE}" == "PROJECT" ];
+        then
                     BUILD="YES"
-		    RADIR=$DIR
+            RADIR=$DIR
 
                 fi
                 cd $WORK
             fi
         fi
 
-	echo
-	echo
+    echo
+    echo
     done  < $1.ra
     if [ "${BUILD}" == "YES" -o "${FORCE}" == "YES" ];
     then
         echo "Compiling Shaders"
         echo ============================================
 
-	echo RADIR $RADIR
-	cd $RADIR
-	$MAKE -f Makefile.griffin shaders-convert-glsl PYTHON3=$PYTHON
+    echo RADIR $RADIR
+    cd $RADIR
+    $MAKE -f Makefile.griffin shaders-convert-glsl PYTHON3=$PYTHON
 
-	echo "Processing Assets"
+    echo "Processing Assets"
         echo ============================================
 
 
-	echo "Building"
+    echo "Building"
         echo ============================================
-	cd apple/iOS
-	rm RetroArch.app -rf
+    cd apple/iOS
+    rm RetroArch.app -rf
 
-	rm -rfv *.deb
-	ln -s $THEOS theos
-	export PRODUCT_NAME=RetroArch
+    rm -rfv *.deb
+    ln -s $THEOS theos
+    export PRODUCT_NAME=RetroArch
         $MAKE clean
         $MAKE -j8
-	./package.sh
+    ./package.sh
 
         mkdir obj/RetroArch.app/modules
         cp -rfv ../../../dist/theos/*.* obj/RetroArch.app/modules
@@ -1267,7 +1212,7 @@ then
 
         $MAKE package
 
-	cp -r *.deb /home/buildbot/www/.radius/
+    cp -r *.deb /home/buildbot/www/.radius/
     fi
 
 fi
@@ -1294,7 +1239,7 @@ then
             echo PARENT: $PARENTDIR
             echo URL: $URL
             echo REPO TYPE: $TYPE
-	    echo ENABLED: $ENABLED
+        echo ENABLED: $ENABLED
 
             ARGS=""
 
@@ -1334,20 +1279,20 @@ then
                 ARGS="${ARGS} ${TEMP}"
             fi
 
-     	    ARGS="${ARGS%"${ARGS##*[![:space:]]}"}"
+             ARGS="${ARGS%"${ARGS##*[![:space:]]}"}"
 
             echo ARGS: $ARGS
 
             if [ -d "${PARENTDIR}/${DIR}/.git" ];
             then
-		cd $PARENTDIR
+        cd $PARENTDIR
                 cd $DIR
                 echo "pulling from repo... "
                 OUT=`git pull`
                 echo $OUT
-		if [ "${TYPE}" == "PROJECT" ];
-		then
-		    RADIR=$DIR
+        if [ "${TYPE}" == "PROJECT" ];
+        then
+            RADIR=$DIR
                     if [[ $OUT == *"Already up-to-date"* ]]
                     then
                         BUILD="NO"
@@ -1359,47 +1304,47 @@ then
 
             else
                 echo "cloning repo..."
-		cd $PARENTDIR
+        cd $PARENTDIR
                 git clone "$URL" "$DIR" --depth=1
                 cd $DIR
-		if [ "${TYPE}" == "PROJECT" ];
-		then
+        if [ "${TYPE}" == "PROJECT" ];
+        then
                     BUILD="YES"
-		    RADIR=$DIR
+            RADIR=$DIR
 
                 fi
                 cd $WORK
             fi
         fi
 
-	echo
-	echo
+    echo
+    echo
     done  < $1.ra
     if [ "${BUILD}" == "YES" -o "${FORCE}" == "YES" ];
     then
 
-	echo RADIR $RADIR
-	cd $RADIR
+    echo RADIR $RADIR
+    cd $RADIR
 
 
 
-	echo "Building"
+    echo "Building"
         echo ============================================
-	
-	echo "cleaning up..."
-	echo "cleanup command: $MAKE clean"
+    
+    echo "cleaning up..."
+    echo "cleanup command: $MAKE clean"
         $MAKE clean
 
-	echo "cconfiguring..."
-	echo "configure command: $CONFIGURE"
+    echo "cconfiguring..."
+    echo "configure command: $CONFIGURE"
 
-	${CONFIGURE}
+    ${CONFIGURE}
 
-	echo "building..."
-	echo "build command: $MAKE -j${JOBS}"
+    echo "building..."
+    echo "build command: $MAKE -j${JOBS}"
         $MAKE -j${JOBS}
 
-	
+    
 
     fi
 
