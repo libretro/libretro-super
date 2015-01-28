@@ -1266,6 +1266,7 @@ then
 
 fi
 
+echo $ARCH
 if [ "${PLATFORM}" == "MINGW64" ] && [ "${RA}" == "YES" ];
 then
 
