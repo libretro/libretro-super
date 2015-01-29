@@ -697,9 +697,6 @@ echo
 cd $WORK
 BUILD=""
 
-ECHO $RA
-ECHO $PLATFORM
-
 if [ "${PLATFORM}" == "psp1" ];
 then
 
@@ -1080,8 +1077,7 @@ then
 
 fi
 
-echo $PLATFORM
-if [ "${PLATFORM}" == "MINGW64" ] && [ "${RA}" == "YES" ];
+if [ "${PLATFORM}" == "MINGW64" ] || [ "${PLATFORM}" == "MINGW32" ] && [ "${RA}" == "YES" ];
 then
 
     while read line; do
