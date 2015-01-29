@@ -1250,7 +1250,30 @@ then
             
             echo "Packaging"
             echo ============================================
-
+            cp retroarch.cfg retroarch.default.cfg
+            cat << EOF > retroarch.cfg
+            libretro_directory = ":\cores"
+            screenshot_directory = ":\screenshots"
+            rgui_config_directory = ":\config"
+            rgui_browser_directory = ":\content"
+            assets_directory = ":\assets"
+            overlay_directory = ":\overlays"
+            joypad_autoconfig_dir = ":\autoconfig"
+            system_directory = ":\system"
+            audio_filter_dir = ":\filters\audio"
+            video_filter_dir = ":\filters\video"
+            video_shader_dir = ":\shaders"
+            load_dummy_on_core_shutdown = "false"
+            input_joypad_driver = "winxinput"
+            config_save_on_exit = "true"
+            cursor_directory = ":\database\cursors"
+            content_database_directory = ":\database\rdb"
+            cheat_database_path = ":\cheats"
+            video_driver = "gl"
+EOF
+            
+            
+            
             rm -rfv windows
             mkdir -p windows
             mkdir -p windows/overlays
@@ -1260,13 +1283,21 @@ then
             mkdir -p windows/filters/video
             mkdir -p windows/filters/audio
             mkdir -p windows/assets
+            mkdir -p windows/cheats
+            mkdir -p windows/database
+            mkdir -p windows/database/cursors
+            mkdir -p windows/database/rdb
             
+            cp -v *.cfg windows/
             cp -v *.exe tools/*.exe windows/
             cp -Rfv media/overlays/* windows/overlays
             cp -Rfv media/shaders_cg/* windows/shaders
             cp -Rfv media/autoconfig/* windows/autoconfig
             cp -Rfv media/assets/* windows/assets
-            cp -Rfv $RARCH_DIR/info windows/info
+            cp -Rfv media/libretrodb/cht/* windows/cheats
+            cp -Rfv media/libretrodb/rdb/* windows/rdb
+            cp -Rfv media/libretrodb/cursors/* windows/cursors
+            cp -Rfv $RARCH_DIR/info windows/cores
             cp -Rfv audio/audio_filters/*.dll windows/filters/audio
             cp -Rfv audio/audio_filters/*.dsp windows/filters/audio
             cp -Rfv gfx/video_filters/*.dll windows/filters/video
