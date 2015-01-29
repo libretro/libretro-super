@@ -1102,7 +1102,7 @@ then
             echo PARENT: $PARENTDIR
             echo URL: $URL
             echo REPO TYPE: $TYPE
-        echo ENABLED: $ENABLED
+            echo ENABLED: $ENABLED
 
             ARGS=""
 
@@ -1142,41 +1142,41 @@ then
                 ARGS="${ARGS} ${TEMP}"
             fi
 
-             ARGS="${ARGS%"${ARGS##*[![:space:]]}"}"
+            ARGS="${ARGS%"${ARGS##*[![:space:]]}"}"
 
             echo ARGS: $ARGS
 
             if [ -d "${PARENTDIR}/${DIR}/.git" ];
             then
-        cd $PARENTDIR
+            cd $PARENTDIR
                 cd $DIR
                 echo "pulling from repo... "
                 OUT=`git pull`
                 echo $OUT
-        if [ "${TYPE}" == "PROJECT" ];
-        then
-            RADIR=$DIR
+                if [ "${TYPE}" == "PROJECT" ];
+                then
+                    RADIR=$DIR
                     if [[ $OUT == *"Already up-to-date"* ]]
                     then
                         BUILD="NO"
-                    else
+                    else    
                         BUILD="YES"
                     fi
                 fi
                 cd $WORK
-
             else
                 echo "cloning repo..."
-        cd $PARENTDIR
+                cd $PARENTDIR
                 git clone "$URL" "$DIR" --depth=1
                 cd $DIR
-        if [ "${TYPE}" == "PROJECT" ];
-        then
+        
+                if [ "${TYPE}" == "PROJECT" ];
+                then
                     BUILD="YES"
-            RADIR=$DIR
+                    RADIR=$DIR
 
                 fi
-                cd $WORK
+            cd $WORK
             fi
         fi
 
@@ -1186,28 +1186,42 @@ then
     if [ "${BUILD}" == "YES" -o "${FORCE}" == "YES" ];
     then
 
-    echo RADIR $RADIR
-    cd $RADIR
-
-
-
-    echo "Building"
+        cd $RADIR
+        echo "Building"
         echo ============================================
-    
-    echo "cleaning up..."
-    echo "cleanup command: $MAKE clean"
+
+        echo "cleaning up..."
+        echo "cleanup command: $MAKE clean"
         $MAKE clean
+        
+        if [ $? -eq 0 ];
+        then
+            echo $jobid retroarch cleanup success!        
+        else
+            echo $jobid retroarch cleanup failure!
+        fi        
 
-    echo "cconfiguring..."
-    echo "configure command: $CONFIGURE"
+        echo "configuring..."
+        echo "configure command: $CONFIGURE"
+        ${CONFIGURE}
+        
+        if [ $? -eq 0 ];
+        then
+            echo $jobid retroarch configure success!        
+        else
+            echo $jobid retroarch configure failure!
+        fi        
 
-    ${CONFIGURE}
-
-    echo "building..."
-    echo "build command: $MAKE -j${JOBS}"
+        echo "building..."
+        echo "build command: $MAKE -j${JOBS}"
         $MAKE -j${JOBS}
-
-    
+        
+                if [ $? -eq 0 ];
+        then
+            echo $jobid retroarch build success!        
+        else
+            echo $jobid retroarch build failure!
+        fi
 
     fi
 
