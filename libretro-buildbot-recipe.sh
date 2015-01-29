@@ -931,8 +931,9 @@ then
     cd android/phoenix
     rm bin/*.apk
 
-        $NDK clean
-        $NDK -j8
+    $NDK clean
+    $NDK -j${JOBS}
+    ant clean
     android update project --path . --target android-21
     android update project --path libs/googleplay --target android-21
     android update project --path libs/appcompat --target android-21
