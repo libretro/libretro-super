@@ -1251,27 +1251,27 @@ then
             echo "Packaging"
             echo ============================================
             cp retroarch.cfg retroarch.default.cfg
-            cat << EOF > retroarch.cfg
-            libretro_directory = ":\cores"
-            screenshot_directory = ":\screenshots"
-            rgui_config_directory = ":\config"
-            rgui_browser_directory = ":\content"
-            assets_directory = ":\assets"
-            overlay_directory = ":\overlays"
-            joypad_autoconfig_dir = ":\autoconfig"
-            system_directory = ":\system"
-            audio_filter_dir = ":\filters\audio"
-            video_filter_dir = ":\filters\video"
-            video_shader_dir = ":\shaders"
-            load_dummy_on_core_shutdown = "false"
-            input_joypad_driver = "winxinput"
-            config_save_on_exit = "true"
-            cursor_directory = ":\database\cursors"
-            content_database_directory = ":\database\rdb"
-            cheat_database_path = ":\cheats"
-            video_driver = "gl"
+cat << EOF > retroarch.cfg
+libretro_directory = ":\cores"
+screenshot_directory = ":\screenshots"
+rgui_config_directory = ":\config"
+rgui_browser_directory = ":\content"
+assets_directory = ":\assets"
+overlay_directory = ":\overlays"
+joypad_autoconfig_dir = ":\autoconfig"
+system_directory = ":\system"
+audio_filter_dir = ":\filters\audio"
+video_filter_dir = ":\filters\video"
+video_shader_dir = ":\shaders"
+load_dummy_on_core_shutdown = "false"
+input_joypad_driver = "winxinput"
+config_save_on_exit = "true"
+cursor_directory = ":\database\cursors"
+content_database_directory = ":\database\rdb"
+cheat_database_path = ":\cheats"
+video_driver = "gl"
 EOF
-            
+
             
             
             rm -rfv windows
