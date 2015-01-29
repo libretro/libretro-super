@@ -1256,12 +1256,19 @@ then
             mkdir -p windows/overlays
             mkdir -p windows/shaders
             mkdir -p windows/autoconfig
+            mkdir -p windows/filters
+            mkdir -p windows/filters/video
+            mkdir -p windows/filters/audio
             
             cp -v *.exe windows/
-            cp -Rfv media/overlays/* windows/
+            cp -Rfv media/overlays/* windows/overlays
             cp -Rfv media/shaders_cg/* windows/shaders
             cp -Rfv media/autoconfig/* windows/autoconfig
             cp -Rfv $RARCH_DIR/info windows/info
+            cp -Rfv audio/audio_filters/*.dll windows/filters/audio
+            cp -Rfv audio/audio_filters/*.dsp windows/filters/audio
+            cp -Rfv gfx/video_filters/*.dll windows/filters/video
+            cp -Rfv gfx/video_filters/*.filt windows/filters/video
             
             
             
