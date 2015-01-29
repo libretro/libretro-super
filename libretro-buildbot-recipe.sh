@@ -9,8 +9,8 @@
 # eg: FORCE=YES MAKE=mingw32-make ./libretro-fetch-and-build.sh buildbot
 
 ####environment configuration:
-echo "Setting up Environment for $1"
-echo ============================================
+echo "BUILDBOT JOB: Setting up Environment for $1"
+echo 
 
 ORIGPATH=$PATH
 WORK=$PWD
@@ -202,9 +202,9 @@ build_libretro_generic_makefile() {
     ${MAKE} -f ${MAKEFILE} platform=${PLATFORM} -j${JOBS} ${ARGS} clean
     if [ $? -eq 0 ];
         then
-            echo $jobid $1 cleanup success!
+            echo BUILDBOT JOB: $jobid $1 cleanup success!
         else
-            echo $jobid $1 cleanup failure!
+            echo BUILDBOT JOB: $jobid $1 cleanup failure!
         fi
     fi
 
@@ -220,10 +220,10 @@ build_libretro_generic_makefile() {
 
     if [ $? -eq 0 ];
     then 
-        echo $jobid $1 build success!
+        echo BUILDBOT JOB: $jobid $1 build success!
         cp -v ${NAME}_libretro${FORMAT}${SUFFIX}.${FORMAT_EXT} $RARCH_DIST_DIR/${NAME}_libretro${FORMAT}.${FORMAT_EXT}
     else
-        echo $jobid $1 build failure!
+        echo BUILDBOT JOB: $jobid $1 build failure!
     fi
 
     JOBS=$OLDJ
@@ -254,9 +254,9 @@ build_libretro_generic_theos() {
     ${MAKE} -f ${MAKEFILE} platform=${PLATFORM} -j${JOBS} ${ARGS} clean
     if [ $? -eq 0 ];
         then
-            echo $jobid $1 cleanup success!
+            echo BUILDBOT JOB: $jobid $1 cleanup success!
         else
-            echo $jobid $1 cleanup failure!
+            echo BUILDBOT JOB: $jobid $1 cleanup failure!
         fi
     fi
 
@@ -272,10 +272,10 @@ build_libretro_generic_theos() {
 
     if [ $? -eq 0 ];
     then
-        echo $jobid $1 build success!
+        echo BUILDBOT JOB: $jobid $1 build success!
         cp -v objs/obj/${NAME}_libretro${FORMAT}${SUFFIX}.${FORMAT_EXT} $RARCH_DIST_DIR/${NAME}_libretro${FORMAT}${SUFFIX}.${FORMAT_EXT}
     else
-        echo $jobid $1 build failure!
+        echo BUILDBOT JOB: $jobid $1 build failure!
     fi
 
 }
@@ -301,9 +301,9 @@ build_libretro_generic_jni() {
             ${NDK} -j${JOBS} ${ARGS} APP_ABI=${a} clean
             if [ $? -eq 0 ];
         then 
-            echo $jobid $a $1 cleanup success!
+            echo BUILDBOT JOB: $jobid $a $1 cleanup success!
         else
-            echo $jobid $a $1 cleanup failure!
+            echo BUILDBOT JOB: $jobid $a $1 cleanup failure!
         fi
         fi
 
@@ -318,10 +318,10 @@ build_libretro_generic_jni() {
         fi
         if [ $? -eq 0 ];
         then
-        echo $jobid $a $1 build success!
+        echo BUILDBOT JOB: $jobid $a $1 build success!
         cp -v ../libs/${a}/libretro.${FORMAT_EXT} $RARCH_DIST_DIR/${a}/${1}_libretro${FORMAT}.${FORMAT_EXT}
         else
-        echo $jobid $a $1 build failure!
+        echo BUILDBOT JOB: $jobid $a $1 build failure!
         fi
     done
 }
@@ -349,9 +349,9 @@ build_libretro_bsnes_jni() {
             ${NDK} -j${JOBS} APP_ABI=${a} clean
             if [ $? -eq 0 ];
         then
-            echo $jobid $1 cleanup success!
+            echo BUILDBOT JOB: $jobid $1 cleanup success!
         else
-            echo $jobid $1 cleanup failure!
+            echo BUILDBOT JOB: $jobid $1 cleanup failure!
         fi
         fi
 
@@ -366,10 +366,10 @@ build_libretro_bsnes_jni() {
         fi
         if [ $? -eq 0 ];
         then
-        echo $jobid $1 build success!
+        echo BUILDBOT JOB: $jobid $1 build success!
         cp -v ../libs/${a}/libretro_${CORENAME}_${PROFILE}.${FORMAT_EXT} $RARCH_DIST_DIR/${a}/${NAME}_${PROFILE}_libretro${FORMAT}.${FORMAT_EXT}
         else
-        echo $jobid $1 build failure!
+        echo BUILDBOT JOB: $jobid $1 build failure!
         fi
     done
 }
@@ -398,9 +398,9 @@ build_libretro_generic_gl_makefile() {
     ${MAKE} -f ${MAKEFILE} platform=${PLATFORM} -j${JOBS} clean
     if [ $? -eq 0 ];
         then 
-            echo $jobid $1 cleanup success!
+            echo BUILDBOT JOB: $jobid $1 cleanup success!
         else
-            echo $jobid $1 cleanup failure!
+            echo BUILDBOT JOB: $jobid $1 cleanup failure!
         fi
     fi
 
@@ -416,10 +416,10 @@ build_libretro_generic_gl_makefile() {
 
     if [ $? -eq 0 ];
     then 
-        echo $jobid $1 build success!
+        echo BUILDBOT JOB: $jobid $1 build success!
         cp -v ${NAME}_libretro${FORMAT}${SUFFIX}.${FORMAT_EXT} $RARCH_DIST_DIR/${NAME}_libretro${FORMAT}${SUFFIX}.${FORMAT_EXT}
     else
-        echo $jobid $1 build failure!
+        echo BUILDBOT JOB: $jobid $1 build failure!
     fi
 
     reset_compiler_targets
@@ -458,9 +458,9 @@ build_libretro_bsnes() {
 
         if [ $? -eq 0 ];
         then
-            echo $jobid $1 cleanup success!
+            echo BUILDBOT JOB: $jobid $1 cleanup success!
         else
-            echo $jobid $1 cleanup failure!
+            echo BUILDBOT JOB: $jobid $1 cleanup failure!
         fi
     fi
 
@@ -481,7 +481,7 @@ build_libretro_bsnes() {
 
     if [ $? -eq 0 ];
     then
-        echo $jobid $1 build success!
+        echo BUILDBOT JOB: $jobid $1 build success!
         if [ "${PROFILE}" == "cpp98" ];
         then
             cp -fv "out/libretro.${FORMAT_EXT}" "${RARCH_DIST_DIR}/${NAME}_libretro${FORMAT}${SUFFIX}.${FORMAT_EXT}"
@@ -492,7 +492,7 @@ build_libretro_bsnes() {
             cp -fv "out/${NAME}_libretro$FORMAT.${FORMAT_EXT}" $RARCH_DIST_DIR/${NAME}_${PROFILE}_libretro${FORMAT}${SUFFIX}.${FORMAT_EXT}
         fi
     else
-        echo $jobid $1 build failure!
+        echo BUILDBOT JOB: $jobid $1 build failure!
     fi
 
 }
@@ -517,8 +517,8 @@ while read line; do
 
     if [ "${ENABLED}" == "YES" ];
     then
-        echo "Processing $NAME"
-        echo ============================================
+        echo "BUILDBOT JOB: $jobid Processing $NAME"
+        echo 
     echo URL: $URL
         echo REPO TYPE: $TYPE
     echo ENABLED: $ENABLED
@@ -680,7 +680,7 @@ while read line; do
 
         fi
     else
-        echo $jobid $NAME already up-to-date...
+        echo BUILDBOT JOB: $jobid $NAME already up-to-date...
     fi
         echo
 
@@ -692,8 +692,8 @@ while read line; do
 
 done  < $1
 
-echo "Building RetroArch"
-echo ============================================
+echo "BUILDBOT JOB: $jobid Building Retroarch"
+echo 
 cd $WORK
 BUILD=""
 
@@ -714,8 +714,8 @@ then
 
          if [ "${ENABLED}" == "YES" ];
          then
-            echo "Processing $NAME"
-            echo ============================================
+            echo "BUILDBOT JOB: $jobid Processing $NAME"
+            echo 
             echo NAME: $NAME
             echo DIR: $DIR
             echo SUBDIR: $SUBDIR
@@ -817,8 +817,8 @@ then
 
          if [ "${ENABLED}" == "YES" ];
          then
-            echo "Processing $NAME"
-            echo ============================================
+            echo "BUILDBOT JOB: $jobid Processing $NAME"
+            echo 
             echo NAME: $NAME
             echo DIR: $DIR
             echo PARENT: $PARENTDIR
@@ -907,15 +907,15 @@ then
     done  < $1.ra
     if [ "${BUILD}" == "YES" -o "${FORCE}" == "YES" ];
     then
-        echo "Compiling Shaders"
-        echo ============================================
+        echo "BUILDBOT JOB: $jobid Compiling Shaders"
+        echo 
 
     echo RADIR $RADIR
     cd $RADIR
     $MAKE -f Makefile.griffin shaders-convert-glsl PYTHON3=$PYTHON
 
-    echo "Processing Assets"
-    echo ============================================
+    echo "BUILDBOT JOB: $jobid Processing Assets"
+    echo 
 
     rm -Rfv android/phoenix/assets/overlays
     cp -Rfv media/overlays android/phoenix/assets/
@@ -926,8 +926,8 @@ then
     rm -Rfv android/phoenix/assets/info
     cp -Rfv $RARCH_DIR/info android/phoenix/assets/
 
-    echo "Building"
-    echo ============================================
+    echo "BUILDBOT JOB: $jobid Building"
+    echo 
     cd android/phoenix
     rm bin/*.apk
 
@@ -956,8 +956,8 @@ then
 
          if [ "${ENABLED}" == "YES" ];
          then
-            echo "Processing $NAME"
-            echo ============================================
+            echo "BUILDBOT JOB: $jobid Processing $NAME"
+            echo 
             echo NAME: $NAME
             echo DIR: $DIR
             echo PARENT: $PARENTDIR
@@ -1046,19 +1046,19 @@ then
     done  < $1.ra
     if [ "${BUILD}" == "YES" -o "${FORCE}" == "YES" ];
     then
-        echo "Compiling Shaders"
-        echo ============================================
+        echo "BUILDBOT JOB: $jobid Compiling Shaders"
+        echo 
 
     echo RADIR $RADIR
     cd $RADIR
     $MAKE -f Makefile.griffin shaders-convert-glsl PYTHON3=$PYTHON
 
-    echo "Processing Assets"
-        echo ============================================
+    echo "BUILDBOT JOB: $jobid Processing Assets"
+        echo 
 
 
-    echo "Building"
-        echo ============================================
+    echo "BUILDBOT JOB: $jobid Building"
+    echo 
     cd apple/iOS
     rm RetroArch.app -rf
 
@@ -1095,8 +1095,8 @@ then
 
          if [ "${ENABLED}" == "YES" ];
          then
-            echo "Processing $NAME"
-            echo ============================================
+            echo "BUILDBOT JOB: $jobid Processing $NAME"
+            echo 
             echo NAME: $NAME
             echo DIR: $DIR
             echo PARENT: $PARENTDIR
@@ -1187,8 +1187,8 @@ then
     then
 
         cd $RADIR
-        echo "Building"
-        echo ============================================
+        echo "BUILDBOT JOB: $jobid Building"
+        echo 
 
         echo "compiling audio filters"
         cd audio/audio_filters
@@ -1196,9 +1196,9 @@ then
         $MAKE
         if [ $? -eq 0 ];
         then
-            echo $jobid audio filter build success!        
+            echo BUILDBOT JOB: $jobid audio filter build success!        
         else
-            echo $jobid audio filter build failure!
+            echo BUILDBOT JOB: $jobid audio filter build failure!
         fi
         
         cd ..
@@ -1210,9 +1210,9 @@ then
         $MAKE
         if [ $? -eq 0 ];
         then
-            echo $jobid video filter build success!        
+            echo BUILDBOT JOB: $jobid video filter build success!        
         else
-            echo $jobid video filter build failure!
+            echo BUILDBOT JOB: $jobid video filter build failure!
         fi
         
         cd ..
@@ -1224,9 +1224,9 @@ then
         
         if [ $? -eq 0 ];
         then
-            echo $jobid retroarch cleanup success!        
+            echo BUILDBOT JOB: $jobid retroarch cleanup success!        
         else
-            echo $jobid retroarch cleanup failure!
+            echo BUILDBOT JOB: $jobid retroarch cleanup failure!
         fi        
 
         echo "configuring..."
@@ -1235,9 +1235,9 @@ then
         
         if [ $? -eq 0 ];
         then
-            echo $jobid retroarch configure success!        
+            echo BUILDBOT JOB: $jobid retroarch configure success!        
         else
-            echo $jobid retroarch configure failure!
+            echo BUILDBOT JOB: $jobid retroarch configure failure!
         fi        
 
         echo "building..."
@@ -1246,7 +1246,7 @@ then
         
                 if [ $? -eq 0 ];
         then
-            echo $jobid retroarch build success!
+            echo BUILDBOT JOB: $jobid retroarch build success!
             
             echo "Packaging"
             echo ============================================
@@ -1307,7 +1307,7 @@ EOF
             
             
         else
-            echo $jobid retroarch build failure!
+            echo BUILDBOT JOB: $jobid retroarch build failure!
         fi
     fi
 
