@@ -915,7 +915,7 @@ then
     $MAKE -f Makefile.griffin shaders-convert-glsl PYTHON3=$PYTHON
 
     echo "Processing Assets"
-        echo ============================================
+    echo ============================================
 
     rm -Rfv android/phoenix/assets/overlays
     cp -Rfv media/overlays android/phoenix/assets/
@@ -927,7 +927,7 @@ then
     cp -Rfv $RARCH_DIR/info android/phoenix/assets/
 
     echo "Building"
-        echo ============================================
+    echo ============================================
     cd android/phoenix
     rm bin/*.apk
 
@@ -1190,6 +1190,34 @@ then
         echo "Building"
         echo ============================================
 
+        echo "compiling audio filters"
+        cd audio/audio_filters
+        echo "audio filter build command: ${MAKE}"
+        $MAKE
+        if [ $? -eq 0 ];
+        then
+            echo $jobid audio filter build success!        
+        else
+            echo $jobid audio filter build failure!
+        fi
+        
+        cd ..
+        cd ..
+        
+        echo "compiling video filters"
+        cd gfx/video_filters
+        echo "audio filter build command: ${MAKE}"
+        $MAKE
+        if [ $? -eq 0 ];
+        then
+            echo $jobid video filter build success!        
+        else
+            echo $jobid video filter build failure!
+        fi
+        
+        cd ..
+        cd ..        
+        
         echo "cleaning up..."
         echo "cleanup command: $MAKE clean"
         $MAKE clean
@@ -1218,11 +1246,29 @@ then
         
                 if [ $? -eq 0 ];
         then
-            echo $jobid retroarch build success!        
+            echo $jobid retroarch build success!
+            
+            echo "Packaging"
+            echo ============================================
+
+            rm -rfv windows
+            mkdir -p windows
+            mkdir -p windows/overlays
+            mkdir -p windows/shaders
+            mkdir -p windows/autoconfig
+            
+            cp -v *.exe windows/
+            cp -Rfv media/overlays/* windows/
+            cp -Rfv media/shaders_cg/* windows/shaders
+            cp -Rfv media/autoconfig/* windows/autoconfig
+            cp -Rfv $RARCH_DIR/info windows/info
+            
+            
+            
+            
         else
             echo $jobid retroarch build failure!
         fi
-
     fi
 
 fi
