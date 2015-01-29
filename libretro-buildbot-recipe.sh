@@ -1259,11 +1259,13 @@ then
             mkdir -p windows/filters
             mkdir -p windows/filters/video
             mkdir -p windows/filters/audio
+            mkdir -p windows/assets
             
-            cp -v *.exe windows/
+            cp -v *.exe tools/*.exe windows/
             cp -Rfv media/overlays/* windows/overlays
             cp -Rfv media/shaders_cg/* windows/shaders
             cp -Rfv media/autoconfig/* windows/autoconfig
+            cp -Rfv media/assets/* windows/assets
             cp -Rfv $RARCH_DIR/info windows/info
             cp -Rfv audio/audio_filters/*.dll windows/filters/audio
             cp -Rfv audio/audio_filters/*.dsp windows/filters/audio
