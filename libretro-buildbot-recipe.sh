@@ -1291,8 +1291,8 @@ EOF
             cp -Rfv media/autoconfig/* windows/autoconfig
             cp -Rfv media/assets/* windows/assets
             cp -Rfv media/libretrodb/cht/* windows/cheats
-            cp -Rfv media/libretrodb/rdb/* windows/rdb
-            cp -Rfv media/libretrodb/cursors/* windows/cursors
+            cp -Rfv media/libretrodb/rdb/* windows/database/rdb
+            cp -Rfv media/libretrodb/cursors/* windows/database/cursors
             cp -Rfv $RARCH_DIR/info windows/cores
             cp -Rfv audio/audio_filters/*.dll windows/filters/audio
             cp -Rfv audio/audio_filters/*.dsp windows/filters/audio
