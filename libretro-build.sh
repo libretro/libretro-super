@@ -91,6 +91,13 @@ echo "STRIP = $STRIP"
 
 mkdir -p "$RARCH_DIST_DIR"
 
+if [ -n "$CORE_BUILD_SUCCESS_LOG" ]; then
+	rm -f $CORE_BUILD_SUCCESS_LOG
+fi
+if [ -n "$CORE_BUILD_FAIL_LOG" ]; then
+	rm -f $CORE_BUILD_FAIL_LOG
+fi
+
 if [ $1 ]; then
    $1
 else
@@ -152,4 +159,13 @@ else
    build_libretro_hatari
    build_libretro_gpsp
    build_libretro_emux
+fi
+
+if [[ -n "$CORE_BUILD_SUCCESS_LOG" && -r "$CORE_BUILD_SUCCESS_LOG" ]]; then
+	echo "$(wc -l < $CORE_BUILD_SUCCESS_LOG) core(s) successfully built:"
+	$CORE_BUILD_SHOW_CMD $CORE_BUILD_SUCCESS_LOG
+fi
+if [[ -n "$CORE_BUILD_FAIL_LOG" && -r "$CORE_BUILD_FAIL_LOG" ]]; then
+	echo "$(wc -l < $CORE_BUILD_FAIL_LOG) core(s) failed to build:"
+	$CORE_BUILD_SHOW_CMD $CORE_BUILD_FAIL_LOG
 fi

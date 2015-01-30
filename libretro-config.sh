@@ -22,10 +22,12 @@ if [[ -n "$PROCESSOR_ARCHITEW6432" && $PROCESSOR_ARCHITEW6432 -eq "AMD64" ]]; th
    X86=true && X86_64=true
 fi
 
-if command -v nproc >/dev/null; then
-   JOBS=$(nproc)
-else
-   JOBS=1
+if [ -z "$JOBS" ]; then
+  if command -v nproc >/dev/null; then
+     JOBS=$(nproc)
+  else
+     JOBS=1
+  fi
 fi
 
 # Platform Assignment
@@ -136,6 +138,15 @@ export RA_ANDROID_API=android-18
 
 # Retroarch minimum API level (defines low end android version compatability)
 export RA_ANDROID_MIN_API=android-9
+
+# Core build files
+export CORE_BUILD_SUCCESS_LOG=$(pwd)/build-success.log
+export CORE_BUILD_FAIL_LOG=$(pwd)/build-fail.log
+if command -v column >/dev/null; then
+  CORE_BUILD_SHOW_CMD=column
+else
+  CORE_BUILD_SHOW_CMD=cat
+fi
 
 #USER DEFINES
 #------------
