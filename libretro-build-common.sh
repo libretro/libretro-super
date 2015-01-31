@@ -27,6 +27,16 @@ echo "${FORMAT_COMPILER_TARGET_ALT}"
 RESET_FORMAT_COMPILER_TARGET=$FORMAT_COMPILER_TARGET
 RESET_FORMAT_COMPILER_TARGET_ALT=$FORMAT_COMPILER_TARGET_ALT
 
+build_summary_log() {
+   if [ -z "${NOBUILD_SUMMARY}" ]; then
+      if [ "${1}" -eq "0" ]; then
+         echo ${2} >> ${BUILD_SUCCESS}
+      else
+         echo ${2} >> ${BUILD_FAIL}
+      fi
+   fi
+}
+
 check_opengl() {
    if [ "${BUILD_LIBRETRO_GL}" ]; then
       if [ "${ENABLE_GLES}" ]; then
@@ -59,15 +69,7 @@ build_libretro_pcsx_rearmed_interpreter() {
       fi
       "${MAKE}" -f Makefile.libretro USE_DYNAREC=0 platform="${FORMAT_COMPILER_TARGET}" ${COMPILER} "-j${JOBS}" || die 'Failed to build PCSX ReARMed'
       cp "pcsx_rearmed_libretro${FORMAT}.${FORMAT_EXT}" "${RARCH_DIST_DIR}/pcsx_rearmed_interpreter${FORMAT}.${FORMAT_EXT}"
-      if [ "$?" -eq "0" ]; then
-        if [ -n $CORE_BUILD_SUCCESS_LOG ]; then
-          echo "pcsx_rearmed_interpreter" >> $CORE_BUILD_SUCCESS_LOG
-        fi
-      else
-        if [ -n $CORE_BUILD_FAIL_LOG ]; then
-          echo "pcsx_rearmed_interpreter" >> $CORE_BUILD_FAIL_LOG
-        fi
-      fi
+      build_summary_log ${?} "pcsx_rearmed_interpreter"
    else
       echo 'PCSX ReARMed not fetched, skipping ...'
    fi
@@ -90,15 +92,7 @@ build_libretro_generic_makefile_subcore() {
       fi
       make -f ${4} platform=${5} -j$JOBS || die "Failed to build ${2}"
       cp ${2}_libretro$FORMAT.${FORMAT_EXT} $RARCH_DIST_DIR/${2}_libretro$FORMAT.${FORMAT_EXT}
-      if [ "$?" -eq "0" ]; then
-        if [ -n $CORE_BUILD_SUCCESS_LOG ]; then
-          echo "${2}" >> $CORE_BUILD_SUCCESS_LOG
-        fi
-      else
-        if [ -n $CORE_BUILD_FAIL_LOG ]; then
-          echo "${2}" >> $CORE_BUILD_FAIL_LOG
-        fi
-      fi
+      build_summary_log ${?} ${2}
    fi
 }
 
@@ -118,26 +112,10 @@ build_libretro_fba_cps1() {
 copy_core_to_dist() {
    if [ "$FORMAT_COMPILER_TARGET" = "theos_ios" ]; then
       cp "objs/obj/${1}_libretro${FORMAT}.${FORMAT_EXT}" "${RARCH_DIST_DIR}"
-      if [ "$?" -eq "0" ]; then
-        if [ -n $CORE_BUILD_SUCCESS_LOG ]; then
-          echo "${1}" >> $CORE_BUILD_SUCCESS_LOG
-        fi
-      else
-        if [ -n $CORE_BUILD_FAIL_LOG ]; then
-          echo "${1}" >> $CORE_BUILD_FAIL_LOG
-        fi
-      fi
+      build_summary_log ${?} ${1}
    else
       cp "${1}_libretro${FORMAT}.${FORMAT_EXT}" "${RARCH_DIST_DIR}"
-      if [ "$?" -eq "0" ]; then
-        if [ -n $CORE_BUILD_SUCCESS_LOG ]; then
-          echo "${1}" >> $CORE_BUILD_SUCCESS_LOG
-        fi
-      else
-        if [ -n $CORE_BUILD_FAIL_LOG ]; then
-          echo "${1}" >> $CORE_BUILD_FAIL_LOG
-        fi
-      fi
+      build_summary_log ${?} ${1}
    fi
 }
 
@@ -439,15 +417,7 @@ build_libretro_mess() {
 	"${MAKE}" -f Makefile.libretro "TARGET=mess" platform="${FORMAT_COMPILER_TARGET}" ${COMPILER} "-j${JOBS}" || die 'Failed to build MAME'
       fi
       cp "mess_libretro${FORMAT}.${FORMAT_EXT}" "${RARCH_DIST_DIR}"
-      if [ "$?" -eq "0" ]; then
-        if [ -n $CORE_BUILD_SUCCESS_LOG ]; then
-          echo "mess" >> $CORE_BUILD_SUCCESS_LOG
-        fi
-      else
-        if [ -n $CORE_BUILD_FAIL_LOG ]; then
-          echo "mess" >> $CORE_BUILD_FAIL_LOG
-        fi
-      fi
+      build_summary_log ${?} "mess"
    else
       echo 'MAME not fetched, skipping ...'
    fi
@@ -474,15 +444,7 @@ rebuild_libretro_mess() {
 	"${MAKE}" -f Makefile.libretro "TARGET=mess" platform="${FORMAT_COMPILER_TARGET}" ${COMPILER} "-j${JOBS}" || die 'Failed to build MAME'
       fi
       cp "mess_libretro${FORMAT}.${FORMAT_EXT}" "${RARCH_DIST_DIR}"
-      if [ "$?" -eq "0" ]; then
-        if [ -n $CORE_BUILD_SUCCESS_LOG ]; then
-          echo "mess" >> $CORE_BUILD_SUCCESS_LOG
-        fi
-      else
-        if [ -n $CORE_BUILD_FAIL_LOG ]; then
-          echo "mess" >> $CORE_BUILD_FAIL_LOG
-        fi
-      fi
+      build_summary_log ${?} "mess"
    else
       echo 'MAME not fetched, skipping ...'
    fi
@@ -509,15 +471,7 @@ build_libretro_ume() {
         "${MAKE}" -f Makefile.libretro "TARGET=ume" platform="${FORMAT_COMPILER_TARGET}" ${COMPILER} "-j${JOBS}" || die 'Failed to build MAME'
       fi
       cp "ume_libretro${FORMAT}.${FORMAT_EXT}" "${RARCH_DIST_DIR}"
-      if [ "$?" -eq "0" ]; then
-        if [ -n $CORE_BUILD_SUCCESS_LOG ]; then
-          echo "ume" >> $CORE_BUILD_SUCCESS_LOG
-        fi
-      else
-        if [ -n $CORE_BUILD_FAIL_LOG ]; then
-          echo "ume" >> $CORE_BUILD_FAIL_LOG
-        fi
-      fi
+      build_summary_log ${?} "ume"
    else
       echo 'MAME not fetched, skipping ...'
    fi
@@ -544,15 +498,7 @@ rebuild_libretro_ume() {
 	"${MAKE}" -f Makefile.libretro "TARGET=ume" platform="${FORMAT_COMPILER_TARGET}" ${COMPILER} "-j${JOBS}" || die 'Failed to build MAME'
       fi
       cp "ume_libretro${FORMAT}.${FORMAT_EXT}" "${RARCH_DIST_DIR}"
-      if [ "$?" -eq "0" ]; then
-        if [ -n $CORE_BUILD_SUCCESS_LOG ]; then
-          echo "ume" >> $CORE_BUILD_SUCCESS_LOG
-        fi
-      else
-        if [ -n $CORE_BUILD_FAIL_LOG ]; then
-          echo "ume" >> $CORE_BUILD_FAIL_LOG
-        fi
-      fi
+      build_summary_log ${?} "ume"
    else
       echo 'MAME not fetched, skipping ...'
    fi
@@ -574,15 +520,7 @@ build_libretro_bsnes_modern() {
       fi
       "${MAKE}" -f Makefile platform="${FORMAT_COMPILER_TARGET}" compiler="${4}" ui='target-libretro' profile="${3}" "-j${JOBS}" || die "Failed to build ${1} ${3} core"
       cp -f "out/${1}_libretro${FORMAT}.${FORMAT_EXT}" "${RARCH_DIST_DIR}/${1}_${3}_libretro${FORMAT}.${FORMAT_EXT}"
-      if [ "$?" -eq "0" ]; then
-        if [ -n $CORE_BUILD_SUCCESS_LOG ]; then
-          echo "${1}_${3}" >> $CORE_BUILD_SUCCESS_LOG
-        fi
-      else
-        if [ -n $CORE_BUILD_FAIL_LOG ]; then
-          echo "${1}_${3}" >> $CORE_BUILD_FAIL_LOG
-        fi
-      fi
+      build_summary_log ${?} "${1}_${3}"
    else
       echo "${1} ${3} not fetched, skipping ..."
    fi
@@ -612,15 +550,7 @@ build_libretro_bsnes_cplusplus98() {
       fi
       "${MAKE}" platform="${FORMAT_COMPILER_TARGET}" ${COMPILER} "-j${JOBS}"
       cp "out/libretro.${FORMAT_EXT}" "${RARCH_DIST_DIR}/${CORENAME}_libretro${FORMAT}.${FORMAT_EXT}"
-      if [ "$?" -eq "0" ]; then
-        if [ -n $CORE_BUILD_SUCCESS_LOG ]; then
-          echo "${CORENAME}" >> $CORE_BUILD_SUCCESS_LOG
-        fi
-      else
-        if [ -n $CORE_BUILD_FAIL_LOG ]; then
-          echo "${CORENAME}" >> $CORE_BUILD_FAIL_LOG
-        fi
-      fi
+      build_summary_log ${?} ${CORENAME}
    else
       echo "${CORENAME} not fetched, skipping ..."
    fi
@@ -638,15 +568,7 @@ build_libretro_bnes() {
       fi
       "${MAKE}" -f Makefile ${COMPILER} "-j${JOBS}" compiler="${CXX11}" || die 'Failed to build bNES'
       cp "libretro${FORMAT}.${FORMAT_EXT}" "${RARCH_DIST_DIR}/bnes_libretro${FORMAT}.${FORMAT_EXT}"
-      if [ "$?" -eq "0" ]; then
-        if [ -n $CORE_BUILD_SUCCESS_LOG ]; then
-          echo "bnes" >> $CORE_BUILD_SUCCESS_LOG
-        fi
-      else
-        if [ -n $CORE_BUILD_FAIL_LOG ]; then
-          echo "bnes" >> $CORE_BUILD_FAIL_LOG
-        fi
-      fi
+      build_summary_log ${?} "bnes"
    else
       echo 'bNES not fetched, skipping ...'
    fi
@@ -685,19 +607,32 @@ build_libretro_mupen64() {
 	 "${MAKE}" platform="${FORMAT_COMPILER_TARGET_ALT}" ${COMPILER} "-j${JOBS}" || die 'Failed to build Mupen 64'
       fi
       cp "mupen64plus_libretro${FORMAT}.${FORMAT_EXT}" "${RARCH_DIST_DIR}"
-      if [ "$?" -eq "0" ]; then
-        if [ -n $CORE_BUILD_SUCCESS_LOG ]; then
-          echo "mupen64plus" >> $CORE_BUILD_SUCCESS_LOG
-        fi
-      else
-        if [ -n $CORE_BUILD_FAIL_LOG ]; then
-          echo "mupen64plus" >> $CORE_BUILD_FAIL_LOG
-        fi
-      fi
+      build_summary_log ${?} "mupen64plus"
    else
       echo 'Mupen64 Plus not fetched, skipping ...'
    fi
    reset_compiler_targets
+}
+
+build_summary() {
+   if [ -z "${NOBUILD_SUMMARY}" ]; then
+      echo "=== Core Build Summary ===" > ${BUILD_SUMMARY}
+      if [ -r "${BUILD_SUCCESS}" ]; then
+         echo "$(wc -l < ${BUILD_SUCCESS}) core(s) successfully built:" >> ${BUILD_SUMMARY}
+         ${BUILD_SUMMARY_FMT} ${BUILD_SUCCESS} >> ${BUILD_SUMMARY}
+      else
+         echo "      0 cores successfully built. :(" >> ${BUILD_SUMMARY}
+         echo "$(wc -l < ${BUILD_FAIL}) core(s) failed to build:"
+      fi
+      if [ -r "${BUILD_FAIL}" ]; then
+         echo "$(wc -l < ${BUILD_FAIL}) core(s) failed to build:" >> ${BUILD_SUMMARY}
+         ${BUILD_SUMMARY_FMT} ${BUILD_FAIL} >> ${BUILD_SUMMARY}
+      else
+         echo "     0 cores failed to build! :D" >> ${BUILD_SUMMARY}
+      fi
+      rm -f $BUILD_SUCCESS $BUILD_FAIL
+      cat ${BUILD_SUMMARY}
+   fi
 }
 
 create_dist_dir() {
@@ -709,3 +644,4 @@ create_dist_dir() {
 }
 
 create_dist_dir
+

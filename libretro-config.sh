@@ -139,14 +139,22 @@ export RA_ANDROID_API=android-18
 # Retroarch minimum API level (defines low end android version compatability)
 export RA_ANDROID_MIN_API=android-9
 
-# Core build files
-export CORE_BUILD_SUCCESS_LOG=$(pwd)/build-success.log
-export CORE_BUILD_FAIL_LOG=$(pwd)/build-fail.log
-if command -v column >/dev/null; then
-  CORE_BUILD_SHOW_CMD=column
-else
-  CORE_BUILD_SHOW_CMD=cat
+# Core build summary
+
+# Set this to disable the core build summary
+# export NOBUILD_SUMMARY=1
+
+BUILD_SUMMARY=$(pwd)/build-summary.log
+BUILD_SUCCESS=$(pwd)/build-success.log
+BUILD_FAIL=$(pwd)/build-fail.log
+if [ -z "${BUILD_SUMMARY_FMT}" ]; then
+   if command -v column >/dev/null; then
+      BUILD_SUMMARY_FMT=column
+   else
+      BUILD_SUMMARY_FMT=cat
+   fi
 fi
+
 
 #USER DEFINES
 #------------
