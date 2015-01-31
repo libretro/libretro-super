@@ -92,6 +92,7 @@ echo "STRIP = $STRIP"
 mkdir -p "$RARCH_DIST_DIR"
 
 if [ $1 ]; then
+   NOBUILD_SUMMARY=1
    $1
 else
    build_libretro_2048
