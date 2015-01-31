@@ -139,7 +139,32 @@ export RA_ANDROID_API=android-18
 # Retroarch minimum API level (defines low end android version compatability)
 export RA_ANDROID_MIN_API=android-9
 
-# Core build summary
+#OSX DEFINES
+#===========
+
+# Define this to skip the universal build
+# export NOUNIVERSAL=1
+
+if [[ "${FORMAT_COMPILER_TARGET}" = "osx" && -z "${NOUNIVERSAL}" ]]; then
+   case "${ARCH}" in
+      i385|x86_64)
+         export ARCHFLAGS="-arch i386 -arch x86_64"
+
+         # FIXME: These are a temp shortcut for approx 40 cores 2015-02-01
+         export CFLAGS="-arch i386 -arch x86_64 ${CFLAGS}"
+         export CXXFLAGS="-arch i386 -arch x86_64 ${CXXFLAGS}"
+         export LDFLAGS="-arch i386 -arch x86_64 ${LDFLAGS}"
+         ;;
+      ppc|ppc64)
+         export ARCHFLAGS="-arch ppc -arch ppc64"
+         ;;
+      *)
+         echo "Universal build requested with unknown ARCH=\"${ARCH}\""
+   esac
+fi
+
+#CORE BUILD SUMMARY
+#==================
 
 # Set this to disable the core build summary
 # export NOBUILD_SUMMARY=1
