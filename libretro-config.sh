@@ -145,15 +145,20 @@ export RA_ANDROID_MIN_API=android-9
 # Define this to skip the universal build
 # export NOUNIVERSAL=1
 
+# ARCHFLAGS is a very convenient way of doing this for simple/obvious cores
+# that don't need anything defined on the command line for 32 vs 64 bit
+# systems, however it won't work for anything that does.  For that, you need
+# to do two separate builds, one for each arch, and then do something like:
+#  lipo -create core_i386.dylib core_x86_64.dylib -output core_ub.dylib
+#
+# If building on 10.5/10.6, it's possible that you could actually build a UB
+# for Intel/PowerPC, but please don't. ;) Consider this a proof of concept
+# for now just to test a few cores.
+
 if [[ "${FORMAT_COMPILER_TARGET}" = "osx" && -z "${NOUNIVERSAL}" ]]; then
    case "${ARCH}" in
       i385|x86_64)
          export ARCHFLAGS="-arch i386 -arch x86_64"
-
-         # FIXME: These are a temp shortcut for approx 40 cores 2015-02-01
-         #export CFLAGS="-arch i386 -arch x86_64 ${CFLAGS}"
-         #export CXXFLAGS="-arch i386 -arch x86_64 ${CXXFLAGS}"
-         #export LDFLAGS="-arch i386 -arch x86_64 ${LDFLAGS}"
          ;;
       ppc|ppc64)
          export ARCHFLAGS="-arch ppc -arch ppc64"
