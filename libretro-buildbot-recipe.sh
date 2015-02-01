@@ -1271,7 +1271,7 @@ then
         then
             MESSAGE="retroarch build successful ($jobid)"
             echo $MESSAGE
-            $buildbot_log $MESSAGE 
+            buildbot_log $MESSAGE 
             
             echo "Packaging"
             echo ============================================
@@ -1331,7 +1331,7 @@ EOF
         else
             MESSAGE="retroarch build failed ($jobid)"
             echo $MESSAGE
-            $buildbot_log $MESSAGE            
+            buildbot_log $MESSAGE            
         fi
 
     fi
