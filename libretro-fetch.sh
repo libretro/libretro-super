@@ -176,3 +176,4 @@ fetch_project "$REPO_BASE/libretro/TempGBA-libretro.git" "libretro-tempgba" "lib
 fetch_project "$REPO_BASE/libretro/gpsp.git" "libretro-gpsp" "libretro/gpsp"
 fetch_project "$REPO_BASE/libretro/emux.git" "libretro-emux" "libretro/Emux"
 fetch_project "$REPO_BASE/libretro/libretrodb.git" "libretrodb" "libretro/libretrodb"
+fetch_project "$REPO_BASE/libretro/libretro-dat-pull.git" "libretro-dat-pull" "libretro/libretro-dat-pull"

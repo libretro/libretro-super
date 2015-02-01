@@ -211,10 +211,16 @@ build_libretro_generic_makefile() {
     echo "compiling..."
     if [ -z "${ARGS}" ]
     then
-        echo "buid command: ${MAKE} -f ${MAKEFILE} platform=${PLATFORM} -j${JOBS}"
+        echo "build command: ${MAKE} -f ${MAKEFILE} platform=${PLATFORM} -j${JOBS}"
         ${MAKE} -f ${MAKEFILE} platform=${PLATFORM} -j${JOBS}
     else
-        echo "buid command: ${MAKE} -f ${MAKEFILE} platform=${PLATFORM} -j${JOBS} ${ARGS}"
+        if [ "${NAME}" == "mame2010" ];
+        then
+
+	    echo "build command: ${MAKE} -f ${MAKEFILE} platform=${PLATFORM} -j${JOBS} ${ARGS}" buildtools
+            ${MAKE} -f ${MAKEFILE} platform=${PLATFORM} -j${JOBS} ${ARGS} buildtools
+        fi
+        echo "build command: ${MAKE} -f ${MAKEFILE} platform=${PLATFORM} -j${JOBS} ${ARGS}"
         ${MAKE} -f ${MAKEFILE} platform=${PLATFORM} -j${JOBS} ${ARGS}
     fi
 
@@ -263,10 +269,10 @@ build_libretro_generic_theos() {
     echo "compiling..."
     if [ -z "${ARGS}" ]
     then
-        echo "buid command: ${MAKE} -f ${MAKEFILE} platform=${PLATFORM} -j${JOBS}"
+        echo "build command: ${MAKE} -f ${MAKEFILE} platform=${PLATFORM} -j${JOBS}"
         ${MAKE} -f ${MAKEFILE} platform=${PLATFORM} -j${JOBS}
     else
-        echo "buid command: ${MAKE} -f ${MAKEFILE} platform=${PLATFORM} -j${JOBS} ${ARGS}"
+        echo "build command: ${MAKE} -f ${MAKEFILE} platform=${PLATFORM} -j${JOBS} ${ARGS}"
         ${MAKE} -f ${MAKEFILE} platform=${PLATFORM} -j${JOBS} ${ARGS}
     fi
 
@@ -310,10 +316,10 @@ build_libretro_generic_jni() {
     echo "compiling for ${a}..."
         if [ -z "${ARGS}" ]
         then
-        echo "buid command: ${NDK} -j${JOBS} APP_ABI=${a}"
+        echo "build command: ${NDK} -j${JOBS} APP_ABI=${a}"
         ${NDK} -j${JOBS} APP_ABI=${a}
         else
-        echo "buid command: ${NDK} -j${JOBS} APP_ABI=${a} ${ARGS} "
+        echo "build command: ${NDK} -j${JOBS} APP_ABI=${a} ${ARGS} "
         ${NDK} -j${JOBS} APP_ABI=${a} ${ARGS}
         fi
         if [ $? -eq 0 ];
@@ -358,10 +364,10 @@ build_libretro_bsnes_jni() {
     echo "compiling for ${a}..."
         if [ -z "${ARGS}" ]
         then
-        echo "buid command: ${NDK} -j${JOBS} APP_ABI=${a}"
+        echo "build command: ${NDK} -j${JOBS} APP_ABI=${a}"
         ${NDK} -j${JOBS} APP_ABI=${a}
         else
-        echo "buid command: ${NDK} -j${JOBS} APP_ABI=${a}"
+        echo "build command: ${NDK} -j${JOBS} APP_ABI=${a}"
         ${NDK} -j${JOBS} APP_ABI=${a}
         fi
         if [ $? -eq 0 ];
@@ -407,10 +413,10 @@ build_libretro_generic_gl_makefile() {
     echo "compiling..."
     if [ -z "${ARGS}" ];
     then
-        echo "buid command: ${MAKE} -f ${MAKEFILE} platform=${PLATFORM} -j${JOBS}"
+        echo "build command: ${MAKE} -f ${MAKEFILE} platform=${PLATFORM} -j${JOBS}"
         ${MAKE} -f ${MAKEFILE} platform=${PLATFORM} -j${JOBS}
     else
-        echo "buid command: ${MAKE} -f ${MAKEFILE} platform=${PLATFORM} ${COMPILER} -j${JOBS} ${ARGS}"
+        echo "build command: ${MAKE} -f ${MAKEFILE} platform=${PLATFORM} ${COMPILER} -j${JOBS} ${ARGS}"
         ${MAKE} -f ${MAKEFILE} platform=${PLATFORM} -j${JOBS} ${ARGS}
     fi
 
@@ -472,10 +478,10 @@ build_libretro_bsnes() {
         ${MAKE} platform="${PLATFORM}" ${COMPILER} "-j${JOBS}"
     elif [ "${PROFILE}" == "bnes" ];
     then
-        echo "buid command: ${MAKE} -f Makefile ${COMPILER} "-j${JOBS}" compiler=${BSNESCOMPILER}" platform=${FORMAT_COMPILER_TARGET}
+        echo "build command: ${MAKE} -f Makefile ${COMPILER} "-j${JOBS}" compiler=${BSNESCOMPILER}" platform=${FORMAT_COMPILER_TARGET}
         ${MAKE} -f Makefile ${COMPILER} "-j${JOBS}" compiler="${BSNESCOMPILER}" platform=${FORMAT_COMPILER_TARGET}
     else
-        echo "buid command: ${MAKE} -f ${MAKEFILE} platform=${PLATFORM} compiler=${BSNESCOMPILER} ui='target-libretro' profile=${PROFILE} -j${JOBS}"
+        echo "build command: ${MAKE} -f ${MAKEFILE} platform=${PLATFORM} compiler=${BSNESCOMPILER} ui='target-libretro' profile=${PROFILE} -j${JOBS}"
         ${MAKE} -f ${MAKEFILE} platform=${PLATFORM} compiler=${BSNESCOMPILER} ui='target-libretro' profile=${PROFILE} -j${JOBS}
     fi
 
