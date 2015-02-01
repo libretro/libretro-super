@@ -337,14 +337,16 @@ build_libretro_generic_jni() {
         then
             MESSAGE="$1-$a build successful ($jobid)"        
             echo BUILDBOT JOB: $MESSAGE
+            buildbot_log "$MESSAGE"
             cp -v ../libs/${a}/libretro.${FORMAT_EXT} $RARCH_DIST_DIR/${a}/${1}_libretro${FORMAT}.${FORMAT_EXT}
         else
             MESSAGE="$1-$a build failure ($jobid)"
             echo BUILDBOT JOB: $MESSAGE
+            buildbot_log "$MESSAGE"
         fi
     done
     
-    buildbot_log "$MESSAGE"
+    
 
 }
 
