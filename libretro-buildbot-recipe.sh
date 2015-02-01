@@ -215,6 +215,11 @@ build_libretro_generic_makefile() {
         ${MAKE} -f ${MAKEFILE} platform=${PLATFORM} -j${JOBS}
     else
         echo "buid command: ${MAKE} -f ${MAKEFILE} platform=${PLATFORM} -j${JOBS} ${ARGS}"
+        if [ "${NAME}" == "mame2010" ];
+        then
+            ${MAKE} -f ${MAKEFILE} platform=${PLATFORM} -j${JOBS} ${ARGS} buildtools
+        fi
+
         ${MAKE} -f ${MAKEFILE} platform=${PLATFORM} -j${JOBS} ${ARGS}
     fi
 
