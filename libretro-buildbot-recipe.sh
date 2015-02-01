@@ -174,6 +174,14 @@ reset_compiler_targets() {
 cd "${BASE_DIR}"
 
 ####build commands
+buildbot_log() {
+
+    HASH=`echo -n "$1" | openssl sha1 -hmac $SIG | cut --fields=2 --delimiter=" "`
+    curl --data "message=$1&sign=$HASH" $LOGURL
+
+
+}
+
 build_libretro_generic_makefile() {
 
 
@@ -226,12 +234,13 @@ build_libretro_generic_makefile() {
 
     if [ $? -eq 0 ];
     then 
-        echo BUILDBOT JOB: $jobid $1 build success!
+        MESSAGE="$1 build successful ($jobid)"
         cp -v ${NAME}_libretro${FORMAT}${SUFFIX}.${FORMAT_EXT} $RARCH_DIST_DIR/${NAME}_libretro${FORMAT}.${FORMAT_EXT}
     else
-        echo BUILDBOT JOB: $jobid $1 build failure!
+        MESSAGE="$1 build failed ($jobid)"
     fi
-
+    echo BUILDBOT JOB: $MESSAGE
+    buildbot_log "$MESSAGE"
     JOBS=$OLDJ
 
 }
@@ -278,11 +287,13 @@ build_libretro_generic_theos() {
 
     if [ $? -eq 0 ];
     then
-        echo BUILDBOT JOB: $jobid $1 build success!
+        MESSAGE="$1 build successful ($jobid)"
         cp -v objs/obj/${NAME}_libretro${FORMAT}${SUFFIX}.${FORMAT_EXT} $RARCH_DIST_DIR/${NAME}_libretro${FORMAT}${SUFFIX}.${FORMAT_EXT}
     else
-        echo BUILDBOT JOB: $jobid $1 build failure!
+        MESSAGE="$1 build failure ($jobid)"
     fi
+    echo BUILDBOT JOB: $MESSAGE
+    buildbot_log "$MESSAGE"
 
 }
 
@@ -324,12 +335,15 @@ build_libretro_generic_jni() {
         fi
         if [ $? -eq 0 ];
         then
-        echo BUILDBOT JOB: $jobid $a $1 build success!
+	MESSAGE="$1-$a build successful ($jobid)"        
         cp -v ../libs/${a}/libretro.${FORMAT_EXT} $RARCH_DIST_DIR/${a}/${1}_libretro${FORMAT}.${FORMAT_EXT}
         else
-        echo BUILDBOT JOB: $jobid $a $1 build failure!
+	MESSAGE="$1-$a build failure ($jobid)"
         fi
     done
+    echo BUILDBOT JOB: $MESSAGE
+    buildbot_log "$MESSAGE"
+
 }
 
 build_libretro_bsnes_jni() {
@@ -372,11 +386,14 @@ build_libretro_bsnes_jni() {
         fi
         if [ $? -eq 0 ];
         then
-        echo BUILDBOT JOB: $jobid $1 build success!
+        MESSAGE="$1 build successful ($jobid)"
         cp -v ../libs/${a}/libretro_${CORENAME}_${PROFILE}.${FORMAT_EXT} $RARCH_DIST_DIR/${a}/${NAME}_${PROFILE}_libretro${FORMAT}.${FORMAT_EXT}
         else
-        echo BUILDBOT JOB: $jobid $1 build failure!
+        MESSAGE="$1 build failure ($jobid)"
         fi
+      echo BUILDBOT JOB: $MESSAGE
+      buildbot_log "$MESSAGE"
+
     done
 }
 
@@ -422,11 +439,13 @@ build_libretro_generic_gl_makefile() {
 
     if [ $? -eq 0 ];
     then 
-        echo BUILDBOT JOB: $jobid $1 build success!
+        MESSAGE="$1 build successful ($jobid)"
         cp -v ${NAME}_libretro${FORMAT}${SUFFIX}.${FORMAT_EXT} $RARCH_DIST_DIR/${NAME}_libretro${FORMAT}${SUFFIX}.${FORMAT_EXT}
     else
-        echo BUILDBOT JOB: $jobid $1 build failure!
+        MESSAGE="$1 build failure ($jobid)"
     fi
+    echo BUILDBOT JOB: $MESSAGE
+    buildbot_log "$MESSAGE"
 
     reset_compiler_targets
 
@@ -487,7 +506,7 @@ build_libretro_bsnes() {
 
     if [ $? -eq 0 ];
     then
-        echo BUILDBOT JOB: $jobid $1 build success!
+        MESSAGE="$1 build successful ($jobid)"
         if [ "${PROFILE}" == "cpp98" ];
         then
             cp -fv "out/libretro.${FORMAT_EXT}" "${RARCH_DIST_DIR}/${NAME}_libretro${FORMAT}${SUFFIX}.${FORMAT_EXT}"
@@ -498,8 +517,10 @@ build_libretro_bsnes() {
             cp -fv "out/${NAME}_libretro$FORMAT.${FORMAT_EXT}" $RARCH_DIST_DIR/${NAME}_${PROFILE}_libretro${FORMAT}${SUFFIX}.${FORMAT_EXT}
         fi
     else
-        echo BUILDBOT JOB: $jobid $1 build failure!
+        MESSAGE="$1 build failure ($jobid)"
     fi
+    echo BUILDBOT JOB: $MESSAGE
+    buildbot_log "$MESSAGE"
 
 }
 
