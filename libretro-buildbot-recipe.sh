@@ -1269,7 +1269,7 @@ then
         
                 if [ $? -eq 0 ];
         then
-            echo BUILDBOT JOB: $jobid retroarch build success!
+            MESSAGE="retroarch build successful ($jobid)"
             
             echo "Packaging"
             echo ============================================
@@ -1330,8 +1330,10 @@ EOF
             
             
         else
-            echo BUILDBOT JOB: $jobid retroarch build failure!
+            MESSAGE="retroarch build failed ($jobid)"
         fi
+	echo $MESSAGE
+	$buildbot_log $MESSAGE
     fi
 
 fi
