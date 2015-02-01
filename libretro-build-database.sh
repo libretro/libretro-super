@@ -230,6 +230,7 @@ build_libretro_databases() {
    build_libretro_database "VTech - CreatiVision" "rom.crc"
    build_libretro_database "VTech - V.Smile" "rom.crc"
    build_libretro_database "Watara - Supervision" "rom.crc"
+   build_libretro_database "MAME" "rom.name"
 }
 
 build_libretrodb
