@@ -151,9 +151,9 @@ if [[ "${FORMAT_COMPILER_TARGET}" = "osx" && -z "${NOUNIVERSAL}" ]]; then
          export ARCHFLAGS="-arch i386 -arch x86_64"
 
          # FIXME: These are a temp shortcut for approx 40 cores 2015-02-01
-         export CFLAGS="-arch i386 -arch x86_64 ${CFLAGS}"
-         export CXXFLAGS="-arch i386 -arch x86_64 ${CXXFLAGS}"
-         export LDFLAGS="-arch i386 -arch x86_64 ${LDFLAGS}"
+         #export CFLAGS="-arch i386 -arch x86_64 ${CFLAGS}"
+         #export CXXFLAGS="-arch i386 -arch x86_64 ${CXXFLAGS}"
+         #export LDFLAGS="-arch i386 -arch x86_64 ${LDFLAGS}"
          ;;
       ppc|ppc64)
          export ARCHFLAGS="-arch ppc -arch ppc64"
