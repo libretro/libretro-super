@@ -29,7 +29,7 @@ fetch_git() {
    fi
    if [ -d "${WORKDIR}/${2}/.git" ]; then
       log_verbose "${WORKDIR}/${2}:git pull"
-      cd "${2}"
+      cd "${WORKDIR}/${2}"
       git pull
    else
       log_verbose "git clone \"${1}\" \"${WORKDIR}/${2}\""
