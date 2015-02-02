@@ -198,9 +198,9 @@ fi
 # Set this to disable the core build summary
 # export NOBUILD_SUMMARY=1
 
-BUILD_SUMMARY=$(pwd)/build-summary.log
-BUILD_SUCCESS=$(pwd)/build-success.log
-BUILD_FAIL=$(pwd)/build-fail.log
+BUILD_SUMMARY=${WORKDIR}/build-summary.log
+BUILD_SUCCESS=${WORKDIR}/build-success.log
+BUILD_FAIL=${WORKDIR}/build-fail.log
 if [ -z "${BUILD_SUMMARY_FMT}" ]; then
    if command -v column >/dev/null; then
       BUILD_SUMMARY_FMT=column
@@ -216,7 +216,7 @@ fi
 #local libretro-config-user.sh file rather than here.
 #The following below is just a sample.
 
-if [ -f "libretro-config-user.sh" ]; then
-. ./libretro-config-user.sh
+if [ -f "${WORKDIR}/libretro-config-user.sh" ]; then
+   . ${WORKDIR}/libretro-config-user.sh
 fi
 
