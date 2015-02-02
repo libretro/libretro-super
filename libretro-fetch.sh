@@ -3,102 +3,105 @@
 
 . ./libretro-config.sh
 
+WORKDIR=$(pwd)
+
+DATESTAMP_FMT="%Y-%m-%d_%H:%M:%S"
+
+log_verbose() {
+   if [ -n "${VERBOSE}" ]; then
+      echo "$(date -u +${DATESTAMP_FMT}):${@}"
+   fi
+}
+
+
+# fetch_git <repository> <local directory>
+# Clones or pulls updates from a git repository into a local directory
+fetch_git() {
+   if [ -d "${2}/.git" ]; then
+      log_verbose "${2}:git pull"
+      cd "${2}"
+      git pull
+   else
+      log_verbose "git clone \"${1}\" \"${2}\""
+      git clone "${1}" "${2}"
+   fi
+}
+
+# fetch_git_submodules <repository> <local directory>
+# Clones or pulls updates from a git repository (and its submodules, if any)
+# into a local directory
+fetch_git_submodules() {
+   echo "Updating \"${2}\""
+   if [ -d "${2}/.git" ]; then
+      cd "${2}"
+      log_verbose "${2}:git pull"
+      git pull
+      log_verbose "${2}:git submodule foreach git pull origin master"
+      git submodule foreach git pull origin master
+   else
+      log_verbose "git clone \"${1}\" \"${2}\""
+      git clone "${1}" "${2}"
+      cd "${2}"
+      log_verbose "${2}:git submodule update --init"
+      git submodule update --init
+   fi
+}
+# fetch_git_submodules_no_update <repository> <local directory>
+# Clones a repository (and its submodules, if any) into a local directory,
+# updates only the main repo on update.
+#
+# Basically if the core has a ton of external dependencies, you may not want
+# them updated automatically
+fetch_git_submodules_no_update() {
+   echo "Updating \"${2}\""
+   if [ -d "${2}/.git" ]; then
+      cd "${2}"
+      log_verbose "${2}:git pull"
+      git pull
+   else
+      log_verbose "git clone \"${1}\" \"${2}\""
+      git clone "${1}" "${2}"
+      cd "${2}"
+      log_verbose "${2}:git submodule update --init"
+      git submodule update --init
+   fi
+}
+
 # Keep three copies so we don't have to rebuild stuff all the time.
 fetch_project_bsnes()
 {
    echo "=== Fetching $3 ==="
-   if [ -d "$2/.git" ]; then
-      cd "$2"
-      git pull
-      cd ..
-   else
-      git clone $1 "$2"
-   fi
-
-   if [ -d "$2" ]; then
-      cd "$2"
-
-      if [ -d "perf/.git" ]; then
-         cd perf
-         git pull ..
-         cd ..
-      else
-         git clone . perf
-      fi
-
-      if [ -d "balanced/.git" ]; then
-         cd balanced
-         git pull ..
-         cd ..
-      else
-         git clone . balanced
-      fi
-
-      cd ..
-   fi
+   fetch_git "${1}" "${WORKDIR}/${2}"
+   fetch_git "." "${WORKDIR}/${2}/perf"
+   fetch_git "." "${WORKDIR}/${2}/balanced"
+   echo "=== Fetched ==="
 }
 
 fetch_project()
 {
-   echo "=== Fetching $3 ==="
-   if [ -d "$2/.git" ]; then
-      cd "$2"
-      git pull
-      cd ..
-   else
-      git clone "$1" "$2"
-   fi
+   echo "=== Fetching ${3} ==="
+   fetch_git "${1}" "${WORKDIR}/${2}"
    echo "=== Fetched ==="
 }
 
 fetch_subprojects()
 {
-   echo "=== Fetching $5 ==="
-   cd "$2"
-   cd "$3"
-   if [ -d "$4/.git" ]; then
-      cd "$4"
-      git pull
-      git submodule foreach git pull origin master
-      cd ..
-   else
-      git clone "$1" "$4"
-   fi
-   cd ..
-   cd ..
-   echo "=== Fetched ==="
-}
-
-fetch_project_submodule_no_update()
-{
-   echo "=== Fetching $3 ==="
-   if [ -d "$2/.git" ]; then
-      cd "$2"
-      git pull
-      cd ..
-   else
-      git clone "$1" "$2"
-      cd "$2"
-      git submodule update --init
-      cd ..
-   fi
+   echo "=== Fetching ${5} ==="
+   fetch_git "${1}" "${WORKDIR}/${2}/${3}/${4}"
    echo "=== Fetched ==="
 }
 
 fetch_project_submodule()
 {
-   echo "=== Fetching $3 ==="
-   if [ -d "$2/.git" ]; then
-      cd "$2"
-      git pull
-      git submodule foreach git pull origin master
-      cd ..
-   else
-      git clone "$1" "$2"
-      cd "$2"
-      git submodule update --init
-      cd ..
-   fi
+   echo "=== Fetching ${3} ==="
+   fetch_git_submodules "${1}" "${WORKDIR}/${2}"
+   echo "=== Fetched ==="
+}
+
+fetch_project_submodule_no_update()
+{
+   echo "=== Fetching ${3} ==="
+   fetch_git_submodules_no_update "${1}" "${WORKDIR}/${2}"
    echo "=== Fetched ==="
 }
 
