@@ -368,68 +368,71 @@ fetch_libretro_emux() {
    fetch_project "$REPO_BASE/libretro/emux.git" "libretro-emux" "libretro/Emux"
 }
 
-
-fetch_retroarch
-fetch_tools
-fetch_libretro_bsnes
-fetch_libretro_snes9x
-fetch_libretro_snes9x_next
-fetch_libretro_genesis_plus_gx
-fetch_libretro_fb_alpha
-fetch_libretro_vba_next
-fetch_libretro_vbam
-fetch_libretro_handy
-fetch_libretro_bnes
-fetch_libretro_fceumm
-fetch_libretro_gambatte
-fetch_libretro_meteor
-fetch_libretro_nxengine
-fetch_libretro_prboom
-fetch_libretro_stella
-fetch_libretro_desmume
-fetch_libretro_quicknes
-fetch_libretro_nestopia
-fetch_libretro_tyrquake
-fetch_libretro_pcsx_rearmed
-fetch_libretro_mednafen_gba
-fetch_libretro_mednafen_lynx
-fetch_libretro_mednafen_ngp
-fetch_libretro_mednafen_pce_fast
-fetch_libretro_mednafen_supergrafx
-fetch_libretro_mednafen_psx
-fetch_libretro_mednafen_pcfx
-fetch_libretro_mednafen_snes
-fetch_libretro_mednafen_vb
-fetch_libretro_mednafen_wswan
-fetch_libretro_scummvm
-fetch_libretro_yabause
-fetch_libretro_dosbox
-fetch_libretro_virtualjaguar
-fetch_libretro_mame078
-fetch_libretro_mame139
-fetch_libretro_mame
-fetch_libretro_ffmpeg
-fetch_libretro_bsnes_cplusplus98
-fetch_libretro_bsnes_mercury
-fetch_libretro_picodrive
-fetch_libretro_tgbdual
-fetch_libretro_mupen64plus
-fetch_libretro_dinothawr
-fetch_libretro_uae
-fetch_libretro_3dengine
-fetch_libretro_remotejoy
-fetch_libretro_bluemsx
-fetch_libretro_fmsx
-fetch_libretro_2048
-fetch_libretro_vecx
-fetch_libretro_ppsspp
-fetch_libretro_prosystem
-fetch_libretro_o2em
-fetch_libretro_4do
-fetch_libretro_catsfc
-fetch_libretro_stonesoup
-fetch_libretro_hatari
-fetch_libretro_tempgba
-fetch_libretro_gpsp
-fetch_libretro_emux
+if [ ${1} ]; then
+   ${1}
+else
+   fetch_retroarch
+   fetch_tools
+   fetch_libretro_bsnes
+   fetch_libretro_snes9x
+   fetch_libretro_snes9x_next
+   fetch_libretro_genesis_plus_gx
+   fetch_libretro_fb_alpha
+   fetch_libretro_vba_next
+   fetch_libretro_vbam
+   fetch_libretro_handy
+   fetch_libretro_bnes
+   fetch_libretro_fceumm
+   fetch_libretro_gambatte
+   fetch_libretro_meteor
+   fetch_libretro_nxengine
+   fetch_libretro_prboom
+   fetch_libretro_stella
+   fetch_libretro_desmume
+   fetch_libretro_quicknes
+   fetch_libretro_nestopia
+   fetch_libretro_tyrquake
+   fetch_libretro_pcsx_rearmed
+   fetch_libretro_mednafen_gba
+   fetch_libretro_mednafen_lynx
+   fetch_libretro_mednafen_ngp
+   fetch_libretro_mednafen_pce_fast
+   fetch_libretro_mednafen_supergrafx
+   fetch_libretro_mednafen_psx
+   fetch_libretro_mednafen_pcfx
+   fetch_libretro_mednafen_snes
+   fetch_libretro_mednafen_vb
+   fetch_libretro_mednafen_wswan
+   fetch_libretro_scummvm
+   fetch_libretro_yabause
+   fetch_libretro_dosbox
+   fetch_libretro_virtualjaguar
+   fetch_libretro_mame078
+   fetch_libretro_mame139
+   fetch_libretro_mame
+   fetch_libretro_ffmpeg
+   fetch_libretro_bsnes_cplusplus98
+   fetch_libretro_bsnes_mercury
+   fetch_libretro_picodrive
+   fetch_libretro_tgbdual
+   fetch_libretro_mupen64plus
+   fetch_libretro_dinothawr
+   fetch_libretro_uae
+   fetch_libretro_3dengine
+   fetch_libretro_remotejoy
+   fetch_libretro_bluemsx
+   fetch_libretro_fmsx
+   fetch_libretro_2048
+   fetch_libretro_vecx
+   fetch_libretro_ppsspp
+   fetch_libretro_prosystem
+   fetch_libretro_o2em
+   fetch_libretro_4do
+   fetch_libretro_catsfc
+   fetch_libretro_stonesoup
+   fetch_libretro_hatari
+   fetch_libretro_tempgba
+   fetch_libretro_gpsp
+   fetch_libretro_emux
+fi
 
