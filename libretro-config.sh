@@ -1,33 +1,38 @@
 #!/bin/bash
+# vi: ts=3 sw=3 et
 
 # Architecture Assignment
-[[ -z "$ARCH" ]] && ARCH="$(uname -m)"
-case "$ARCH" in
+[ -z "${ARCH}" ] && ARCH="`uname -m`"
+case "${ARCH}" in
    x86_64)
-      X86=true && X86_64=true
+      X86=true
+      X86_64=true
       ;;
-   i686)   X86=true;;
+   i386|i686)
+      X86=true
+      ;;
    armv*)
-      ARM=true && export FORMAT_COMPILER_TARGET=armv
+      ARM=true
+      export FORMAT_COMPILER_TARGET=armv
       export RARCHCFLAGS="${RARCHCFLAGS} -marm"
-      case "$ARCH" in
-         armv5tel) ARMV5=true;;
-         armv6l)   ARMV6=true;;
-         armv7l)   ARMV7=true;;
-      esac;;
+      case "${ARCH}" in
+         armv5tel) ARMV5=true ;;
+         armv6l)   ARMV6=true ;;
+         armv7l)   ARMV7=true ;;
+      esac
+      ;;
 esac
-
-if [[ -n "$PROCESSOR_ARCHITEW6432" && $PROCESSOR_ARCHITEW6432 -eq "AMD64" ]]; then
+if [ -n "${PROCESSOR_ARCHITEW6432}" -a "${PROCESSOR_ARCHITEW6432}" = "AMD64" ]; then
    ARCH=x86_64
    X86=true && X86_64=true
 fi
 
 if [ -z "$JOBS" ]; then
-  if command -v nproc >/dev/null; then
-     JOBS=$(nproc)
-  else
-     JOBS=1
-  fi
+   if command -v nproc >/dev/null; then
+      JOBS=`nproc`
+   else
+      JOBS=1
+   fi
 fi
 
 # Platform Assignment
