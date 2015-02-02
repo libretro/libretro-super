@@ -47,7 +47,7 @@ fetch_git_submodules() {
    if [ -n "${3}" ]; then
       echo "=== Fetching ${3} ==="
    fi
-   if [ -d "${2}/.git" ]; then
+   if [ -d "${WORKDIR}/${2}/.git" ]; then
       cd "${WORKDIR}/${2}"
       log_verbose "${WORKDIR}/${2}:git pull"
       git pull
