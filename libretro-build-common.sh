@@ -1,4 +1,4 @@
-#!/bin/bash
+# vi: ts=3 sw=3 et ft=bash
 
 die() {
    echo $1
@@ -59,7 +59,7 @@ reset_compiler_targets() {
 }
 
 build_libretro_pcsx_rearmed_interpreter() {
-   cd "${BASE_DIR}"
+   cd "${WORKDIR}"
    if [ -d 'libretro-pcsx_rearmed' ]; then
       echo '=== Building PCSX ReARMed Interpreter ==='
       cd libretro-pcsx_rearmed
@@ -81,7 +81,7 @@ build_libretro_pcsx_rearmed_interpreter() {
 # $4 is Makefile name
 # $5 is preferred platform
 build_libretro_generic_makefile_subcore() {
-   cd $BASE_DIR
+   cd ${WORKDIR}
    if [ -d "libretro-${1}" ]; then
       echo "=== Building ${2} ==="
       cd libretro-${1}/
@@ -124,7 +124,7 @@ copy_core_to_dist() {
 # $3 is Makefile name
 # $4 is preferred platform
 build_libretro_generic_makefile() {
-   cd "${BASE_DIR}"
+   cd "${WORKDIR}"
    if [ -d "libretro-${1}" ]; then
       echo "=== Building ${1} ==="
       cd libretro-${1}
@@ -364,7 +364,7 @@ build_libretro_ppsspp() {
 
 
 build_libretro_mame() {
-   cd "${BASE_DIR}"
+   cd "${WORKDIR}"
    if [ -d 'libretro-mame' ]; then
       echo ''
       echo '=== Building MAME ==='
@@ -397,7 +397,7 @@ build_libretro_mame() {
 }
 
 build_libretro_mess() {
-   cd "${BASE_DIR}"
+   cd "${WORKDIR}"
    if [ -d 'libretro-mame' ]; then
       echo ''
       echo '=== Building MESS ==='
@@ -424,7 +424,7 @@ build_libretro_mess() {
 }
 
 rebuild_libretro_mess() {
-   cd "${BASE_DIR}"
+   cd "${WORKDIR}"
    if [ -d 'libretro-mame' ]; then
       echo ''
       echo '=== Building MESS ==='
@@ -451,7 +451,7 @@ rebuild_libretro_mess() {
 }
 
 build_libretro_ume() {
-   cd "${BASE_DIR}"
+   cd "${WORKDIR}"
    if [ -d 'libretro-mame' ]; then
       echo ''
       echo '=== Building UME ==='
@@ -478,7 +478,7 @@ build_libretro_ume() {
 }
 
 rebuild_libretro_ume() {
-   cd "${BASE_DIR}"
+   cd "${WORKDIR}"
    if [ -d 'libretro-mame' ]; then
       echo ''
       echo '=== Building MESS ==='
@@ -509,7 +509,7 @@ rebuild_libretro_ume() {
 # $3 is profile name
 # $4 is compiler
 build_libretro_bsnes_modern() {
-   cd "${BASE_DIR}"
+   cd "${WORKDIR}"
    if [ -d "libretro-${1}" ]; then
       echo "=== Building ${1} ${3} ==="
       cd libretro-${1}
@@ -540,7 +540,7 @@ build_libretro_bsnes_mercury() {
 
 build_libretro_bsnes_cplusplus98() {
    CORENAME="bsnes_cplusplus98"
-   cd "${BASE_DIR}"
+   cd "${WORKDIR}"
    if [ -d "libretro-${CORENAME}" ]; then
       echo "=== Building ${CORENAME} ==="
       cd libretro-${CORENAME}
@@ -557,7 +557,7 @@ build_libretro_bsnes_cplusplus98() {
 }
 
 build_libretro_bnes() {
-   cd "${BASE_DIR}"
+   cd "${WORKDIR}"
    if [ -d 'libretro-bnes' ]; then
       echo '=== Building bNES ==='
       cd libretro-bnes
@@ -576,7 +576,7 @@ build_libretro_bnes() {
 
 build_libretro_mupen64() {
    check_opengl
-   cd "${BASE_DIR}"
+   cd "${WORKDIR}"
    if [ -d 'libretro-mupen64plus' ]; then
       cd libretro-mupen64plus
 

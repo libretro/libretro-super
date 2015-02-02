@@ -1,31 +1,31 @@
-#!/bin/bash
-
-. ./libretro-config.sh
+#! /bin/bash
+# vi: sw=3 ts=3 et
 
 # BSDs don't have readlink -f
 read_link()
 {
-   TARGET_FILE="$1"
-   cd $(dirname "$TARGET_FILE")
-   TARGET_FILE=$(basename "$TARGET_FILE")
+   TARGET_FILE="${1}"
+   cd "`dirname "${TARGET_FILE}"`"
+   TARGET_FILE="`basename "${TARGET_FILE}"`"
 
-   while [ -L "$TARGET_FILE" ]
-   do
-      TARGET_FILE=$(readlink "$TARGET_FILE")
-      cd $(dirname "$TARGET_FILE")
-      TARGET_FILE=$(basename "$TARGET_FILE")
+   while [ -L "${TARGET_FILE}" ]; do
+      TARGET_FILE="`readlink "${TARGET_FILE}"`"
+      cd "`dirname "${TARGET_FILE}"`"
+      TARGET_FILE="`basename "${TARGET_FILE}"`"
    done
 
-   PHYS_DIR=$(pwd -P)
-   RESULT="$PHYS_DIR/$TARGET_FILE"
-   echo $RESULT
+   PHYS_DIR="`pwd -P`"
+   RESULT="${PHYS_DIR}/${TARGET_FILE}"
+   echo ${RESULT}
 }
+SCRIPT="`read_link "$0"`"
+BASE_DIR="`dirname "${SCRIPT}"`"
+WORKDIR="`pwd`"
 
-SCRIPT=$(read_link "$0")
-echo "Script: $SCRIPT"
-BASE_DIR=$(dirname "$SCRIPT")
+. ${BASE_DIR}/libretro-config.sh
+
 if [ -z "$RARCH_DIST_DIR" ]; then
-   RARCH_DIR="$BASE_DIR/dist"
+   RARCH_DIR="${WORKDIR}/dist"
    RARCH_DIST_DIR="$RARCH_DIR/$DIST_DIR"
 fi
 
@@ -87,7 +87,7 @@ echo "CC = $CC"
 echo "CXX = $CXX"
 echo "STRIP = $STRIP"
 
-. ./libretro-build-common.sh
+. ${BASE_DIR}/libretro-build-common.sh
 
 mkdir -p "$RARCH_DIST_DIR"
 
