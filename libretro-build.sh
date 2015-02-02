@@ -91,9 +91,12 @@ echo "STRIP = $STRIP"
 
 mkdir -p "$RARCH_DIST_DIR"
 
-if [ $1 ]; then
+if [ -n "${1}" ]; then
    NOBUILD_SUMMARY=1
-   $1
+   while [ -n "${1}" ]; do
+      "${1}"
+      shift
+   done
 else
    build_libretro_2048
    build_libretro_4do
