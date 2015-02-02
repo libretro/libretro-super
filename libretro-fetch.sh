@@ -17,6 +17,9 @@ log_verbose() {
 # fetch_git <repository> <local directory>
 # Clones or pulls updates from a git repository into a local directory
 fetch_git() {
+   if [ -n "${3}" ]; then
+      echo "=== Fetching ${3} ==="
+   fi
    if [ -d "${2}/.git" ]; then
       log_verbose "${2}:git pull"
       cd "${2}"
@@ -25,13 +28,18 @@ fetch_git() {
       log_verbose "git clone \"${1}\" \"${2}\""
       git clone "${1}" "${2}"
    fi
+   if [ -n "${3}" ]; then
+      echo "=== Fetched ==="
+   fi
 }
 
 # fetch_git_submodules <repository> <local directory>
 # Clones or pulls updates from a git repository (and its submodules, if any)
 # into a local directory
 fetch_git_submodules() {
-   echo "Updating \"${2}\""
+   if [ -n "${3}" ]; then
+      echo "=== Fetching ${3} ==="
+   fi
    if [ -d "${2}/.git" ]; then
       cd "${2}"
       log_verbose "${2}:git pull"
@@ -45,7 +53,11 @@ fetch_git_submodules() {
       log_verbose "${2}:git submodule update --init"
       git submodule update --init
    fi
+   if [ -n "${3}" ]; then
+      echo "=== Fetched ==="
+   fi
 }
+
 # fetch_git_submodules_no_update <repository> <local directory>
 # Clones a repository (and its submodules, if any) into a local directory,
 # updates only the main repo on update.
@@ -53,7 +65,9 @@ fetch_git_submodules() {
 # Basically if the core has a ton of external dependencies, you may not want
 # them updated automatically
 fetch_git_submodules_no_update() {
-   echo "Updating \"${2}\""
+   if [ -n "${3}" ]; then
+      echo "=== Fetching ${3} ==="
+   fi
    if [ -d "${2}/.git" ]; then
       cd "${2}"
       log_verbose "${2}:git pull"
@@ -65,12 +79,15 @@ fetch_git_submodules_no_update() {
       log_verbose "${2}:git submodule update --init"
       git submodule update --init
    fi
+   if [ -n "${3}" ]; then
+      echo "=== Fetched ==="
+   fi
 }
 
 # Keep three copies so we don't have to rebuild stuff all the time.
 fetch_project_bsnes()
 {
-   echo "=== Fetching $3 ==="
+   echo "=== Fetching ${3} ==="
    fetch_git "${1}" "${WORKDIR}/${2}"
    fetch_git "." "${WORKDIR}/${2}/perf"
    fetch_git "." "${WORKDIR}/${2}/balanced"
@@ -79,30 +96,22 @@ fetch_project_bsnes()
 
 fetch_project()
 {
-   echo "=== Fetching ${3} ==="
-   fetch_git "${1}" "${WORKDIR}/${2}"
-   echo "=== Fetched ==="
+   fetch_git "${1}" "${WORKDIR}/${2}" "${3}"
 }
 
 fetch_subprojects()
 {
-   echo "=== Fetching ${5} ==="
-   fetch_git "${1}" "${WORKDIR}/${2}/${3}/${4}"
-   echo "=== Fetched ==="
+   fetch_git "${1}" "${WORKDIR}/${2}/${3}/${4}" "${5}"
 }
 
 fetch_project_submodule()
 {
-   echo "=== Fetching ${3} ==="
-   fetch_git_submodules "${1}" "${WORKDIR}/${2}"
-   echo "=== Fetched ==="
+   fetch_git_submodules "${1}" "${WORKDIR}/${2}" "${3}"
 }
 
 fetch_project_submodule_no_update()
 {
-   echo "=== Fetching ${3} ==="
-   fetch_git_submodules_no_update "${1}" "${WORKDIR}/${2}"
-   echo "=== Fetched ==="
+   fetch_git_submodules_no_update "${1}" "${WORKDIR}/${2}" "${3}"
 }
 
 if [ -z $WRITERIGHTS ]; then
