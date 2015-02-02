@@ -174,6 +174,14 @@ reset_compiler_targets() {
 cd "${BASE_DIR}"
 
 ####build commands
+buildbot_log() {
+
+    HASH=`echo -n "$1" | openssl sha1 -hmac $SIG | cut --fields=2 --delimiter=" "`
+    curl --data "message=$1&sign=$HASH" $LOGURL
+
+
+}
+
 build_libretro_generic_makefile() {
 
 
@@ -217,7 +225,7 @@ build_libretro_generic_makefile() {
         if [ "${NAME}" == "mame2010" ];
         then
 
-	    echo "build command: ${MAKE} -f ${MAKEFILE} platform=${PLATFORM} -j${JOBS} ${ARGS}" buildtools
+        echo "build command: ${MAKE} -f ${MAKEFILE} platform=${PLATFORM} -j${JOBS} ${ARGS}" buildtools
             ${MAKE} -f ${MAKEFILE} platform=${PLATFORM} -j${JOBS} ${ARGS} buildtools
         fi
         echo "build command: ${MAKE} -f ${MAKEFILE} platform=${PLATFORM} -j${JOBS} ${ARGS}"
@@ -226,12 +234,13 @@ build_libretro_generic_makefile() {
 
     if [ $? -eq 0 ];
     then 
-        echo BUILDBOT JOB: $jobid $1 build success!
+        MESSAGE="$1 build successful ($jobid)"
         cp -v ${NAME}_libretro${FORMAT}${SUFFIX}.${FORMAT_EXT} $RARCH_DIST_DIR/${NAME}_libretro${FORMAT}.${FORMAT_EXT}
     else
-        echo BUILDBOT JOB: $jobid $1 build failure!
+        MESSAGE="$1 build failed ($jobid)"
     fi
-
+    echo BUILDBOT JOB: $MESSAGE
+    buildbot_log "$MESSAGE"
     JOBS=$OLDJ
 
 }
@@ -278,11 +287,13 @@ build_libretro_generic_theos() {
 
     if [ $? -eq 0 ];
     then
-        echo BUILDBOT JOB: $jobid $1 build success!
+        MESSAGE="$1 build successful ($jobid)"
         cp -v objs/obj/${NAME}_libretro${FORMAT}${SUFFIX}.${FORMAT_EXT} $RARCH_DIST_DIR/${NAME}_libretro${FORMAT}${SUFFIX}.${FORMAT_EXT}
     else
-        echo BUILDBOT JOB: $jobid $1 build failure!
+        MESSAGE="$1 build failure ($jobid)"
     fi
+    echo BUILDBOT JOB: $MESSAGE
+    buildbot_log "$MESSAGE"
 
 }
 
@@ -302,34 +313,41 @@ build_libretro_generic_jni() {
     for a in "${ABIS[@]}"; do
         if [ -z "${NOCLEAN}" ]; 
         then
-        echo "cleaning up..."
-        echo "cleanup command: ${NDK} -j${JOBS} ${ARGS} APP_ABI=${a} clean"
+            echo "cleaning up..."
+            echo "cleanup command: ${NDK} -j${JOBS} ${ARGS} APP_ABI=${a} clean"
             ${NDK} -j${JOBS} ${ARGS} APP_ABI=${a} clean
             if [ $? -eq 0 ];
-        then 
-            echo BUILDBOT JOB: $jobid $a $1 cleanup success!
-        else
-            echo BUILDBOT JOB: $jobid $a $1 cleanup failure!
-        fi
+            then 
+                echo BUILDBOT JOB: $jobid $a $1 cleanup success!
+            else
+                echo BUILDBOT JOB: $jobid $a $1 cleanup failure!
+            fi
         fi
 
     echo "compiling for ${a}..."
         if [ -z "${ARGS}" ]
         then
-        echo "build command: ${NDK} -j${JOBS} APP_ABI=${a}"
-        ${NDK} -j${JOBS} APP_ABI=${a}
+            echo "build command: ${NDK} -j${JOBS} APP_ABI=${a}"
+            ${NDK} -j${JOBS} APP_ABI=${a}
         else
-        echo "build command: ${NDK} -j${JOBS} APP_ABI=${a} ${ARGS} "
-        ${NDK} -j${JOBS} APP_ABI=${a} ${ARGS}
+            echo "build command: ${NDK} -j${JOBS} APP_ABI=${a} ${ARGS} "
+            ${NDK} -j${JOBS} APP_ABI=${a} ${ARGS}
         fi
         if [ $? -eq 0 ];
         then
-        echo BUILDBOT JOB: $jobid $a $1 build success!
-        cp -v ../libs/${a}/libretro.${FORMAT_EXT} $RARCH_DIST_DIR/${a}/${1}_libretro${FORMAT}.${FORMAT_EXT}
+            MESSAGE="$1-$a build successful ($jobid)"        
+            echo BUILDBOT JOB: $MESSAGE
+            buildbot_log "$MESSAGE"
+            cp -v ../libs/${a}/libretro.${FORMAT_EXT} $RARCH_DIST_DIR/${a}/${1}_libretro${FORMAT}.${FORMAT_EXT}
         else
-        echo BUILDBOT JOB: $jobid $a $1 build failure!
+            MESSAGE="$1-$a build failure ($jobid)"
+            echo BUILDBOT JOB: $MESSAGE
+            buildbot_log "$MESSAGE"
         fi
     done
+    
+    
+
 }
 
 build_libretro_bsnes_jni() {
@@ -364,19 +382,22 @@ build_libretro_bsnes_jni() {
     echo "compiling for ${a}..."
         if [ -z "${ARGS}" ]
         then
-        echo "build command: ${NDK} -j${JOBS} APP_ABI=${a}"
-        ${NDK} -j${JOBS} APP_ABI=${a}
+            echo "build command: ${NDK} -j${JOBS} APP_ABI=${a}"
+            ${NDK} -j${JOBS} APP_ABI=${a}
         else
-        echo "build command: ${NDK} -j${JOBS} APP_ABI=${a}"
-        ${NDK} -j${JOBS} APP_ABI=${a}
+            echo "build command: ${NDK} -j${JOBS} APP_ABI=${a}"
+            ${NDK} -j${JOBS} APP_ABI=${a}
         fi
         if [ $? -eq 0 ];
         then
-        echo BUILDBOT JOB: $jobid $1 build success!
-        cp -v ../libs/${a}/libretro_${CORENAME}_${PROFILE}.${FORMAT_EXT} $RARCH_DIST_DIR/${a}/${NAME}_${PROFILE}_libretro${FORMAT}.${FORMAT_EXT}
+            MESSAGE="$1 build successful ($jobid)"
+            cp -v ../libs/${a}/libretro_${CORENAME}_${PROFILE}.${FORMAT_EXT} $RARCH_DIST_DIR/${a}/${NAME}_${PROFILE}_libretro${FORMAT}.${FORMAT_EXT}
         else
-        echo BUILDBOT JOB: $jobid $1 build failure!
+            MESSAGE="$1 build failure ($jobid)"
         fi
+      echo BUILDBOT JOB: $MESSAGE
+      buildbot_log "$MESSAGE"
+
     done
 }
 
@@ -422,11 +443,13 @@ build_libretro_generic_gl_makefile() {
 
     if [ $? -eq 0 ];
     then 
-        echo BUILDBOT JOB: $jobid $1 build success!
+        MESSAGE="$1 build successful ($jobid)"
         cp -v ${NAME}_libretro${FORMAT}${SUFFIX}.${FORMAT_EXT} $RARCH_DIST_DIR/${NAME}_libretro${FORMAT}${SUFFIX}.${FORMAT_EXT}
     else
-        echo BUILDBOT JOB: $jobid $1 build failure!
+        MESSAGE="$1 build failure ($jobid)"
     fi
+    echo BUILDBOT JOB: $MESSAGE
+    buildbot_log "$MESSAGE"
 
     reset_compiler_targets
 
@@ -487,7 +510,7 @@ build_libretro_bsnes() {
 
     if [ $? -eq 0 ];
     then
-        echo BUILDBOT JOB: $jobid $1 build success!
+        MESSAGE="$1 build successful ($jobid)"
         if [ "${PROFILE}" == "cpp98" ];
         then
             cp -fv "out/libretro.${FORMAT_EXT}" "${RARCH_DIST_DIR}/${NAME}_libretro${FORMAT}${SUFFIX}.${FORMAT_EXT}"
@@ -498,8 +521,10 @@ build_libretro_bsnes() {
             cp -fv "out/${NAME}_libretro$FORMAT.${FORMAT_EXT}" $RARCH_DIST_DIR/${NAME}_${PROFILE}_libretro${FORMAT}${SUFFIX}.${FORMAT_EXT}
         fi
     else
-        echo BUILDBOT JOB: $jobid $1 build failure!
+        MESSAGE="$1 build failure ($jobid)"
     fi
+    echo BUILDBOT JOB: $MESSAGE
+    buildbot_log "$MESSAGE"
 
 }
 
@@ -1246,9 +1271,11 @@ then
         echo "build command: $MAKE -j${JOBS}"
         $MAKE -j${JOBS}
         
-                if [ $? -eq 0 ];
+        if [ $? -eq 0 ];
         then
-            echo BUILDBOT JOB: $jobid retroarch build success!
+            MESSAGE="retroarch build successful ($jobid)"
+            echo $MESSAGE
+            buildbot_log "$MESSAGE"
             
             echo "Packaging"
             echo ============================================
@@ -1304,13 +1331,13 @@ EOF
             cp -Rfv audio/audio_filters/*.dsp windows/filters/audio
             cp -Rfv gfx/video_filters/*.dll windows/filters/video
             cp -Rfv gfx/video_filters/*.filt windows/filters/video
-            
-            
-            
-            
+                                                
         else
-            echo BUILDBOT JOB: $jobid retroarch build failure!
+            MESSAGE="retroarch build failed ($jobid)"
+            echo $MESSAGE
+            buildbot_log "$MESSAGE"
         fi
+
     fi
 
 fi
