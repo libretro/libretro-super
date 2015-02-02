@@ -2,30 +2,35 @@
 # vi: ts=3 sw=3 et
 
 # Architecture Assignment
-[ -z "${ARCH}" ] && ARCH="`uname -m`"
-case "${ARCH}" in
-   x86_64)
-      X86=true
-      X86_64=true
-      ;;
-   i386|i686)
-      X86=true
-      ;;
-   armv*)
-      ARM=true
-      export FORMAT_COMPILER_TARGET=armv
-      export RARCHCFLAGS="${RARCHCFLAGS} -marm"
-      case "${ARCH}" in
-         armv5tel) ARMV5=true ;;
-         armv6l)   ARMV6=true ;;
-         armv7l)   ARMV7=true ;;
-      esac
-      ;;
-esac
-if [ -n "${PROCESSOR_ARCHITEW6432}" -a "${PROCESSOR_ARCHITEW6432}" = "AMD64" ]; then
-   ARCH=x86_64
-   X86=true && X86_64=true
-fi
+config_cpu() {
+   [ -n "${2}" ] && ARCH=${1}
+   [ -z "${ARCH}" ] && ARCH="`uname -m`"
+   case "${ARCH}" in
+      x86_64)
+         X86=true
+         X86_64=true
+         ;;
+      i386|i686)
+         X86=true
+         ;;
+      armv*)
+         ARM=true
+         export FORMAT_COMPILER_TARGET=armv
+         export RARCHCFLAGS="${RARCHCFLAGS} -marm"
+         case "${ARCH}" in
+            armv5tel) ARMV5=true ;;
+            armv6l)   ARMV6=true ;;
+            armv7l)   ARMV7=true ;;
+         esac
+         ;;
+   esac
+   if [ -n "${PROCESSOR_ARCHITEW6432}" -a "${PROCESSOR_ARCHITEW6432}" = "AMD64" ]; then
+      ARCH=x86_64
+      X86=true && X86_64=true
+   fi
+}
+
+config_cpu
 
 if [ -z "$JOBS" ]; then
    if command -v nproc >/dev/null; then
