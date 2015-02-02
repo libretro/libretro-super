@@ -99,11 +99,6 @@ fetch_project()
    fetch_git "${1}" "${WORKDIR}/${2}" "${3}"
 }
 
-fetch_subprojects()
-{
-   fetch_git "${1}" "${WORKDIR}/${2}/${3}/${4}" "${5}"
-}
-
 fetch_project_submodule()
 {
    fetch_git_submodules "${1}" "${WORKDIR}/${2}" "${3}"
@@ -122,11 +117,11 @@ fi
 
 fetch_retroarch() {
    fetch_project "$REPO_BASE/libretro/RetroArch.git" "retroarch" "libretro/RetroArch"
-   fetch_subprojects "$REPO_BASE/libretro/common-shaders.git" "retroarch" "media" "shaders_cg" "libretro/common-shaders"
-   fetch_subprojects "$REPO_BASE/libretro/common-overlays.git" "retroarch" "media" "overlays" "libretro/common-overlays"
-   fetch_subprojects "$REPO_BASE/libretro/retroarch-assets.git" "retroarch" "media" "assets" "libretro/retroarch-assets"
-   fetch_subprojects "$REPO_BASE/libretro/retroarch-joypad-autoconfig.git" "retroarch" "media" "autoconfig" "libretro/joypad-autoconfig"
-   fetch_subprojects "$REPO_BASE/libretro/libretro-database.git" "retroarch" "media" "libretrodb" "libretro/libretro-database"
+   fetch_project "$REPO_BASE/libretro/common-shaders.git" "retroarch/media/shaders_cg" "libretro/common-shaders"
+   fetch_project "$REPO_BASE/libretro/common-overlays.git" "retroarch/media/overlays" "libretro/common-overlays"
+   fetch_project "$REPO_BASE/libretro/retroarch-assets.git" "retroarch/media/assets" "libretro/retroarch-assets"
+   fetch_project "$REPO_BASE/libretro/retroarch-joypad-autoconfig.git" "retroarch/media/autoconfig" "libretro/joypad-autoconfig"
+   fetch_project "$REPO_BASE/libretro/libretro-database.git" "retroarch/media/libretrodb" "libretro/libretro-database"
 }
 
 fetch_tools() {
