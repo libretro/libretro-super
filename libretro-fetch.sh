@@ -132,7 +132,7 @@ fetch_libretro_snes9x() {
    fetch_project "$REPO_BASE/libretro/snes9x.git" "libretro-snes9x" "libretro/SNES9x"
 }
 
-fetch_libretro_snes9x() {
+fetch_libretro_snes9x_next() {
    fetch_project "$REPO_BASE/libretro/snes9x-next.git" "libretro-snes9x_next" "libretro/SNES9x-Next"
 }
 
