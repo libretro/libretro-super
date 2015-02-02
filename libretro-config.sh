@@ -84,8 +84,15 @@ config_platform() {
    export FORMAT_COMPILER_TARGET_ALT="$FORMAT_COMPILER_TARGET"
 }
 
+config_log_build_host() {
+   echo "PLATFORM: ${platform}"
+   echo "ARCHITECTURE: ${ARCH}"
+   echo "TARGET: ${FORMAT_COMPILER_TARGET}"
+}
+
 config_cpu
 config_platform
+config_log_build_host
 
 if [ -z "$JOBS" ]; then
    if command -v nproc >/dev/null; then
@@ -94,12 +101,6 @@ if [ -z "$JOBS" ]; then
       JOBS=1
    fi
 fi
-
-
-echo "PLATFORM: $platform"
-echo "ARCHITECTURE: $ARCH"
-echo "TARGET: $FORMAT_COMPILER_TARGET"
-
 
 #if uncommented, will fetch repos with read+write access. Useful for committers
 #export WRITERIGHTS=1
