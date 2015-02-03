@@ -1,7 +1,27 @@
 #! /bin/bash
 # vi: sw=3 ts=3 et
 
-. ./libretro-config.sh
+# BSDs don't have readlink -f
+read_link()
+{
+   TARGET_FILE="${1}"
+   cd "`dirname "${TARGET_FILE}"`"
+   TARGET_FILE="`basename "${TARGET_FILE}"`"
+
+   while [ -L "${TARGET_FILE}" ]; do
+      TARGET_FILE="`readlink "${TARGET_FILE}"`"
+      cd "`dirname "${TARGET_FILE}"`"
+      TARGET_FILE="`basename "${TARGET_FILE}"`"
+   done
+
+   PHYS_DIR="`pwd -P`"
+   RESULT="${PHYS_DIR}/${TARGET_FILE}"
+   echo ${RESULT}
+}
+SCRIPT="`read_link "$0"`"
+BASE_DIR="`dirname "${SCRIPT}"`"
+
+. ${BASE_DIR}/libretro-config.sh
 
 WORKDIR=$(pwd)
 

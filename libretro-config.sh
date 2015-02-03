@@ -1,82 +1,106 @@
 #!/bin/bash
+# vi: ts=3 sw=3 et
 
 # Architecture Assignment
-[[ -z "$ARCH" ]] && ARCH="$(uname -m)"
-case "$ARCH" in
-   x86_64)
+config_cpu() {
+   [ -n "${2}" ] && ARCH=${1}
+   [ -z "${ARCH}" ] && ARCH="`uname -m`"
+   case "${ARCH}" in
+      x86_64)
+         X86=true
+         X86_64=true
+         ;;
+      i386|i686)
+         X86=true
+         ;;
+      armv*)
+         ARM=true
+         export FORMAT_COMPILER_TARGET=armv
+         export RARCHCFLAGS="${RARCHCFLAGS} -marm"
+         case "${ARCH}" in
+            armv5tel) ARMV5=true ;;
+            armv6l)   ARMV6=true ;;
+            armv7l)   ARMV7=true ;;
+         esac
+         ;;
+   esac
+   if [ -n "${PROCESSOR_ARCHITEW6432}" -a "${PROCESSOR_ARCHITEW6432}" = "AMD64" ]; then
+      ARCH=x86_64
       X86=true && X86_64=true
-      ;;
-   i686)   X86=true;;
-   armv*)
-      ARM=true && export FORMAT_COMPILER_TARGET=armv
-      export RARCHCFLAGS="${RARCHCFLAGS} -marm"
-      case "$ARCH" in
-         armv5tel) ARMV5=true;;
-         armv6l)   ARMV6=true;;
-         armv7l)   ARMV7=true;;
-      esac;;
-esac
-
-if [[ -n "$PROCESSOR_ARCHITEW6432" && $PROCESSOR_ARCHITEW6432 -eq "AMD64" ]]; then
-   ARCH=x86_64
-   X86=true && X86_64=true
-fi
-
-if [ -z "$JOBS" ]; then
-  if command -v nproc >/dev/null; then
-     JOBS=$(nproc)
-  else
-     JOBS=1
-  fi
-fi
+   fi
+}
 
 # Platform Assignment
-[ -z "$platform" ] && platform="$(uname)"
-case "$platform" in
-   *BSD*)
-      FORMAT_EXT='so'
-      FORMAT_COMPILER_TARGET=unix
-      DIST_DIR=bsd;;
-   osx|*Darwin*)
-      FORMAT_EXT='dylib'
-      FORMAT_COMPILER_TARGET=osx
-      DIST_DIR=osx;;
-   win|*mingw32*|*MINGW32*|*MSYS_NT*)
-      FORMAT_EXT='dll'
-      FORMAT_COMPILER_TARGET=win
-      DIST_DIR=win_x86;;
-   win64|*mingw64*|*MINGW64*)
-      FORMAT_EXT='dll'
-      FORMAT_COMPILER_TARGET=win
-      DIST_DIR=win_x64;;
-   *psp1*)
-      FORMAT_EXT='a'
-      FORMAT_COMPILER_TARGET=psp1
-      DIST_DIR=psp1;;
-   *ios|theos_ios*)
-      FORMAT_EXT='dylib'
-      FORMAT_COMPILER_TARGET=theos_ios
-      DIST_DIR=theos;;
-   android)
-      FORMAT_EXT='so'
-      FORMAT_COMPILER_TARGET=android
-      DIST_DIR=android;;
-   *android-armv7*)
-      FORMAT_EXT='so'
-      FORMAT_COMPILER_TARGET=android-armv7
-      DIST_DIR=android/armeabi-v7a;;
-   *)
-      FORMAT_EXT='so'
-      FORMAT_COMPILER_TARGET=unix
-      DIST_DIR=unix;;
-esac
+config_platform() {
+   [ -n "${1}" ] && platform="${1}"
+   [ -z "${platform}" ] && platform="`uname`"
+   case "${platform}" in
+      *BSD*)
+         FORMAT_EXT="so"
+         FORMAT_COMPILER_TARGET="unix"
+         DIST_DIR="bsd"
+         ;;
+      osx|*Darwin*)
+         FORMAT_EXT="dylib"
+         FORMAT_COMPILER_TARGET="osx"
+         DIST_DIR="osx"
+         ;;
+      win|*mingw32*|*MINGW32*|*MSYS_NT*)
+         FORMAT_EXT="dll"
+         FORMAT_COMPILER_TARGET="win"
+         DIST_DIR="win_x86"
+         ;;
+      win64|*mingw64*|*MINGW64*)
+         FORMAT_EXT="dll"
+         FORMAT_COMPILER_TARGET="win"
+         DIST_DIR="win_x64"
+         ;;
+      *psp1*)
+         FORMAT_EXT="a"
+         FORMAT_COMPILER_TARGET="psp1"
+         DIST_DIR="psp1"
+         ;;
+      *ios|theos_ios*)
+         FORMAT_EXT="dylib"
+         FORMAT_COMPILER_TARGET="theos_ios"
+         DIST_DIR="theos"
+         ;;
+      android)
+         FORMAT_EXT="so"
+         FORMAT_COMPILER_TARGET="android"
+         DIST_DIR="android"
+         ;;
+      *android-armv7*)
+         FORMAT_EXT="so"
+         FORMAT_COMPILER_TARGET="android-armv7"
+         DIST_DIR="android/armeabi-v7a"
+         ;;
+      *)
+         FORMAT_EXT="so"
+         FORMAT_COMPILER_TARGET="unix"
+         DIST_DIR="unix"
+         ;;
+   esac
+   export FORMAT_COMPILER_TARGET_ALT="$FORMAT_COMPILER_TARGET"
+}
 
-export FORMAT_COMPILER_TARGET_ALT="$FORMAT_COMPILER_TARGET"
+config_log_build_host() {
+   echo "PLATFORM: ${platform}"
+   echo "ARCHITECTURE: ${ARCH}"
+   echo "TARGET: ${FORMAT_COMPILER_TARGET}"
+}
 
-echo "PLATFORM: $platform"
-echo "ARCHITECTURE: $ARCH"
-echo "TARGET: $FORMAT_COMPILER_TARGET"
+config_cpu
+config_platform
+config_log_build_host
 
+if [ -z "${JOBS}" ]; then
+   if command -v nproc >/dev/null; then
+      JOBS=`nproc`
+   else
+      JOBS=1
+   fi
+fi
 
 #if uncommented, will fetch repos with read+write access. Useful for committers
 #export WRITERIGHTS=1
@@ -174,9 +198,9 @@ fi
 # Set this to disable the core build summary
 # export NOBUILD_SUMMARY=1
 
-BUILD_SUMMARY=$(pwd)/build-summary.log
-BUILD_SUCCESS=$(pwd)/build-success.log
-BUILD_FAIL=$(pwd)/build-fail.log
+BUILD_SUMMARY=${WORKDIR}/build-summary.log
+BUILD_SUCCESS=${WORKDIR}/build-success.log
+BUILD_FAIL=${WORKDIR}/build-fail.log
 if [ -z "${BUILD_SUMMARY_FMT}" ]; then
    if command -v column >/dev/null; then
       BUILD_SUMMARY_FMT=column
@@ -192,7 +216,7 @@ fi
 #local libretro-config-user.sh file rather than here.
 #The following below is just a sample.
 
-if [ -f "libretro-config-user.sh" ]; then
-. ./libretro-config-user.sh
+if [ -f "${WORKDIR}/libretro-config-user.sh" ]; then
+   . ${WORKDIR}/libretro-config-user.sh
 fi
 
