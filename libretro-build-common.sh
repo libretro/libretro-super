@@ -1,4 +1,4 @@
-# vi: ts=3 sw=3 et ft=bash
+# vi: ts=3 sw=3 et ft=sh
 
 die() {
    echo $1
@@ -308,7 +308,6 @@ build_libretro_meteor() {
 }
 
 build_libretro_nestopia() {
-   echo command build_libretro_generic_makefile "nestopia" "libretro" "Makefile" ${FORMAT_COMPILER_TARGET}
    build_libretro_generic_makefile "nestopia" "libretro" "Makefile" ${FORMAT_COMPILER_TARGET}
 }
 
@@ -618,14 +617,14 @@ build_summary() {
    if [ -z "${NOBUILD_SUMMARY}" ]; then
       echo "=== Core Build Summary ===" > ${BUILD_SUMMARY}
       if [ -r "${BUILD_SUCCESS}" ]; then
-         echo "$(wc -l < ${BUILD_SUCCESS}) core(s) successfully built:" >> ${BUILD_SUMMARY}
+         echo "`wc -l < ${BUILD_SUCCESS}` core(s) successfully built:" >> ${BUILD_SUMMARY}
          ${BUILD_SUMMARY_FMT} ${BUILD_SUCCESS} >> ${BUILD_SUMMARY}
       else
          echo "      0 cores successfully built. :(" >> ${BUILD_SUMMARY}
-         echo "$(wc -l < ${BUILD_FAIL}) core(s) failed to build:"
+         echo "`wc -l < ${BUILD_FAIL}` core(s) failed to build:"
       fi
       if [ -r "${BUILD_FAIL}" ]; then
-         echo "$(wc -l < ${BUILD_FAIL}) core(s) failed to build:" >> ${BUILD_SUMMARY}
+         echo "`wc -l < ${BUILD_FAIL}` core(s) failed to build:" >> ${BUILD_SUMMARY}
          ${BUILD_SUMMARY_FMT} ${BUILD_FAIL} >> ${BUILD_SUMMARY}
       else
          echo "     0 cores failed to build! :D" >> ${BUILD_SUMMARY}
