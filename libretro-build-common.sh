@@ -5,10 +5,6 @@ die() {
    #exit 1
 }
 
-if [ -z "$JOBS" ]; then
-   JOBS=7
-fi
-
 if [ "$HOST_CC" ]; then
    CC="${HOST_CC}-gcc"
    CXX="${HOST_CC}-g++"

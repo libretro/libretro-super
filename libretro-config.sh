@@ -94,7 +94,7 @@ config_cpu
 config_platform
 config_log_build_host
 
-if [ -z "$JOBS" ]; then
+if [ -z "${JOBS}" ]; then
    if command -v nproc >/dev/null; then
       JOBS=`nproc`
    else
