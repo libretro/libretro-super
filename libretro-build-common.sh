@@ -5,53 +5,6 @@ die() {
    #exit 1
 }
 
-if [ "$HOST_CC" ]; then
-   CC="${HOST_CC}-gcc"
-   CXX="${HOST_CC}-g++"
-   CXX11="${HOST_CC}-g++"
-   STRIP="${HOST_CC}-strip"
-fi
-
-if [ -z "$MAKE" ]; then
-   if uname -s | grep -i MINGW32 > /dev/null 2>&1; then
-      MAKE=mingw32-make
-   else
-      if type gmake > /dev/null 2>&1; then
-         MAKE=gmake
-      else
-         MAKE=make
-      fi
-   fi
-fi
-
-
-if [ -z "$CC" ]; then
-   if [ $FORMAT_COMPILER_TARGET = "osx" ]; then
-      CC=cc
-   elif uname -s | grep -i MINGW32 > /dev/null 2>&1; then
-      CC=mingw32-gcc
-   else
-      CC=gcc
-   fi
-fi
-
-if [ -z "$CXX" ]; then
-   if [ $FORMAT_COMPILER_TARGET = "osx" ]; then
-      CXX=c++
-      CXX11="clang++ -std=c++11 -stdlib=libc++"
-   elif uname -s | grep -i MINGW32 > /dev/null 2>&1; then
-      CXX=mingw32-g++
-      CXX11=mingw32-g++
-   else
-      CXX=g++
-      CXX11=g++
-   fi
-fi
-
-FORMAT_COMPILER_TARGET_ALT=$FORMAT_COMPILER_TARGET
-echo "CC = $CC"
-echo "CXX = $CXX"
-echo "STRIP = $STRIP"
 if [ "${CC}" ] && [ "${CXX}" ]; then
    COMPILER="CC=\"${CC}\" CXX=\"${CXX}\""
 else
@@ -74,13 +27,8 @@ echo "${FORMAT_COMPILER_TARGET_ALT}"
 RESET_FORMAT_COMPILER_TARGET=$FORMAT_COMPILER_TARGET
 RESET_FORMAT_COMPILER_TARGET_ALT=$FORMAT_COMPILER_TARGET_ALT
 
-if [ -z "$RARCH_DIST_DIR" ]; then
-   RARCH_DIR="${WORKDIR}/dist"
-   RARCH_DIST_DIR="$RARCH_DIR/$DIST_DIR"
-fi
-
 build_summary_log() {
-   if [ -z "${NOBUILD_SUMMARY}" ]; then
+   if [ -n "${BUILD_SUMMARY}" ]; then
       if [ "${1}" -eq "0" ]; then
          echo ${2} >> ${BUILD_SUCCESS}
       else

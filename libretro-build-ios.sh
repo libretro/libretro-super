@@ -2,6 +2,7 @@
 
 set -e
 
+WORKDIR="${PWD}"
 BASE_DIR="$PWD"
 RARCH_DIR=$BASE_DIR/dist
 RARCH_DIST_DIR=$RARCH_DIR/ios
