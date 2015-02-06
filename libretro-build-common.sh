@@ -59,10 +59,10 @@ reset_compiler_targets() {
 }
 
 build_libretro_pcsx_rearmed_interpreter() {
-   cd "${WORKDIR}"
-   if [ -d 'libretro-pcsx_rearmed' ]; then
+   build_dir="${WORKDIR}/libretro-pcsx_rearmed"
+   if [ -d "${build_dir}" ]; then
       echo '=== Building PCSX ReARMed Interpreter ==='
-      cd libretro-pcsx_rearmed
+      cd "${build_dir}"
 
       if [ -z "${NOCLEAN}" ]; then
          "${MAKE}" -f Makefile.libretro platform="${FORMAT_COMPILER_TARGET}" ${COMPILER} "-j${JOBS}" clean || die 'Failed to clean PCSX ReARMed'
@@ -81,11 +81,10 @@ build_libretro_pcsx_rearmed_interpreter() {
 # $4 is Makefile name
 # $5 is preferred platform
 build_libretro_generic_makefile_subcore() {
-   cd ${WORKDIR}
-   if [ -d "libretro-${1}" ]; then
+   build_dir="${WORKDIR}/libretro-${1}"
+   if [ -d "${build_dir}" ]; then
       echo "=== Building ${2} ==="
-      cd libretro-${1}/
-      cd ${3}
+      cd "${build_dir}/${3}"
 
       if [ -z "${NOCLEAN}" ]; then
          make -f ${4} platform=${5} -j$JOBS clean || die "Failed to clean ${2}"
@@ -124,11 +123,10 @@ copy_core_to_dist() {
 # $3 is Makefile name
 # $4 is preferred platform
 build_libretro_generic_makefile() {
-   cd "${WORKDIR}"
-   if [ -d "libretro-${1}" ]; then
+   build_dir="${WORKDIR}/libretro-${1}"
+   if [ -d "${build_dir}" ]; then
       echo "=== Building ${1} ==="
-      cd libretro-${1}
-      cd ${2}
+      cd "${build_dir}/${2}"
 
       if [ -z "${NOCLEAN}" ]; then
          "${MAKE}" -f ${3} platform="${4}" ${COMPILER} "-j${JOBS}" clean || die "Failed to build ${1}"
@@ -363,11 +361,11 @@ build_libretro_ppsspp() {
 
 
 build_libretro_mame() {
-   cd "${WORKDIR}"
-   if [ -d 'libretro-mame' ]; then
+   build_dir="${WORKDIR}/libretro-mame"
+   if [ -d "${build_dir}" ]; then
       echo ''
       echo '=== Building MAME ==='
-      cd libretro-mame
+      cd "${build_dir}"
 
       if [ "$IOS" ]; then
         echo '=== Building MAME (iOS) ==='
@@ -396,11 +394,11 @@ build_libretro_mame() {
 }
 
 build_libretro_mess() {
-   cd "${WORKDIR}"
-   if [ -d 'libretro-mame' ]; then
+   build_dir="${WORKDIR}/libretro-mame"
+   if [ -d "${build_dir}" ]; then
       echo ''
       echo '=== Building MESS ==='
-      cd libretro-mame
+      cd "${build_dir}"
 
       if [ "$X86_64" = "true" ]; then
         echo '=== Building MESS64 ==='
@@ -423,11 +421,11 @@ build_libretro_mess() {
 }
 
 rebuild_libretro_mess() {
-   cd "${WORKDIR}"
-   if [ -d 'libretro-mame' ]; then
+   build_dir="${WORKDIR}/libretro-mame"
+   if [ -d "${build_dir}" ]; then
       echo ''
       echo '=== Building MESS ==='
-      cd libretro-mame
+      cd "${build_dir}"
 
       if [ "$X86_64" = "true" ]; then
         echo '=== Building MESS64 ==='
@@ -450,11 +448,11 @@ rebuild_libretro_mess() {
 }
 
 build_libretro_ume() {
-   cd "${WORKDIR}"
-   if [ -d 'libretro-mame' ]; then
+   build_dir="${WORKDIR}/libretro-mame"
+   if [ -d "${build_dir}" ]; then
       echo ''
       echo '=== Building UME ==='
-      cd libretro-mame
+      cd "${build_dir}"
 
       if [ "$X86_64" = "true" ]; then
         echo '=== Building UME64 ==='
@@ -477,11 +475,11 @@ build_libretro_ume() {
 }
 
 rebuild_libretro_ume() {
-   cd "${WORKDIR}"
-   if [ -d 'libretro-mame' ]; then
+   build_dir="${WORKDIR}/libretro-mame"
+   if [ -d "${build_dir}" ]; then
       echo ''
-      echo '=== Building MESS ==='
-      cd libretro-mame
+      echo '=== Building UME ==='
+      cd "${build_dir}"
 
       if [ "$X86_64" = "true" ]; then
         echo '=== Building UME64 ==='
@@ -508,10 +506,10 @@ rebuild_libretro_ume() {
 # $3 is profile name
 # $4 is compiler
 build_libretro_bsnes_modern() {
-   cd "${WORKDIR}"
-   if [ -d "libretro-${1}" ]; then
+   build_dir="${WORKDIR}/libretro-${1}"
+   if [ -d "${build_dir}" ]; then
       echo "=== Building ${1} ${3} ==="
-      cd libretro-${1}
+      cd ${build_dir}
       
       if [ -z "${NOCLEAN}" ]; then
         rm -f obj/*.{o,"${FORMAT_EXT}"}
@@ -539,10 +537,10 @@ build_libretro_bsnes_mercury() {
 
 build_libretro_bsnes_cplusplus98() {
    CORENAME="bsnes_cplusplus98"
-   cd "${WORKDIR}"
-   if [ -d "libretro-${CORENAME}" ]; then
+   build_dir="${WORKDIR}/libretro-${CORENAME}"
+   if [ -d "${build_dir}" ]; then
       echo "=== Building ${CORENAME} ==="
-      cd libretro-${CORENAME}
+      cd ${build_dir}
 
       if [ -z "${NOCLEAN}" ]; then
          "${MAKE}" clean || die "Failed to clean ${CORENAME}"
@@ -556,10 +554,10 @@ build_libretro_bsnes_cplusplus98() {
 }
 
 build_libretro_bnes() {
-   cd "${WORKDIR}"
-   if [ -d 'libretro-bnes' ]; then
+   build_dir="${WORKDIR}/libretro-bnes"
+   if [ -d "${build_dir}" ]; then
       echo '=== Building bNES ==='
-      cd libretro-bnes
+      cd ${build_dir}
 
       mkdir -p obj
       if [ -z "${NOCLEAN}" ]; then
@@ -575,9 +573,9 @@ build_libretro_bnes() {
 
 build_libretro_mupen64() {
    check_opengl
-   cd "${WORKDIR}"
-   if [ -d 'libretro-mupen64plus' ]; then
-      cd libretro-mupen64plus
+   build_dir="${WORKDIR}/libretro-mupen64plus"
+   if [ -d "${build_dir}" ]; then
+      cd "${build_dir}"
 
       mkdir -p obj
       if [ "${X86}" ] && [ "${X86_64}" ]; then
