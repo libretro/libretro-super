@@ -44,16 +44,17 @@ log_verbose() {
 # fetch_git <repository> <local directory>
 # Clones or pulls updates from a git repository into a local directory
 fetch_git() {
+   fetch_dir="${WORKDIR}/${2}"
    if [ -n "${3}" ]; then
       echo "=== Fetching ${3} ==="
    fi
-   if [ -d "${WORKDIR}/${2}/.git" ]; then
-      log_verbose "${WORKDIR}/${2}:git pull"
-      cd "${WORKDIR}/${2}"
+   if [ -d "${fetch_dir}/.git" ]; then
+      log_verbose "${fetch_dir}:git pull"
+      cd "${fetch_dir}"
       git pull
    else
-      log_verbose "git clone \"${1}\" \"${WORKDIR}/${2}\""
-      git clone "${1}" "${WORKDIR}/${2}"
+      log_verbose "git clone \"${1}\" \"${fetch_dir}\""
+      git clone "${1}" "${fetch_dir}"
    fi
    if [ -n "${3}" ]; then
       echo "=== Fetched ==="
@@ -64,20 +65,21 @@ fetch_git() {
 # Clones or pulls updates from a git repository (and its submodules, if any)
 # into a local directory
 fetch_git_submodules() {
+   fetch_dir="${WORKDIR}/${2}"
    if [ -n "${3}" ]; then
       echo "=== Fetching ${3} ==="
    fi
-   if [ -d "${WORKDIR}/${2}/.git" ]; then
-      cd "${WORKDIR}/${2}"
-      log_verbose "${WORKDIR}/${2}:git pull"
+   if [ -d "${fetch_dir}/.git" ]; then
+      cd "${fetch_dir}"
+      log_verbose "${fetch_dir}:git pull"
       git pull
-      log_verbose "${WORKDIR}/${2}:git submodule foreach git pull origin master"
+      log_verbose "${fetch_dir}:git submodule foreach git pull origin master"
       git submodule foreach git pull origin master
    else
-      log_verbose "git clone \"${1}\" \"${WORKDIR}/${2}\""
-      git clone "${1}" "${WORKDIR}/${2}"
-      cd "${WORKDIR}/${2}"
-      log_verbose "${WORKDIR}/${2}:git submodule update --init"
+      log_verbose "git clone \"${1}\" \"${fetch_dir}\""
+      git clone "${1}" "${fetch_dir}"
+      cd "${fetch_dir}"
+      log_verbose "${fetch_dir}:git submodule update --init"
       git submodule update --init
    fi
    if [ -n "${3}" ]; then
@@ -92,18 +94,19 @@ fetch_git_submodules() {
 # Basically if the core has a ton of external dependencies, you may not want
 # them updated automatically
 fetch_git_submodules_no_update() {
+   fetch_dir="${WORKDIR}/${2}"
    if [ -n "${3}" ]; then
       echo "=== Fetching ${3} ==="
    fi
-   if [ -d "${WORKDIR}/${2}/.git" ]; then
-      cd "${WORKDIR}/${2}"
-      log_verbose "${WORKDIR}/${2}:git pull"
+   if [ -d "${fetch_dir}/.git" ]; then
+      cd "${fetch_dir}"
+      log_verbose "${fetch_dir}:git pull"
       git pull
    else
-      log_verbose "git clone \"${1}\" \"${WORKDIR}/${2}\""
-      git clone "${1}" "${WORKDIR}/${2}"
-      cd "${WORKDIR}/${2}"
-      log_verbose "${WORKDIR}/${2}:git submodule update --init"
+      log_verbose "git clone \"${1}\" \"${fetch_dir}\""
+      git clone "${1}" "${fetch_dir}"
+      cd "${fetch_dir}"
+      log_verbose "${fetch_dir}:git submodule update --init"
       git submodule update --init
    fi
    if [ -n "${3}" ]; then
