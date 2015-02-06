@@ -5,53 +5,6 @@ die() {
    #exit 1
 }
 
-if [ "$HOST_CC" ]; then
-   CC="${HOST_CC}-gcc"
-   CXX="${HOST_CC}-g++"
-   CXX11="${HOST_CC}-g++"
-   STRIP="${HOST_CC}-strip"
-fi
-
-if [ -z "$MAKE" ]; then
-   if uname -s | grep -i MINGW32 > /dev/null 2>&1; then
-      MAKE=mingw32-make
-   else
-      if type gmake > /dev/null 2>&1; then
-         MAKE=gmake
-      else
-         MAKE=make
-      fi
-   fi
-fi
-
-
-if [ -z "$CC" ]; then
-   if [ $FORMAT_COMPILER_TARGET = "osx" ]; then
-      CC=cc
-   elif uname -s | grep -i MINGW32 > /dev/null 2>&1; then
-      CC=mingw32-gcc
-   else
-      CC=gcc
-   fi
-fi
-
-if [ -z "$CXX" ]; then
-   if [ $FORMAT_COMPILER_TARGET = "osx" ]; then
-      CXX=c++
-      CXX11="clang++ -std=c++11 -stdlib=libc++"
-   elif uname -s | grep -i MINGW32 > /dev/null 2>&1; then
-      CXX=mingw32-g++
-      CXX11=mingw32-g++
-   else
-      CXX=g++
-      CXX11=g++
-   fi
-fi
-
-FORMAT_COMPILER_TARGET_ALT=$FORMAT_COMPILER_TARGET
-echo "CC = $CC"
-echo "CXX = $CXX"
-echo "STRIP = $STRIP"
 if [ "${CC}" ] && [ "${CXX}" ]; then
    COMPILER="CC=\"${CC}\" CXX=\"${CXX}\""
 else
@@ -74,13 +27,8 @@ echo "${FORMAT_COMPILER_TARGET_ALT}"
 RESET_FORMAT_COMPILER_TARGET=$FORMAT_COMPILER_TARGET
 RESET_FORMAT_COMPILER_TARGET_ALT=$FORMAT_COMPILER_TARGET_ALT
 
-if [ -z "$RARCH_DIST_DIR" ]; then
-   RARCH_DIR="${WORKDIR}/dist"
-   RARCH_DIST_DIR="$RARCH_DIR/$DIST_DIR"
-fi
-
 build_summary_log() {
-   if [ -z "${NOBUILD_SUMMARY}" ]; then
+   if [ -n "${BUILD_SUMMARY}" ]; then
       if [ "${1}" -eq "0" ]; then
          echo ${2} >> ${BUILD_SUCCESS}
       else
@@ -113,147 +61,6 @@ reset_compiler_targets() {
 build_libretro_pcsx_rearmed_interpreter() {
    cd "${WORKDIR}"
    if [ -d 'libretro-pcsx_rearmed' ]; then
-      echo '=== Building PCSX ReARMed Interpreter ==='
-      cd libretro-pcsx_rearmed
-
-      if [ -z "${NOCLEAN}" ]; then
-         "${MAKE}" -f Makefile.libretro platform="${FORMAT_COMPILER_TARGET}" ${COMPILER} "-j${JOBS}" clean || die 'Failed to clean PCSX ReARMed'
-      fi
-      "${MAKE}" -f Makefile.libretro USE_DYNAREC=0 platform="${FORMAT_COMPILER_TARGET}" ${COMPILER} "-j${JOBS}" || die 'Failed to build PCSX ReARMed'
-      cp "pcsx_rearmed_libretro${FORMAT}.${FORMAT_EXT}" "${RARCH_DIST_DIR}/pcsx_rearmed_interpreter${FORMAT}.${FORMAT_EXT}"
-      build_summary_log ${?} "pcsx_rearmed_interpreter"
-   else
-      echo 'PCSX ReARMed not fetched, skipping ...'
-   fi
-}
-
-# $1 is corename
-# $2 is subcorename
-# $3 is subdir. In case there is no subdir, enter "." here
-# $4 is Makefile name
-# $5 is preferred platform
-build_libretro_generic_makefile_subcore() {
-   cd ${WORKDIR}
-   if [ -d "libretro-${1}" ]; then
-      echo "=== Building ${2} ==="
-      cd libretro-${1}/
-      cd ${3}
-
-      if [ -z "${NOCLEAN}" ]; then
-         make -f ${4} platform=${5} -j$JOBS clean || die "Failed to clean ${2}"
-      fi
-      make -f ${4} platform=${5} -j$JOBS || die "Failed to build ${2}"
-      cp ${2}_libretro$FORMAT.${FORMAT_EXT} $RARCH_DIST_DIR/${2}_libretro$FORMAT.${FORMAT_EXT}
-      build_summary_log ${?} ${2}
-   fi
-}
-
-build_libretro_fba_cps2() {
-   build_libretro_generic_makefile_subcore "fb_alpha" "fba_cores_cps2" "svn-current/trunk/fbacores/cps2" "makefile.libretro" ${FORMAT_COMPILER_TARGET}
-}
-
-build_libretro_fba_neogeo() {
-   build_libretro_generic_makefile_subcore "fb_alpha" "fba_cores_neo" "svn-current/trunk/fbacores/neogeo" "makefile.libretro" ${FORMAT_COMPILER_TARGET}
-}
-
-build_libretro_fba_cps1() {
-   build_libretro_generic_makefile_subcore "fb_alpha" "fba_cores_cps1" "svn-current/trunk/fbacores/cps1" "makefile.libretro" ${FORMAT_COMPILER_TARGET}
-}
-
-
-copy_core_to_dist() {
-   if [ "$FORMAT_COMPILER_TARGET" = "theos_ios" ]; then
-      cp "objs/obj/${1}_libretro${FORMAT}.${FORMAT_EXT}" "${RARCH_DIST_DIR}"
-      build_summary_log ${?} ${1}
-   else
-      cp "${1}_libretro${FORMAT}.${FORMAT_EXT}" "${RARCH_DIST_DIR}"
-      build_summary_log ${?} ${1}
-   fi
-}
-
-# $1 is corename
-# $2 is subdir. In case there is no subdir, enter "." here
-# $3 is Makefile name
-# $4 is preferred platform
-build_libretro_generic_makefile() {
-   cd "${WORKDIR}"
-   if [ -d "libretro-${1}" ]; then
-      echo "=== Building ${1} ==="
-      cd libretro-${1}
-      cd ${2}
-
-      if [ -z "${NOCLEAN}" ]; then
-         "${MAKE}" -f ${3} platform="${4}" ${COMPILER} "-j${JOBS}" clean || die "Failed to build ${1}"
-      fi
-      echo "${MAKE}" -f ${3} platform="${4}" ${COMPILER} "-j${JOBS}"
-      "${MAKE}" -f ${3} platform="${4}" ${COMPILER} "-j${JOBS}" || die "Failed to build ${1}"
-      if [ -z "${5}" ]; then
-         copy_core_to_dist $1
-      fi
-   else
-      echo "${1} not fetched, skipping ..."
-   fi
-}
-
-build_libretro_stonesoup() {
-   build_libretro_generic_makefile "stonesoup" "crawl-ref" "Makefile.libretro" ${FORMAT_COMPILER_TARGET}
-}
-
-build_libretro_hatari() {
-   build_libretro_generic_makefile "hatari" "." "Makefile.libretro" ${FORMAT_COMPILER_TARGET}
-}
-
-build_libretro_prosystem() {
-   build_libretro_generic_makefile "prosystem" "." "Makefile" ${FORMAT_COMPILER_TARGET}
-}
-
-build_libretro_4do() {
-   build_libretro_generic_makefile "4do" "." "Makefile" ${FORMAT_COMPILER_TARGET}
-}
-
-build_libretro_o2em() {
-   build_libretro_generic_makefile "o2em" "." "Makefile" ${FORMAT_COMPILER_TARGET}
-}
-
-build_libretro_virtualjaguar() {
-   build_libretro_generic_makefile "virtualjaguar" "." "Makefile" ${FORMAT_COMPILER_TARGET}
-}
-
-build_libretro_tgbdual() {
-   build_libretro_generic_makefile "tgbdual" "." "Makefile" ${FORMAT_COMPILER_TARGET}
-}
-
-build_libretro_nx() {
-   build_libretro_generic_makefile "nxengine" "." "Makefile" ${FORMAT_COMPILER_TARGET}
-}
-
-build_libretro_catsfc() {
-   build_libretro_generic_makefile "catsfc" "." "Makefile" ${FORMAT_COMPILER_TARGET}
-}
-
-build_libretro_emux() {
-   build_libretro_generic_makefile "emux" "libretro" "Makefile" ${FORMAT_COMPILER_TARGET} 1
-   copy_core_to_dist "emux_chip8"
-   copy_core_to_dist "emux_gb"
-   copy_core_to_dist "emux_nes"
-   copy_core_to_dist "emux_sms"
-}
-
-build_libretro_picodrive() {
-   build_libretro_generic_makefile "picodrive" "." "Makefile.libretro" ${FORMAT_COMPILER_TARGET}
-}
-
-build_libretro_tyrquake() {
-   build_libretro_generic_makefile "tyrquake" "." "Makefile.libretro" ${FORMAT_COMPILER_TARGET}
-}
-
-build_libretro_2048() {
-   build_libretro_generic_makefile "2048" "." "Makefile.libretro" ${FORMAT_COMPILER_TARGET}
-}
-
-build_libretro_vecx() {
-   build_libretro_generic_makefile "vecx" "." "Makefile.libretro" ${FORMAT_COMPILER_TARGET}
-}
 
 build_libretro_stella() {
    build_libretro_generic_makefile "stella" "." "Makefile" ${FORMAT_COMPILER_TARGET}

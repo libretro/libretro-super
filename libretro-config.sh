@@ -195,8 +195,8 @@ fi
 #CORE BUILD SUMMARY
 #==================
 
-# Set this to disable the core build summary
-# export NOBUILD_SUMMARY=1
+# Remove this to enable the core build summary
+export BUILD_SUMMARY=1
 
 BUILD_SUMMARY=${WORKDIR}/build-summary.log
 BUILD_SUCCESS=${WORKDIR}/build-success.log
