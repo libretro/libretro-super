@@ -21,7 +21,7 @@ read_link()
 SCRIPT="`read_link "$0"`"
 BASE_DIR="`dirname "${SCRIPT}"`"
 WORKDIR="`pwd`"
- 
+
 . ${BASE_DIR}/libretro-config.sh
 
 if [ -z "$RARCH_DIST_DIR" ]; then
