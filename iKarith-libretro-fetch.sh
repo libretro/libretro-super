@@ -25,7 +25,7 @@ BASE_DIR="`dirname "${SCRIPT}"`"
 
 WORKDIR=$(pwd)
 
-DATESTAMP_FMT="%Y-%m-%d_%H:%M:%S"
+DATESTAMP_FMT="%Y-%m-%d %H:%M:%S"
 
 
 log_verbose() {
@@ -34,33 +34,27 @@ log_verbose() {
 	fi
 }
 
+echo_cmd() {
+	echo "$@"
+	"$@"
+}
+
 
 # fetch_git <repository> <local directory>
 # Clones or pulls updates from a git repository into a local directory
 fetch_git() {
 	fetch_dir="$WORKDIR/$2"
-	if [ -n "$3" ]; then
-		echo "=== Fetching $3 ==="
-	fi
+	echo "=== Fetching $2 ==="
 	if [ -d "$fetch_dir/.git" ]; then
-		log_verbose "$fetch_dir:git pull"
-		cd "$fetch_dir"
-		git pull
+		echo_cmd git -C "$fetch_dir" pull
 		if [ -n "$5" ]; then
-			log_verbose "$fetch_dir:git submodule foreach git pull origin master"
-			git submodule foreach git pull origin master
+			echo_cmd git -C "$fetch_dir" submodule foreach git pull origin master
 		fi
 	else
-		log_verbose "git clone \"$1\" \"$fetch_dir\""
-		git clone "$1" "$fetch_dir"
+		echo_cmd git clone "$1" "$fetch_dir"
 		if [ -n "$4" ]; then
-			cd $fetch_dir
-			log_verbose "$fetch_dir:git submodule update --init"
-			git submodule update --init
+			echo_cmd git -C "$fetch_dir" submodule update --init
 		fi
-	fi
-	if [ -n "$3" ]; then
-		echo "=== Fetched ==="
 	fi
 }
 
@@ -72,7 +66,6 @@ fetch_project_bsnes()
 	fetch_git "${1}" "${2}" "" "" ""
 	fetch_git "${WORKDIR}/${2}" "${2}/perf" "" "" ""
 	fetch_git "${WORKDIR}/${2}" "${2}/balanced" "" "" ""
-	echo "=== Fetched ==="
 }
 
 
@@ -336,6 +329,8 @@ fetch_libretro_emux() {
 	fetch_git "https://github.com/libretro/emux.git" "libretro-emux" "libretro/Emux" "" ""
 }
 
+CERBOSITY=""
+[ -n "$VERBOSE" ] && VERBOSITY="--verbose"
 if [ -n "${1}" ]; then
 	while [ -n "${1}" ]; do
 		"${1}"
