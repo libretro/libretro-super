@@ -42,6 +42,11 @@ echo_cmd() {
 
 # fetch_git <repository> <local directory>
 # Clones or pulls updates from a git repository into a local directory
+#
+# $1	The URI to fetch
+# $2	The local directory to fetch to (relative)
+# $3	Set to clone --recursive
+# $4	Set to pull --recursive
 fetch_git() {
 	fetch_dir="$WORKDIR/$2"
 	echo "=== Fetching $2 ==="
