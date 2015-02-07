@@ -4,35 +4,26 @@
 # BSDs don't have readlink -f
 read_link()
 {
-	TARGET_FILE="${1}"
-	cd "`dirname "${TARGET_FILE}"`"
-	TARGET_FILE="`basename "${TARGET_FILE}"`"
+	TARGET_FILE="$1"
+	cd "`dirname "$TARGET_FILE"`"
+	TARGET_FILE="`basename "$TARGET_FILE"`"
 
-	while [ -L "${TARGET_FILE}" ]; do
-		TARGET_FILE="`readlink "${TARGET_FILE}"`"
-		cd "`dirname "${TARGET_FILE}"`"
-		TARGET_FILE="`basename "${TARGET_FILE}"`"
+	while [ -L "$TARGET_FILE" ]; do
+		TARGET_FILE="`readlink "$TARGET_FILE"`"
+		cd "`dirname "$TARGET_FILE"`"
+		TARGET_FILE="`basename "$TARGET_FILE"`"
 	done
 
 	PHYS_DIR="`pwd -P`"
-	RESULT="${PHYS_DIR}/${TARGET_FILE}"
-	echo ${RESULT}
+	RESULT="$PHYS_DIR/$TARGET_FILE"
+	echo "$RESULT"
 }
 SCRIPT="`read_link "$0"`"
-BASE_DIR="`dirname "${SCRIPT}"`"
+BASE_DIR="`dirname "$SCRIPT"`"
 
-. ${BASE_DIR}/iKarith-libretro-config.sh
+. $BASE_DIR/iKarith-libretro-config.sh
 
 WORKDIR=$(pwd)
-
-DATESTAMP_FMT="%Y-%m-%d %H:%M:%S"
-
-
-log_verbose() {
-	if [ -n "${VERBOSE}" ]; then
-		echo "$(date -u +${DATESTAMP_FMT}):${@}"
-	fi
-}
 
 echo_cmd() {
 	echo "$@"
@@ -65,6 +56,8 @@ fetch_git() {
 
 
 # Keep three copies so we don't have to rebuild stuff all the time.
+# FIXME: If you need 3 copies of source to compile 3 sets of objects, you're
+#        doing it wrong.  We should fix this.
 fetch_project_bsnes()
 {
 	fetch_git "${1}" "${2}"
