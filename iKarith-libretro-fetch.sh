@@ -47,12 +47,12 @@ fetch_git() {
 	echo "=== Fetching $2 ==="
 	if [ -d "$fetch_dir/.git" ]; then
 		echo_cmd git -C "$fetch_dir" pull
-		if [ -n "$5" ]; then
+		if [ -n "$4" ]; then
 			echo_cmd git -C "$fetch_dir" submodule foreach git pull origin master
 		fi
 	else
 		echo_cmd git clone "$1" "$fetch_dir"
-		if [ -n "$4" ]; then
+		if [ -n "$3" ]; then
 			echo_cmd git -C "$fetch_dir" submodule update --init
 		fi
 	fi
@@ -245,7 +245,7 @@ fetch_libretro_bsnes_mercury() {
 }
 
 fetch_libretro_picodrive() {
-	fetch_git "https://github.com/libretro/picodrive.git" "libretro-picodrive" "" "1" "1"
+	fetch_git "https://github.com/libretro/picodrive.git" "libretro-picodrive" "1" "1"
 }
 
 fetch_libretro_tgbdual() {
@@ -289,7 +289,7 @@ fetch_libretro_vecx() {
 }
 
 fetch_libretro_ppsspp() {
-	fetch_git "https://github.com/libretro/ppsspp.git" "libretro-ppsspp" "" "1" "1"
+	fetch_git "https://github.com/libretro/ppsspp.git" "libretro-ppsspp" "1" "1"
 }
 
 fetch_libretro_prosystem() {
@@ -309,7 +309,7 @@ fetch_libretro_catsfc() {
 }
 
 fetch_libretro_stonesoup() {
-	fetch_git "https://github.com/libretro/crawl-ref.git" "libretro-stonesoup" "" "1" ""
+	fetch_git "https://github.com/libretro/crawl-ref.git" "libretro-stonesoup" "1" ""
 }
 
 fetch_libretro_hatari() {
