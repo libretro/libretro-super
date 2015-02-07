@@ -333,8 +333,6 @@ fetch_libretro_emux() {
 	fetch_git "https://github.com/libretro/emux.git" "libretro-emux"
 }
 
-CERBOSITY=""
-[ -n "$VERBOSE" ] && VERBOSITY="--verbose"
 if [ -n "${1}" ]; then
 	while [ -n "${1}" ]; do
 		"${1}"
