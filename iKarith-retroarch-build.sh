@@ -1,6 +1,6 @@
 #!/bin/bash
 
-. ./libretro-config.sh
+. ./iKarith-libretro-config.sh
 
 # BSDs don't have readlink -f
 read_link()

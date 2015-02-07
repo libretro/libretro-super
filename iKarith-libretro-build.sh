@@ -22,7 +22,7 @@ SCRIPT="`read_link "$0"`"
 BASE_DIR="`dirname "${SCRIPT}"`"
 WORKDIR="`pwd`"
 
-. ${BASE_DIR}/libretro-config.sh
+. ${BASE_DIR}/iKarith-libretro-config.sh
 
 if [ -z "$RARCH_DIST_DIR" ]; then
    RARCH_DIR="${WORKDIR}/dist"
@@ -87,7 +87,7 @@ echo "CC = $CC"
 echo "CXX = $CXX"
 echo "STRIP = $STRIP"
 
-. ${BASE_DIR}/libretro-build-common.sh
+. ${BASE_DIR}/iKarith-libretro-build-common.sh
 
 mkdir -p "$RARCH_DIST_DIR"
 

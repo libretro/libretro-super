@@ -21,7 +21,7 @@ read_link()
 SCRIPT="`read_link "$0"`"
 BASE_DIR="`dirname "${SCRIPT}"`"
 
-. ${BASE_DIR}/libretro-config.sh
+. ${BASE_DIR}/iKarith-libretro-config.sh
 
 WORKDIR=$(pwd)
 
