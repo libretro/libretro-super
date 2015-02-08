@@ -17,8 +17,13 @@ stuff interests you.  :)
 
 iKarith, 2015-02-07
 
+## History
 
-# Some philosophy
+2015-02-08.0: Added discussion of dependencies
+2015-02-07.1: Changed heading levels
+2015-02-07.0: initial writing
+
+## Some philosophy
 
 Libretro should be an API, not a project.  You might want to argue with me as
 to whether or not that's true.  And you might be surprised to find me agree
@@ -35,7 +40,7 @@ of the systems and all of the emulator engines and all of the versions of some
 of them that exist.  It just does not scale.
 
 
-## The technical problem
+### The technical problem
 
 Leaving aside the philosophical direction of where libretro is headed for a
 moment, its build scripts don't really function well for where the project is
@@ -61,7 +66,7 @@ patched before I get to them are the ones I can assume may have suffered other
 forms of bit rot and will require additional care/testing.
 
 
-## The Political Problem?
+### The Political Problem?
 
 As I said, I don't really know anybody.  So I can't pretend to understand all
 of the issues involved with devs in the various "scenes" in question.  I know
@@ -87,7 +92,95 @@ outstanding issues between anyone.  I'm just here to make cool stuff easy
 enough for my fiancée to use it, remember?  :)
 
 
-# The solution
+## Dependencies
+
+For all the discussion of "no external dependencies", libretro and the stuff
+ported to it have a lot of them.  That's unavoidable, actually.  To simplify
+the argument, let's presume a GNU/Linux build environment.  You can't compile
+anything without a compiler and binutils.  And the only way you're going to
+compile large batches of code is a dependency on make.  Those are obvious.
+
+
+### The less obvious dependencies
+
+Continuing with our Linux example, all make does is give you a way to specify
+what commands are required to create/update a file, and what files it is
+created from.  From there, the commands are executed in a shell, which
+introduces a dependency on the shell, but also the shell commands.  Things
+like echo and cp are not traditionally "builtins", but rather external
+programs that were traditionally smaller than the ELF header required to tell
+Linux how to run them.  (And old enough versions of Linux didn't use ELF…)
+
+By this point you've got literally 500MB of dependencies on a modern Linux
+system.  You could argue that some of that is irrelevant because classically
+all of the above fit into 50MB on a Linux system dating back to a 1.x kernel
+and the fact that the dependencies have bloated so much (largely for UTF-8,
+translation, internationalization, etc.) isn't our problem.  That's fair
+enough, but we still have a minimum of 50MB of build dependencies on Linux.
+
+Add the build scripts in there and you add dependencies on git (which means
+also perl and possibly python though nothing we do requires anything that uses
+python until you try to build mame at least) and explicitly on bash.  I'm
+pretty sure our current build scripts will run on bash 2.05 at least, but most
+folks assume bash 4 is available on all systems these days.  (It's not—the Mac
+still comes with bash 3.)
+
+If we remove the bash dependency, we could claim a POSIX environment as a
+build dependency, but notably some platforms are not and do not even pretend
+to be POSIX, such as that little insignificant OS called Windows.  You could
+install MSYS (or more likely MSYS2) to try and fake it at the shell script
+level, but MSYS2 is one *significant* dependency.
+
+This is why autoconf exists.  It's also why autoconf is the gigantic mess
+(both in terms of size and ugly complexity) that it is: It cannot assume a
+fully POSIX system, and the POSIX standard is pretty dated anyway.  It has to
+figure out all of the quirks of UNIX-style (and non-UNIX) systems running on 8
+bit processors that haven't been updated in 35 years or more.
+
+
+### So, what's your point?
+
+The point is that we cannot say that we have no, or even few build
+dependencies.  And at present, the ones we do have are not declared.  Fixing
+this can be done in three ways, two of which aren't really worthwhile:
+
+1. We can use autoconf.  In addition to all the reasons why this idea just
+   sucks, the fact is that it won't solve our problem anyway because some
+   cores have build dependencies, even if they should be free of external
+   runtime dependencies.  Not only that, we cannot easily predict if down the
+   line you want to use libretro-super to build a core out of a mercurial or
+   subversion repository.
+
+2. We could try to reinvent autoconf for our purposes.  This has the advantage
+   that we could build a system that accommodates our build system's needs and
+   also provides a means for cores to declare additional build dependencies if
+   they need them.  It has the obvious disadvantage that no attempt to replace
+   autoconf has ever really been successful for a reason.  Either you have to
+   introduce an external dependency (as cmake did) or you have to mix a bunch
+   of 1970s-era script syntaxes like autoconf does because they're the only
+   ones you can guarantee are installed everywhere.
+
+3. We can simply state our dependencies from the outset and expect the user of
+   libretro-super to meet them.  We may have to jump through a few hoops to
+   deal with where things are installed.  For example, our scripts might be
+   best run using the same /usr/bin/env tactic used by Python developers to
+   avoid hard-coding a path that isn't portable.
+
+   This doesn't solve the core build dependency issue by itself, but it does
+   assure that if the libretro-super user has installed the prerequisites for
+   using libretro-super, we CAN solve that problem without resorting to the
+   kind of abomination that is autoconf.
+
+Obviously I see but one choice here.  However care needs to be exercised still
+to ensure that our libretro-super dependencies are in fact __reasonable__.  I
+would love to be able to take advantage of modern versions of bash, for
+example, but Mac OS X users don't have it unless they installed it themselves.
+It's not even guaranteed with MacPorts or Fink installed, so it's a different
+issue than on Windows where people are going to have to install something no
+matter what we use.
+
+
+## The solution so far
 
 To begin with, let's talk about the proof of concept I have already
 implemented.  Then we'll discuss where it goes from here.  For this discussion
@@ -157,7 +250,7 @@ Yes, the .info file could contain instructions for compiling.  Not useful to
 RetroArch in the least, but useful if the .info file becomes the basis of a
 package description.  Which is kind of what I have in mind.
 
-## Still needed
+### Still needed
 
 The FORMAT_COMPILER_TARGET variable and FORMAT_COMPILER_TARGET_ALT are
 extremely simple.  They are kind of used to specify which compiler toolchain
@@ -186,7 +279,7 @@ NOT be suitable for specifying all the build rules, even if most of them are
 implicit.
 
 
-## External sources
+### External sources
 
 This stuff is still a work in progress in my head (even more than compiler
 profiles by target), but here we go.
@@ -229,7 +322,7 @@ of adding an extension to COPYING.  I also chose to give it a version
 designation.
 
 
-# Porting features
+## Porting features
 
 Porting features from the iKarith scripts to the standard scripts is fine,
 indeed it's welcome.  Just keep in mind that while it's possible to do, you
@@ -242,4 +335,6 @@ That's about all I can think of for now.  This file will see updates as the
 concepts contained herein evolve.
 
 
-<!-- vi: set tw=78 ts=8 sw=8 noet ft=markdown: -->
+
+
+<!-- vim: set tw=78 ts=8 sw=8 noet ft=markdown spell: -->
