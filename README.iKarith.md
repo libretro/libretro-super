@@ -19,6 +19,7 @@ iKarith, 2015-02-07
 
 ## History
 
+2015-02-08.1: Extensive rewrite of future direction portions
 2015-02-08.0: Added discussion of dependencies
 2015-02-07.1: Changed heading levels
 2015-02-07.0: initial writing
@@ -164,7 +165,10 @@ this can be done in three ways, two of which aren't really worthwhile:
    libretro-super to meet them.  We may have to jump through a few hoops to
    deal with where things are installed.  For example, our scripts might be
    best run using the same /usr/bin/env tactic used by Python developers to
-   avoid hard-coding a path that isn't portable.
+   avoid hard-coding a path that isn't portable.  I'm told that the byuu, the
+   primary developer behind bsnes/higan, has a philosophy of not limiting
+   himself to legacy cruft when something better exists.  To the extent that
+   is actually a reasonable thing to do, it's not a bad idea.
 
    This doesn't solve the core build dependency issue by itself, but it does
    assure that if the libretro-super user has installed the prerequisites for
@@ -179,14 +183,22 @@ It's not even guaranteed with MacPorts or Fink installed, so it's a different
 issue than on Windows where people are going to have to install something no
 matter what we use.
 
+(Yes, I know bash 3 is ancient, but MacPorts and Fink both get along with it
+just fine, and only bash scripters really ever notice the difference.  If you
+want to convince Twinaphex that it's a reasonable dependency, I'll join you in
+doing so—but if it isn't packaged for PowerPC 10.5 systems, he's going to veto
+the idea from the start and so will I.  Yes, RetroArch doesn't currently build
+on 10.5 systems.  If I can reasonably correct that at some point, I will.  No,
+10.4 and older isn't necessary.)
+
 
 ## The solution so far
 
-To begin with, let's talk about the proof of concept I have already
-implemented.  Then we'll discuss where it goes from here.  For this discussion
-we will use the 2048 project because it's an incredibly simple example.  In
-fact it's just about as close to a functional "hello world" for libretro as I
-can imagine.  Currently it fetches and compiles using these rules:
+To begin, let's discuss the proof of concept I wrote before even beginning
+this README.  We can decide where it goes from there afterward.  We'll be
+using the incredibly simple 2048 project as a working example,  I like it
+because it's as close to a fully functional "hello world" for libretro as I
+can imagine.  Presently it fetches and compiles with these rules:
 
 ```bash
 fetch_libretro_2048() {
@@ -198,8 +210,7 @@ build_libretro_2048() {
 }
 ```
 
-What happens if we take the information contained there and turn it into a
-bunch of shell variables that describe what to do with "2048":
+Okay, so I turned that into a pile of shell variables:
 
 ```bash
 core_2048_dir="libretro-2048"
@@ -210,18 +221,23 @@ core_2048_makefile="Makefile.libretro"
 core_2048_other_args="$FORMAT_COMPILER_TARGET"
 ```
 
-You'll notice that the build subdir is not specified—it's implicit.  You'd
-only have to set the variable if you needed to specify one.  If the project
-used ``makefile`` or ``Makefile`` to build for libretro, you wouldn't need to
-specify that either.  And actually, so much of the above "core definition"
-uses what would be reasonable defaults, you really only need to specify the
-``core_2048_source`` and ``core_2048_makefile`` lines.  The rest could be
-totally implicit, but I never really got that far before I had to attend to
-other things.
+There's no need for $REPO_BASE for "write access" using github, and github
+actually recommends everyone use https anyway.  (They've flip-flopped on this
+a few times over the years.)
 
-But the info doesn't have to be specified in shell variable format.  In fact
-it's not actually that difficult given bash to actually parse a file like
-this:
+The first real change here is build_libretro_generic_makefile_s, a version of
+the build_libretro_generic_makefile rule written to use a set of shell
+variables instead of positional parameters. You'll notice there's no variable
+for subdir defined because no subdir is needed and therefore the rule doesn't
+use one.
+
+The fetch and build rules could be implicit as well since those would be the
+defaults.  Actually, the only things 2048 uses that cannot be implicit
+defaults are obviously the source repository and its use of something other
+than ``makefile`` or ``Makefile``.
+
+This proof of concept uses shell variables, but it could just as easily have
+used an ini file format like so:
 
 ```ini
 [2048]
@@ -229,7 +245,15 @@ source = "https://github.com/libretro/libretro-2048.git"
 makefile = "Makefile.libretro"
 ```
 
-or even
+or an RFC-822 style format ala Debian Packages files:
+
+```
+Core: 2048
+Source: https://github.com/libretro/libretro-2048.git
+Makefile: Makefile.libretro
+```
+
+or even possibly in the .info file:
 
 ```ini
 display_name = "2048"
@@ -246,37 +270,135 @@ source = "https://github.com/libretro/libretro-2048.git"
 makefile = "Makefile.libretro"
 ```
 
-Yes, the .info file could contain instructions for compiling.  Not useful to
-RetroArch in the least, but useful if the .info file becomes the basis of a
-package description.  Which is kind of what I have in mind.
+I like the notion of the second option actually even better than the third.
+I'll explain why when I get to XXX
 
-### Still needed
 
-The FORMAT_COMPILER_TARGET variable and FORMAT_COMPILER_TARGET_ALT are
-extremely simple.  They are kind of used to specify which compiler toolchain
-to use, but the settings are defined, redefined, or overridden in about four
-or five different places including sometimes the cores' Makefile!  And on my
-system, it is simply "osx".  I have two versions of gcc and a Clang available
-here, and I can build code for any of 8 architectures, two of which my system
-can also actually run.  And the only configuration of my compiler is "osx"?
+## Where to go from here
 
-Let's start by defining my system with a system and a native architecture.
-We'll use MacOSX-x86_64.  And I have multiple compiler toolchains available.
-Let's assume that libretro-super identifies Clang and the gcc version that
-runs as ``/usr/bin/gcc``.  Both build for MacOSX-x86_64, so I would wind up
-having two compiler profiles.
+We need a better replacement for $platform and $FORMAT_COMPILER_TARGET and its
+often identical $FORMAT_COMPILER_TARGET_ALT.  I dunno about you, but my
+primary workstation has three compiler suites installed that can collectively
+generate code for two platforms and eight major processor architectures.  I
+can currently run two of the processor architectures, compiled for either of
+the two platforms.  I used to have a computer that could run three other
+architectures on one of those platforms, but no longer do.  I have a Mac, and
+as far as libretro is concerned a present, that's all grossly oversimplified
+to just "osx".  WTF!  That's gotta be fixed.
 
-If a core can't build with Clang, its build recipes might specify a preference
-for gcc if there are choices, or even indicate a conflict with Clang older
-than whatever version is current if we ever get around to implementing that
-kind of thing.  If it can't build with my system, it should be skipped by
-default unless explicitly requested otherwise.
+Next, as already noted there's some confusion outside of libretro circles
+about the scope of libretro, namely that it is intended to be first and
+foremost an API to be implemented by programs called "players" and packages
+called "cores".  If libretro-super is supposed to be an easy way to build
+these things, then players and cores need to simply be definitions that you
+can drop in to libretro-super and use, regardless of where they come from.
 
-Those cores like 2048 that build as universal binaries might say that on
-MacOSX-x86_64 and MacOSX-i386 it prefers MacOSX-Intel which would be a fat
-binary for both.  Those kinds of overrides are why the existing info file may
-NOT be suitable for specifying all the build rules, even if most of them are
-implicit.
+
+### A better platform designation
+
+Currently the CPU you're building for is stored in the variable ARCH.  The
+platform may be specified in a couple of different formats in the $platform
+variable, and $FORMAT_COMPILER_TARGET and $FORMAT_COMPILER_TARGET_ALT in a
+canonical format.  But as I said on my Mac will all its build possibilities
+they all boil down to "osx".  At the very least, a platform designation should
+be specified as a canonical pairing of an OS target and an architecture
+target.  An evolution from what we have now would be to call my system
+``MacOSX-x86_64``.  Other valid architectures for Mac OS X are i386, ppc,
+ppc64, and ppc970.  (For those who don't know, ppc970 is compatible with ppc64
+code, but not the other way around, though I don't know how important 64 bit
+CPU support is on those G5 Macs with their typical RAM constraints.)
+
+The best way would be to determine which compilers were available for a given
+language and how to invoke them.  At least on my system Clang and one of the
+gcc's should be picked up for C, C++, and Obj-C for pretty much every
+standard.  And these would be defined for my current platform target of
+MacOSX-x86_64.
+
+But it shouldn't stop there.  On all modern x86_64 systems, it is possible to
+compile an (usually) run iX86 code.  Our build system should determine if you
+have the ability to do it and give you the option of doing so instead of or
+addition to the x86_64 option.  Users don't need that, but developers do.
+
+Likewise for PowerPC and ARM architectures, there might be more than one CPU
+target possible.
+
+Mac OS X and iOS introduce another spanner in the works in that they support
+compiling these multiple targets and joining them together using a tool called
+lipo.  The compiler will do this for you in most cases.  Basically if any
+CPU-specific features are determined by reading system headers or
+compiler-defined variables, you just specify -arch i386 -arch x86_64 on the
+compiler and linker command lines and you get both in one library/program.  If
+you're hard-coding things like whether to use 32 or 64 bit structures on the
+command line \*cough\*mupen64plus\*cough\*, you're going to have to build it
+twice and use lipo or better yet, patch the code to figure out these
+structural differences from the compile environment provided.
+
+We have some support for fat binaries on OS X currently, but it's a proof of
+concept only that illustrates the limitations of our current build scripts
+more than anything.
+
+
+### Packages files
+
+If libretro-super is going to be just a build environment for things built
+around the libretro API in a highly scalable fashion, we need a way for people
+to drop in their own fetch and build methods, as well as package rules for
+players and cores.
+
+Let's say the SuperTux developers port their game to libretro.  Pretty sweet
+right?  In order to build this using libretro-super, you'd need a set of build
+rules for it.  The SuperTux folks could provide you with a URL for a packages
+file which you could either download and drop into libretro-super yourself, or
+you could give the URL to libretro-super and let it download it for you.
+(Dependency on either wget or curl there—everybody has at least one or the
+other though so that's fine.)
+
+If you do let libretro-super download it for you, it could periodically check
+to see if it has changed and update it if needed.  Think apt-add-repository
+from Ubuntu.  Key signing and verification is not yet planned, but if you can
+come up with an intelligent and minimalistic way to do it, I'm interested. :)
+
+
+### Actions and targets
+
+At this point, libretro is a __MASSIVE__ project, which is kind of impressive
+for something that's not really supposed to be a project at all.  There are
+something approaching 70 individual cores including three versions of MAME,
+three versions of standalone bSNES, and more.  Users do not need all of that.
+The average developer doesn't even need all of that.  The only people who do
+are the people running the buildbots that package all of the stuff that is
+currently maintained by libretro developers.
+
+The whole reason libretro-super exists is to give libretro developers an easy
+way to build all of that stuff at once as it changes.  And the only people who
+need to rebuild all of it from scratch are people like me who are working on
+build system scripts.
+
+If libretro-super is going to be the standard reference build environment used
+for libretro cores and (perhaps also) players, not only does it need modular
+build targets and rules, it needs to be configurable as to what it will do,
+and what it will do it to.
+
+The average end user only needs to fetch and build the cores they want.  They
+might also want those cores installed into their player.  That needs to be
+possible.
+
+Buildbots need to fetch anything that has changed and then clean, build,
+package, and release it.  For every supported platform.  That needs to be
+possible.  :)
+
+Developers working on any package (core or player) built using libretro-super
+need to be able to run individual commands to perform individual tasks on a
+particular package or group of packages.  That too needs to be possible.
+
+Finally it is possible somewhere along the line that libretro-super might
+itself be packaged and the only people running it out of a git repository will
+be those choosing to do so.  Everyone else will have it installed somewhere on
+their system.  The commands need to work outside of the libretro-super
+directory, and the build system needs to be able to find anything currently
+just tossed into the libretro-super directory if it has been installed onto
+your system.  I won't say that this needs to be possible because to some
+limited extent, it already is.  :)
 
 
 ### External sources
