@@ -1,4 +1,5 @@
-#!/bin/bash
+#! /usr/bin/env bash
+# vim: set ts=3 sw=3 noet ft=sh : bash
 
 . ./iKarith-libretro-config.sh
 

@@ -1,5 +1,5 @@
-#! /bin/bash
-# vi: sw=3 ts=3 et
+#! /usr/bin/env bash
+# vim: set ts=3 sw=3 noet ft=sh : bash
 
 # BSDs don't have readlink -f
 read_link()

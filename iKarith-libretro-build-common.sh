@@ -1,4 +1,4 @@
-# vi: ts=3 sw=3 et ft=sh
+# vim: set ts=3 sw=3 noet ft=sh : bash
 
 die() {
    echo $1
