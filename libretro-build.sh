@@ -73,6 +73,12 @@ if [ -z "$CXX" ]; then
    if [ $FORMAT_COMPILER_TARGET = "osx" ]; then
       CXX=c++
       CXX11="clang++ -std=c++11 -stdlib=libc++"
+      # FIXME: Do this right later.
+      if [ "$ARCH" = "i386" ]; then
+         CC="cc -arch i386"
+         CXX="c++ -arch i386"
+         CXX11="clang++ -arch i386 -std=c++11 -stdlib=libc++"
+      fi
    elif uname -s | grep -i MINGW32 > /dev/null 2>&1; then
       CXX=mingw32-g++
       CXX11=mingw32-g++
@@ -85,6 +91,7 @@ fi
 FORMAT_COMPILER_TARGET_ALT=$FORMAT_COMPILER_TARGET
 echo "CC = $CC"
 echo "CXX = $CXX"
+echo "CXX11 = $CXX11"
 echo "STRIP = $STRIP"
 
 . ${BASE_DIR}/libretro-build-common.sh
