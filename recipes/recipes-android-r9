@@ -1,1 +1,2 @@
+desmume libretro-desmume https://github.com/libretro/desmume.git PROJECT YES GENERIC_JNI Makefile.libretro desmume/src/libretro/jni 
 mupen64plus libretro-mupen64plus https://github.com/libretro/mupen64plus-libretro.git PROJECT YES GENERIC_JNI Makefile libretro/jni 
