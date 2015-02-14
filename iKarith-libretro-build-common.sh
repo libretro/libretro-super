@@ -5,13 +5,22 @@ die() {
    #exit 1
 }
 
+#
+# FIXME: Okay regarding COMPILER...  It's no longer used to build any targets
+# in this file because it doesn't let you specify arguments to the compiler
+# such as CC="gcc -something".  We need to be able to do that on the Mac in
+# particular because we need to be able to specify -arch to build on a CPU
+# other than the default.
+#
+# Basically, if you use this variable, you should stop.  :)
+#
 if [ "${CC}" ] && [ "${CXX}" ]; then
    COMPILER="CC=\"${CC}\" CXX=\"${CXX}\""
 else
    COMPILER=""
 fi
 
-echo "Compiler: ${COMPILER}"
+echo "Compiler: CC=\"$CC\" CXX=\"$CXX\""
 
 [[ "${ARM_NEON}" ]] && echo '=== ARM NEON opts enabled... ===' && export FORMAT_COMPILER_TARGET="${FORMAT_COMPILER_TARGET}-neon"
 [[ "${CORTEX_A8}" ]] && echo '=== Cortex A8 opts enabled... ===' && export FORMAT_COMPILER_TARGET="${FORMAT_COMPILER_TARGET}-cortexa8"
@@ -65,9 +74,9 @@ build_libretro_pcsx_rearmed_interpreter() {
       cd "${build_dir}"
 
       if [ -z "${NOCLEAN}" ]; then
-         "${MAKE}" -f Makefile.libretro platform="${FORMAT_COMPILER_TARGET}" ${COMPILER} "-j${JOBS}" clean || die 'Failed to clean PCSX ReARMed'
+         "${MAKE}" -f Makefile.libretro platform="${FORMAT_COMPILER_TARGET}" CC="$CC" CXX="$CXX" "-j${JOBS}" clean || die 'Failed to clean PCSX ReARMed'
       fi
-      "${MAKE}" -f Makefile.libretro USE_DYNAREC=0 platform="${FORMAT_COMPILER_TARGET}" ${COMPILER} "-j${JOBS}" || die 'Failed to build PCSX ReARMed'
+      "${MAKE}" -f Makefile.libretro USE_DYNAREC=0 platform="${FORMAT_COMPILER_TARGET}" CC="$CC" CXX="$CXX" "-j${JOBS}" || die 'Failed to build PCSX ReARMed'
       cp "pcsx_rearmed_libretro${FORMAT}.${FORMAT_EXT}" "${RARCH_DIST_DIR}/pcsx_rearmed_interpreter${FORMAT}.${FORMAT_EXT}"
       build_summary_log ${?} "pcsx_rearmed_interpreter"
    else
@@ -129,10 +138,10 @@ build_libretro_generic_makefile() {
       cd "${build_dir}/${2}"
 
       if [ -z "${NOCLEAN}" ]; then
-         "${MAKE}" -f ${3} platform="${4}" ${COMPILER} "-j${JOBS}" clean || die "Failed to build ${1}"
+         "${MAKE}" -f ${3} platform="${4}" CC="$CC" CXX="$CXX" "-j${JOBS}" clean || die "Failed to build ${1}"
       fi
-      echo "${MAKE}" -f ${3} platform="${4}" ${COMPILER} "-j${JOBS}"
-      "${MAKE}" -f ${3} platform="${4}" ${COMPILER} "-j${JOBS}" || die "Failed to build ${1}"
+      echo "${MAKE}" -f ${3} platform="${4}" CC="$CC" CXX="$CXX" "-j${JOBS}"
+      "${MAKE}" -f ${3} platform="${4}" CC="$CC" CXX="$CXX" "-j${JOBS}" || die "Failed to build ${1}"
       if [ -z "${5}" ]; then
          copy_core_to_dist $1
       fi
@@ -370,22 +379,22 @@ build_libretro_mame() {
       if [ "$IOS" ]; then
         echo '=== Building MAME (iOS) ==='
         if [ -z "${NOCLEAN}" ]; then
-           "${MAKE}" -f Makefile.libretro "TARGET=mame" platform="${FORMAT_COMPILER_TARGET}" ${COMPILER} "-j${JOBS}" clean || die 'Failed to clean MAME'
+           "${MAKE}" -f Makefile.libretro "TARGET=mame" platform="${FORMAT_COMPILER_TARGET}" CC="$CC" CXX="$CXX" "-j${JOBS}" clean || die 'Failed to clean MAME'
         fi
-        "${MAKE}" -f Makefile.libretro "TARGET=mame" platform="${FORMAT_COMPILER_TARGET}" ${COMPILER} "NATIVE=1" buildtools "-j${JOBS}" || die 'Failed to build MAME buildtools'
-        "${MAKE}" -f Makefile.libretro "TARGET=mame" platform="${FORMAT_COMPILER_TARGET}" ${COMPILER} emulator "-j${JOBS}" || die 'Failed to build MAME (iOS)'
+        "${MAKE}" -f Makefile.libretro "TARGET=mame" platform="${FORMAT_COMPILER_TARGET}" CC="$CC" CXX="$CXX" "NATIVE=1" buildtools "-j${JOBS}" || die 'Failed to build MAME buildtools'
+        "${MAKE}" -f Makefile.libretro "TARGET=mame" platform="${FORMAT_COMPILER_TARGET}" CC="$CC" CXX="$CXX" emulator "-j${JOBS}" || die 'Failed to build MAME (iOS)'
       elif [ "$X86_64" = "true" ]; then
         echo '=== Building MAME64 ==='
         if [ -z "${NOCLEAN}" ]; then
-           "${MAKE}" PTR64=1 -f Makefile.libretro "TARGET=mame" platform="${FORMAT_COMPILER_TARGET}" ${COMPILER} "-j${JOBS}" clean || die 'Failed to clean MAME'
+           "${MAKE}" PTR64=1 -f Makefile.libretro "TARGET=mame" platform="${FORMAT_COMPILER_TARGET}" CC="$CC" CXX="$CXX" "-j${JOBS}" clean || die 'Failed to clean MAME'
         fi
-        "${MAKE}" PTR64=1 -f Makefile.libretro "TARGET=mame" platform="${FORMAT_COMPILER_TARGET}" ${COMPILER} "-j${JOBS}" || die 'Failed to build MAME'
+        "${MAKE}" PTR64=1 -f Makefile.libretro "TARGET=mame" platform="${FORMAT_COMPILER_TARGET}" CC="$CC" CXX="$CXX" "-j${JOBS}" || die 'Failed to build MAME'
       else
         echo '=== Building MAME32 ==='
         if [ -z "${NOCLEAN}" ]; then
-           "${MAKE}" -f Makefile.libretro "TARGET=mame" platform="${FORMAT_COMPILER_TARGET}" ${COMPILER} "-j${JOBS}" clean || die 'Failed to clean MAME'
+           "${MAKE}" -f Makefile.libretro "TARGET=mame" platform="${FORMAT_COMPILER_TARGET}" CC="$CC" CXX="$CXX" "-j${JOBS}" clean || die 'Failed to clean MAME'
         fi
-        "${MAKE}" -f Makefile.libretro "TARGET=mame" platform="${FORMAT_COMPILER_TARGET}" ${COMPILER} "-j${JOBS}" || die 'Failed to build MAME'
+        "${MAKE}" -f Makefile.libretro "TARGET=mame" platform="${FORMAT_COMPILER_TARGET}" CC="$CC" CXX="$CXX" "-j${JOBS}" || die 'Failed to build MAME'
       fi
       cp "mame_libretro${FORMAT}.${FORMAT_EXT}" "${RARCH_DIST_DIR}"
    else
@@ -403,15 +412,15 @@ build_libretro_mess() {
       if [ "$X86_64" = "true" ]; then
         echo '=== Building MESS64 ==='
         if [ -z "${NOCLEAN}" ]; then
-           "${MAKE}" PTR64=1 -f Makefile.libretro "TARGET=mess" platform="${FORMAT_COMPILER_TARGET}" ${COMPILER} "-j${JOBS}" clean || die 'Failed to clean MAME'
+           "${MAKE}" PTR64=1 -f Makefile.libretro "TARGET=mess" platform="${FORMAT_COMPILER_TARGET}" CC="$CC" CXX="$CXX" "-j${JOBS}" clean || die 'Failed to clean MAME'
         fi
-	"${MAKE}" PTR64=1 -f Makefile.libretro "TARGET=mess" platform="${FORMAT_COMPILER_TARGET}" ${COMPILER} "-j${JOBS}" || die 'Failed to build MAME'
+	"${MAKE}" PTR64=1 -f Makefile.libretro "TARGET=mess" platform="${FORMAT_COMPILER_TARGET}" CC="$CC" CXX="$CXX" "-j${JOBS}" || die 'Failed to build MAME'
       else
         echo '=== Building MESS32 ==='
         if [ -z "${NOCLEAN}" ]; then
-           "${MAKE}" -f Makefile.libretro "TARGET=mess" platform="${FORMAT_COMPILER_TARGET}" ${COMPILER} "-j${JOBS}" clean || die 'Failed to clean MAME'
+           "${MAKE}" -f Makefile.libretro "TARGET=mess" platform="${FORMAT_COMPILER_TARGET}" CC="$CC" CXX="$CXX" "-j${JOBS}" clean || die 'Failed to clean MAME'
         fi
-	"${MAKE}" -f Makefile.libretro "TARGET=mess" platform="${FORMAT_COMPILER_TARGET}" ${COMPILER} "-j${JOBS}" || die 'Failed to build MAME'
+	"${MAKE}" -f Makefile.libretro "TARGET=mess" platform="${FORMAT_COMPILER_TARGET}" CC="$CC" CXX="$CXX" "-j${JOBS}" || die 'Failed to build MAME'
       fi
       cp "mess_libretro${FORMAT}.${FORMAT_EXT}" "${RARCH_DIST_DIR}"
       build_summary_log ${?} "mess"
@@ -430,15 +439,15 @@ rebuild_libretro_mess() {
       if [ "$X86_64" = "true" ]; then
         echo '=== Building MESS64 ==='
         if [ -z "${NOCLEAN}" ]; then
-           "${MAKE}" PTR64=1 -f Makefile.libretro "TARGET=mess" "PARTIAL=1" platform="${FORMAT_COMPILER_TARGET}" ${COMPILER} "-j${JOBS}" clean || die 'Failed to clean MAME'
+           "${MAKE}" PTR64=1 -f Makefile.libretro "TARGET=mess" "PARTIAL=1" platform="${FORMAT_COMPILER_TARGET}" CC="$CC" CXX="$CXX" "-j${JOBS}" clean || die 'Failed to clean MAME'
         fi
-        "${MAKE}" PTR64=1 -f Makefile.libretro "TARGET=mess" platform="${FORMAT_COMPILER_TARGET}" ${COMPILER} "-j${JOBS}" || die 'Failed to build MAME'
+        "${MAKE}" PTR64=1 -f Makefile.libretro "TARGET=mess" platform="${FORMAT_COMPILER_TARGET}" CC="$CC" CXX="$CXX" "-j${JOBS}" || die 'Failed to build MAME'
       else
         echo '=== Building MESS32 ==='
         if [ -z "${NOCLEAN}" ]; then
-           "${MAKE}" -f Makefile.libretro "TARGET=mess" "PARTIAL=1" platform="${FORMAT_COMPILER_TARGET}" ${COMPILER} "-j${JOBS}" clean || die 'Failed to clean MAME'
+           "${MAKE}" -f Makefile.libretro "TARGET=mess" "PARTIAL=1" platform="${FORMAT_COMPILER_TARGET}" CC="$CC" CXX="$CXX" "-j${JOBS}" clean || die 'Failed to clean MAME'
         fi
-	"${MAKE}" -f Makefile.libretro "TARGET=mess" platform="${FORMAT_COMPILER_TARGET}" ${COMPILER} "-j${JOBS}" || die 'Failed to build MAME'
+	"${MAKE}" -f Makefile.libretro "TARGET=mess" platform="${FORMAT_COMPILER_TARGET}" CC="$CC" CXX="$CXX" "-j${JOBS}" || die 'Failed to build MAME'
       fi
       cp "mess_libretro${FORMAT}.${FORMAT_EXT}" "${RARCH_DIST_DIR}"
       build_summary_log ${?} "mess"
@@ -457,15 +466,15 @@ build_libretro_ume() {
       if [ "$X86_64" = "true" ]; then
         echo '=== Building UME64 ==='
         if [ -z "${NOCLEAN}" ]; then
-           "${MAKE}" PTR64=1 -f Makefile.libretro "TARGET=ume" platform="${FORMAT_COMPILER_TARGET}" ${COMPILER} "-j${JOBS}" clean || die 'Failed to clean MAME'
+           "${MAKE}" PTR64=1 -f Makefile.libretro "TARGET=ume" platform="${FORMAT_COMPILER_TARGET}" CC="$CC" CXX="$CXX" "-j${JOBS}" clean || die 'Failed to clean MAME'
         fi
-	"${MAKE}" PTR64=1 -f Makefile.libretro "TARGET=ume" platform="${FORMAT_COMPILER_TARGET}" ${COMPILER} "-j${JOBS}" || die 'Failed to build MAME'
+	"${MAKE}" PTR64=1 -f Makefile.libretro "TARGET=ume" platform="${FORMAT_COMPILER_TARGET}" CC="$CC" CXX="$CXX" "-j${JOBS}" || die 'Failed to build MAME'
       else
         echo '=== Building UME32 ==='
         if [ -z "${NOCLEAN}" ]; then
-           "${MAKE}" -f Makefile.libretro "TARGET=ume" platform="${FORMAT_COMPILER_TARGET}" ${COMPILER} "-j${JOBS}" clean || die 'Failed to clean MAME'
+           "${MAKE}" -f Makefile.libretro "TARGET=ume" platform="${FORMAT_COMPILER_TARGET}" CC="$CC" CXX="$CXX" "-j${JOBS}" clean || die 'Failed to clean MAME'
 	fi
-        "${MAKE}" -f Makefile.libretro "TARGET=ume" platform="${FORMAT_COMPILER_TARGET}" ${COMPILER} "-j${JOBS}" || die 'Failed to build MAME'
+        "${MAKE}" -f Makefile.libretro "TARGET=ume" platform="${FORMAT_COMPILER_TARGET}" CC="$CC" CXX="$CXX" "-j${JOBS}" || die 'Failed to build MAME'
       fi
       cp "ume_libretro${FORMAT}.${FORMAT_EXT}" "${RARCH_DIST_DIR}"
       build_summary_log ${?} "ume"
@@ -484,15 +493,15 @@ rebuild_libretro_ume() {
       if [ "$X86_64" = "true" ]; then
         echo '=== Building UME64 ==='
         if [ -z "${NOCLEAN}" ]; then
-           "${MAKE}" PTR64=1 -f Makefile.libretro "TARGET=ume" "PARTIAL=1" platform="${FORMAT_COMPILER_TARGET}" ${COMPILER} "-j${JOBS}" clean || die 'Failed to clean MAME'
+           "${MAKE}" PTR64=1 -f Makefile.libretro "TARGET=ume" "PARTIAL=1" platform="${FORMAT_COMPILER_TARGET}" CC="$CC" CXX="$CXX" "-j${JOBS}" clean || die 'Failed to clean MAME'
         fi
-	"${MAKE}" PTR64=1 -f Makefile.libretro "TARGET=ume" platform="${FORMAT_COMPILER_TARGET}" ${COMPILER} "-j${JOBS}" || die 'Failed to build MAME'
+	"${MAKE}" PTR64=1 -f Makefile.libretro "TARGET=ume" platform="${FORMAT_COMPILER_TARGET}" CC="$CC" CXX="$CXX" "-j${JOBS}" || die 'Failed to build MAME'
       else
         echo '=== Building UME32 ==='
         if [ -z "${NOCLEAN}" ]; then
-           "${MAKE}" -f Makefile.libretro "TARGET=ume" "PARTIAL=1" platform="${FORMAT_COMPILER_TARGET}" ${COMPILER} "-j${JOBS}" clean || die 'Failed to clean MAME'
+           "${MAKE}" -f Makefile.libretro "TARGET=ume" "PARTIAL=1" platform="${FORMAT_COMPILER_TARGET}" CC="$CC" CXX="$CXX" "-j${JOBS}" clean || die 'Failed to clean MAME'
         fi
-	"${MAKE}" -f Makefile.libretro "TARGET=ume" platform="${FORMAT_COMPILER_TARGET}" ${COMPILER} "-j${JOBS}" || die 'Failed to build MAME'
+	"${MAKE}" -f Makefile.libretro "TARGET=ume" platform="${FORMAT_COMPILER_TARGET}" CC="$CC" CXX="$CXX" "-j${JOBS}" || die 'Failed to build MAME'
       fi
       cp "ume_libretro${FORMAT}.${FORMAT_EXT}" "${RARCH_DIST_DIR}"
       build_summary_log ${?} "ume"
@@ -515,7 +524,7 @@ build_libretro_bsnes_modern() {
         rm -f obj/*.{o,"${FORMAT_EXT}"}
         rm -f out/*.{o,"${FORMAT_EXT}"}
       fi
-      "${MAKE}" -f Makefile platform="${FORMAT_COMPILER_TARGET}" compiler="${4}" ui='target-libretro' profile="${3}" "-j${JOBS}" || die "Failed to build ${1} ${3} core"
+      "${MAKE}" -f Makefile platform="${FORMAT_COMPILER_TARGET}" compiler="$CXX11" ui='target-libretro' profile="${3}" "-j${JOBS}" || die "Failed to build ${1} ${3} core"
       cp -f "out/${1}_libretro${FORMAT}.${FORMAT_EXT}" "${RARCH_DIST_DIR}/${1}_${3}_libretro${FORMAT}.${FORMAT_EXT}"
       build_summary_log ${?} "${1}_${3}"
    else
@@ -524,15 +533,15 @@ build_libretro_bsnes_modern() {
 }
 
 build_libretro_bsnes() {
-   build_libretro_bsnes_modern "bsnes" "perf" "performance" ${CXX11}
-   build_libretro_bsnes_modern "bsnes" "balanced" "balanced" ${CXX11}
-   build_libretro_bsnes_modern "bsnes" "." "accuracy" ${CXX11}
+   build_libretro_bsnes_modern "bsnes" "perf" "performance"
+   build_libretro_bsnes_modern "bsnes" "balanced" "balanced"
+   build_libretro_bsnes_modern "bsnes" "." "accuracy"
 }
 
 build_libretro_bsnes_mercury() {
-   build_libretro_bsnes_modern "bsnes_mercury" "perf" "performance" ${CXX11}
-   build_libretro_bsnes_modern "bsnes_mercury" "balanced" "balanced" ${CXX11}
-   build_libretro_bsnes_modern "bsnes_mercury" "." "accuracy" ${CXX11}
+   build_libretro_bsnes_modern "bsnes_mercury" "perf" "performance"
+   build_libretro_bsnes_modern "bsnes_mercury" "balanced" "balanced"
+   build_libretro_bsnes_modern "bsnes_mercury" "." "accuracy"
 }
 
 build_libretro_bsnes_cplusplus98() {
@@ -545,7 +554,7 @@ build_libretro_bsnes_cplusplus98() {
       if [ -z "${NOCLEAN}" ]; then
          "${MAKE}" clean || die "Failed to clean ${CORENAME}"
       fi
-      "${MAKE}" platform="${FORMAT_COMPILER_TARGET}" ${COMPILER} "-j${JOBS}"
+      "${MAKE}" platform="${FORMAT_COMPILER_TARGET}" CC="$CC" CXX="$CXX" "-j${JOBS}"
       cp "out/libretro.${FORMAT_EXT}" "${RARCH_DIST_DIR}/${CORENAME}_libretro${FORMAT}.${FORMAT_EXT}"
       build_summary_log ${?} ${CORENAME}
    else
@@ -563,7 +572,7 @@ build_libretro_bnes() {
       if [ -z "${NOCLEAN}" ]; then
          "${MAKE}" -f Makefile "-j${JOBS}" clean || die 'Failed to clean bNES'
       fi
-      "${MAKE}" -f Makefile ${COMPILER} "-j${JOBS}" compiler="${CXX11}" || die 'Failed to build bNES'
+      "${MAKE}" -f Makefile CC="$CC" CXX="$CXX" "-j${JOBS}" compiler="${CXX11}" || die 'Failed to build bNES'
       cp "libretro${FORMAT}.${FORMAT_EXT}" "${RARCH_DIST_DIR}/bnes_libretro${FORMAT}.${FORMAT_EXT}"
       build_summary_log ${?} "bnes"
    else
@@ -583,25 +592,25 @@ build_libretro_mupen64() {
          if [ -z "${NOCLEAN}" ]; then
             "${MAKE}" WITH_DYNAREC='x86_64' platform="${FORMAT_COMPILER_TARGET_ALT}" "-j${JOBS}" clean || die 'Failed to clean Mupen 64 (x86_64 dynarec)'
          fi
-         "${MAKE}" WITH_DYNAREC='x86_64' platform="${FORMAT_COMPILER_TARGET_ALT}" ${COMPILER} "-j${JOBS}" || die 'Failed to build Mupen 64 (x86_64 dynarec)'
+         "${MAKE}" WITH_DYNAREC='x86_64' platform="${FORMAT_COMPILER_TARGET_ALT}" CC="$CC" CXX="$CXX" "-j${JOBS}" || die 'Failed to build Mupen 64 (x86_64 dynarec)'
       elif [ "${X86}" ]; then
          echo '=== Building Mupen 64 Plus (x86 32bit dynarec) ==='
          if [ -z "${NOCLEAN}" ]; then
             "${MAKE}" WITH_DYNAREC='x86' platform="${FORMAT_COMPILER_TARGET_ALT}" "-j${JOBS}" clean || die 'Failed to clean Mupen 64 (x86 dynarec)'
          fi
-         "${MAKE}" WITH_DYNAREC='x86' platform="${FORMAT_COMPILER_TARGET_ALT}" ${COMPILER} "-j${JOBS}" || die 'Failed to build Mupen 64 (x86 dynarec)'
+         "${MAKE}" WITH_DYNAREC='x86' platform="${FORMAT_COMPILER_TARGET_ALT}" CC="$CC" CXX="$CXX" "-j${JOBS}" || die 'Failed to build Mupen 64 (x86 dynarec)'
       elif [ "${CORTEX_A8}" ] || [ "${CORTEX_A9}" ] || [ "${IOS}" ]; then
          echo '=== Building Mupen 64 Plus (ARM dynarec) ==='
          if [ -z "${NOCLEAN}" ]; then
             "${MAKE}" WITH_DYNAREC='arm' platform="${FORMAT_COMPILER_TARGET_ALT}" "-j${JOBS}" clean || die 'Failed to clean Mupen 64 (ARM dynarec)'
          fi
-	 "${MAKE}" WITH_DYNAREC='arm' platform="${FORMAT_COMPILER_TARGET_ALT}" ${COMPILER} "-j${JOBS}" || die 'Failed to build Mupen 64 (ARM dynarec)'
+	 "${MAKE}" WITH_DYNAREC='arm' platform="${FORMAT_COMPILER_TARGET_ALT}" CC="$CC" CXX="$CXX" "-j${JOBS}" || die 'Failed to build Mupen 64 (ARM dynarec)'
       else
          echo '=== Building Mupen 64 Plus ==='
          if [ -z "${NOCLEAN}" ]; then
             "${MAKE}" "-j${JOBS}" clean || die 'Failed to clean Mupen 64'
          fi
-	 "${MAKE}" platform="${FORMAT_COMPILER_TARGET_ALT}" ${COMPILER} "-j${JOBS}" || die 'Failed to build Mupen 64'
+	 "${MAKE}" platform="${FORMAT_COMPILER_TARGET_ALT}" CC="$CC" CXX="$CXX" "-j${JOBS}" || die 'Failed to build Mupen 64'
       fi
       cp "mupen64plus_libretro${FORMAT}.${FORMAT_EXT}" "${RARCH_DIST_DIR}"
       build_summary_log ${?} "mupen64plus"
