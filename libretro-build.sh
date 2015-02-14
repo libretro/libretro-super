@@ -163,6 +163,8 @@ else
    build_libretro_hatari
    build_libretro_gpsp
    build_libretro_emux
+   build_libretro_test
+   build_libretro_testgl
    build_summary
 fi
 

@@ -4,7 +4,6 @@
 bsnes libretro-bsnes https://github.com/libretro/bsnes-libretro.git PROJECT YES BSNES_JNI Makefile target-libretro/jni performance 
 bsnes_mercury libretro-bsnes_mercury https://github.com/libretro/bsnes-mercury.git PROJECT YES BSNES_JNI Makefile target-libretro/jni performance 
 catsfc libretro-catsfc https://github.com/libretro/CATSFC-libretro.git PROJECT YES GENERIC_JNI Makefile jni 
-desmume libretro-desmume https://github.com/libretro/desmume.git PROJECT YES GENERIC_JNI Makefile.libretro desmume/src/libretro/jni 
 dinothawr libretro-dinothawr https://github.com/libretro/Dinothawr.git PROJECT YES GENERIC_JNI Makefile android/eclipse/jni
 dosbox libretro-dosbox https://github.com/libretro/dosbox-libretro.git PROJECT YES GENERIC_JNI Makefile.libretro jni 
 fb_alpha libretro-fba https://github.com/libretro/fba-libretro.git PROJECT YES GENERIC_JNI makefile.libretro svn-current/trunk/projectfiles/libretro-android/jni 
@@ -28,12 +27,10 @@ meteor libretro-meteor  https://github.com/libretro/meteor-libretro.git PROJECT 
 mupen64plus libretro-mupen64plus https://github.com/libretro/mupen64plus-libretro.git PROJECT NO GENERIC_JNI Makefile libretro/jni 
 nestopia libretro-nestopia https://github.com/libretro/nestopia.git PROJECT YES GENERIC_JNI Makefile libretro/jni 
 nxengine libretro-nxengine https://github.com/libretro/nxengine-libretro.git PROJECT YES GENERIC_JNI Makefile jni 
-o2em libretro-o2em https://github.com/libretro/libretro-o2em.git PROJECT YES GENERIC_JNI Makefile jni 
 pcsx_rearmed libretro-pcsx_rearmed https://github.com/libretro/pcsx_rearmed.git PROJECT YES GENERIC_JNI Makefile.libretro jni 
 picodrive libretro-picodrive https://github.com/libretro/picodrive.git SUBMODULE YES GENERIC_JNI Makefile.libretro jni 
 ppsspp libretro-ppsspp https://github.com/libretro/ppsspp.git SUBMODULE YES GENERIC_JNI Makefile.libretro libretro/jni 
 prboom libretro-prboom  https://github.com/libretro/libretro-prboom.git PROJECT YES GENERIC_JNI Makefile libretro/jni 
-prosystem libretro-prosystem https://github.com/libretro/prosystem-libretro.git PROJECT YES GENERIC_JNI Makefile jni 
 snes9x libretro-snes9x https://github.com/libretro/snes9x.git PROJECT YES GENERIC_JNI Makefile libretro/jni 
 snes9x_next libretro-snes9x_next https://github.com/libretro/snes9x-next.git PROJECT YES GENERIC_JNI Makefile.libretro libretro/jni 
 stella libretro-stella https://github.com/libretro/stella-libretro.git PROJECT YES GENERIC_JNI Makefile jni 

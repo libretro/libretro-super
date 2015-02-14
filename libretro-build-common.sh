@@ -127,15 +127,10 @@ copy_core_to_dist() {
    fi
 }
 
-# $1 is corename
-# $2 is subdir. In case there is no subdir, enter "." here
-# $3 is Makefile name
-# $4 is preferred platform
-build_libretro_generic_makefile() {
-   build_dir="${WORKDIR}/libretro-${1}"
-   if [ -d "${build_dir}" ]; then
+build_libretro_generic() {
+   if [ -d "${5}" ]; then
       echo "=== Building ${1} ==="
-      cd "${build_dir}/${2}"
+      cd "${5}/${2}"
 
       if [ -z "${NOCLEAN}" ]; then
          "${MAKE}" -f ${3} platform="${4}" CC="$CC" CXX="$CXX" "-j${JOBS}" clean || die "Failed to build ${1}"
@@ -148,6 +143,21 @@ build_libretro_generic_makefile() {
    else
       echo "${1} not fetched, skipping ..."
    fi
+}
+
+# $1 is corename
+# $2 is subdir. In case there is no subdir, enter "." here
+# $3 is Makefile name
+# $4 is preferred platform
+build_libretro_generic_makefile() {
+   build_dir="${WORKDIR}/libretro-${1}"
+   build_libretro_generic $1 $2 $3 $4 $build_dir
+}
+
+build_retroarch_generic_makefile() {
+   build_dir="${WORKDIR}/${1}"
+   build_libretro_generic $1 $2 $3 $4 $build_dir
+   copy_core_to_dist $5
 }
 
 build_libretro_stonesoup() {
@@ -192,6 +202,14 @@ build_libretro_emux() {
    copy_core_to_dist "emux_gb"
    copy_core_to_dist "emux_nes"
    copy_core_to_dist "emux_sms"
+}
+
+build_libretro_test() {
+   build_retroarch_generic_makefile "retroarch" "libretro-test" "Makefile" ${FORMAT_COMPILER_TARGET} "test"
+}
+
+build_libretro_testgl() {
+   build_retroarch_generic_makefile "retroarch" "libretro-test-gl" "Makefile" ${FORMAT_COMPILER_TARGET} "testgl"
 }
 
 build_libretro_picodrive() {
