@@ -26,3 +26,9 @@ fetch_git() {
 	fi
 }
 
+# revision_git <local directory>
+# Output the hash of the last commit in a git repository
+revision_git() {
+	git -C "$WORKDIR/$1" log -n 1 --pretty=format:%H
+}
+
