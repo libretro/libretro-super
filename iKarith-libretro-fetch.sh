@@ -288,6 +288,11 @@ fetch_libretro_emux() {
 	fetch_git "https://github.com/libretro/emux.git" "libretro-emux"
 }
 
+fetch_libretro_sdk() {
+	fetch_git "https://github.com/libretro/libretro-sdk.git" "libretro-sdk"
+}
+
+
 if [ -n "${1}" ]; then
 	while [ -n "${1}" ]; do
 		"${1}"
@@ -357,5 +362,6 @@ else
 	fetch_libretro_tempgba
 	fetch_libretro_gpsp
 	fetch_libretro_emux
+	fetch_libretro_sdk
 fi
 
