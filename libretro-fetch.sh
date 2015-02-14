@@ -1,5 +1,5 @@
-#! /bin/bash
-# vi: sw=3 ts=3 noet
+#! /usr/bin/env bash
+# vim: set ts=3 sw=3 noet ft=sh : bash
 
 # BSDs don't have readlink -f
 read_link()
@@ -22,6 +22,7 @@ SCRIPT="`read_link "$0"`"
 BASE_DIR="`dirname "${SCRIPT}"`"
 
 . ${BASE_DIR}/libretro-config.sh
+. $BASE_DIR/iKarith-super/fetch-rules.sh	# will rename this dir later
 
 WORKDIR=$(pwd)
 
@@ -33,26 +34,6 @@ log_verbose() {
 	fi
 }
 
-
-# fetch_git <repository> <local directory>
-# Clones or pulls updates from a git repository into a local directory
-fetch_git() {
-	fetch_dir="${WORKDIR}/${2}"
-	if [ -n "${3}" ]; then
-		echo "=== Fetching ${3} ==="
-	fi
-	if [ -d "${fetch_dir}/.git" ]; then
-		log_verbose "${fetch_dir}:git pull"
-		cd "${fetch_dir}"
-		git pull
-	else
-		log_verbose "git clone \"${1}\" \"${fetch_dir}\""
-		git clone "${1}" "${fetch_dir}"
-	fi
-	if [ -n "${3}" ]; then
-		echo "=== Fetched ==="
-	fi
-}
 
 # fetch_git_submodules <repository> <local directory>
 # Clones or pulls updates from a git repository (and its submodules, if any)
@@ -379,6 +360,7 @@ fetch_libretro_emux() {
 fetch_libretro_sdk() {
 	fetch_git "https://github.com/libretro/libretro-sdk.git" "libretro-sdk"
 }
+
 
 if [ -n "${1}" ]; then
 	while [ -n "${1}" ]; do
