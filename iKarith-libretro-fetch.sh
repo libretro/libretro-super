@@ -11,10 +11,8 @@ else
 	BASE_DIR="$WORKDIR/$BASE_DIR"
 fi
 
-WORKDIR=$(pwd)
-
-. $BASE_DIR/iKarith-libretro-config.sh
-. $BASE_DIR/iKarith-super/fetch-rules.sh
+. $BASE_DIR/libretro-config.sh
+. $BASE_DIR/iKarith-super/fetch-rules.sh	# will rename this dir later
 
 
 # Keep three copies so we don't have to rebuild stuff all the time.
