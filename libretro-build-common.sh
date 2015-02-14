@@ -20,7 +20,7 @@ else
    COMPILER=""
 fi
 
-echo "Compiler: CC="$CC" CXX="$CXX""
+echo "Compiler: CC=\"$CC\" CXX=\"$CXX\""
 
 [[ "${ARM_NEON}" ]] && echo '=== ARM NEON opts enabled... ===' && export FORMAT_COMPILER_TARGET="${FORMAT_COMPILER_TARGET}-neon"
 [[ "${CORTEX_A8}" ]] && echo '=== Cortex A8 opts enabled... ===' && export FORMAT_COMPILER_TARGET="${FORMAT_COMPILER_TARGET}-cortexa8"
