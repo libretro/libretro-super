@@ -14,69 +14,10 @@ fi
 . $BASE_DIR/libretro-config.sh
 . $BASE_DIR/iKarith-super/fetch-rules.sh	# will rename this dir later
 
-DATESTAMP_FMT="%Y-%m-%d_%H:%M:%S"
-
-log_verbose() {
-	if [ -n "${VERBOSE}" ]; then
-		echo "$(date -u +${DATESTAMP_FMT}):${@}"
-	fi
-}
-
-
-# fetch_git_submodules <repository> <local directory>
-# Clones or pulls updates from a git repository (and its submodules, if any)
-# into a local directory
-fetch_git_submodules() {
-	fetch_dir="${WORKDIR}/${2}"
-	if [ -n "${3}" ]; then
-		echo "=== Fetching ${3} ==="
-	fi
-	if [ -d "${fetch_dir}/.git" ]; then
-		cd "${fetch_dir}"
-		log_verbose "${fetch_dir}:git pull"
-		git pull
-		log_verbose "${fetch_dir}:git submodule foreach git pull origin master"
-		git submodule foreach git pull origin master
-	else
-		log_verbose "git clone \"${1}\" \"${fetch_dir}\""
-		git clone "${1}" "${fetch_dir}"
-		cd "${fetch_dir}"
-		log_verbose "${fetch_dir}:git submodule update --init"
-		git submodule update --init
-	fi
-	if [ -n "${3}" ]; then
-		echo "=== Fetched ==="
-	fi
-}
-
-# fetch_git_submodules_no_update <repository> <local directory>
-# Clones a repository (and its submodules, if any) into a local directory,
-# updates only the main repo on update.
-#
-# Basically if the core has a ton of external dependencies, you may not want
-# them updated automatically
-fetch_git_submodules_no_update() {
-	fetch_dir="${WORKDIR}/${2}"
-	if [ -n "${3}" ]; then
-		echo "=== Fetching ${3} ==="
-	fi
-	if [ -d "${fetch_dir}/.git" ]; then
-		cd "${fetch_dir}"
-		log_verbose "${fetch_dir}:git pull"
-		git pull
-	else
-		log_verbose "git clone \"${1}\" \"${fetch_dir}\""
-		git clone "${1}" "${fetch_dir}"
-		cd "${fetch_dir}"
-		log_verbose "${fetch_dir}:git submodule update --init"
-		git submodule update --init
-	fi
-	if [ -n "${3}" ]; then
-		echo "=== Fetched ==="
-	fi
-}
 
 # Keep three copies so we don't have to rebuild stuff all the time.
+# FIXME: If you need 3 copies of source to compile 3 sets of objects, you're
+#        doing it wrong.  We should fix this.
 fetch_project_bsnes()
 {
 	fetch_git "${1}" "${2}"
