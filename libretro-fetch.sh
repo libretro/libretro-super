@@ -1,30 +1,18 @@
 #! /usr/bin/env bash
 # vim: set ts=3 sw=3 noet ft=sh : bash
 
-# BSDs don't have readlink -f
-read_link()
-{
-	TARGET_FILE="${1}"
-	cd "`dirname "${TARGET_FILE}"`"
-	TARGET_FILE="`basename "${TARGET_FILE}"`"
-
-	while [ -L "${TARGET_FILE}" ]; do
-		TARGET_FILE="`readlink "${TARGET_FILE}"`"
-		cd "`dirname "${TARGET_FILE}"`"
-		TARGET_FILE="`basename "${TARGET_FILE}"`"
-	done
-
-	PHYS_DIR="`pwd -P`"
-	RESULT="${PHYS_DIR}/${TARGET_FILE}"
-	echo ${RESULT}
-}
-SCRIPT="`read_link "$0"`"
-BASE_DIR="`dirname "${SCRIPT}"`"
-
-. ${BASE_DIR}/libretro-config.sh
-. $BASE_DIR/iKarith-super/fetch-rules.sh	# will rename this dir later
-
+SCRIPT="${0#./}"
+BASE_DIR="${SCRIPT%/*}"
 WORKDIR=$(pwd)
+
+if [ "$BASE_DIR" = "$SCRIPT" ]; then
+	BASE_DIR="$WORKDIR"
+else
+	BASE_DIR="$WORKDIR/$BASE_DIR"
+fi
+
+. $BASE_DIR/libretro-config.sh
+. $BASE_DIR/iKarith-super/fetch-rules.sh	# will rename this dir later
 
 DATESTAMP_FMT="%Y-%m-%d_%H:%M:%S"
 
@@ -262,7 +250,7 @@ fetch_libretro_mame() {
 }
 
 fetch_libretro_ffmpeg() {
-	fetch_git "https://github.com/libretro/FFmpeg.git" "libretro-ffmpeg" "libretro/FFmpeg"
+	fetch_git "https://github.com/libretro/FFmpeg.git" "libretro-ffmpeg"
 }
 
 fetch_libretro_bsnes_cplusplus98() {
@@ -274,7 +262,7 @@ fetch_libretro_bsnes_mercury() {
 }
 
 fetch_libretro_picodrive() {
-	fetch_git_submodules "https://github.com/libretro/picodrive.git" "libretro-picodrive" "libretro/picodrive"
+	fetch_git "https://github.com/libretro/picodrive.git" "libretro-picodrive" "1" "1"
 }
 
 fetch_libretro_tgbdual() {
@@ -318,7 +306,7 @@ fetch_libretro_vecx() {
 }
 
 fetch_libretro_ppsspp() {
-	fetch_git_submodules "https://github.com/libretro/ppsspp.git" "libretro-ppsspp" "libretro/ppsspp"
+	fetch_git "https://github.com/libretro/ppsspp.git" "libretro-ppsspp" "1" "1"
 }
 
 fetch_libretro_prosystem() {
@@ -338,7 +326,7 @@ fetch_libretro_catsfc() {
 }
 
 fetch_libretro_stonesoup() {
-	fetch_git_submodules_no_update "https://github.com/libretro/crawl-ref.git" "libretro-stonesoup" "libretro/DungeonCrawler StoneSoup"
+	fetch_git "https://github.com/libretro/crawl-ref.git" "libretro-stonesoup" "1" ""
 }
 
 fetch_libretro_hatari() {
