@@ -1,5 +1,4 @@
-#!/bin/bash
-# vi: ts=3 sw=3 et
+# vim: set ts=3 sw=3 noet ft=sh : bash
 
 # Architecture Assignment
 config_cpu() {
