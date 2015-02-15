@@ -7,22 +7,31 @@ echo_cmd() {
 }
 
 
-# fetch_git <repository> <local directory>
+# fetch_git
 # Clones or pulls updates from a git repository into a local directory
 #
 # $1	The URI to fetch
 # $2	The local directory to fetch to (relative)
 # $3	Set to clone --recursive
 # $4	Set to pull --recursive
+#
+# NOTE: git _now_ has a -C argument that would replace the cd commands in
+#       this rule, but this is a fairly recent addition to git, so we can't
+#       use it here.  --iKarith
 fetch_git() {
 	fetch_dir="$WORKDIR/$2"
 	echo "=== Fetching $2 ==="
 	if [ -d "$fetch_dir/.git" ]; then
-		echo_cmd git -C "$fetch_dir" pull
-		[ -n "$4" ]&& echo_cmd git -C "$fetch_dir" submodule foreach git pull origin master
+		echo_cmd cd "$fetch_dir"
+		echo_cmd git pull
+		[ -n "$4" ] && echo_cmd git submodule foreach git pull origin master
 	else
-		echo_cmd git clone "$1" "$fetch_dir"
-		[ -n "$3" ]&& 	echo_cmd git -C "$fetch_dir" submodule update --init
+		echo_cmd cd "$WORKDIR"
+		echo_cmd git clone "$1"
+		if [ -n "$3" ]; then
+			echo_cmd cd "$fetch_dir"
+			echo_cmd git submodule update --init
+		fi
 	fi
 }
 
