@@ -20,6 +20,7 @@ fi
 #        doing it wrong.  We should fix this.
 fetch_project_bsnes()
 {
+	echo "=== Fetching ${3} ==="
 	fetch_git "${1}" "${2}" ""
 	fetch_git "${WORKDIR}/${2}" "${2}/perf" ""
 	fetch_git "${WORKDIR}/${2}" "${2}/balanced" ""
