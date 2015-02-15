@@ -226,7 +226,7 @@ build_libretro_databases() {
    build_libretro_database "Sony - PlayStation 3 (DLC)" "rom.crc"
    build_libretro_database "Sony - PlayStation 3 (Downloadable)" "rom.crc"
    build_libretro_database "Sony - PlayStation 3 (PSN)" "rom.crc"
-   build_libretro_database "Sony - PlayStation Portable" "rom.crc"
+   build_libretro_database "Sony - PlayStation Portable" "rom.serial"
    build_libretro_database "Sony - PlayStation Portable (DLC)" "rom.crc"
    build_libretro_database "Sony - PlayStation Portable (PSX2PSP)" "rom.crc"
    build_libretro_database "Sony - PlayStation Portable (UMD Music)" "rom.crc"
