@@ -8,7 +8,10 @@ WORKDIR=$(pwd)
 if [ "$BASE_DIR" = "$SCRIPT" ]; then
 	BASE_DIR="$WORKDIR"
 else
-	BASE_DIR="$WORKDIR/$BASE_DIR"
+	if [[ "$0" != /* ]]; then
+		# Make the path absolute
+		BASE_DIR="$WORKDIR/$BASE_DIR"
+	fi
 fi
 
 . $BASE_DIR/libretro-config.sh
