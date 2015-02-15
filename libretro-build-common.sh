@@ -128,21 +128,13 @@ copy_core_to_dist() {
 }
 
 build_libretro_generic() {
-   if [ -d "${5}" ]; then
-      echo "=== Building ${1} ==="
-      cd "${5}/${2}"
+   cd "${5}/${2}"
 
-      if [ -z "${NOCLEAN}" ]; then
-         "${MAKE}" -f ${3} platform="${4}" CC="$CC" CXX="$CXX" "-j${JOBS}" clean || die "Failed to build ${1}"
-      fi
-      echo "${MAKE}" -f ${3} platform="${4}" CC="$CC" CXX="$CXX" "-j${JOBS}"
-      "${MAKE}" -f ${3} platform="${4}" CC="$CC" CXX="$CXX" "-j${JOBS}" || die "Failed to build ${1}"
-      if [ -z "${5}" ]; then
-         copy_core_to_dist $1
-      fi
-   else
-      echo "${1} not fetched, skipping ..."
+   if [ -z "${NOCLEAN}" ]; then
+      "${MAKE}" -f ${3} platform="${4}" CC="$CC" CXX="$CXX" "-j${JOBS}" clean || die "Failed to build ${1}"
    fi
+   echo "${MAKE}" -f ${3} platform="${4}" CC="$CC" CXX="$CXX" "-j${JOBS}"
+   "${MAKE}" -f ${3} platform="${4}" CC="$CC" CXX="$CXX" "-j${JOBS}" || die "Failed to build ${1}"
 }
 
 # $1 is corename
@@ -151,13 +143,24 @@ build_libretro_generic() {
 # $4 is preferred platform
 build_libretro_generic_makefile() {
    build_dir="${WORKDIR}/libretro-${1}"
-   build_libretro_generic $1 $2 $3 $4 $build_dir
+   if [ -d "$build_dir" ]; then
+      echo "=== Building ${1} ==="
+      build_libretro_generic $1 $2 $3 $4 $build_dir
+      copy_core_to_dist $1
+   else
+      echo "${1} not fetched, skipping ..."
+   fi
 }
 
 build_retroarch_generic_makefile() {
    build_dir="${WORKDIR}/${1}"
-   build_libretro_generic $1 $2 $3 $4 $build_dir
-   copy_core_to_dist $5
+   if [ -d "$build_dir" ]; then
+      echo "=== Building ${2} ==="
+      build_libretro_generic $1 $2 $3 $4 $build_dir
+      copy_core_to_dist $5
+   else
+      echo "${1} not fetched, skipping ..."
+   fi
 }
 
 build_libretro_stonesoup() {
