@@ -27,8 +27,7 @@ fetch_git() {
 		echo_cmd git pull
 		[ -n "$5" ] && echo_cmd git submodule foreach git pull origin master
 	else
-		echo_cmd cd "$WORKDIR"
-		echo_cmd git clone "$1"
+		echo_cmd git clone "$1" "$WORKDIR/$2"
 		if [ -n "$4" ]; then
 			echo_cmd cd "$fetch_dir"
 			echo_cmd git submodule update --init
