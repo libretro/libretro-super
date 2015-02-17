@@ -194,19 +194,10 @@ fi
 #CORE BUILD SUMMARY
 #==================
 
-# Remove this to enable the core build summary
-export BUILD_SUMMARY=1
+# Uncomment this to disable the core build summary
+# NOBUILD_SUMMARY=1
 
-BUILD_SUMMARY=${WORKDIR}/build-summary.log
-BUILD_SUCCESS=${WORKDIR}/build-success.log
-BUILD_FAIL=${WORKDIR}/build-fail.log
-if [ -z "${BUILD_SUMMARY_FMT}" ]; then
-	if command -v column >/dev/null; then
-		BUILD_SUMMARY_FMT=column
-	else
-		BUILD_SUMMARY_FMT=cat
-	fi
-fi
+BUILD_SUMMARY="$WORKDIR/build-summary.log"
 
 
 #USER DEFINES

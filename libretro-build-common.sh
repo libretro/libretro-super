@@ -37,12 +37,10 @@ RESET_FORMAT_COMPILER_TARGET=$FORMAT_COMPILER_TARGET
 RESET_FORMAT_COMPILER_TARGET_ALT=$FORMAT_COMPILER_TARGET_ALT
 
 build_summary_log() {
-	if [ -n "${BUILD_SUMMARY}" ]; then
-		if [ "${1}" -eq "0" ]; then
-			echo ${2} >> ${BUILD_SUCCESS}
-		else
-			echo ${2} >> ${BUILD_FAIL}
-		fi
+	if [ "$1" -eq "0" ]; then
+		printf -v build_success "%s%s\n" "$build_success" "$2"
+	else
+		printf -v build_fail "%s%s\n" "$build_fail" "$2"
 	fi
 }
 
@@ -641,23 +639,24 @@ build_libretro_mupen64() {
 }
 
 build_summary() {
-	if [ -z "${NOBUILD_SUMMARY}" ]; then
-		echo "=== Core Build Summary ===" > ${BUILD_SUMMARY}
-		if [ -r "${BUILD_SUCCESS}" ]; then
-			echo "`wc -l < ${BUILD_SUCCESS}` core(s) successfully built:" >> ${BUILD_SUMMARY}
-			${BUILD_SUMMARY_FMT} ${BUILD_SUCCESS} >> ${BUILD_SUMMARY}
+	if [ -z "$NOBUILD_SUMMARY" ]; then
+		printf -v summary "=== Core Build Summary ===\n\n"
+		if [ -n "$build_success" ]; then
+			printf -v summary "%s%s\n" "$summary" "$(echo $build_success | wc -w) core(s) successfully built:"
+			printf -v summary "%s%s\n\n" "$summary" "$(echo $build_success)"
 		else
-			echo "		0 cores successfully built. :(" >> ${BUILD_SUMMARY}
-			echo "`wc -l < ${BUILD_FAIL}` core(s) failed to build:"
+			printf -v summary "%s%s\n\n" "$summary" "       0 cores successfully built. :("
 		fi
-		if [ -r "${BUILD_FAIL}" ]; then
-			echo "`wc -l < ${BUILD_FAIL}` core(s) failed to build:" >> ${BUILD_SUMMARY}
-			${BUILD_SUMMARY_FMT} ${BUILD_FAIL} >> ${BUILD_SUMMARY}
+		if [ -n "$build_fail" ]; then
+			printf -v summary "%s%s\n" "$summary" "$(echo $build_fail | wc -w) core(s) failed to build:"
+			printf -v summary "%s%s\n\n" "$summary" "$(echo $build_fail)"
 		else
-			echo "      0 cores failed to build! :D" >> ${BUILD_SUMMARY}
+			printf -v summary "%s%s\n\n" "$summary" "       0 cores failed to build! :D"
 		fi
-		rm -f $BUILD_SUCCESS $BUILD_FAIL
-		cat ${BUILD_SUMMARY}
+		if [ -n "$BUILD_SUMMARY" ]; then
+			echo "$summary" > "$BUILD_SUMMARY"
+		fi
+		echo "$summary"
 	fi
 }
 
