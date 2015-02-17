@@ -1,14 +1,6 @@
 # vim: set ts=3 sw=3 noet ft=sh : bash
 
-# FIXME: This doesn't belong here, move it
-echo_cmd() {
-	echo "$@"
-	"$@"
-}
-
-
-# fetch_git
-# Clones or pulls updates from a git repository into a local directory
+# fetch_git: Clones or pulls updates from a git repository into a local directory
 #
 # $1	The URI to fetch
 # $2	The local directory to fetch to (relative)
@@ -23,21 +15,31 @@ fetch_git() {
 	fetch_dir="$WORKDIR/$2"
 	[ -n "$3" ] && echo "=== Fetching $3 ==="
 	if [ -d "$fetch_dir/.git" ]; then
-		echo_cmd cd "$fetch_dir"
-		echo_cmd git pull
-		[ -n "$5" ] && echo_cmd git submodule foreach git pull origin master
+		echo "cd \"$fetch_dir\""
+		cd "$fetch_dir"
+		echo "git pull"
+		git pull
+		if [ -n "$5" ]; then
+			echo "git submodule foreach git pull origin master"
+			git submodule foreach git pull origin master
+		fi
 	else
-		echo_cmd git clone "$1" "$WORKDIR/$2"
+		echo "git clone \"$1\" \"$WORKDIR/$2\""
+		git clone "$1" "$WORKDIR/$2"
 		if [ -n "$4" ]; then
-			echo_cmd cd "$fetch_dir"
-			echo_cmd git submodule update --init
+			echo "cd \"$fetch_dir\""
+			cd "$fetch_dir"
+			echo "git submodule update --init"
+			git submodule update --init
 		fi
 	fi
 }
 
-# revision_git <local directory>
-# Output the hash of the last commit in a git repository
+# revision_git: # Output the hash of the last commit in a git repository
+#
+# $1	Local directory to run git in
 revision_git() {
-	git -C "$WORKDIR/$1" log -n 1 --pretty=format:%H
+	cd "$WORKDIR/$1"
+	git log -n 1 --pretty=format:%H
 }
 
