@@ -14,22 +14,29 @@ else
 	fi
 fi
 
-. ${BASE_DIR}/libretro-config.sh
+if [ "$FORMAT_COMPILER_TARGET" != "ios" ]; then
+	. ${BASE_DIR}/libretro-config.sh
+else
+	# FIXME: libretro-config.sh should eventually do this stuff for iOS
+	DIST_DIR="ios"
+	FORMAT_EXT=dylib
+	IOS=1
+	FORMAT=_ios
+	FORMAT_COMPILER_TARGET=ios
+	export IOSSDK=$(xcrun -sdk iphoneos -show-sdk-path)
+	IOSVER_MAJOR=$(xcrun -sdk iphoneos -show-sdk-platform-version | cut -c '1')
+	IOSVER_MINOR=$(xcrun -sdk iphoneos -show-sdk-platform-version | cut -c '3')
+	IOSVER=${IOSVER_MAJOR}${IOSVER_MINOR}
+fi
 
 if [ -z "$RARCH_DIST_DIR" ]; then
-	RARCH_DIR="${WORKDIR}/dist"
+	RARCH_DIR="$WORKDIR/dist"
 	RARCH_DIST_DIR="$RARCH_DIR/$DIST_DIR"
 fi
 
 if [ -z "$JOBS" ]; then
 	JOBS=7
 fi
-
-die()
-{
-	echo $1
-	#exit 1
-}
 
 if [ "$HOST_CC" ]; then
 	CC="${HOST_CC}-gcc"
@@ -50,9 +57,10 @@ if [ -z "$MAKE" ]; then
 	fi
 fi
 
-
 if [ -z "$CC" ]; then
-	if [ $FORMAT_COMPILER_TARGET = "osx" ]; then
+	if [ "$FORMAT_COMPILER_TARGET" = "ios" ]; then
+		CC="clang -arch armv7 -miphoneos-version-min=5.0 -isysroot $IOSSDK"
+	elif [ $FORMAT_COMPILER_TARGET = "osx" ]; then
 		CC=cc
 	elif uname -s | grep -i MINGW32 > /dev/null 2>&1; then
 		CC=mingw32-gcc
@@ -62,7 +70,10 @@ if [ -z "$CC" ]; then
 fi
 
 if [ -z "$CXX" ]; then
-	if [ $FORMAT_COMPILER_TARGET = "osx" ]; then
+	if [ "$FORMAT_COMPILER_TARGET" = "ios" ]; then
+		CXX="clang++ -arch armv7 -miphoneos-version-min=5.0 -isysroot $IOSSDK"
+		CXX11="clang++ -std=c++11 -stdlib=libc++ -arch armv7 -miphoneos-version-min=5.0 -isysroot $IOSSDK"
+	elif [ $FORMAT_COMPILER_TARGET = "osx" ]; then
 		CXX=c++
 		CXX11="clang++ -std=c++11 -stdlib=libc++"
 		# FIXME: Do this right later.
@@ -81,19 +92,25 @@ if [ -z "$CXX" ]; then
 fi
 
 FORMAT_COMPILER_TARGET_ALT=$FORMAT_COMPILER_TARGET
+
+
+if [ "$FORMAT_COMPILER_TARGET" = "ios" ]; then
+	echo "iOS path: ${IOSSDK}"
+	echo "iOS version: ${IOSVER}"
+fi
 echo "CC = $CC"
 echo "CXX = $CXX"
 echo "CXX11 = $CXX11"
 echo "STRIP = $STRIP"
 
-. ${BASE_DIR}/libretro-build-common.sh
+
+. $BASE_DIR/libretro-build-common.sh
 
 mkdir -p "$RARCH_DIST_DIR"
 
-if [ -n "${1}" ]; then
-	NOBUILD_SUMMARY=1
-	while [ -n "${1}" ]; do
-		"${1}"
+if [ -n "$1" ]; then
+	while [ -n "$1" ]; do
+		"$1"
 		shift
 	done
 else
@@ -121,7 +138,6 @@ else
 	build_libretro_fb_alpha
 	build_libretro_vbam
 	build_libretro_vba_next
-	build_libretro_bnes
 	build_libretro_fceumm
 	build_libretro_gambatte
 	build_libretro_meteor
@@ -141,6 +157,10 @@ else
 	if [ $FORMAT_COMPILER_TARGET != "win" ]; then
 		build_libretro_pcsx_rearmed
 	fi
+	if [ $FORMAT_COMPILER_TARGET = "ios" ]; then
+		# For self-signed iOS (without jailbreak)
+		build_libretro_pcsx_rearmed_interpreter
+	fi
 	build_libretro_yabause
 	build_libretro_vecx
 	build_libretro_tgbdual
@@ -148,15 +168,21 @@ else
 	build_libretro_dinothawr
 	build_libretro_virtualjaguar
 	build_libretro_mupen64
-	build_libretro_ffmpeg
 	build_libretro_3dengine
-	build_libretro_ppsspp
+	if [ $FORMAT_COMPILER_TARGET != "ios" ]; then
+		# These don't currently build on iOS
+		build_libretro_bnes
+		build_libretro_ffmpeg
+		build_libretro_ppsspp
+	fi
 	build_libretro_o2em
 	build_libretro_hatari
 	build_libretro_gpsp
 	build_libretro_emux
 	build_libretro_test
-	build_libretro_testgl
+	if [ $FORMAT_COMPILER_TARGET != "ios" ]; then
+		build_libretro_testgl
+	fi
 	build_summary
 fi
 
