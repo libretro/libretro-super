@@ -62,6 +62,7 @@
 /libretro-virtualjaguar/
 /libretro-yabause/
 /libretro-dat-pull/
+/libretro-sdk/
 /libretrodb/
 /retroarch/
 /build-summary.log

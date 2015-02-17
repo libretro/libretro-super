@@ -38,27 +38,27 @@ RESET_FORMAT_COMPILER_TARGET_ALT=$FORMAT_COMPILER_TARGET_ALT
 
 build_summary_log() {
    if [ -n "${BUILD_SUMMARY}" ]; then
-      if [ "${1}" -eq "0" ]; then
-         echo ${2} >> ${BUILD_SUCCESS}
-      else
-         echo ${2} >> ${BUILD_FAIL}
-      fi
+		if [ "${1}" -eq "0" ]; then
+			echo ${2} >> ${BUILD_SUCCESS}
+		else
+			echo ${2} >> ${BUILD_FAIL}
+		fi
    fi
 }
 
 check_opengl() {
    if [ "${BUILD_LIBRETRO_GL}" ]; then
-      if [ "${ENABLE_GLES}" ]; then
-         echo '=== OpenGL ES enabled ==='
-         export FORMAT_COMPILER_TARGET="${FORMAT_COMPILER_TARGET}-gles"
-         export FORMAT_COMPILER_TARGET_ALT="${FORMAT_COMPILER_TARGET}"
-      else
-         echo '=== OpenGL enabled ==='
-         export FORMAT_COMPILER_TARGET="${FORMAT_COMPILER_TARGET}-opengl"
-         export FORMAT_COMPILER_TARGET_ALT="${FORMAT_COMPILER_TARGET}"
-      fi
+		if [ "${ENABLE_GLES}" ]; then
+			echo '=== OpenGL ES enabled ==='
+			export FORMAT_COMPILER_TARGET="${FORMAT_COMPILER_TARGET}-gles"
+			export FORMAT_COMPILER_TARGET_ALT="${FORMAT_COMPILER_TARGET}"
+		else
+			echo '=== OpenGL enabled ==='
+			export FORMAT_COMPILER_TARGET="${FORMAT_COMPILER_TARGET}-opengl"
+			export FORMAT_COMPILER_TARGET_ALT="${FORMAT_COMPILER_TARGET}"
+		fi
    else
-      echo '=== OpenGL disabled in build ==='
+		echo '=== OpenGL disabled in build ==='
    fi
 }
 
@@ -70,17 +70,17 @@ reset_compiler_targets() {
 build_libretro_pcsx_rearmed_interpreter() {
    build_dir="${WORKDIR}/libretro-pcsx_rearmed"
    if [ -d "${build_dir}" ]; then
-      echo '=== Building PCSX ReARMed Interpreter ==='
-      cd "${build_dir}"
+		echo '=== Building PCSX ReARMed Interpreter ==='
+		cd "${build_dir}"
 
-      if [ -z "${NOCLEAN}" ]; then
-         "${MAKE}" -f Makefile.libretro platform="${FORMAT_COMPILER_TARGET}" CC="$CC" CXX="$CXX" "-j${JOBS}" clean || die 'Failed to clean PCSX ReARMed'
-      fi
-      "${MAKE}" -f Makefile.libretro USE_DYNAREC=0 platform="${FORMAT_COMPILER_TARGET}" CC="$CC" CXX="$CXX" "-j${JOBS}" || die 'Failed to build PCSX ReARMed'
-      cp "pcsx_rearmed_libretro${FORMAT}.${FORMAT_EXT}" "${RARCH_DIST_DIR}/pcsx_rearmed_interpreter${FORMAT}.${FORMAT_EXT}"
-      build_summary_log ${?} "pcsx_rearmed_interpreter"
+		if [ -z "${NOCLEAN}" ]; then
+			"${MAKE}" -f Makefile.libretro platform="${FORMAT_COMPILER_TARGET}" CC="$CC" CXX="$CXX" "-j${JOBS}" clean || die 'Failed to clean PCSX ReARMed'
+		fi
+		"${MAKE}" -f Makefile.libretro USE_DYNAREC=0 platform="${FORMAT_COMPILER_TARGET}" CC="$CC" CXX="$CXX" "-j${JOBS}" || die 'Failed to build PCSX ReARMed'
+		cp "pcsx_rearmed_libretro${FORMAT}.${FORMAT_EXT}" "${RARCH_DIST_DIR}/pcsx_rearmed_interpreter${FORMAT}.${FORMAT_EXT}"
+		build_summary_log ${?} "pcsx_rearmed_interpreter"
    else
-      echo 'PCSX ReARMed not fetched, skipping ...'
+		echo 'PCSX ReARMed not fetched, skipping ...'
    fi
 }
 
@@ -92,15 +92,15 @@ build_libretro_pcsx_rearmed_interpreter() {
 build_libretro_generic_makefile_subcore() {
    build_dir="${WORKDIR}/libretro-${1}"
    if [ -d "${build_dir}" ]; then
-      echo "=== Building ${2} ==="
-      cd "${build_dir}/${3}"
+		echo "=== Building ${2} ==="
+		cd "${build_dir}/${3}"
 
-      if [ -z "${NOCLEAN}" ]; then
-         make -f ${4} platform=${5} -j$JOBS clean || die "Failed to clean ${2}"
-      fi
-      make -f ${4} platform=${5} -j$JOBS || die "Failed to build ${2}"
-      cp ${2}_libretro$FORMAT.${FORMAT_EXT} $RARCH_DIST_DIR/${2}_libretro$FORMAT.${FORMAT_EXT}
-      build_summary_log ${?} ${2}
+		if [ -z "${NOCLEAN}" ]; then
+			make -f ${4} platform=${5} -j$JOBS clean || die "Failed to clean ${2}"
+		fi
+		make -f ${4} platform=${5} -j$JOBS || die "Failed to build ${2}"
+		cp ${2}_libretro$FORMAT.${FORMAT_EXT} $RARCH_DIST_DIR/${2}_libretro$FORMAT.${FORMAT_EXT}
+		build_summary_log ${?} ${2}
    fi
 }
 
@@ -119,11 +119,11 @@ build_libretro_fba_cps1() {
 
 copy_core_to_dist() {
    if [ "$FORMAT_COMPILER_TARGET" = "theos_ios" ]; then
-      cp "objs/obj/${1}_libretro${FORMAT}.${FORMAT_EXT}" "${RARCH_DIST_DIR}"
-      build_summary_log ${?} ${1}
+		cp "objs/obj/${1}_libretro${FORMAT}.${FORMAT_EXT}" "${RARCH_DIST_DIR}"
+		build_summary_log ${?} ${1}
    else
-      cp "${1}_libretro${FORMAT}.${FORMAT_EXT}" "${RARCH_DIST_DIR}"
-      build_summary_log ${?} ${1}
+		cp "${1}_libretro${FORMAT}.${FORMAT_EXT}" "${RARCH_DIST_DIR}"
+		build_summary_log ${?} ${1}
    fi
 }
 
@@ -134,19 +134,19 @@ copy_core_to_dist() {
 build_libretro_generic_makefile() {
    build_dir="${WORKDIR}/libretro-${1}"
    if [ -d "${build_dir}" ]; then
-      echo "=== Building ${1} ==="
-      cd "${build_dir}/${2}"
+		echo "=== Building ${1} ==="
+		cd "${build_dir}/${2}"
 
-      if [ -z "${NOCLEAN}" ]; then
-         "${MAKE}" -f ${3} platform="${4}" CC="$CC" CXX="$CXX" "-j${JOBS}" clean || die "Failed to build ${1}"
-      fi
-      echo "${MAKE}" -f ${3} platform="${4}" CC="$CC" CXX="$CXX" "-j${JOBS}"
-      "${MAKE}" -f ${3} platform="${4}" CC="$CC" CXX="$CXX" "-j${JOBS}" || die "Failed to build ${1}"
-      if [ -z "${5}" ]; then
-         copy_core_to_dist $1
-      fi
+		if [ -z "${NOCLEAN}" ]; then
+			"${MAKE}" -f ${3} platform="${4}" CC="$CC" CXX="$CXX" "-j${JOBS}" clean || die "Failed to build ${1}"
+		fi
+		echo "${MAKE}" -f ${3} platform="${4}" CC="$CC" CXX="$CXX" "-j${JOBS}"
+		"${MAKE}" -f ${3} platform="${4}" CC="$CC" CXX="$CXX" "-j${JOBS}" || die "Failed to build ${1}"
+		if [ -z "${5}" ]; then
+			copy_core_to_dist $1
+		fi
    else
-      echo "${1} not fetched, skipping ..."
+		echo "${1} not fetched, skipping ..."
    fi
 }
 
@@ -372,141 +372,141 @@ build_libretro_ppsspp() {
 build_libretro_mame() {
    build_dir="${WORKDIR}/libretro-mame"
    if [ -d "${build_dir}" ]; then
-      echo ''
-      echo '=== Building MAME ==='
-      cd "${build_dir}"
+		echo ''
+		echo '=== Building MAME ==='
+		cd "${build_dir}"
 
-      if [ "$IOS" ]; then
-        echo '=== Building MAME (iOS) ==='
-        if [ -z "${NOCLEAN}" ]; then
-           "${MAKE}" -f Makefile.libretro "TARGET=mame" platform="${FORMAT_COMPILER_TARGET}" CC="$CC" CXX="$CXX" "-j${JOBS}" clean || die 'Failed to clean MAME'
-        fi
-        "${MAKE}" -f Makefile.libretro "TARGET=mame" platform="${FORMAT_COMPILER_TARGET}" CC="$CC" CXX="$CXX" "NATIVE=1" buildtools "-j${JOBS}" || die 'Failed to build MAME buildtools'
-        "${MAKE}" -f Makefile.libretro "TARGET=mame" platform="${FORMAT_COMPILER_TARGET}" CC="$CC" CXX="$CXX" emulator "-j${JOBS}" || die 'Failed to build MAME (iOS)'
-      elif [ "$X86_64" = "true" ]; then
-        echo '=== Building MAME64 ==='
-        if [ -z "${NOCLEAN}" ]; then
-           "${MAKE}" PTR64=1 -f Makefile.libretro "TARGET=mame" platform="${FORMAT_COMPILER_TARGET}" CC="$CC" CXX="$CXX" "-j${JOBS}" clean || die 'Failed to clean MAME'
-        fi
-        "${MAKE}" PTR64=1 -f Makefile.libretro "TARGET=mame" platform="${FORMAT_COMPILER_TARGET}" CC="$CC" CXX="$CXX" "-j${JOBS}" || die 'Failed to build MAME'
-      else
-        echo '=== Building MAME32 ==='
-        if [ -z "${NOCLEAN}" ]; then
-           "${MAKE}" -f Makefile.libretro "TARGET=mame" platform="${FORMAT_COMPILER_TARGET}" CC="$CC" CXX="$CXX" "-j${JOBS}" clean || die 'Failed to clean MAME'
-        fi
-        "${MAKE}" -f Makefile.libretro "TARGET=mame" platform="${FORMAT_COMPILER_TARGET}" CC="$CC" CXX="$CXX" "-j${JOBS}" || die 'Failed to build MAME'
-      fi
-      cp "mame_libretro${FORMAT}.${FORMAT_EXT}" "${RARCH_DIST_DIR}"
+		if [ "$IOS" ]; then
+			echo '=== Building MAME (iOS) ==='
+			if [ -z "${NOCLEAN}" ]; then
+				"${MAKE}" -f Makefile.libretro "TARGET=mame" platform="${FORMAT_COMPILER_TARGET}" CC="$CC" CXX="$CXX" "-j${JOBS}" clean || die 'Failed to clean MAME'
+			fi
+			"${MAKE}" -f Makefile.libretro "TARGET=mame" platform="${FORMAT_COMPILER_TARGET}" CC="$CC" CXX="$CXX" "NATIVE=1" buildtools "-j${JOBS}" || die 'Failed to build MAME buildtools'
+			"${MAKE}" -f Makefile.libretro "TARGET=mame" platform="${FORMAT_COMPILER_TARGET}" CC="$CC" CXX="$CXX" emulator "-j${JOBS}" || die 'Failed to build MAME (iOS)'
+		elif [ "$X86_64" = "true" ]; then
+			echo '=== Building MAME64 ==='
+			if [ -z "${NOCLEAN}" ]; then
+			"${MAKE}" PTR64=1 -f Makefile.libretro "TARGET=mame" platform="${FORMAT_COMPILER_TARGET}" CC="$CC" CXX="$CXX" "-j${JOBS}" clean || die 'Failed to clean MAME'
+		fi
+		"${MAKE}" PTR64=1 -f Makefile.libretro "TARGET=mame" platform="${FORMAT_COMPILER_TARGET}" CC="$CC" CXX="$CXX" "-j${JOBS}" || die 'Failed to build MAME'
+	else
+		echo '=== Building MAME32 ==='
+		if [ -z "${NOCLEAN}" ]; then
+			"${MAKE}" -f Makefile.libretro "TARGET=mame" platform="${FORMAT_COMPILER_TARGET}" CC="$CC" CXX="$CXX" "-j${JOBS}" clean || die 'Failed to clean MAME'
+		fi
+		"${MAKE}" -f Makefile.libretro "TARGET=mame" platform="${FORMAT_COMPILER_TARGET}" CC="$CC" CXX="$CXX" "-j${JOBS}" || die 'Failed to build MAME'
+	fi
+	cp "mame_libretro${FORMAT}.${FORMAT_EXT}" "${RARCH_DIST_DIR}"
    else
-      echo 'MAME not fetched, skipping ...'
+		echo 'MAME not fetched, skipping ...'
    fi
 }
 
 build_libretro_mess() {
    build_dir="${WORKDIR}/libretro-mame"
    if [ -d "${build_dir}" ]; then
-      echo ''
-      echo '=== Building MESS ==='
-      cd "${build_dir}"
+		echo ''
+		echo '=== Building MESS ==='
+		cd "${build_dir}"
 
-      if [ "$X86_64" = "true" ]; then
-        echo '=== Building MESS64 ==='
-        if [ -z "${NOCLEAN}" ]; then
-           "${MAKE}" PTR64=1 -f Makefile.libretro "TARGET=mess" platform="${FORMAT_COMPILER_TARGET}" CC="$CC" CXX="$CXX" "-j${JOBS}" clean || die 'Failed to clean MAME'
-        fi
-	"${MAKE}" PTR64=1 -f Makefile.libretro "TARGET=mess" platform="${FORMAT_COMPILER_TARGET}" CC="$CC" CXX="$CXX" "-j${JOBS}" || die 'Failed to build MAME'
-      else
-        echo '=== Building MESS32 ==='
-        if [ -z "${NOCLEAN}" ]; then
-           "${MAKE}" -f Makefile.libretro "TARGET=mess" platform="${FORMAT_COMPILER_TARGET}" CC="$CC" CXX="$CXX" "-j${JOBS}" clean || die 'Failed to clean MAME'
-        fi
-	"${MAKE}" -f Makefile.libretro "TARGET=mess" platform="${FORMAT_COMPILER_TARGET}" CC="$CC" CXX="$CXX" "-j${JOBS}" || die 'Failed to build MAME'
-      fi
-      cp "mess_libretro${FORMAT}.${FORMAT_EXT}" "${RARCH_DIST_DIR}"
-      build_summary_log ${?} "mess"
-   else
-      echo 'MAME not fetched, skipping ...'
+		if [ "$X86_64" = "true" ]; then
+			echo '=== Building MESS64 ==='
+			if [ -z "${NOCLEAN}" ]; then
+				"${MAKE}" PTR64=1 -f Makefile.libretro "TARGET=mess" platform="${FORMAT_COMPILER_TARGET}" CC="$CC" CXX="$CXX" "-j${JOBS}" clean || die 'Failed to clean MAME'
+			fi
+			"${MAKE}" PTR64=1 -f Makefile.libretro "TARGET=mess" platform="${FORMAT_COMPILER_TARGET}" CC="$CC" CXX="$CXX" "-j${JOBS}" || die 'Failed to build MAME'
+		else
+			echo '=== Building MESS32 ==='
+			if [ -z "${NOCLEAN}" ]; then
+				"${MAKE}" -f Makefile.libretro "TARGET=mess" platform="${FORMAT_COMPILER_TARGET}" CC="$CC" CXX="$CXX" "-j${JOBS}" clean || die 'Failed to clean MAME'
+			fi
+			"${MAKE}" -f Makefile.libretro "TARGET=mess" platform="${FORMAT_COMPILER_TARGET}" CC="$CC" CXX="$CXX" "-j${JOBS}" || die 'Failed to build MAME'
+		fi
+		cp "mess_libretro${FORMAT}.${FORMAT_EXT}" "${RARCH_DIST_DIR}"
+		build_summary_log ${?} "mess"
+	else
+		echo 'MAME not fetched, skipping ...'
    fi
 }
 
 rebuild_libretro_mess() {
    build_dir="${WORKDIR}/libretro-mame"
    if [ -d "${build_dir}" ]; then
-      echo ''
-      echo '=== Building MESS ==='
-      cd "${build_dir}"
+		echo ''
+		echo '=== Building MESS ==='
+		cd "${build_dir}"
 
-      if [ "$X86_64" = "true" ]; then
-        echo '=== Building MESS64 ==='
-        if [ -z "${NOCLEAN}" ]; then
-           "${MAKE}" PTR64=1 -f Makefile.libretro "TARGET=mess" "PARTIAL=1" platform="${FORMAT_COMPILER_TARGET}" CC="$CC" CXX="$CXX" "-j${JOBS}" clean || die 'Failed to clean MAME'
-        fi
-        "${MAKE}" PTR64=1 -f Makefile.libretro "TARGET=mess" platform="${FORMAT_COMPILER_TARGET}" CC="$CC" CXX="$CXX" "-j${JOBS}" || die 'Failed to build MAME'
-      else
-        echo '=== Building MESS32 ==='
-        if [ -z "${NOCLEAN}" ]; then
-           "${MAKE}" -f Makefile.libretro "TARGET=mess" "PARTIAL=1" platform="${FORMAT_COMPILER_TARGET}" CC="$CC" CXX="$CXX" "-j${JOBS}" clean || die 'Failed to clean MAME'
-        fi
-	"${MAKE}" -f Makefile.libretro "TARGET=mess" platform="${FORMAT_COMPILER_TARGET}" CC="$CC" CXX="$CXX" "-j${JOBS}" || die 'Failed to build MAME'
-      fi
-      cp "mess_libretro${FORMAT}.${FORMAT_EXT}" "${RARCH_DIST_DIR}"
-      build_summary_log ${?} "mess"
-   else
-      echo 'MAME not fetched, skipping ...'
+		if [ "$X86_64" = "true" ]; then
+			echo '=== Building MESS64 ==='
+			if [ -z "${NOCLEAN}" ]; then
+				"${MAKE}" PTR64=1 -f Makefile.libretro "TARGET=mess" "PARTIAL=1" platform="${FORMAT_COMPILER_TARGET}" CC="$CC" CXX="$CXX" "-j${JOBS}" clean || die 'Failed to clean MAME'
+			fi
+			"${MAKE}" PTR64=1 -f Makefile.libretro "TARGET=mess" platform="${FORMAT_COMPILER_TARGET}" CC="$CC" CXX="$CXX" "-j${JOBS}" || die 'Failed to build MAME'
+		else
+			echo '=== Building MESS32 ==='
+			if [ -z "${NOCLEAN}" ]; then
+				"${MAKE}" -f Makefile.libretro "TARGET=mess" "PARTIAL=1" platform="${FORMAT_COMPILER_TARGET}" CC="$CC" CXX="$CXX" "-j${JOBS}" clean || die 'Failed to clean MAME'
+			fi
+			"${MAKE}" -f Makefile.libretro "TARGET=mess" platform="${FORMAT_COMPILER_TARGET}" CC="$CC" CXX="$CXX" "-j${JOBS}" || die 'Failed to build MAME'
+		fi
+		cp "mess_libretro${FORMAT}.${FORMAT_EXT}" "${RARCH_DIST_DIR}"
+		build_summary_log ${?} "mess"
+	else
+		echo 'MAME not fetched, skipping ...'
    fi
 }
 
 build_libretro_ume() {
    build_dir="${WORKDIR}/libretro-mame"
-   if [ -d "${build_dir}" ]; then
-      echo ''
-      echo '=== Building UME ==='
-      cd "${build_dir}"
+	if [ -d "${build_dir}" ]; then
+		echo ''
+		echo '=== Building UME ==='
+		cd "${build_dir}"
 
-      if [ "$X86_64" = "true" ]; then
-        echo '=== Building UME64 ==='
-        if [ -z "${NOCLEAN}" ]; then
-           "${MAKE}" PTR64=1 -f Makefile.libretro "TARGET=ume" platform="${FORMAT_COMPILER_TARGET}" CC="$CC" CXX="$CXX" "-j${JOBS}" clean || die 'Failed to clean MAME'
-        fi
-	"${MAKE}" PTR64=1 -f Makefile.libretro "TARGET=ume" platform="${FORMAT_COMPILER_TARGET}" CC="$CC" CXX="$CXX" "-j${JOBS}" || die 'Failed to build MAME'
-      else
-        echo '=== Building UME32 ==='
-        if [ -z "${NOCLEAN}" ]; then
-           "${MAKE}" -f Makefile.libretro "TARGET=ume" platform="${FORMAT_COMPILER_TARGET}" CC="$CC" CXX="$CXX" "-j${JOBS}" clean || die 'Failed to clean MAME'
+		if [ "$X86_64" = "true" ]; then
+			echo '=== Building UME64 ==='
+			if [ -z "${NOCLEAN}" ]; then
+				"${MAKE}" PTR64=1 -f Makefile.libretro "TARGET=ume" platform="${FORMAT_COMPILER_TARGET}" CC="$CC" CXX="$CXX" "-j${JOBS}" clean || die 'Failed to clean MAME'
+			fi
+			"${MAKE}" PTR64=1 -f Makefile.libretro "TARGET=ume" platform="${FORMAT_COMPILER_TARGET}" CC="$CC" CXX="$CXX" "-j${JOBS}" || die 'Failed to build MAME'
+		else
+			echo '=== Building UME32 ==='
+			if [ -z "${NOCLEAN}" ]; then
+				"${MAKE}" -f Makefile.libretro "TARGET=ume" platform="${FORMAT_COMPILER_TARGET}" CC="$CC" CXX="$CXX" "-j${JOBS}" clean || die 'Failed to clean MAME'
+			fi
+			"${MAKE}" -f Makefile.libretro "TARGET=ume" platform="${FORMAT_COMPILER_TARGET}" CC="$CC" CXX="$CXX" "-j${JOBS}" || die 'Failed to build MAME'
+		fi
+		cp "ume_libretro${FORMAT}.${FORMAT_EXT}" "${RARCH_DIST_DIR}"
+		build_summary_log ${?} "ume"
+	else
+		echo 'MAME not fetched, skipping ...'
 	fi
-        "${MAKE}" -f Makefile.libretro "TARGET=ume" platform="${FORMAT_COMPILER_TARGET}" CC="$CC" CXX="$CXX" "-j${JOBS}" || die 'Failed to build MAME'
-      fi
-      cp "ume_libretro${FORMAT}.${FORMAT_EXT}" "${RARCH_DIST_DIR}"
-      build_summary_log ${?} "ume"
-   else
-      echo 'MAME not fetched, skipping ...'
-   fi
 }
 
 rebuild_libretro_ume() {
    build_dir="${WORKDIR}/libretro-mame"
    if [ -d "${build_dir}" ]; then
-      echo ''
-      echo '=== Building UME ==='
-      cd "${build_dir}"
+		echo ''
+		echo '=== Building UME ==='
+		cd "${build_dir}"
 
-      if [ "$X86_64" = "true" ]; then
-        echo '=== Building UME64 ==='
-        if [ -z "${NOCLEAN}" ]; then
-           "${MAKE}" PTR64=1 -f Makefile.libretro "TARGET=ume" "PARTIAL=1" platform="${FORMAT_COMPILER_TARGET}" CC="$CC" CXX="$CXX" "-j${JOBS}" clean || die 'Failed to clean MAME'
-        fi
-	"${MAKE}" PTR64=1 -f Makefile.libretro "TARGET=ume" platform="${FORMAT_COMPILER_TARGET}" CC="$CC" CXX="$CXX" "-j${JOBS}" || die 'Failed to build MAME'
-      else
-        echo '=== Building UME32 ==='
-        if [ -z "${NOCLEAN}" ]; then
-           "${MAKE}" -f Makefile.libretro "TARGET=ume" "PARTIAL=1" platform="${FORMAT_COMPILER_TARGET}" CC="$CC" CXX="$CXX" "-j${JOBS}" clean || die 'Failed to clean MAME'
-        fi
-	"${MAKE}" -f Makefile.libretro "TARGET=ume" platform="${FORMAT_COMPILER_TARGET}" CC="$CC" CXX="$CXX" "-j${JOBS}" || die 'Failed to build MAME'
-      fi
-      cp "ume_libretro${FORMAT}.${FORMAT_EXT}" "${RARCH_DIST_DIR}"
-      build_summary_log ${?} "ume"
-   else
-      echo 'MAME not fetched, skipping ...'
+		if [ "$X86_64" = "true" ]; then
+			echo '=== Building UME64 ==='
+			if [ -z "${NOCLEAN}" ]; then
+				"${MAKE}" PTR64=1 -f Makefile.libretro "TARGET=ume" "PARTIAL=1" platform="${FORMAT_COMPILER_TARGET}" CC="$CC" CXX="$CXX" "-j${JOBS}" clean || die 'Failed to clean MAME'
+			fi
+			"${MAKE}" PTR64=1 -f Makefile.libretro "TARGET=ume" platform="${FORMAT_COMPILER_TARGET}" CC="$CC" CXX="$CXX" "-j${JOBS}" || die 'Failed to build MAME'
+		else
+			echo '=== Building UME32 ==='
+			if [ -z "${NOCLEAN}" ]; then
+				"${MAKE}" -f Makefile.libretro "TARGET=ume" "PARTIAL=1" platform="${FORMAT_COMPILER_TARGET}" CC="$CC" CXX="$CXX" "-j${JOBS}" clean || die 'Failed to clean MAME'
+			fi
+			"${MAKE}" -f Makefile.libretro "TARGET=ume" platform="${FORMAT_COMPILER_TARGET}" CC="$CC" CXX="$CXX" "-j${JOBS}" || die 'Failed to build MAME'
+		fi
+		cp "ume_libretro${FORMAT}.${FORMAT_EXT}" "${RARCH_DIST_DIR}"
+		build_summary_log ${?} "ume"
+	else
+		echo 'MAME not fetched, skipping ...'
    fi
 }
 
@@ -517,18 +517,18 @@ rebuild_libretro_ume() {
 build_libretro_bsnes_modern() {
    build_dir="${WORKDIR}/libretro-${1}"
    if [ -d "${build_dir}" ]; then
-      echo "=== Building ${1} ${3} ==="
-      cd ${build_dir}
-      
-      if [ -z "${NOCLEAN}" ]; then
-        rm -f obj/*.{o,"${FORMAT_EXT}"}
-        rm -f out/*.{o,"${FORMAT_EXT}"}
-      fi
-      "${MAKE}" -f Makefile platform="${FORMAT_COMPILER_TARGET}" compiler="$CXX11" ui='target-libretro' profile="${3}" "-j${JOBS}" || die "Failed to build ${1} ${3} core"
-      cp -f "out/${1}_libretro${FORMAT}.${FORMAT_EXT}" "${RARCH_DIST_DIR}/${1}_${3}_libretro${FORMAT}.${FORMAT_EXT}"
-      build_summary_log ${?} "${1}_${3}"
-   else
-      echo "${1} ${3} not fetched, skipping ..."
+		echo "=== Building ${1} ${3} ==="
+		cd ${build_dir}
+
+		if [ -z "${NOCLEAN}" ]; then
+			rm -f obj/*.{o,"${FORMAT_EXT}"}
+			rm -f out/*.{o,"${FORMAT_EXT}"}
+		fi
+		"${MAKE}" -f Makefile platform="${FORMAT_COMPILER_TARGET}" compiler="$CXX11" ui='target-libretro' profile="${3}" "-j${JOBS}" || die "Failed to build ${1} ${3} core"
+		cp -f "out/${1}_libretro${FORMAT}.${FORMAT_EXT}" "${RARCH_DIST_DIR}/${1}_${3}_libretro${FORMAT}.${FORMAT_EXT}"
+		build_summary_log ${?} "${1}_${3}"
+	else
+		echo "${1} ${3} not fetched, skipping ..."
    fi
 }
 
@@ -548,35 +548,35 @@ build_libretro_bsnes_cplusplus98() {
    CORENAME="bsnes_cplusplus98"
    build_dir="${WORKDIR}/libretro-${CORENAME}"
    if [ -d "${build_dir}" ]; then
-      echo "=== Building ${CORENAME} ==="
-      cd ${build_dir}
+		echo "=== Building ${CORENAME} ==="
+		cd ${build_dir}
 
-      if [ -z "${NOCLEAN}" ]; then
-         "${MAKE}" clean || die "Failed to clean ${CORENAME}"
-      fi
-      "${MAKE}" platform="${FORMAT_COMPILER_TARGET}" CC="$CC" CXX="$CXX" "-j${JOBS}"
-      cp "out/libretro.${FORMAT_EXT}" "${RARCH_DIST_DIR}/${CORENAME}_libretro${FORMAT}.${FORMAT_EXT}"
-      build_summary_log ${?} ${CORENAME}
-   else
-      echo "${CORENAME} not fetched, skipping ..."
+		if [ -z "${NOCLEAN}" ]; then
+			"${MAKE}" clean || die "Failed to clean ${CORENAME}"
+		fi
+		"${MAKE}" platform="${FORMAT_COMPILER_TARGET}" CC="$CC" CXX="$CXX" "-j${JOBS}"
+		cp "out/libretro.${FORMAT_EXT}" "${RARCH_DIST_DIR}/${CORENAME}_libretro${FORMAT}.${FORMAT_EXT}"
+		build_summary_log ${?} ${CORENAME}
+	else
+		echo "${CORENAME} not fetched, skipping ..."
    fi
 }
 
 build_libretro_bnes() {
    build_dir="${WORKDIR}/libretro-bnes"
    if [ -d "${build_dir}" ]; then
-      echo '=== Building bNES ==='
-      cd ${build_dir}
+		echo '=== Building bNES ==='
+		cd ${build_dir}
 
-      mkdir -p obj
-      if [ -z "${NOCLEAN}" ]; then
-         "${MAKE}" -f Makefile "-j${JOBS}" clean || die 'Failed to clean bNES'
-      fi
-      "${MAKE}" -f Makefile CC="$CC" CXX="$CXX" "-j${JOBS}" compiler="${CXX11}" || die 'Failed to build bNES'
-      cp "libretro${FORMAT}.${FORMAT_EXT}" "${RARCH_DIST_DIR}/bnes_libretro${FORMAT}.${FORMAT_EXT}"
-      build_summary_log ${?} "bnes"
-   else
-      echo 'bNES not fetched, skipping ...'
+		mkdir -p obj
+		if [ -z "${NOCLEAN}" ]; then
+			"${MAKE}" -f Makefile "-j${JOBS}" clean || die 'Failed to clean bNES'
+		fi
+		"${MAKE}" -f Makefile CC="$CC" CXX="$CXX" "-j${JOBS}" compiler="${CXX11}" || die 'Failed to build bNES'
+		cp "libretro${FORMAT}.${FORMAT_EXT}" "${RARCH_DIST_DIR}/bnes_libretro${FORMAT}.${FORMAT_EXT}"
+		build_summary_log ${?} "bnes"
+	else
+		echo 'bNES not fetched, skipping ...'
    fi
 }
 
@@ -584,68 +584,68 @@ build_libretro_mupen64() {
    check_opengl
    build_dir="${WORKDIR}/libretro-mupen64plus"
    if [ -d "${build_dir}" ]; then
-      cd "${build_dir}"
+		cd "${build_dir}"
 
-      mkdir -p obj
-      if [ "${X86}" ] && [ "${X86_64}" ]; then
-         echo '=== Building Mupen 64 Plus (x86_64 dynarec) ==='
-         if [ -z "${NOCLEAN}" ]; then
-            "${MAKE}" WITH_DYNAREC='x86_64' platform="${FORMAT_COMPILER_TARGET_ALT}" "-j${JOBS}" clean || die 'Failed to clean Mupen 64 (x86_64 dynarec)'
-         fi
-         "${MAKE}" WITH_DYNAREC='x86_64' platform="${FORMAT_COMPILER_TARGET_ALT}" CC="$CC" CXX="$CXX" "-j${JOBS}" || die 'Failed to build Mupen 64 (x86_64 dynarec)'
-      elif [ "${X86}" ]; then
-         echo '=== Building Mupen 64 Plus (x86 32bit dynarec) ==='
-         if [ -z "${NOCLEAN}" ]; then
-            "${MAKE}" WITH_DYNAREC='x86' platform="${FORMAT_COMPILER_TARGET_ALT}" "-j${JOBS}" clean || die 'Failed to clean Mupen 64 (x86 dynarec)'
-         fi
-         "${MAKE}" WITH_DYNAREC='x86' platform="${FORMAT_COMPILER_TARGET_ALT}" CC="$CC" CXX="$CXX" "-j${JOBS}" || die 'Failed to build Mupen 64 (x86 dynarec)'
-      elif [ "${CORTEX_A8}" ] || [ "${CORTEX_A9}" ] || [ "${IOS}" ]; then
-         echo '=== Building Mupen 64 Plus (ARM dynarec) ==='
-         if [ -z "${NOCLEAN}" ]; then
-            "${MAKE}" WITH_DYNAREC='arm' platform="${FORMAT_COMPILER_TARGET_ALT}" "-j${JOBS}" clean || die 'Failed to clean Mupen 64 (ARM dynarec)'
-         fi
-	 "${MAKE}" WITH_DYNAREC='arm' platform="${FORMAT_COMPILER_TARGET_ALT}" CC="$CC" CXX="$CXX" "-j${JOBS}" || die 'Failed to build Mupen 64 (ARM dynarec)'
-      else
-         echo '=== Building Mupen 64 Plus ==='
-         if [ -z "${NOCLEAN}" ]; then
-            "${MAKE}" "-j${JOBS}" clean || die 'Failed to clean Mupen 64'
-         fi
-	 "${MAKE}" platform="${FORMAT_COMPILER_TARGET_ALT}" CC="$CC" CXX="$CXX" "-j${JOBS}" || die 'Failed to build Mupen 64'
-      fi
-      cp "mupen64plus_libretro${FORMAT}.${FORMAT_EXT}" "${RARCH_DIST_DIR}"
-      build_summary_log ${?} "mupen64plus"
-   else
-      echo 'Mupen64 Plus not fetched, skipping ...'
+		mkdir -p obj
+		if [ "${X86}" ] && [ "${X86_64}" ]; then
+			echo '=== Building Mupen 64 Plus (x86_64 dynarec) ==='
+			if [ -z "${NOCLEAN}" ]; then
+				"${MAKE}" WITH_DYNAREC='x86_64' platform="${FORMAT_COMPILER_TARGET_ALT}" "-j${JOBS}" clean || die 'Failed to clean Mupen 64 (x86_64 dynarec)'
+			fi
+			"${MAKE}" WITH_DYNAREC='x86_64' platform="${FORMAT_COMPILER_TARGET_ALT}" CC="$CC" CXX="$CXX" "-j${JOBS}" || die 'Failed to build Mupen 64 (x86_64 dynarec)'
+		elif [ "${X86}" ]; then
+			echo '=== Building Mupen 64 Plus (x86 32bit dynarec) ==='
+			if [ -z "${NOCLEAN}" ]; then
+				"${MAKE}" WITH_DYNAREC='x86' platform="${FORMAT_COMPILER_TARGET_ALT}" "-j${JOBS}" clean || die 'Failed to clean Mupen 64 (x86 dynarec)'
+			fi
+			"${MAKE}" WITH_DYNAREC='x86' platform="${FORMAT_COMPILER_TARGET_ALT}" CC="$CC" CXX="$CXX" "-j${JOBS}" || die 'Failed to build Mupen 64 (x86 dynarec)'
+		elif [ "${CORTEX_A8}" ] || [ "${CORTEX_A9}" ] || [ "${IOS}" ]; then
+			echo '=== Building Mupen 64 Plus (ARM dynarec) ==='
+			if [ -z "${NOCLEAN}" ]; then
+				"${MAKE}" WITH_DYNAREC='arm' platform="${FORMAT_COMPILER_TARGET_ALT}" "-j${JOBS}" clean || die 'Failed to clean Mupen 64 (ARM dynarec)'
+			fi
+			"${MAKE}" WITH_DYNAREC='arm' platform="${FORMAT_COMPILER_TARGET_ALT}" CC="$CC" CXX="$CXX" "-j${JOBS}" || die 'Failed to build Mupen 64 (ARM dynarec)'
+		else
+			echo '=== Building Mupen 64 Plus ==='
+			if [ -z "${NOCLEAN}" ]; then
+				"${MAKE}" "-j${JOBS}" clean || die 'Failed to clean Mupen 64'
+			fi
+			"${MAKE}" platform="${FORMAT_COMPILER_TARGET_ALT}" CC="$CC" CXX="$CXX" "-j${JOBS}" || die 'Failed to build Mupen 64'
+		fi
+		cp "mupen64plus_libretro${FORMAT}.${FORMAT_EXT}" "${RARCH_DIST_DIR}"
+		build_summary_log ${?} "mupen64plus"
+	else
+		echo 'Mupen64 Plus not fetched, skipping ...'
    fi
    reset_compiler_targets
 }
 
 build_summary() {
    if [ -z "${NOBUILD_SUMMARY}" ]; then
-      echo "=== Core Build Summary ===" > ${BUILD_SUMMARY}
-      if [ -r "${BUILD_SUCCESS}" ]; then
-         echo "`wc -l < ${BUILD_SUCCESS}` core(s) successfully built:" >> ${BUILD_SUMMARY}
-         ${BUILD_SUMMARY_FMT} ${BUILD_SUCCESS} >> ${BUILD_SUMMARY}
-      else
-         echo "      0 cores successfully built. :(" >> ${BUILD_SUMMARY}
-         echo "`wc -l < ${BUILD_FAIL}` core(s) failed to build:"
-      fi
-      if [ -r "${BUILD_FAIL}" ]; then
-         echo "`wc -l < ${BUILD_FAIL}` core(s) failed to build:" >> ${BUILD_SUMMARY}
-         ${BUILD_SUMMARY_FMT} ${BUILD_FAIL} >> ${BUILD_SUMMARY}
-      else
-         echo "     0 cores failed to build! :D" >> ${BUILD_SUMMARY}
-      fi
-      rm -f $BUILD_SUCCESS $BUILD_FAIL
-      cat ${BUILD_SUMMARY}
+		echo "=== Core Build Summary ===" > ${BUILD_SUMMARY}
+		if [ -r "${BUILD_SUCCESS}" ]; then
+			echo "`wc -l < ${BUILD_SUCCESS}` core(s) successfully built:" >> ${BUILD_SUMMARY}
+			${BUILD_SUMMARY_FMT} ${BUILD_SUCCESS} >> ${BUILD_SUMMARY}
+		else
+			echo "      0 cores successfully built. :(" >> ${BUILD_SUMMARY}
+			echo "`wc -l < ${BUILD_FAIL}` core(s) failed to build:"
+		fi
+		if [ -r "${BUILD_FAIL}" ]; then
+			echo "`wc -l < ${BUILD_FAIL}` core(s) failed to build:" >> ${BUILD_SUMMARY}
+			${BUILD_SUMMARY_FMT} ${BUILD_FAIL} >> ${BUILD_SUMMARY}
+		else
+			echo "      0 cores failed to build! :D" >> ${BUILD_SUMMARY}
+		fi
+		rm -f $BUILD_SUCCESS $BUILD_FAIL
+		cat ${BUILD_SUMMARY}
    fi
 }
 
 create_dist_dir() {
    if [ -d "${RARCH_DIST_DIR}" ]; then
-      echo "Directory ${RARCH_DIST_DIR} already exists, skipping creation..."
+		echo "Directory ${RARCH_DIST_DIR} already exists, skipping creation..."
    else
-      mkdir -p "${RARCH_DIST_DIR}"
+		mkdir -p "${RARCH_DIST_DIR}"
    fi
 }
 

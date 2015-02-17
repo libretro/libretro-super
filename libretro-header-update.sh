@@ -1,47 +1,48 @@
-#!/bin/bash
+#! /usr/bin/env bash
+# vim: set ts=3 sw=3 noet ft=sh : bash
 
 update_header()
 {
-   if [ -d "$1" ]; then
-      if [ ! -f "$1/libretro.h" ]; then
-         echo "=== ERROR updating $2 ==="
-      else
-         echo "=== Updating $2 ==="
-         cp "libretro-arb/libretro.h" "$1/libretro.h"
-         cd "$1"
-         git add libretro.h
-         git commit -m "Update libretro.h"
-         git push
-         cd -
-      fi
-   else
-      echo "=== Skipping $2 because it is not checked out ==="
-   fi
+	if [ -d "$1" ]; then
+		if [ ! -f "$1/libretro.h" ]; then
+			echo "=== ERROR updating $2 ==="
+		else
+			echo "=== Updating $2 ==="
+			cp "libretro-arb/libretro.h" "$1/libretro.h"
+			cd "$1"
+			git add libretro.h
+			git commit -m "Update libretro.h"
+			git push
+			cd -
+		fi
+	else
+		echo "=== Skipping $2 because it is not checked out ==="
+	fi
 }
 
 update_header_batch()
 {
-   if [ ! -f "$1/libretro.h" ]; then
-      echo "=== ERROR updating $2 ==="
-   else
-      cp "libretro-arb/libretro.h" "$1/libretro.h"
-      cd "$1"
-      git add libretro.h
-      cd -
-   fi
+	if [ ! -f "$1/libretro.h" ]; then
+		echo "=== ERROR updating $2 ==="
+	else
+		cp "libretro-arb/libretro.h" "$1/libretro.h"
+		cd "$1"
+		git add libretro.h
+		cd -
+	fi
 }
 
 fetch_project()
 {
-   echo "=== Fetching $3 ==="
-   if [ -d "$2/.git" ]; then
-      cd "$2"
-      git pull
-      cd ..
-   else
-      git clone "$1" "$2"
-   fi
-   echo "=== Fetched ==="
+	echo "=== Fetching $3 ==="
+	if [ -d "$2/.git" ]; then
+		cd "$2"
+		git pull
+		cd ..
+	else
+		git clone "$1" "$2"
+	fi
+	echo "=== Fetched ==="
 }
 
 fetch_project "https://github.com/libretro/RetroArch.git" "retroarch" "libretro/libretro ARB"
