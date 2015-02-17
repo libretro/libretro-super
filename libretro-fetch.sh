@@ -15,7 +15,7 @@ else
 fi
 
 . $BASE_DIR/libretro-config.sh
-. $BASE_DIR/iKarith-super/fetch-rules.sh	# will rename this dir later
+. $BASE_DIR/script-modules/fetch-rules.sh
 
 
 # Keep three copies so we don't have to rebuild stuff all the time.
