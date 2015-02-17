@@ -1,93 +1,92 @@
-#!/bin/bash
-# vi: ts=3 sw=3 et
+# vim: set ts=3 sw=3 noet ft=sh : bash
 
 # Architecture Assignment
 config_cpu() {
-   [ -n "${2}" ] && ARCH=${1}
-   [ -z "${ARCH}" ] && ARCH="`uname -m`"
-   case "${ARCH}" in
-      x86_64)
-         X86=true
-         X86_64=true
-         ;;
-      i386|i686)
-         X86=true
-         ;;
-      armv*)
-         ARM=true
-         export FORMAT_COMPILER_TARGET=armv
-         export RARCHCFLAGS="${RARCHCFLAGS} -marm"
-         case "${ARCH}" in
-            armv5tel) ARMV5=true ;;
-            armv6l)   ARMV6=true ;;
-            armv7l)   ARMV7=true ;;
-         esac
-         ;;
-   esac
-   if [ -n "${PROCESSOR_ARCHITEW6432}" -a "${PROCESSOR_ARCHITEW6432}" = "AMD64" ]; then
-      ARCH=x86_64
-      X86=true && X86_64=true
-   fi
+	[ -n "${2}" ] && ARCH=${1}
+	[ -z "${ARCH}" ] && ARCH="`uname -m`"
+	case "${ARCH}" in
+		x86_64)
+			X86=true
+			X86_64=true
+			;;
+		i386|i686)
+			X86=true
+			;;
+		armv*)
+			ARM=true
+			export FORMAT_COMPILER_TARGET=armv
+			export RARCHCFLAGS="${RARCHCFLAGS} -marm"
+			case "${ARCH}" in
+				armv5tel) ARMV5=true ;;
+				armv6l)	ARMV6=true ;;
+				armv7l)	ARMV7=true ;;
+			esac
+			;;
+	esac
+	if [ -n "${PROCESSOR_ARCHITEW6432}" -a "${PROCESSOR_ARCHITEW6432}" = "AMD64" ]; then
+		ARCH=x86_64
+		X86=true && X86_64=true
+	fi
 }
 
 # Platform Assignment
 config_platform() {
-   [ -n "${1}" ] && platform="${1}"
-   [ -z "${platform}" ] && platform="`uname`"
-   case "${platform}" in
-      *BSD*)
-         FORMAT_EXT="so"
-         FORMAT_COMPILER_TARGET="unix"
-         DIST_DIR="bsd"
-         ;;
-      osx|*Darwin*)
-         FORMAT_EXT="dylib"
-         FORMAT_COMPILER_TARGET="osx"
-         DIST_DIR="osx"
-         ;;
-      win|*mingw32*|*MINGW32*|*MSYS_NT*)
-         FORMAT_EXT="dll"
-         FORMAT_COMPILER_TARGET="win"
-         DIST_DIR="win_x86"
-         ;;
-      win64|*mingw64*|*MINGW64*)
-         FORMAT_EXT="dll"
-         FORMAT_COMPILER_TARGET="win"
-         DIST_DIR="win_x64"
-         ;;
-      *psp1*)
-         FORMAT_EXT="a"
-         FORMAT_COMPILER_TARGET="psp1"
-         DIST_DIR="psp1"
-         ;;
-      *ios|theos_ios*)
-         FORMAT_EXT="dylib"
-         FORMAT_COMPILER_TARGET="theos_ios"
-         DIST_DIR="theos"
-         ;;
-      android)
-         FORMAT_EXT="so"
-         FORMAT_COMPILER_TARGET="android"
-         DIST_DIR="android"
-         ;;
-      *android-armv7*)
-         FORMAT_EXT="so"
-         FORMAT_COMPILER_TARGET="android-armv7"
-         DIST_DIR="android/armeabi-v7a"
-         ;;
-      *)
-         FORMAT_EXT="so"
-         FORMAT_COMPILER_TARGET="unix"
-         DIST_DIR="unix"
-         ;;
-   esac
-   export FORMAT_COMPILER_TARGET_ALT="$FORMAT_COMPILER_TARGET"
+	[ -n "${1}" ] && platform="${1}"
+	[ -z "${platform}" ] && platform="`uname`"
+	case "${platform}" in
+		*BSD*)
+			FORMAT_EXT="so"
+			FORMAT_COMPILER_TARGET="unix"
+			DIST_DIR="bsd"
+			;;
+		osx|*Darwin*)
+			FORMAT_EXT="dylib"
+			FORMAT_COMPILER_TARGET="osx"
+			DIST_DIR="osx"
+			;;
+		win|*mingw32*|*MINGW32*|*MSYS_NT*)
+			FORMAT_EXT="dll"
+			FORMAT_COMPILER_TARGET="win"
+			DIST_DIR="win_x86"
+			;;
+		win64|*mingw64*|*MINGW64*)
+			FORMAT_EXT="dll"
+			FORMAT_COMPILER_TARGET="win"
+			DIST_DIR="win_x64"
+			;;
+		*psp1*)
+			FORMAT_EXT="a"
+			FORMAT_COMPILER_TARGET="psp1"
+			DIST_DIR="psp1"
+			;;
+		*ios|theos_ios*)
+			FORMAT_EXT="dylib"
+			FORMAT_COMPILER_TARGET="theos_ios"
+			DIST_DIR="theos"
+			;;
+		android)
+			FORMAT_EXT="so"
+			FORMAT_COMPILER_TARGET="android"
+			DIST_DIR="android"
+			;;
+		*android-armv7*)
+			FORMAT_EXT="so"
+			FORMAT_COMPILER_TARGET="android-armv7"
+			DIST_DIR="android/armeabi-v7a"
+			;;
+		*)
+			FORMAT_EXT="so"
+			FORMAT_COMPILER_TARGET="unix"
+			DIST_DIR="unix"
+			;;
+	esac
+	export FORMAT_COMPILER_TARGET_ALT="$FORMAT_COMPILER_TARGET"
 }
 
 config_log_build_host() {
-   echo "PLATFORM: ${platform}"
-   echo "ARCHITECTURE: ${ARCH}"
-   echo "TARGET: ${FORMAT_COMPILER_TARGET}"
+	echo "PLATFORM: ${platform}"
+	echo "ARCHITECTURE: ${ARCH}"
+	echo "TARGET: ${FORMAT_COMPILER_TARGET}"
 }
 
 config_cpu
@@ -95,11 +94,11 @@ config_platform
 config_log_build_host
 
 if [ -z "${JOBS}" ]; then
-   if command -v nproc >/dev/null; then
-      JOBS=`nproc`
-   else
-      JOBS=1
-   fi
+	if command -v nproc >/dev/null; then
+		JOBS=`nproc`
+	else
+		JOBS=1
+	fi
 fi
 
 #if uncommented, will fetch repos with read+write access. Useful for committers
@@ -180,16 +179,16 @@ export RA_ANDROID_MIN_API=android-9
 # for now just to test a few cores.
 
 if [[ "${FORMAT_COMPILER_TARGET}" = "osx" && -z "${NOUNIVERSAL}" ]]; then
-   case "${ARCH}" in
-      i385|x86_64)
-         export ARCHFLAGS="-arch i386 -arch x86_64"
-         ;;
-      ppc|ppc64)
-         export ARCHFLAGS="-arch ppc -arch ppc64"
-         ;;
-      *)
-         echo "Universal build requested with unknown ARCH=\"${ARCH}\""
-   esac
+	case "${ARCH}" in
+		i385|x86_64)
+			export ARCHFLAGS="-arch i386 -arch x86_64"
+			;;
+		ppc|ppc64)
+			export ARCHFLAGS="-arch ppc -arch ppc64"
+			;;
+		*)
+			echo "Universal build requested with unknown ARCH=\"${ARCH}\""
+	esac
 fi
 
 #CORE BUILD SUMMARY
@@ -202,11 +201,11 @@ BUILD_SUMMARY=${WORKDIR}/build-summary.log
 BUILD_SUCCESS=${WORKDIR}/build-success.log
 BUILD_FAIL=${WORKDIR}/build-fail.log
 if [ -z "${BUILD_SUMMARY_FMT}" ]; then
-   if command -v column >/dev/null; then
-      BUILD_SUMMARY_FMT=column
-   else
-      BUILD_SUMMARY_FMT=cat
-   fi
+	if command -v column >/dev/null; then
+		BUILD_SUMMARY_FMT=column
+	else
+		BUILD_SUMMARY_FMT=cat
+	fi
 fi
 
 
@@ -217,6 +216,6 @@ fi
 #The following below is just a sample.
 
 if [ -f "${WORKDIR}/libretro-config-user.sh" ]; then
-   . ${WORKDIR}/libretro-config-user.sh
+	. ${WORKDIR}/libretro-config-user.sh
 fi
 
