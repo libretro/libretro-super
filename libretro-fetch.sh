@@ -368,4 +368,3 @@ else
 	fetch_libretro_emux
 	fetch_libretro_sdk
 fi
-
