@@ -218,4 +218,3 @@ fi
 if [ -f "${WORKDIR}/libretro-config-user.sh" ]; then
 	. ${WORKDIR}/libretro-config-user.sh
 fi
-

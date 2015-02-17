@@ -53,4 +53,3 @@ cpu_isarmv7() {
 	esac
 	return 1
 }
-

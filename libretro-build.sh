@@ -167,4 +167,3 @@ else
 	build_libretro_testgl
 	build_summary
 fi
-
