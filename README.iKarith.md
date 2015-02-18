@@ -19,6 +19,10 @@ iKarith, 2015-02-07
 
 ## History
 
+2015-02-17.0: Updated to reflect the now deleted iKarith files
+              There are changes to the planned implementation not discussed
+	      here yet, so just know that that section is still obsolete.  It
+	      is still in the RFC stage, though, so it can wait a day or two.
 2015-02-08.1: Extensive rewrite of future direction portions
 2015-02-08.0: Added discussion of dependencies
 2015-02-07.1: Changed heading levels
@@ -59,12 +63,17 @@ additional set of build scripts replacing most of these almost in their
 entirety written for the buildbot.  And then there's the Makefiles which
 are often just as much of a mess (but a separate problem…)
 
-This is why the iKarith-\*.sh scripts.  If you touch any of the mainline
-scripts to do what we need to do, you *will* break something.  In fact, I
-happen to know that most of the scripts need a (fairly trivial) patch as it
-is.  Mea culpa for introducing the need, but those scripts that don't get
-patched before I get to them are the ones I can assume may have suffered other
-forms of bit rot and will require additional care/testing.
+Originally I began working on this using iKarith-\*.sh scripts which were
+copies of the build scripts in libretro-super, but were a safe sandbox for
+changing stuff.  The reason was that if you touch the mainline scripts in any
+significant way, you *will* break something.  Indeed, many of the more minor
+platform build scripts will not function at present without a (fairly trivial)
+patch to enable them to be used outside of the libretro-super directory.
+
+I'm personally leaving them in their known slightly-broken state.  Justified
+by the fact that any script that goes unpatched hasn't been tested in awhile
+and needs more careful scrutiny when its features are incorporated into the
+new build system.
 
 
 ### The Political Problem?
@@ -442,21 +451,6 @@ you'd find one.
 You'll note I adopt the Windows and frankly everything but CLI UNIX convention
 of adding an extension to COPYING.  I also chose to give it a version
 designation.
-
-
-## Porting features
-
-Porting features from the iKarith scripts to the standard scripts is fine,
-indeed it's welcome.  Just keep in mind that while it's possible to do, you
-really need to test everything you can if you do.  At the very least, make
-sure that you test Linux, Windows, and OS X if possible.  You might also want
-to check with radius as to whether or not your changes will break his
-buildbot.
-
-That's about all I can think of for now.  This file will see updates as the
-concepts contained herein evolve.
-
-
 
 
 <!-- vim: set tw=78 ts=8 sw=8 noet ft=markdown spell: -->

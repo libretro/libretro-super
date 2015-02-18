@@ -23,10 +23,10 @@ fi
 #        doing it wrong.  We should fix this.
 fetch_project_bsnes()
 {
-	echo "=== Fetching ${3} ==="
-	fetch_git "${1}" "${2}" ""
-	fetch_git "${WORKDIR}/${2}" "${2}/perf" ""
-	fetch_git "${WORKDIR}/${2}" "${2}/balanced" ""
+	echo "=== Fetching $3 ==="
+	fetch_git "$1" "$2" ""
+	fetch_git "$WORKDIR/$2" "$2/perf" ""
+	fetch_git "$WORKDIR/$2" "$2/balanced" ""
 }
 
 
@@ -297,9 +297,9 @@ fetch_libretro_sdk() {
 }
 
 
-if [ -n "${1}" ]; then
-	while [ -n "${1}" ]; do
-		"${1}"
+if [ -n "$1" ]; then
+	while [ -n "$1" ]; do
+		"$1"
 		shift
 	done
 else
