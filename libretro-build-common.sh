@@ -146,16 +146,21 @@ build_libretro_generic() {
 	$MAKE -f "$3" platform="$4" CC="$CC" CXX="$CXX" "-j$JOBS" || die "Failed to build $1"
 }
 
-# $1 is corename
-# $2 is subdir. In case there is no subdir, enter "." here
-# $3 is Makefile name
-# $4 is preferred platform
+# build_libretro_generic_makefile
+#
+# $1	Display name of the core
+# $2	Subdirectory of makefile (use "." for none)
+# $3	Name of makefile
+# $4	Either FORMAT_COMPILER_TARGET or an alternative
+# $5	Skip copying (for cores that don't produce exactly one core)
 build_libretro_generic_makefile() {
 	build_dir="$WORKDIR/libretro-$1"
 	if [ -d "$build_dir" ]; then
 		echo "=== Building $1 ==="
 		build_libretro_generic $1 "$2" "$3" $4 "$build_dir"
-		copy_core_to_dist $1
+		if [ -z "$5" ]; then
+			copy_core_to_dist $1
+		fi
 	else
 		echo "$1 not fetched, skipping ..."
 	fi
@@ -709,13 +714,13 @@ build_summary() {
 			printf -v summary "%s%s\n" "$summary" "$(echo $build_success | wc -w) core(s) successfully built:"
 			printf -v summary "%s%s\n\n" "$summary" "$(echo $build_success)"
 		else
-			printf -v summary "%s%s\n\n" "$summary" "       0 cores successfully built. :("
+			printf -v summary "%s%s\n\n" "$summary" "       0 cores successfully built."
 		fi
 		if [ -n "$build_fail" ]; then
 			printf -v summary "%s%s\n" "$summary" "$(echo $build_fail | wc -w) core(s) failed to build:"
 			printf -v summary "%s%s\n\n" "$summary" "$(echo $build_fail)"
 		else
-			printf -v summary "%s%s\n\n" "$summary" "       0 cores failed to build! :D"
+			printf -v summary "%s%s\n\n" "$summary" "       0 cores failed to build!"
 		fi
 		if [ -n "$BUILD_SUMMARY" ]; then
 			echo "$summary" > "$BUILD_SUMMARY"
