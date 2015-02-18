@@ -24,8 +24,10 @@ fetch_git() {
 			git submodule foreach git pull origin master
 		fi
 	else
-		echo "git clone \"$1\" \"$WORKDIR/$2\""
-		git clone "$1" "$WORKDIR/$2"
+		clone_type=
+		[ -n "$SHALLOW_CLONE" ] && depth="--depth 1"
+		echo "git clone $depth \"$1\" \"$WORKDIR/$2\""
+		git clone $depth "$1" "$WORKDIR/$2"
 		if [ -n "$4" ]; then
 			echo "cd \"$fetch_dir\""
 			cd "$fetch_dir"
