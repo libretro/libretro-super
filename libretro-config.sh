@@ -2,9 +2,9 @@
 
 # Architecture Assignment
 config_cpu() {
-	[ -n "${2}" ] && ARCH=${1}
-	[ -z "${ARCH}" ] && ARCH="`uname -m`"
-	case "${ARCH}" in
+	[ -n "$2" ] && ARCH="$1"
+	[ -z "$ARCH" ] && ARCH="$(uname -m)"
+	case "$ARCH" in
 		x86_64)
 			X86=true
 			X86_64=true
@@ -15,7 +15,7 @@ config_cpu() {
 		armv*)
 			ARM=true
 			export FORMAT_COMPILER_TARGET=armv
-			export RARCHCFLAGS="${RARCHCFLAGS} -marm"
+			export RARCHCFLAGS="$RARCHCFLAGS -marm"
 			case "${ARCH}" in
 				armv5tel) ARMV5=true ;;
 				armv6l)	ARMV6=true ;;
@@ -23,7 +23,7 @@ config_cpu() {
 			esac
 			;;
 	esac
-	if [ -n "${PROCESSOR_ARCHITEW6432}" -a "${PROCESSOR_ARCHITEW6432}" = "AMD64" ]; then
+	if [ -n "$PROCESSOR_ARCHITEW6432" -a "$PROCESSOR_ARCHITEW6432" = "AMD64" ]; then
 		ARCH=x86_64
 		X86=true && X86_64=true
 	fi
@@ -31,9 +31,9 @@ config_cpu() {
 
 # Platform Assignment
 config_platform() {
-	[ -n "${1}" ] && platform="${1}"
-	[ -z "${platform}" ] && platform="`uname`"
-	case "${platform}" in
+	[ -n "$1" ] && platform="$1"
+	[ -z "$platform" ] && platform="$(uname)"
+	case "$platform" in
 		*BSD*)
 			FORMAT_EXT="so"
 			FORMAT_COMPILER_TARGET="unix"
@@ -84,26 +84,22 @@ config_platform() {
 }
 
 config_log_build_host() {
-	echo "PLATFORM: ${platform}"
-	echo "ARCHITECTURE: ${ARCH}"
-	echo "TARGET: ${FORMAT_COMPILER_TARGET}"
+	echo "PLATFORM: $platform"
+	echo "ARCHITECTURE: $ARCH"
+	echo "TARGET: $FORMAT_COMPILER_TARGET"
 }
 
 config_cpu
 config_platform
 config_log_build_host
 
-if [ -z "${JOBS}" ]; then
+if [ -z "$JOBS" ]; then
 	if command -v nproc >/dev/null; then
-		JOBS=`nproc`
+		JOBS="$(nproc)"
 	else
 		JOBS=1
 	fi
 fi
-
-#if uncommented, will fetch repos with read+write access. Useful for committers
-#export WRITERIGHTS=1
-
 
 #if uncommented, will build experimental cores as well which are not yet fit for release.
 #export BUILD_EXPERIMENTAL=1
@@ -178,16 +174,16 @@ export RA_ANDROID_MIN_API=android-9
 # for Intel/PowerPC, but please don't. ;) Consider this a proof of concept
 # for now just to test a few cores.
 
-if [[ "${FORMAT_COMPILER_TARGET}" = "osx" && -z "${NOUNIVERSAL}" ]]; then
-	case "${ARCH}" in
-		i385|x86_64)
+if [[ "$FORMAT_COMPILER_TARGET" = "osx" && -z "$NOUNIVERSAL" ]]; then
+	case "$ARCH" in
+		i386|x86_64)
 			export ARCHFLAGS="-arch i386 -arch x86_64"
 			;;
 		ppc|ppc64)
 			export ARCHFLAGS="-arch ppc -arch ppc64"
 			;;
 		*)
-			echo "Universal build requested with unknown ARCH=\"${ARCH}\""
+			echo "Universal build requested with unknown ARCH=\"$ARCH\""
 	esac
 fi
 
