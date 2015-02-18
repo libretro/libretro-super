@@ -292,8 +292,8 @@ fetch_libretro_emux() {
 }
 
 # Shouldn't this be part of the tools fetch?  Eh, later...
-fetch_libretro_sdk() {
-	fetch_git "https://github.com/libretro/libretro-sdk.git" "libretro-sdk" "libretro/SDK"
+fetch_libretro_common() {
+	fetch_git "https://github.com/libretro/libretro-common.git" "libretro-common" "libretro/common"
 }
 
 
@@ -366,5 +366,5 @@ else
 	fetch_libretro_tempgba
 	fetch_libretro_gpsp
 	fetch_libretro_emux
-	fetch_libretro_sdk
+	fetch_libretro_common
 fi
