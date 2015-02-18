@@ -206,7 +206,7 @@ BUILD_SUMMARY="$WORKDIR/build-summary.log"
 #local libretro-config-user.sh file rather than here.
 #The following below is just a sample.
 
-if [ -f "${WORKDIR}/libretro-config-user.sh" ]; then
-	. ${WORKDIR}/libretro-config-user.sh
+if [ -f "$WORKDIR/libretro-config-user.sh" ]; then
+	. "$WORKDIR/libretro-config-user.sh"
 fi
 

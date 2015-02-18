@@ -104,7 +104,7 @@ echo "CXX11 = $CXX11"
 echo "STRIP = $STRIP"
 
 
-. $BASE_DIR/libretro-build-common.sh
+. "$BASE_DIR/libretro-build-common.sh"
 
 mkdir -p "$RARCH_DIST_DIR"
 
@@ -183,6 +183,6 @@ else
 	if [ $FORMAT_COMPILER_TARGET != "ios" ]; then
 		build_libretro_testgl
 	fi
-	build_summary
 fi
+build_summary
 

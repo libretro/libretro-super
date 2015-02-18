@@ -143,7 +143,7 @@ build_libretro_generic_makefile() {
 	build_dir="${WORKDIR}/libretro-${1}"
 	if [ -d "$build_dir" ]; then
 		echo "=== Building ${1} ==="
-		build_libretro_generic $1 $2 $3 $4 $build_dir
+		build_libretro_generic $1 $2 $3 $4 "$build_dir"
 		copy_core_to_dist $1
 	else
 		echo "${1} not fetched, skipping ..."
@@ -154,7 +154,7 @@ build_retroarch_generic_makefile() {
 	build_dir="${WORKDIR}/${1}"
 	if [ -d "$build_dir" ]; then
 		echo "=== Building ${2} ==="
-		build_libretro_generic $1 $2 $3 $4 $build_dir
+		build_libretro_generic $1 $2 $3 $4 "$build_dir"
 		copy_core_to_dist $5
 	else
 		echo "${1} not fetched, skipping ..."
