@@ -108,6 +108,10 @@ echo "STRIP = $STRIP"
 
 mkdir -p "$RARCH_DIST_DIR"
 
+if [ -n "$SKIP_UNCHANGED" ]; then
+	mkdir -p "$BUILD_REVISIONS_DIR"
+fi
+
 if [ -n "$1" ]; then
 	while [ -n "$1" ]; do
 		"$1"

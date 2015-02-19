@@ -209,6 +209,9 @@ BUILD_SUMMARY="$WORKDIR/build-summary.log"
 # Set this to enable the feature
 #SKIP_UNCHANGED=1
 
+# Set this if you don't like the default
+#BUILD_REVISIONS_DIR="$WORKDIR/build-revisions"
+
 
 #USER DEFINES
 #------------

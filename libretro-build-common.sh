@@ -47,9 +47,11 @@ build_summary_log() {
 }
 
 build_should_skip() {
-	build_revision_file="$WORKDIR/build_revisions/$1"
-
 	[ -z "$SKIP_UNCHANGED" ] && return 1
+
+	[ -z "$BUILD_REVISIONS_DIR" ] && BUILD_REVISIONS_DIR="$WORKDIR/build-revisions"
+	build_revision_file="$BUILD_REVISIONS_DIR/$1"
+
 	[ ! -r "$build_revision_file" ] && return 1
 
 	read previous_revision < "$build_revision_file"
