@@ -291,6 +291,10 @@ fetch_libretro_emux() {
 	fetch_git "https://github.com/libretro/emux.git" "libretro-emux" "libretro/Emux"
 }
 
+fetch_libretro_fuse() {
+	fetch_git "https://github.com/libretro/fuse-libretro.git" "libretro-fuse" "libretro/fuse"
+}
+
 # Shouldn't this be part of the tools fetch?  Eh, later...
 fetch_libretro_common() {
 	fetch_git "https://github.com/libretro/libretro-common.git" "libretro-common" "libretro/common"
@@ -367,4 +371,5 @@ else
 	fetch_libretro_gpsp
 	fetch_libretro_emux
 	fetch_libretro_common
+	fetch_libretro_fuse
 fi
