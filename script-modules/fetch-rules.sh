@@ -37,10 +37,19 @@ fetch_git() {
 	fi
 }
 
-# revision_git: # Output the hash of the last commit in a git repository
+# fetch_revision_git: Output the hash of the last commit in a git repository
 #
 # $1	Local directory to run git in
-revision_git() {
-	cd "$WORKDIR/$1"
+fetch_revision_git() {
+	[ -n "$1" ] && cd "$1"
 	git log -n 1 --pretty=format:%H
+}
+
+
+# fetch_revision: Output SCM-dependent revision string of a module
+#                 (currently just calls fetch_revision_git)
+#
+# $1	The directory of the module
+fetch_revision() {
+	   fetch_revision_git $1
 }
