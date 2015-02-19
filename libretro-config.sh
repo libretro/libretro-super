@@ -196,6 +196,23 @@ fi
 BUILD_SUMMARY="$WORKDIR/build-summary.log"
 
 
+# BUILD_REVISIONS
+# ===============
+#
+# libretro-super can save a revision string (e.g., the git sha hash) for any
+# core it has compiled.  If this feature is enabled, it will check if the
+# revison string has changed before it compiles the core.  This can speed up
+# the build process for end-users and buildbots, and it also results in nightly
+# build directories being smaller.  It is not enabled by default because it
+# cannot know about uncommitted changes in a working directory.
+
+# Set this to enable the feature
+#SKIP_UNCHANGED=1
+
+# Set this if you don't like the default
+#BUILD_REVISIONS_DIR="$WORKDIR/build-revisions"
+
+
 #USER DEFINES
 #------------
 #These options should be defined inside your own

@@ -1,5 +1,7 @@
 # vim: set ts=3 sw=3 noet ft=sh : bash
 
+. ${BASE_DIR}/script-modules/fetch-rules.sh
+
 die() {
 	echo $1
 	#exit 1
@@ -43,6 +45,27 @@ build_summary_log() {
 		printf -v build_fail "%s%s\n" "$build_fail" "$2"
 	fi
 }
+
+build_should_skip() {
+	[ -z "$SKIP_UNCHANGED" ] && return 1
+
+	[ -z "$BUILD_REVISIONS_DIR" ] && BUILD_REVISIONS_DIR="$WORKDIR/build-revisions"
+	build_revision_file="$BUILD_REVISIONS_DIR/$1"
+
+	[ ! -r "$build_revision_file" ] && return 1
+
+	read previous_revision < "$build_revision_file"
+	[ "$previous_revision" != "$(fetch_revision $2)" ] && return 1
+
+	return 0
+}
+
+build_save_revision() {
+	[ -z "$SKIP_UNCHANGED" ] && return
+	[ "$1" != "0" ] && return
+	echo $(fetch_revision) > "$WORKDIR/build_revisions/$2"
+}
+
 
 check_opengl() {
 	if [ "${BUILD_LIBRETRO_GL}" ]; then
@@ -127,12 +150,14 @@ copy_core_to_dist() {
 	if [ "$FORMAT_COMPILER_TARGET" = "theos_ios" ]; then
 		echo "cp \"objs/obj/${1}_libretro${FORMAT}.$FORMAT_EXT\" \"$RARCH_DIST_DIR\""
 		cp "objs/obj/${1}_libretro${FORMAT}.$FORMAT_EXT" "$RARCH_DIST_DIR"
-		build_summary_log $? "$1"
 	else
 		echo "cp \"${1}_libretro${FORMAT}.$FORMAT_EXT\" \"$RARCH_DIST_DIR\""
 		cp "${1}_libretro${FORMAT}.$FORMAT_EXT" "$RARCH_DIST_DIR"
-		build_summary_log $? "$1"
 	fi
+
+	ret=$?
+	build_summary_log $ret "$1"
+	return $ret
 }
 
 build_libretro_generic() {
@@ -148,18 +173,25 @@ build_libretro_generic() {
 
 # build_libretro_generic_makefile
 #
-# $1	Display name of the core
+# $1	Name of the core
 # $2	Subdirectory of makefile (use "." for none)
 # $3	Name of makefile
 # $4	Either FORMAT_COMPILER_TARGET or an alternative
 # $5	Skip copying (for cores that don't produce exactly one core)
 build_libretro_generic_makefile() {
 	build_dir="$WORKDIR/libretro-$1"
+
+	if build_should_skip $1 "$build_dir"; then
+		echo "Core $1 is already built, skipping..."
+		return
+	fi
+
 	if [ -d "$build_dir" ]; then
 		echo "=== Building $1 ==="
 		build_libretro_generic $1 "$2" "$3" $4 "$build_dir"
 		if [ -z "$5" ]; then
 			copy_core_to_dist $1
+			build_save_revision $? $1
 		fi
 	else
 		echo "$1 not fetched, skipping ..."
@@ -168,10 +200,17 @@ build_libretro_generic_makefile() {
 
 build_retroarch_generic_makefile() {
 	build_dir="$WORKDIR/$1"
+
+	if build_should_skip $1 "$build_dir"; then
+		echo "Core $1 is already built, skipping..."
+		return
+	fi
+
 	if [ -d "$build_dir" ]; then
 		echo "=== Building $2 ==="
 		build_libretro_generic $1 "$2" "$3" $4 "$build_dir"
 		copy_core_to_dist $5
+		build_save_revision $? $1
 	else
 		echo "$1 not fetched, skipping ..."
 	fi
@@ -214,11 +253,20 @@ build_libretro_catsfc() {
 }
 
 build_libretro_emux() {
+	if build_should_skip emux "$WORKDIR/libretro-emux"; then
+		echo "Cores for emux are already built, skipping..."
+		return
+	fi
+
 	build_libretro_generic_makefile "emux" "libretro" "Makefile" $FORMAT_COMPILER_TARGET 1
+
 	copy_core_to_dist "emux_chip8"
 	copy_core_to_dist "emux_gb"
 	copy_core_to_dist "emux_nes"
 	copy_core_to_dist "emux_sms"
+
+	# TODO: Check for more than emux_sms here...
+	build_save_revision $? "emux"
 }
 
 build_libretro_test() {
@@ -410,6 +458,12 @@ build_libretro_ppsspp() {
 
 build_libretro_mame() {
 	build_dir="$WORKDIR/libretro-mame"
+
+	if build_should_skip mame "$build_dir"; then
+		echo "Core mame is already built, skipping..."
+		return
+	fi
+
 	if [ -d "$build_dir" ]; then
 		echo ''
 		echo '=== Building MAME ==='
@@ -445,6 +499,9 @@ build_libretro_mame() {
 		fi
 		echo "cp \"mame_libretro${FORMAT}.$FORMAT_EXT\" \"$RARCH_DIST_DIR\""
 		cp "mame_libretro${FORMAT}.$FORMAT_EXT" "$RARCH_DIST_DIR"
+		ret=$?
+		build_save_revision $ret mame
+		build_summary_log $ret "mame"
 	else
 		echo 'MAME not fetched, skipping ...'
 	fi
@@ -599,27 +656,53 @@ build_libretro_bsnes_modern() {
 		$MAKE -f Makefile platform="$FORMAT_COMPILER_TARGET" compiler="$CXX11" ui='target-libretro' profile="${3}" "-j$JOBS" || die "Failed to build $1 $3 core"
 		echo "cp -f \"out/${1}_libretro${FORMAT}.$FORMAT_EXT\" \"$RARCH_DIST_DIR/${1}_${3}_libretro${FORMAT}.$FORMAT_EXT\""
 		cp -f "out/${1}_libretro${FORMAT}.$FORMAT_EXT" "$RARCH_DIST_DIR/${1}_${3}_libretro${FORMAT}.$FORMAT_EXT"
-		build_summary_log $? "${1}_$3"
+		ret=$?
+		build_summary_log $ret "${1}_$3"
+
+		return $ret
 	else
 		echo "$1 $3 not fetched, skipping ..."
 	fi
 }
 
 build_libretro_bsnes() {
+	if build_should_skip bsnes "$WORKDIR/libretro-bsnes"; then
+		echo "Core bsnes is already built, skipping..."
+		return
+	fi
+
 	build_libretro_bsnes_modern "bsnes" "perf" "performance"
 	build_libretro_bsnes_modern "bsnes" "balanced" "balanced"
 	build_libretro_bsnes_modern "bsnes" "." "accuracy"
+
+	# TODO: Make this not depend on accuracy
+	build_save_revision $? bsnes
 }
 
 build_libretro_bsnes_mercury() {
+	if build_should_skip bsnes_mercury "$WORKDIR/libretro-bsnes"; then
+		echo "Core bsnes_mercury is already built, skipping..."
+		return
+	fi
+
+	set +x
 	build_libretro_bsnes_modern "bsnes_mercury" "perf" "performance"
 	build_libretro_bsnes_modern "bsnes_mercury" "balanced" "balanced"
 	build_libretro_bsnes_modern "bsnes_mercury" "." "accuracy"
+
+	# TODO: Make this not depend on accuracy
+	build_save_revision $? bsnes_mercury
 }
 
 build_libretro_bsnes_cplusplus98() {
 	CORENAME="bsnes_cplusplus98"
 	build_dir="$WORKDIR/libretro-$CORENAME"
+
+	if build_should_skip $CORENAME "$build_dir"; then
+		echo "Core $CORENAME is already built, skipping..."
+		return
+	fi
+
 	if [ -d "$build_dir" ]; then
 		echo "=== Building $CORENAME ==="
 		echo "cd \"$build_dir\""
@@ -633,7 +716,9 @@ build_libretro_bsnes_cplusplus98() {
 		$MAKE platform="$FORMAT_COMPILER_TARGET" CC="$CC" CXX="$CXX" "-j$JOBS"
 		echo "cp \"out/libretro.$FORMAT_EXT\" \"$RARCH_DIST_DIR/$CORENAME_libretro${FORMAT}.$FORMAT_EXT\""
 		cp "out/libretro.$FORMAT_EXT" "$RARCH_DIST_DIR/$CORENAME_libretro${FORMAT}.$FORMAT_EXT"
-		build_summary_log $? $CORENAME
+		ret=$?
+		build_summary_log $ret $CORENAME
+		build_save_revision $ret $CORENAME
 	else
 		echo "$CORENAME not fetched, skipping ..."
 	fi
@@ -641,6 +726,12 @@ build_libretro_bsnes_cplusplus98() {
 
 build_libretro_bnes() {
 	build_dir="$WORKDIR/libretro-bnes"
+
+	if build_should_skip bnes "$build_dir"; then
+		echo "Core bnes is already built, skipping..."
+		return
+	fi
+
 	if [ -d "$build_dir" ]; then
 		echo '=== Building bNES ==='
 		echo "cd \"$build_dir\""
@@ -655,7 +746,9 @@ build_libretro_bnes() {
 		$MAKE -f Makefile CC="$CC" CXX="$CXX" "-j$JOBS" compiler="${CXX11}" || die 'Failed to build bNES'
 		echo "cp \"libretro${FORMAT}.$FORMAT_EXT\" \"$RARCH_DIST_DIR/bnes_libretro${FORMAT}.$FORMAT_EXT\""
 		cp "libretro${FORMAT}.$FORMAT_EXT" "$RARCH_DIST_DIR/bnes_libretro${FORMAT}.$FORMAT_EXT"
-		build_summary_log $? "bnes"
+		ret=$?
+		build_summary_log $ret "bnes"
+		build_save_revision $ret "bnes"
 	else
 		echo 'bNES not fetched, skipping ...'
 	fi
@@ -664,8 +757,14 @@ build_libretro_bnes() {
 build_libretro_mupen64() {
 	check_opengl
 	build_dir="$WORKDIR/libretro-mupen64plus"
+
+	if build_should_skip mupen64plus "$build_dir"; then
+		echo "Core mupen64plus is already built, skipping..."
+		return
+	fi
+
 	if [ -d "$build_dir" ]; then
-		echo cd \"$build_dir\"
+		echo "cd \"$build_dir\""
 		cd "$build_dir"
 
 		mkdir -p obj
@@ -704,7 +803,9 @@ build_libretro_mupen64() {
 		fi
 		echo "cp \"mupen64plus_libretro${FORMAT}.$FORMAT_EXT\" \"$RARCH_DIST_DIR\""
 		cp "mupen64plus_libretro${FORMAT}.$FORMAT_EXT" "$RARCH_DIST_DIR"
-		build_summary_log $? "mupen64plus"
+		ret=$?
+		build_summary_log $ret "mupen64plus"
+		build_save_revision $ret "mupen64plus"
 	else
 		echo 'Mupen64 Plus not fetched, skipping ...'
 	fi
