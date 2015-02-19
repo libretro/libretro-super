@@ -3,6 +3,7 @@
 
 SCRIPT=$(readlink -f $0)
 BASE_DIR=$(dirname $SCRIPT)
+WORKDIR=$PWD
 RARCH_DIR=$BASE_DIR/dist
 RARCH_DIST_DIR=$RARCH_DIR/qnx
 FORMAT=_qnx
@@ -11,6 +12,10 @@ FORMAT_COMPILER_TARGET_ALT=qnx
 FORMAT_EXT=so
 JOBS=7
 MAKE=make
+
+CC="qcc -Vgcc_ntoarmv7le"
+CXX="QCC -Vgcc_ntoarmv7le"
+CXX11="QCC -Vgcc_ntoarmv7le"
 
 . ./libretro-build-common.sh
 
