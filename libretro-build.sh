@@ -178,7 +178,6 @@ else
 	build_libretro_o2em
 	build_libretro_hatari
 	build_libretro_gpsp
-	build_libretro_fuse
 	build_libretro_emux
 	build_libretro_fuse
 	build_libretro_test
