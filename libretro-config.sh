@@ -1,105 +1,152 @@
 # vim: set ts=3 sw=3 noet ft=sh : bash
 
-# Architecture Assignment
-config_cpu() {
-	[ -n "$2" ] && ARCH="$1"
-	[ -z "$ARCH" ] && ARCH="$(uname -m)"
-	case "$ARCH" in
-		x86_64)
-			X86=true
-			X86_64=true
-			;;
-		i386|i686)
-			X86=true
-			;;
-		armv*)
-			ARM=true
-			export FORMAT_COMPILER_TARGET=armv
-			export RARCHCFLAGS="$RARCHCFLAGS -marm"
-			case "${ARCH}" in
-				armv5tel) ARMV5=true ;;
-				armv6l)	ARMV6=true ;;
-				armv7l)	ARMV7=true ;;
+# The platform variable is normally not set at the time libretro-config is
+# included by libretro-build.sh.  Other platform scripts may begin to include
+# libretro-config as well if they define their platform-specific code in the
+# case block below.  This is a band-aid fix that we will address after 1.1 is
+# released.
+
+case "$platform" in
+	##
+	## Configs that did not use libretro-config originally
+	## TODO: Integrate this with everything else (post-1.1)
+	##
+
+	ios)
+		# NOTE: This config requires a Mac with an Xcode version new enough for
+		#       its xcrun program to support -show-sdk-path.  That pretty much
+		#       limits us to Xcode 5 and above unless someone wants to implement
+		#       older Xcode version support using an alternate method.  Any such
+		#       support could only be for jailbreakers as any libretro core that
+		#       could ever be added to the App Store would require a recent SDK
+		#       and Xcode version to build.
+
+		DIST_DIR="ios"
+		FORMAT_EXT=dylib
+		IOS=1
+		FORMAT=_ios
+		FORMAT_COMPILER_TARGET=ios
+		FORMAT_COMPILER_TARGET_ALT=ios
+		export IOSSDK=$(xcrun -sdk iphoneos -show-sdk-path)
+		IOSVER_MAJOR=$(xcrun -sdk iphoneos -show-sdk-platform-version | cut -c '1')
+		IOSVER_MINOR=$(xcrun -sdk iphoneos -show-sdk-platform-version | cut -c '3')
+		IOSVER=${IOSVER_MAJOR}${IOSVER_MINOR}
+
+		# Apple requires this stuff
+		CC="clang -arch armv7 -miphoneos-version-min=5.0 -isysroot $IOSSDK"
+		CXX="clang++ -arch armv7 -miphoneos-version-min=5.0 -isysroot $IOSSDK"
+		CXX11="clang++ -std=c++11 -stdlib=libc++ -arch armv7 -miphoneos-version-min=5.0 -isysroot $IOSSDK"
+
+		;;
+
+	##
+	## Original libretro-config path
+	##
+	*)
+
+		# Architecture Assignment
+		config_cpu() {
+			[ -n "$2" ] && ARCH="$1"
+			[ -z "$ARCH" ] && ARCH="$(uname -m)"
+			case "$ARCH" in
+				x86_64)
+					X86=true
+					X86_64=true
+					;;
+				i386|i686)
+					X86=true
+					;;
+				armv*)
+					ARM=true
+					export FORMAT_COMPILER_TARGET=armv
+					export RARCHCFLAGS="$RARCHCFLAGS -marm"
+					case "${ARCH}" in
+						armv5tel) ARMV5=true ;;
+						armv6l)	ARMV6=true ;;
+						armv7l)	ARMV7=true ;;
+					esac
+					;;
 			esac
-			;;
-	esac
-	if [ -n "$PROCESSOR_ARCHITEW6432" -a "$PROCESSOR_ARCHITEW6432" = "AMD64" ]; then
-		ARCH=x86_64
-		X86=true && X86_64=true
-	fi
-}
+			if [ -n "$PROCESSOR_ARCHITEW6432" -a "$PROCESSOR_ARCHITEW6432" = "AMD64" ]; then
+				ARCH=x86_64
+				X86=true && X86_64=true
+			fi
+		}
 
-# Platform Assignment
-config_platform() {
-	[ -n "$1" ] && platform="$1"
-	[ -z "$platform" ] && platform="$(uname)"
-	case "$platform" in
-		*BSD*)
-			FORMAT_EXT="so"
-			FORMAT_COMPILER_TARGET="unix"
-			DIST_DIR="bsd"
-			;;
-		osx|*Darwin*)
-			FORMAT_EXT="dylib"
-			FORMAT_COMPILER_TARGET="osx"
-			DIST_DIR="osx"
-			;;
-		win|*mingw32*|*MINGW32*|*MSYS_NT*)
-			FORMAT_EXT="dll"
-			FORMAT_COMPILER_TARGET="win"
-			DIST_DIR="win_x86"
-			;;
-		win64|*mingw64*|*MINGW64*)
-			FORMAT_EXT="dll"
-			FORMAT_COMPILER_TARGET="win"
-			DIST_DIR="win_x64"
-			;;
-		*psp1*)
-			FORMAT_EXT="a"
-			FORMAT_COMPILER_TARGET="psp1"
-			DIST_DIR="psp1"
-			;;
-		*ios|theos_ios*)
-			FORMAT_EXT="dylib"
-			FORMAT_COMPILER_TARGET="theos_ios"
-			DIST_DIR="theos"
-			;;
-		android)
-			FORMAT_EXT="so"
-			FORMAT_COMPILER_TARGET="android"
-			DIST_DIR="android"
-			;;
-		*android-armv7*)
-			FORMAT_EXT="so"
-			FORMAT_COMPILER_TARGET="android-armv7"
-			DIST_DIR="android/armeabi-v7a"
-			;;
-		*)
-			FORMAT_EXT="so"
-			FORMAT_COMPILER_TARGET="unix"
-			DIST_DIR="unix"
-			;;
-	esac
-	export FORMAT_COMPILER_TARGET_ALT="$FORMAT_COMPILER_TARGET"
-}
+		# Platform Assignment
+		config_platform() {
+			[ -n "$1" ] && platform="$1"
+			[ -z "$platform" ] && platform="$(uname)"
+			case "$platform" in
+				*BSD*)
+					FORMAT_EXT="so"
+					FORMAT_COMPILER_TARGET="unix"
+					DIST_DIR="bsd"
+					;;
+				osx|*Darwin*)
+					FORMAT_EXT="dylib"
+					FORMAT_COMPILER_TARGET="osx"
+					DIST_DIR="osx"
+					;;
+				win|*mingw32*|*MINGW32*|*MSYS_NT*)
+					FORMAT_EXT="dll"
+					FORMAT_COMPILER_TARGET="win"
+					DIST_DIR="win_x86"
+					;;
+				win64|*mingw64*|*MINGW64*)
+					FORMAT_EXT="dll"
+					FORMAT_COMPILER_TARGET="win"
+					DIST_DIR="win_x64"
+					;;
+				*psp1*)
+					FORMAT_EXT="a"
+					FORMAT_COMPILER_TARGET="psp1"
+					DIST_DIR="psp1"
+					;;
+				*ios|theos_ios*)
+					FORMAT_EXT="dylib"
+					FORMAT_COMPILER_TARGET="theos_ios"
+					DIST_DIR="theos"
+					;;
+				android)
+					FORMAT_EXT="so"
+					FORMAT_COMPILER_TARGET="android"
+					DIST_DIR="android"
+					;;
+				*android-armv7*)
+					FORMAT_EXT="so"
+					FORMAT_COMPILER_TARGET="android-armv7"
+					DIST_DIR="android/armeabi-v7a"
+					;;
+				*)
+					FORMAT_EXT="so"
+					FORMAT_COMPILER_TARGET="unix"
+					DIST_DIR="unix"
+					;;
+			esac
+			export FORMAT_COMPILER_TARGET_ALT="$FORMAT_COMPILER_TARGET"
+		}
 
-config_log_build_host() {
-	echo "PLATFORM: $platform"
-	echo "ARCHITECTURE: $ARCH"
-	echo "TARGET: $FORMAT_COMPILER_TARGET"
-}
+		config_log_build_host() {
+			echo "PLATFORM: $platform"
+			echo "ARCHITECTURE: $ARCH"
+			echo "TARGET: $FORMAT_COMPILER_TARGET"
+		}
 
-config_cpu
-config_platform
-config_log_build_host
+		config_cpu
+		config_platform
+		config_log_build_host
 
-if [ -z "$JOBS" ]; then
-	if command -v nproc >/dev/null; then
-		JOBS="$(nproc)"
-	else
-		JOBS=1
-	fi
-fi
+		if [ -z "$JOBS" ]; then
+			if command -v nproc >/dev/null; then
+				JOBS="$(nproc)"
+			else
+				JOBS=1
+			fi
+		fi
+		;;
+esac
+
 
 #if uncommented, will build experimental cores as well which are not yet fit for release.
 #export BUILD_EXPERIMENTAL=1
