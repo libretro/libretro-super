@@ -14,20 +14,7 @@ else
 	fi
 fi
 
-if [ "$FORMAT_COMPILER_TARGET" != "ios" ]; then
-	. ${BASE_DIR}/libretro-config.sh
-else
-	# FIXME: libretro-config.sh should eventually do this stuff for iOS
-	DIST_DIR="ios"
-	FORMAT_EXT=dylib
-	IOS=1
-	FORMAT=_ios
-	FORMAT_COMPILER_TARGET=ios
-	export IOSSDK=$(xcrun -sdk iphoneos -show-sdk-path)
-	IOSVER_MAJOR=$(xcrun -sdk iphoneos -show-sdk-platform-version | cut -c '1')
-	IOSVER_MINOR=$(xcrun -sdk iphoneos -show-sdk-platform-version | cut -c '3')
-	IOSVER=${IOSVER_MAJOR}${IOSVER_MINOR}
-fi
+. ${BASE_DIR}/libretro-config.sh
 
 if [ -z "$RARCH_DIST_DIR" ]; then
 	RARCH_DIR="$WORKDIR/dist"
@@ -58,9 +45,7 @@ if [ -z "$MAKE" ]; then
 fi
 
 if [ -z "$CC" ]; then
-	if [ "$FORMAT_COMPILER_TARGET" = "ios" ]; then
-		CC="clang -arch armv7 -miphoneos-version-min=5.0 -isysroot $IOSSDK"
-	elif [ $FORMAT_COMPILER_TARGET = "osx" ]; then
+	if [ $FORMAT_COMPILER_TARGET = "osx" ]; then
 		CC=cc
 	elif uname -s | grep -i MINGW32 > /dev/null 2>&1; then
 		CC=mingw32-gcc
@@ -70,10 +55,7 @@ if [ -z "$CC" ]; then
 fi
 
 if [ -z "$CXX" ]; then
-	if [ "$FORMAT_COMPILER_TARGET" = "ios" ]; then
-		CXX="clang++ -arch armv7 -miphoneos-version-min=5.0 -isysroot $IOSSDK"
-		CXX11="clang++ -std=c++11 -stdlib=libc++ -arch armv7 -miphoneos-version-min=5.0 -isysroot $IOSSDK"
-	elif [ $FORMAT_COMPILER_TARGET = "osx" ]; then
+	if [ $FORMAT_COMPILER_TARGET = "osx" ]; then
 		CXX=c++
 		CXX11="clang++ -std=c++11 -stdlib=libc++"
 		# FIXME: Do this right later.

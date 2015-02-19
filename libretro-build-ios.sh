@@ -16,5 +16,5 @@ fi
 
 # The iOS build rules have all been moved to libretro-build.sh
 
-FORMAT_COMPILER_TARGET=ios
+platform=ios
 ${BASE_DIR}/libretro-build.sh $@
