@@ -63,7 +63,7 @@ build_should_skip() {
 build_save_revision() {
 	[ -z "$SKIP_UNCHANGED" ] && return
 	[ "$1" != "0" ] && return
-	echo $(fetch_revision) > "$WORKDIR/build_revisions/$2"
+	echo $(fetch_revision) > "$BUILD_REVISIONS_DIR/$2"
 }
 
 

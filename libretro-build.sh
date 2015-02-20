@@ -91,6 +91,8 @@ echo "STRIP = $STRIP"
 mkdir -p "$RARCH_DIST_DIR"
 
 if [ -n "$SKIP_UNCHANGED" ]; then
+	[ -z "$BUILD_REVISIONS_DIR" ] && BUILD_REVISIONS_DIR="$WORKDIR/build-revisions"
+	echo "mkdir -p \"$BUILD_REVISIONS_DIR\""
 	mkdir -p "$BUILD_REVISIONS_DIR"
 fi
 
