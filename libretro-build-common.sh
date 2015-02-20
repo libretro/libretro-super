@@ -494,7 +494,7 @@ build_libretro_mame_modern() {
 		echo "cp \"${2}_libretro${FORMAT}.$FORMAT_EXT\" \"$RARCH_DIST_DIR\""
 		cp "${2}_libretro${FORMAT}.$FORMAT_EXT" "$RARCH_DIST_DIR"
 		ret=$?
-		build_summary_log $ret "mame"
+		build_summary_log $ret "$2"
 		return $ret
 	else
 		echo 'MAME not fetched, skipping ...'
@@ -720,6 +720,9 @@ build_summary() {
 			printf -v summary "%s%s\n\n" "$summary" "$(echo $build_fail)"
 		else
 			printf -v summary "%s%s\n\n" "$summary" "       0 cores failed to build!"
+		fi
+		if [[ -z "$build_success" && -z "$build_fail" ]]; then
+			printf -v summary "%s%s\n\n" "$summary" "No build actions performed."
 		fi
 		if [ -n "$BUILD_SUMMARY" ]; then
 			echo "$summary" > "$BUILD_SUMMARY"
