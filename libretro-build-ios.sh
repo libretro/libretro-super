@@ -16,5 +16,4 @@ fi
 
 # The iOS build rules have all been moved to libretro-build.sh
 
-platform=ios
-${BASE_DIR}/libretro-build.sh $@
+platform=ios ${BASE_DIR}/libretro-build.sh $@
