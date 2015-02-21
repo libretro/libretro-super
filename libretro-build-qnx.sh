@@ -3,7 +3,7 @@
 
 SCRIPT=$(readlink -f $0)
 BASE_DIR=$(dirname $SCRIPT)
-WORKDIR=$PWD
+WORKDIR="$PWD"
 RARCH_DIR=$BASE_DIR/dist
 RARCH_DIST_DIR=$RARCH_DIR/qnx
 FORMAT=_qnx

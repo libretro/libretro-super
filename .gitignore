@@ -61,8 +61,10 @@
 /libretro-vecx/
 /libretro-virtualjaguar/
 /libretro-yabause/
+/libretro-fuse/
 /libretro-dat-pull/
-/libretro-sdk/
+/libretro-common/
 /libretrodb/
 /retroarch/
 /build-summary.log
+/build-revisions/

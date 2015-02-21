@@ -3,6 +3,7 @@
 
 SCRIPT=$(readlink -f $0)
 BASE_DIR=$(dirname $SCRIPT)
+WORKDIR="$PWD"
 RARCH_DIR=$BASE_DIR/dist
 RARCH_DIST_DIR=$RARCH_DIR/psp1
 FORMAT=_psp1
