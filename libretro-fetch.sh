@@ -53,8 +53,8 @@ fetch_tools() {
 libretro_snes9x_fetch_url="https://github.com/libretro/snes9x.git"
 libretro_snes9x_name="SNES9x"
 
-libretro_snes9x_fetch_url="https://github.com/libretro/snes9x-next.git"
-libretro_snes9x_name="SNES9x Next"
+libretro_snes9x_next_fetch_url="https://github.com/libretro/snes9x-next.git"
+libretro_snes9x_next_name="SNES9x Next"
 
 libretro_genesis_plus_gx_fetch_url="https://github.com/libretro/Genesis-Plus-GX.git"
 libretro_genesis_plus_gx="Genesis Plus GX"
@@ -540,67 +540,68 @@ if [ -n "$1" ]; then
 else
 	fetch_retroarch
 	fetch_tools
-	fetch_libretro_bsnes
-	fetch_libretro_snes9x
-	fetch_libretro_snes9x_next
-	fetch_libretro_genesis_plus_gx
-	fetch_libretro_fb_alpha
-	fetch_libretro_vba_next
-	fetch_libretro_vbam
-	fetch_libretro_handy
-	fetch_libretro_bnes
-	fetch_libretro_fceumm
-	fetch_libretro_gambatte
-	fetch_libretro_meteor
-	fetch_libretro_nxengine
-	fetch_libretro_prboom
-	fetch_libretro_stella
-	fetch_libretro_desmume
-	fetch_libretro_quicknes
-	fetch_libretro_nestopia
-	fetch_libretro_tyrquake
-	fetch_libretro_pcsx_rearmed
-	fetch_libretro_mednafen_gba
-	fetch_libretro_mednafen_lynx
-	fetch_libretro_mednafen_ngp
-	fetch_libretro_mednafen_pce_fast
-	fetch_libretro_mednafen_supergrafx
-	fetch_libretro_mednafen_psx
-	fetch_libretro_mednafen_pcfx
-	fetch_libretro_mednafen_snes
-	fetch_libretro_mednafen_vb
-	fetch_libretro_mednafen_wswan
-	fetch_libretro_scummvm
-	fetch_libretro_yabause
-	fetch_libretro_dosbox
-	fetch_libretro_virtualjaguar
-	fetch_libretro_mame078
-	fetch_libretro_mame139
-	fetch_libretro_mame
-	fetch_libretro_ffmpeg
-	fetch_libretro_bsnes_cplusplus98
-	fetch_libretro_bsnes_mercury
-	fetch_libretro_picodrive
-	fetch_libretro_tgbdual
-	fetch_libretro_mupen64plus
-	fetch_libretro_dinothawr
-	fetch_libretro_uae
-	fetch_libretro_3dengine
-	fetch_libretro_remotejoy
-	fetch_libretro_bluemsx
-	fetch_libretro_fmsx
-	fetch_libretro_2048
-	fetch_libretro_vecx
-	fetch_libretro_ppsspp
-	fetch_libretro_prosystem
-	fetch_libretro_o2em
-	fetch_libretro_4do
-	fetch_libretro_catsfc
-	fetch_libretro_stonesoup
-	fetch_libretro_hatari
-	fetch_libretro_tempgba
-	fetch_libretro_gpsp
-	fetch_libretro_emux
 	fetch_libretro_common
-	fetch_libretro_fuse
+
+	fetch_libretro_bsnes
+	libretro_fetch_core snes9x
+	libretro_fetch_core snes9x_next
+	libretro_fetch_core genesis_plus_gx
+	libretro_fetch_core fb_alpha
+	libretro_fetch_core vba_next
+	libretro_fetch_core vbam
+	libretro_fetch_core handy
+	libretro_fetch_core bnes
+	libretro_fetch_core fceumm
+	libretro_fetch_core gambatte
+	libretro_fetch_core meteor
+	libretro_fetch_core nxengine
+	libretro_fetch_core prboom
+	libretro_fetch_core stella
+	libretro_fetch_core desmume
+	libretro_fetch_core quicknes
+	libretro_fetch_core nestopia
+	libretro_fetch_core tyrquake
+	libretro_fetch_core pcsx_rearmed
+	libretro_fetch_core mednafen_gba
+	libretro_fetch_core mednafen_lynx
+	libretro_fetch_core mednafen_ngp
+	libretro_fetch_core mednafen_pce_fast
+	libretro_fetch_core mednafen_supergrafx
+	libretro_fetch_core mednafen_psx
+	libretro_fetch_core mednafen_pcfx
+	libretro_fetch_core mednafen_snes
+	libretro_fetch_core mednafen_vb
+	libretro_fetch_core mednafen_wswan
+	libretro_fetch_core scummvm
+	libretro_fetch_core yabause
+	libretro_fetch_core dosbox
+	libretro_fetch_core virtualjaguar
+	libretro_fetch_core mame078
+	libretro_fetch_core mame139
+	libretro_fetch_core mame
+	libretro_fetch_core ffmpeg
+	libretro_fetch_core bsnes_cplusplus98
+	libretro_fetch_core bsnes_mercury
+	libretro_fetch_core picodrive
+	libretro_fetch_core tgbdual
+	libretro_fetch_core mupen64plus
+	libretro_fetch_core dinothawr
+	libretro_fetch_core uae
+	libretro_fetch_core 3dengine
+	libretro_fetch_core remotejoy
+	libretro_fetch_core bluemsx
+	libretro_fetch_core fmsx
+	libretro_fetch_core 2048
+	libretro_fetch_core vecx
+	libretro_fetch_core ppsspp
+	libretro_fetch_core prosystem
+	libretro_fetch_core o2em
+	libretro_fetch_core 4do
+	libretro_fetch_core catsfc
+	libretro_fetch_core stonesoup
+	libretro_fetch_core hatari
+	libretro_fetch_core tempgba
+	libretro_fetch_core gpsp
+	libretro_fetch_core emux
+	libretro_fetch_core fuse
 fi
