@@ -463,7 +463,7 @@ build_libretro_mame_modern() {
 		echo "cd \"$build_dir\""
 		cd "$build_dir"
 
-		if [ "$IOS" ]; then
+		if [ -n "$IOS" ]; then
 			if [ -z "$NOCLEAN" ]; then
 				echo "$MAKE -f Makefile.libretro \"TARGET=$2\" \"PARTIAL=$3\" platform=\"$FORMAT_COMPILER_TARGET\" CC=\"$CC\" CXX=\"$CXX\" \"-j$JOBS\" clean"
 				$MAKE -f Makefile.libretro "TARGET=$2" "PARTIAL=$3" platform="$FORMAT_COMPILER_TARGET" CC="$CC" CXX="$CXX" "-j$JOBS" clean || die 'Failed to clean MAME'
