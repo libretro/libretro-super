@@ -1,11 +1,17 @@
 # vim: set ts=3 sw=3 noet ft=sh : bash
 
-. ${BASE_DIR}/script-modules/fetch-rules.sh
+. "${BASE_DIR}/script-modules/fetch-rules.sh"
 
 die() {
 	echo $1
 	#exit 1
 }
+
+echo_cmd() {
+	eval 'echo "$@"'
+	eval "$@"
+}
+
 
 #
 # FIXME: Okay regarding COMPILER...  It's no longer used to build any targets
@@ -37,6 +43,9 @@ echo "$FORMAT_COMPILER_TARGET"
 echo "$FORMAT_COMPILER_TARGET_ALT"
 RESET_FORMAT_COMPILER_TARGET=$FORMAT_COMPILER_TARGET
 RESET_FORMAT_COMPILER_TARGET_ALT=$FORMAT_COMPILER_TARGET_ALT
+
+CORE_SUFFIX="_lib\retro${FORMAT}.$FORMAT_EXT"
+
 
 build_summary_log() {
 	if [ "$1" -eq "0" ]; then
@@ -113,8 +122,8 @@ build_libretro_pcsx_rearmed_interpreter() {
 			echo "$MAKE -f Makefile.libretro USE_DYNAREC=0 platform=\"$FORMAT_COMPILER_TARGET\" \"-j$JOBS\""
 			$MAKE -f Makefile.libretro USE_DYNAREC=0 platform="$FORMAT_COMPILER_TARGET" "-j$JOBS" || die 'Failed to build PCSX ReARMed'
 		fi
-		echo "cp \"pcsx_rearmed_libretro${FORMAT}.$FORMAT_EXT\" \"$RARCH_DIST_DIR/pcsx_rearmed_interpreter${FORMAT}.$FORMAT_EXT\""
-		cp "pcsx_rearmed_libretro${FORMAT}.$FORMAT_EXT" "$RARCH_DIST_DIR/pcsx_rearmed_interpreter${FORMAT}.$FORMAT_EXT"
+		echo "cp \"pcsx_rearmed$CORE_SUFFIX\" \"$RARCH_DIST_DIR/pcsx_rearmed_interpreter${FORMAT}.$FORMAT_EXT\""
+		cp "pcsx_rearmed$CORE_SUFFIX" "$RARCH_DIST_DIR/pcsx_rearmed_interpreter${FORMAT}.$FORMAT_EXT"
 		build_summary_log $? "pcsx_rearmed_interpreter"
 	else
 		echo 'PCSX ReARMed not fetched, skipping ...'
@@ -139,8 +148,8 @@ build_libretro_generic_makefile_subcore() {
 		fi
 		echo "$MAKE -f $4 platform=$5 -j$JOBS"
 		$MAKE -f $4 platform=$5 -j$JOBS || die "Failed to build $2"
-		echo "cp ${2}_libretro${FORMAT}.$FORMAT_EXT $RARCH_DIST_DIR/${2}_libretro${FORMAT}.$FORMAT_EXT"
-		cp ${2}_libretro${FORMAT}.$FORMAT_EXT $RARCH_DIST_DIR/${2}_libretro${FORMAT}.$FORMAT_EXT
+		echo "cp $2$CORE_SUFFIX $RARCH_DIST_DIR/$2$CORE_SUFFIX"
+		cp $2$CORE_SUFFIX $RARCH_DIST_DIR/$2$CORE_SUFFIX
 		build_summary_log $? "$2"
 	fi
 }
@@ -160,11 +169,11 @@ build_libretro_fba_cps1() {
 
 copy_core_to_dist() {
 	if [ "$FORMAT_COMPILER_TARGET" = "theos_ios" ]; then
-		echo "cp \"objs/obj/${1}_libretro${FORMAT}.$FORMAT_EXT\" \"$RARCH_DIST_DIR\""
-		cp "objs/obj/${1}_libretro${FORMAT}.$FORMAT_EXT" "$RARCH_DIST_DIR"
+		echo "cp \"objs/obj/$1$CORE_SUFFIX\" \"$RARCH_DIST_DIR\""
+		cp "objs/obj/$1$CORE_SUFFIX" "$RARCH_DIST_DIR"
 	else
-		echo "cp \"${1}_libretro${FORMAT}.$FORMAT_EXT\" \"$RARCH_DIST_DIR\""
-		cp "${1}_libretro${FORMAT}.$FORMAT_EXT" "$RARCH_DIST_DIR"
+		echo "cp \"$1$CORE_SUFFIX\" \"$RARCH_DIST_DIR\""
+		cp "$1$CORE_SUFFIX" "$RARCH_DIST_DIR"
 	fi
 
 	ret=$?
@@ -519,8 +528,8 @@ build_libretro_mame_modern() {
 			fi
 		fi
 
-		echo "cp \"${2}_libretro${FORMAT}.$FORMAT_EXT\" \"$RARCH_DIST_DIR\""
-		cp "${2}_libretro${FORMAT}.$FORMAT_EXT" "$RARCH_DIST_DIR"
+		echo "cp \"$2$CORE_SUFFIX\" \"$RARCH_DIST_DIR\""
+		cp "$2$CORE_SUFFIX" "$RARCH_DIST_DIR"
 		ret=$?
 		build_summary_log $ret "$2"
 		return $ret
@@ -567,23 +576,28 @@ build_libretro_bsnes_modern() {
 	build_dir="$WORKDIR/libretro-$1"
 	if [ -d "$build_dir" ]; then
 		echo "=== Building $1 $3 ==="
-		echo "cd \"$build_dir\""
-		cd "$build_dir"
+		echo_cmd "cd \"$build_dir\""
 		
 		if [ -z "$NOCLEAN" ]; then
-			rm -f obj/*.{o,"$FORMAT_EXT"}
-			rm -f out/*.{o,"$FORMAT_EXT"}
+			echo_cmd "rm -f obj/*.{o,\"$FORMAT_EXT\"}"
+			echo_cmd "rm -f out/*.{o,\"$FORMAT_EXT\"}"
 		fi
-		echo "$MAKE -f Makefile platform=\"$FORMAT_COMPILER_TARGET\" compiler=\"$CXX11\" ui='target-libretro' profile=\"${3}\" \"-j$JOBS\""
-		$MAKE -f Makefile platform="$FORMAT_COMPILER_TARGET" compiler="$CXX11" ui='target-libretro' profile="${3}" "-j$JOBS" || die "Failed to build $1 $3 core"
-		echo "cp -f \"out/${1}_libretro${FORMAT}.$FORMAT_EXT\" \"$RARCH_DIST_DIR/${1}_${3}_libretro${FORMAT}.$FORMAT_EXT\""
-		cp -f "out/${1}_libretro${FORMAT}.$FORMAT_EXT" "$RARCH_DIST_DIR/${1}_${3}_libretro${FORMAT}.$FORMAT_EXT"
-		ret=$?
-		build_summary_log $ret "${1}_$3"
+
+		cmdline="$MAKE target=libretro -j$JOBS"
+		cmdline="$cmdline platform=\"$FORMAT_COMPILER_TARGET\""
+		cmdline="$cmdline compiler=\"$CXX11\""
+		ret=0
+		for a in accuracy balanced performance; do
+			echo_cmd "$cmdline profile=$a"
+			echo_cmd "cp -f \"out/${1}_$a$CORE_SUFFIX\" \"$RARCH_DIST_DIR/${1}_$a$CORE_SUFFIX\""
+			ret=$?
+			build_summary_log $ret "${1}_$a"
+			[ $ret -eq 0 ] || break
+		done
 
 		return $ret
 	else
-		echo "$1 $3 not fetched, skipping ..."
+		echo "$1 not fetched, skipping ..."
 	fi
 }
 
@@ -593,12 +607,7 @@ build_libretro_bsnes() {
 		return
 	fi
 
-	# FIXME: Do this once
-	build_libretro_bsnes_modern "bsnes" "." "performance"
-	build_libretro_bsnes_modern "bsnes" "." "balanced"
-	build_libretro_bsnes_modern "bsnes" "." "accuracy"
-
-	# TODO: Make this not depend on accuracy
+	build_libretro_bsnes_modern "bsnes"
 	build_save_revision $? bsnes
 }
 
@@ -608,12 +617,7 @@ build_libretro_bsnes_mercury() {
 		return
 	fi
 
-	set +x
-	build_libretro_bsnes_modern "bsnes_mercury" "perf" "performance"
-	build_libretro_bsnes_modern "bsnes_mercury" "balanced" "balanced"
-	build_libretro_bsnes_modern "bsnes_mercury" "." "accuracy"
-
-	# TODO: Make this not depend on accuracy
+	build_libretro_bsnes_modern "bsnes_mercury"
 	build_save_revision $? bsnes_mercury
 }
 
@@ -643,8 +647,8 @@ build_libretro_bsnes_cplusplus98() {
 			echo "$MAKE platform=\"$FORMAT_COMPILER_TARGET\" \"-j$JOBS\""
 			$MAKE platform="$FORMAT_COMPILER_TARGET" "-j$JOBS"
 		fi
-		echo "cp \"out/libretro.$FORMAT_EXT\" \"$RARCH_DIST_DIR/$CORENAME_libretro${FORMAT}.$FORMAT_EXT\""
-		cp "out/libretro.$FORMAT_EXT" "$RARCH_DIST_DIR/$CORENAME_libretro${FORMAT}.$FORMAT_EXT"
+		echo "cp \"out/libretro.$FORMAT_EXT\" \"$RARCH_DIST_DIR/$CORENAME$CORE_SUFFIX\""
+		cp "out/libretro.$FORMAT_EXT" "$RARCH_DIST_DIR/$CORENAME$CORE_SUFFIX"
 		ret=$?
 		build_summary_log $ret $CORENAME
 		build_save_revision $ret $CORENAME
@@ -679,8 +683,8 @@ build_libretro_bnes() {
 			echo "$MAKE -f Makefile \"-j$JOBS\" compiler=\"${CXX11}\""
 			$MAKE -f Makefile "-j$JOBS" compiler="${CXX11}" || die 'Failed to build bNES'
 		fi
-		echo "cp \"libretro${FORMAT}.$FORMAT_EXT\" \"$RARCH_DIST_DIR/bnes_libretro${FORMAT}.$FORMAT_EXT\""
-		cp "libretro${FORMAT}.$FORMAT_EXT" "$RARCH_DIST_DIR/bnes_libretro${FORMAT}.$FORMAT_EXT"
+		echo "cp \"libretro${FORMAT}.$FORMAT_EXT\" \"$RARCH_DIST_DIR/bnes$CORE_SUFFIX\""
+		cp "libretro${FORMAT}.$FORMAT_EXT" "$RARCH_DIST_DIR/bnes$CORE_SUFFIX"
 		ret=$?
 		build_summary_log $ret "bnes"
 		build_save_revision $ret "bnes"
@@ -760,8 +764,8 @@ build_libretro_mupen64() {
 				$MAKE platform="$FORMAT_COMPILER_TARGET_ALT" "-j$JOBS" || die 'Failed to build Mupen 64'
 			fi
 		fi
-		echo "cp \"mupen64plus_libretro${FORMAT}.$FORMAT_EXT\" \"$RARCH_DIST_DIR\""
-		cp "mupen64plus_libretro${FORMAT}.$FORMAT_EXT" "$RARCH_DIST_DIR"
+		echo "cp \"mupen64plus$CORE_SUFFIX\" \"$RARCH_DIST_DIR\""
+		cp "mupen64plus$CORE_SUFFIX" "$RARCH_DIST_DIR"
 		ret=$?
 		build_summary_log $ret "mupen64plus"
 		build_save_revision $ret "mupen64plus"
