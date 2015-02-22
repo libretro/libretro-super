@@ -3,7 +3,7 @@
 
 SCRIPT="${0#./}"
 BASE_DIR="${SCRIPT%/*}"
-WORKDIR=$PWD
+WORKDIR="$PWD"
 
 if [ "$BASE_DIR" = "$SCRIPT" ]; then
 	BASE_DIR="$WORKDIR"

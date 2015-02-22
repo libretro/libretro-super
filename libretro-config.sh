@@ -230,7 +230,8 @@ if [[ "$FORMAT_COMPILER_TARGET" = "osx" && -z "$NOUNIVERSAL" ]]; then
 			export ARCHFLAGS="-arch ppc -arch ppc64"
 			;;
 		*)
-			echo "Universal build requested with unknown ARCH=\"$ARCH\""
+			echo "Will not build universal binaries for unknown ARCH=\"$ARCH\""
+			;;
 	esac
 fi
 
