@@ -3,7 +3,7 @@
 
 SCRIPT="${0#./}"
 BASE_DIR="${SCRIPT%/*}"
-WORKDIR=$(pwd)
+WORKDIR="$PWD"
 
 if [ "$BASE_DIR" = "$SCRIPT" ]; then
 	BASE_DIR="$WORKDIR"
@@ -14,8 +14,8 @@ else
 	fi
 fi
 
-. $BASE_DIR/libretro-config.sh
-. $BASE_DIR/script-modules/fetch-rules.sh
+. "$BASE_DIR/libretro-config.sh"
+. "$BASE_DIR/script-modules/fetch-rules.sh"
 
 
 # Keep three copies so we don't have to rebuild stuff all the time.
