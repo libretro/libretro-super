@@ -3,7 +3,7 @@
 
 SCRIPT="${0#./}"
 BASE_DIR="${SCRIPT%/*}"
-WORKDIR=$PWD
+WORKDIR="$PWD"
 
 if [ "$BASE_DIR" = "$SCRIPT" ]; then
 	BASE_DIR="$WORKDIR"
@@ -14,7 +14,7 @@ else
 	fi
 fi
 
-. ${BASE_DIR}/libretro-config.sh
+. "$BASE_DIR/libretro-config.sh"
 
 if [ -z "$RARCH_DIST_DIR" ]; then
 	RARCH_DIR="$WORKDIR/dist"
