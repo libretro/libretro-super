@@ -18,22 +18,10 @@ fi
 . "$BASE_DIR/script-modules/fetch-rules.sh"
 
 
-# Keep three copies so we don't have to rebuild stuff all the time.
-# FIXME: If you need 3 copies of source to compile 3 sets of objects, you're
-#        doing it wrong.  We should fix this.
-fetch_project_bsnes()
-{
-	echo "=== Fetching $3 ==="
-	fetch_git "$1" "$2" ""
-	fetch_git "$WORKDIR/$2" "$2/perf" ""
-	fetch_git "$WORKDIR/$2" "$2/balanced" ""
-}
-
 # TODO: Move all of these rules to their own file
 
-# FIXME: Not ready for a meta-fetch rule
-#libretro_bsnes_fetch_url="https://github.com/libretro/bsnes-libretro.git"
-#libretro_bsnes_name="bsnes/higan"
+libretro_bsnes_fetch_url="https://github.com/libretro/bsnes-libretro.git"
+libretro_bsnes_name="bsnes/higan"
 
 libretro_snes9x_fetch_url="https://github.com/libretro/snes9x.git"
 libretro_snes9x_name="SNES9x"
@@ -273,10 +261,6 @@ fetch_tools() {
 	fetch_git "https://github.com/libretro/libretro-common.git" "libretro-common" "libretro/common"
 }
 
-fetch_libretro_bsnes() {
-	fetch_project_bsnes "https://github.com/libretro/bsnes-libretro.git" "libretro-bsnes" "libretro/bSNES"
-}
-
 
 if [ -n "$1" ]; then
 	while [ -n "$1" ]; do
@@ -296,9 +280,7 @@ else
 	fetch_retroarch
 	fetch_tools
 
-	# TODO: Modular rules-based fetch needed
-	fetch_libretro_bsnes
-
+	libretro_fetch_core bsnes
 	libretro_fetch_core snes9x
 	libretro_fetch_core snes9x_next
 	libretro_fetch_core genesis_plus_gx

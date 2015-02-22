@@ -593,8 +593,9 @@ build_libretro_bsnes() {
 		return
 	fi
 
-	build_libretro_bsnes_modern "bsnes" "perf" "performance"
-	build_libretro_bsnes_modern "bsnes" "balanced" "balanced"
+	# FIXME: Do this once
+	build_libretro_bsnes_modern "bsnes" "." "performance"
+	build_libretro_bsnes_modern "bsnes" "." "balanced"
 	build_libretro_bsnes_modern "bsnes" "." "accuracy"
 
 	# TODO: Make this not depend on accuracy
