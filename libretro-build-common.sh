@@ -481,14 +481,14 @@ build_libretro_mame_modern() {
 		else
 			[ "$X86_64" = "true" ] && PTR64=1
 			if [ -z "$NOCLEAN" ]; then
-				echo_cmd "$MAKE PTR64=1 -f Makefile.libretro \"TARGET=$2\" \"PARTIAL=$3\" platform=\"$FORMAT_COMPILER_TARGET\" \"-j$JOBS\" clean" || die 'Failed to clean MAME'
+				echo_cmd "$MAKE PTR64=\"$PTR64\" -f Makefile.libretro \"TARGET=$2\" \"PARTIAL=$3\" platform=\"$FORMAT_COMPILER_TARGET\" \"-j$JOBS\" clean" || die 'Failed to clean MAME'
 			fi
 
 			if [ "$CC $CXX" != " " ]; then
-				echo_cmd "$MAKE PTR64=1 -f Makefile.libretro \"TARGET=$2\" platform=\"$FORMAT_COMPILER_TARGET\" CC=\"$CC\" CXX=\"$CXX\" \"-j$JOBS\"" || die 'Failed to build MAME'
+				echo_cmd "$MAKE PTR64=\"$PTR64\" -f Makefile.libretro \"TARGET=$2\" platform=\"$FORMAT_COMPILER_TARGET\" CC=\"$CC\" CXX=\"$CXX\" \"-j$JOBS\"" || die 'Failed to build MAME'
 			else
 				# TODO: Remove this condition post-1.1
-				echo_cmd "$MAKE PTR64=1 -f Makefile.libretro \"TARGET=$2\" platform=\"$FORMAT_COMPILER_TARGET\" \"-j$JOBS\"" || die 'Failed to build MAME'
+				echo_cmd "$MAKE PTR64=\"$PTR64\" -f Makefile.libretro \"TARGET=$2\" platform=\"$FORMAT_COMPILER_TARGET\" \"-j$JOBS\"" || die 'Failed to build MAME'
 			fi
 		fi
 
