@@ -105,14 +105,8 @@ build_libretro_pcsx_rearmed_interpreter() {
 		echo_cmd "cd \"$build_dir\""
 
 		if [ -z "$NOCLEAN" ]; then
-			if [ "$CC $CXX" != " " ]; then
-				echo "$MAKE -f Makefile.libretro platform=\"$FORMAT_COMPILER_TARGET\" CC=\"$CC\" CXX=\"$CXX\" \"-j$JOBS\" clean"
-				$MAKE -f Makefile.libretro platform="$FORMAT_COMPILER_TARGET" CC="$CC" CXX="$CXX" "-j$JOBS" clean || die 'Failed to clean PCSX ReARMed'
-			else
-				# TODO: Remove this condition post-1.1
-				echo "$MAKE -f Makefile.libretro platform=\"$FORMAT_COMPILER_TARGET\" \"-j$JOBS\" clean"
-				$MAKE -f Makefile.libretro platform="$FORMAT_COMPILER_TARGET" "-j$JOBS" clean || die 'Failed to clean PCSX ReARMed'
-			fi
+			echo "$MAKE -f Makefile.libretro platform=\"$FORMAT_COMPILER_TARGET\" \"-j$JOBS\" clean"
+			$MAKE -f Makefile.libretro platform="$FORMAT_COMPILER_TARGET" "-j$JOBS" clean || die 'Failed to clean PCSX ReARMed'
 		fi
 		if [ "$CC $CXX" != " " ]; then
 			echo "$MAKE -f Makefile.libretro USE_DYNAREC=0 platform=\"$FORMAT_COMPILER_TARGET\" CC=\"$CC\" CXX=\"$CXX\" \"-j$JOBS\""
@@ -184,14 +178,8 @@ build_libretro_generic() {
 	echo_cmd "cd \"$5/$2\""
 
 	if [ -z "$NOCLEAN" ]; then
-		if [ "$CC $CXX" != " " ]; then
-			echo "$MAKE -f \"$3\" platform=\"$4\" CC=\"$CC\" CXX=\"$CXX\" \"-j$JOBS\" clean"
-			$MAKE -f "$3" platform="$4" CC="$CC" CXX="$CXX" "-j$JOBS" clean || die "Failed to clean $1"
-		else
-			# TODO: Remove this condition post-1.1
-			echo "$MAKE -f \"$3\" platform=\"$4\" \"-j$JOBS\" clean"
-			$MAKE -f "$3" platform="$4" "-j$JOBS" clean || die "Failed to clean $1"
-		fi
+		echo "$MAKE -f \"$3\" platform=\"$4\" \"-j$JOBS\" clean"
+		$MAKE -f "$3" platform="$4" "-j$JOBS" clean || die "Failed to clean $1"
 	fi
 	if [ "$CC $CXX" != " " ]; then
 		echo "$MAKE -f \"$3\" platform=\"$4\" CC=\"$CC\" CXX=\"$CXX\" \"-j$JOBS\""
@@ -497,8 +485,8 @@ build_libretro_mame_modern() {
 		if [ -n "$IOS" ]; then
 			# iOS must set CC/CXX
 			if [ -z "$NOCLEAN" ]; then
-				echo "$MAKE -f Makefile.libretro \"TARGET=$2\" \"PARTIAL=$3\" platform=\"$FORMAT_COMPILER_TARGET\" CC=\"$CC\" CXX=\"$CXX\" \"-j$JOBS\" clean"
-				$MAKE -f Makefile.libretro "TARGET=$2" "PARTIAL=$3" platform="$FORMAT_COMPILER_TARGET" CC="$CC" CXX="$CXX" "-j$JOBS" clean || die 'Failed to clean MAME'
+				echo "$MAKE -f Makefile.libretro \"TARGET=$2\" \"PARTIAL=$3\" platform=\"$FORMAT_COMPILER_TARGET\" \"-j$JOBS\" clean"
+				$MAKE -f Makefile.libretro "TARGET=$2" "PARTIAL=$3" platform="$FORMAT_COMPILER_TARGET" "-j$JOBS" clean || die 'Failed to clean MAME'
 			fi
 			echo "$MAKE -f Makefile.libretro \"TARGET=$2\" platform=\"$FORMAT_COMPILER_TARGET\" CC=\"$CC\" CXX=\"$CXX\" \"NATIVE=1\" buildtools \"-j$JOBS\""
 			$MAKE -f Makefile.libretro "TARGET=$2" platform="$FORMAT_COMPILER_TARGET" CC="$CC" CXX="$CXX" "NATIVE=1" buildtools "-j$JOBS" || die 'Failed to build MAME buildtools'
@@ -507,15 +495,10 @@ build_libretro_mame_modern() {
 		else
 			[ "$X86_64" = "true" ] && PTR64=1
 			if [ -z "$NOCLEAN" ]; then
-				if [ "$CC $CXX" != " " ]; then
-					echo "$MAKE PTR64=1 -f Makefile.libretro \"TARGET=$2\" \"PARTIAL=$3\" platform=\"$FORMAT_COMPILER_TARGET\" CC=\"$CC\" CXX=\"$CXX\" \"-j$JOBS\" clean"
-					$MAKE PTR64=1 -f Makefile.libretro "TARGET=$2" "PARTIAL=$3" platform="$FORMAT_COMPILER_TARGET" CC="$CC" CXX="$CXX" "-j$JOBS" clean || die 'Failed to clean MAME'
-				else
-					# TODO: Remove this condition post-1.1
-					echo "$MAKE PTR64=1 -f Makefile.libretro \"TARGET=$2\" \"PARTIAL=$3\" platform=\"$FORMAT_COMPILER_TARGET\" \"-j$JOBS\" clean"
-					$MAKE PTR64=1 -f Makefile.libretro "TARGET=$2" "PARTIAL=$3" platform="$FORMAT_COMPILER_TARGET" "-j$JOBS" clean || die 'Failed to clean MAME'
-				fi
+				echo "$MAKE PTR64=1 -f Makefile.libretro \"TARGET=$2\" \"PARTIAL=$3\" platform=\"$FORMAT_COMPILER_TARGET\" \"-j$JOBS\" clean"
+				$MAKE PTR64=1 -f Makefile.libretro "TARGET=$2" "PARTIAL=$3" platform="$FORMAT_COMPILER_TARGET" "-j$JOBS" clean || die 'Failed to clean MAME'
 			fi
+
 			if [ "$CC $CXX" != " " ]; then
 				echo "$MAKE PTR64=1 -f Makefile.libretro \"TARGET=$2\" platform=\"$FORMAT_COMPILER_TARGET\" CC=\"$CC\" CXX=\"$CXX\" \"-j$JOBS\""
 				$MAKE "PTR64=$PTR64" -f Makefile.libretro "TARGET=$2" platform="$FORMAT_COMPILER_TARGET" CC="$CC" CXX="$CXX" "-j$JOBS" || die 'Failed to build MAME'
@@ -636,6 +619,7 @@ build_libretro_bsnes_cplusplus98() {
 			echo "$MAKE clean"
 			$MAKE clean || die "Failed to clean $CORENAME"
 		fi
+
 		if [ "$CC $CXX" != " " ]; then
 			echo "$MAKE platform=\"$FORMAT_COMPILER_TARGET\" CC=\"$CC\" CXX=\"$CXX\" \"-j$JOBS\""
 			$MAKE platform="$FORMAT_COMPILER_TARGET" CC="$CC" CXX="$CXX" "-j$JOBS"
