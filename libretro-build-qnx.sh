@@ -17,7 +17,7 @@ CC="qcc -Vgcc_ntoarmv7le"
 CXX="QCC -Vgcc_ntoarmv7le"
 CXX11="QCC -Vgcc_ntoarmv7le"
 
-. ./libretro-build-common.sh
+. "$BASE_DIR/libretro-build-common.sh"
 
 if [ $1 ]; then
 	$1
