@@ -254,7 +254,7 @@ fetch_retroarch() {
 	fetch_git "https://github.com/libretro/libretro-database.git" "retroarch/media/libretrodb" ""
 }
 
-fetch_tools() {
+fetch_devkit() {
 	fetch_git "https://github.com/libretro/libretro-manifest.git" "libretro-manifest" "libretro/libretro-manifest"
 	fetch_git "https://github.com/libretro/libretrodb.git" "libretrodb" "libretro/libretrodb"
 	fetch_git "https://github.com/libretro/libretro-dat-pull.git" "libretro-dat-pull" "libretro/libretro-dat-pull"
@@ -278,7 +278,7 @@ if [ -n "$1" ]; then
 	done
 else
 	fetch_retroarch
-	fetch_tools
+	fetch_devkit
 
 	libretro_fetch_core bsnes
 	libretro_fetch_core snes9x
