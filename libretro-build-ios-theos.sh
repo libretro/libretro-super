@@ -1,9 +1,21 @@
 #! /usr/bin/env bash
 # vim: set ts=3 sw=3 noet ft=sh : bash
 
+SCRIPT="${0#./}"
+BASE_DIR="${SCRIPT%/*}"
+WORKDIR="$PWD"
+
+if [ "$BASE_DIR" = "$SCRIPT" ]; then
+	BASE_DIR="$WORKDIR"
+else
+	if [[ "$0" != /* ]]; then
+		# Make the path absolute
+		BASE_DIR="$WORKDIR/$BASE_DIR"
+	fi
+fi
+
 set -e
 
-BASE_DIR="$PWD"
 RARCH_DIR=$BASE_DIR/dist
 RARCH_DIST_DIR=$RARCH_DIR/theos_ios
 FORMAT=_ios
@@ -15,7 +27,7 @@ MAKE=make
 CXX11="clang++ -std=c++11 -stdlib=libc++ -miphoneos-version-min=5.0"
 IOS=1
 
-. ./libretro-build-common.sh
+. "$BASE_DIR/libretro-build-common.sh"
 
 if [ $1 ]; then
 	$1

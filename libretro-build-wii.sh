@@ -1,9 +1,19 @@
 #! /usr/bin/env bash
 # vim: set ts=3 sw=3 noet ft=sh : bash
 
-SCRIPT=$(readlink -f $0)
-BASE_DIR=$(dirname $SCRIPT)
+SCRIPT="${0#./}"
+BASE_DIR="${SCRIPT%/*}"
 WORKDIR="$PWD"
+
+if [ "$BASE_DIR" = "$SCRIPT" ]; then
+	BASE_DIR="$WORKDIR"
+else
+	if [[ "$0" != /* ]]; then
+		# Make the path absolute
+		BASE_DIR="$WORKDIR/$BASE_DIR"
+	fi
+fi
+
 RARCH_DIR=$BASE_DIR/dist
 RARCH_DIST_DIR=$RARCH_DIR/wii
 FORMAT=_wii
@@ -13,8 +23,8 @@ FORMAT_EXT=a
 JOBS=7
 MAKE=make
 
-. ./libretro-build-common-gx.sh
-. ./libretro-build-common.sh
+. "$BASE_DIR/libretro-build-common-gx.sh"
+. "$BASE_DIR/libretro-build-common.sh"
 
 if [ $1 ]; then
 	$1

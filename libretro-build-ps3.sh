@@ -13,7 +13,7 @@ FORMAT_EXT=a
 JOBS=7
 MAKE=make
 
-. ./libretro-build-common.sh
+. "$BASE_DIR/libretro-build-common.sh"
 
 if [ $1 ]; then
 	$1
