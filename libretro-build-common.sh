@@ -10,6 +10,7 @@ die() {
 echo_cmd() {
 	eval 'echo "$@"'
 	eval "$@"
+	return $?
 }
 
 
@@ -101,8 +102,7 @@ build_libretro_pcsx_rearmed_interpreter() {
 	build_dir="$WORKDIR/libretro-pcsx_rearmed"
 	if [ -d "$build_dir" ]; then
 		echo '=== Building PCSX ReARMed Interpreter ==='
-		echo "cd \"$build_dir\""
-		cd "$build_dir"
+		echo_cmd "cd \"$build_dir\""
 
 		if [ -z "$NOCLEAN" ]; then
 			if [ "$CC $CXX" != " " ]; then
@@ -139,8 +139,7 @@ build_libretro_generic_makefile_subcore() {
 	build_dir="$WORKDIR/libretro-$1"
 	if [ -d "$build_dir" ]; then
 		echo "=== Building $2 ==="
-		echo "cd \"$build_dir/$3\""
-		cd "$build_dir/$3"
+		echo_cmd "cd \"$build_dir/$3\""
 
 		if [ -z "$NOCLEAN" ]; then
 			echo "$MAKE -f \"$4\" platform=$5 -j$JOBS clean"
@@ -182,7 +181,7 @@ copy_core_to_dist() {
 }
 
 build_libretro_generic() {
-	cd "$5/$2"
+	echo_cmd "cd \"$5/$2\""
 
 	if [ -z "$NOCLEAN" ]; then
 		if [ "$CC $CXX" != " " ]; then
@@ -493,8 +492,7 @@ build_libretro_mame_modern() {
 	if [ -d "$build_dir" ]; then
 		echo ''
 		echo "=== Building $1 ==="
-		echo "cd \"$build_dir\""
-		cd "$build_dir"
+		echo_cmd "cd \"$build_dir\""
 
 		if [ -n "$IOS" ]; then
 			# iOS must set CC/CXX
@@ -632,8 +630,7 @@ build_libretro_bsnes_cplusplus98() {
 
 	if [ -d "$build_dir" ]; then
 		echo "=== Building $CORENAME ==="
-		echo "cd \"$build_dir\""
-		cd "$build_dir"
+		echo_cmd "cd \"$build_dir\""
 
 		if [ -z "$NOCLEAN" ]; then
 			echo "$MAKE clean"
@@ -667,8 +664,7 @@ build_libretro_bnes() {
 
 	if [ -d "$build_dir" ]; then
 		echo '=== Building bNES ==='
-		echo "cd \"$build_dir\""
-		cd "$build_dir"
+		echo_cmd "cd \"$build_dir\""
 
 		mkdir -p obj
 		if [ -z "$NOCLEAN" ]; then
@@ -703,8 +699,7 @@ build_libretro_mupen64() {
 	fi
 
 	if [ -d "$build_dir" ]; then
-		echo "cd \"$build_dir\""
-		cd "$build_dir"
+		echo_cmd "cd \"$build_dir\""
 
 		mkdir -p obj
 		if [ "$X86" ] && [ "$X86_64" ]; then
