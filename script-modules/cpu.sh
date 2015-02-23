@@ -13,32 +13,33 @@ host_cpu() {
 
 
 
-cpu_isx86() {
+iscpu_x86() {
    case ${1:-`uname -m`} in
-      i386|i586|i686|x86_64) echo "true" ;;
-      *) [ "${PROCESSOR_ARCHITEW6432}" = "AMD64" ] && echo "true" ;;
+      i386|i486|i586|i686|x86_64) return 0 ;;
+      *) [ "${PROCESSOR_ARCHITEW6432}" = "AMD64" ] && return 0 ;;
    esac
+	return 1
 }
 
-cpu_isx86_64() {
+iscpu_x86_64() {
    [ ${1:-`uname -m`} = "x86_64" ] && return 0
 	return 1
 }
 
-cpu_isarm() {
+iscpu_arm() {
    case ${1:-`uname -m`} in
       armv*) return 0 ;;
    esac
 	return 1
 }
 
-cpu_isarmv5() {
+iscpu_armv5() {
    [ "${1:-`uname -m`}" = "armv5tel" ] && return 0
 	return 1
 }
 
 # Consider using armv6* here?
-cpu_isarmv6() {
+iscpu_armv6() {
 	case ${1:-`uname -m`} in
 		armv6l|armv6) return 0 ;;
 	esac
@@ -47,7 +48,7 @@ cpu_isarmv6() {
 
 # Consider using armv7* here?
 # armv7s is Apple A6 chip
-cpu_isarmv7() {
+iscpu_armv7() {
 	case ${1:-`uname -m`} in
 		armv7l|armv7|armv7s) return 0 ;;
 	esac

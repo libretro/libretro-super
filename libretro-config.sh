@@ -24,6 +24,7 @@ case "$platform" in
 		DIST_DIR="ios"
 		FORMAT_EXT=dylib
 		IOS=1
+		ARCH=armv7
 		FORMAT=_ios
 		FORMAT_COMPILER_TARGET=ios
 		FORMAT_COMPILER_TARGET_ALT=ios
