@@ -1,29 +1,19 @@
 #! /usr/bin/env bash
 # vim: set ts=3 sw=3 noet ft=sh : bash
 
-. ./libretro-config.sh
+SCRIPT="${0#./}"
+BASE_DIR="${SCRIPT%/*}"
+WORKDIR="$PWD"
 
-# BSDs don't have readlink -f
-read_link()
-{
-	TARGET_FILE="$1"
-	cd $(dirname "$TARGET_FILE")
-	TARGET_FILE=$(basename "$TARGET_FILE")
+if [ "$BASE_DIR" = "$SCRIPT" ]; then
+	BASE_DIR="$WORKDIR"
+else
+	if [[ "$0" != /* ]]; then
+		# Make the path absolute
+		BASE_DIR="$WORKDIR/$BASE_DIR"
+	fi
+fi
 
-	while [ -L "$TARGET_FILE" ]
-	do
-		TARGET_FILE=$(readlink "$TARGET_FILE")
-		cd $(dirname "$TARGET_FILE")
-		TARGET_FILE=$(basename "$TARGET_FILE")
-	done
-
-	PHYS_DIR=$(pwd -P)
-	RESULT="$PHYS_DIR/$TARGET_FILE"
-	echo $RESULT
-}
-
-SCRIPT=$(read_link "$0")
-BASE_DIR=$(dirname "$SCRIPT")
 RARCH_DIR="$BASE_DIR/dist"
 RARCH_DIST_DIR="$RARCH_DIR/$DIST_DIR"
 
@@ -37,7 +27,7 @@ mkdir -p "$LIBRETRO_DIR"
 for lib in "$RARCH_DIST_DIR"/*
 do
 	if [ -f "$lib" ]; then
-		install -v -m644 "$lib" "$LIBRETRO_DIR"
+		install -v -m 644 "$lib" "$LIBRETRO_DIR"
 	else
 		echo "Library $lib not found, skipping ..."
 	fi
@@ -46,7 +36,7 @@ done
 for infofile in "$RARCH_DIR"/info/*.info
 do
 	if [ -f "$infofile" ]; then
-		install -v -m644 "$infofile" "$LIBRETRO_DIR"
+		install -v -m 644 "$infofile" "$LIBRETRO_DIR"
 	fi
 done
 
