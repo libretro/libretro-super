@@ -1,6 +1,7 @@
 # vim: set ts=3 sw=3 noet ft=sh : bash
 
 . "${BASE_DIR}/script-modules/fetch-rules.sh"
+. "${BASE_DIR}/script-modules/cpu.sh"
 
 die() {
 	echo $1
@@ -660,51 +661,26 @@ build_libretro_mupen64() {
 		echo_cmd "cd \"$build_dir\""
 
 		mkdir -p obj
-		if [ "$X86" ] && [ "$X86_64" ]; then
-			echo '=== Building Mupen 64 Plus (x86_64 dynarec) ==='
-			if [ -z "$NOCLEAN" ]; then
-				echo_cmd "$MAKE WITH_DYNAREC='x86_64' platform=\"$FORMAT_COMPILER_TARGET_ALT\" \"-j$JOBS\" clean" || die 'Failed to clean Mupen 64 (x86_64 dynarec)'
-			fi
-			if [ "$CC $CXX" != " " ]; then
-				echo_cmd "$MAKE WITH_DYNAREC='x86_64' platform=\"$FORMAT_COMPILER_TARGET_ALT\" CC=\"$CC\" CXX=\"$CXX\" \"-j$JOBS\"" || die 'Failed to build Mupen 64 (x86_64 dynarec)'
-			else
-				# TODO: Remove this condition post-1.1
-				echo_cmd "$MAKE WITH_DYNAREC='x86_64' platform=\"$FORMAT_COMPILER_TARGET_ALT\" \"-j$JOBS\"" || die 'Failed to build Mupen 64 (x86_64 dynarec)'
-			fi
-		elif [ "$X86" ]; then
-			echo '=== Building Mupen 64 Plus (x86 32bit dynarec) ==='
-			if [ -z "$NOCLEAN" ]; then
-				echo_cmd "$MAKE WITH_DYNAREC='x86' platform=\"$FORMAT_COMPILER_TARGET_ALT\" \"-j$JOBS\" clean" || die 'Failed to clean Mupen 64 (x86 dynarec)'
-			fi
-			if [ "$CC $CXX" != " " ]; then
-				echo_cmd "$MAKE WITH_DYNAREC='x86' platform=\"$FORMAT_COMPILER_TARGET_ALT\" CC=\"$CC\" CXX=\"$CXX\" \"-j$JOBS\"" || die 'Failed to build Mupen 64 (x86 dynarec)'
-			else
-				# TODO: Remove this condition post-1.1
-				echo_cmd "$MAKE WITH_DYNAREC='x86' platform=\"$FORMAT_COMPILER_TARGET_ALT\" \"-j$JOBS\"" || die 'Failed to build Mupen 64 (x86 dynarec)'
-			fi
-		elif [ "${CORTEX_A8}" ] || [ "${CORTEX_A9}" ] || [ "${IOS}" ]; then
-			echo '=== Building Mupen 64 Plus (ARM dynarec) ==='
-			if [ -z "$NOCLEAN" ]; then
-				echo_cmd "$MAKE WITH_DYNAREC='arm' platform=\"$FORMAT_COMPILER_TARGET_ALT\" \"-j$JOBS\"" || die 'Failed to clean Mupen 64 (ARM dynarec)'
-			fi
-			if [ "$CC $CXX" != " " ]; then
-				echo_cmd "$MAKE WITH_DYNAREC='arm' platform=\"$FORMAT_COMPILER_TARGET_ALT\" CC=\"$CC\" CXX=\"$CXX\" \"-j$JOBS\"" || die 'Failed to build Mupen 64 (ARM dynarec)'
-			else
-				# TODO: Remove this condition post-1.1
-				echo_cmd "$MAKE WITH_DYNAREC='arm' platform=\"$FORMAT_COMPILER_TARGET_ALT\" \"-j$JOBS\"" || die 'Failed to build Mupen 64 (ARM dynarec)'
-			fi
-		else
-			echo '=== Building Mupen 64 Plus ==='
-			if [ -z "$NOCLEAN" ]; then
-				echo_cmd "$MAKE \"-j$JOBS\" clean" || die 'Failed to clean Mupen 64'
-			fi
-			if [ "$CC $CXX" != " " ]; then
-				echo_cmd "$MAKE platform=\"$FORMAT_COMPILER_TARGET_ALT\" CC=\"$CC\" CXX=\"$CXX\" \"-j$JOBS\"" || die 'Failed to build Mupen 64'
-			else
-				# TODO: Remove this condition post-1.1
-				echo_cmd "$MAKE platform=\"$FORMAT_COMPILER_TARGET_ALT\" \"-j$JOBS\"" || die 'Failed to build Mupen 64'
-			fi
+
+		if iscpu_x86_64 $ARCH; then
+			dynarec="WITH_DYNAREC=x86_64"
+		elif iscpu_x86 $ARCH; then
+			dynarec="WITH_DYNAREC=x86"
+		elif [ "${CORTEX_A8}" ] || [ "${CORTEX_A9}" ] || [ "$platform" = "ios" ]; then
+			dynarec="WITH_DYNAREC=arm"
 		fi
+
+		echo '=== Building Mupen 64 Plus ==='
+		if [ -z "$NOCLEAN" ]; then
+			echo_cmd "$MAKE $dynarec platform=\"$FORMAT_COMPILER_TARGET_ALT\" \"-j$JOBS\" clean" || die 'Failed to clean Mupen 64'
+		fi
+
+		if [ "$CC $CXX" != " " ]; then
+			echo_cmd "$MAKE $dynarec platform=\"$FORMAT_COMPILER_TARGET_ALT\" CC=\"$CC\" CXX=\"$CXX\" \"-j$JOBS\"" || die 'Failed to build Mupen 64'
+		else
+			echo_cmd "$MAKE $dynarec platform=\"$FORMAT_COMPILER_TARGET_ALT\" \"-j$JOBS\"" || die 'Failed to build Mupen 64'
+		fi
+
 		echo_cmd "cp \"mupen64plus$CORE_SUFFIX\" \"$RARCH_DIST_DIR\""
 		ret=$?
 		build_summary_log $ret "mupen64plus"
