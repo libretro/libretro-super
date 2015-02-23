@@ -16,13 +16,11 @@ echo_cmd() {
 
 
 #
-# FIXME: Okay regarding COMPILER...  It's no longer used to build any targets
-# in this file because it doesn't let you specify arguments to the compiler
-# such as CC="gcc -something".  We need to be able to do that on the Mac in
-# particular because we need to be able to specify -arch to build on a CPU
-# other than the default.
+# Regarding COMPILER...  It didn't used to be safe.  Now it is, provided that
+# you are using it in a command line passed to echo_cmd without additional
+# quoting, like so:
 #
-# Basically, if you use this variable, you should stop.  :)
+#  echo_cmd "$MAKE TARGET=\"libretro\" $COMPILER OTHERVAR=\"$SOMETHING\""
 #
 if [ "${CC}" ] && [ "${CXX}" ]; then
 	COMPILER="CC=\"${CC}\" CXX=\"${CXX}\""
@@ -109,12 +107,7 @@ build_libretro_pcsx_rearmed_interpreter() {
 		if [ -z "$NOCLEAN" ]; then
 			echo_cmd "$MAKE -f Makefile.libretro platform=\"$FORMAT_COMPILER_TARGET\" \"-j$JOBS\" clean" || die 'Failed to clean PCSX ReARMed'
 		fi
-		if [ "$CC $CXX" != " " ]; then
-			echo_cmd "$MAKE -f Makefile.libretro USE_DYNAREC=0 platform=\"$FORMAT_COMPILER_TARGET\" CC=\"$CC\" CXX=\"$CXX\" \"-j$JOBS\"" || die 'Failed to build PCSX ReARMed'
-		else
-			# TODO: Remove this condition post-1.1
-			echo_cmd "$MAKE -f Makefile.libretro USE_DYNAREC=0 platform=\"$FORMAT_COMPILER_TARGET\" \"-j$JOBS\"" || die 'Failed to build PCSX ReARMed'
-		fi
+		echo_cmd "$MAKE -f Makefile.libretro USE_DYNAREC=0 platform=\"$FORMAT_COMPILER_TARGET\" $COMPILER \"-j$JOBS\"" || die 'Failed to build PCSX ReARMed'
 		echo_cmd "cp \"pcsx_rearmed$CORE_SUFFIX\" \"$RARCH_DIST_DIR/pcsx_rearmed_interpreter${FORMAT}.$FORMAT_EXT\""
 		build_summary_log $? "pcsx_rearmed_interpreter"
 	else
@@ -173,12 +166,7 @@ build_libretro_generic() {
 	if [ -z "$NOCLEAN" ]; then
 		echo_cmd "$MAKE -f \"$3\" platform=\"$4\" \"-j$JOBS\" clean" || die "Failed to clean $1"
 	fi
-	if [ "$CC $CXX" != " " ]; then
-		echo_cmd "$MAKE -f \"$3\" platform=\"$4\" CC=\"$CC\" CXX=\"$CXX\" \"-j$JOBS\"" || die "Failed to build $1"
-	else
-		# TODO: Remove this condition post-1.1
-		echo_cmd "$MAKE -f \"$3\" platform=\"$4\" \"-j$JOBS\"" || die "Failed to build $1"
-	fi
+	echo_cmd "$MAKE -f \"$3\" platform=\"$4\" $COMPILER \"-j$JOBS\"" || die "Failed to build $1"
 }
 
 # build_libretro_generic_makefile
@@ -473,11 +461,10 @@ build_libretro_mame_modern() {
 		echo_cmd "cd \"$build_dir\""
 
 		if [ -n "$IOS" ]; then
-			# iOS must set CC/CXX
 			if [ -z "$NOCLEAN" ]; then
 				echo_cmd "$MAKE -f Makefile.libretro \"TARGET=$2\" \"PARTIAL=$3\" platform=\"$FORMAT_COMPILER_TARGET\" \"-j$JOBS\" clean" || die 'Failed to clean MAME'
 			fi
-			echo_cmd "$MAKE -f Makefile.libretro \"TARGET=$2\" platform=\"$FORMAT_COMPILER_TARGET\" CC=\"$CC\" CXX=\"$CXX\" \"NATIVE=1\" buildtools \"-j$JOBS\"" || die 'Failed to build MAME buildtools'
+			echo_cmd "$MAKE -f Makefile.libretro \"TARGET=$2\" platform=\"$FORMAT_COMPILER_TARGET\" $COMPILER \"NATIVE=1\" buildtools \"-j$JOBS\"" || die 'Failed to build MAME buildtools'
 			echo_cmd "$MAKE -f Makefile.libretro \"TARGET=$2\" platform=\"$FORMAT_COMPILER_TARGET\" CC=\"$CC\" CXX=\"$CXX\" emulator \"-j$JOBS\"" || die 'Failed to build MAME (iOS)'
 		else
 			[ "$X86_64" = "true" ] && PTR64=1
@@ -485,12 +472,7 @@ build_libretro_mame_modern() {
 				echo_cmd "$MAKE PTR64=\"$PTR64\" -f Makefile.libretro \"TARGET=$2\" \"PARTIAL=$3\" platform=\"$FORMAT_COMPILER_TARGET\" \"-j$JOBS\" clean" || die 'Failed to clean MAME'
 			fi
 
-			if [ "$CC $CXX" != " " ]; then
-				echo_cmd "$MAKE PTR64=\"$PTR64\" -f Makefile.libretro \"TARGET=$2\" platform=\"$FORMAT_COMPILER_TARGET\" CC=\"$CC\" CXX=\"$CXX\" \"-j$JOBS\"" || die 'Failed to build MAME'
-			else
-				# TODO: Remove this condition post-1.1
-				echo_cmd "$MAKE PTR64=\"$PTR64\" -f Makefile.libretro \"TARGET=$2\" platform=\"$FORMAT_COMPILER_TARGET\" \"-j$JOBS\"" || die 'Failed to build MAME'
-			fi
+			echo_cmd "$MAKE PTR64=\"$PTR64\" -f Makefile.libretro \"TARGET=$2\" platform=\"$FORMAT_COMPILER_TARGET\" $COMPILER \"-j$JOBS\"" || die 'Failed to build MAME'
 		fi
 
 		echo_cmd "cp \"$2$CORE_SUFFIX\" \"$RARCH_DIST_DIR\""
@@ -602,12 +584,7 @@ build_libretro_bsnes_cplusplus98() {
 			echo_cmd "$MAKE clean" || die "Failed to clean $CORENAME"
 		fi
 
-		if [ "$CC $CXX" != " " ]; then
-			echo_cmd "$MAKE platform=\"$FORMAT_COMPILER_TARGET\" CC=\"$CC\" CXX=\"$CXX\" \"-j$JOBS\""
-		else
-			# TODO: Remove this condition post-1.1
-			echo_cmd "$MAKE platform=\"$FORMAT_COMPILER_TARGET\" \"-j$JOBS\""
-		fi
+		echo_cmd "$MAKE platform=\"$FORMAT_COMPILER_TARGET\" $COMPILER \"-j$JOBS\""
 		echo_cmd "cp \"out/libretro.$FORMAT_EXT\" \"$RARCH_DIST_DIR/$CORENAME$CORE_SUFFIX\""
 		ret=$?
 		build_summary_log $ret $CORENAME
@@ -633,12 +610,7 @@ build_libretro_bnes() {
 		if [ -z "$NOCLEAN" ]; then
 			echo_cmd "$MAKE -f Makefile \"-j$JOBS\" clean" || die 'Failed to clean bNES'
 		fi
-		if [ "$CC $CXX" != " " ]; then
-			echo_cmd "$MAKE -f Makefile CC=\"$CC\" CXX=\"$CXX\" \"-j$JOBS\" compiler=\"${CXX11}\"" || die 'Failed to build bNES'
-		else
-			# TODO: Remove this condition post-1.1
-			echo_cmd "$MAKE -f Makefile \"-j$JOBS\" compiler=\"${CXX11}\"" || die 'Failed to build bNES'
-		fi
+		echo_cmd "$MAKE -f Makefile $COMPILER \"-j$JOBS\" compiler=\"${CXX11}\"" || die 'Failed to build bNES'
 		echo_cmd "cp \"libretro${FORMAT}.$FORMAT_EXT\" \"$RARCH_DIST_DIR/bnes$CORE_SUFFIX\""
 		ret=$?
 		build_summary_log $ret "bnes"
@@ -675,11 +647,7 @@ build_libretro_mupen64() {
 			echo_cmd "$MAKE $dynarec platform=\"$FORMAT_COMPILER_TARGET_ALT\" \"-j$JOBS\" clean" || die 'Failed to clean Mupen 64'
 		fi
 
-		if [ "$CC $CXX" != " " ]; then
-			echo_cmd "$MAKE $dynarec platform=\"$FORMAT_COMPILER_TARGET_ALT\" CC=\"$CC\" CXX=\"$CXX\" \"-j$JOBS\"" || die 'Failed to build Mupen 64'
-		else
-			echo_cmd "$MAKE $dynarec platform=\"$FORMAT_COMPILER_TARGET_ALT\" \"-j$JOBS\"" || die 'Failed to build Mupen 64'
-		fi
+		echo_cmd "$MAKE $dynarec platform=\"$FORMAT_COMPILER_TARGET_ALT\" $COMPILER \"-j$JOBS\"" || die 'Failed to build Mupen 64'
 
 		echo_cmd "cp \"mupen64plus$CORE_SUFFIX\" \"$RARCH_DIST_DIR\""
 		ret=$?
