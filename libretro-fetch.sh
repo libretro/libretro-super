@@ -30,7 +30,7 @@ libretro_snes9x_next_fetch_url="https://github.com/libretro/snes9x-next.git"
 libretro_snes9x_next_name="SNES9x Next"
 
 libretro_genesis_plus_gx_fetch_url="https://github.com/libretro/Genesis-Plus-GX.git"
-libretro_genesis_plus_gx="Genesis Plus GX"
+libretro_genesis_plus_gx_name="Genesis Plus GX"
 
 libretro_fb_alpha_fetch_url="https://github.com/libretro/fba-libretro.git"
 libretro_fb_alpha_name="Final Burn Alpha"
@@ -152,6 +152,7 @@ libretro_mupen64plus_fetch_url="https://github.com/libretro/mupen64plus-libretro
 libretro_mupen64plus_name="Mupen64Plus"
 
 libretro_dinothawr_fetch_url="https://github.com/libretro/Dinothawr.git"
+libretro_dinothawr_name="Dinothawr"
 
 libretro_uae_fetch_url="https://github.com/libretro/libretro-uae.git"
 libretro_uae_name="UAE"
@@ -254,7 +255,7 @@ fetch_retroarch() {
 	fetch_git "https://github.com/libretro/libretro-database.git" "retroarch/media/libretrodb" ""
 }
 
-fetch_tools() {
+fetch_devkit() {
 	fetch_git "https://github.com/libretro/libretro-manifest.git" "libretro-manifest" "libretro/libretro-manifest"
 	fetch_git "https://github.com/libretro/libretrodb.git" "libretrodb" "libretro/libretrodb"
 	fetch_git "https://github.com/libretro/libretro-dat-pull.git" "libretro-dat-pull" "libretro/libretro-dat-pull"
@@ -278,7 +279,7 @@ if [ -n "$1" ]; then
 	done
 else
 	fetch_retroarch
-	fetch_tools
+	fetch_devkit
 
 	libretro_fetch_core bsnes
 	libretro_fetch_core snes9x

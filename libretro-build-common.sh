@@ -196,19 +196,23 @@ build_libretro_generic_makefile() {
 	fi
 }
 
-build_retroarch_generic_makefile() {
+build_libretro_test() {
 	build_dir="$WORKDIR/$1"
 
-	if build_should_skip $1 "$build_dir"; then
-		echo "Core $1 is already built, skipping..."
+	if build_should_skip "test" "$build_dir"; then
+		echo "Core test is already built, skipping..."
 		return
 	fi
 
 	if [ -d "$build_dir" ]; then
-		echo "=== Building $2 ==="
-		build_libretro_generic $1 "$2" "$3" $4 "$build_dir"
-		copy_core_to_dist $5
-		build_save_revision $? $1
+		echo "=== Building RetroArch test cores ==="
+		build_libretro_generic "retroarch" "libretro-test-gl" "Makefile" $FORMAT_COMPILER_TARGET "$build_dir"
+		copy_core_to_dist "testgl"
+		build_libretro_generic "retroarch" "libretro-test" "Makefile" $FORMAT_COMPILER_TARGET "$build_dir"
+		copy_core_to_dist "test"
+
+		# TODO: Check for more than test here...
+		build_save_revision $? "test"
 	else
 		echo "$1 not fetched, skipping ..."
 	fi
@@ -265,14 +269,6 @@ build_libretro_emux() {
 
 	# TODO: Check for more than emux_sms here...
 	build_save_revision $? "emux"
-}
-
-build_libretro_test() {
-	build_retroarch_generic_makefile "retroarch" "libretro-test" "Makefile" $FORMAT_COMPILER_TARGET "test"
-}
-
-build_libretro_testgl() {
-	build_retroarch_generic_makefile "retroarch" "libretro-test-gl" "Makefile" $FORMAT_COMPILER_TARGET "testgl"
 }
 
 build_libretro_picodrive() {

@@ -169,9 +169,6 @@ else
 	build_libretro_emux
 	build_libretro_fuse
 	build_libretro_test
-	if [ $FORMAT_COMPILER_TARGET != "ios" ]; then
-		build_libretro_testgl
-	fi
 fi
 build_summary
 
