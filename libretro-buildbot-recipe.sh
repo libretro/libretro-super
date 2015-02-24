@@ -965,6 +965,16 @@ then
 	android update project --path libs/googleplay --target android-21
 	android update project --path libs/appcompat --target android-21
 	ant debug
+                if [ $? -eq 0 ];
+                then
+                        MESSAGE="retroarch build successful ($jobid)"
+                        echo $MESSAGE
+		else
+                        MESSAGE="retroarch buildf failed ($jobid)"
+                        echo $MESSAGE
+		fi
+                        buildbot_log "$MESSAGE"
+
 	fi
 
 fi
