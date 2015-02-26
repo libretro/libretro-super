@@ -88,9 +88,6 @@ if [ -n "$1" ]; then
 		shift
 	done
 else
-	fetch_retroarch
-	fetch_devkit
-
 	libretro_fetch_core bsnes
 	libretro_fetch_core snes9x
 	libretro_fetch_core snes9x_next
@@ -153,4 +150,7 @@ else
 	libretro_fetch_core gpsp
 	libretro_fetch_core emux
 	libretro_fetch_core fuse
+
+	fetch_devkit
+	fetch_retroarch
 fi
