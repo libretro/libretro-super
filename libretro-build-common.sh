@@ -4,6 +4,8 @@
 . "$BASE_DIR/script-modules/fetch-rules.sh"
 . "$BASE_DIR/script-modules/cpu.sh"
 
+. "$BASE_DIR/core-rules.sh"
+
 die() {
 	echo $1
 	#exit 1
@@ -200,6 +202,88 @@ build_libretro_generic_makefile() {
 	fi
 }
 
+# build_makefile
+#
+# $1	Name of the core
+# $2	Subdirectory of makefile (use "." for none)
+# $3	Name of makefile
+# $4	Either FORMAT_COMPILER_TARGET or an alternative
+# $5	Skip copying (for cores that don't produce exactly one core)
+build_makefile() {
+	[ -n "$core_build_subdir" ] && core_build_subdir="/$core_build_subdir"
+
+	make_cmdline="$MAKE"
+	if [ -n "$core_build_makefile" ]; then
+		make_cmdline="$make_cmdline -f $core_build_makefile"
+	fi
+
+	# TODO: Do this better
+	make_cmdline="$make_cmdline platform=\"${core_build_platform:-$FORMAT_COMPILER_TARGET}\""
+
+	[ -n "$JOBS" ] && make_cmdline="$make_cmdline -j$JOBS"
+
+	build_dir="$WORKDIR/$core_dir$core_build_subdir"
+
+	if build_should_skip $1 "$build_dir"; then
+		echo "Core $1 is already built, skipping..."
+		return
+	fi
+
+
+	if [ -d "$build_dir" ]; then
+		echo_cmd "cd \"$build_dir\""
+
+		if [ -z "$NOCLEAN" ]; then
+			echo_cmd "$make_cmdline clean"
+		fi
+		make_cmdline="$make_cmdline $COMPILER"
+		echo_cmd "$make_cmdline"
+
+		# TODO: Make this a separate stage rule
+		copy_core_to_dist $1
+	else
+		echo "$1 not fetched, skipping ..."
+	fi
+}
+
+
+# libretro_build_core: Build the given core using its build rules
+#
+# $1	Name of the core to build
+libretro_build_core() {
+	eval "core_name=\$libretro_${1}_name"
+	[ -z "$core_name" ] && core_name="$1"
+	echo "=== $core_name"
+
+	eval "core_build_rule=\$libretro_${1}_build_rule"
+	[ -z "$core_build_rule" ] && core_build_rule=build_makefile
+
+	eval "core_dir=\$libretro_${1}_dir"
+	[ -z "$core_dir" ] && core_dir="libretro-$1"
+
+	case "$core_build_rule" in
+		build_makefile)
+			eval "core_build_makefile=\$libretro_${1}_build_makefile"
+			eval echo "core_build_makefile=\$libretro_${1}_build_makefile"
+
+			eval "core_build_subdir=\$libretro_${1}_build_subdir"
+			eval echo "core_build_subdir=\$libretro_${1}_build_subdir"
+
+			eval "core_build_platform=\$libretro_${1}_build_platform"
+			eval echo "core_build_platform=\$libretro_${1}_build_platform"
+
+			echo "Building ${1}..."
+			$core_build_rule $1
+
+			;;
+		*)
+			echo "libretro_build_core:Unknown build rule for $1: \"$core_build_rule\"."
+			exit 1
+			;;
+	esac
+}
+
+
 build_libretro_test() {
 	build_dir="$WORKDIR/$1"
 
@@ -224,41 +308,6 @@ build_libretro_test() {
 	fi
 }
 
-build_libretro_stonesoup() {
-	build_libretro_generic_makefile "stonesoup" "crawl-ref" "Makefile.libretro" $FORMAT_COMPILER_TARGET
-}
-
-build_libretro_hatari() {
-	build_libretro_generic_makefile "hatari" "." "Makefile.libretro" $FORMAT_COMPILER_TARGET
-}
-
-build_libretro_prosystem() {
-	build_libretro_generic_makefile "prosystem" "." "Makefile" $FORMAT_COMPILER_TARGET
-}
-
-build_libretro_4do() {
-	build_libretro_generic_makefile "4do" "." "Makefile" $FORMAT_COMPILER_TARGET
-}
-
-build_libretro_o2em() {
-	build_libretro_generic_makefile "o2em" "." "Makefile" $FORMAT_COMPILER_TARGET
-}
-
-build_libretro_virtualjaguar() {
-	build_libretro_generic_makefile "virtualjaguar" "." "Makefile" $FORMAT_COMPILER_TARGET
-}
-
-build_libretro_tgbdual() {
-	build_libretro_generic_makefile "tgbdual" "." "Makefile" $FORMAT_COMPILER_TARGET
-}
-
-build_libretro_nx() {
-	build_libretro_generic_makefile "nxengine" "." "Makefile" $FORMAT_COMPILER_TARGET
-}
-
-build_libretro_catsfc() {
-	build_libretro_generic_makefile "catsfc" "." "Makefile" $FORMAT_COMPILER_TARGET
-}
 
 build_libretro_emux() {
 	if build_should_skip emux "$WORKDIR/libretro-emux"; then
@@ -277,162 +326,6 @@ build_libretro_emux() {
 	build_save_revision $? "emux"
 }
 
-build_libretro_picodrive() {
-	build_libretro_generic_makefile "picodrive" "." "Makefile.libretro" $FORMAT_COMPILER_TARGET
-}
-
-build_libretro_tyrquake() {
-	build_libretro_generic_makefile "tyrquake" "." "Makefile.libretro" $FORMAT_COMPILER_TARGET
-}
-
-build_libretro_2048() {
-	build_libretro_generic_makefile "2048" "." "Makefile.libretro" $FORMAT_COMPILER_TARGET
-}
-
-build_libretro_vecx() {
-	build_libretro_generic_makefile "vecx" "." "Makefile.libretro" $FORMAT_COMPILER_TARGET
-}
-
-build_libretro_stella() {
-	build_libretro_generic_makefile "stella" "." "Makefile" $FORMAT_COMPILER_TARGET
-}
-
-build_libretro_bluemsx() {
-	build_libretro_generic_makefile "bluemsx" "." "Makefile.libretro" $FORMAT_COMPILER_TARGET
-}
-
-build_libretro_handy() {
-	build_libretro_generic_makefile "handy" "." "Makefile" $FORMAT_COMPILER_TARGET
-}
-
-build_libretro_fmsx() { 
-	build_libretro_generic_makefile "fmsx" "." "Makefile" $FORMAT_COMPILER_TARGET
-}
-
-build_libretro_gpsp() {
-	build_libretro_generic_makefile "gpsp" "." "Makefile" $FORMAT_COMPILER_TARGET_ALT
-}
-
-build_libretro_fuse() {
-	build_libretro_generic_makefile "fuse" "." "Makefile.libretro" $FORMAT_COMPILER_TARGET_ALT
-}
-
-build_libretro_vba_next() {
-	build_libretro_generic_makefile "vba_next" "." "Makefile.libretro" $FORMAT_COMPILER_TARGET_ALT
-}
-
-build_libretro_vbam() {
-	build_libretro_generic_makefile "vbam" "src/libretro" "Makefile" $FORMAT_COMPILER_TARGET_ALT
-}
-
-build_libretro_snes9x_next() {
-	build_libretro_generic_makefile "snes9x_next" "." "Makefile.libretro" $FORMAT_COMPILER_TARGET_ALT
-}
-
-build_libretro_dinothawr() {
-	build_libretro_generic_makefile "dinothawr" "." "Makefile" $FORMAT_COMPILER_TARGET_ALT
-}
-
-build_libretro_genesis_plus_gx() {
-	build_libretro_generic_makefile "genesis_plus_gx" "." "Makefile.libretro" $FORMAT_COMPILER_TARGET
-}
-
-build_libretro_mame078() {
-	build_libretro_generic_makefile "mame078" "." "makefile" $FORMAT_COMPILER_TARGET
-}
-
-build_libretro_prboom() {
-	build_libretro_generic_makefile "prboom" "." "Makefile" $FORMAT_COMPILER_TARGET_ALT
-}
-
-build_libretro_pcsx_rearmed() {
-	build_libretro_generic_makefile "pcsx_rearmed" "." "Makefile.libretro" $FORMAT_COMPILER_TARGET
-}
-
-build_libretro_fceumm() {
-	build_libretro_generic_makefile "fceumm" "." "Makefile.libretro" $FORMAT_COMPILER_TARGET
-}
-
-build_libretro_beetle_snes() {
-	build_libretro_generic_makefile "mednafen_snes" "." "Makefile" $FORMAT_COMPILER_TARGET
-}
-
-build_libretro_beetle_lynx() {
-	build_libretro_generic_makefile "mednafen_lynx" "." "Makefile" $FORMAT_COMPILER_TARGET
-}
-
-build_libretro_beetle_wswan() {
-	build_libretro_generic_makefile "mednafen_wswan" "." "Makefile" $FORMAT_COMPILER_TARGET
-}
-
-build_libretro_beetle_gba() {
-	build_libretro_generic_makefile "mednafen_gba" "." "Makefile" $FORMAT_COMPILER_TARGET
-}
-
-build_libretro_beetle_ngp() {
-	build_libretro_generic_makefile "mednafen_ngp" "." "Makefile" $FORMAT_COMPILER_TARGET
-}
-
-build_libretro_beetle_pce_fast() {
-	build_libretro_generic_makefile "mednafen_pce_fast" "." "Makefile" $FORMAT_COMPILER_TARGET
-}
-
-build_libretro_beetle_vb() {
-	build_libretro_generic_makefile "mednafen_vb" "." "Makefile" $FORMAT_COMPILER_TARGET
-}
-
-build_libretro_beetle_pcfx() {
-	build_libretro_generic_makefile "mednafen_pcfx" "." "Makefile" $FORMAT_COMPILER_TARGET
-}
-
-build_libretro_beetle_psx() {
-	build_libretro_generic_makefile "beetle_psx" "." "Makefile" $FORMAT_COMPILER_TARGET
-}
-
-build_libretro_mednafen_psx() {
-	build_libretro_generic_makefile "mednafen_psx" "." "Makefile" $FORMAT_COMPILER_TARGET
-}
-
-build_libretro_beetle_supergrafx() {
-	build_libretro_generic_makefile "mednafen_supergrafx" "." "Makefile" $FORMAT_COMPILER_TARGET
-}
-
-build_libretro_meteor() {
-	build_libretro_generic_makefile "meteor" "libretro" "Makefile" $FORMAT_COMPILER_TARGET
-}
-
-build_libretro_nestopia() {
-	build_libretro_generic_makefile "nestopia" "libretro" "Makefile" $FORMAT_COMPILER_TARGET
-}
-
-build_libretro_gambatte() {
-	build_libretro_generic_makefile "gambatte" "libgambatte" "Makefile.libretro" $FORMAT_COMPILER_TARGET_ALT
-}
-
-build_libretro_yabause() {
-	build_libretro_generic_makefile "yabause" "libretro" "Makefile" $FORMAT_COMPILER_TARGET
-}
-
-build_libretro_desmume() {
-	build_libretro_generic_makefile "desmume" "desmume" "Makefile.libretro" $FORMAT_COMPILER_TARGET
-}
-
-build_libretro_snes9x() {
-	build_libretro_generic_makefile "snes9x" "libretro" "Makefile" $FORMAT_COMPILER_TARGET
-}
-
-build_libretro_quicknes() {
-	build_libretro_generic_makefile "quicknes" "libretro" "Makefile" $FORMAT_COMPILER_TARGET
-}
-
-build_libretro_dosbox() {
-	build_libretro_generic_makefile "dosbox" "." "Makefile.libretro" $FORMAT_COMPILER_TARGET
-}
-
-build_libretro_fb_alpha() {
-	build_libretro_generic_makefile "fb_alpha" "svn-current/trunk" "makefile.libretro" $FORMAT_COMPILER_TARGET
-}
-
 build_libretro_ffmpeg() {
 	if check_opengl; then
 		build_libretro_generic_makefile "ffmpeg" "libretro" "Makefile" $FORMAT_COMPILER_TARGET
@@ -445,10 +338,6 @@ build_libretro_3dengine() {
 		build_libretro_generic_makefile "3dengine" "." "Makefile" $FORMAT_COMPILER_TARGET
 		reset_compiler_targets
 	fi
-}
-
-build_libretro_scummvm() {
-	build_libretro_generic_makefile "scummvm" "backends/platform/libretro/build" "Makefile" $FORMAT_COMPILER_TARGET
 }
 
 build_libretro_ppsspp() {
