@@ -1,19 +1,13 @@
 # vim: set ts=3 sw=3 noet ft=sh : bash
 
-. "${BASE_DIR}/script-modules/fetch-rules.sh"
-. "${BASE_DIR}/script-modules/cpu.sh"
+. "$BASE_DIR/script-modules/util.sh"
+. "$BASE_DIR/script-modules/fetch-rules.sh"
+. "$BASE_DIR/script-modules/cpu.sh"
 
 die() {
 	echo $1
 	#exit 1
 }
-
-echo_cmd() {
-	eval 'echo "$@"'
-	eval "$@"
-	return $?
-}
-
 
 #
 # Regarding COMPILER...  It didn't used to be safe.  Now it is, provided that

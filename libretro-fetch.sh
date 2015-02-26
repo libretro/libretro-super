@@ -15,6 +15,7 @@ else
 fi
 
 . "$BASE_DIR/libretro-config.sh"
+. "$BASE_DIR/script-modules/util.sh"
 . "$BASE_DIR/script-modules/fetch-rules.sh"
 
 # Rules for fetching cores are in this file:
@@ -45,8 +46,9 @@ libretro_fetch_core() {
 			eval "core_git_submodules=\$libretro_${1}_git_submodules"
 			eval "core_git_submodules_update=\$libretro_${1}_git_submodules_update"
 
+			# TODO: Don't depend on fetch_rule being git
 			echo "Fetching ${1}..."
-			$core_fetch_rule "$core_fetch_url" "$core_dir" "" $core_git_submodules $core_git_submodules_update
+			$core_fetch_rule "$core_fetch_url" "$core_dir" $core_git_submodules $core_git_submodules_update
 			;;
 		*)
 			echo "libretro_fetch_core:Unknown fetch rule for $1: \"$core_fetch_rule\"."
@@ -56,26 +58,30 @@ libretro_fetch_core() {
 }
 
 fetch_retroarch() {
-	echo "=== Fetching RetroArch ==="
-	fetch_git "https://github.com/libretro/RetroArch.git" "retroarch" ""
-	fetch_git "https://github.com/libretro/common-shaders.git" "retroarch/media/shaders_cg" ""
-	fetch_git "https://github.com/libretro/common-overlays.git" "retroarch/media/overlays" ""
-	fetch_git "https://github.com/libretro/retroarch-assets.git" "retroarch/media/assets" ""
-	fetch_git "https://github.com/libretro/retroarch-joypad-autoconfig.git" "retroarch/media/autoconfig" ""
-	fetch_git "https://github.com/libretro/libretro-database.git" "retroarch/media/libretrodb" ""
+	echo "=== RetroArch"
+	echo "Fetching retroarch..."
+	fetch_git "https://github.com/libretro/RetroArch.git" "retroarch"
+	echo_cmd "cd \"$WORKDIR/retroarch\""
+	echo_cmd "./fetch-submodules.sh"
 }
 
 fetch_devkit() {
-	fetch_git "https://github.com/libretro/libretro-manifest.git" "libretro-manifest" "libretro/libretro-manifest"
-	fetch_git "https://github.com/libretro/libretrodb.git" "libretrodb" "libretro/libretrodb"
-	fetch_git "https://github.com/libretro/libretro-dat-pull.git" "libretro-dat-pull" "libretro/libretro-dat-pull"
-	fetch_git "https://github.com/libretro/libretro-common.git" "libretro-common" "libretro/common"
+	echo "=== libretro Developer's Kit"
+	echo "Fetching the libretro devkit..."
+	fetch_git "https://github.com/libretro/libretro-manifest.git" "libretro-manifest"
+	fetch_git "https://github.com/libretro/libretrodb.git" "libretrodb"
+	fetch_git "https://github.com/libretro/libretro-dat-pull.git" "libretro-dat-pull"
+	fetch_git "https://github.com/libretro/libretro-common.git" "libretro-common"
 }
 
 
 if [ -n "$1" ]; then
 	while [ -n "$1" ]; do
 		case "$1" in
+			fetch_retroarch|fetch_devkit)
+				# These don't have rule-based fetch yet.
+				$1
+				;;
 			fetch_libretro_*)
 				# "Old"-style
 				$1

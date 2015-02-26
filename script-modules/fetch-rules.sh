@@ -4,35 +4,27 @@
 #
 # $1	The URI to fetch
 # $2	The local directory to fetch to (relative)
-# $3  The pretty name for the === Fetching line ("" to print nothing)
-# $4	Set to clone --recursive
-# $5	Set to pull --recursive
+# $3	Set to clone --recursive
+# $4	Set to pull --recursive
 #
 # NOTE: git _now_ has a -C argument that would replace the cd commands in
 #       this rule, but this is a fairly recent addition to git, so we can't
 #       use it here.  --iKarith
 fetch_git() {
 	fetch_dir="$WORKDIR/$2"
-	[ -n "$3" ] && echo "=== Fetching $3 ==="
 	if [ -d "$fetch_dir/.git" ]; then
-		echo "cd \"$fetch_dir\""
-		cd "$fetch_dir"
-		echo "git pull"
-		git pull
-		if [ -n "$5" ]; then
-			echo "git submodule foreach git pull origin master"
-			git submodule foreach git pull origin master
+		echo_cmd "cd \"$fetch_dir\""
+		echo_cmd "git pull"
+		if [ -n "$4" ]; then
+			echo_cmd "git submodule foreach git pull origin master"
 		fi
 	else
 		clone_type=
-		[ -n "$SHALLOW_CLONE" ] && depth="--depth 1"
-		echo "git clone $depth \"$1\" \"$WORKDIR/$2\""
-		git clone $depth "$1" "$WORKDIR/$2"
-		if [ -n "$4" ]; then
-			echo "cd \"$fetch_dir\""
-			cd "$fetch_dir"
-			echo "git submodule update --init"
-			git submodule update --init
+		[ -n "$SHALLOW_CLONE" ] && depth="--depth 1 "
+		echo_cmd "git clone $depth\"$1\" \"$WORKDIR/$2\""
+		if [ -n "$3" ]; then
+			echo_cmd "cd \"$fetch_dir\""
+			echo_cmd "git submodule update --init"
 		fi
 	fi
 }
