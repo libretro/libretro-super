@@ -1,0 +1,4 @@
+gambatte libretro-gambatte https://github.com/libretro/gambatte-libretro.git PROJECT YES GENERIC_ALT Makefile.libretro libgambatte
+fceumm libretro-fceuumm  https://github.com/libretro/libretro-fceumm.git PROJECT YES GENERIC Makefile.libretro .
+nxengine libretro-nxengine https://github.com/libretro/nxengine-libretro.git PROJECT YES GENERIC Makefile .
+

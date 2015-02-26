@@ -727,109 +727,6 @@ echo
 cd $WORK
 BUILD=""
 
-if [ "${PLATFORM}" == "psp1" ];
-then
-
-	while read line; do
-
-		NAME=`echo $line | cut --fields=1 --delimiter=" "`
-		DIR=`echo $line | cut --fields=2 --delimiter=" "`
-		URL=`echo $line | cut --fields=3 --delimiter=" "`
-		TYPE=`echo $line | cut --fields=4 --delimiter=" "`
-		ENABLED=`echo $line | cut --fields=5 --delimiter=" "`
-		SUBDIR=`echo $line | cut --fields=8 --delimiter=" "`
-
-		if [ "${ENABLED}" == "YES" ];
-		then
-			echo "BUILDBOT JOB: $jobid Processing $NAME"
-			echo 
-			echo NAME: $NAME
-			echo DIR: $DIR
-			echo SUBDIR: $SUBDIR
-			echo URL: $URL
-			echo REPO TYPE: $TYPE
-			echo ENABLED: $ENABLED
-
-			ARGS=""
-
-			TEMP=`echo $line | cut --fields=9 --delimiter=" "`
-			if [ -n ${TEMP} ];
-			then
-				ARGS="${TEMP}"
-			fi
-			TEMP=""
-			TEMP=`echo $line | cut --fields=10 --delimiter=" "`
-			if [ -n ${TEMP} ];
-			then
-				ARGS="${ARGS} ${TEMP}"
-			fi
-			TEMP=""
-			TEMP=`echo $line | cut --fields=11 --delimiter=" "`
-			if [ -n ${TEMP} ];
-			then
-				ARGS="${ARGS} ${TEMP}"
-			fi
-			TEMP=""
-			TEMP=`echo $line | cut --fields=12 --delimiter=" "`
-			if [ -n ${TEMP} ];
-			then
-				ARGS="${ARGS} ${TEMP}"
-			fi
-			TEMP=""
-			TEMP=`echo $line | cut --fields=13 --delimiter=" "`
-			if [ -n ${TEMP} ];
-			then
-				ARGS="${ARGS} ${TEMP}"
-			fi
-			TEMP=""
-			TEMP=`echo $line | cut --fields=14 --delimiter=" "`
-			if [ -n ${TEMP} ];
-			then
-				ARGS="${ARGS} ${TEMP}"
-			fi
-
-			ARGS="${ARGS%"${ARGS##*[![:space:]]}"}"  
-
-			echo ARGS: $ARGS
-
-			if [ -d "${DIR}/.git" ];
-			then
-
-				cd $DIR
-				echo "pulling from repo... "
-				OUT=`git pull`
-				echo $OUT
-				if [[ $OUT == *"Already up-to-date"* ]]
-				then
-					BUILD="NO"
-				else
-					BUILD="YES"
-				fi
-				cd ..
-
-			else
-				echo "cloning repo..."
-				git clone "$URL" "$DIR" --depth=1
-				cd $DIR
-				BUILD="YES"
-				cd ..
-			fi
-		fi
-
-		if [ "${BUILD}" == "YES" -o "${FORCE}" == "YES" ];
-		then
-			cd $DIR
-			rm -rfv psp1/pkg/
-			cd dist-scripts
-			rm *.a
-			cp -v $RARCH_DIST_DIR/* .
-			sh ./psp1-cores.sh
-		fi
-
-	done  < $1.ra
-
-fi
-
 if [ "${PLATFORM}" == "android" ] && [ "${RA}" == "YES" ];
 then
 
@@ -1358,6 +1255,191 @@ EOF
 	fi
 
 fi
+
+if [ "${PLATFORM}" == "psp1" ] && [ "${RA}" == "YES" ];
+then
+
+	while read line; do
+
+		NAME=`echo $line | cut --fields=1 --delimiter=" "`
+		DIR=`echo $line | cut --fields=2 --delimiter=" "`
+		URL=`echo $line | cut --fields=3 --delimiter=" "`
+		TYPE=`echo $line | cut --fields=4 --delimiter=" "`
+		ENABLED=`echo $line | cut --fields=5 --delimiter=" "`
+		PARENTDIR=`echo $line | cut --fields=6 --delimiter=" "`
+
+		if [ "${ENABLED}" == "YES" ];
+		then
+			echo "BUILDBOT JOB: $jobid Processing $NAME"
+			echo 
+			echo NAME: $NAME
+			echo DIR: $DIR
+			echo PARENT: $PARENTDIR
+			echo URL: $URL
+			echo REPO TYPE: $TYPE
+			echo ENABLED: $ENABLED
+
+			ARGS=""
+
+			TEMP=`echo $line | cut --fields=9 --delimiter=" "`
+			if [ -n ${TEMP} ];
+			then
+				ARGS="${TEMP}"
+		fi
+		TEMP=""
+		TEMP=`echo $line | cut --fields=10 --delimiter=" "`
+		if [ -n ${TEMP} ];
+		then
+			ARGS="${ARGS} ${TEMP}"
+		fi
+		TEMP=""
+		TEMP=`echo $line | cut --fields=11 --delimiter=" "`
+		if [ -n ${TEMP} ];
+		then
+			ARGS="${ARGS} ${TEMP}"
+		fi
+		TEMP=""
+		TEMP=`echo $line | cut --fields=12 --delimiter=" "`
+		if [ -n ${TEMP} ];
+		then
+			ARGS="${ARGS} ${TEMP}"
+		fi
+		TEMP=""
+		TEMP=`echo $line | cut --fields=13 --delimiter=" "`
+		if [ -n ${TEMP} ];
+		then
+			ARGS="${ARGS} ${TEMP}"
+		fi
+		TEMP=""
+		TEMP=`echo $line | cut --fields=14 --delimiter=" "`
+		if [ -n ${TEMP} ];
+		then
+			ARGS="${ARGS} ${TEMP}"
+		fi
+
+		ARGS="${ARGS%"${ARGS##*[![:space:]]}"}"
+
+		echo ARGS: $ARGS
+
+		if [ -d "${PARENTDIR}/${DIR}/.git" ];
+		then
+		cd $PARENTDIR
+			cd $DIR
+			echo "pulling from repo... "
+			OUT=`git pull`
+			echo $OUT
+			if [ "${TYPE}" == "PROJECT" ];
+			then
+				RADIR=$DIR
+				if [[ $OUT == *"Already up-to-date"* ]]
+				then
+					BUILD="NO"
+				else	
+					BUILD="YES"
+				fi
+			fi
+			cd $WORK
+		else
+			echo "cloning repo..."
+			cd $PARENTDIR
+			git clone "$URL" "$DIR" --depth=1
+			cd $DIR
+	
+			if [ "${TYPE}" == "PROJECT" ];
+			then
+				BUILD="YES"
+				RADIR=$DIR
+
+			fi
+			cd $WORK
+		fi
+	fi
+
+	echo
+	echo
+	done  < $1.ra
+	if [ "${BUILD}" == "YES" -o "${FORCE}" == "YES" ];
+	then
+
+		cd $RADIR
+        rm -rfv psp1/pkg
+		echo "BUILDBOT JOB: $jobid Building"
+		echo 
+
+	if [ "${BUILD}" == "YES" -o "${FORCE}" == "YES" ];
+	then
+
+		cd dist-scripts
+		rm *.a
+		cp -v $RARCH_DIST_DIR/* .
+		sh ./psp1-cores.sh
+        if [ $? -eq 0 ];
+        then
+            MESSAGE="retroarch build successful ($jobid)"
+            echo $MESSAGE
+	    else
+            MESSAGE="retroarch build failed ($jobid)"
+            echo $MESSAGE
+		fi
+        buildbot_log "$MESSAGE"
+        cd ..      
+
+	fi            
+			
+			echo "Packaging"
+			echo ============================================
+			cp retroarch.cfg retroarch.default.cfg
+cat << EOF > retroarch.cfg
+assets_directory = ":\assets"
+audio_filter_dir = ":\filters\audio"
+cheat_database_path = ":\cheats"
+config_save_on_exit = "true"
+content_database_directory = ":\database\rdb"
+cursor_directory = ":\database\cursors"
+input_joypad_driver = "winxinput"
+input_osk_overlay_enable = "false"
+input_remapping_directory = ":\config"
+joypad_autoconfig_dir = ":\autoconfig"
+libretro_directory = ":\cores"
+load_dummy_on_core_shutdown = "false"
+menu_collapse_subgroups_enable = "true"
+osk_overlay_directory = ":\overlays"
+overlay_directory = ":\overlays"
+playlist_directory = ":\playlists"
+rgui_browser_directory = ":\content"
+rgui_config_directory = ":\config"
+savefile_directory = ":\saves"
+savestate_directory = ":\states"
+screenshot_directory = ":\screenshots"
+system_directory = ":\system"
+video_driver = "gl"
+video_filter_dir = ":\filters\video"
+video_shader_dir = ":\shaders"
+
+EOF
+
+			
+			
+			mkdir -p psp1/pkg/
+			mkdir -p psp1/pkg/overlays
+			mkdir -p psp1/pkg/cheats
+			mkdir -p psp1/pkg/database
+			mkdir -p psp1/pkg/database/cursors
+			mkdir -p psp1/pkg/database/rdb
+			
+			cp -v *.cfg psp1/pkg/
+			cp -Rfv media/overlays/* psp1/pkg/overlays
+			cp -Rfv media/libretrodb/cht/* psp1/pkg/cheats
+			cp -Rfv media/libretrodb/rdb/* psp1/pkg/database/rdb
+			cp -Rfv media/libretrodb/cursors/* psp1/pkg/database/cursors
+
+												
+
+
+	fi
+
+fi
+
 
 
 PATH=$ORIGPATH
