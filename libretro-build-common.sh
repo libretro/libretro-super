@@ -78,8 +78,8 @@ build_save_revision() {
 
 
 check_opengl() {
-	if [ "${BUILD_LIBRETRO_GL}" ]; then
-		if [ "${ENABLE_GLES}" ]; then
+	if [ "$BUILD_LIBRETRO_GL" ]; then
+		if [ "$ENABLE_GLES" ]; then
 			echo '=== OpenGL ES enabled ==='
 			export FORMAT_COMPILER_TARGET="$FORMAT_COMPILER_TARGET-gles"
 			export FORMAT_COMPILER_TARGET_ALT="$FORMAT_COMPILER_TARGET"
@@ -90,7 +90,10 @@ check_opengl() {
 		fi
 	else
 		echo '=== OpenGL disabled in build ==='
+		return 1
 	fi
+
+	return 0
 }
 
 reset_compiler_targets() {
@@ -100,6 +103,12 @@ reset_compiler_targets() {
 
 build_libretro_pcsx_rearmed_interpreter() {
 	build_dir="$WORKDIR/libretro-pcsx_rearmed"
+
+	if build_should_skip "pcsx_rearmed_interpreter" "$build_dir"; then
+		echo "Core test is already built, skipping..."
+		return
+	fi
+
 	if [ -d "$build_dir" ]; then
 		echo '=== Building PCSX ReARMed Interpreter ==='
 		echo_cmd "cd \"$build_dir\""
@@ -110,6 +119,7 @@ build_libretro_pcsx_rearmed_interpreter() {
 		echo_cmd "$MAKE -f Makefile.libretro USE_DYNAREC=0 platform=\"$FORMAT_COMPILER_TARGET\" $COMPILER \"-j$JOBS\"" || die 'Failed to build PCSX ReARMed'
 		echo_cmd "cp \"pcsx_rearmed$CORE_SUFFIX\" \"$RARCH_DIST_DIR/pcsx_rearmed_interpreter${FORMAT}.$FORMAT_EXT\""
 		build_summary_log $? "pcsx_rearmed_interpreter"
+		build_save_revision $? "pcsx_rearmed_interpreter"
 	else
 		echo 'PCSX ReARMed not fetched, skipping ...'
 	fi
@@ -206,8 +216,10 @@ build_libretro_test() {
 
 	if [ -d "$build_dir" ]; then
 		echo "=== Building RetroArch test cores ==="
-		build_libretro_generic "retroarch" "libretro-test-gl" "Makefile" $FORMAT_COMPILER_TARGET "$build_dir"
-		copy_core_to_dist "testgl"
+		if check_opengl; then
+			build_libretro_generic "retroarch" "libretro-test-gl" "Makefile" $FORMAT_COMPILER_TARGET "$build_dir"
+			copy_core_to_dist "testgl"
+		fi
 		build_libretro_generic "retroarch" "libretro-test" "Makefile" $FORMAT_COMPILER_TARGET "$build_dir"
 		copy_core_to_dist "test"
 
@@ -428,15 +440,17 @@ build_libretro_fb_alpha() {
 }
 
 build_libretro_ffmpeg() {
-	check_opengl
-	build_libretro_generic_makefile "ffmpeg" "libretro" "Makefile" $FORMAT_COMPILER_TARGET
-	reset_compiler_targets
+	if check_opengl; then
+		build_libretro_generic_makefile "ffmpeg" "libretro" "Makefile" $FORMAT_COMPILER_TARGET
+		reset_compiler_targets
+	fi
 }
 
 build_libretro_3dengine() {
-	check_opengl
-	build_libretro_generic_makefile "3dengine" "." "Makefile" $FORMAT_COMPILER_TARGET
-	reset_compiler_targets
+	if check_opengl; then
+		build_libretro_generic_makefile "3dengine" "." "Makefile" $FORMAT_COMPILER_TARGET
+		reset_compiler_targets
+	fi
 }
 
 build_libretro_scummvm() {
@@ -444,9 +458,10 @@ build_libretro_scummvm() {
 }
 
 build_libretro_ppsspp() {
-	check_opengl
-	build_libretro_generic_makefile "ppsspp" "libretro" "Makefile" $FORMAT_COMPILER_TARGET
-	reset_compiler_targets
+	if check_opengl; then
+		build_libretro_generic_makefile "ppsspp" "libretro" "Makefile" $FORMAT_COMPILER_TARGET
+		reset_compiler_targets
+	fi
 }
 
 build_libretro_mame_modern() {
@@ -617,42 +632,43 @@ build_libretro_bnes() {
 }
 
 build_libretro_mupen64() {
-	check_opengl
-	build_dir="$WORKDIR/libretro-mupen64plus"
+	if check_opengl; then
+		build_dir="$WORKDIR/libretro-mupen64plus"
 
-	if build_should_skip mupen64plus "$build_dir"; then
-		echo "Core mupen64plus is already built, skipping..."
-		return
-	fi
-
-	if [ -d "$build_dir" ]; then
-		echo_cmd "cd \"$build_dir\""
-
-		mkdir -p obj
-
-		if iscpu_x86_64 $ARCH; then
-			dynarec="WITH_DYNAREC=x86_64"
-		elif iscpu_x86 $ARCH; then
-			dynarec="WITH_DYNAREC=x86"
-		elif [ "${CORTEX_A8}" ] || [ "${CORTEX_A9}" ] || [ "$platform" = "ios" ]; then
-			dynarec="WITH_DYNAREC=arm"
+		if build_should_skip mupen64plus "$build_dir"; then
+			echo "Core mupen64plus is already built, skipping..."
+			return
 		fi
 
-		echo '=== Building Mupen 64 Plus ==='
-		if [ -z "$NOCLEAN" ]; then
-			echo_cmd "$MAKE $dynarec platform=\"$FORMAT_COMPILER_TARGET_ALT\" \"-j$JOBS\" clean" || die 'Failed to clean Mupen 64'
+		if [ -d "$build_dir" ]; then
+			echo_cmd "cd \"$build_dir\""
+
+			mkdir -p obj
+
+			if iscpu_x86_64 $ARCH; then
+				dynarec="WITH_DYNAREC=x86_64"
+			elif iscpu_x86 $ARCH; then
+				dynarec="WITH_DYNAREC=x86"
+			elif [ "${CORTEX_A8}" ] || [ "${CORTEX_A9}" ] || [ "$platform" = "ios" ]; then
+				dynarec="WITH_DYNAREC=arm"
+			fi
+
+			echo '=== Building Mupen 64 Plus ==='
+			if [ -z "$NOCLEAN" ]; then
+				echo_cmd "$MAKE $dynarec platform=\"$FORMAT_COMPILER_TARGET_ALT\" \"-j$JOBS\" clean" || die 'Failed to clean Mupen 64'
+			fi
+
+			echo_cmd "$MAKE $dynarec platform=\"$FORMAT_COMPILER_TARGET_ALT\" $COMPILER \"-j$JOBS\"" || die 'Failed to build Mupen 64'
+
+			echo_cmd "cp \"mupen64plus$CORE_SUFFIX\" \"$RARCH_DIST_DIR\""
+			ret=$?
+			build_summary_log $ret "mupen64plus"
+			build_save_revision $ret "mupen64plus"
+		else
+			echo 'Mupen64 Plus not fetched, skipping ...'
 		fi
-
-		echo_cmd "$MAKE $dynarec platform=\"$FORMAT_COMPILER_TARGET_ALT\" $COMPILER \"-j$JOBS\"" || die 'Failed to build Mupen 64'
-
-		echo_cmd "cp \"mupen64plus$CORE_SUFFIX\" \"$RARCH_DIST_DIR\""
-		ret=$?
-		build_summary_log $ret "mupen64plus"
-		build_save_revision $ret "mupen64plus"
-	else
-		echo 'Mupen64 Plus not fetched, skipping ...'
+		reset_compiler_targets
 	fi
-	reset_compiler_targets
 }
 
 build_summary() {
