@@ -1389,35 +1389,6 @@ then
 			echo "Packaging"
 			echo ============================================
 			cp retroarch.cfg retroarch.default.cfg
-cat << EOF > retroarch.cfg
-assets_directory = ":\assets"
-audio_filter_dir = ":\filters\audio"
-cheat_database_path = ":\cheats"
-config_save_on_exit = "true"
-content_database_directory = ":\database\rdb"
-cursor_directory = ":\database\cursors"
-input_joypad_driver = "winxinput"
-input_osk_overlay_enable = "false"
-input_remapping_directory = ":\config"
-joypad_autoconfig_dir = ":\autoconfig"
-libretro_directory = ":\cores"
-load_dummy_on_core_shutdown = "false"
-menu_collapse_subgroups_enable = "true"
-osk_overlay_directory = ":\overlays"
-overlay_directory = ":\overlays"
-playlist_directory = ":\playlists"
-rgui_browser_directory = ":\content"
-rgui_config_directory = ":\config"
-savefile_directory = ":\saves"
-savestate_directory = ":\states"
-screenshot_directory = ":\screenshots"
-system_directory = ":\system"
-video_driver = "gl"
-video_filter_dir = ":\filters\video"
-video_shader_dir = ":\shaders"
-
-EOF
-
 			
 			
 			mkdir -p psp1/pkg/
@@ -1427,7 +1398,6 @@ EOF
 			mkdir -p psp1/pkg/database/cursors
 			mkdir -p psp1/pkg/database/rdb
 			
-			cp -v *.cfg psp1/pkg/
 			cp -Rfv media/overlays/* psp1/pkg/overlays
 			cp -Rfv media/libretrodb/cht/* psp1/pkg/cheats
 			cp -Rfv media/libretrodb/rdb/* psp1/pkg/database/rdb
