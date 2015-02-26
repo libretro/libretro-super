@@ -1392,18 +1392,14 @@ then
 			
 			
 			mkdir -p psp1/pkg/
-			mkdir -p psp1/pkg/overlays
 			mkdir -p psp1/pkg/cheats
 			mkdir -p psp1/pkg/database
 			mkdir -p psp1/pkg/database/cursors
 			mkdir -p psp1/pkg/database/rdb
 			
-			cp -Rfv media/overlays/* psp1/pkg/overlays
 			cp -Rfv media/libretrodb/cht/* psp1/pkg/cheats
 			cp -Rfv media/libretrodb/rdb/* psp1/pkg/database/rdb
 			cp -Rfv media/libretrodb/cursors/* psp1/pkg/database/cursors
-
-												
 
 
 	fi
