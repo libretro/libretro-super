@@ -591,3 +591,155 @@ create_dist_dir() {
 }
 
 create_dist_dir
+
+
+########## LEGACY RULES
+# TODO: delete these
+
+build_libretro_2048() {
+	libretro_build_core 2048
+}
+build_libretro_4do() {
+	libretro_build_core 4do
+}
+build_libretro_beetle_gba() {
+	libretro_build_core beetle_gba
+}
+build_libretro_beetle_lynx() {
+	libretro_build_core beetle_lynx
+}
+build_libretro_beetle_ngp() {
+	libretro_build_core beetle_ngp
+}
+build_libretro_beetle_pce_fast() {
+	libretro_build_core beetle_pce_fast
+}
+build_libretro_beetle_pcfx() {
+	libretro_build_core beetle_pcfx
+}
+build_libretro_beetle_psx() {
+	libretro_build_core beetle_psx
+}
+build_libretro_beetle_snes() {
+	libretro_build_core beetle_snes
+}
+build_libretro_beetle_supergrafx() {
+	libretro_build_core beetle_supergrafx
+}
+build_libretro_beetle_vb() {
+	libretro_build_core beetle_vb
+}
+build_libretro_beetle_wswan() {
+	libretro_build_core beetle_wsawn
+}
+build_libretro_bluemsx() {
+	libretro_build_core bluemsx
+}
+build_libretro_catsfc() {
+	libretro_build_core catsfc
+}
+build_libretro_desmume() {
+	libretro_build_core desmume
+}
+build_libretro_dinothawr() {
+	libretro_build_core dinothawr
+}
+build_libretro_dosbox() {
+	libretro_build_core dosbox
+}
+build_libretro_fb_alpha() {
+	libretro_build_core fb_alpha
+}
+build_libretro_fceumm() {
+	libretro_build_core fceumm
+}
+build_libretro_fmsx() {
+	libretro_build_core fmsx
+}
+build_libretro_fuse() {
+	libretro_build_core fuse
+}
+build_libretro_gambatte() {
+	libretro_build_core gambatte
+}
+build_libretro_genesis_plus_gx() {
+	libretro_build_core genesis_plus_gx
+}
+build_libretro_gpsp() {
+	libretro_build_core gpsp
+}
+build_libretro_handy() {
+	libretro_build_core handy
+}
+build_libretro_hatari() {
+	libretro_build_core hatari
+}
+build_libretro_mame078() {
+	libretro_build_core mame078
+}
+build_libretro_mednafen_psx() {
+	libretro_build_core mednafen_psx
+}
+build_libretro_meteor() {
+	libretro_build_core meteor
+}
+build_libretro_nestopia() {
+	libretro_build_core nestopia
+}
+build_libretro_nx() {
+	libretro_build_core nxengine
+}
+build_libretro_o2em() {
+	libretro_build_core o2em
+}
+build_libretro_pcsx_rearmed() {
+	libretro_build_core pcsx_rearmed
+}
+build_libretro_picodrive() {
+	libretro_build_core picodrive
+}
+build_libretro_prboom() {
+	libretro_build_core prboom
+}
+build_libretro_prosystem() {
+	libretro_build_core prosystem
+}
+build_libretro_quicknes() {
+	libretro_build_core quicknes
+}
+build_libretro_scummvm() {
+	libretro_build_core scummvm
+}
+build_libretro_snes9x() {
+	libretro_build_core snes9x
+}
+build_libretro_snes9x_next() {
+	libretro_build_core snes9x_next
+}
+build_libretro_stella() {
+	libretro_build_core stella
+}
+build_libretro_stonesoup() {
+	libretro_build_core stonesoup
+}
+build_libretro_tgbdual() {
+	libretro_build_core tgbdual
+}
+build_libretro_tyrquake() {
+	libretro_build_core tyrquake
+}
+build_libretro_vba_next() {
+	libretro_build_core vba_next
+}
+build_libretro_vbam() {
+	libretro_build_core vbam
+}
+build_libretro_vecx() {
+	libretro_build_core vecx
+}
+build_libretro_virtualjaguar() {
+	libretro_build_core virtualjaguar
+}
+build_libretro_yabause() {
+	libretro_build_core yabause
+}
