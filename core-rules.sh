@@ -1,6 +1,5 @@
 # vim: set ts=3 sw=3 noet ft=sh : bash
 
-
 libretro_bsnes_fetch_url="https://github.com/libretro/bsnes-libretro.git"
 libretro_bsnes_name="bsnes/higan"
 
@@ -247,3 +246,47 @@ libretro_fuse_fetch_url="https://github.com/libretro/fuse-libretro.git"
 libretro_fuse_name="Fuse"
 libretro_fuse_build_makefile="Makefile.libretro"
 libretro_fuse_build_platform="$FORMAT_COMPILER_TARGET_ALT"
+
+
+# CORE RULE VARIABLES
+#
+# All variables follow the format of libretro_<core>_<setting> where <core> is
+# a unique identifier customarily consisting of the characters [_a-z0-9], but
+# technically uppercase characters would also be legal here.  The <setting> may
+# be any of the following:
+#
+# name						Pretty-printed name of the core
+# 								Defaults to <core>
+#
+# dir							Name of the core's directory
+# 								Defaults to "libretro-<core>"
+#
+# fetch_rule				Name of the core's fetch rule
+# 								Always fetch_git for the time being
+#
+# fetch_url					Source to fetch via git
+#								REQUIRED for fetch actions
+#
+# git_submodules			Set if core has git submodules that must be fetched
+#
+# git_submodules_update
+# 								Set if core has git submodules that require updating
+#
+# build_subdir				Subdir containing the libretro makefile
+#								Leave unset if in top level of core
+#
+# build_makefile			Name of makefile
+#								If unset, GNU make has rules for default makefile names
+#
+# build_platform			Set to override the default platform
+#								(e.g., $FORMAT_COMPILER_TARGET_ALT)
+#
+# Example:
+#
+#	libretro_dinothawr_fetch_url="https://github.com/libretro/Dinothawr.git"
+#	libretro_dinothawr_name="Dinothawr"
+#	libretro_dinothawr_build_platform="$FORMAT_COMPILER_TARGET_ALT"
+#
+# Since Dinothawr builds using defaults for everything else, you need only
+# specify its URL and the platform override.  Everything else the core rules
+# fetch and build can use default values.
