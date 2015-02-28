@@ -28,9 +28,10 @@ case "$platform" in
 		FORMAT=_ios
 		FORMAT_COMPILER_TARGET=ios
 		FORMAT_COMPILER_TARGET_ALT=ios
-		export IOSSDK=$(xcrun -sdk iphoneos -show-sdk-path)
-		IOSVER_MAJOR=$(xcrun -sdk iphoneos -show-sdk-platform-version | cut -c '1')
-		IOSVER_MINOR=$(xcrun -sdk iphoneos -show-sdk-platform-version | cut -c '3')
+		export IOSSDK=$(xcodebuild -version -sdk iphoneos Path)
+		iosver=$(xcodebuild -version -sdk iphoneos ProductVersion)
+		IOSVER_MAJOR=${iosver%.*}
+		IOSVER_MINOR=${iosver#*.}
 		IOSVER=${IOSVER_MAJOR}${IOSVER_MINOR}
 
 		# Apple requires this stuff
