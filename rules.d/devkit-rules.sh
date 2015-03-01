@@ -1,8 +1,6 @@
 # vim: set ts=3 sw=3 noet ft=sh : bash
 
 libretro_devkit_name="libretro Developer's Kit"
-# FIXME: Twinaphex, uncomment next line for libretro-super/libretrodb etc or delete, your choice
-#libretro_devkit_dir="."
 libretro_devkit_fetch_rule=multi_git
 libretro_devkit_mgit_urls=4
 libretro_devkit_mgit_dir_0="libretro-manifest"
