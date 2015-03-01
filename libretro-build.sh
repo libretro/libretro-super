@@ -165,12 +165,12 @@ else
 	libretro_build_core dinothawr
 	libretro_build_core virtualjaguar
 	build_libretro_mupen64
-	build_libretro_3dengine
+	libretro_build_core 3dengine
 	if [ $FORMAT_COMPILER_TARGET != "ios" ]; then
 		# These don't currently build on iOS
 		build_libretro_bnes
-		build_libretro_ffmpeg
-		build_libretro_ppsspp
+		build_libretro_core ffmpeg
+		build_libretro_core ppsspp
 	fi
 	libretro_build_core o2em
 	libretro_build_core hatari
