@@ -218,7 +218,7 @@ build_makefile() {
 	fi
 
 	# TODO: Do this better
-	make_cmdline="$make_cmdline platform=\"${core_build_platform:-$FORMAT_COMPILER_TARGET}\""
+	make_cmdline="$make_cmdline platform=\"$core_build_platform\""
 
 	[ -n "$JOBS" ] && make_cmdline="$make_cmdline -j$JOBS"
 
@@ -251,6 +251,8 @@ build_makefile() {
 #
 # $1	Name of the core to build
 libretro_build_core() {
+	local opengl_type
+
 	eval "core_name=\$libretro_${1}_name"
 	[ -z "$core_name" ] && core_name="$1"
 	echo "=== $core_name"
@@ -261,16 +263,36 @@ libretro_build_core() {
 	eval "core_dir=\$libretro_${1}_dir"
 	[ -z "$core_dir" ] && core_dir="libretro-$1"
 
+	eval "core_build_opengl=\$libretro_${1}_build_opengl"
+	if [ -n "$core_build_opengl" ]; then
+		if [[ "$core_build_opengl" = "yes" || "$core_build_opengl" = "optional" ]]; then
+			if [ -n "$BUILD_LIBRETRO_GL" ]; then
+				if [ -n "$ENABLE_GLES" ]; then
+					opengl_type="-gles"
+				else
+					opengl_type="-opengl"
+				fi
+			else
+				if [ "$core_build_opengl" = "yes" ]; then
+					echo "$1 requires OpenGL (which is disabled), skipping..."
+					return 0
+				fi
+			fi
+		else
+			echo "libretro_build_core:Unknown OpenGL setting for $1: \"$core_build_opengl\"."
+			return 1
+		fi
+	fi
+
 	case "$core_build_rule" in
 		build_makefile)
 			eval "core_build_makefile=\$libretro_${1}_build_makefile"
-			eval echo "core_build_makefile=\$libretro_${1}_build_makefile"
-
 			eval "core_build_subdir=\$libretro_${1}_build_subdir"
-			eval echo "core_build_subdir=\$libretro_${1}_build_subdir"
 
+			# TODO: Really, clean this up...
 			eval "core_build_platform=\$libretro_${1}_build_platform"
-			eval echo "core_build_platform=\$libretro_${1}_build_platform"
+			core_build_platform="${core_build_platform:-$FORMAT_COMPILER_TARGET}$opengl_type"
+			eval echo "core_build_platform=\$libretro_${1}_build_platform$opengl_type"
 
 			echo "Building ${1}..."
 			$core_build_rule $1
@@ -324,27 +346,6 @@ build_libretro_emux() {
 
 	# TODO: Check for more than emux_sms here...
 	build_save_revision $? "emux"
-}
-
-build_libretro_ffmpeg() {
-	if check_opengl; then
-		build_libretro_generic_makefile "ffmpeg" "libretro" "Makefile" $FORMAT_COMPILER_TARGET
-		reset_compiler_targets
-	fi
-}
-
-build_libretro_3dengine() {
-	if check_opengl; then
-		build_libretro_generic_makefile "3dengine" "." "Makefile" $FORMAT_COMPILER_TARGET
-		reset_compiler_targets
-	fi
-}
-
-build_libretro_ppsspp() {
-	if check_opengl; then
-		build_libretro_generic_makefile "ppsspp" "libretro" "Makefile" $FORMAT_COMPILER_TARGET
-		reset_compiler_targets
-	fi
 }
 
 build_libretro_mame_modern() {
@@ -599,6 +600,9 @@ create_dist_dir
 build_libretro_2048() {
 	libretro_build_core 2048
 }
+build_libretro_3dengine() {
+	libretro_build_core 3dengine
+}
 build_libretro_4do() {
 	libretro_build_core 4do
 }
@@ -653,6 +657,9 @@ build_libretro_fb_alpha() {
 build_libretro_fceumm() {
 	libretro_build_core fceumm
 }
+build_libretro_ffmpeg() {
+	libretro_build_core ffmpeg
+}
 build_libretro_fmsx() {
 	libretro_build_core fmsx
 }
@@ -697,6 +704,9 @@ build_libretro_pcsx_rearmed() {
 }
 build_libretro_picodrive() {
 	libretro_build_core picodrive
+}
+build_libretro_ppsspp() {
+	libretro_build_core ppsspp
 }
 build_libretro_prboom() {
 	libretro_build_core prboom
