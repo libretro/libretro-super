@@ -94,4 +94,17 @@ requirements.
 TODO: Works the same as libretro-super for Linux or under MSYS2 from here.
 Document what that means exactly, later.
 
+Nutshell version:
+
+ * ``git clone https://github.com/libretro/libretro-super.git && cd libretro-super``
+   or
+   ``cd ~/path/to/libretro-super``
+ * ``./libretro-upgrade.sh``
+ * ``./libretro-fetch.sh``
+ * ``./libretro-build.sh``
+
+You get the idea.  You shouldn't need to run libretro-upgrade.sh after a fresh
+clone—it's there to handle cross-module moves, renames, and deletions that git
+cannot handle.
+
 <!-- vim: set tw=78 ft=markdown: -->
