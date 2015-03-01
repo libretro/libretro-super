@@ -158,7 +158,8 @@ libretro_mame_git_url="https://github.com/libretro/mame.git"
 
 libretro_ffmpeg_name="FFmpeg"
 libretro_ffmpeg_git_url="https://github.com/libretro/FFmpeg.git"
-# NEED OPENGL CHECK: ffmpeg
+libretro_ffmpeg_build_subdir="libretro"
+libretro_ffmpeg_build_opengl="optional"
 
 libretro_bsnes_cplusplus98_name="bsnes C++98 (v0.85)"
 libretro_bsnes_cplusplus98_git_url="https://github.com/libretro/bsnes-libretro-cplusplus98.git"
@@ -191,7 +192,7 @@ libretro_uae_git_url="https://github.com/libretro/libretro-uae.git"
 
 libretro_3dengine_name="3DEngine"
 libretro_3dengine_git_url="https://github.com/libretro/libretro-3dengine.git"
-# NEED OPENGL CHECK: 3dengine
+libretro_3dengine_build_opengl=yes
 
 libretro_remotejoy_name="RemoteJoy"
 libretro_remotejoy_git_url="https://github.com/libretro/libretro-remotejoy.git"
@@ -214,7 +215,8 @@ libretro_vecx_build_makefile="Makefile.libretro"
 libretro_ppsspp_name="PPSSPP"
 libretro_ppsspp_git_url="https://github.com/libretro/ppsspp.git"
 libretro_ppsspp_git_submodules="yes"
-# NEED OPENGL CHECK: ppsspp
+libretro_ppsspp_build_subdir="libretro"
+libretro_ppsspp_build_opengl="yes"
 
 libretro_prosystem_name="ProSystem"
 libretro_prosystem_git_url="https://github.com/libretro/prosystem-libretro.git"
@@ -290,6 +292,9 @@ libretro_fuse_build_platform="$FORMAT_COMPILER_TARGET_ALT"
 #
 # build_platform			Set to override the default platform
 #								(e.g., $FORMAT_COMPILER_TARGET_ALT)
+#
+# build_opengl				Set to "optional" to use OpenGL/GLES if available
+#								Set to "yes" if the core requires it
 #
 # Example:
 #
