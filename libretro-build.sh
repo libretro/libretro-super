@@ -178,9 +178,8 @@ else
 	build_libretro_emux
 	libretro_build_core fuse
 
-	# Not part of libretro-build as of 2015-02-26
 	libretro_build_core stonesoup
-	libretro_build_core nxengine		# builds successfully on osx
+	libretro_build_core nxengine
 
 	build_libretro_test
 fi
