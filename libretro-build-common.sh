@@ -4,7 +4,7 @@
 . "$BASE_DIR/script-modules/fetch-rules.sh"
 . "$BASE_DIR/script-modules/cpu.sh"
 
-. "$BASE_DIR/core-rules.sh"
+. "$BASE_DIR/rules.d/core-rules.sh"
 
 die() {
 	echo $1

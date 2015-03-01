@@ -18,8 +18,12 @@ fi
 . "$BASE_DIR/script-modules/util.sh"
 . "$BASE_DIR/script-modules/fetch-rules.sh"
 
-# Rules for fetching cores are in this file:
-. "$BASE_DIR/core-rules.sh"
+# Rules for fetching things are in these files:
+. "$BASE_DIR/rules.d/core-rules.sh"
+. "$BASE_DIR/rules.d/player-rules.sh"
+. "$BASE_DIR/rules.d/devkit-rules.sh"
+# TODO: Read these programmatically
+
 
 # libretro_fetch: Download the given core using its fetch rules
 #
@@ -41,7 +45,7 @@ libretro_fetch() {
 	[ -z "$module_dir" ] && module_dir="libretro-$1"
 
 	case "$fetch_rule" in
-		fetch_git)
+		git)
 			local git_url
 			local git_submodules
 			eval "git_url=\$libretro_${1}_git_url"
@@ -54,8 +58,31 @@ libretro_fetch() {
 
 			# TODO: Don't depend on fetch_rule being git
 			echo "Fetching ${1}..."
-			$fetch_rule "$git_url" "$module_dir" $git_submodules
+			fetch_git "$git_url" "$module_dir" "$git_submodules"
 			;;
+	
+		multi_git)
+			local num_git_urls
+			local git_url
+			local git_subdir
+			local git_submodules
+			local i
+
+			eval "num_git_urls=\$libretro_${1}_mgit_urls"
+			if [ "$num_git_urls" -lt 1 ]; then
+				echo "Cannot fetch \"$num_git_urls\" multiple git URLs"
+				return 1
+			fi
+
+			[ "$module_dir" != "." ] && echo_cmd "mkdir -p \"$WORKDIR/$module_dir\""
+			for (( i=0; i < $num_git_urls; ++i )); do
+				eval "git_url=\$libretro_${1}_mgit_url_$i"
+				eval "git_subdir=\$libretro_${1}_mgit_dir_$i"
+				eval "git_submodules=\$libretro_${1}_mgit_dir_$i"
+				fetch_git "$git_url" "$module_dir/$git_subdir" "$git_submodules"
+			done
+			;;
+
 		*)
 			echo "libretro_fetch:Unknown fetch rule for $1: \"$fetch_rule\"."
 			exit 1
@@ -69,37 +96,28 @@ libretro_fetch() {
 	fi
 }
 
-fetch_devkit() {
-	echo "=== libretro Developer's Kit"
-	echo "Fetching the libretro devkit..."
-	fetch_git "https://github.com/libretro/libretro-manifest.git" "libretro-manifest"
-	fetch_git "https://github.com/libretro/libretrodb.git" "libretrodb"
-	fetch_git "https://github.com/libretro/libretro-dat-pull.git" "libretro-dat-pull"
-	fetch_git "https://github.com/libretro/libretro-common.git" "libretro-common"
-}
-
-
 if [ -n "$1" ]; then
+	local no_more_args=""
 	while [ -n "$1" ]; do
-		case "$1" in
-			fetch_devkit)
-				# These don't have rule-based fetch yet.
-				$1
-				;;
-			fetch_libretro_*)
-				# "Old"-style
-				$1
-				;;
-			*)
-				# New style (just cores for now)
-				libretro_fetch $1
-				;;
-		esac
+		if [ -z "$no_more_args" ]; then
+			case "$1" in
+				--)
+					no_more_args="1"
+					;;
+
+				*)
+					# New style (just cores for now)
+					libretro_fetch $1
+					;;
+			esac
+		else
+			libretro_fetch $1
+		fi
 		shift
 	done
 else
 	libretro_fetch retroarch
-	fetch_devkit
+	libretro_fetch devkit
 
 	libretro_fetch bsnes
 	libretro_fetch snes9x
