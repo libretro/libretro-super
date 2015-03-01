@@ -4,8 +4,7 @@
 #
 # $1	The URI to fetch
 # $2	The local directory to fetch to (relative)
-# $3	Set to clone --recursive
-# $4	Set to pull --recursive
+# $3	Recurse submodules (yes, no, clone)
 #
 # NOTE: git _now_ has a -C argument that would replace the cd commands in
 #       this rule, but this is a fairly recent addition to git, so we can't
@@ -15,14 +14,14 @@ fetch_git() {
 	if [ -d "$fetch_dir/.git" ]; then
 		echo_cmd "cd \"$fetch_dir\""
 		echo_cmd "git pull"
-		if [ -n "$4" ]; then
+		if [ "$3" = "yes" ]; then
 			echo_cmd "git submodule foreach git pull origin master"
 		fi
 	else
 		clone_type=
 		[ -n "$SHALLOW_CLONE" ] && depth="--depth 1 "
 		echo_cmd "git clone $depth\"$1\" \"$WORKDIR/$2\""
-		if [ -n "$3" ]; then
+		if [[ "$3" = "yes" || "$3" = "clone" ]]; then
 			echo_cmd "cd \"$fetch_dir\""
 			echo_cmd "git submodule update --init"
 		fi

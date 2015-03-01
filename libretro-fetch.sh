@@ -18,145 +18,167 @@ fi
 . "$BASE_DIR/script-modules/util.sh"
 . "$BASE_DIR/script-modules/fetch-rules.sh"
 
-# Rules for fetching cores are in this file:
-. "$BASE_DIR/core-rules.sh"
+# Rules for fetching things are in these files:
+. "$BASE_DIR/rules.d/core-rules.sh"
+. "$BASE_DIR/rules.d/player-rules.sh"
+. "$BASE_DIR/rules.d/devkit-rules.sh"
+# TODO: Read these programmatically
 
-# libretro_fetch_core: Download the given core using its fetch rules
+
+# libretro_fetch: Download the given core using its fetch rules
 #
 # $1	Name of the core to fetch
-libretro_fetch_core() {
-	eval "core_name=\$libretro_${1}_name"
-	[ -z "$core_name" ] && core_name="$1"
-	echo "=== $core_name"
+libretro_fetch() {
+	local module_name
+	local module_dir
+	local fetch_rule
+	local post_fetch_cmd
 
-	eval "core_fetch_rule=\$libretro_${1}_fetch_rule"
-	[ -z "$core_fetch_rule" ] && core_fetch_rule=fetch_git
+	eval "module_name=\$libretro_${1}_name"
+	[ -z "$module_name" ] && module_name="$1"
+	echo "=== $module_name"
 
-	eval "core_dir=\$libretro_${1}_dir"
-	[ -z "$core_dir" ] && core_dir="libretro-$1"
+	eval "fetch_rule=\$libretro_${1}_fetch_rule"
+	[ -z "$fetch_rule" ] && fetch_rule=fetch_git
 
-	case "$core_fetch_rule" in
-		fetch_git)
-			eval "core_fetch_url=\$libretro_${1}_fetch_url"
-			if [ -z "$core_fetch_url" ]; then
-				echo "libretro_fetch_core:No URL set to fetch $1 via git."
+	eval "module_dir=\$libretro_${1}_dir"
+	[ -z "$module_dir" ] && module_dir="libretro-$1"
+
+	case "$fetch_rule" in
+		git)
+			local git_url
+			local git_submodules
+			eval "git_url=\$libretro_${1}_git_url"
+			if [ -z "$git_url" ]; then
+				echo "libretro_fetch:No URL set to fetch $1 via git."
 				exit 1
 			fi
 
-			eval "core_git_submodules=\$libretro_${1}_git_submodules"
-			eval "core_git_submodules_update=\$libretro_${1}_git_submodules_update"
+			eval "git_submodules=\$libretro_${1}_git_submodules"
 
 			# TODO: Don't depend on fetch_rule being git
 			echo "Fetching ${1}..."
-			$core_fetch_rule "$core_fetch_url" "$core_dir" $core_git_submodules $core_git_submodules_update
+			fetch_git "$git_url" "$module_dir" "$git_submodules"
 			;;
+	
+		multi_git)
+			local num_git_urls
+			local git_url
+			local git_subdir
+			local git_submodules
+			local i
+
+			eval "num_git_urls=\$libretro_${1}_mgit_urls"
+			if [ "$num_git_urls" -lt 1 ]; then
+				echo "Cannot fetch \"$num_git_urls\" multiple git URLs"
+				return 1
+			fi
+
+			[ "$module_dir" != "." ] && echo_cmd "mkdir -p \"$WORKDIR/$module_dir\""
+			for (( i=0; i < $num_git_urls; ++i )); do
+				eval "git_url=\$libretro_${1}_mgit_url_$i"
+				eval "git_subdir=\$libretro_${1}_mgit_dir_$i"
+				eval "git_submodules=\$libretro_${1}_mgit_dir_$i"
+				fetch_git "$git_url" "$module_dir/$git_subdir" "$git_submodules"
+			done
+			;;
+
 		*)
-			echo "libretro_fetch_core:Unknown fetch rule for $1: \"$core_fetch_rule\"."
+			echo "libretro_fetch:Unknown fetch rule for $1: \"$fetch_rule\"."
 			exit 1
 			;;
 	esac
-}
 
-fetch_retroarch() {
-	echo "=== RetroArch"
-	echo "Fetching retroarch..."
-	fetch_git "https://github.com/libretro/RetroArch.git" "retroarch"
-	echo_cmd "cd \"$WORKDIR/retroarch\""
-	echo_cmd "./fetch-submodules.sh"
+	eval "post_fetch_cmd=\$libretro_${1}_post_fetch_cmd"
+	if [ -n "$post_fetch_cmd" ]; then
+		echo_cmd "cd \"$WORKDIR/$module_dir\""
+		echo_cmd "$post_fetch_cmd"
+	fi
 }
-
-fetch_devkit() {
-	echo "=== libretro Developer's Kit"
-	echo "Fetching the libretro devkit..."
-	fetch_git "https://github.com/libretro/libretro-manifest.git" "libretro-manifest"
-	fetch_git "https://github.com/libretro/libretrodb.git" "libretrodb"
-	fetch_git "https://github.com/libretro/libretro-dat-pull.git" "libretro-dat-pull"
-	fetch_git "https://github.com/libretro/libretro-common.git" "libretro-common"
-}
-
 
 if [ -n "$1" ]; then
+	local no_more_args=""
 	while [ -n "$1" ]; do
-		case "$1" in
-			fetch_retroarch|fetch_devkit)
-				# These don't have rule-based fetch yet.
-				$1
-				;;
-			fetch_libretro_*)
-				# "Old"-style
-				$1
-				;;
-			*)
-				# New style (just cores for now)
-				libretro_fetch_core $1
-				;;
-		esac
+		if [ -z "$no_more_args" ]; then
+			case "$1" in
+				--)
+					no_more_args="1"
+					;;
+
+				*)
+					# New style (just cores for now)
+					libretro_fetch $1
+					;;
+			esac
+		else
+			libretro_fetch $1
+		fi
 		shift
 	done
 else
-	fetch_retroarch
-	fetch_devkit
+	libretro_fetch retroarch
+	libretro_fetch devkit
 
-	libretro_fetch_core bsnes
-	libretro_fetch_core snes9x
-	libretro_fetch_core snes9x_next
-	libretro_fetch_core genesis_plus_gx
-	libretro_fetch_core fb_alpha
-	libretro_fetch_core vba_next
-	libretro_fetch_core vbam
-	libretro_fetch_core handy
-	libretro_fetch_core bnes
-	libretro_fetch_core fceumm
-	libretro_fetch_core gambatte
-	libretro_fetch_core meteor
-	libretro_fetch_core nxengine
-	libretro_fetch_core prboom
-	libretro_fetch_core stella
-	libretro_fetch_core desmume
-	libretro_fetch_core quicknes
-	libretro_fetch_core nestopia
-	libretro_fetch_core tyrquake
-	libretro_fetch_core pcsx_rearmed
-	libretro_fetch_core mednafen_gba
-	libretro_fetch_core mednafen_lynx
-	libretro_fetch_core mednafen_ngp
-	libretro_fetch_core mednafen_pce_fast
-	libretro_fetch_core mednafen_supergrafx
-	libretro_fetch_core mednafen_psx
-	libretro_fetch_core mednafen_pcfx
-	libretro_fetch_core mednafen_snes
-	libretro_fetch_core mednafen_vb
-	libretro_fetch_core mednafen_wswan
-	libretro_fetch_core scummvm
-	libretro_fetch_core yabause
-	libretro_fetch_core dosbox
-	libretro_fetch_core virtualjaguar
-	libretro_fetch_core mame078
-	libretro_fetch_core mame139
-	libretro_fetch_core mame
-	libretro_fetch_core ffmpeg
-	libretro_fetch_core bsnes_cplusplus98
-	libretro_fetch_core bsnes_mercury
-	libretro_fetch_core picodrive
-	libretro_fetch_core tgbdual
-	libretro_fetch_core mupen64plus
-	libretro_fetch_core dinothawr
-	libretro_fetch_core uae
-	libretro_fetch_core 3dengine
-	libretro_fetch_core remotejoy
-	libretro_fetch_core bluemsx
-	libretro_fetch_core fmsx
-	libretro_fetch_core 2048
-	libretro_fetch_core vecx
-	libretro_fetch_core ppsspp
-	libretro_fetch_core prosystem
-	libretro_fetch_core o2em
-	libretro_fetch_core 4do
-	libretro_fetch_core catsfc
-	libretro_fetch_core stonesoup
-	libretro_fetch_core hatari
-	libretro_fetch_core tempgba
-	libretro_fetch_core gpsp
-	libretro_fetch_core emux
-	libretro_fetch_core fuse
+	libretro_fetch bsnes
+	libretro_fetch snes9x
+	libretro_fetch snes9x_next
+	libretro_fetch genesis_plus_gx
+	libretro_fetch fb_alpha
+	libretro_fetch vba_next
+	libretro_fetch vbam
+	libretro_fetch handy
+	libretro_fetch bnes
+	libretro_fetch fceumm
+	libretro_fetch gambatte
+	libretro_fetch meteor
+	libretro_fetch nxengine
+	libretro_fetch prboom
+	libretro_fetch stella
+	libretro_fetch desmume
+	libretro_fetch quicknes
+	libretro_fetch nestopia
+	libretro_fetch tyrquake
+	libretro_fetch pcsx_rearmed
+	libretro_fetch mednafen_gba
+	libretro_fetch mednafen_lynx
+	libretro_fetch mednafen_ngp
+	libretro_fetch mednafen_pce_fast
+	libretro_fetch mednafen_supergrafx
+	libretro_fetch mednafen_psx
+	libretro_fetch mednafen_pcfx
+	libretro_fetch mednafen_snes
+	libretro_fetch mednafen_vb
+	libretro_fetch mednafen_wswan
+	libretro_fetch scummvm
+	libretro_fetch yabause
+	libretro_fetch dosbox
+	libretro_fetch virtualjaguar
+	libretro_fetch mame078
+	libretro_fetch mame139
+	libretro_fetch mame
+	libretro_fetch ffmpeg
+	libretro_fetch bsnes_cplusplus98
+	libretro_fetch bsnes_mercury
+	libretro_fetch picodrive
+	libretro_fetch tgbdual
+	libretro_fetch mupen64plus
+	libretro_fetch dinothawr
+	libretro_fetch uae
+	libretro_fetch 3dengine
+	libretro_fetch remotejoy
+	libretro_fetch bluemsx
+	libretro_fetch fmsx
+	libretro_fetch 2048
+	libretro_fetch vecx
+	libretro_fetch ppsspp
+	libretro_fetch prosystem
+	libretro_fetch o2em
+	libretro_fetch 4do
+	libretro_fetch catsfc
+	libretro_fetch stonesoup
+	libretro_fetch hatari
+	libretro_fetch tempgba
+	libretro_fetch gpsp
+	libretro_fetch emux
+	libretro_fetch fuse
 fi
