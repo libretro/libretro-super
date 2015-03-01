@@ -179,7 +179,7 @@ else
 	libretro_build_core fuse
 
 	# Not part of libretro-build as of 2015-02-26
-	libretro_build_core stonesoup		# fails with missing -I for libco
+	libretro_build_core stonesoup
 	libretro_build_core nxengine		# builds successfully on osx
 
 	build_libretro_test
