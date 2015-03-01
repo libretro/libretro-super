@@ -39,7 +39,7 @@ libretro_fetch() {
 	echo "=== $module_name"
 
 	eval "fetch_rule=\$libretro_${1}_fetch_rule"
-	[ -z "$fetch_rule" ] && fetch_rule=fetch_git
+	[ -z "$fetch_rule" ] && fetch_rule=git
 
 	eval "module_dir=\$libretro_${1}_dir"
 	[ -z "$module_dir" ] && module_dir="libretro-$1"
@@ -97,7 +97,7 @@ libretro_fetch() {
 }
 
 if [ -n "$1" ]; then
-	local no_more_args=""
+	no_more_args=""
 	while [ -n "$1" ]; do
 		if [ -z "$no_more_args" ]; then
 			case "$1" in
