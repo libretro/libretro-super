@@ -177,9 +177,9 @@ else
 	libretro_build_core gpsp
 	build_libretro_emux
 	libretro_build_core fuse
-
 	libretro_build_core stonesoup
 	libretro_build_core nxengine
+	libretro_build_core gw
 
 	build_libretro_test
 fi

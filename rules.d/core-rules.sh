@@ -261,6 +261,10 @@ libretro_fuse_git_url="https://github.com/libretro/fuse-libretro.git"
 libretro_fuse_build_makefile="Makefile.libretro"
 libretro_fuse_build_platform="$FORMAT_COMPILER_TARGET_ALT"
 
+libretro_gw_name="Game & Watch"
+libretro_gw_git_url="https://github.com/libretro/gw-libretro.git"
+libretro_gw_git_submodules="yes"
+libretro_gw_build_makefile="Makefile.libretro"
 
 # CORE RULE VARIABLES
 #
