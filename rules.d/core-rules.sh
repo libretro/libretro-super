@@ -278,6 +278,8 @@ libretro_fuse_build_platform="$FORMAT_COMPILER_TARGET_ALT"
 # fetch_rule				Name of the core's fetch rule
 # 								Currently "git" (default) or "multi_git"
 #
+# For the "git" fetch rule:
+#
 # git_url					Source to fetch via git
 #								REQUIRED for fetch actions
 #
@@ -286,6 +288,18 @@ libretro_fuse_build_platform="$FORMAT_COMPILER_TARGET_ALT"
 #
 # build_subdir				Subdir containing the libretro makefile
 #								Leave unset if in top level of core
+#
+# For the "multi_git" fetch rule:
+#
+# mgit_urls					Number of URLs to fetch
+#
+# mgit_url_<n>				<n>th URL to fetch, start with 0
+#								If you have 4 mgit_urls, <n> will be 0, 1, 2, or 3
+#
+# mgit_dir_<n>				<n>th directory to fetch into
+#								You must set this for each URL
+#
+# For the generic makefile build rule:
 #
 # build_makefile			Name of makefile
 #								If unset, GNU make has rules for default makefile names
