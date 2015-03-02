@@ -78,7 +78,7 @@ libretro_fetch() {
 			for (( i=0; i < $num_git_urls; ++i )); do
 				eval "git_url=\$libretro_${1}_mgit_url_$i"
 				eval "git_subdir=\$libretro_${1}_mgit_dir_$i"
-				eval "git_submodules=\$libretro_${1}_mgit_dir_$i"
+				eval "git_submodules=\$libretro_${1}_mgit_submodules_$i"
 				fetch_git "$git_url" "$module_dir/$git_subdir" "$git_submodules"
 			done
 			;;
