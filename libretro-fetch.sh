@@ -181,4 +181,5 @@ else
 	libretro_fetch gpsp
 	libretro_fetch emux
 	libretro_fetch fuse
+	libretro_fetch gw
 fi
