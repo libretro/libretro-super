@@ -180,6 +180,7 @@ else
 	libretro_build_core stonesoup
 	libretro_build_core nxengine
 	libretro_build_core gw
+	libretro_build_core lutro
 
 	build_libretro_test
 fi

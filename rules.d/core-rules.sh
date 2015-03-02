@@ -266,6 +266,10 @@ libretro_gw_git_url="https://github.com/libretro/gw-libretro.git"
 libretro_gw_git_submodules="yes"
 libretro_gw_build_makefile="Makefile.libretro"
 
+libretro_lutro_name="Lutro"
+libretro_lutro_git_url="https://github.com/libretro/libretro-lutro.git"
+libretro_lutro_build_makefile="Makefile"
+
 # CORE RULE VARIABLES
 #
 # All variables follow the format of libretro_<core>_<setting> where <core> is

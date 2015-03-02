@@ -785,3 +785,7 @@ build_libretro_yabause() {
 build_libretro_gw() {
 	libretro_build_core gw
 }
+
+build_libretro_lutro() {
+	libretro_build_core lutro
+}

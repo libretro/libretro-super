@@ -182,4 +182,5 @@ else
 	libretro_fetch emux
 	libretro_fetch fuse
 	libretro_fetch gw
+	libretro_fetch lutro
 fi
