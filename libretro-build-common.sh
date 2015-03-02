@@ -292,7 +292,6 @@ libretro_build_core() {
 			# TODO: Really, clean this up...
 			eval "core_build_platform=\$libretro_${1}_build_platform"
 			core_build_platform="${core_build_platform:-$FORMAT_COMPILER_TARGET}$opengl_type"
-			eval echo "core_build_platform=\$libretro_${1}_build_platform$opengl_type"
 
 			echo "Building ${1}..."
 			$core_build_rule $1
