@@ -752,3 +752,7 @@ build_libretro_virtualjaguar() {
 build_libretro_yabause() {
 	libretro_build_core yabause
 }
+
+build_libretro_gw() {
+	libretro_build_core gw
+}
