@@ -363,10 +363,9 @@ build_libretro_mame_modern() {
 		else
 			[ "$X86_64" = "true" ] && PTR64=1
 			if [ -z "$NOCLEAN" ]; then
-				echo_cmd "$MAKE PTR64=\"$PTR64\" -f Makefile.libretro \"TARGET=$2\" \"PARTIAL=$3\" platform=\"$FORMAT_COMPILER_TARGET\" \"-j$JOBS\" clean" || die 'Failed to clean MAME'
+				echo_cmd "$MAKE -f Makefile.libretro PTR64=\"$PTR64\" \"TARGET=$2\" \"PARTIAL=$3\" platform=\"$FORMAT_COMPILER_TARGET\" \"-j$JOBS\" clean" || die 'Failed to clean MAME'
 			fi
-
-			echo_cmd "$MAKE PTR64=\"$PTR64\" -f Makefile.libretro \"TARGET=$2\" platform=\"$FORMAT_COMPILER_TARGET\" $COMPILER \"-j$JOBS\"" || die 'Failed to build MAME'
+			echo_cmd "$MAKE -f Makefile.libretro PTR64=\"$PTR64\" \"TARGET=$2\" platform=\"$FORMAT_COMPILER_TARGET\" $COMPILER \"-j$JOBS\"" || die 'Failed to build MAME'
 		fi
 
 		echo_cmd "cp \"$2$CORE_SUFFIX\" \"$RARCH_DIST_DIR\""
@@ -378,8 +377,7 @@ build_libretro_mame_modern() {
 	fi
 }
 
-
-build_libretro_mame() {
+build_libretro_mame_prerule() {
 	build_dir="$WORKDIR/libretro-mame"
 
 	if build_should_skip mame "$build_dir"; then
@@ -387,15 +385,46 @@ build_libretro_mame() {
 		return
 	fi
 
-	build_libretro_mame_modern "MAME" "mame" ""
-	build_libretro_mame_modern "MESS" "mess" "1"
-	build_libretro_mame_modern "UME" "ume" "1"
+	if [ -d "$build_dir" ]; then
+		echo ''
+		echo "=== Building MAME ==="
+		echo_cmd "cd \"$build_dir\""
+
+		local extra_args
+		[ "$X86_64" = "true" ] && extra_args="PTR64=1"
+
+		if [ -z "$NOCLEAN" ]; then
+			echo_cmd "$MAKE -f Makefile.libretro $extra_args platform=\"$FORMAT_COMPILER_TARGET\" \"-j$JOBS\" clean" || die 'Failed to clean MAME'
+		fi
+
+		if [ -n "$IOS" ]; then
+			# FIXME: iOS doesn't build right now, so let's leave this simple until it does.
+			target=mame
+			echo_cmd "$MAKE -f Makefile.libretro \"TARGET=$target\" platform=\"$FORMAT_COMPILER_TARGET\" CC=\"$CC\" CXX=\"$CXX\" \"NATIVE=1\" buildtools \"-j$JOBS\"" || die 'Failed to build MAME buildtools'
+			echo_cmd "$MAKE -f Makefile.libretro \"TARGET=$target\" platform=\"$FORMAT_COMPILER_TARGET\" CC=\"$CC\" CXX=\"$CXX\" emulator \"-j$JOBS\"" || die 'Failed to build MAME (iOS)'		
+			ret=$?
+			build_summary_log $ret "$target"
+		else
+			for target in mame mess ume; do
+				echo_cmd "$MAKE -f Makefile.libretro $extra_args \"TARGET=$target\" platform=\"$FORMAT_COMPILER_TARGET\" $COMPILER \"-j$JOBS\" emulator" || die "Failed to build $target"
+				echo_cmd "cp \"$target$CORE_SUFFIX\" \"$RARCH_DIST_DIR\""
+				ret=$?
+				build_summary_log $ret "$target"
+			done
+		fi
+
+	else
+		echo 'MAME not fetched, skipping ...'
+	fi
 
 	# TODO: Like others, this saves the revision if ume builds...
-	build_save_revision $? mame
+	build_save_revision $ret mame
 }
 
 # radius uses these, let's not pull them out from under him just yet
+build_libretro_mame() {
+	build_libretro_mame_modern "MAME" "mame" ""
+}
 build_libretro_mess() {
 	build_libretro_mame_modern "MESS" "mess" ""
 }

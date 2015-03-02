@@ -145,7 +145,7 @@ else
 	libretro_build_core nestopia
 	libretro_build_core tyrquake
 	libretro_build_core mame078
-	build_libretro_mame
+	build_libretro_mame_prerule
 	libretro_build_core dosbox
 	libretro_build_core scummvm
 	libretro_build_core picodrive
