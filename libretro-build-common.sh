@@ -400,9 +400,12 @@ build_libretro_mame_prerule() {
 		if [ -n "$IOS" ]; then
 			# FIXME: iOS doesn't build right now, so let's leave this simple until it does.
 			target=mame
-			echo_cmd "$MAKE -f Makefile.libretro \"TARGET=$target\" platform=\"$FORMAT_COMPILER_TARGET\" CC=\"$CC\" CXX=\"$CXX\" \"NATIVE=1\" buildtools \"-j$JOBS\"" || die 'Failed to build MAME buildtools'
-			echo_cmd "$MAKE -f Makefile.libretro \"TARGET=$target\" platform=\"$FORMAT_COMPILER_TARGET\" CC=\"$CC\" CXX=\"$CXX\" emulator \"-j$JOBS\"" || die 'Failed to build MAME (iOS)'		
+			echo_cmd "$MAKE -f Makefile.libretro \"TARGET=$target\" platform=\"$FORMAT_COMPILER_TARGET\" CC=\"$CC\" CXX=\"$CXX\" \"NATIVE=1\" buildtools \"-j$JOBS\""
 			ret=$?
+			if [ "$ret" = 0 ]; then
+				echo_cmd "$MAKE -f Makefile.libretro \"TARGET=$target\" platform=\"$FORMAT_COMPILER_TARGET\" CC=\"$CC\" CXX=\"$CXX\" emulator \"-j$JOBS\""
+				ret=$?
+			fi
 			build_summary_log $ret "$target"
 		else
 			for target in mame mess ume; do
