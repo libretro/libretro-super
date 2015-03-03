@@ -14,6 +14,8 @@ else
 	fi
 fi
 
+. "$BASE_DIR/libretro-config.sh" config_platform
+
 RARCH_DIR="$BASE_DIR/dist"
 RARCH_DIST_DIR="$RARCH_DIR/$DIST_DIR"
 
