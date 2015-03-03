@@ -5,3 +5,16 @@ echo_cmd() {
 	eval "$@"
 	return $?
 }
+
+color() {
+	[ -n "$NO_COLOR" ] && return
+
+	echo -ne "\e[0;${1:-0}m"
+}
+
+
+if [ ! -t 1 ]; then
+	if [ -z "$FORCE_COLOR" ]; then
+		NO_COLOR=1
+	fi
+fi

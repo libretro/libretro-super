@@ -255,7 +255,7 @@ libretro_build_core() {
 
 	eval "core_name=\$libretro_${1}_name"
 	[ -z "$core_name" ] && core_name="$1"
-	echo "=== $core_name"
+	echo "$(color 34)=== $(color 1)$core_name$(color)"
 
 	eval "core_build_rule=\$libretro_${1}_build_rule"
 	[ -z "$core_build_rule" ] && core_build_rule=build_makefile
@@ -600,7 +600,7 @@ build_summary() {
 		fi
 		printf -v summary "=== Core Build Summary ===\n\n"
 		if [ -n "$build_success" ]; then
-			printf -v summary "%s%d %s\n" "$summary" "$(echo $build_success | wc -w)" "core(s) successfully built:"
+			printf -v summary "%s%s%d%s\n" "$summary" "$(color 32)" "$(echo $build_success | wc -w)" " core(s)$(color) successfully built:"
 			if [ -n "$use_fmt" ]; then
 				printf -v summary "%s%s\n\n" "$summary" "$(echo "	$build_success" | fmt)"
 			else
@@ -608,7 +608,7 @@ build_summary() {
 			fi
 		fi
 		if [ -n "$build_fail" ]; then
-			printf -v summary "%s%d %s\n" "$summary" "$(echo $build_fail | wc -w)" "core(s) failed to build:"
+			printf -v summary "%s%s%d%s\n" "$summary" "$(color 31)" "$(echo $build_fail | wc -w)" " core(s)$(color) failed to build:"
 			if [ -n "$use_fmt" ]; then
 				printf -v summary "%s%s\n\n" "$summary" "$(echo "	$build_fail" | fmt)"
 			else
@@ -791,11 +791,9 @@ build_libretro_virtualjaguar() {
 build_libretro_yabause() {
 	libretro_build_core yabause
 }
-
 build_libretro_gw() {
 	libretro_build_core gw
 }
-
 build_libretro_lutro() {
 	libretro_build_core lutro
 }

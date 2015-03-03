@@ -36,7 +36,7 @@ libretro_fetch() {
 
 	eval "module_name=\$libretro_${1}_name"
 	[ -z "$module_name" ] && module_name="$1"
-	echo "=== $module_name"
+	echo "$(color 34)=== $(color 1)$module_name$(color)"
 
 	eval "fetch_rule=\$libretro_${1}_fetch_rule"
 	[ -z "$fetch_rule" ] && fetch_rule=git
