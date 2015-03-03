@@ -358,15 +358,21 @@ build_libretro_mame_modern() {
 			if [ -z "$NOCLEAN" ]; then
 				echo_cmd "$MAKE -f Makefile.libretro \"TARGET=$2\" \"PARTIAL=$3\" platform=\"$FORMAT_COMPILER_TARGET\" \"-j$JOBS\" clean" || die 'Failed to clean MAME'
 			fi
-			echo_cmd "$MAKE -f Makefile.libretro \"TARGET=$2\" platform=\"$FORMAT_COMPILER_TARGET\" $COMPILER \"NATIVE=1\" buildtools \"-j$JOBS\"" || die 'Failed to build MAME buildtools'
-			echo_cmd "$MAKE -f Makefile.libretro \"TARGET=$2\" platform=\"$FORMAT_COMPILER_TARGET\" CC=\"$CC\" CXX=\"$CXX\" emulator \"-j$JOBS\"" || die 'Failed to build MAME (iOS)'
+			echo_cmd "$MAKE -f Makefile.libretro \"TARGET=$2\" platform=\"$FORMAT_COMPILER_TARGET\" $COMPILER \"NATIVE=1\" buildtools \"-j$JOBS\""
+			ret=$?
+			if [ "$ret" = 0 ]; then
+				echo_cmd "$MAKE -f Makefile.libretro \"TARGET=$2\" platform=\"$FORMAT_COMPILER_TARGET\" CC=\"$CC\" CXX=\"$CXX\" emulator \"-j$JOBS\""
+				ret=$?
+			fi
 		else
 			[ "$X86_64" = "true" ] && PTR64=1
 			if [ -z "$NOCLEAN" ]; then
 				echo_cmd "$MAKE -f Makefile.libretro PTR64=\"$PTR64\" \"TARGET=$2\" \"PARTIAL=$3\" platform=\"$FORMAT_COMPILER_TARGET\" \"-j$JOBS\" clean" || die 'Failed to clean MAME'
 			fi
-			echo_cmd "$MAKE -f Makefile.libretro PTR64=\"$PTR64\" \"TARGET=$2\" platform=\"$FORMAT_COMPILER_TARGET\" $COMPILER \"-j$JOBS\"" || die 'Failed to build MAME'
+			echo_cmd "$MAKE -f Makefile.libretro PTR64=\"$PTR64\" \"TARGET=$2\" platform=\"$FORMAT_COMPILER_TARGET\" $COMPILER \"-j$JOBS\""
+			ret=$?
 		fi
+		[ "$ret" -gt 0 ] && die 'Failed to build MAME'
 
 		echo_cmd "cp \"$2$CORE_SUFFIX\" \"$RARCH_DIST_DIR\""
 		ret=$?
@@ -406,6 +412,7 @@ build_libretro_mame_prerule() {
 				echo_cmd "$MAKE -f Makefile.libretro \"TARGET=$target\" platform=\"$FORMAT_COMPILER_TARGET\" CC=\"$CC\" CXX=\"$CXX\" emulator \"-j$JOBS\""
 				ret=$?
 			fi
+			[ "$ret" -gt 0 ] && die 'Failed to build MAME'
 			build_summary_log $ret "$target"
 		else
 			for target in mame mess ume; do
