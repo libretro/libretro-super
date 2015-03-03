@@ -24,7 +24,6 @@
 /libretro-mame/
 /libretro-mame078/
 /libretro-mame139/
-/libretro-manifest/
 /libretro-mednafen_gba/
 /libretro-mednafen_lynx/
 /libretro-mednafen_ngp/
@@ -62,9 +61,9 @@
 /libretro-virtualjaguar/
 /libretro-yabause/
 /libretro-fuse/
-/libretro-dat-pull/
-/libretro-common/
-/libretrodb/
+/libretro-lutro/
+/libretro-gw/
+/libretro-devkit/
 /retroarch/
 /build-summary.log
 /build-revisions/

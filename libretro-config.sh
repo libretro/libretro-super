@@ -263,6 +263,15 @@ BUILD_SUMMARY="$WORKDIR/build-summary.log"
 #BUILD_REVISIONS_DIR="$WORKDIR/build-revisions"
 
 
+# COLOR IN OUTPUT
+# ===============
+#
+# If you don't like ANSI-style color in your output, uncomment this line.
+#NO_COLOR=1
+
+# If you want to force it even in log files, uncomment this line.
+#FORCE_COLOR=1
+
 #USER DEFINES
 #------------
 #These options should be defined inside your own
