@@ -9,7 +9,7 @@ echo_cmd() {
 color() {
 	[ -n "$NO_COLOR" ] && return
 
-	echo -ne "\e[0;${1:-0}m"
+	echo -n "[0;${1:-0}m"
 }
 
 
