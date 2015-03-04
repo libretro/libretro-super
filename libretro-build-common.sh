@@ -258,7 +258,7 @@ libretro_build_core() {
 	echo "$(color 34)=== $(color 1)$core_name$(color)"
 
 	eval "core_build_rule=\$libretro_${1}_build_rule"
-	[ -z "$core_build_rule" ] && core_build_rule=build_makefile
+	[ -z "$core_build_rule" ] && core_build_rule=generic_makefile
 
 	eval "core_dir=\$libretro_${1}_dir"
 	[ -z "$core_dir" ] && core_dir="libretro-$1"
@@ -285,7 +285,7 @@ libretro_build_core() {
 	fi
 
 	case "$core_build_rule" in
-		build_makefile)
+		generic_makefile)
 			eval "core_build_makefile=\$libretro_${1}_build_makefile"
 			eval "core_build_subdir=\$libretro_${1}_build_subdir"
 
@@ -296,6 +296,9 @@ libretro_build_core() {
 			echo "Building ${1}..."
 			$core_build_rule $1
 
+			;;
+		none)
+			echo "Don't have a build rule for $1, skipping..."
 			;;
 		*)
 			echo "libretro_build_core:Unknown build rule for $1: \"$core_build_rule\"."
