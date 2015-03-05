@@ -45,6 +45,11 @@ register_core "handy"
 libretro_handy_name="Handy"
 libretro_handy_git_url="https://github.com/libretro/libretro-handy.git"
 
+register_core "cap32"
+libretro_cap32_name="Caprice32"
+libretro_cap32_git_url="https://github.com/libretro/libretro-cap32.git"
+libretro_cap32_build_makefile="Makefile"
+
 register_core "bnes"
 libretro_bnes_name="bnes/higan"
 libretro_bnes_git_url="https://github.com/libretro/bnes-libretro.git"
