@@ -236,7 +236,7 @@ build_libretro_generic_makefile() {
 		MESSAGE="$1 build successful ($jobid)"
 		cp -v ${NAME}_libretro${FORMAT}${SUFFIX}.${FORMAT_EXT} $RARCH_DIST_DIR/${NAME}_libretro${FORMAT}.${FORMAT_EXT}
 	else
-		MESSAGE="$1 build failed ($jobid)"
+		MESSAGE="$1 \x02build failed\x02 ($jobid)"
 	fi
 	echo BUILDBOT JOB: $MESSAGE
 	buildbot_log "$MESSAGE"
