@@ -3,8 +3,7 @@
 register_module core "bsnes"
 libretro_bsnes_name="bsnes/higan"
 libretro_bsnes_git_url="https://github.com/libretro/bsnes-libretro.git"
-libretro_bsnes_build_rule=none
-# NEED CUSTOM RULE: bsnes
+libretro_bsnes_build_rule=none # NEED CUSTOM RULE
 
 register_core "snes9x"
 libretro_snes9x_name="SNES9x"
@@ -53,8 +52,7 @@ libretro_cap32_build_makefile="Makefile"
 register_core "bnes"
 libretro_bnes_name="bnes/higan"
 libretro_bnes_git_url="https://github.com/libretro/bnes-libretro.git"
-libretro_bnes_build_rule=none
-# NEED CUSTOM RULE: bnes
+libretro_bnes_build_rule=none # NEED CUSTOM RULE
 
 register_core "fceumm"
 libretro_fceumm_name="FCEUmm"
@@ -170,22 +168,22 @@ libretro_dosbox_makefile="Makefile.libretro"
 register_core "virtualjaguar"
 libretro_virtualjaguar_name="Virtual Jaguar"
 libretro_virtualjaguar_git_url="https://github.com/libretro/virtualjaguar-libretro.git"
+libretro_virtualjaguar_makefile="Makefile"
 
 register_core "mame078"
 libretro_mame078_name="MAME 2003 (0.78)"
 libretro_mame078_git_url="https://github.com/libretro/mame2003-libretro.git"
+libretro_mame078_makefile="Makefile"
 
 register_core "mame139"
 libretro_mame139_name="MAME 2010 (0.139)"
 libretro_mame139_git_url="https://github.com/libretro/mame2010-libretro.git"
-libretro_mame139_build_rule=none
-# NEED A BUILD RULE: mame139
+libretro_mame139_build_rule=none # NEED A BUILD RULE
 
 register_core "mame"
 libretro_mame_name="MAME (git)"
 libretro_mame_git_url="https://github.com/libretro/mame.git"
-libretro_mame_build_rule=none
-# NEED CUSTOM RULE: mame
+libretro_mame_build_rule=none # NEED CUSTOM RULE
 
 register_core "ffmpeg"
 libretro_ffmpeg_name="FFmpeg"
@@ -196,14 +194,12 @@ libretro_ffmpeg_build_opengl="optional"
 register_core "bsnes_cplusplus98"
 libretro_bsnes_cplusplus98_name="bsnes C++98 (v0.85)"
 libretro_bsnes_cplusplus98_git_url="https://github.com/libretro/bsnes-libretro-cplusplus98.git"
-libretro_bsnes_cplusplus98_build_rule=none
-# NEED CUSTOM RULE: bsnes_cplusplus98
+libretro_bsnes_cplusplus98_build_rule=none # NEED CUSTOM RULE
 
 register_core "bsnes_mercury"
 libretro_bsnes_mercury_name="bsnes-mercury"
 libretro_bsnes_mercury_git_url="https://github.com/libretro/bsnes-mercury.git"
-libretro_bsnes_mercury_build_rule=none
-# NEED CUSTOM RULE: bsnes_mercury
+libretro_bsnes_mercury_build_rule=none # NEED CUSTOM RULE
 
 register_core "picodrive"
 libretro_picodrive_name="Picodrive"
@@ -218,8 +214,7 @@ libretro_tgbdual_git_url="https://github.com/libretro/tgbdual-libretro.git"
 register_core "mupen64plus"
 libretro_mupen64plus_name="Mupen64Plus"
 libretro_mupen64plus_git_url="https://github.com/libretro/mupen64plus-libretro.git"
-libretro_mupen64plus_build_rule=none
-# NEED CUSTOM RULE: mupen64plus
+libretro_mupen64plus_build_rule=none # NEED CUSTOM RULE
 
 register_core "dinothawr"
 libretro_dinothawr_name="Dinothawr"
@@ -229,8 +224,7 @@ libretro_dinothawr_build_platform="$FORMAT_COMPILER_TARGET_ALT"
 register_core "uae"
 libretro_uae_name="UAE"
 libretro_uae_git_url="https://github.com/libretro/libretro-uae.git"
-libretro_uae_build_rule=none
-# NEED A BUILD RULE: uae
+libretro_uae_build_rule=none # NEED A BUILD RULE
 
 register_core "3dengine"
 libretro_3dengine_name="3DEngine"
@@ -240,8 +234,7 @@ libretro_3dengine_build_opengl=yes
 register_core "remotejoy"
 libretro_remotejoy_name="RemoteJoy"
 libretro_remotejoy_git_url="https://github.com/libretro/libretro-remotejoy.git"
-libretro_remotejoy_build_rule=none
-# NEED A BUILD RULE: remotejoy
+libretro_remotejoy_build_makefile="Makefile"
 
 register_core "bluemsx"
 libretro_bluemsx_name="blueMSX"
@@ -298,8 +291,7 @@ libretro_hatari_build_makefile="Makefile.libretro"
 register_core "tempgba"
 libretro_tempgba_name="TempGBA"
 libretro_tempgba_git_url="https://github.com/libretro/TempGBA-libretro.git"
-libretro_tempgba_build_rule=none
-# NEED A BUILD RULE: tempgba
+libretro_tempgba_build_rule=none # NEED A BUILD RULE
 
 register_core "gpsp"
 libretro_gpsp_name="gpSP"
@@ -308,8 +300,7 @@ libretro_gpsp_git_url="https://github.com/libretro/gpsp.git"
 register_core "emux"
 libretro_emux_name="Emux"
 libretro_emux_git_url="https://github.com/libretro/emux.git"
-libretro_emux_build_rule=none
-# NEED CUSTOM RULE: emux
+libretro_emux_build_rule=none # NEED CUSTOM RULE
 
 register_core "fuse"
 libretro_fuse_name="Fuse"
