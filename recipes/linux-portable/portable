@@ -1,1 +1,2 @@
 prboom libretro-prboom  https://github.com/libretro/libretro-prboom.git PROJECT YES GENERIC Makefile . 
+snes9x libretro-snes9x https://github.com/libretro/snes9x.git PROJECT YES GENERIC Makefile libretro 
