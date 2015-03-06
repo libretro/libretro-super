@@ -175,8 +175,10 @@ cd "${BASE_DIR}"
 ####build commands
 buildbot_log() {
 
-	HASH=`echo -n "$1" | openssl sha1 -hmac $SIG | cut --fields=2 --delimiter=" "`
-	curl --data "message=$1&sign=$HASH" $LOGURL
+	MESSAGE=`echo -e $1`
+
+	HASH=`echo -n "$MESSAGE" | openssl sha1 -hmac $SIG | cut --fields=2 --delimiter=" "`
+	curl --data "message=$MESSAGE&sign=$HASH" $LOGURL
 
 
 }
@@ -236,7 +238,7 @@ build_libretro_generic_makefile() {
 		MESSAGE="$1 build successful ($jobid)"
 		cp -v ${NAME}_libretro${FORMAT}${SUFFIX}.${FORMAT_EXT} $RARCH_DIST_DIR/${NAME}_libretro${FORMAT}.${FORMAT_EXT}
 	else
-		MESSAGE="$1 \x02build failed\x02 ($jobid)"
+		MESSAGE="$1 build failed ($jobid)"
 	fi
 	echo BUILDBOT JOB: $MESSAGE
 	buildbot_log "$MESSAGE"
@@ -339,13 +341,13 @@ build_libretro_generic_jni() {
 			buildbot_log "$MESSAGE"
 			cp -v ../libs/${a}/libretro.${FORMAT_EXT} $RARCH_DIST_DIR/${a}/${1}_libretro${FORMAT}.${FORMAT_EXT}
 		else
-			MESSAGE="$1-$a build failure ($jobid)"
+			MESSAGE="$1-$a build U+0002failureU+0002 ($jobid)"
 			echo BUILDBOT JOB: $MESSAGE
 			buildbot_log "$MESSAGE"
 		fi
 	done
-	
-	
+
+
 
 }
 
@@ -688,6 +690,7 @@ while read line; do
 				git submodule update --init
 				BUILD="YES"
 			fi
+		cd ..
 		fi
 
 		if [ "${BUILD}" == "YES" -o "${FORCE}" == "YES" ];
