@@ -169,8 +169,8 @@ else
 	if [ $FORMAT_COMPILER_TARGET != "ios" ]; then
 		# These don't currently build on iOS
 		build_libretro_bnes
-		build_libretro_core ffmpeg
-		build_libretro_core ppsspp
+		libretro_build_core ffmpeg
+		libretro_build_core ppsspp
 	fi
 	libretro_build_core o2em
 	libretro_build_core hatari
