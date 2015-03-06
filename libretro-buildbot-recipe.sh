@@ -841,6 +841,11 @@ then
 	echo "BUILDBOT JOB: $jobid Processing Assets"
 	echo 
 
+	mkdir -p android/phoenix/assets/
+	rm -Rfv android/phoenix/assets/assets
+	cp -Rfv media/assets android/phoenix/assets/
+	rm -Rfv android/phoenix/assets/libretrodb
+	cp -Rfv media/libretrodb android/phoenix//assets/libretrodb/
 	rm -Rfv android/phoenix/assets/overlays
 	cp -Rfv media/overlays android/phoenix/assets/
 	rm -Rfv android/phoenix/assets/shaders_glsl
