@@ -232,7 +232,7 @@ libretro_3dengine_build_opengl=yes
 register_core "remotejoy"
 libretro_remotejoy_name="RemoteJoy"
 libretro_remotejoy_git_url="https://github.com/libretro/libretro-remotejoy.git"
-libretro_remotejoy_build_rule=none # NEED A BUILD RULE
+libretro_remotejoy_build_makefile="Makefile"
 
 register_core "bluemsx"
 libretro_bluemsx_name="blueMSX"
