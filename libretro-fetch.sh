@@ -76,7 +76,7 @@ libretro_fetch() {
 			fi
 
 			[ "$module_dir" != "." ] && echo_cmd "mkdir -p \"$WORKDIR/$module_dir\""
-			for (( i=0; i < $num_git_urls; ++i )); do
+			for i in seq 0 $num_git_urls; do
 				eval "git_url=\$libretro_${1}_mgit_url_$i"
 				eval "git_subdir=\$libretro_${1}_mgit_dir_$i"
 				eval "git_submodules=\$libretro_${1}_mgit_submodules_$i"
