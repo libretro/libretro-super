@@ -168,10 +168,12 @@ libretro_dosbox_makefile="Makefile.libretro"
 register_core "virtualjaguar"
 libretro_virtualjaguar_name="Virtual Jaguar"
 libretro_virtualjaguar_git_url="https://github.com/libretro/virtualjaguar-libretro.git"
+libretro_virtualjaguar_makefile="Makefile"
 
 register_core "mame078"
 libretro_mame078_name="MAME 2003 (0.78)"
 libretro_mame078_git_url="https://github.com/libretro/mame2003-libretro.git"
+libretro_mame078_makefile="Makefile"
 
 register_core "mame139"
 libretro_mame139_name="MAME 2010 (0.139)"
