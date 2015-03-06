@@ -319,23 +319,23 @@ libretro_lutro_name="Lutro"
 libretro_lutro_git_url="https://github.com/libretro/libretro-lutro.git"
 libretro_lutro_build_makefile="Makefile"
 
-register_core "lutro-platformer"
+register_core "lutro_platformer"
 libretro_lutro_platformer_name="Lutro-Platformer"
 libretro_lutro_platformer_git_url="https://github.com/libretro/lutro-platformer.git"
 
-register_core "lutro-tetris"
+register_core "lutro_tetris"
 libretro_lutro_tetris_name="Lutro-tetris"
 libretro_lutro_tetris_git_url="https://github.com/libretro/lutro-tetris.git"
 
-register_core "lutro-snake"
+register_core "lutro_snake"
 libretro_lutro_snake_name="Lutro-snake"
 libretro_lutro_snake_git_url="https://github.com/libretro/lutro-snake.git"
 
-register_core "lutro-iyfct"
+register_core "lutro_iyfct"
 libretro_lutro_iyfct_name="Lutro-iyfct"
 libretro_lutro_iyfct_git_url="https://github.com/libretro/lutro-iyfct.git"
 
-register_core "lutro-game-of-life"
+register_core "lutro_game_of_life"
 libretro_lutro_game_of_life_name="Lutro-Game-of-Life"
 libretro_lutro_game_of_life_git_url="https://github.com/libretro/lutro-game-of-life.git"
 
