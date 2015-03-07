@@ -9,7 +9,7 @@
 
 ####environment configuration:
 echo "BUILDBOT JOB: Setting up Environment for $1"
-echo 
+echo
 
 ORIGPATH=$PATH
 WORK=$PWD
@@ -175,8 +175,10 @@ cd "${BASE_DIR}"
 ####build commands
 buildbot_log() {
 
-	HASH=`echo -n "$1" | openssl sha1 -hmac $SIG | cut --fields=2 --delimiter=" "`
-	curl --data "message=$1&sign=$HASH" $LOGURL
+	MESSAGE=`echo -e $1`
+
+	HASH=`echo -n "$MESSAGE" | openssl sha1 -hmac $SIG | cut --fields=2 --delimiter=" "`
+	curl --data "message=$MESSAGE&sign=$HASH" $LOGURL
 
 
 }
@@ -193,11 +195,11 @@ build_libretro_generic_makefile() {
 
 	cd $DIR
 	cd $SUBDIR
+	OLDJ=$JOBS
 
 	if [ "${NAME}" == "mame078" ];
 	then
-	OLDJ=$JOBS
-		JOBS=1
+   	    JOBS=1
 	fi
 
 
@@ -232,8 +234,13 @@ build_libretro_generic_makefile() {
 	fi
 
 	if [ $? -eq 0 ];
-	then 
+	then
 		MESSAGE="$1 build successful ($jobid)"
+		if [ "${MAKEPORTABLE}" == "YES" ];
+                then
+		    echo "$1 running retrolink ($jobid)"
+		    $WORK/retrolink.sh ${NAME}_libretro${FORMAT}${SUFFIX}.${FORMAT_EXT}
+                fi
 		cp -v ${NAME}_libretro${FORMAT}${SUFFIX}.${FORMAT_EXT} $RARCH_DIST_DIR/${NAME}_libretro${FORMAT}.${FORMAT_EXT}
 	else
 		MESSAGE="$1 build failed ($jobid)"
@@ -339,13 +346,13 @@ build_libretro_generic_jni() {
 			buildbot_log "$MESSAGE"
 			cp -v ../libs/${a}/libretro.${FORMAT_EXT} $RARCH_DIST_DIR/${a}/${1}_libretro${FORMAT}.${FORMAT_EXT}
 		else
-			MESSAGE="$1-$a build failure ($jobid)"
+			MESSAGE="$1-$a build U+0002failureU+0002 ($jobid)"
 			echo BUILDBOT JOB: $MESSAGE
 			buildbot_log "$MESSAGE"
 		fi
 	done
-	
-	
+
+
 
 }
 
@@ -688,6 +695,7 @@ while read line; do
 				git submodule update --init
 				BUILD="YES"
 			fi
+		cd ..
 		fi
 
 		if [ "${BUILD}" == "YES" -o "${FORCE}" == "YES" ];
@@ -841,6 +849,11 @@ then
 	echo "BUILDBOT JOB: $jobid Processing Assets"
 	echo 
 
+	mkdir -p android/phoenix/assets/
+	rm -Rfv android/phoenix/assets/assets
+	cp -Rfv media/assets android/phoenix/assets/
+	rm -Rfv android/phoenix/assets/libretrodb
+	cp -Rfv media/libretrodb android/phoenix//assets/libretrodb/
 	rm -Rfv android/phoenix/assets/overlays
 	cp -Rfv media/overlays android/phoenix/assets/
 	rm -Rfv android/phoenix/assets/shaders_glsl

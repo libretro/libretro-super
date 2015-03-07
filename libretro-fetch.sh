@@ -17,6 +17,7 @@ fi
 . "$BASE_DIR/libretro-config.sh"
 . "$BASE_DIR/script-modules/util.sh"
 . "$BASE_DIR/script-modules/fetch-rules.sh"
+. "$BASE_DIR/script-modules/modules.sh"
 
 # Rules for fetching things are in these files:
 . "$BASE_DIR/rules.d/core-rules.sh"
@@ -68,7 +69,7 @@ libretro_fetch() {
 			local git_submodules
 			local i
 
-			eval "num_git_urls=\$libretro_${1}_mgit_urls"
+			eval "num_git_urls=\${libretro_${1}_mgit_urls:-0}"
 			if [ "$num_git_urls" -lt 1 ]; then
 				echo "Cannot fetch \"$num_git_urls\" multiple git URLs"
 				return 1
@@ -119,68 +120,7 @@ else
 	libretro_fetch retroarch
 	libretro_fetch devkit
 
-	libretro_fetch bsnes
-	libretro_fetch snes9x
-	libretro_fetch snes9x_next
-	libretro_fetch genesis_plus_gx
-	libretro_fetch fb_alpha
-	libretro_fetch vba_next
-	libretro_fetch vbam
-	libretro_fetch handy
-	libretro_fetch bnes
-	libretro_fetch fceumm
-	libretro_fetch gambatte
-	libretro_fetch meteor
-	libretro_fetch nxengine
-	libretro_fetch prboom
-	libretro_fetch stella
-	libretro_fetch desmume
-	libretro_fetch quicknes
-	libretro_fetch nestopia
-	libretro_fetch tyrquake
-	libretro_fetch pcsx_rearmed
-	libretro_fetch mednafen_gba
-	libretro_fetch mednafen_lynx
-	libretro_fetch mednafen_ngp
-	libretro_fetch mednafen_pce_fast
-	libretro_fetch mednafen_supergrafx
-	libretro_fetch mednafen_psx
-	libretro_fetch mednafen_pcfx
-	libretro_fetch mednafen_snes
-	libretro_fetch mednafen_vb
-	libretro_fetch mednafen_wswan
-	libretro_fetch scummvm
-	libretro_fetch yabause
-	libretro_fetch dosbox
-	libretro_fetch virtualjaguar
-	libretro_fetch mame078
-	libretro_fetch mame139
-	libretro_fetch mame
-	libretro_fetch ffmpeg
-	libretro_fetch bsnes_cplusplus98
-	libretro_fetch bsnes_mercury
-	libretro_fetch picodrive
-	libretro_fetch tgbdual
-	libretro_fetch mupen64plus
-	libretro_fetch dinothawr
-	libretro_fetch uae
-	libretro_fetch 3dengine
-	libretro_fetch remotejoy
-	libretro_fetch bluemsx
-	libretro_fetch fmsx
-	libretro_fetch 2048
-	libretro_fetch vecx
-	libretro_fetch ppsspp
-	libretro_fetch prosystem
-	libretro_fetch o2em
-	libretro_fetch 4do
-	libretro_fetch catsfc
-	libretro_fetch stonesoup
-	libretro_fetch hatari
-	libretro_fetch tempgba
-	libretro_fetch gpsp
-	libretro_fetch emux
-	libretro_fetch fuse
-	libretro_fetch gw
-	libretro_fetch lutro
+	for a in $libretro_cores; do
+		libretro_fetch "${a%%:*}"
+	done
 fi
