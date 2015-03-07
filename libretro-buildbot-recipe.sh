@@ -665,7 +665,7 @@ while read line; do
 
 			else
 				echo "cloning repo..."
-				git clone "$URL" "$DIR" --depth=1
+				git clone "$URL" "$DIR"
 				cd $DIR
 				git checkout $TYPE
 				cd ..
@@ -1375,7 +1375,7 @@ then
 	then
 
 		cd $RADIR
-        rm -rfv psp1/pkg
+                rm -rfv psp1/pkg
 		echo "BUILDBOT JOB: $jobid Building"
 		echo 
 
@@ -1383,9 +1383,12 @@ then
 	then
 
 		cd dist-scripts
-		rm *.a
-		cp -v $RARCH_DIST_DIR/* .
-		sh ./psp1-cores.sh
+        rm *.a
+		cp -v $RARCH_DIST_DIR/*.a .
+        ls -1 *.a  | awk -F "." ' { print "cp " $0 " " $1 "_psp1." $2 }' |sh
+        
+        
+		./psp1-cores.sh
         if [ $? -eq 0 ];
         then
             MESSAGE="retroarch build successful ($jobid)"
