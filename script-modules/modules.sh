@@ -5,7 +5,6 @@ register_module() {
 		core|devkit|player)
 			if [ -n "$2" ]; then
 				eval "libretro_${1}s=\"\$libretro_${1}s $2::\""
-				echo "Registering $1: $2"
 			else
 				echo "register_module:Trying to register a $1 without a name"
 				exit 1
