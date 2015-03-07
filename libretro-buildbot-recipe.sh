@@ -1528,9 +1528,9 @@ then
 	then
 
 		cd $RADIR
-        rm -rfv wii/bot_pkg
+	        #rm -rfv wii/pkg
 		echo "BUILDBOT JOB: $jobid Building"
-		echo 
+		echo
 
 	if [ "${BUILD}" == "YES" -o "${FORCE}" == "YES" ];
 	then
@@ -1538,8 +1538,8 @@ then
 		cd dist-scripts
 		rm *.a
 		cp -v $RARCH_DIST_DIR/*.a .
-		
-		ls -1 *.a  | awk -F "." ' { print "cp " $0 " " $1 "_psp1." $2 }' |sh
+
+		ls -1 *.a  | awk -F "." ' { print "cp " $0 " " $1 "_wii." $2 }' |sh
 		sh ./wii-cores.sh
         if [ $? -eq 0 ];
         then
@@ -1550,24 +1550,25 @@ then
             echo $MESSAGE
 		fi
         buildbot_log "$MESSAGE"
-        cd ..      
+        cd ..
 
-	fi            
-			
+	fi
+
 			echo "Packaging"
 			echo ============================================
 			cp retroarch.cfg retroarch.default.cfg
-			
-			
-			mkdir -p wii/bot_pkg/
-			mkdir -p wii/bot_pkg/cheats
-			mkdir -p wii/bot_pkg/database
-			mkdir -p wii/bot_pkg/database/cursors
-			mkdir -p wii/bot_pkg/database/rdb
-			
-			cp -Rfv media/libretrodb/cht/* wii/bot_pkg/cheats
-			cp -Rfv media/libretrodb/rdb/* wii/bot_pkg/database/rdb
-			cp -Rfv media/libretrodb/cursors/* wii/bot_pkg/database/cursors
+
+			mkdir -p wii/pkg/
+			mkdir -p wii/pkg/overlays
+			mkdir -p wii/pkg/cheats
+			mkdir -p wii/pkg/database
+			mkdir -p wii/pkg/database/cursors
+			mkdir -p wii/pkg/database/rdb
+
+			cp -Rfv media/libretrodb/cht/* wii/pkg/cheats
+			cp -Rfv media/libretrodb/rdb/* wii/pkg/database/rdb
+			cp -Rfv media/libretrodb/cursors/* wii/pkg/database/cursors
+			cp -Rfv media/overlays/* wii/pkg/overlays
 
 
 	fi
