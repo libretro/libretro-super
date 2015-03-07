@@ -59,7 +59,7 @@ case "$platform" in
 					X86=true
 					;;
 				armv*)
-					ARM=true
+B					ARM=true
 					export FORMAT_COMPILER_TARGET=armv
 					export RARCHCFLAGS="$RARCHCFLAGS -marm"
 					case "${ARCH}" in
@@ -105,6 +105,11 @@ case "$platform" in
 					FORMAT_COMPILER_TARGET="psp1"
 					DIST_DIR="psp1"
 					;;
+                                *wii*)
+                                        FORMAT_EXT="a"
+                                        FORMAT_COMPILER_TARGET="wii"
+                                        DIST_DIR="wii"
+                                        ;;
 				*ios|theos_ios*)
 					FORMAT_EXT="dylib"
 					FORMAT_COMPILER_TARGET="theos_ios"
