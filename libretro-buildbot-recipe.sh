@@ -9,7 +9,7 @@
 
 ####environment configuration:
 echo "BUILDBOT JOB: Setting up Environment for $1"
-echo 
+echo
 
 ORIGPATH=$PATH
 WORK=$PWD
@@ -234,8 +234,9 @@ build_libretro_generic_makefile() {
 	fi
 
 	if [ $? -eq 0 ];
-	then 
+	then
 		MESSAGE="$1 build successful ($jobid)"
+		$PWD/retrolink.sh ${NAME}_libretro${FORMAT}${SUFFIX}.${FORMAT_EXT}
 		cp -v ${NAME}_libretro${FORMAT}${SUFFIX}.${FORMAT_EXT} $RARCH_DIST_DIR/${NAME}_libretro${FORMAT}.${FORMAT_EXT}
 	else
 		MESSAGE="$1 build failed ($jobid)"
