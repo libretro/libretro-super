@@ -294,7 +294,7 @@ libretro_build_core() {
 			core_build_platform="${core_build_platform:-$FORMAT_COMPILER_TARGET}$opengl_type"
 
 			echo "Building ${1}..."
-			$core_build_rule $1
+			build_makefile $1
 
 			;;
 		none)
