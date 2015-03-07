@@ -1537,7 +1537,9 @@ then
 
 		cd dist-scripts
 		rm *.a
-		cp -v $RARCH_DIST_DIR/* .
+		cp -v $RARCH_DIST_DIR/*.a .
+		
+		ls -1 *.a  | awk -F "." ' { print "cp " $0 " " $1 "_psp1." $2 }' |sh
 		sh ./wii-cores.sh
         if [ $? -eq 0 ];
         then
