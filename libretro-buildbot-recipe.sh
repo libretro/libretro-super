@@ -195,11 +195,11 @@ build_libretro_generic_makefile() {
 
 	cd $DIR
 	cd $SUBDIR
+	OLDJ=$JOBS
 
 	if [ "${NAME}" == "mame078" ];
 	then
-	OLDJ=$JOBS
-		JOBS=1
+   	    JOBS=1
 	fi
 
 
@@ -236,7 +236,11 @@ build_libretro_generic_makefile() {
 	if [ $? -eq 0 ];
 	then
 		MESSAGE="$1 build successful ($jobid)"
-		$PWD/retrolink.sh ${NAME}_libretro${FORMAT}${SUFFIX}.${FORMAT_EXT}
+		if [ "${MAKEPORTABLE}" == "YES" ];
+                then
+		    echo "$1 running retrolink ($jobid)"
+		    $WORK/retrolink.sh ${NAME}_libretro${FORMAT}${SUFFIX}.${FORMAT_EXT}
+                fi
 		cp -v ${NAME}_libretro${FORMAT}${SUFFIX}.${FORMAT_EXT} $RARCH_DIST_DIR/${NAME}_libretro${FORMAT}.${FORMAT_EXT}
 	else
 		MESSAGE="$1 build failed ($jobid)"
