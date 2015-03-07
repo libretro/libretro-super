@@ -1528,7 +1528,7 @@ then
 	then
 
 		cd $RADIR
-        rm -rfv wii/pkg
+        rm -rfv wii/bot_pkg
 		echo "BUILDBOT JOB: $jobid Building"
 		echo 
 
@@ -1559,15 +1559,15 @@ then
 			cp retroarch.cfg retroarch.default.cfg
 			
 			
-			mkdir -p wii/pkg/
-			mkdir -p wii/pkg/cheats
-			mkdir -p wii/pkg/database
-			mkdir -p wii/pkg/database/cursors
-			mkdir -p wii/pkg/database/rdb
+			mkdir -p wii/bot_pkg/
+			mkdir -p wii/bot_pkg/cheats
+			mkdir -p wii/bot_pkg/database
+			mkdir -p wii/bot_pkg/database/cursors
+			mkdir -p wii/bot_pkg/database/rdb
 			
-			cp -Rfv media/libretrodb/cht/* wii/pkg/cheats
-			cp -Rfv media/libretrodb/rdb/* wii/pkg/database/rdb
-			cp -Rfv media/libretrodb/cursors/* wii/pkg/database/cursors
+			cp -Rfv media/libretrodb/cht/* wii/bot_pkg/cheats
+			cp -Rfv media/libretrodb/rdb/* wii/bot_pkg/database/rdb
+			cp -Rfv media/libretrodb/cursors/* wii/bot_pkg/database/cursors
 
 
 	fi
