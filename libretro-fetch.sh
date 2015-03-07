@@ -69,7 +69,7 @@ libretro_fetch() {
 			local git_submodules
 			local i
 
-			eval "num_git_urls=\$libretro_${1}_mgit_urls"
+			eval "num_git_urls=\${libretro_${1}_mgit_urls:-0}"
 			if [ "$num_git_urls" -lt 1 ]; then
 				echo "Cannot fetch \"$num_git_urls\" multiple git URLs"
 				return 1
