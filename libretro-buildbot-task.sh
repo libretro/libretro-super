@@ -25,7 +25,7 @@ while read line; do
 	KEY=`echo $line | cut --fields=1 --delimiter=" "`
 	VALUE=`echo $line | cut --fields=2 --delimiter=" "`
 
-	if [ "${KEY}" == "PATH" ]; then
+	if [ "${KEY}" = "PATH" ]; then
 		export PATH=${VALUE}:${ORIGPATH}
 		echo New PATH: $PATH
 
@@ -73,7 +73,7 @@ fi
 
 mkdir -v -p "$RARCH_DIST_DIR"
 
-if [ "${PLATFORM}" == "android" ]; then
+if [ "${PLATFORM}" = "android" ]; then
 
 	IFS=' ' read -ra ABIS <<< "$TARGET_ABIS"
 	for a in "${ABIS[@]}"; do
@@ -196,7 +196,7 @@ build_libretro_generic_makefile() {
 	cd $DIR
 	cd $SUBDIR
 
-	if [ "${NAME}" == "mame078" ]; then
+	if [ "${NAME}" = "mame078" ]; then
 		OLDJ=$JOBS
 		JOBS=1
 	fi
@@ -219,7 +219,7 @@ build_libretro_generic_makefile() {
 		echo "build command: ${MAKE} -f ${MAKEFILE} platform=${PLATFORM} -j${JOBS}"
 		${MAKE} -f ${MAKEFILE} platform=${PLATFORM} -j${JOBS}
 	else
-		if [ "${NAME}" == "mame2010" ]; then
+		if [ "${NAME}" = "mame2010" ]; then
 
 			echo "build command: ${MAKE} -f ${MAKEFILE} platform=${PLATFORM} -j${JOBS} ${ARGS}" buildtools
 			${MAKE} -f ${MAKEFILE} platform=${PLATFORM} -j${JOBS} ${ARGS} buildtools
@@ -457,7 +457,7 @@ build_libretro_bsnes() {
 		rm -f out/*.{o,"${FORMAT_EXT}"}	
 
 
-		if [ "${PROFILE}" == "cpp98" -o "${PROFILE}" == "bnes" ]; then
+		if [ "${PROFILE}" = "cpp98" -o "${PROFILE}" = "bnes" ]; then
 			${MAKE} clean
 		fi
 
@@ -472,9 +472,9 @@ build_libretro_bsnes() {
 	echo "compiling..."
 
 
-	if [ "${PROFILE}" == "cpp98" ]; then
+	if [ "${PROFILE}" = "cpp98" ]; then
 		${MAKE} platform="${PLATFORM}" ${COMPILER} "-j${JOBS}"
-	elif [ "${PROFILE}" == "bnes" ]; then
+	elif [ "${PROFILE}" = "bnes" ]; then
 		echo "build command: ${MAKE} -f Makefile ${COMPILER} "-j${JOBS}" compiler=${BSNESCOMPILER}" platform=${FORMAT_COMPILER_TARGET}
 		${MAKE} -f Makefile ${COMPILER} "-j${JOBS}" compiler="${BSNESCOMPILER}" platform=${FORMAT_COMPILER_TARGET}
 	else
@@ -484,9 +484,9 @@ build_libretro_bsnes() {
 
 	if [ $? -eq 0 ]; then
 		MESSAGE="$1 build successful ($jobid)"
-		if [ "${PROFILE}" == "cpp98" ]; then
+		if [ "${PROFILE}" = "cpp98" ]; then
 			cp -fv "out/libretro.${FORMAT_EXT}" "${RARCH_DIST_DIR}/${NAME}_libretro${FORMAT}${SUFFIX}.${FORMAT_EXT}"
-		elif [ "${PROFILE}" == "bnes" ]; then
+		elif [ "${PROFILE}" = "bnes" ]; then
 			cp -fv "libretro.${FORMAT_EXT}" "${RARCH_DIST_DIR}/${NAME}_libretro${FORMAT}${SUFFIX}.${FORMAT_EXT}"
 		else
 			cp -fv "out/${NAME}_libretro$FORMAT.${FORMAT_EXT}" $RARCH_DIST_DIR/${NAME}_${PROFILE}_libretro${FORMAT}${SUFFIX}.${FORMAT_EXT}
@@ -533,7 +533,7 @@ while read line; do
 	fi
 
 
-	if [ "${ENABLED}" == "YES" ]; then
+	if [ "${ENABLED}" = "YES" ]; then
 		echo "BUILDBOT JOB: $jobid Processing $NAME"
 		echo
 		echo URL: $URL
@@ -584,21 +584,21 @@ while read line; do
 		echo
 		echo
 
-		if [ "${BUILD}" == "YES" -o "${FORCE}" == "YES" ]; then
+		if [ "${BUILD}" = "YES" -o "${FORCE}" = "YES" ]; then
 			echo building core...
-			if [ "${COMMAND}" == "GENERIC" ]; then
+			if [ "${COMMAND}" = "GENERIC" ]; then
 				build_libretro_generic_makefile $NAME $DIR $SUBDIR $MAKEFILE ${FORMAT_COMPILER_TARGET} "${ARGS}"
-			elif [ "${COMMAND}" == "GENERIC_GL" ]; then
+			elif [ "${COMMAND}" = "GENERIC_GL" ]; then
 				build_libretro_generic_gl_makefile $NAME $DIR $SUBDIR $MAKEFILE ${FORMAT_COMPILER_TARGET} "${ARGS}"
-			elif [ "${COMMAND}" == "GENERIC_ALT" ]; then
+			elif [ "${COMMAND}" = "GENERIC_ALT" ]; then
 				build_libretro_generic_makefile $NAME $DIR $SUBDIR $MAKEFILE ${FORMAT_COMPILER_TARGET_ALT} "${ARGS}"
-			elif [ "${COMMAND}" == "GENERIC_JNI" ]; then
+			elif [ "${COMMAND}" = "GENERIC_JNI" ]; then
 				build_libretro_generic_jni $NAME $DIR $SUBDIR $MAKEFILE ${FORMAT_COMPILER_TARGET_ALT} "${ARGS}"
-			elif [ "${COMMAND}" == "BSNES_JNI" ]; then
+			elif [ "${COMMAND}" = "BSNES_JNI" ]; then
 				build_libretro_bsnes_jni $NAME $DIR $SUBDIR $MAKEFILE ${FORMAT_COMPILER_TARGET_ALT} "${ARGS}"
-			elif [ "${COMMAND}" == "GENERIC_THEOS" ]; then
+			elif [ "${COMMAND}" = "GENERIC_THEOS" ]; then
 				build_libretro_generic_theos $NAME $DIR $SUBDIR $MAKEFILE ${FORMAT_COMPILER_TARGET_ALT} "${ARGS}"
-			elif [ "${COMMAND}" == "BSNES" ]; then
+			elif [ "${COMMAND}" = "BSNES" ]; then
 				build_libretro_bsnes $NAME $DIR "${ARGS}" $MAKEFILE ${FORMAT_COMPILER_TARGET} ${CXX11}
 			fi
 		else
@@ -625,7 +625,7 @@ if [ ! -z "$TASK" ]; then
 	fi
 fi
 
-if [ "${PLATFORM}" == "MINGW64" ] || [ "${PLATFORM}" == "MINGW32" ] && [ "${RA}" == "YES" ]; then
+if [ "${PLATFORM}" = "MINGW64" ] || [ "${PLATFORM}" = "MINGW32" ] && [ "${RA}" = "YES" ]; then
 
 	while read line; do
 
@@ -641,7 +641,7 @@ if [ "${PLATFORM}" == "MINGW64" ] || [ "${PLATFORM}" == "MINGW32" ] && [ "${RA}"
 				continue
 			fi
 		fi 
-		if [ "${ENABLED}" == "YES" ]; then
+		if [ "${ENABLED}" = "YES" ]; then
 			echo "BUILDBOT JOB: $jobid Processing $NAME"
 			echo 
 			echo NAME: $NAME
@@ -692,7 +692,7 @@ if [ "${PLATFORM}" == "MINGW64" ] || [ "${PLATFORM}" == "MINGW32" ] && [ "${RA}"
 	echo
 	echo
 	done < $1.ra
-	if [ "${BUILD}" == "YES" -o "${FORCE}" == "YES" ]; then
+	if [ "${BUILD}" = "YES" -o "${FORCE}" = "YES" ]; then
 
 		cd $3
 		echo "BUILDBOT JOB: $jobid Building"
