@@ -13,13 +13,10 @@ case "$platform" in
 	##
 
 	ios)
-		# NOTE: This config requires a Mac with an Xcode version new enough for
-		#       its xcrun program to support -show-sdk-path.  That pretty much
-		#       limits us to Xcode 5 and above unless someone wants to implement
-		#       older Xcode version support using an alternate method.  Any such
-		#       support could only be for jailbreakers as any libretro core that
-		#       could ever be added to the App Store would require a recent SDK
-		#       and Xcode version to build.
+		# NOTE: This config requires a Mac with an Xcode installation.  These
+		#       scripts will work at least as far as 10.5 that we're sure of, but
+		#       we build with clang targeting iOS >= 5.  We'll accept patches for
+		#       older versions of iOS.
 
 		DIST_DIR="ios"
 		FORMAT_EXT=dylib
@@ -34,10 +31,25 @@ case "$platform" in
 		IOSVER_MINOR=${iosver#*.}
 		IOSVER=${IOSVER_MAJOR}${IOSVER_MINOR}
 
-		# Apple requires this stuff
+		# Tell system clang to build for iOS
 		CC="clang -arch armv7 -miphoneos-version-min=5.0 -isysroot $IOSSDK"
 		CXX="clang++ -arch armv7 -miphoneos-version-min=5.0 -isysroot $IOSSDK"
 		CXX11="clang++ -std=c++11 -stdlib=libc++ -arch armv7 -miphoneos-version-min=5.0 -isysroot $IOSSDK"
+
+		;;
+
+	theos_ios)
+		DIST_DIR="theos_ios"
+		BUILD_PRODUCT_PREFIX="objs/obj"
+		FORMAT_EXT=dylib
+		IOS=1
+		ARCH=armv7
+		FORMAT=_ios
+		FORMAT_COMPILER_TARGET=theos_ios
+		FORMAT_COMPILER_TARGET_ALT=theos_ios
+
+		# Make sure that the cross bins you need are first in your path
+		CXX11="clang++ -std=c++11 -stdlib=libc++ -miphoneos-version-min=5.0"
 
 		;;
 
@@ -105,10 +117,10 @@ case "$platform" in
 					FORMAT_COMPILER_TARGET="psp1"
 					DIST_DIR="psp1"
 					;;
-				*ios|theos_ios*)
+				theos_ios*)
 					FORMAT_EXT="dylib"
 					FORMAT_COMPILER_TARGET="theos_ios"
-					DIST_DIR="theos"
+					DIST_DIR="theos_ios"
 					;;
 				android)
 					FORMAT_EXT="so"
