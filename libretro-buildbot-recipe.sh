@@ -20,8 +20,7 @@ while read line; do
 	KEY=`echo $line | cut --fields=1 --delimiter=" "`
 	VALUE=`echo $line | cut --fields=2 --delimiter=" "`
 
-	if [ "${KEY}" == "PATH" ];
-	then
+	if [ "${KEY}" == "PATH" ]; then
 		export PATH=${VALUE}:${ORIGPATH}
 		echo New PATH: $PATH
 
@@ -29,7 +28,7 @@ while read line; do
 		export ${KEY}=${VALUE}
 		echo $KEY: $VALUE
 	fi
-done  < $1.conf
+done < $1.conf
 echo
 echo
 
@@ -49,8 +48,7 @@ read_link()
 	TARGET_FILE="$1"
 	cd $(dirname "$TARGET_FILE")
 	TARGET_FILE=$(basename "$TARGET_FILE")
-	while [ -L "$TARGET_FILE" ]
-	do
+	while [ -L "$TARGET_FILE" ]; do
 		TARGET_FILE=$(readlink "$TARGET_FILE")
 		cd $(dirname "$TARGET_FILE")
 		TARGET_FILE=$(basename "$TARGET_FILE")
@@ -70,18 +68,17 @@ fi
 
 mkdir -v -p "$RARCH_DIST_DIR"
 
-if [ "${PLATFORM}" == "android" ];
-then
+if [ "${PLATFORM}" == "android" ]; then
 
-IFS=' ' read -ra ABIS <<< "$TARGET_ABIS"
-   for a in "${ABIS[@]}"; do
+	IFS=' ' read -ra ABIS <<< "$TARGET_ABIS"
+	for a in "${ABIS[@]}"; do
 		echo $a
 		if [ -d $RARCH_DIST_DIR/${a} ]; then
 			echo "Directory $RARCH_DIST_DIR/${a} already exists, skipping creation..."
 		else
 			mkdir $RARCH_DIST_DIR/${a}
 		fi
-   done
+	done
 fi
 
 if [ "$HOST_CC" ]; then
@@ -93,7 +90,7 @@ fi
 
 
 if [ -z "$MAKE" ]; then
-   if uname -s | grep -i MINGW32 > /dev/null 2>&1; then
+	if uname -s | grep -i MINGW32 > /dev/null 2>&1; then
 		MAKE=mingw32-make
 	else
 		if type gmake > /dev/null 2>&1; then
@@ -101,37 +98,37 @@ if [ -z "$MAKE" ]; then
 		else
 			MAKE=make
 		fi
-   fi
+	fi
 fi
 
 
 if [ -z "$CC" ]; then
-   if [ $FORMAT_COMPILER_TARGET = "osx" ]; then
+	if [ $FORMAT_COMPILER_TARGET = "osx" ]; then
 		CC=cc
-   elif uname -s | grep -i MINGW32 > /dev/null 2>&1; then
+	elif uname -s | grep -i MINGW32 > /dev/null 2>&1; then
 		CC=mingw32-gcc
-   else
+	else
 		CC=gcc
-   fi
+	fi
 fi
 
 if [ -z "$CXX" ]; then
-   if [ $FORMAT_COMPILER_TARGET = "osx" ]; then
+	if [ $FORMAT_COMPILER_TARGET = "osx" ]; then
 		CXX=c++
 		CXX11="clang++ -std=c++11 -stdlib=libc++"
-   elif uname -s | grep -i MINGW32 > /dev/null 2>&1; then
+	elif uname -s | grep -i MINGW32 > /dev/null 2>&1; then
 		CXX=mingw32-g++
 		CXX11=mingw32-g++
-   else
+	else
 		CXX=g++
 		CXX11=g++
-   fi
+	fi
 fi
 
 if [ "${CC}" ] && [ "${CXX}" ]; then
-   COMPILER="CC=${CC} CXX=${CXX}"
+	COMPILER="CC=${CC} CXX=${CXX}"
 else
-   COMPILER=""
+	COMPILER=""
 fi
 
 echo
@@ -148,7 +145,7 @@ RESET_FORMAT_COMPILER_TARGET=$FORMAT_COMPILER_TARGET
 RESET_FORMAT_COMPILER_TARGET_ALT=$FORMAT_COMPILER_TARGET_ALT
 
 check_opengl() {
-   if [ "${BUILD_LIBRETRO_GL}" ]; then
+	if [ "${BUILD_LIBRETRO_GL}" ]; then
 		if [ "${ENABLE_GLES}" ]; then
 			echo '=== OpenGL ES enabled ==='
 			export FORMAT_COMPILER_TARGET="${FORMAT_COMPILER_TARGET}-gles"
@@ -158,14 +155,14 @@ check_opengl() {
 			export FORMAT_COMPILER_TARGET="${FORMAT_COMPILER_TARGET}-opengl"
 			export FORMAT_COMPILER_TARGET_ALT="${FORMAT_COMPILER_TARGET}"
 		fi
-   else
+	else
 		echo '=== OpenGL disabled in build ==='
-   fi
+	fi
 }
 
 reset_compiler_targets() {
-   export FORMAT_COMPILER_TARGET=$RESET_FORMAT_COMPILER_TARGET
-   export FORMAT_COMPILER_TARGET_ALT=$RESET_FORMAT_COMPILER_TARGET_ALT
+	export FORMAT_COMPILER_TARGET=$RESET_FORMAT_COMPILER_TARGET
+	export FORMAT_COMPILER_TARGET_ALT=$RESET_FORMAT_COMPILER_TARGET_ALT
 }
 
 
@@ -196,21 +193,18 @@ build_libretro_generic_makefile() {
 	cd $DIR
 	cd $SUBDIR
 
-	if [ "${NAME}" == "mame078" ];
-	then
-	OLDJ=$JOBS
+	if [ "${NAME}" == "mame078" ]; then
+		OLDJ=$JOBS
 		JOBS=1
 	fi
 
 
 
-	if [ -z "${NOCLEAN}" ];
-	then
-	echo "cleaning up..."
+	if [ -z "${NOCLEAN}" ]; then
+		echo "cleaning up..."
 		echo "cleanup command: ${MAKE} -f ${MAKEFILE} platform=${PLATFORM} -j${JOBS} ${ARGS} clean"
-	${MAKE} -f ${MAKEFILE} platform=${PLATFORM} -j${JOBS} ${ARGS} clean
-	if [ $? -eq 0 ];
-		then
+		${MAKE} -f ${MAKEFILE} platform=${PLATFORM} -j${JOBS} ${ARGS} clean
+		if [ $? -eq 0 ]; then
 			echo BUILDBOT JOB: $jobid $1 cleanup success!
 		else
 			echo BUILDBOT JOB: $jobid $1 cleanup failure!
@@ -218,23 +212,20 @@ build_libretro_generic_makefile() {
 	fi
 
 	echo "compiling..."
-	if [ -z "${ARGS}" ]
-	then
+	if [ -z "${ARGS}" ]; then
 		echo "build command: ${MAKE} -f ${MAKEFILE} platform=${PLATFORM} -j${JOBS}"
 		${MAKE} -f ${MAKEFILE} platform=${PLATFORM} -j${JOBS}
 	else
-		if [ "${NAME}" == "mame2010" ];
-		then
+		if [ "${NAME}" == "mame2010" ]; then
 
-		echo "build command: ${MAKE} -f ${MAKEFILE} platform=${PLATFORM} -j${JOBS} ${ARGS}" buildtools
+			echo "build command: ${MAKE} -f ${MAKEFILE} platform=${PLATFORM} -j${JOBS} ${ARGS}" buildtools
 			${MAKE} -f ${MAKEFILE} platform=${PLATFORM} -j${JOBS} ${ARGS} buildtools
 		fi
 		echo "build command: ${MAKE} -f ${MAKEFILE} platform=${PLATFORM} -j${JOBS} ${ARGS}"
 		${MAKE} -f ${MAKEFILE} platform=${PLATFORM} -j${JOBS} ${ARGS}
 	fi
 
-	if [ $? -eq 0 ];
-	then 
+	if [ $? -eq 0 ]; then 
 		MESSAGE="$1 build successful ($jobid)"
 		cp -v ${NAME}_libretro${FORMAT}${SUFFIX}.${FORMAT_EXT} $RARCH_DIST_DIR/${NAME}_libretro${FORMAT}.${FORMAT_EXT}
 	else
@@ -263,13 +254,11 @@ build_libretro_generic_theos() {
 	ln -s $THEOS theos
 
 
-	if [ -z "${NOCLEAN}" ];
-	then
-	echo "cleaning up..."
+	if [ -z "${NOCLEAN}" ]; then
+		echo "cleaning up..."
 		echo "cleanup command: ${MAKE} -f ${MAKEFILE} platform=${PLATFORM} -j${JOBS} ${ARGS} clean"
-	${MAKE} -f ${MAKEFILE} platform=${PLATFORM} -j${JOBS} ${ARGS} clean
-	if [ $? -eq 0 ];
-		then
+		${MAKE} -f ${MAKEFILE} platform=${PLATFORM} -j${JOBS} ${ARGS} clean
+		if [ $? -eq 0 ]; then
 			echo BUILDBOT JOB: $jobid $1 cleanup success!
 		else
 			echo BUILDBOT JOB: $jobid $1 cleanup failure!
@@ -277,8 +266,7 @@ build_libretro_generic_theos() {
 	fi
 
 	echo "compiling..."
-	if [ -z "${ARGS}" ]
-	then
+	if [ -z "${ARGS}" ]; then
 		echo "build command: ${MAKE} -f ${MAKEFILE} platform=${PLATFORM} -j${JOBS}"
 		${MAKE} -f ${MAKEFILE} platform=${PLATFORM} -j${JOBS}
 	else
@@ -286,8 +274,7 @@ build_libretro_generic_theos() {
 		${MAKE} -f ${MAKEFILE} platform=${PLATFORM} -j${JOBS} ${ARGS}
 	fi
 
-	if [ $? -eq 0 ];
-	then
+	if [ $? -eq 0 ]; then
 		MESSAGE="$1 build successful ($jobid)"
 		cp -v objs/obj/${NAME}_libretro${FORMAT}${SUFFIX}.${FORMAT_EXT} $RARCH_DIST_DIR/${NAME}_libretro${FORMAT}${SUFFIX}.${FORMAT_EXT}
 	else
@@ -312,13 +299,11 @@ build_libretro_generic_jni() {
 	cd ${DIR}/${SUBDIR}
 
 	for a in "${ABIS[@]}"; do
-		if [ -z "${NOCLEAN}" ]; 
-		then
+		if [ -z "${NOCLEAN}" ]; then
 			echo "cleaning up..."
 			echo "cleanup command: ${NDK} -j${JOBS} ${ARGS} APP_ABI=${a} clean"
 			${NDK} -j${JOBS} ${ARGS} APP_ABI=${a} clean
-			if [ $? -eq 0 ];
-			then 
+			if [ $? -eq 0 ]; then 
 				echo BUILDBOT JOB: $jobid $a $1 cleanup success!
 			else
 				echo BUILDBOT JOB: $jobid $a $1 cleanup failure!
@@ -326,16 +311,14 @@ build_libretro_generic_jni() {
 		fi
 
 	echo "compiling for ${a}..."
-		if [ -z "${ARGS}" ]
-		then
+		if [ -z "${ARGS}" ]; then
 			echo "build command: ${NDK} -j${JOBS} APP_ABI=${a}"
 			${NDK} -j${JOBS} APP_ABI=${a}
 		else
 			echo "build command: ${NDK} -j${JOBS} APP_ABI=${a} ${ARGS} "
 			${NDK} -j${JOBS} APP_ABI=${a} ${ARGS}
 		fi
-		if [ $? -eq 0 ];
-		then
+		if [ $? -eq 0 ]; then
 			MESSAGE="$1-$a build successful ($jobid)"		
 			echo BUILDBOT JOB: $MESSAGE
 			buildbot_log "$MESSAGE"
@@ -367,30 +350,26 @@ build_libretro_bsnes_jni() {
 	cd ${DIR}/${SUBDIR}
 
 	for a in "${ABIS[@]}"; do
-		if [ -z "${NOCLEAN}" ];
-		then
-		echo "cleaning up..."
-		echo "cleanup command: ${NDK} -j${JOBS} APP_ABI=${a} clean"
+		if [ -z "${NOCLEAN}" ]; then
+			echo "cleaning up..."
+			echo "cleanup command: ${NDK} -j${JOBS} APP_ABI=${a} clean"
 			${NDK} -j${JOBS} APP_ABI=${a} clean
-			if [ $? -eq 0 ];
-		then
-			echo BUILDBOT JOB: $jobid $1 cleanup success!
-		else
-			echo BUILDBOT JOB: $jobid $1 cleanup failure!
-		fi
+			if [ $? -eq 0 ]; then
+				echo BUILDBOT JOB: $jobid $1 cleanup success!
+			else
+				echo BUILDBOT JOB: $jobid $1 cleanup failure!
+			fi
 		fi
 
-	echo "compiling for ${a}..."
-		if [ -z "${ARGS}" ]
-		then
+		echo "compiling for ${a}..."
+		if [ -z "${ARGS}" ]; then
 			echo "build command: ${NDK} -j${JOBS} APP_ABI=${a}"
 			${NDK} -j${JOBS} APP_ABI=${a}
 		else
 			echo "build command: ${NDK} -j${JOBS} APP_ABI=${a}"
 			${NDK} -j${JOBS} APP_ABI=${a}
 		fi
-		if [ $? -eq 0 ];
-		then
+		if [ $? -eq 0 ]; then
 			MESSAGE="$1 build successful ($jobid)"
 			cp -v ../libs/${a}/libretro_${CORENAME}_${PROFILE}.${FORMAT_EXT} $RARCH_DIST_DIR/${a}/${NAME}_${PROFILE}_libretro${FORMAT}.${FORMAT_EXT}
 		else
@@ -419,13 +398,11 @@ build_libretro_generic_gl_makefile() {
 	cd $DIR
 	cd $SUBDIR
 
-	if [ -z "${NOCLEAN}" ]; 
-	then
-	echo "cleaning up..."
+	if [ -z "${NOCLEAN}" ]; then
+		echo "cleaning up..."
 		echo "cleanup command: ${MAKE} -f ${MAKEFILE} platform=${PLATFORM} -j${JOBS} clean"
-	${MAKE} -f ${MAKEFILE} platform=${PLATFORM} -j${JOBS} clean
-	if [ $? -eq 0 ];
-		then 
+		${MAKE} -f ${MAKEFILE} platform=${PLATFORM} -j${JOBS} clean
+		if [ $? -eq 0 ]; then 
 			echo BUILDBOT JOB: $jobid $1 cleanup success!
 		else
 			echo BUILDBOT JOB: $jobid $1 cleanup failure!
@@ -433,8 +410,7 @@ build_libretro_generic_gl_makefile() {
 	fi
 
 	echo "compiling..."
-	if [ -z "${ARGS}" ];
-	then
+	if [ -z "${ARGS}" ]; then
 		echo "build command: ${MAKE} -f ${MAKEFILE} platform=${PLATFORM} -j${JOBS}"
 		${MAKE} -f ${MAKEFILE} platform=${PLATFORM} -j${JOBS}
 	else
@@ -442,8 +418,7 @@ build_libretro_generic_gl_makefile() {
 		${MAKE} -f ${MAKEFILE} platform=${PLATFORM} -j${JOBS} ${ARGS}
 	fi
 
-	if [ $? -eq 0 ];
-	then 
+	if [ $? -eq 0 ]; then 
 		MESSAGE="$1 build successful ($jobid)"
 		cp -v ${NAME}_libretro${FORMAT}${SUFFIX}.${FORMAT_EXT} $RARCH_DIST_DIR/${NAME}_libretro${FORMAT}${SUFFIX}.${FORMAT_EXT}
 	else
@@ -472,22 +447,19 @@ build_libretro_bsnes() {
 	cd $DIR
 
 
-	if [ -z "${NOCLEAN}" ]; 
-	then
-	echo "cleaning up..."
+	if [ -z "${NOCLEAN}" ]; then
+		echo "cleaning up..."
 
 		rm -f obj/*.{o,"${FORMAT_EXT}"}
 		rm -f out/*.{o,"${FORMAT_EXT}"}	
 
 
-	if [ "${PROFILE}" == "cpp98" -o "${PROFILE}" == "bnes" ];
-	then
-		${MAKE} clean
-	fi
+		if [ "${PROFILE}" == "cpp98" -o "${PROFILE}" == "bnes" ]; then
+			${MAKE} clean
+		fi
 
 
-		if [ $? -eq 0 ];
-		then
+		if [ $? -eq 0 ]; then
 			echo BUILDBOT JOB: $jobid $1 cleanup success!
 		else
 			echo BUILDBOT JOB: $jobid $1 cleanup failure!
@@ -497,11 +469,9 @@ build_libretro_bsnes() {
 	echo "compiling..."
 
 
-	if [ "${PROFILE}" == "cpp98" ];
-	then
+	if [ "${PROFILE}" == "cpp98" ]; then
 		${MAKE} platform="${PLATFORM}" ${COMPILER} "-j${JOBS}"
-	elif [ "${PROFILE}" == "bnes" ];
-	then
+	elif [ "${PROFILE}" == "bnes" ]; then
 		echo "build command: ${MAKE} -f Makefile ${COMPILER} "-j${JOBS}" compiler=${BSNESCOMPILER}" platform=${FORMAT_COMPILER_TARGET}
 		${MAKE} -f Makefile ${COMPILER} "-j${JOBS}" compiler="${BSNESCOMPILER}" platform=${FORMAT_COMPILER_TARGET}
 	else
@@ -509,17 +479,14 @@ build_libretro_bsnes() {
 		${MAKE} -f ${MAKEFILE} platform=${PLATFORM} compiler=${BSNESCOMPILER} ui='target-libretro' profile=${PROFILE} -j${JOBS}
 	fi
 
-	if [ $? -eq 0 ];
-	then
+	if [ $? -eq 0 ]; then
 		MESSAGE="$1 build successful ($jobid)"
-		if [ "${PROFILE}" == "cpp98" ];
-		then
+		if [ "${PROFILE}" == "cpp98" ]; then
 			cp -fv "out/libretro.${FORMAT_EXT}" "${RARCH_DIST_DIR}/${NAME}_libretro${FORMAT}${SUFFIX}.${FORMAT_EXT}"
-		elif [ "${PROFILE}" == "bnes" ];
-		then
+		elif [ "${PROFILE}" == "bnes" ]; then
 			cp -fv "libretro.${FORMAT_EXT}" "${RARCH_DIST_DIR}/${NAME}_libretro${FORMAT}${SUFFIX}.${FORMAT_EXT}"
 		else
-			cp -fv "out/${NAME}_${PROFILE}_libretro$FORMAT.${FORMAT_EXT}" $RARCH_DIST_DIR/${NAME}_${PROFILE}_libretro${FORMAT}${SUFFIX}.${FORMAT_EXT}
+			cp -fv "out/${NAME}_libretro$FORMAT.${FORMAT_EXT}" $RARCH_DIST_DIR/${NAME}_${PROFILE}_libretro${FORMAT}${SUFFIX}.${FORMAT_EXT}
 		fi
 	else
 		MESSAGE="$1 build failure ($jobid)"
@@ -547,8 +514,7 @@ while read line; do
 	MAKEFILE=`echo $line | cut --fields=7 --delimiter=" "`
 	SUBDIR=`echo $line | cut --fields=8 --delimiter=" "`
 
-	if [ "${ENABLED}" == "YES" ];
-	then
+	if [ "${ENABLED}" == "YES" ]; then
 		echo "BUILDBOT JOB: $jobid Processing $NAME"
 		echo
 		echo URL: $URL
@@ -563,57 +529,48 @@ while read line; do
 		ARGS=""
 
 		TEMP=`echo $line | cut --fields=9 --delimiter=" "`
-		if [ -n ${TEMP} ];
-		then
+		if [ -n ${TEMP} ]; then
 			ARGS="${TEMP}"
 		fi
 		TEMP=""
 		TEMP=`echo $line | cut --fields=10 --delimiter=" "`
-		if [ -n ${TEMP} ];
-		then
+		if [ -n ${TEMP} ]; then
 			ARGS="${ARGS} ${TEMP}"
 		fi
 		TEMP=""
 		TEMP=`echo $line | cut --fields=11 --delimiter=" "`
-		if [ -n ${TEMP} ];
-		then
+		if [ -n ${TEMP} ]; then
 			ARGS="${ARGS} ${TEMP}"
 		fi
 		TEMP=""
 		TEMP=`echo $line | cut --fields=12 --delimiter=" "`
-		if [ -n ${TEMP} ];
-		then
+		if [ -n ${TEMP} ]; then
 			ARGS="${ARGS} ${TEMP}"
 		fi
 		TEMP=""
 		TEMP=`echo $line | cut --fields=13 --delimiter=" "`
-		if [ -n ${TEMP} ];
-		then
+		if [ -n ${TEMP} ]; then
 			ARGS="${ARGS} ${TEMP}"
 		fi
 		TEMP=""
 		TEMP=`echo $line | cut --fields=14 --delimiter=" "`
-		if [ -n ${TEMP} ];
-		then
+		if [ -n ${TEMP} ]; then
 			ARGS="${ARGS} ${TEMP}"
 		fi
 
-		ARGS="${ARGS%"${ARGS##*[![:space:]]}"}"  
+		ARGS="${ARGS%"${ARGS##*[![:space:]]}"}"
 
 		echo ARGS: $ARGS
 		echo
 		echo
 
-		if [ "${TYPE}" == "PROJECT" ];
-		then
-			if [ -d "${DIR}/.git" ];
-			then
+		if [ "${TYPE}" == "PROJECT" ]; then
+			if [ -d "${DIR}/.git" ]; then
 
 				cd $DIR
 				echo "pulling from repo... "
 				OUT=`git pull`
-				if [[ $OUT == *"Already up-to-date"* ]]
-				then
+				if [[ $OUT == *"Already up-to-date"* ]]; then
 					BUILD="NO"
 				else
 					BUILD="YES"
@@ -642,16 +599,13 @@ while read line; do
 				git clone --depth=1 "$URL" "$DIR"
 				BUILD="YES"
 			fi
-		elif [ "${TYPE}" == "psp_hw_render" ]; 
-		then
-			if [ -d "${DIR}/.git" ];
-			then
+		elif [ "${TYPE}" == "psp_hw_render" ]; then
+			if [ -d "${DIR}/.git" ]; then
 
 				cd $DIR
 				echo "pulling from repo... "
 				OUT=`git pull`
-				if [[ $OUT == *"Already up-to-date"* ]]
-				then
+				if [[ $OUT == *"Already up-to-date"* ]]; then
 					BUILD="NO"
 				else
 					BUILD="YES"
@@ -667,16 +621,13 @@ while read line; do
 				BUILD="YES"
 			fi
 
-		elif [ "${TYPE}" == "SUBMODULE" ]; 
-		then
-			if [ -d "${DIR}/.git" ];
-			then
+		elif [ "${TYPE}" == "SUBMODULE" ]; then
+			if [ -d "${DIR}/.git" ]; then
 
 				cd $DIR
 				echo "pulling from repo... "
 				OUT=`git pull`
-				if [[ $OUT == *"Already up-to-date"* ]]
-				then
+				if [[ $OUT == *"Already up-to-date"* ]]; then
 					BUILD="NO"
 				else
 					BUILD="YES"
@@ -693,8 +644,7 @@ while read line; do
 		cd ..
 		fi
 
-		if [ "${BUILD}" == "YES" -o "${FORCE}" == "YES" ];
-		then
+		if [ "${BUILD}" == "YES" -o "${FORCE}" == "YES" ]; then
 			echo building core...
 			if [ "${COMMAND}" == "GENERIC" ]; then
 				build_libretro_generic_makefile $NAME $DIR $SUBDIR $MAKEFILE ${FORMAT_COMPILER_TARGET} "${ARGS}"
@@ -710,11 +660,10 @@ while read line; do
 				build_libretro_generic_theos $NAME $DIR $SUBDIR $MAKEFILE ${FORMAT_COMPILER_TARGET_ALT} "${ARGS}"
 			elif [ "${COMMAND}" == "BSNES" ]; then
 				build_libretro_bsnes $NAME $DIR "${ARGS}" $MAKEFILE ${FORMAT_COMPILER_TARGET} ${CXX11}
-
+			fi
+		else
+			echo BUILDBOT JOB: $jobid $NAME already up-to-date...
 		fi
-	else
-		echo BUILDBOT JOB: $jobid $NAME already up-to-date...
-	fi
 		echo
 
 	fi
@@ -723,15 +672,14 @@ while read line; do
 	PREVCORE=$NAME
 	PREVBUILD=$BUILD
 
-done  < $1
+done < $1
 
 echo "BUILDBOT JOB: $jobid Building Retroarch"
 echo 
 cd $WORK
 BUILD=""
 
-if [ "${PLATFORM}" == "android" ] && [ "${RA}" == "YES" ];
-then
+if [ "${PLATFORM}" == "android" ] && [ "${RA}" == "YES" ]; then
 
 	while read line; do
 
@@ -742,8 +690,7 @@ then
 		ENABLED=`echo $line | cut --fields=5 --delimiter=" "`
 		PARENTDIR=`echo $line | cut --fields=6 --delimiter=" "`
 
-		if [ "${ENABLED}" == "YES" ];
-		then
+		if [ "${ENABLED}" == "YES" ]; then
 			echo "BUILDBOT JOB: $jobid Processing $NAME"
 			echo 
 			echo NAME: $NAME
@@ -756,38 +703,32 @@ then
 			ARGS=""
 
 			TEMP=`echo $line | cut --fields=9 --delimiter=" "`
-			if [ -n ${TEMP} ];
-			then
+			if [ -n ${TEMP} ]; then
 				ARGS="${TEMP}"
 			fi
 			TEMP=""
 			TEMP=`echo $line | cut --fields=10 --delimiter=" "`
-			if [ -n ${TEMP} ];
-			then
+			if [ -n ${TEMP} ]; then
 				ARGS="${ARGS} ${TEMP}"
 			fi
 			TEMP=""
 			TEMP=`echo $line | cut --fields=11 --delimiter=" "`
-			if [ -n ${TEMP} ];
-			then
+			if [ -n ${TEMP} ]; then
 				ARGS="${ARGS} ${TEMP}"
 			fi
 			TEMP=""
 			TEMP=`echo $line | cut --fields=12 --delimiter=" "`
-			if [ -n ${TEMP} ];
-			then
+			if [ -n ${TEMP} ]; then
 				ARGS="${ARGS} ${TEMP}"
 			fi
 			TEMP=""
 			TEMP=`echo $line | cut --fields=13 --delimiter=" "`
-			if [ -n ${TEMP} ];
-			then
+			if [ -n ${TEMP} ]; then
 				ARGS="${ARGS} ${TEMP}"
 			fi
 			TEMP=""
 			TEMP=`echo $line | cut --fields=14 --delimiter=" "`
-			if [ -n ${TEMP} ];
-			then
+			if [ -n ${TEMP} ]; then
 				ARGS="${ARGS} ${TEMP}"
 			fi
 
@@ -795,18 +736,15 @@ then
 
 			echo ARGS: $ARGS
 
-			if [ -d "${PARENTDIR}/${DIR}/.git" ];
-			then
+			if [ -d "${PARENTDIR}/${DIR}/.git" ]; then
 				cd $PARENTDIR
 				cd $DIR
 				echo "pulling from repo... "
 				OUT=`git pull`
 				echo $OUT
-				if [ "${TYPE}" == "PROJECT" ];
-				then
+				if [ "${TYPE}" == "PROJECT" ]; then
 					RADIR=$DIR
-					if [[ $OUT == *"Already up-to-date"* ]]
-					then
+					if [[ $OUT == *"Already up-to-date"* ]]; then
 						BUILD="NO"
 					else
 						BUILD="YES"
@@ -819,8 +757,7 @@ then
 				cd $PARENTDIR
 				git clone "$URL" "$DIR" --depth=1
 				cd $DIR
-				if [ "${TYPE}" == "PROJECT" ];
-				then
+				if [ "${TYPE}" == "PROJECT" ]; then
 					BUILD="YES"
 					RADIR=$DIR
 
@@ -831,61 +768,58 @@ then
 
 		echo
 		echo
-	done  < $1.ra
-	if [ "${BUILD}" == "YES" -o "${FORCE}" == "YES" ];
-	then
+	done < $1.ra
+	if [ "${BUILD}" == "YES" -o "${FORCE}" == "YES" ]; then
 		echo "BUILDBOT JOB: $jobid Compiling Shaders"
 		echo 
 
-	echo RADIR $RADIR
-	cd $RADIR
-	$MAKE -f Makefile.griffin shaders-convert-glsl PYTHON3=$PYTHON
+		echo RADIR $RADIR
+		cd $RADIR
+		$MAKE -f Makefile.griffin shaders-convert-glsl PYTHON3=$PYTHON
 
-	echo "BUILDBOT JOB: $jobid Processing Assets"
-	echo 
+		echo "BUILDBOT JOB: $jobid Processing Assets"
+		echo 
 
-	mkdir -p android/phoenix/assets/
-	rm -Rfv android/phoenix/assets/assets
-	cp -Rfv media/assets android/phoenix/assets/
-	rm -Rfv android/phoenix/assets/libretrodb
-	cp -Rfv media/libretrodb android/phoenix//assets/libretrodb/
-	rm -Rfv android/phoenix/assets/overlays
-	cp -Rfv media/overlays android/phoenix/assets/
-	rm -Rfv android/phoenix/assets/shaders_glsl
-	cp -Rfv media/shaders_glsl android/phoenix/assets/
-	rm -Rfv android/phoenix/assets/autoconfig
-	cp -Rfv media/autoconfig android/phoenix/assets/
-	rm -Rfv android/phoenix/assets/info
-	cp -Rfv $RARCH_DIR/info android/phoenix/assets/
+		mkdir -p android/phoenix/assets/
+		rm -Rfv android/phoenix/assets/assets
+		cp -Rfv media/assets android/phoenix/assets/
+		rm -Rfv android/phoenix/assets/libretrodb
+		cp -Rfv media/libretrodb android/phoenix//assets/libretrodb/
+		rm -Rfv android/phoenix/assets/overlays
+		cp -Rfv media/overlays android/phoenix/assets/
+		rm -Rfv android/phoenix/assets/shaders_glsl
+		cp -Rfv media/shaders_glsl android/phoenix/assets/
+		rm -Rfv android/phoenix/assets/autoconfig
+		cp -Rfv media/autoconfig android/phoenix/assets/
+		rm -Rfv android/phoenix/assets/info
+		cp -Rfv $RARCH_DIR/info android/phoenix/assets/
 
-	echo "BUILDBOT JOB: $jobid Building"
-	echo 
-	cd android/phoenix
-	rm bin/*.apk
+		echo "BUILDBOT JOB: $jobid Building"
+		echo 
+		cd android/phoenix
+		rm bin/*.apk
 
-	$NDK clean
-	$NDK -j${JOBS}
-	ant clean
-	android update project --path . --target android-21
-	android update project --path libs/googleplay --target android-21
-	android update project --path libs/appcompat --target android-21
-	ant debug
-                if [ $? -eq 0 ];
-                then
-                        MESSAGE="retroarch build successful ($jobid)"
-                        echo $MESSAGE
+		$NDK clean
+		$NDK -j${JOBS}
+		ant clean
+		android update project --path . --target android-21
+		android update project --path libs/googleplay --target android-21
+		android update project --path libs/appcompat --target android-21
+		ant debug
+		if [ $? -eq 0 ]; then
+			MESSAGE="retroarch build successful ($jobid)"
+			echo $MESSAGE
 		else
-                        MESSAGE="retroarch buildf failed ($jobid)"
-                        echo $MESSAGE
+			MESSAGE="retroarch buildf failed ($jobid)"
+			echo $MESSAGE
 		fi
-                        buildbot_log "$MESSAGE"
+		buildbot_log "$MESSAGE"
 
 	fi
 
 fi
 
-if [ "${PLATFORM}" == "theos_ios" ] && [ "${RA}" == "YES" ];
-then
+if [ "${PLATFORM}" == "theos_ios" ] && [ "${RA}" == "YES" ]; then
 
 	while read line; do
 
@@ -896,8 +830,7 @@ then
 		ENABLED=`echo $line | cut --fields=5 --delimiter=" "`
 		PARENTDIR=`echo $line | cut --fields=6 --delimiter=" "`
 
-		if [ "${ENABLED}" == "YES" ];
-		then
+		if [ "${ENABLED}" == "YES" ]; then
 			echo "BUILDBOT JOB: $jobid Processing $NAME"
 			echo 
 			echo NAME: $NAME
@@ -910,38 +843,32 @@ then
 			ARGS=""
 
 			TEMP=`echo $line | cut --fields=9 --delimiter=" "`
-			if [ -n ${TEMP} ];
-			then
+			if [ -n ${TEMP} ]; then
 				ARGS="${TEMP}"
 			fi
 			TEMP=""
 			TEMP=`echo $line | cut --fields=10 --delimiter=" "`
-			if [ -n ${TEMP} ];
-			then
+			if [ -n ${TEMP} ]; then
 				ARGS="${ARGS} ${TEMP}"
 			fi
 			TEMP=""
 			TEMP=`echo $line | cut --fields=11 --delimiter=" "`
-			if [ -n ${TEMP} ];
-			then
+			if [ -n ${TEMP} ]; then
 				ARGS="${ARGS} ${TEMP}"
 			fi
 			TEMP=""
 			TEMP=`echo $line | cut --fields=12 --delimiter=" "`
-			if [ -n ${TEMP} ];
-			then
+			if [ -n ${TEMP} ]; then
 				ARGS="${ARGS} ${TEMP}"
 			fi
 			TEMP=""
 			TEMP=`echo $line | cut --fields=13 --delimiter=" "`
-			if [ -n ${TEMP} ];
-			then
+			if [ -n ${TEMP} ]; then
 				ARGS="${ARGS} ${TEMP}"
 			fi
 			TEMP=""
 			TEMP=`echo $line | cut --fields=14 --delimiter=" "`
-			if [ -n ${TEMP} ];
-			then
+			if [ -n ${TEMP} ]; then
 				ARGS="${ARGS} ${TEMP}"
 			fi
 
@@ -949,18 +876,15 @@ then
 
 			echo ARGS: $ARGS
 
-			if [ -d "${PARENTDIR}/${DIR}/.git" ];
-			then
+			if [ -d "${PARENTDIR}/${DIR}/.git" ]; then
 				cd $PARENTDIR
 				cd $DIR
 				echo "pulling from repo... "
 				OUT=`git pull`
 				echo $OUT
-				if [ "${TYPE}" == "PROJECT" ];
-				then
+				if [ "${TYPE}" == "PROJECT" ]; then
 					RADIR=$DIR
-					if [[ $OUT == *"Already up-to-date"* ]]
-					then
+					if [[ $OUT == *"Already up-to-date"* ]]; then
 						BUILD="NO"
 					else
 						BUILD="YES"
@@ -973,8 +897,7 @@ then
 				cd $PARENTDIR
 				git clone "$URL" "$DIR" --depth=1
 				cd $DIR
-				if [ "${TYPE}" == "PROJECT" ];
-				then
+				if [ "${TYPE}" == "PROJECT" ]; then
 					BUILD="YES"
 					RADIR=$DIR
 
@@ -985,9 +908,8 @@ then
 
 		echo
 		echo
-	done  < $1.ra
-	if [ "${BUILD}" == "YES" -o "${FORCE}" == "YES" ];
-	then
+	done < $1.ra
+	if [ "${BUILD}" == "YES" -o "${FORCE}" == "YES" ]; then
 		echo "BUILDBOT JOB: $jobid Compiling Shaders"
 		echo 
 
@@ -1022,8 +944,7 @@ then
 
 fi
 
-if [ "${PLATFORM}" == "MINGW64" ] || [ "${PLATFORM}" == "MINGW32" ] && [ "${RA}" == "YES" ];
-then
+if [ "${PLATFORM}" == "MINGW64" ] || [ "${PLATFORM}" == "MINGW32" ] && [ "${RA}" == "YES" ]; then
 
 	while read line; do
 
@@ -1034,8 +955,7 @@ then
 		ENABLED=`echo $line | cut --fields=5 --delimiter=" "`
 		PARENTDIR=`echo $line | cut --fields=6 --delimiter=" "`
 
-		if [ "${ENABLED}" == "YES" ];
-		then
+		if [ "${ENABLED}" == "YES" ]; then
 			echo "BUILDBOT JOB: $jobid Processing $NAME"
 			echo 
 			echo NAME: $NAME
@@ -1054,32 +974,27 @@ then
 		fi
 		TEMP=""
 		TEMP=`echo $line | cut --fields=10 --delimiter=" "`
-		if [ -n ${TEMP} ];
-		then
+		if [ -n ${TEMP} ]; then
 			ARGS="${ARGS} ${TEMP}"
 		fi
 		TEMP=""
 		TEMP=`echo $line | cut --fields=11 --delimiter=" "`
-		if [ -n ${TEMP} ];
-		then
+		if [ -n ${TEMP} ]; then
 			ARGS="${ARGS} ${TEMP}"
 		fi
 		TEMP=""
 		TEMP=`echo $line | cut --fields=12 --delimiter=" "`
-		if [ -n ${TEMP} ];
-		then
+		if [ -n ${TEMP} ]; then
 			ARGS="${ARGS} ${TEMP}"
 		fi
 		TEMP=""
 		TEMP=`echo $line | cut --fields=13 --delimiter=" "`
-		if [ -n ${TEMP} ];
-		then
+		if [ -n ${TEMP} ]; then
 			ARGS="${ARGS} ${TEMP}"
 		fi
 		TEMP=""
 		TEMP=`echo $line | cut --fields=14 --delimiter=" "`
-		if [ -n ${TEMP} ];
-		then
+		if [ -n ${TEMP} ]; then
 			ARGS="${ARGS} ${TEMP}"
 		fi
 
@@ -1087,18 +1002,15 @@ then
 
 		echo ARGS: $ARGS
 
-		if [ -d "${PARENTDIR}/${DIR}/.git" ];
-		then
+		if [ -d "${PARENTDIR}/${DIR}/.git" ]; then
 		cd $PARENTDIR
 			cd $DIR
 			echo "pulling from repo... "
 			OUT=`git pull`
 			echo $OUT
-			if [ "${TYPE}" == "PROJECT" ];
-			then
+			if [ "${TYPE}" == "PROJECT" ]; then
 				RADIR=$DIR
-				if [[ $OUT == *"Already up-to-date"* ]]
-				then
+				if [[ $OUT == *"Already up-to-date"* ]]; then
 					BUILD="NO"
 				else	
 					BUILD="YES"
@@ -1111,8 +1023,7 @@ then
 			git clone "$URL" "$DIR" --depth=1
 			cd $DIR
 	
-			if [ "${TYPE}" == "PROJECT" ];
-			then
+			if [ "${TYPE}" == "PROJECT" ]; then
 				BUILD="YES"
 				RADIR=$DIR
 
@@ -1123,9 +1034,8 @@ then
 
 	echo
 	echo
-	done  < $1.ra
-	if [ "${BUILD}" == "YES" -o "${FORCE}" == "YES" ];
-	then
+	done < $1.ra
+	if [ "${BUILD}" == "YES" -o "${FORCE}" == "YES" ]; then
 
 		cd $RADIR
 		echo "BUILDBOT JOB: $jobid Building"
@@ -1135,8 +1045,7 @@ then
 		cd audio/audio_filters
 		echo "audio filter build command: ${MAKE}"
 		$MAKE
-		if [ $? -eq 0 ];
-		then
+		if [ $? -eq 0 ]; then
 			echo BUILDBOT JOB: $jobid audio filter build success!		
 		else
 			echo BUILDBOT JOB: $jobid audio filter build failure!
@@ -1149,8 +1058,7 @@ then
 		cd gfx/video_filters
 		echo "audio filter build command: ${MAKE}"
 		$MAKE
-		if [ $? -eq 0 ];
-		then
+		if [ $? -eq 0 ]; then
 			echo BUILDBOT JOB: $jobid video filter build success!		
 		else
 			echo BUILDBOT JOB: $jobid video filter build failure!
@@ -1163,8 +1071,7 @@ then
 		echo "cleanup command: $MAKE clean"
 		$MAKE clean
 		
-		if [ $? -eq 0 ];
-		then
+		if [ $? -eq 0 ]; then
 			echo BUILDBOT JOB: $jobid retroarch cleanup success!		
 		else
 			echo BUILDBOT JOB: $jobid retroarch cleanup failure!
@@ -1174,8 +1081,7 @@ then
 		echo "configure command: $CONFIGURE"
 		${CONFIGURE}
 		
-		if [ $? -eq 0 ];
-		then
+		if [ $? -eq 0 ]; then
 			echo BUILDBOT JOB: $jobid retroarch configure success!		
 		else
 			echo BUILDBOT JOB: $jobid retroarch configure failure!
@@ -1185,8 +1091,7 @@ then
 		echo "build command: $MAKE -j${JOBS}"
 		$MAKE -j${JOBS}
 		
-		if [ $? -eq 0 ];
-		then
+		if [ $? -eq 0 ]; then
 			MESSAGE="retroarch build successful ($jobid)"
 			echo $MESSAGE
 			buildbot_log "$MESSAGE"
@@ -1264,8 +1169,7 @@ EOF
 
 fi
 
-if [ "${PLATFORM}" == "psp1" ] && [ "${RA}" == "YES" ];
-then
+if [ "${PLATFORM}" == "psp1" ] && [ "${RA}" == "YES" ]; then
 
 	while read line; do
 
@@ -1276,8 +1180,7 @@ then
 		ENABLED=`echo $line | cut --fields=5 --delimiter=" "`
 		PARENTDIR=`echo $line | cut --fields=6 --delimiter=" "`
 
-		if [ "${ENABLED}" == "YES" ];
-		then
+		if [ "${ENABLED}" == "YES" ]; then
 			echo "BUILDBOT JOB: $jobid Processing $NAME"
 			echo 
 			echo NAME: $NAME
@@ -1290,38 +1193,32 @@ then
 			ARGS=""
 
 			TEMP=`echo $line | cut --fields=9 --delimiter=" "`
-			if [ -n ${TEMP} ];
-			then
+			if [ -n ${TEMP} ]; then
 				ARGS="${TEMP}"
 		fi
 		TEMP=""
 		TEMP=`echo $line | cut --fields=10 --delimiter=" "`
-		if [ -n ${TEMP} ];
-		then
+		if [ -n ${TEMP} ]; then
 			ARGS="${ARGS} ${TEMP}"
 		fi
 		TEMP=""
 		TEMP=`echo $line | cut --fields=11 --delimiter=" "`
-		if [ -n ${TEMP} ];
-		then
+		if [ -n ${TEMP} ]; then
 			ARGS="${ARGS} ${TEMP}"
 		fi
 		TEMP=""
 		TEMP=`echo $line | cut --fields=12 --delimiter=" "`
-		if [ -n ${TEMP} ];
-		then
+		if [ -n ${TEMP} ]; then
 			ARGS="${ARGS} ${TEMP}"
 		fi
 		TEMP=""
 		TEMP=`echo $line | cut --fields=13 --delimiter=" "`
-		if [ -n ${TEMP} ];
-		then
+		if [ -n ${TEMP} ]; then
 			ARGS="${ARGS} ${TEMP}"
 		fi
 		TEMP=""
 		TEMP=`echo $line | cut --fields=14 --delimiter=" "`
-		if [ -n ${TEMP} ];
-		then
+		if [ -n ${TEMP} ]; then
 			ARGS="${ARGS} ${TEMP}"
 		fi
 
@@ -1329,18 +1226,15 @@ then
 
 		echo ARGS: $ARGS
 
-		if [ -d "${PARENTDIR}/${DIR}/.git" ];
-		then
+		if [ -d "${PARENTDIR}/${DIR}/.git" ]; then
 		cd $PARENTDIR
 			cd $DIR
 			echo "pulling from repo... "
 			OUT=`git pull`
 			echo $OUT
-			if [ "${TYPE}" == "PROJECT" ];
-			then
+			if [ "${TYPE}" == "PROJECT" ]; then
 				RADIR=$DIR
-				if [[ $OUT == *"Already up-to-date"* ]]
-				then
+				if [[ $OUT == *"Already up-to-date"* ]]; then
 					BUILD="NO"
 				else	
 					BUILD="YES"
@@ -1353,8 +1247,7 @@ then
 			git clone "$URL" "$DIR" --depth=1
 			cd $DIR
 	
-			if [ "${TYPE}" == "PROJECT" ];
-			then
+			if [ "${TYPE}" == "PROJECT" ]; then
 				BUILD="YES"
 				RADIR=$DIR
 
@@ -1365,49 +1258,46 @@ then
 
 	echo
 	echo
-	done  < $1.ra
-	if [ "${BUILD}" == "YES" -o "${FORCE}" == "YES" ];
-	then
+	done < $1.ra
+	if [ "${BUILD}" == "YES" -o "${FORCE}" == "YES" ]; then
 
 		cd $RADIR
-        rm -rfv psp1/pkg
+		rm -rfv psp1/pkg
 		echo "BUILDBOT JOB: $jobid Building"
 		echo 
 
-	if [ "${BUILD}" == "YES" -o "${FORCE}" == "YES" ];
-	then
+		if [ "${BUILD}" == "YES" -o "${FORCE}" == "YES" ]; then
 
-		cd dist-scripts
-		rm *.a
-		cp -v $RARCH_DIST_DIR/* .
-		sh ./psp1-cores.sh
-        if [ $? -eq 0 ];
-        then
-            MESSAGE="retroarch build successful ($jobid)"
-            echo $MESSAGE
-	    else
-            MESSAGE="retroarch build failed ($jobid)"
-            echo $MESSAGE
+			cd dist-scripts
+			rm *.a
+			cp -v $RARCH_DIST_DIR/* .
+			sh ./psp1-cores.sh
+			if [ $? -eq 0 ]; then
+				MESSAGE="retroarch build successful ($jobid)"
+				echo $MESSAGE
+			else
+				MESSAGE="retroarch build failed ($jobid)"
+				echo $MESSAGE
+			fi
+			buildbot_log "$MESSAGE"
+			cd ..
+
 		fi
-        buildbot_log "$MESSAGE"
-        cd ..      
 
-	fi            
-			
-			echo "Packaging"
-			echo ============================================
-			cp retroarch.cfg retroarch.default.cfg
-			
-			
-			mkdir -p psp1/pkg/
-			mkdir -p psp1/pkg/cheats
-			mkdir -p psp1/pkg/database
-			mkdir -p psp1/pkg/database/cursors
-			mkdir -p psp1/pkg/database/rdb
-			
-			cp -Rfv media/libretrodb/cht/* psp1/pkg/cheats
-			cp -Rfv media/libretrodb/rdb/* psp1/pkg/database/rdb
-			cp -Rfv media/libretrodb/cursors/* psp1/pkg/database/cursors
+		echo "Packaging"
+		echo ============================================
+		cp retroarch.cfg retroarch.default.cfg
+				
+				
+		mkdir -p psp1/pkg/
+		mkdir -p psp1/pkg/cheats
+		mkdir -p psp1/pkg/database
+		mkdir -p psp1/pkg/database/cursors
+		mkdir -p psp1/pkg/database/rdb
+				
+		cp -Rfv media/libretrodb/cht/* psp1/pkg/cheats
+		cp -Rfv media/libretrodb/rdb/* psp1/pkg/database/rdb
+		cp -Rfv media/libretrodb/cursors/* psp1/pkg/database/cursors
 
 
 	fi
