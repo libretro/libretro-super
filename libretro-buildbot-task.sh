@@ -14,7 +14,7 @@
 
 ####environment configuration:
 echo "BUILDBOT JOB: Setting up Environment for $1"
-echo 
+echo
 
 ORIGPATH=$PATH
 WORK=$PWD
@@ -28,7 +28,6 @@ while read line; do
 	if [ "${KEY}" = "PATH" ]; then
 		export PATH=${VALUE}:${ORIGPATH}
 		echo New PATH: $PATH
-
 	else
 		export ${KEY}=${VALUE}
 		echo $KEY: $VALUE
@@ -37,7 +36,7 @@ done < $1.conf
 echo
 echo
 
-. ./libretro-config.sh
+. $WORK/libretro-config.sh
 
 echo
 [[ "${ARM_NEON}" ]] && echo 'ARM NEON opts enabled...' && export FORMAT_COMPILER_TARGET="${FORMAT_COMPILER_TARGET}-neon"
@@ -74,7 +73,6 @@ fi
 mkdir -v -p "$RARCH_DIST_DIR"
 
 if [ "${PLATFORM}" = "android" ]; then
-
 	IFS=' ' read -ra ABIS <<< "$TARGET_ABIS"
 	for a in "${ABIS[@]}"; do
 		echo $a
@@ -171,7 +169,6 @@ reset_compiler_targets() {
 }
 
 
-
 cd "${BASE_DIR}"
 
 ####build commands
@@ -179,12 +176,9 @@ buildbot_log() {
 
 	HASH=`echo -n "$1" | openssl sha1 -hmac $SIG | cut -f 2 -d " "`
 	curl --data "message=$1&sign=$HASH" $LOGURL
-
-
 }
 
 build_libretro_generic_makefile() {
-
 
 	NAME=$1
 	DIR=$2
@@ -200,8 +194,6 @@ build_libretro_generic_makefile() {
 		OLDJ=$JOBS
 		JOBS=1
 	fi
-
-
 
 	if [ -z "${NOCLEAN}" ]; then
 		echo "cleaning up..."
@@ -237,11 +229,9 @@ build_libretro_generic_makefile() {
 	echo BUILDBOT JOB: $MESSAGE
 	buildbot_log "$MESSAGE"
 	JOBS=$OLDJ
-
 }
 
 build_libretro_generic_theos() {
-
 	echo PARAMETERS: DIR $2, SUBDIR: $3, MAKEFILE: $4
 
 	NAME=$1
@@ -253,9 +243,6 @@ build_libretro_generic_theos() {
 
 	cd $DIR
 	cd $SUBDIR
-
-	ln -s $THEOS theos
-
 
 	if [ -z "${NOCLEAN}" ]; then
 		echo "cleaning up..."
@@ -285,11 +272,9 @@ build_libretro_generic_theos() {
 	fi
 	echo BUILDBOT JOB: $MESSAGE
 	buildbot_log "$MESSAGE"
-
 }
 
 build_libretro_generic_jni() {
-
 	echo PARAMETERS: DIR $2, SUBDIR: $3
 
 	NAME=$1
@@ -313,7 +298,7 @@ build_libretro_generic_jni() {
 			fi
 		fi
 
-	echo "compiling for ${a}..."
+		echo "compiling for ${a}..."
 		if [ -z "${ARGS}" ]; then
 			echo "build command: ${NDK} -j${JOBS} APP_ABI=${a}"
 			${NDK} -j${JOBS} APP_ABI=${a}
@@ -332,13 +317,9 @@ build_libretro_generic_jni() {
 			buildbot_log "$MESSAGE"
 		fi
 	done
-
-
-
 }
 
 build_libretro_bsnes_jni() {
-
 	echo PARAMETERS: DIR $2, SUBDIR: $3
 
 	NAME=$1
@@ -380,13 +361,11 @@ build_libretro_bsnes_jni() {
 		fi
 		echo BUILDBOT JOB: $MESSAGE
 		buildbot_log "$MESSAGE"
-
 	done
 }
 
 
 build_libretro_generic_gl_makefile() {
-
 
 	NAME=$1
 	DIR=$2
@@ -394,7 +373,6 @@ build_libretro_generic_gl_makefile() {
 	MAKEFILE=$4
 	PLATFORM=$5
 	ARGS=$6
-
 
 	check_opengl
 
@@ -431,13 +409,10 @@ build_libretro_generic_gl_makefile() {
 	buildbot_log "$MESSAGE"
 
 	reset_compiler_targets
-
-
 }
 
 
 build_libretro_bsnes() {
-
 
 	NAME=$1
 	DIR=$2
@@ -446,9 +421,7 @@ build_libretro_bsnes() {
 	PLATFORM=$5
 	BSNESCOMPILER=$6
 
-
 	cd $DIR
-
 
 	if [ -z "${NOCLEAN}" ]; then
 		echo "cleaning up..."
@@ -456,11 +429,9 @@ build_libretro_bsnes() {
 		rm -f obj/*.{o,"${FORMAT_EXT}"}
 		rm -f out/*.{o,"${FORMAT_EXT}"}	
 
-
 		if [ "${PROFILE}" = "cpp98" -o "${PROFILE}" = "bnes" ]; then
 			${MAKE} clean
 		fi
-
 
 		if [ $? -eq 0 ]; then
 			echo BUILDBOT JOB: $jobid $1 cleanup success!
@@ -470,7 +441,6 @@ build_libretro_bsnes() {
 	fi
 
 	echo "compiling..."
-
 
 	if [ "${PROFILE}" = "cpp98" ]; then
 		${MAKE} platform="${PLATFORM}" ${COMPILER} "-j${JOBS}"
@@ -496,7 +466,6 @@ build_libretro_bsnes() {
 	fi
 	echo BUILDBOT JOB: $MESSAGE
 	buildbot_log "$MESSAGE"
-
 }
 
 #fetch a project and mark it for building if there have been any changes
@@ -515,7 +484,6 @@ fi
 echo
 echo
 while read line; do
-
 	NAME=`echo $line | cut -f 1 -d " "`
 	DIR=`echo $line | cut -f 2 -d " "`
 	URL=`echo $line | cut -f 3 -d " "`
@@ -525,13 +493,11 @@ while read line; do
 	MAKEFILE=`echo $line | cut -f 7 -d " "`
 	SUBDIR=`echo $line | cut -f 8 -d " "`
 
-
 	if [ ! -z "$TASK" ]; then
 		if [ "${TASK}" != "${NAME}" ]; then
 			continue
 		fi
 	fi
-
 
 	if [ "${ENABLED}" = "YES" ]; then
 		echo "BUILDBOT JOB: $jobid Processing $NAME"
@@ -544,7 +510,6 @@ while read line; do
 		echo DIR: $DIR
 		echo SUBDIR: $SUBDIR
 		DIR=$3
-
 
 		ARGS=""
 
@@ -605,13 +570,11 @@ while read line; do
 			echo BUILDBOT JOB: $jobid $NAME already up-to-date...
 		fi
 		echo
-
 	fi
 
 	cd "${BASE_DIR}"
 	PREVCORE=$NAME
 	PREVBUILD=$BUILD
-
 done < $1
 
 echo 
@@ -626,9 +589,7 @@ if [ ! -z "$TASK" ]; then
 fi
 
 if [ "${PLATFORM}" = "MINGW64" ] || [ "${PLATFORM}" = "MINGW32" ] && [ "${RA}" = "YES" ]; then
-
 	while read line; do
-
 		NAME=`echo $line | cut -f 1 -d " "`
 		DIR=`echo $line | cut -f 2 -d " "`
 		URL=`echo $line | cut -f 3 -d " "`
@@ -689,9 +650,10 @@ if [ "${PLATFORM}" = "MINGW64" ] || [ "${PLATFORM}" = "MINGW32" ] && [ "${RA}" =
 
 		fi
 
-	echo
-	echo
+		echo
+		echo
 	done < $1.ra
+
 	if [ "${BUILD}" = "YES" -o "${FORCE}" = "YES" ]; then
 
 		cd $3
@@ -757,9 +719,7 @@ if [ "${PLATFORM}" = "MINGW64" ] || [ "${PLATFORM}" = "MINGW32" ] && [ "${RA}" =
 			echo $MESSAGE
 			buildbot_log "$MESSAGE"
 		fi
-
 	fi
-
 fi
 
 PATH=$ORIGPATH

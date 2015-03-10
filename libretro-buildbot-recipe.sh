@@ -164,7 +164,6 @@ reset_compiler_targets() {
 }
 
 
-
 cd "${BASE_DIR}"
 
 ####build commands
@@ -179,7 +178,6 @@ buildbot_log() {
 }
 
 build_libretro_generic_makefile() {
-
 
 	NAME=$1
 	DIR=$2
@@ -638,7 +636,6 @@ while read line; do
 			echo BUILDBOT JOB: $jobid $NAME already up-to-date...
 		fi
 		echo
-
 	fi
 
 	cd "${BASE_DIR}"
@@ -784,9 +781,7 @@ if [ "${PLATFORM}" = "android" ] && [ "${RA}" = "YES" ]; then
 			echo $MESSAGE
 		fi
 		buildbot_log "$MESSAGE"
-
 	fi
-
 fi
 
 if [ "${PLATFORM}" = "theos_ios" ] && [ "${RA}" = "YES" ]; then
