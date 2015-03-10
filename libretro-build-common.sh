@@ -649,34 +649,34 @@ build_libretro_4do() {
 	libretro_build_core 4do
 }
 build_libretro_beetle_gba() {
-	libretro_build_core beetle_gba
+	libretro_build_core mednafen_gba
 }
 build_libretro_beetle_lynx() {
-	libretro_build_core beetle_lynx
+	libretro_build_core mednafen_lynx
 }
 build_libretro_beetle_ngp() {
-	libretro_build_core beetle_ngp
+	libretro_build_core mednafen_ngp
 }
 build_libretro_beetle_pce_fast() {
-	libretro_build_core beetle_pce_fast
+	libretro_build_core mednafen_pce_fast
 }
 build_libretro_beetle_pcfx() {
-	libretro_build_core beetle_pcfx
+	libretro_build_core mednafen_pcfx
 }
 build_libretro_beetle_psx() {
-	libretro_build_core beetle_psx
+	libretro_build_core mednafen_psx
 }
 build_libretro_beetle_snes() {
-	libretro_build_core beetle_snes
+	libretro_build_core mednafen_snes
 }
 build_libretro_beetle_supergrafx() {
-	libretro_build_core beetle_supergrafx
+	libretro_build_core mednafen_supergrafx
 }
 build_libretro_beetle_vb() {
-	libretro_build_core beetle_vb
+	libretro_build_core mednafen_vb
 }
 build_libretro_beetle_wswan() {
-	libretro_build_core beetle_wsawn
+	libretro_build_core mednafen_wsawn
 }
 build_libretro_bluemsx() {
 	libretro_build_core bluemsx

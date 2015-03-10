@@ -121,16 +121,16 @@ else
 	build_libretro_bsnes_cplusplus98
 	build_libretro_bsnes
 	build_libretro_bsnes_mercury
-	libretro_build_core beetle_lynx
-	libretro_build_core beetle_gba
-	libretro_build_core beetle_ngp
-	libretro_build_core beetle_pce_fast
-	libretro_build_core beetle_supergrafx
-	libretro_build_core beetle_pcfx
-	libretro_build_core beetle_vb
-	libretro_build_core beetle_wswan
+	libretro_build_core mednafen_lynx
+	libretro_build_core mednafen_gba
+	libretro_build_core mednafen_ngp
+	libretro_build_core mednafen_pce_fast
+	libretro_build_core mednafen_supergrafx
+	libretro_build_core mednafen_pcfx
+	libretro_build_core mednafen_vb
+	libretro_build_core mednafen_wswan
 	libretro_build_core mednafen_psx
-	libretro_build_core beetle_snes
+	libretro_build_core mednafen_snes
 	fi
 	libretro_build_core catsfc
 	libretro_build_core snes9x
