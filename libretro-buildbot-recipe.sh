@@ -896,7 +896,6 @@ if [ "${PLATFORM}" = "theos_ios" ] && [ "${RA}" = "YES" ]; then
 		rm RetroArch.app -rf
 
 		rm -rfv *.deb
-		ln -s $THEOS theos
 		export PRODUCT_NAME=RetroArch
 		$MAKE clean
 		$MAKE -j8
