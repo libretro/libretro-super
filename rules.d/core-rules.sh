@@ -175,7 +175,7 @@ libretro_mame078_name="MAME 2003 (0.78)"
 libretro_mame078_git_url="https://github.com/libretro/mame2003-libretro.git"
 libretro_mame078_makefile="Makefile"
 
-register_core "mame139" none -psp1 -qnx -wii
+register_core "mame139" none
 libretro_mame139_name="MAME 2010 (0.139)"
 libretro_mame139_git_url="https://github.com/libretro/mame2010-libretro.git"
 libretro_mame139_build_rule=none # NEED A BUILD RULE
@@ -221,7 +221,7 @@ libretro_dinothawr_name="Dinothawr"
 libretro_dinothawr_git_url="https://github.com/libretro/Dinothawr.git"
 libretro_dinothawr_build_platform="$FORMAT_COMPILER_TARGET_ALT"
 
-register_core "uae" none -psp1 -qnx -wii
+register_core "uae" none
 libretro_uae_name="UAE"
 libretro_uae_git_url="https://github.com/libretro/libretro-uae.git"
 libretro_uae_build_rule=none # NEED A BUILD RULE
