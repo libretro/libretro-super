@@ -178,7 +178,6 @@ else
 	build_libretro_emux
 	libretro_build_core fuse
 	libretro_build_core stonesoup
-	libretro_build_core nxengine
 	libretro_build_core gw
 	libretro_build_core lutro
 
