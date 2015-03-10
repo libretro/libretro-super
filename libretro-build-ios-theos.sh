@@ -90,6 +90,90 @@ echo "STRIP = $STRIP"
 
 . "$BASE_DIR/libretro-build-common.sh"
 
+build_default_cores() {
+
+	# These build everywhere libretro-build.sh works
+	# (They also use rules builds, which will help later)
+
+	libretro_build_core 2048
+	libretro_build_core 3dengine
+	libretro_build_core 4do
+	libretro_build_core bluemsx
+	libretro_build_core catsfc
+	libretro_build_core desmume
+	libretro_build_core dosbox
+	libretro_build_core fb_alpha
+	libretro_build_core fceumm
+	libretro_build_core fmsx
+	libretro_build_core gambatte
+	libretro_build_core gpsp
+	libretro_build_core handy
+	libretro_build_core meteor
+	libretro_build_core nestopia
+	libretro_build_core nxengine
+	libretro_build_core o2em
+	libretro_build_core prboom
+	libretro_build_core prosystem
+	libretro_build_core quicknes
+	libretro_build_core snes9x
+	libretro_build_core snes9x_next
+	libretro_build_core stella
+	libretro_build_core tgbdual
+	libretro_build_core tyrquake
+	libretro_build_core vba_next
+	libretro_build_core vbam
+	libretro_build_core vecx
+	libretro_build_core virtualjaguar
+
+	# Nothing past here supports theos
+	[ "$platform" = "theos_ios" ] && return
+
+	libretro_build_core dinothawr
+	libretro_build_core fuse
+	libretro_build_core genesis_plus_gx
+	libretro_build_core gw
+	libretro_build_core hatari
+	libretro_build_core lutro
+	libretro_build_core mame078
+	libretro_build_core mednafen_gba
+	libretro_build_core mednafen_lynx
+	libretro_build_core mednafen_ngp
+	libretro_build_core mednafen_pce_fast
+	libretro_build_core mednafen_pcfx
+	libretro_build_core mednafen_psx
+	libretro_build_core mednafen_snes
+	libretro_build_core mednafen_supergrafx
+	libretro_build_core mednafen_vb
+	libretro_build_core mednafen_wswan
+	libretro_build_core picodrive
+	libretro_build_core scummvm
+	libretro_build_core stonesoup
+	libretro_build_core yabause
+
+	build_libretro_bsnes
+	build_libretro_bsnes_cplusplus98
+	build_libretro_bsnes_mercury
+	build_libretro_emux
+	build_libretro_mame_prerule
+	build_libretro_mupen64
+
+	if [ $platform != "win" ]; then
+		libretro_build_core pcsx_rearmed
+	fi
+	if [ "$platform" = "ios" ]; then
+		build_libretro_pcsx_rearmed_interpreter # for non-jailbreak
+	fi
+
+	if [ $platform != "ios" ]; then
+		libretro_build_core ffmpeg
+		libretro_build_core ppsspp
+
+		build_libretro_bnes
+	fi
+
+	build_libretro_test
+}
+
 mkdir -p "$RARCH_DIST_DIR"
 
 if [ -n "$SKIP_UNCHANGED" ]; then
@@ -113,96 +197,6 @@ if [ -n "$1" ]; then
 		shift
 	done
 else
-	libretro_build_core 2048
-	libretro_build_core 4do
-	libretro_build_core bluemsx
-	libretro_build_core fmsx
-	if [ $FORMAT_COMPILER_TARGET != "theos_ios" ]; then
-	build_libretro_bsnes_cplusplus98
-	build_libretro_bsnes
-	build_libretro_bsnes_mercury
-	libretro_build_core mednafen_lynx
-	libretro_build_core mednafen_gba
-	libretro_build_core mednafen_ngp
-	libretro_build_core mednafen_pce_fast
-	libretro_build_core mednafen_supergrafx
-	libretro_build_core mednafen_pcfx
-	libretro_build_core mednafen_vb
-	libretro_build_core mednafen_wswan
-	libretro_build_core mednafen_psx
-	libretro_build_core mednafen_snes
-	fi
-	libretro_build_core catsfc
-	libretro_build_core snes9x
-	libretro_build_core snes9x_next
-	if [ $FORMAT_COMPILER_TARGET != "theos_ios" ]; then
-	libretro_build_core genesis_plus_gx
-	fi
-	libretro_build_core fb_alpha
-	libretro_build_core vbam
-	libretro_build_core vba_next
-	libretro_build_core fceumm
-	libretro_build_core gambatte
-	libretro_build_core meteor
-	libretro_build_core nxengine
-	libretro_build_core prboom
-	libretro_build_core stella
-	libretro_build_core quicknes
-	libretro_build_core nestopia
-	libretro_build_core tyrquake
-	if [ $FORMAT_COMPILER_TARGET != "theos_ios" ]; then
-	libretro_build_core mame078
-	build_libretro_mame_prerule
-	fi
-	libretro_build_core dosbox
-	if [ $FORMAT_COMPILER_TARGET != "theos_ios" ]; then
-	libretro_build_core scummvm
-	libretro_build_core picodrive
-	fi
-	libretro_build_core handy
-	libretro_build_core desmume
-	if [ $FORMAT_COMPILER_TARGET != "theos_ios" ]; then
-	if [ $FORMAT_COMPILER_TARGET != "win" ]; then
-		libretro_build_core pcsx_rearmed
-	fi
-	if [ $FORMAT_COMPILER_TARGET = "ios" ]; then
-		# For self-signed iOS (without jailbreak)
-		build_libretro_pcsx_rearmed_interpreter
-	fi
-	libretro_build_core yabause
-	fi
-	libretro_build_core vecx
-	libretro_build_core tgbdual
-	libretro_build_core prosystem
-	if [ $FORMAT_COMPILER_TARGET != "theos_ios" ]; then
-	libretro_build_core dinothawr
-	fi
-	libretro_build_core virtualjaguar
-	if [ $FORMAT_COMPILER_TARGET != "theos_ios" ]; then
-	build_libretro_mupen64
-	fi
-	libretro_build_core 3dengine
-	if [ $FORMAT_COMPILER_TARGET != "theos_ios" ]; then
-	if [ $FORMAT_COMPILER_TARGET != "ios" ]; then
-		# These don't currently build on iOS
-		build_libretro_bnes
-		libretro_build_core ffmpeg
-		libretro_build_core ppsspp
-	fi
-	fi
-	libretro_build_core o2em
-	if [ $FORMAT_COMPILER_TARGET != "theos_ios" ]; then
-	libretro_build_core hatari
-	fi
-	libretro_build_core gpsp
-	if [ $FORMAT_COMPILER_TARGET != "theos_ios" ]; then
-	build_libretro_emux
-	libretro_build_core fuse
-	libretro_build_core stonesoup
-	libretro_build_core gw
-	libretro_build_core lutro
-
-	build_libretro_test
-	fi
+	build_default_cores
 fi
 build_summary
