@@ -1352,39 +1352,39 @@ if [ "${PLATFORM}" == "wii" ] && [ "${RA}" == "YES" ]; then
 		echo
 
 		if [ "${BUILD}" == "YES" -o "${FORCE}" == "YES" ]; then
+			cd dist-scripts
+			rm *.a
+			cp -v $RARCH_DIST_DIR/*.a .
 
-		cd dist-scripts
-		rm *.a
-		cp -v $RARCH_DIST_DIR/*.a .
-
-		ls -1 *.a  | awk -F "." ' { print "cp " $0 " " $1 "_wii." $2 }' |sh
-		sh ./wii-cores.sh
-		if [ $? -eq 0 ]; then
-			MESSAGE="retroarch build successful ($jobid)"
-			echo $MESSAGE
-		else
-			MESSAGE="retroarch build failed ($jobid)"
-			echo $MESSAGE
+			ls -1 *.a  | awk -F "." ' { print "cp " $0 " " $1 "_wii." $2 }' |sh
+			sh ./wii-cores.sh
+			if [ $? -eq 0 ]; then
+				MESSAGE="retroarch build successful ($jobid)"
+				echo $MESSAGE
+			else
+				MESSAGE="retroarch build failed ($jobid)"
+				echo $MESSAGE
+			fi
+			buildbot_log "$MESSAGE"
+			cd ..
 		fi
-		buildbot_log "$MESSAGE"
-		cd ..
+
+		echo "Packaging"
+		echo ============================================
+		cp retroarch.cfg retroarch.default.cfg
+
+		mkdir -p wii/pkg/
+		mkdir -p wii/pkg/overlays
+		mkdir -p wii/pkg/cheats
+		mkdir -p wii/pkg/database
+		mkdir -p wii/pkg/database/cursors
+		mkdir -p wii/pkg/database/rdb
+
+		cp -Rfv media/libretrodb/cht/* wii/pkg/cheats
+		cp -Rfv media/libretrodb/rdb/* wii/pkg/database/rdb
+		cp -Rfv media/libretrodb/cursors/* wii/pkg/database/cursors
+		cp -Rfv media/overlays/* wii/pkg/overlays
 	fi
-
-	echo "Packaging"
-	echo ============================================
-	cp retroarch.cfg retroarch.default.cfg
-
-	mkdir -p wii/pkg/
-	mkdir -p wii/pkg/overlays
-	mkdir -p wii/pkg/cheats
-	mkdir -p wii/pkg/database
-	mkdir -p wii/pkg/database/cursors
-	mkdir -p wii/pkg/database/rdb
-
-	cp -Rfv media/libretrodb/cht/* wii/pkg/cheats
-	cp -Rfv media/libretrodb/rdb/* wii/pkg/database/rdb
-	cp -Rfv media/libretrodb/cursors/* wii/pkg/database/cursors
-	cp -Rfv media/overlays/* wii/pkg/overlays
 fi
 
 PATH=$ORIGPATH
