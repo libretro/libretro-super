@@ -41,7 +41,11 @@ echo "$FORMAT_COMPILER_TARGET_ALT"
 RESET_FORMAT_COMPILER_TARGET=$FORMAT_COMPILER_TARGET
 RESET_FORMAT_COMPILER_TARGET_ALT=$FORMAT_COMPILER_TARGET_ALT
 
+CORE_PREFIX=""
 CORE_SUFFIX="_libretro${FORMAT}.$FORMAT_EXT"
+if [ "$platform" = "theos_ios" ]; then
+	CORE_PREFIX="objs/obj/"
+fi
 
 
 build_summary_log() {
@@ -156,11 +160,7 @@ build_libretro_fba_cps1() {
 
 
 copy_core_to_dist() {
-	if [ "$FORMAT_COMPILER_TARGET" = "theos_ios" ]; then
-		echo_cmd "cp \"objs/obj/$1$CORE_SUFFIX\" \"$RARCH_DIST_DIR\""
-	else
-		echo_cmd "cp \"$1$CORE_SUFFIX\" \"$RARCH_DIST_DIR\""
-	fi
+	echo_cmd "cp \"$CORE_PREFIX$1$CORE_SUFFIX\" \"$RARCH_DIST_DIR\""
 
 	ret=$?
 	build_summary_log $ret "$1"
