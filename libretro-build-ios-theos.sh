@@ -1,6 +1,8 @@
 #! /usr/bin/env bash
 # vim: set ts=3 sw=3 noet ft=sh : bash
 
+platform=theos_ios
+
 SCRIPT="${0#./}"
 BASE_DIR="${SCRIPT%/*}"
 WORKDIR="$PWD"
@@ -14,75 +16,193 @@ else
 	fi
 fi
 
-set -e
+. "$BASE_DIR/libretro-config.sh"
 
-RARCH_DIR=$BASE_DIR/dist
-RARCH_DIST_DIR=$RARCH_DIR/theos_ios
-FORMAT=_ios
-FORMAT_COMPILER_TARGET=theos_ios
-FORMAT_COMPILER_TARGET_ALT=theos_ios
-FORMAT_EXT=dylib
-JOBS=7
-MAKE=make
-CXX11="clang++ -std=c++11 -stdlib=libc++ -miphoneos-version-min=5.0"
-IOS=1
+if [ -z "$RARCH_DIST_DIR" ]; then
+	RARCH_DIR="$WORKDIR/dist"
+	RARCH_DIST_DIR="$RARCH_DIR/$DIST_DIR"
+fi
+
+if [ -z "$JOBS" ]; then
+	JOBS=7
+fi
+
+if [ "$HOST_CC" ]; then
+	CC="${HOST_CC}-gcc"
+	CXX="${HOST_CC}-g++"
+	CXX11="${HOST_CC}-g++"
+	STRIP="${HOST_CC}-strip"
+fi
+
+if [ -z "$MAKE" ]; then
+	if uname -s | grep -i MINGW32 > /dev/null 2>&1; then
+		MAKE=mingw32-make
+	else
+		if type gmake > /dev/null 2>&1; then
+			MAKE=gmake
+		else
+			MAKE=make
+		fi
+	fi
+fi
+
+if [ -z "$CC" ]; then
+	if [ $FORMAT_COMPILER_TARGET = "osx" ]; then
+		CC=cc
+	elif uname -s | grep -i MINGW32 > /dev/null 2>&1; then
+		CC=mingw32-gcc
+	else
+		CC=gcc
+	fi
+fi
+
+if [ -z "$CXX" ]; then
+	if [ $FORMAT_COMPILER_TARGET = "osx" ]; then
+		CXX=c++
+		CXX11="clang++ -std=c++11 -stdlib=libc++"
+		# FIXME: Do this right later.
+		if [ "$ARCH" = "i386" ]; then
+			CC="cc -arch i386"
+			CXX="c++ -arch i386"
+			CXX11="clang++ -arch i386 -std=c++11 -stdlib=libc++"
+		fi
+	elif uname -s | grep -i MINGW32 > /dev/null 2>&1; then
+		CXX=mingw32-g++
+		CXX11=mingw32-g++
+	else
+		CXX=g++
+		CXX11=g++
+	fi
+fi
+
+FORMAT_COMPILER_TARGET_ALT=$FORMAT_COMPILER_TARGET
+
+
+if [ "$FORMAT_COMPILER_TARGET" = "ios" ]; then
+	echo "iOS path: ${IOSSDK}"
+	echo "iOS version: ${IOSVER}"
+fi
+echo "CC = $CC"
+echo "CXX = $CXX"
+echo "CXX11 = $CXX11"
+echo "STRIP = $STRIP"
+
 
 . "$BASE_DIR/libretro-build-common.sh"
 
-if [ $1 ]; then
-	$1
-else
-	build_libretro_2048
-	build_libretro_bluemsx
-	build_libretro_fmsx
-	#build_libretro_bsnes_cplusplus98
-	#build_libretro_bsnes
-	#build_libretro_beetle_lynx
-	#build_libretro_beetle_gba
-	#build_libretro_beetle_ngp
-	#build_libretro_beetle_pce_fast
-	#build_libretro_beetle_supergrafx
-	#build_libretro_beetle_pcfx
-	#build_libretro_beetle_vb
-	#build_libretro_beetle_wswan
-	#build_libretro_mednafen_psx
-	#build_libretro_beetle_bsnes
-	build_libretro_catsfc
-	build_libretro_snes9x
-	build_libretro_snes9x_next
-	build_libretro_genesis_plus_gx
-	build_libretro_fb_alpha
-	build_libretro_vbam
-	build_libretro_vba_next
-	build_libretro_fceumm
-	build_libretro_gambatte
-	build_libretro_meteor
-	build_libretro_nx
-	build_libretro_prboom
-	build_libretro_stella
-	build_libretro_quicknes
-	build_libretro_nestopia
-	build_libretro_tyrquake
-	#build_libretro_mame078
-	#build_libretro_mame
-	build_libretro_dosbox
-	#build_libretro_scummvm
-	#build_libretro_picodrive
-	build_libretro_handy
-	build_libretro_desmume
-	#build_libretro_pcsx_rearmed
-	#build_libretro_pcsx_rearmed_interpreter
-	#build_libretro_mupen64
-	#build_libretro_yabause
-	#build_libretro_ffmpeg
-	build_libretro_3dengine
-	build_libretro_vecx
-	build_libretro_tgbdual
-	build_libretro_prosystem
-	#build_libretro_dinothawr
-	build_libretro_virtualjaguar
-	build_libretro_o2em
-	build_libretro_4do
-	build_libretro_gpsp
-	#build_libretro_emux
+mkdir -p "$RARCH_DIST_DIR"
+
+if [ -n "$SKIP_UNCHANGED" ]; then
+	[ -z "$BUILD_REVISIONS_DIR" ] && BUILD_REVISIONS_DIR="$WORKDIR/build-revisions"
+	echo "mkdir -p \"$BUILD_REVISIONS_DIR\""
+	mkdir -p "$BUILD_REVISIONS_DIR"
 fi
+
+if [ -n "$1" ]; then
+	while [ -n "$1" ]; do
+		case "$1" in
+			build_libretro_*)
+				# "Old"-style
+				$1
+				;;
+			*)
+				# New style (just generic cores for now)
+				libretro_build_core $1
+				;;
+		esac
+		shift
+	done
+else
+	libretro_build_core 2048
+	libretro_build_core 4do
+	libretro_build_core bluemsx
+	libretro_build_core fmsx
+	if [ $FORMAT_COMPILER_TARGET != "theos_ios" ]; then
+	build_libretro_bsnes_cplusplus98
+	build_libretro_bsnes
+	build_libretro_bsnes_mercury
+	libretro_build_core beetle_lynx
+	libretro_build_core beetle_gba
+	libretro_build_core beetle_ngp
+	libretro_build_core beetle_pce_fast
+	libretro_build_core beetle_supergrafx
+	libretro_build_core beetle_pcfx
+	libretro_build_core beetle_vb
+	libretro_build_core beetle_wswan
+	libretro_build_core mednafen_psx
+	libretro_build_core beetle_snes
+	fi
+	libretro_build_core catsfc
+	libretro_build_core snes9x
+	libretro_build_core snes9x_next
+	if [ $FORMAT_COMPILER_TARGET != "theos_ios" ]; then
+	libretro_build_core genesis_plus_gx
+	fi
+	libretro_build_core fb_alpha
+	libretro_build_core vbam
+	libretro_build_core vba_next
+	libretro_build_core fceumm
+	libretro_build_core gambatte
+	libretro_build_core meteor
+	libretro_build_core nxengine
+	libretro_build_core prboom
+	libretro_build_core stella
+	libretro_build_core quicknes
+	libretro_build_core nestopia
+	libretro_build_core tyrquake
+	if [ $FORMAT_COMPILER_TARGET != "theos_ios" ]; then
+	libretro_build_core mame078
+	build_libretro_mame_prerule
+	fi
+	libretro_build_core dosbox
+	if [ $FORMAT_COMPILER_TARGET != "theos_ios" ]; then
+	libretro_build_core scummvm
+	libretro_build_core picodrive
+	fi
+	libretro_build_core handy
+	libretro_build_core desmume
+	if [ $FORMAT_COMPILER_TARGET != "theos_ios" ]; then
+	if [ $FORMAT_COMPILER_TARGET != "win" ]; then
+		libretro_build_core pcsx_rearmed
+	fi
+	if [ $FORMAT_COMPILER_TARGET = "ios" ]; then
+		# For self-signed iOS (without jailbreak)
+		build_libretro_pcsx_rearmed_interpreter
+	fi
+	libretro_build_core yabause
+	fi
+	libretro_build_core vecx
+	libretro_build_core tgbdual
+	libretro_build_core prosystem
+	if [ $FORMAT_COMPILER_TARGET != "theos_ios" ]; then
+	libretro_build_core dinothawr
+	fi
+	libretro_build_core virtualjaguar
+	if [ $FORMAT_COMPILER_TARGET != "theos_ios" ]; then
+	build_libretro_mupen64
+	fi
+	libretro_build_core 3dengine
+	if [ $FORMAT_COMPILER_TARGET != "theos_ios" ]; then
+	if [ $FORMAT_COMPILER_TARGET != "ios" ]; then
+		# These don't currently build on iOS
+		build_libretro_bnes
+		libretro_build_core ffmpeg
+		libretro_build_core ppsspp
+	fi
+	fi
+	libretro_build_core o2em
+	if [ $FORMAT_COMPILER_TARGET != "theos_ios" ]; then
+	libretro_build_core hatari
+	fi
+	libretro_build_core gpsp
+	if [ $FORMAT_COMPILER_TARGET != "theos_ios" ]; then
+	build_libretro_emux
+	libretro_build_core fuse
+	libretro_build_core stonesoup
+	libretro_build_core gw
+	libretro_build_core lutro
+
+	build_libretro_test
+	fi
+fi
+build_summary
