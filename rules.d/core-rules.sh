@@ -319,6 +319,9 @@ libretro_lutro_name="Lutro"
 libretro_lutro_git_url="https://github.com/libretro/libretro-lutro.git"
 libretro_lutro_build_makefile="Makefile"
 
+## TODO: The lutro modules here aren't really "cores", they're assets
+##       Figure out where to put them and what to do with them.
+
 register_core "lutro_platformer" none
 libretro_lutro_platformer_name="Lutro-Platformer"
 libretro_lutro_platformer_git_url="https://github.com/libretro/lutro-platformer.git"
