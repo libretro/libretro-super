@@ -17,13 +17,12 @@ WORK=$PWD
 echo Original PATH: $PATH
 
 while read line; do
-	KEY=`echo $line | cut --fields=1 --delimiter=" "`
-	VALUE=`echo $line | cut --fields=2 --delimiter=" "`
+	KEY=`echo $line | cut -f 1 -d " "`
+	VALUE=`echo $line | cut -f 2 -d " "`
 
 	if [ "${KEY}" = "PATH" ]; then
 		export PATH=${VALUE}:${ORIGPATH}
 		echo New PATH: $PATH
-
 	else
 		export ${KEY}=${VALUE}
 		echo $KEY: $VALUE
@@ -32,7 +31,7 @@ done < $1.conf
 echo
 echo
 
-. ./libretro-config.sh
+. $WORK/libretro-config.sh
 
 echo
 [[ "${ARM_NEON}" ]] && echo 'ARM NEON opts enabled...' && export FORMAT_COMPILER_TARGET="${FORMAT_COMPILER_TARGET}-neon"
@@ -69,7 +68,6 @@ fi
 mkdir -v -p "$RARCH_DIST_DIR"
 
 if [ "${PLATFORM}" = "android" ]; then
-
 	IFS=' ' read -ra ABIS <<< "$TARGET_ABIS"
 	for a in "${ABIS[@]}"; do
 		echo $a
@@ -174,7 +172,7 @@ buildbot_log() {
 
 	MESSAGE=`echo -e $1`
 
-	HASH=`echo -n "$MESSAGE" | openssl sha1 -hmac $SIG | cut --fields=2 --delimiter=" "`
+	HASH=`echo -n "$MESSAGE" | openssl sha1 -hmac $SIG | cut -f 2 -d " "`
 	curl --data "message=$MESSAGE&sign=$HASH" $LOGURL
 
 
@@ -197,8 +195,6 @@ build_libretro_generic_makefile() {
 	if [ "${NAME}" = "mame078" ]; then
 		JOBS=1
 	fi
-
-
 
 	if [ -z "${NOCLEAN}" ]; then
 		echo "cleaning up..."
@@ -227,11 +223,10 @@ build_libretro_generic_makefile() {
 
 	if [ $? -eq 0 ]; then 
 		MESSAGE="$1 build successful ($jobid)"
-		if [ "${MAKEPORTABLE}" == "YES" ];
-                then
-		    echo "$1 running retrolink ($jobid)"
-		    $WORK/retrolink.sh ${NAME}_libretro${FORMAT}${SUFFIX}.${FORMAT_EXT}
-                fi
+		if [ "${MAKEPORTABLE}" == "YES" ]; then
+			echo "$1 running retrolink ($jobid)"
+			$WORK/retrolink.sh ${NAME}_libretro${FORMAT}${SUFFIX}.${FORMAT_EXT}
+		fi
 		cp -v ${NAME}_libretro${FORMAT}${SUFFIX}.${FORMAT_EXT} $RARCH_DIST_DIR/${NAME}_libretro${FORMAT}.${FORMAT_EXT}
 	else
 		MESSAGE="$1 build failed ($jobid)"
@@ -239,11 +234,9 @@ build_libretro_generic_makefile() {
 	echo BUILDBOT JOB: $MESSAGE
 	buildbot_log "$MESSAGE"
 	JOBS=$OLDJ
-
 }
 
 build_libretro_generic_theos() {
-
 	echo PARAMETERS: DIR $2, SUBDIR: $3, MAKEFILE: $4
 
 	NAME=$1
@@ -255,9 +248,6 @@ build_libretro_generic_theos() {
 
 	cd $DIR
 	cd $SUBDIR
-
-	ln -s $THEOS theos
-
 
 	if [ -z "${NOCLEAN}" ]; then
 		echo "cleaning up..."
@@ -287,11 +277,9 @@ build_libretro_generic_theos() {
 	fi
 	echo BUILDBOT JOB: $MESSAGE
 	buildbot_log "$MESSAGE"
-
 }
 
 build_libretro_generic_jni() {
-
 	echo PARAMETERS: DIR $2, SUBDIR: $3
 
 	NAME=$1
@@ -315,7 +303,7 @@ build_libretro_generic_jni() {
 			fi
 		fi
 
-	echo "compiling for ${a}..."
+		echo "compiling for ${a}..."
 		if [ -z "${ARGS}" ]; then
 			echo "build command: ${NDK} -j${JOBS} APP_ABI=${a}"
 			${NDK} -j${JOBS} APP_ABI=${a}
@@ -334,13 +322,9 @@ build_libretro_generic_jni() {
 			buildbot_log "$MESSAGE"
 		fi
 	done
-
-
-
 }
 
 build_libretro_bsnes_jni() {
-
 	echo PARAMETERS: DIR $2, SUBDIR: $3
 
 	NAME=$1
@@ -382,13 +366,11 @@ build_libretro_bsnes_jni() {
 		fi
 		echo BUILDBOT JOB: $MESSAGE
 		buildbot_log "$MESSAGE"
-
 	done
 }
 
 
 build_libretro_generic_gl_makefile() {
-
 
 	NAME=$1
 	DIR=$2
@@ -396,7 +378,6 @@ build_libretro_generic_gl_makefile() {
 	MAKEFILE=$4
 	PLATFORM=$5
 	ARGS=$6
-
 
 	check_opengl
 
@@ -433,13 +414,10 @@ build_libretro_generic_gl_makefile() {
 	buildbot_log "$MESSAGE"
 
 	reset_compiler_targets
-
-
 }
 
 
 build_libretro_bsnes() {
-
 
 	NAME=$1
 	DIR=$2
@@ -448,9 +426,7 @@ build_libretro_bsnes() {
 	PLATFORM=$5
 	BSNESCOMPILER=$6
 
-
 	cd $DIR
-
 
 	if [ -z "${NOCLEAN}" ]; then
 		echo "cleaning up..."
@@ -458,11 +434,9 @@ build_libretro_bsnes() {
 		rm -f obj/*.{o,"${FORMAT_EXT}"}
 		rm -f out/*.{o,"${FORMAT_EXT}"}	
 
-
 		if [ "${PROFILE}" = "cpp98" -o "${PROFILE}" = "bnes" ]; then
 			${MAKE} clean
 		fi
-
 
 		if [ $? -eq 0 ]; then
 			echo BUILDBOT JOB: $jobid $1 cleanup success!
@@ -472,7 +446,6 @@ build_libretro_bsnes() {
 	fi
 
 	echo "compiling..."
-
 
 	if [ "${PROFILE}" = "cpp98" ]; then
 		${MAKE} platform="${PLATFORM}" ${COMPILER} "-j${JOBS}"
@@ -487,9 +460,9 @@ build_libretro_bsnes() {
 	if [ $? -eq 0 ]; then
 		MESSAGE="$1 build successful ($jobid)"
 		if [ "${PROFILE}" = "cpp98" ]; then
-			cp -fv "out/libretro.${FORMAT_EXT}" "${RARCH_DIST_DIR}/${NAME}_libretro${FORMAT}${SUFFIX}.${FORMAT_EXT}"
+			cp -fv "out/${NAME}_libretro${FORMAT}${SUFFIX}.${FORMAT_EXT}" "${RARCH_DIST_DIR}/${NAME}_libretro${FORMAT}${SUFFIX}.${FORMAT_EXT}"
 		elif [ "${PROFILE}" = "bnes" ]; then
-			cp -fv "libretro.${FORMAT_EXT}" "${RARCH_DIST_DIR}/${NAME}_libretro${FORMAT}${SUFFIX}.${FORMAT_EXT}"
+			cp -fv "${NAME}_libretro${FORMAT}${SUFFIX}.${FORMAT_EXT}" "${RARCH_DIST_DIR}/${NAME}_libretro${FORMAT}${SUFFIX}.${FORMAT_EXT}"
 		else
 			cp -fv "out/${NAME}_libretro$FORMAT.${FORMAT_EXT}" $RARCH_DIST_DIR/${NAME}_${PROFILE}_libretro${FORMAT}${SUFFIX}.${FORMAT_EXT}
 		fi
@@ -498,7 +471,6 @@ build_libretro_bsnes() {
 	fi
 	echo BUILDBOT JOB: $MESSAGE
 	buildbot_log "$MESSAGE"
-
 }
 
 #fetch a project and mark it for building if there have been any changes
@@ -509,15 +481,14 @@ export jobid=$1
 echo
 echo
 while read line; do
-
-	NAME=`echo $line | cut --fields=1 --delimiter=" "`
-	DIR=`echo $line | cut --fields=2 --delimiter=" "`
-	URL=`echo $line | cut --fields=3 --delimiter=" "`
-	TYPE=`echo $line | cut --fields=4 --delimiter=" "`
-	ENABLED=`echo $line | cut --fields=5 --delimiter=" "`
-	COMMAND=`echo $line | cut --fields=6 --delimiter=" "`
-	MAKEFILE=`echo $line | cut --fields=7 --delimiter=" "`
-	SUBDIR=`echo $line | cut --fields=8 --delimiter=" "`
+	NAME=`echo $line | cut -f 1 -d " "`
+	DIR=`echo $line | cut -f 2 -d " "`
+	URL=`echo $line | cut -f 3 -d " "`
+	TYPE=`echo $line | cut -f 4 -d " "`
+	ENABLED=`echo $line | cut -f 5 -d " "`
+	COMMAND=`echo $line | cut -f 6 -d " "`
+	MAKEFILE=`echo $line | cut -f 7 -d " "`
+	SUBDIR=`echo $line | cut -f 8 -d " "`
 
 	if [ "${ENABLED}" = "YES" ]; then
 		echo "BUILDBOT JOB: $jobid Processing $NAME"
@@ -530,35 +501,34 @@ while read line; do
 		echo DIR: $DIR
 		echo SUBDIR: $SUBDIR
 
-
 		ARGS=""
 
-		TEMP=`echo $line | cut --fields=9 --delimiter=" "`
+		TEMP=`echo $line | cut -f 9 -d " "`
 		if [ -n ${TEMP} ]; then
 			ARGS="${TEMP}"
 		fi
 		TEMP=""
-		TEMP=`echo $line | cut --fields=10 --delimiter=" "`
+		TEMP=`echo $line | cut -f 10 -d " "`
 		if [ -n ${TEMP} ]; then
 			ARGS="${ARGS} ${TEMP}"
 		fi
 		TEMP=""
-		TEMP=`echo $line | cut --fields=11 --delimiter=" "`
+		TEMP=`echo $line | cut -f 11 -d " "`
 		if [ -n ${TEMP} ]; then
 			ARGS="${ARGS} ${TEMP}"
 		fi
 		TEMP=""
-		TEMP=`echo $line | cut --fields=12 --delimiter=" "`
+		TEMP=`echo $line | cut -f 12 -d " "`
 		if [ -n ${TEMP} ]; then
 			ARGS="${ARGS} ${TEMP}"
 		fi
 		TEMP=""
-		TEMP=`echo $line | cut --fields=13 --delimiter=" "`
+		TEMP=`echo $line | cut -f 13 -d " "`
 		if [ -n ${TEMP} ]; then
 			ARGS="${ARGS} ${TEMP}"
 		fi
 		TEMP=""
-		TEMP=`echo $line | cut --fields=14 --delimiter=" "`
+		TEMP=`echo $line | cut -f 14 -d " "`
 		if [ -n ${TEMP} ]; then
 			ARGS="${ARGS} ${TEMP}"
 		fi
@@ -596,9 +566,7 @@ while read line; do
 					BUILD="YES"
 				fi
 
-
 				cd ..
-
 			else
 				echo "cloning repo..."
 				git clone --depth=1 "$URL" "$DIR"
@@ -676,7 +644,6 @@ while read line; do
 	cd "${BASE_DIR}"
 	PREVCORE=$NAME
 	PREVBUILD=$BUILD
-
 done < $1
 
 echo "BUILDBOT JOB: $jobid Building Retroarch"
@@ -685,15 +652,13 @@ cd $WORK
 BUILD=""
 
 if [ "${PLATFORM}" = "android" ] && [ "${RA}" = "YES" ]; then
-
 	while read line; do
-
-		NAME=`echo $line | cut --fields=1 --delimiter=" "`
-		DIR=`echo $line | cut --fields=2 --delimiter=" "`
-		URL=`echo $line | cut --fields=3 --delimiter=" "`
-		TYPE=`echo $line | cut --fields=4 --delimiter=" "`
-		ENABLED=`echo $line | cut --fields=5 --delimiter=" "`
-		PARENTDIR=`echo $line | cut --fields=6 --delimiter=" "`
+		NAME=`echo $line | cut -f 1 -d " "`
+		DIR=`echo $line | cut -f 2 -d " "`
+		URL=`echo $line | cut -f 3 -d " "`
+		TYPE=`echo $line | cut -f 4 -d " "`
+		ENABLED=`echo $line | cut -f 5 -d " "`
+		PARENTDIR=`echo $line | cut -f 6 -d " "`
 
 		if [ "${ENABLED}" = "YES" ]; then
 			echo "BUILDBOT JOB: $jobid Processing $NAME"
@@ -707,32 +672,32 @@ if [ "${PLATFORM}" = "android" ] && [ "${RA}" = "YES" ]; then
 
 			ARGS=""
 
-			TEMP=`echo $line | cut --fields=9 --delimiter=" "`
+			TEMP=`echo $line | cut -f 9 -d " "`
 			if [ -n ${TEMP} ]; then
 				ARGS="${TEMP}"
 			fi
 			TEMP=""
-			TEMP=`echo $line | cut --fields=10 --delimiter=" "`
+			TEMP=`echo $line | cut -f 10 -d " "`
 			if [ -n ${TEMP} ]; then
 				ARGS="${ARGS} ${TEMP}"
 			fi
 			TEMP=""
-			TEMP=`echo $line | cut --fields=11 --delimiter=" "`
+			TEMP=`echo $line | cut -f 11 -d " "`
 			if [ -n ${TEMP} ]; then
 				ARGS="${ARGS} ${TEMP}"
 			fi
 			TEMP=""
-			TEMP=`echo $line | cut --fields=12 --delimiter=" "`
+			TEMP=`echo $line | cut -f 12 -d " "`
 			if [ -n ${TEMP} ]; then
 				ARGS="${ARGS} ${TEMP}"
 			fi
 			TEMP=""
-			TEMP=`echo $line | cut --fields=13 --delimiter=" "`
+			TEMP=`echo $line | cut -f 13 -d " "`
 			if [ -n ${TEMP} ]; then
 				ARGS="${ARGS} ${TEMP}"
 			fi
 			TEMP=""
-			TEMP=`echo $line | cut --fields=14 --delimiter=" "`
+			TEMP=`echo $line | cut -f 14 -d " "`
 			if [ -n ${TEMP} ]; then
 				ARGS="${ARGS} ${TEMP}"
 			fi
@@ -765,7 +730,6 @@ if [ "${PLATFORM}" = "android" ] && [ "${RA}" = "YES" ]; then
 				if [ "${TYPE}" = "PROJECT" ]; then
 					BUILD="YES"
 					RADIR=$DIR
-
 				fi
 				cd $WORK
 			fi
@@ -774,6 +738,7 @@ if [ "${PLATFORM}" = "android" ] && [ "${RA}" = "YES" ]; then
 		echo
 		echo
 	done < $1.ra
+
 	if [ "${BUILD}" = "YES" -o "${FORCE}" = "YES" ]; then
 		echo "BUILDBOT JOB: $jobid Compiling Shaders"
 		echo 
@@ -825,15 +790,13 @@ if [ "${PLATFORM}" = "android" ] && [ "${RA}" = "YES" ]; then
 fi
 
 if [ "${PLATFORM}" = "theos_ios" ] && [ "${RA}" = "YES" ]; then
-
 	while read line; do
-
-		NAME=`echo $line | cut --fields=1 --delimiter=" "`
-		DIR=`echo $line | cut --fields=2 --delimiter=" "`
-		URL=`echo $line | cut --fields=3 --delimiter=" "`
-		TYPE=`echo $line | cut --fields=4 --delimiter=" "`
-		ENABLED=`echo $line | cut --fields=5 --delimiter=" "`
-		PARENTDIR=`echo $line | cut --fields=6 --delimiter=" "`
+		NAME=`echo $line | cut -f 1 -d " "`
+		DIR=`echo $line | cut -f 2 -d " "`
+		URL=`echo $line | cut -f 3 -d " "`
+		TYPE=`echo $line | cut -f 4 -d " "`
+		ENABLED=`echo $line | cut -f 5 -d " "`
+		PARENTDIR=`echo $line | cut -f 6 -d " "`
 
 		if [ "${ENABLED}" = "YES" ]; then
 			echo "BUILDBOT JOB: $jobid Processing $NAME"
@@ -847,32 +810,32 @@ if [ "${PLATFORM}" = "theos_ios" ] && [ "${RA}" = "YES" ]; then
 
 			ARGS=""
 
-			TEMP=`echo $line | cut --fields=9 --delimiter=" "`
+			TEMP=`echo $line | cut -f 9 -d " "`
 			if [ -n ${TEMP} ]; then
 				ARGS="${TEMP}"
 			fi
 			TEMP=""
-			TEMP=`echo $line | cut --fields=10 --delimiter=" "`
+			TEMP=`echo $line | cut -f 10 -d " "`
 			if [ -n ${TEMP} ]; then
 				ARGS="${ARGS} ${TEMP}"
 			fi
 			TEMP=""
-			TEMP=`echo $line | cut --fields=11 --delimiter=" "`
+			TEMP=`echo $line | cut -f 11 -d " "`
 			if [ -n ${TEMP} ]; then
 				ARGS="${ARGS} ${TEMP}"
 			fi
 			TEMP=""
-			TEMP=`echo $line | cut --fields=12 --delimiter=" "`
+			TEMP=`echo $line | cut -f 12 -d " "`
 			if [ -n ${TEMP} ]; then
 				ARGS="${ARGS} ${TEMP}"
 			fi
 			TEMP=""
-			TEMP=`echo $line | cut --fields=13 --delimiter=" "`
+			TEMP=`echo $line | cut -f 13 -d " "`
 			if [ -n ${TEMP} ]; then
 				ARGS="${ARGS} ${TEMP}"
 			fi
 			TEMP=""
-			TEMP=`echo $line | cut --fields=14 --delimiter=" "`
+			TEMP=`echo $line | cut -f 14 -d " "`
 			if [ -n ${TEMP} ]; then
 				ARGS="${ARGS} ${TEMP}"
 			fi
@@ -914,6 +877,7 @@ if [ "${PLATFORM}" = "theos_ios" ] && [ "${RA}" = "YES" ]; then
 		echo
 		echo
 	done < $1.ra
+
 	if [ "${BUILD}" = "YES" -o "${FORCE}" = "YES" ]; then
 		echo "BUILDBOT JOB: $jobid Compiling Shaders"
 		echo 
@@ -932,7 +896,6 @@ if [ "${PLATFORM}" = "theos_ios" ] && [ "${RA}" = "YES" ]; then
 		rm RetroArch.app -rf
 
 		rm -rfv *.deb
-		ln -s $THEOS theos
 		export PRODUCT_NAME=RetroArch
 		$MAKE clean
 		$MAKE -j8
@@ -950,15 +913,13 @@ if [ "${PLATFORM}" = "theos_ios" ] && [ "${RA}" = "YES" ]; then
 fi
 
 if [ "${PLATFORM}" = "MINGW64" ] || [ "${PLATFORM}" = "MINGW32" ] && [ "${RA}" = "YES" ]; then
-
 	while read line; do
-
-		NAME=`echo $line | cut --fields=1 --delimiter=" "`
-		DIR=`echo $line | cut --fields=2 --delimiter=" "`
-		URL=`echo $line | cut --fields=3 --delimiter=" "`
-		TYPE=`echo $line | cut --fields=4 --delimiter=" "`
-		ENABLED=`echo $line | cut --fields=5 --delimiter=" "`
-		PARENTDIR=`echo $line | cut --fields=6 --delimiter=" "`
+		NAME=`echo $line | cut -f 1 -d " "`
+		DIR=`echo $line | cut -f 2 -d " "`
+		URL=`echo $line | cut -f 3 -d " "`
+		TYPE=`echo $line | cut -f 4 -d " "`
+		ENABLED=`echo $line | cut -f 5 -d " "`
+		PARENTDIR=`echo $line | cut -f 6 -d " "`
 
 		if [ "${ENABLED}" = "YES" ]; then
 			echo "BUILDBOT JOB: $jobid Processing $NAME"
@@ -972,33 +933,33 @@ if [ "${PLATFORM}" = "MINGW64" ] || [ "${PLATFORM}" = "MINGW32" ] && [ "${RA}" =
 
 			ARGS=""
 
-			TEMP=`echo $line | cut --fields=9 --delimiter=" "`
+			TEMP=`echo $line | cut -f 9 -d " "`
 			if [ -n ${TEMP} ];
 			then
 				ARGS="${TEMP}"
 		fi
 		TEMP=""
-		TEMP=`echo $line | cut --fields=10 --delimiter=" "`
+		TEMP=`echo $line | cut -f 10 -d " "`
 		if [ -n ${TEMP} ]; then
 			ARGS="${ARGS} ${TEMP}"
 		fi
 		TEMP=""
-		TEMP=`echo $line | cut --fields=11 --delimiter=" "`
+		TEMP=`echo $line | cut -f 11 -d " "`
 		if [ -n ${TEMP} ]; then
 			ARGS="${ARGS} ${TEMP}"
 		fi
 		TEMP=""
-		TEMP=`echo $line | cut --fields=12 --delimiter=" "`
+		TEMP=`echo $line | cut -f 12 -d " "`
 		if [ -n ${TEMP} ]; then
 			ARGS="${ARGS} ${TEMP}"
 		fi
 		TEMP=""
-		TEMP=`echo $line | cut --fields=13 --delimiter=" "`
+		TEMP=`echo $line | cut -f 13 -d " "`
 		if [ -n ${TEMP} ]; then
 			ARGS="${ARGS} ${TEMP}"
 		fi
 		TEMP=""
-		TEMP=`echo $line | cut --fields=14 --delimiter=" "`
+		TEMP=`echo $line | cut -f 14 -d " "`
 		if [ -n ${TEMP} ]; then
 			ARGS="${ARGS} ${TEMP}"
 		fi
@@ -1031,7 +992,6 @@ if [ "${PLATFORM}" = "MINGW64" ] || [ "${PLATFORM}" = "MINGW32" ] && [ "${RA}" =
 			if [ "${TYPE}" = "PROJECT" ]; then
 				BUILD="YES"
 				RADIR=$DIR
-
 			fi
 			cd $WORK
 		fi
@@ -1040,8 +1000,8 @@ if [ "${PLATFORM}" = "MINGW64" ] || [ "${PLATFORM}" = "MINGW32" ] && [ "${RA}" =
 	echo
 	echo
 	done < $1.ra
-	if [ "${BUILD}" = "YES" -o "${FORCE}" = "YES" ]; then
 
+	if [ "${BUILD}" = "YES" -o "${FORCE}" = "YES" ]; then
 		cd $RADIR
 		echo "BUILDBOT JOB: $jobid Building"
 		echo 
@@ -1133,8 +1093,6 @@ video_shader_dir = ":\shaders"
 
 EOF
 
-			
-			
 			rm -rfv windows
 			mkdir -p windows
 			mkdir -p windows/overlays
@@ -1148,7 +1106,7 @@ EOF
 			mkdir -p windows/database
 			mkdir -p windows/database/cursors
 			mkdir -p windows/database/rdb
-			
+
 			cp -v *.cfg windows/
 			cp -v *.exe tools/*.exe windows/
 			cp -Rfv media/overlays/* windows/overlays
@@ -1163,27 +1121,22 @@ EOF
 			cp -Rfv audio/audio_filters/*.dsp windows/filters/audio
 			cp -Rfv gfx/video_filters/*.dll windows/filters/video
 			cp -Rfv gfx/video_filters/*.filt windows/filters/video
-												
 		else
 			MESSAGE="retroarch build failed ($jobid)"
 			echo $MESSAGE
 			buildbot_log "$MESSAGE"
 		fi
-
 	fi
-
 fi
 
 if [ "${PLATFORM}" = "psp1" ] && [ "${RA}" = "YES" ]; then
-
 	while read line; do
-
-		NAME=`echo $line | cut --fields=1 --delimiter=" "`
-		DIR=`echo $line | cut --fields=2 --delimiter=" "`
-		URL=`echo $line | cut --fields=3 --delimiter=" "`
-		TYPE=`echo $line | cut --fields=4 --delimiter=" "`
-		ENABLED=`echo $line | cut --fields=5 --delimiter=" "`
-		PARENTDIR=`echo $line | cut --fields=6 --delimiter=" "`
+		NAME=`echo $line | cut -f 1 -d " "`
+		DIR=`echo $line | cut -f 2 -d " "`
+		URL=`echo $line | cut -f 3 -d " "`
+		TYPE=`echo $line | cut -f 4 -d " "`
+		ENABLED=`echo $line | cut -f 5 -d " "`
+		PARENTDIR=`echo $line | cut -f 6 -d " "`
 
 		if [ "${ENABLED}" = "YES" ]; then
 			echo "BUILDBOT JOB: $jobid Processing $NAME"
@@ -1197,131 +1150,121 @@ if [ "${PLATFORM}" = "psp1" ] && [ "${RA}" = "YES" ]; then
 
 			ARGS=""
 
-			TEMP=`echo $line | cut --fields=9 --delimiter=" "`
+			TEMP=`echo $line | cut -f 9 -d " "`
 			if [ -n ${TEMP} ]; then
 				ARGS="${TEMP}"
-		fi
-		TEMP=""
-		TEMP=`echo $line | cut --fields=10 --delimiter=" "`
-		if [ -n ${TEMP} ]; then
-			ARGS="${ARGS} ${TEMP}"
-		fi
-		TEMP=""
-		TEMP=`echo $line | cut --fields=11 --delimiter=" "`
-		if [ -n ${TEMP} ]; then
-			ARGS="${ARGS} ${TEMP}"
-		fi
-		TEMP=""
-		TEMP=`echo $line | cut --fields=12 --delimiter=" "`
-		if [ -n ${TEMP} ]; then
-			ARGS="${ARGS} ${TEMP}"
-		fi
-		TEMP=""
-		TEMP=`echo $line | cut --fields=13 --delimiter=" "`
-		if [ -n ${TEMP} ]; then
-			ARGS="${ARGS} ${TEMP}"
-		fi
-		TEMP=""
-		TEMP=`echo $line | cut --fields=14 --delimiter=" "`
-		if [ -n ${TEMP} ]; then
-			ARGS="${ARGS} ${TEMP}"
-		fi
-
-		ARGS="${ARGS%"${ARGS##*[![:space:]]}"}"
-
-		echo ARGS: $ARGS
-
-		if [ -d "${PARENTDIR}/${DIR}/.git" ]; then
-		cd $PARENTDIR
-			cd $DIR
-			echo "pulling from repo... "
-			OUT=`git pull`
-			echo $OUT
-			if [ "${TYPE}" = "PROJECT" ]; then
-				RADIR=$DIR
-				if [[ $OUT == *"Already up-to-date"* ]]; then
-					BUILD="NO"
-				else	
-					BUILD="YES"
-				fi
 			fi
-			cd $WORK
-		else
-			echo "cloning repo..."
+			TEMP=""
+			TEMP=`echo $line | cut -f 10 -d " "`
+			if [ -n ${TEMP} ]; then
+				ARGS="${ARGS} ${TEMP}"
+			fi
+			TEMP=""
+			TEMP=`echo $line | cut -f 11 -d " "`
+			if [ -n ${TEMP} ]; then
+				ARGS="${ARGS} ${TEMP}"
+			fi
+			TEMP=""
+			TEMP=`echo $line | cut -f 12 -d " "`
+			if [ -n ${TEMP} ]; then
+				ARGS="${ARGS} ${TEMP}"
+			fi
+			TEMP=""
+			TEMP=`echo $line | cut -f 13 -d " "`
+			if [ -n ${TEMP} ]; then
+				ARGS="${ARGS} ${TEMP}"
+			fi
+			TEMP=""
+			TEMP=`echo $line | cut -f 14 -d " "`
+			if [ -n ${TEMP} ]; then
+				ARGS="${ARGS} ${TEMP}"
+			fi
+
+			ARGS="${ARGS%"${ARGS##*[![:space:]]}"}"
+
+			echo ARGS: $ARGS
+
+			if [ -d "${PARENTDIR}/${DIR}/.git" ]; then
 			cd $PARENTDIR
-			git clone "$URL" "$DIR" --depth=1
-			cd $DIR
-	
-			if [ "${TYPE}" = "PROJECT" ]; then
-				BUILD="YES"
-				RADIR=$DIR
-
+				cd $DIR
+				echo "pulling from repo... "
+				OUT=`git pull`
+				echo $OUT
+				if [ "${TYPE}" = "PROJECT" ]; then
+					RADIR=$DIR
+					if [[ $OUT == *"Already up-to-date"* ]]; then
+						BUILD="NO"
+					else	
+						BUILD="YES"
+					fi
+				fi
+				cd $WORK
+			else
+				echo "cloning repo..."
+				cd $PARENTDIR
+				git clone "$URL" "$DIR" --depth=1
+				cd $DIR
+		
+				if [ "${TYPE}" = "PROJECT" ]; then
+					BUILD="YES"
+					RADIR=$DIR
+				fi
+				cd $WORK
 			fi
-			cd $WORK
 		fi
-	fi
 
-	echo
-	echo
+		echo
+		echo
 	done < $1.ra
-	if [ "${BUILD}" = "YES" -o "${FORCE}" = "YES" ]; then
 
+	if [ "${BUILD}" = "YES" -o "${FORCE}" = "YES" ]; then
 		cd $RADIR
 		rm -rfv psp1/pkg
 		echo "BUILDBOT JOB: $jobid Building"
 		echo 
 
 		if [ "${BUILD}" == "YES" -o "${FORCE}" == "YES" ]; then
+			cd dist-scripts
+			rm *.a
+			cp -v $RARCH_DIST_DIR/*.a .
+			ls -1 *.a  | awk -F "." ' { print "cp " $0 " " $1 "_psp1." $2 }' |sh
 
-		cd dist-scripts
-		rm *.a
-		cp -v $RARCH_DIST_DIR/*.a .
-		ls -1 *.a  | awk -F "." ' { print "cp " $0 " " $1 "_psp1." $2 }' |sh
+			./psp1-cores.sh
+			if [ $? -eq 0 ]; then
+				MESSAGE="retroarch build successful ($jobid)"
+				echo $MESSAGE
+			else
+				MESSAGE="retroarch build failed ($jobid)"
+				echo $MESSAGE
+			fi
 
+			echo "Packaging"
+			echo ============================================
+			cp retroarch.cfg retroarch.default.cfg
 
-		./psp1-cores.sh
-		if [ $? -eq 0 ]; then
-			MESSAGE="retroarch build successful ($jobid)"
-			echo $MESSAGE
-		else
-			MESSAGE="retroarch build failed ($jobid)"
-			echo $MESSAGE
+			mkdir -p psp1/pkg/
+			mkdir -p psp1/pkg/cheats
+			mkdir -p psp1/pkg/database
+			mkdir -p psp1/pkg/database/cursors
+			mkdir -p psp1/pkg/database/rdb
+			
+			cp -Rfv media/libretrodb/cht/* psp1/pkg/cheats
+			cp -Rfv media/libretrodb/rdb/* psp1/pkg/database/rdb
+			cp -Rfv media/libretrodb/cursors/* psp1/pkg/database/cursors
 		fi
-
-		echo "Packaging"
-		echo ============================================
-		cp retroarch.cfg retroarch.default.cfg
-				
-				
-		mkdir -p psp1/pkg/
-		mkdir -p psp1/pkg/cheats
-		mkdir -p psp1/pkg/database
-		mkdir -p psp1/pkg/database/cursors
-		mkdir -p psp1/pkg/database/rdb
-				
-		cp -Rfv media/libretrodb/cht/* psp1/pkg/cheats
-		cp -Rfv media/libretrodb/rdb/* psp1/pkg/database/rdb
-		cp -Rfv media/libretrodb/cursors/* psp1/pkg/database/cursors
-
-
 	fi
-
 fi
 
-if [ "${PLATFORM}" == "wii" ] && [ "${RA}" == "YES" ];
-then
-
+if [ "${PLATFORM}" == "wii" ] && [ "${RA}" == "YES" ]; then
 	while read line; do
+		NAME=`echo $line | cut -f 1 -d " "`
+		DIR=`echo $line | cut -f 2 -d " "`
+		URL=`echo $line | cut -f 3 -d " "`
+		TYPE=`echo $line | cut -f 4 -d " "`
+		ENABLED=`echo $line | cut -f 5 -d " "`
+		PARENTDIR=`echo $line | cut -f 6 -d " "`
 
-		NAME=`echo $line | cut --fields=1 --delimiter=" "`
-		DIR=`echo $line | cut --fields=2 --delimiter=" "`
-		URL=`echo $line | cut --fields=3 --delimiter=" "`
-		TYPE=`echo $line | cut --fields=4 --delimiter=" "`
-		ENABLED=`echo $line | cut --fields=5 --delimiter=" "`
-		PARENTDIR=`echo $line | cut --fields=6 --delimiter=" "`
-
-		if [ "${ENABLED}" == "YES" ];
-		then
+		if [ "${ENABLED}" == "YES" ]; then
 			echo "BUILDBOT JOB: $jobid Processing $NAME"
 			echo 
 			echo NAME: $NAME
@@ -1333,132 +1276,114 @@ then
 
 			ARGS=""
 
-			TEMP=`echo $line | cut --fields=9 --delimiter=" "`
-			if [ -n ${TEMP} ];
-			then
+			TEMP=`echo $line | cut -f 9 -d " "`
+			if [ -n ${TEMP} ]; then
 				ARGS="${TEMP}"
-		fi
-		TEMP=""
-		TEMP=`echo $line | cut --fields=10 --delimiter=" "`
-		if [ -n ${TEMP} ];
-		then
-			ARGS="${ARGS} ${TEMP}"
-		fi
-		TEMP=""
-		TEMP=`echo $line | cut --fields=11 --delimiter=" "`
-		if [ -n ${TEMP} ];
-		then
-			ARGS="${ARGS} ${TEMP}"
-		fi
-		TEMP=""
-		TEMP=`echo $line | cut --fields=12 --delimiter=" "`
-		if [ -n ${TEMP} ];
-		then
-			ARGS="${ARGS} ${TEMP}"
-		fi
-		TEMP=""
-		TEMP=`echo $line | cut --fields=13 --delimiter=" "`
-		if [ -n ${TEMP} ];
-		then
-			ARGS="${ARGS} ${TEMP}"
-		fi
-		TEMP=""
-		TEMP=`echo $line | cut --fields=14 --delimiter=" "`
-		if [ -n ${TEMP} ];
-		then
-			ARGS="${ARGS} ${TEMP}"
-		fi
+			fi
+			TEMP=""
+			TEMP=`echo $line | cut -f 10 -d " "`
+			if [ -n ${TEMP} ]; then
+				ARGS="${ARGS} ${TEMP}"
+			fi
+			TEMP=""
+			TEMP=`echo $line | cut -f 11 -d " "`
+			if [ -n ${TEMP} ]; then
+				ARGS="${ARGS} ${TEMP}"
+			fi
+			TEMP=""
+			TEMP=`echo $line | cut -f 12 -d " "`
+			if [ -n ${TEMP} ]; then
+				ARGS="${ARGS} ${TEMP}"
+			fi
+			TEMP=""
+			TEMP=`echo $line | cut -f 13 -d " "`
+			if [ -n ${TEMP} ]; then
+				ARGS="${ARGS} ${TEMP}"
+			fi
+			TEMP=""
+			TEMP=`echo $line | cut -f 14 -d " "`
+			if [ -n ${TEMP} ]; then
+				ARGS="${ARGS} ${TEMP}"
+			fi
 
-		ARGS="${ARGS%"${ARGS##*[![:space:]]}"}"
+			ARGS="${ARGS%"${ARGS##*[![:space:]]}"}"
 
-		echo ARGS: $ARGS
+			echo ARGS: $ARGS
 
-		if [ -d "${PARENTDIR}/${DIR}/.git" ];
-		then
-		cd $PARENTDIR
-			cd $DIR
-			echo "pulling from repo... "
-			OUT=`git pull`
-			echo $OUT
-			if [ "${TYPE}" == "PROJECT" ];
-			then
-				RADIR=$DIR
-				if [[ $OUT == *"Already up-to-date"* ]]
-				then
-					BUILD="NO"
-				else	
-					BUILD="YES"
+			if [ -d "${PARENTDIR}/${DIR}/.git" ]; then
+				cd $PARENTDIR
+				cd $DIR
+				echo "pulling from repo... "
+				OUT=`git pull`
+				echo $OUT
+				if [ "${TYPE}" == "PROJECT" ]; then
+					RADIR=$DIR
+					if [[ $OUT == *"Already up-to-date"* ]]; then
+						BUILD="NO"
+					else	
+						BUILD="YES"
+					fi
 				fi
-			fi
-			cd $WORK
-		else
-			echo "cloning repo..."
-			cd $PARENTDIR
-			git clone "$URL" "$DIR" --depth=1
-			cd $DIR
-	
-			if [ "${TYPE}" == "PROJECT" ];
-			then
-				BUILD="YES"
-				RADIR=$DIR
+				cd $WORK
+			else
+				echo "cloning repo..."
+				cd $PARENTDIR
+				git clone "$URL" "$DIR" --depth=1
+				cd $DIR
+		
+				if [ "${TYPE}" == "PROJECT" ]; then
+					BUILD="YES"
+					RADIR=$DIR
 
+				fi
+				cd $WORK
 			fi
-			cd $WORK
 		fi
-	fi
 
-	echo
-	echo
+		echo
+		echo
 	done  < $1.ra
-	if [ "${BUILD}" == "YES" -o "${FORCE}" == "YES" ];
-	then
 
+	if [ "${BUILD}" == "YES" -o "${FORCE}" == "YES" ]; then
 		cd $RADIR
-	        #rm -rfv wii/pkg
+		  #rm -rfv wii/pkg
 		echo "BUILDBOT JOB: $jobid Building"
 		echo
 
-	if [ "${BUILD}" == "YES" -o "${FORCE}" == "YES" ];
-	then
+		if [ "${BUILD}" == "YES" -o "${FORCE}" == "YES" ]; then
+			cd dist-scripts
+			rm *.a
+			cp -v $RARCH_DIST_DIR/*.a .
 
-		cd dist-scripts
-		rm *.a
-		cp -v $RARCH_DIST_DIR/*.a .
-
-		ls -1 *.a  | awk -F "." ' { print "cp " $0 " " $1 "_wii." $2 }' |sh
-		sh ./wii-cores.sh
-        if [ $? -eq 0 ];
-        then
-            MESSAGE="retroarch build successful ($jobid)"
-            echo $MESSAGE
-	    else
-            MESSAGE="retroarch build failed ($jobid)"
-            echo $MESSAGE
+			ls -1 *.a  | awk -F "." ' { print "cp " $0 " " $1 "_wii." $2 }' |sh
+			sh ./wii-cores.sh
+			if [ $? -eq 0 ]; then
+				MESSAGE="retroarch build successful ($jobid)"
+				echo $MESSAGE
+			else
+				MESSAGE="retroarch build failed ($jobid)"
+				echo $MESSAGE
+			fi
+			buildbot_log "$MESSAGE"
+			cd ..
 		fi
-        buildbot_log "$MESSAGE"
-        cd ..
 
+		echo "Packaging"
+		echo ============================================
+		cp retroarch.cfg retroarch.default.cfg
+
+		mkdir -p wii/pkg/
+		mkdir -p wii/pkg/overlays
+		mkdir -p wii/pkg/cheats
+		mkdir -p wii/pkg/database
+		mkdir -p wii/pkg/database/cursors
+		mkdir -p wii/pkg/database/rdb
+
+		cp -Rfv media/libretrodb/cht/* wii/pkg/cheats
+		cp -Rfv media/libretrodb/rdb/* wii/pkg/database/rdb
+		cp -Rfv media/libretrodb/cursors/* wii/pkg/database/cursors
+		cp -Rfv media/overlays/* wii/pkg/overlays
 	fi
-
-			echo "Packaging"
-			echo ============================================
-			cp retroarch.cfg retroarch.default.cfg
-
-			mkdir -p wii/pkg/
-			mkdir -p wii/pkg/overlays
-			mkdir -p wii/pkg/cheats
-			mkdir -p wii/pkg/database
-			mkdir -p wii/pkg/database/cursors
-			mkdir -p wii/pkg/database/rdb
-
-			cp -Rfv media/libretrodb/cht/* wii/pkg/cheats
-			cp -Rfv media/libretrodb/rdb/* wii/pkg/database/rdb
-			cp -Rfv media/libretrodb/cursors/* wii/pkg/database/cursors
-			cp -Rfv media/overlays/* wii/pkg/overlays
-
-
-	fi
-
 fi
 
 PATH=$ORIGPATH

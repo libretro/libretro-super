@@ -22,8 +22,8 @@ WORK=$PWD
 echo Original PATH: $PATH
 
 while read line; do
-	KEY=`echo $line | cut --fields=1 --delimiter=" "`
-	VALUE=`echo $line | cut --fields=2 --delimiter=" "`
+	KEY=`echo $line | cut -f 1 -d " "`
+	VALUE=`echo $line | cut -f 2 -d " "`
 
 	if [ "${KEY}" = "PATH" ]; then
 		export PATH=${VALUE}:${ORIGPATH}
@@ -177,7 +177,7 @@ cd "${BASE_DIR}"
 ####build commands
 buildbot_log() {
 
-	HASH=`echo -n "$1" | openssl sha1 -hmac $SIG | cut --fields=2 --delimiter=" "`
+	HASH=`echo -n "$1" | openssl sha1 -hmac $SIG | cut -f 2 -d " "`
 	curl --data "message=$1&sign=$HASH" $LOGURL
 
 
@@ -485,9 +485,9 @@ build_libretro_bsnes() {
 	if [ $? -eq 0 ]; then
 		MESSAGE="$1 build successful ($jobid)"
 		if [ "${PROFILE}" = "cpp98" ]; then
-			cp -fv "out/libretro.${FORMAT_EXT}" "${RARCH_DIST_DIR}/${NAME}_libretro${FORMAT}${SUFFIX}.${FORMAT_EXT}"
+			cp -fv "out/${NAME}_libretro${FORMAT}${SUFFIX}.${FORMAT_EXT}" "${RARCH_DIST_DIR}/${NAME}_libretro${FORMAT}${SUFFIX}.${FORMAT_EXT}"
 		elif [ "${PROFILE}" = "bnes" ]; then
-			cp -fv "libretro.${FORMAT_EXT}" "${RARCH_DIST_DIR}/${NAME}_libretro${FORMAT}${SUFFIX}.${FORMAT_EXT}"
+			cp -fv "${NAME}_libretro${FORMAT}${SUFFIX}.${FORMAT_EXT}" "${RARCH_DIST_DIR}/${NAME}_libretro${FORMAT}${SUFFIX}.${FORMAT_EXT}"
 		else
 			cp -fv "out/${NAME}_libretro$FORMAT.${FORMAT_EXT}" $RARCH_DIST_DIR/${NAME}_${PROFILE}_libretro${FORMAT}${SUFFIX}.${FORMAT_EXT}
 		fi
@@ -516,14 +516,14 @@ echo
 echo
 while read line; do
 
-	NAME=`echo $line | cut --fields=1 --delimiter=" "`
-	DIR=`echo $line | cut --fields=2 --delimiter=" "`
-	URL=`echo $line | cut --fields=3 --delimiter=" "`
-	TYPE=`echo $line | cut --fields=4 --delimiter=" "`
-	ENABLED=`echo $line | cut --fields=5 --delimiter=" "`
-	COMMAND=`echo $line | cut --fields=6 --delimiter=" "`
-	MAKEFILE=`echo $line | cut --fields=7 --delimiter=" "`
-	SUBDIR=`echo $line | cut --fields=8 --delimiter=" "`
+	NAME=`echo $line | cut -f 1 -d " "`
+	DIR=`echo $line | cut -f 2 -d " "`
+	URL=`echo $line | cut -f 3 -d " "`
+	TYPE=`echo $line | cut -f 4 -d " "`
+	ENABLED=`echo $line | cut -f 5 -d " "`
+	COMMAND=`echo $line | cut -f 6 -d " "`
+	MAKEFILE=`echo $line | cut -f 7 -d " "`
+	SUBDIR=`echo $line | cut -f 8 -d " "`
 
 
 	if [ ! -z "$TASK" ]; then
@@ -548,32 +548,32 @@ while read line; do
 
 		ARGS=""
 
-		TEMP=`echo $line | cut --fields=9 --delimiter=" "`
+		TEMP=`echo $line | cut -f 9 -d " "`
 		if [ -n ${TEMP} ]; then
 			ARGS="${TEMP}"
 		fi
 		TEMP=""
-		TEMP=`echo $line | cut --fields=10 --delimiter=" "`
+		TEMP=`echo $line | cut -f 10 -d " "`
 		if [ -n ${TEMP} ]; then
 			ARGS="${ARGS} ${TEMP}"
 		fi
 		TEMP=""
-		TEMP=`echo $line | cut --fields=11 --delimiter=" "`
+		TEMP=`echo $line | cut -f 11 -d " "`
 		if [ -n ${TEMP} ]; then
 			ARGS="${ARGS} ${TEMP}"
 		fi
 		TEMP=""
-		TEMP=`echo $line | cut --fields=12 --delimiter=" "`
+		TEMP=`echo $line | cut -f 12 -d " "`
 		if [ -n ${TEMP} ]; then
 			ARGS="${ARGS} ${TEMP}"
 		fi
 		TEMP=""
-		TEMP=`echo $line | cut --fields=13 --delimiter=" "`
+		TEMP=`echo $line | cut -f 13 -d " "`
 		if [ -n ${TEMP} ]; then
 			ARGS="${ARGS} ${TEMP}"
 		fi
 		TEMP=""
-		TEMP=`echo $line | cut --fields=14 --delimiter=" "`
+		TEMP=`echo $line | cut -f 14 -d " "`
 		if [ -n ${TEMP} ]; then
 			ARGS="${ARGS} ${TEMP}"
 		fi
@@ -629,12 +629,12 @@ if [ "${PLATFORM}" = "MINGW64" ] || [ "${PLATFORM}" = "MINGW32" ] && [ "${RA}" =
 
 	while read line; do
 
-		NAME=`echo $line | cut --fields=1 --delimiter=" "`
-		DIR=`echo $line | cut --fields=2 --delimiter=" "`
-		URL=`echo $line | cut --fields=3 --delimiter=" "`
-		TYPE=`echo $line | cut --fields=4 --delimiter=" "`
-		ENABLED=`echo $line | cut --fields=5 --delimiter=" "`
-		PARENTDIR=`echo $line | cut --fields=6 --delimiter=" "`
+		NAME=`echo $line | cut -f 1 -d " "`
+		DIR=`echo $line | cut -f 2 -d " "`
+		URL=`echo $line | cut -f 3 -d " "`
+		TYPE=`echo $line | cut -f 4 -d " "`
+		ENABLED=`echo $line | cut -f 5 -d " "`
+		PARENTDIR=`echo $line | cut -f 6 -d " "`
 
 		if [ ! -z "$TASK" ]; then
 			if [ "${TASK}" != "${NAME}" ]; then
@@ -653,32 +653,32 @@ if [ "${PLATFORM}" = "MINGW64" ] || [ "${PLATFORM}" = "MINGW32" ] && [ "${RA}" =
 
 			ARGS=""
 
-			TEMP=`echo $line | cut --fields=9 --delimiter=" "`
+			TEMP=`echo $line | cut -f 9 -d " "`
 			if [ -n ${TEMP} ]; then
 				ARGS="${TEMP}"
 			fi
 			TEMP=""
-			TEMP=`echo $line | cut --fields=10 --delimiter=" "`
+			TEMP=`echo $line | cut -f 10 -d " "`
 			if [ -n ${TEMP} ]; then
 				ARGS="${ARGS} ${TEMP}"
 			fi
 			TEMP=""
-			TEMP=`echo $line | cut --fields=11 --delimiter=" "`
+			TEMP=`echo $line | cut -f 11 -d " "`
 			if [ -n ${TEMP} ]; then
 				ARGS="${ARGS} ${TEMP}"
 			fi
 			TEMP=""
-			TEMP=`echo $line | cut --fields=12 --delimiter=" "`
+			TEMP=`echo $line | cut -f 12 -d " "`
 			if [ -n ${TEMP} ]; then
 				ARGS="${ARGS} ${TEMP}"
 			fi
 			TEMP=""
-			TEMP=`echo $line | cut --fields=13 --delimiter=" "`
+			TEMP=`echo $line | cut -f 13 -d " "`
 			if [ -n ${TEMP} ]; then
 				ARGS="${ARGS} ${TEMP}"
 			fi
 			TEMP=""
-			TEMP=`echo $line | cut --fields=14 --delimiter=" "`
+			TEMP=`echo $line | cut -f 14 -d " "`
 			if [ -n ${TEMP} ]; then
 				ARGS="${ARGS} ${TEMP}"
 			fi
