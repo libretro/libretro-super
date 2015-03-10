@@ -93,36 +93,43 @@ B					ARM=true
 			[ -z "$platform" ] && platform="$(uname)"
 			case "$platform" in
 				*BSD*)
+					platform=bsd
 					FORMAT_EXT="so"
 					FORMAT_COMPILER_TARGET="unix"
 					DIST_DIR="bsd"
 					;;
 				osx|*Darwin*)
+					platform=osx
 					FORMAT_EXT="dylib"
 					FORMAT_COMPILER_TARGET="osx"
 					DIST_DIR="osx"
 					;;
 				win|*mingw32*|*MINGW32*|*MSYS_NT*)
+					platform=win
 					FORMAT_EXT="dll"
 					FORMAT_COMPILER_TARGET="win"
 					DIST_DIR="win_x86"
 					;;
 				win64|*mingw64*|*MINGW64*)
+					platform=win
 					FORMAT_EXT="dll"
 					FORMAT_COMPILER_TARGET="win"
 					DIST_DIR="win_x64"
 					;;
 				*psp1*)
+					platform=psp1
 					FORMAT_EXT="a"
 					FORMAT_COMPILER_TARGET="psp1"
 					DIST_DIR="psp1"
 					;;
 				*wii*)
+					platform=wii
 					FORMAT_EXT="a"
 					FORMAT_COMPILER_TARGET="wii"
 					DIST_DIR="wii"
 					;;
 				theos_ios*)
+					platform=theos_ios
 					FORMAT_EXT="dylib"
 					FORMAT_COMPILER_TARGET="theos_ios"
 					DIST_DIR="theos_ios"
