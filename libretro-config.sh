@@ -71,7 +71,7 @@ case "$platform" in
 					X86=true
 					;;
 				armv*)
-B					ARM=true
+					ARM=true
 					export FORMAT_COMPILER_TARGET=armv
 					export RARCHCFLAGS="$RARCHCFLAGS -marm"
 					case "${ARCH}" in
