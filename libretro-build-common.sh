@@ -57,6 +57,16 @@ build_summary_log() {
 	fi
 }
 
+copy_core_to_dist() {
+	[ -z "$1" ] && return 1
+	dest="${2:-$1}"
+	echo_cmd "cp \"$CORE_PREFIX$1$CORE_SUFFIX\" \"$RARCH_DIST_DIR/$dest$CORE_SUFFIX\""
+
+	ret=$?
+	build_summary_log $ret "$dest"
+	return $ret
+}
+
 build_should_skip() {
 	[ -z "$SKIP_UNCHANGED" ] && return 1
 
@@ -118,8 +128,7 @@ build_libretro_pcsx_rearmed_interpreter() {
 			echo_cmd "$MAKE -f Makefile.libretro platform=\"$FORMAT_COMPILER_TARGET\" \"-j$JOBS\" clean" || die 'Failed to clean PCSX ReARMed'
 		fi
 		echo_cmd "$MAKE -f Makefile.libretro USE_DYNAREC=0 platform=\"$FORMAT_COMPILER_TARGET\" $COMPILER \"-j$JOBS\"" || die 'Failed to build PCSX ReARMed'
-		echo_cmd "cp \"pcsx_rearmed$CORE_SUFFIX\" \"$RARCH_DIST_DIR/pcsx_rearmed_interpreter${FORMAT}.$FORMAT_EXT\""
-		build_summary_log $? "pcsx_rearmed_interpreter"
+		copy_core_to_dist "pcsx_rearmed" "pcsx_rearmed_interpreter"
 		build_save_revision $? "pcsx_rearmed_interpreter"
 	else
 		echo 'PCSX ReARMed not fetched, skipping ...'
@@ -141,8 +150,7 @@ build_libretro_generic_makefile_subcore() {
 			echo_cmd "$MAKE -f \"$4\" platform=$5 -j$JOBS clean" || die "Failed to clean $2"
 		fi
 		echo_cmd "$MAKE -f $4 platform=$5 -j$JOBS" || die "Failed to build $2"
-		echo_cmd "cp $2$CORE_SUFFIX $RARCH_DIST_DIR/$2$CORE_SUFFIX"
-		build_summary_log $? "$2"
+		copy_core_to_dist "$2"
 	fi
 }
 
@@ -158,14 +166,6 @@ build_libretro_fba_cps1() {
 	build_libretro_generic_makefile_subcore "fb_alpha" "fba_cores_cps1" "svn-current/trunk/fbacores/cps1" "makefile.libretro" $FORMAT_COMPILER_TARGET
 }
 
-
-copy_core_to_dist() {
-	echo_cmd "cp \"$CORE_PREFIX$1$CORE_SUFFIX\" \"$RARCH_DIST_DIR\""
-
-	ret=$?
-	build_summary_log $ret "$1"
-	return $ret
-}
 
 build_libretro_generic() {
 	echo_cmd "cd \"$5/$2\""
@@ -310,7 +310,7 @@ libretro_build_core() {
 
 
 build_libretro_test() {
-	build_dir="$WORKDIR/$1"
+	build_dir="$WORKDIR/retroarch"
 
 	if build_should_skip "test" "$build_dir"; then
 		echo "Core test is already built, skipping..."
@@ -378,10 +378,8 @@ build_libretro_mame_modern() {
 		fi
 		[ "$ret" -gt 0 ] && die 'Failed to build MAME'
 
-		echo_cmd "cp \"$2$CORE_SUFFIX\" \"$RARCH_DIST_DIR\""
-		ret=$?
-		build_summary_log $ret "$2"
-		return $ret
+		copy_core_to_dist "$2"
+		return $?
 	else
 		echo 'MAME not fetched, skipping ...'
 	fi
@@ -421,9 +419,11 @@ build_libretro_mame_prerule() {
 		else
 			for target in mame mess ume; do
 				echo_cmd "$MAKE -f Makefile.libretro $extra_args \"TARGET=$target\" platform=\"$FORMAT_COMPILER_TARGET\" $COMPILER \"-j$JOBS\" emulator" || die "Failed to build $target"
-				echo_cmd "cp \"$target$CORE_SUFFIX\" \"$RARCH_DIST_DIR\""
+				copy_core_to_dist "$target"
 				ret=$?
-				build_summary_log $ret "$target"
+
+				# If a target fails, stop here...
+				[ $ret -eq 0 ] || break
 			done
 		fi
 
@@ -431,7 +431,6 @@ build_libretro_mame_prerule() {
 		echo 'MAME not fetched, skipping ...'
 	fi
 
-	# TODO: Like others, this saves the revision if ume builds...
 	build_save_revision $ret mame
 }
 
@@ -472,9 +471,7 @@ build_libretro_bsnes_modern() {
 		ret=0
 		for a in accuracy balanced performance; do
 			echo_cmd "$cmdline profile=$a"
-			echo_cmd "cp -f \"out/${1}_$a$CORE_SUFFIX\" \"$RARCH_DIST_DIR/${1}_$a$CORE_SUFFIX\""
-			ret=$?
-			build_summary_log $ret "${1}_$a"
+			copy_core_to_dist "out/${1}_$a" "${1}_$a"
 			[ $ret -eq 0 ] || break
 		done
 
@@ -518,14 +515,14 @@ build_libretro_bsnes_cplusplus98() {
 		echo_cmd "cd \"$build_dir\""
 
 		if [ -z "$NOCLEAN" ]; then
-			echo_cmd "$MAKE clean" || die "Failed to clean $CORENAME"
+			# byuu's "make clean" doesn't
+			echo_cmd "rm -f obj/*.{o,\"$FORMAT_EXT\"}"
+			echo_cmd "rm -f out/*.{o,\"$FORMAT_EXT\"}"
 		fi
 
 		echo_cmd "$MAKE platform=\"$FORMAT_COMPILER_TARGET\" $COMPILER \"-j$JOBS\""
-		echo_cmd "cp \"out/libretro.$FORMAT_EXT\" \"$RARCH_DIST_DIR/$CORENAME$CORE_SUFFIX\""
-		ret=$?
-		build_summary_log $ret $CORENAME
-		build_save_revision $ret $CORENAME
+		copy_core_to_dist "out/$CORENAME" "$CORENAME"
+		build_save_revision $? $CORENAME
 	else
 		echo "$CORENAME not fetched, skipping ..."
 	fi
@@ -548,10 +545,8 @@ build_libretro_bnes() {
 			echo_cmd "$MAKE -f Makefile \"-j$JOBS\" clean" || die 'Failed to clean bNES'
 		fi
 		echo_cmd "$MAKE -f Makefile $COMPILER \"-j$JOBS\" compiler=\"${CXX11}\"" || die 'Failed to build bNES'
-		echo_cmd "cp \"libretro${FORMAT}.$FORMAT_EXT\" \"$RARCH_DIST_DIR/bnes$CORE_SUFFIX\""
-		ret=$?
-		build_summary_log $ret "bnes"
-		build_save_revision $ret "bnes"
+		copy_core_to_dist "bnes"
+		build_save_revision $? "bnes"
 	else
 		echo 'bNES not fetched, skipping ...'
 	fi
@@ -586,10 +581,8 @@ build_libretro_mupen64() {
 
 			echo_cmd "$MAKE $dynarec platform=\"$FORMAT_COMPILER_TARGET_ALT\" $COMPILER \"-j$JOBS\"" || die 'Failed to build Mupen 64'
 
-			echo_cmd "cp \"mupen64plus$CORE_SUFFIX\" \"$RARCH_DIST_DIR\""
-			ret=$?
-			build_summary_log $ret "mupen64plus"
-			build_save_revision $ret "mupen64plus"
+			copy_core_to_dist "mupen64plus"
+			build_save_revision $? "mupen64plus"
 		else
 			echo 'Mupen64 Plus not fetched, skipping ...'
 		fi

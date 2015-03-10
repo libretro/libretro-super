@@ -487,9 +487,9 @@ build_libretro_bsnes() {
 	if [ $? -eq 0 ]; then
 		MESSAGE="$1 build successful ($jobid)"
 		if [ "${PROFILE}" = "cpp98" ]; then
-			cp -fv "out/libretro.${FORMAT_EXT}" "${RARCH_DIST_DIR}/${NAME}_libretro${FORMAT}${SUFFIX}.${FORMAT_EXT}"
+			cp -fv "out/${NAME}_libretro${FORMAT}${SUFFIX}.${FORMAT_EXT}" "${RARCH_DIST_DIR}/${NAME}_libretro${FORMAT}${SUFFIX}.${FORMAT_EXT}"
 		elif [ "${PROFILE}" = "bnes" ]; then
-			cp -fv "libretro.${FORMAT_EXT}" "${RARCH_DIST_DIR}/${NAME}_libretro${FORMAT}${SUFFIX}.${FORMAT_EXT}"
+			cp -fv "${NAME}_libretro${FORMAT}${SUFFIX}.${FORMAT_EXT}" "${RARCH_DIST_DIR}/${NAME}_libretro${FORMAT}${SUFFIX}.${FORMAT_EXT}"
 		else
 			cp -fv "out/${NAME}_libretro$FORMAT.${FORMAT_EXT}" $RARCH_DIST_DIR/${NAME}_${PROFILE}_libretro${FORMAT}${SUFFIX}.${FORMAT_EXT}
 		fi
