@@ -1232,9 +1232,11 @@ if [ "${PLATFORM}" = "psp1" ] && [ "${RA}" = "YES" ]; then
 				MESSAGE="retroarch build failed ($jobid)"
 				echo $MESSAGE
 			fi
-
+            buildbot_log "$MESSAGE"
+            
 			echo "Packaging"
 			echo ============================================
+            cd $WORK/$RADIR            
 			cp retroarch.cfg retroarch.default.cfg
 
 			mkdir -p psp1/pkg/
@@ -1360,7 +1362,7 @@ if [ "${PLATFORM}" == "wii" ] && [ "${RA}" == "YES" ]; then
 				echo $MESSAGE
 			fi
 			buildbot_log "$MESSAGE"
-			cd ..
+			cd $WORK/$RADIR
 		fi
 
 		echo "Packaging"
