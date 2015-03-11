@@ -25,7 +25,6 @@ fi
 . "$BASE_DIR/rules.d/devkit-rules.sh"
 # TODO: Read these programmatically
 
-
 # libretro_fetch: Download the given core using its fetch rules
 #
 # $1	Name of the core to fetch
@@ -97,30 +96,49 @@ libretro_fetch() {
 	fi
 }
 
+libretro_players="retroarch"
+libretro_devkits="devkit"
+
 if [ -n "$1" ]; then
+	fetch_devel=""
 	no_more_args=""
 	while [ -n "$1" ]; do
-		if [ -z "$no_more_args" ]; then
+		if [[ "$1" = -* && -z "$no_more_args" ]]; then
 			case "$1" in
-				--)
-					no_more_args="1"
-					;;
-
-				*)
-					# New style (just cores for now)
-					libretro_fetch $1
-					;;
+				--) no_more_args=1 ;;
+				--devel) fetch_devel=1 ;;
+				--cores) fetch_cores="$libretro_cores" ;;
+				--devkit) fetch_devkits="$libretro_devkits" ;;
+				--players) fetch_players="$libretro_players" ;;
+				--retroarch) fetch_players="retroarch" ;;
+				*) ;;
 			esac
-		else
-			libretro_fetch $1
+			shift
+			continue
 		fi
+
+		fetch_cores="$fetch_cores $1"
+		# Handle non-commands
 		shift
 	done
 else
-	libretro_fetch retroarch
-	libretro_fetch devkit
-
-	for a in $libretro_cores; do
-		libretro_fetch "${a%%:*}"
-	done
+	# Make libretro-fetch.sh with no args behave traditionally by default
+	fetch_devel=1
+	fetch_cores="$libretro_cores"
+	fetch_players="retroarch"
+	fetch_devkit="devkit"
 fi
+
+for a in $fetch_players; do
+	libretro_fetch $a
+done
+
+for a in $fetch_devkits; do
+	libretro_fetch $a
+done
+
+for a in $fetch_cores; do
+	if [ -n "$fetch_devel" ] || can_build_module "$a"; then
+		libretro_fetch "${a%%:*}"
+	fi
+done

@@ -1,7 +1,8 @@
-gambatte libretro-gambatte https://github.com/libretro/gambatte-libretro.git PROJECT YES GENERIC Makefile.libretro libgambatte 
-fceumm libretro-fceuumm  https://github.com/libretro/libretro-fceumm.git PROJECT YES GENERIC Makefile.libretro . 
-nxengine libretro-nxengine https://github.com/libretro/nxengine-libretro.git PROJECT YES GENERIC Makefile . 
-fmsx libretro-fmsx https://github.com/libretro/fmsx-libretro.git PROJECT YES GENERIC Makefile . 
-prboom libretro-prboom  https://github.com/libretro/libretro-prboom.git PROJECT YES GENERIC Makefile . 
-tempgba libretro-tempgba https://github.com/libretro/TempGBA-libretro.git PROJECT YES GENERIC Makefile . 
-mednafen_pce_fast libretro-mednafen_pce_fast https://github.com/aliaspider/beetle-pce-fast-libretro.git psp_hw_render YES GENERIC Makefile . 
+gambatte libretro-gambatte https://github.com/libretro/gambatte-libretro.git PROJECT NO  GENERIC Makefile.libretro libgambatte 
+fceumm libretro-fceuumm  https://github.com/libretro/libretro-fceumm.git PROJECT NO  GENERIC Makefile.libretro . 
+nxengine libretro-nxengine https://github.com/libretro/nxengine-libretro.git PROJECT NO  GENERIC Makefile . 
+fmsx libretro-fmsx https://github.com/libretro/fmsx-libretro.git PROJECT NO  GENERIC Makefile . 
+prboom libretro-prboom  https://github.com/libretro/libretro-prboom.git PROJECT NO  GENERIC Makefile . 
+tempgba libretro-tempgba https://github.com/libretro/TempGBA-libretro.git PROJECT NO  GENERIC Makefile . 
+mednafen_pce_fast libretro-mednafen_pce_fast https://github.com/aliaspider/beetle-pce-fast-libretro.git psp_hw_render NO  GENERIC Makefile . 
+
