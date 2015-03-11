@@ -1489,7 +1489,6 @@ then
 	then
 
 		cd $RADIR
-        rm -rfv ngc/bot_pkg
 		echo "BUILDBOT JOB: $jobid Building"
 		echo 
 
@@ -1520,15 +1519,15 @@ then
 			cp retroarch.cfg retroarch.default.cfg
 			
 			
-			mkdir -p ngc/bot_pkg/
-			mkdir -p ngc/bot_pkg/cheats
-			mkdir -p ngc/bot_pkg/database
-			mkdir -p ngc/bot_pkg/database/cursors
-			mkdir -p ngc/bot_pkg/database/rdb
+			mkdir -p ngc/pkg/
+			mkdir -p ngc/pkg/cheats
+			mkdir -p ngc/pkg/database
+			mkdir -p ngc/pkg/database/cursors
+			mkdir -p ngc/pkg/database/rdb
 			
-			cp -Rfv media/libretrodb/cht/* ngc/bot_pkg/cheats
-			cp -Rfv media/libretrodb/rdb/* ngc/bot_pkg/database/rdb
-			cp -Rfv media/libretrodb/cursors/* ngc/bot_pkg/database/cursors
+			cp -Rfv media/libretrodb/cht/* ngc/pkg/cheats
+			cp -Rfv media/libretrodb/rdb/* ngc/pkg/database/rdb
+			cp -Rfv media/libretrodb/cursors/* ngc/pkg/database/cursors
 
 
 	fi
