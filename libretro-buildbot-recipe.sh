@@ -1524,10 +1524,13 @@ then
 			mkdir -p ngc/pkg/database
 			mkdir -p ngc/pkg/database/cursors
 			mkdir -p ngc/pkg/database/rdb
+			mkdir -p ngc/pkg/overlays
 			
 			cp -Rfv media/libretrodb/cht/* ngc/pkg/cheats
 			cp -Rfv media/libretrodb/rdb/* ngc/pkg/database/rdb
 			cp -Rfv media/libretrodb/cursors/* ngc/pkg/database/cursors
+                        cp -Rfv media/overlays/* ngc/pkg/overlays
+ 
 
 
 	fi
