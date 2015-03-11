@@ -1574,4 +1574,156 @@ then
 
 fi
 
+if [ "${PLATFORM}" == "ngc" ] && [ "${RA}" == "YES" ];
+then
+
+	while read line; do
+
+		NAME=`echo $line | cut --fields=1 --delimiter=" "`
+		DIR=`echo $line | cut --fields=2 --delimiter=" "`
+		URL=`echo $line | cut --fields=3 --delimiter=" "`
+		TYPE=`echo $line | cut --fields=4 --delimiter=" "`
+		ENABLED=`echo $line | cut --fields=5 --delimiter=" "`
+		PARENTDIR=`echo $line | cut --fields=6 --delimiter=" "`
+
+		if [ "${ENABLED}" == "YES" ];
+		then
+			echo "BUILDBOT JOB: $jobid Processing $NAME"
+			echo 
+			echo NAME: $NAME
+			echo DIR: $DIR
+			echo PARENT: $PARENTDIR
+			echo URL: $URL
+			echo REPO TYPE: $TYPE
+			echo ENABLED: $ENABLED
+
+			ARGS=""
+
+			TEMP=`echo $line | cut --fields=9 --delimiter=" "`
+			if [ -n ${TEMP} ];
+			then
+				ARGS="${TEMP}"
+		fi
+		TEMP=""
+		TEMP=`echo $line | cut --fields=10 --delimiter=" "`
+		if [ -n ${TEMP} ];
+		then
+			ARGS="${ARGS} ${TEMP}"
+		fi
+		TEMP=""
+		TEMP=`echo $line | cut --fields=11 --delimiter=" "`
+		if [ -n ${TEMP} ];
+		then
+			ARGS="${ARGS} ${TEMP}"
+		fi
+		TEMP=""
+		TEMP=`echo $line | cut --fields=12 --delimiter=" "`
+		if [ -n ${TEMP} ];
+		then
+			ARGS="${ARGS} ${TEMP}"
+		fi
+		TEMP=""
+		TEMP=`echo $line | cut --fields=13 --delimiter=" "`
+		if [ -n ${TEMP} ];
+		then
+			ARGS="${ARGS} ${TEMP}"
+		fi
+		TEMP=""
+		TEMP=`echo $line | cut --fields=14 --delimiter=" "`
+		if [ -n ${TEMP} ];
+		then
+			ARGS="${ARGS} ${TEMP}"
+		fi
+
+		ARGS="${ARGS%"${ARGS##*[![:space:]]}"}"
+
+		echo ARGS: $ARGS
+
+		if [ -d "${PARENTDIR}/${DIR}/.git" ];
+		then
+		cd $PARENTDIR
+			cd $DIR
+			echo "pulling from repo... "
+			OUT=`git pull`
+			echo $OUT
+			if [ "${TYPE}" == "PROJECT" ];
+			then
+				RADIR=$DIR
+				if [[ $OUT == *"Already up-to-date"* ]]
+				then
+					BUILD="NO"
+				else	
+					BUILD="YES"
+				fi
+			fi
+			cd $WORK
+		else
+			echo "cloning repo..."
+			cd $PARENTDIR
+			git clone "$URL" "$DIR" --depth=1
+			cd $DIR
+	
+			if [ "${TYPE}" == "PROJECT" ];
+			then
+				BUILD="YES"
+				RADIR=$DIR
+
+			fi
+			cd $WORK
+		fi
+	fi
+
+	echo
+	echo
+	done  < $1.ra
+	if [ "${BUILD}" == "YES" -o "${FORCE}" == "YES" ];
+	then
+
+		cd $RADIR
+        rm -rfv ngc/bot_pkg
+		echo "BUILDBOT JOB: $jobid Building"
+		echo 
+
+	if [ "${BUILD}" == "YES" -o "${FORCE}" == "YES" ];
+	then
+
+		cd dist-scripts
+		rm *.a
+		cp -v $RARCH_DIST_DIR/*.a .
+		
+		ls -1 *.a  | awk -F "." ' { print "cp " $0 " " $1 "_psp1." $2 }' |sh
+		sh ./ngc-cores.sh
+        if [ $? -eq 0 ];
+        then
+            MESSAGE="retroarch build successful ($jobid)"
+            echo $MESSAGE
+	    else
+            MESSAGE="retroarch build failed ($jobid)"
+            echo $MESSAGE
+		fi
+        buildbot_log "$MESSAGE"
+        cd ..      
+
+	fi            
+			
+			echo "Packaging"
+			echo ============================================
+			cp retroarch.cfg retroarch.default.cfg
+			
+			
+			mkdir -p ngc/bot_pkg/
+			mkdir -p ngc/bot_pkg/cheats
+			mkdir -p ngc/bot_pkg/database
+			mkdir -p ngc/bot_pkg/database/cursors
+			mkdir -p ngc/bot_pkg/database/rdb
+			
+			cp -Rfv media/libretrodb/cht/* ngc/bot_pkg/cheats
+			cp -Rfv media/libretrodb/rdb/* ngc/bot_pkg/database/rdb
+			cp -Rfv media/libretrodb/cursors/* ngc/bot_pkg/database/cursors
+
+
+	fi
+
+fi
+
 PATH=$ORIGPATH
