@@ -128,6 +128,12 @@ case "$platform" in
 					FORMAT_COMPILER_TARGET="wii"
 					DIST_DIR="wii"
 					;;
+				*ngc*)
+					platform=ngc
+					FORMAT_EXT="a"
+					FORMAT_COMPILER_TARGET="ngc"
+					DIST_DIR="ngc"
+					;;
 				theos_ios*)
 					platform=theos_ios
 					FORMAT_EXT="dylib"
