@@ -1327,7 +1327,7 @@ if [ "${PLATFORM}" == "wii" ] && [ "${RA}" == "YES" ]; then
 				cd $PARENTDIR
 				git clone "$URL" "$DIR" --depth=1
 				cd $DIR
-		
+
 				if [ "${TYPE}" == "PROJECT" ]; then
 					BUILD="YES"
 					RADIR=$DIR
