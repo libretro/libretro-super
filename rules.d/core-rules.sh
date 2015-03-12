@@ -222,8 +222,6 @@ libretro_tgbdual_git_url="https://github.com/libretro/tgbdual-libretro.git"
 register_core "mupen64plus" -theos_ios -ngc -ps3 -psp1 -wii
 libretro_mupen64plus_name="Mupen64Plus"
 libretro_mupen64plus_git_url="https://github.com/libretro/mupen64plus-libretro.git"
-#libretro_mupen64plus_build_rule=legacy
-#libretro_mupen64plus_build_legacy=build_libretro_mupen64
 libretro_mupen64plus_build_platform="$FORMAT_COMPILER_TARGET_ALT"
 libretro_mupen64Plus_build_configure() {
 	if iscpu_x86_64 $ARCH; then
