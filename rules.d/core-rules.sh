@@ -311,8 +311,6 @@ libretro_emux_name="Emux"
 libretro_emux_git_url="https://github.com/libretro/emux.git"
 libretro_emux_build_subdir=libretro
 libretro_emux_build_cores="emux_chip8 emux_gb emux_nes emux_sms"
-#libretro_emux_build_rule=legacy
-#libretro_emux_build_legacy=build_libretro_emux
 
 register_core "fuse" -theos_ios -ngc -ps3 -psp1 -qnx -wii
 libretro_fuse_name="Fuse"
