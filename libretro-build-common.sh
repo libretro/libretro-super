@@ -211,11 +211,17 @@ build_makefile() {
 	if [ -d "$build_dir" ]; then
 		echo_cmd "cd \"$build_dir\""
 
+		$core_build_prebuild
+
 		if [ -z "$NOCLEAN" ]; then
+			$core_build_preclean
 			echo_cmd "$make_cmdline $core_build_args clean"
+			$core_build_postclean
 		fi
 		make_cmdline="$make_cmdline $COMPILER"
+
 		echo_cmd "$make_cmdline $core_build_args"
+		$core_build_postbuild
 
 		# TODO: Make this a separate stage rule
 		for a in $core_build_cores; do
@@ -266,6 +272,10 @@ libretro_build_core() {
 
 	case "$core_build_rule" in
 		generic_makefile)
+			core_build_preclean="libretro_${1}_build_preclean"
+			core_build_postclean="libretro_${1}_build_preclean"
+			core_build_prebuild="libretro_${1}_build_postbuild"
+			core_build_postbuild="libretro_${1}_build_postbuild"
 			eval "core_build_makefile=\$libretro_${1}_build_makefile"
 			eval "core_build_subdir=\$libretro_${1}_build_subdir"
 			eval "core_build_args=\$libretro_${1}_build_args"
@@ -428,8 +438,6 @@ build_libretro_mupen64() {
 
 		if [ -d "$build_dir" ]; then
 			echo_cmd "cd \"$build_dir\""
-
-			mkdir -p obj
 
 			if iscpu_x86_64 $ARCH; then
 				dynarec="WITH_DYNAREC=x86_64"
