@@ -110,7 +110,10 @@ libretro_tyrquake_build_makefile="Makefile"
 register_core "pcsx_rearmed" -theos_ios -ngc -ps3 -psp1 -wii
 libretro_pcsx_rearmed_name="PCSX ReARMed"
 libretro_pcsx_rearmed_git_url="https://github.com/libretro/pcsx_rearmed.git"
-libretro_pcsx_rearmed_build_makefile="Makefile.libretro"
+# FIXME: Disabling modern rule so we can build dynarrec and interpreter on iOS
+#libretro_pcsx_rearmed_build_makefile="Makefile.libretro"
+libretro_pcsx_rearmed_build_rule=legacy
+libretro_pcsx_rearmed_build_legacy=build_libretro_pcsx_rearmed
 
 register_core "mednafen_gba" -theos_ios
 libretro_mednafen_gba_name="Mednafen/Beetle GBA"

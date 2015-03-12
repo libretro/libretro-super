@@ -112,29 +112,6 @@ reset_compiler_targets() {
 	export FORMAT_COMPILER_TARGET_ALT=$RESET_FORMAT_COMPILER_TARGET_ALT
 }
 
-build_libretro_pcsx_rearmed_interpreter() {
-	build_dir="$WORKDIR/libretro-pcsx_rearmed"
-
-	if build_should_skip "pcsx_rearmed_interpreter" "$build_dir"; then
-		echo "Core test is already built, skipping..."
-		return
-	fi
-
-	if [ -d "$build_dir" ]; then
-		echo '=== Building PCSX ReARMed Interpreter ==='
-		echo_cmd "cd \"$build_dir\""
-
-		if [ -z "$NOCLEAN" ]; then
-			echo_cmd "$MAKE -f Makefile.libretro platform=\"$FORMAT_COMPILER_TARGET\" \"-j$JOBS\" clean" || die 'Failed to clean PCSX ReARMed'
-		fi
-		echo_cmd "$MAKE -f Makefile.libretro USE_DYNAREC=0 platform=\"$FORMAT_COMPILER_TARGET\" $COMPILER \"-j$JOBS\"" || die 'Failed to build PCSX ReARMed'
-		copy_core_to_dist "pcsx_rearmed" "pcsx_rearmed_interpreter"
-		build_save_revision $? "pcsx_rearmed_interpreter"
-	else
-		echo 'PCSX ReARMed not fetched, skipping ...'
-	fi
-}
-
 # $1 is corename
 # $2 is subcorename
 # $3 is subdir. In case there is no subdir, enter "." here
@@ -205,11 +182,9 @@ build_libretro_generic_makefile() {
 
 # build_makefile
 #
-# $1	Name of the core
-# $2	Subdirectory of makefile (use "." for none)
-# $3	Name of makefile
-# $4	Either FORMAT_COMPILER_TARGET or an alternative
-# $5	Skip copying (for cores that don't produce exactly one core)
+# $core_build_subdir		Subdir of the makefile (if any)
+# $core_build_makefile	Name of the makefile (if not {GNUm,m,M}akefile)
+# $core_build_platform	Usually some variant of $FORMAT_COMPILER_TARGET
 build_makefile() {
 	[ -n "$core_build_subdir" ] && core_build_subdir="/$core_build_subdir"
 
@@ -537,9 +512,6 @@ build_libretro_nx() {
 build_libretro_o2em() {
 	libretro_build_core o2em
 }
-build_libretro_pcsx_rearmed() {
-	libretro_build_core pcsx_rearmed
-}
 build_libretro_picodrive() {
 	libretro_build_core picodrive
 }
@@ -802,4 +774,32 @@ build_libretro_mame_prerule() {
 	fi
 
 	build_save_revision $ret mame
+}
+
+build_libretro_pcsx_rearmed() {
+	build_dir="$WORKDIR/libretro-pcsx_rearmed"
+
+	if build_should_skip "pcsx_rearmed" "$build_dir"; then
+		echo "Core pcsx_rearmed is already built, skipping..."
+		return
+	fi
+
+	if [ -d "$build_dir" ]; then
+		echo '=== Building PCSX ReARMed ==='
+		echo_cmd "cd \"$build_dir\""
+
+		if [ -z "$NOCLEAN" ]; then
+			echo_cmd "$MAKE -f Makefile.libretro platform=\"$FORMAT_COMPILER_TARGET\" \"-j$JOBS\" clean" || die 'Failed to clean PCSX ReARMed'
+		fi
+		echo_cmd "$MAKE -f Makefile.libretro platform=\"$FORMAT_COMPILER_TARGET\" $COMPILER \"-j$JOBS\"" || die 'Failed to build PCSX ReARMed'
+		copy_core_to_dist "pcsx_rearmed"
+		ret=$?
+		if [ "$platform" = "ios" ]; then
+			copy_core_to_dist "pcsx_rearmed_interpreter"
+			ret=$?
+		fi
+		build_save_revision $ret "pcsx_rearmed"
+	else
+		echo 'PCSX ReARMed not fetched, skipping ...'
+	fi
 }

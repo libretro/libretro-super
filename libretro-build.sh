@@ -157,9 +157,6 @@ build_default_cores() {
 	if [ $platform != "win" ]; then
 		libretro_build_core pcsx_rearmed
 	fi
-	if [ "$platform" = "ios" ]; then
-		build_libretro_pcsx_rearmed_interpreter # for non-jailbreak
-	fi
 
 	if [ $platform != "ios" ]; then
 		libretro_build_core ffmpeg
