@@ -3,7 +3,8 @@
 register_core "bsnes" -theos_ios -ngc -ps3 -psp1 -qnx -wii
 libretro_bsnes_name="bsnes/higan"
 libretro_bsnes_git_url="https://github.com/libretro/bsnes-libretro.git"
-libretro_bsnes_build_rule=none # NEED CUSTOM RULE
+libretro_bsnes_build_rule=legacy
+libretro_bsnes_build_legacy=build_libretro_bsnes
 
 register_core "snes9x" -ngc -ps3 -psp1 -wii
 libretro_snes9x_name="SNES9x"
@@ -52,7 +53,8 @@ libretro_cap32_build_makefile="Makefile"
 register_core "bnes" -ios -theos_ios -ngc -ps3 -psp1 -qnx -wii
 libretro_bnes_name="bnes/higan"
 libretro_bnes_git_url="https://github.com/libretro/bnes-libretro.git"
-libretro_bnes_build_rule=none # NEED CUSTOM RULE
+libretro_bnes_build_rule=legacy
+libretro_bnes_build_legacy=build_libretro_bnes
 
 register_core "fceumm"
 libretro_fceumm_name="FCEUmm"
@@ -108,7 +110,10 @@ libretro_tyrquake_build_makefile="Makefile"
 register_core "pcsx_rearmed" -theos_ios -ngc -ps3 -psp1 -wii
 libretro_pcsx_rearmed_name="PCSX ReARMed"
 libretro_pcsx_rearmed_git_url="https://github.com/libretro/pcsx_rearmed.git"
-libretro_pcsx_rearmed_build_makefile="Makefile.libretro"
+# FIXME: Disabling modern rule so we can build dynarrec and interpreter on iOS
+#libretro_pcsx_rearmed_build_makefile="Makefile.libretro"
+libretro_pcsx_rearmed_build_rule=legacy
+libretro_pcsx_rearmed_build_legacy=build_libretro_pcsx_rearmed
 
 register_core "mednafen_gba" -theos_ios
 libretro_mednafen_gba_name="Mednafen/Beetle GBA"
@@ -183,7 +188,8 @@ libretro_mame139_build_rule=none # NEED A BUILD RULE
 register_core "mame" -theos_ios -ngc -ps3 -psp1 -qnx -wii
 libretro_mame_name="MAME (git)"
 libretro_mame_git_url="https://github.com/libretro/mame.git"
-libretro_mame_build_rule=none # NEED CUSTOM RULE
+libretro_mame_build_rule=legacy
+libretro_mame_build_legacy=build_libretro_mame_prerule
 
 register_core "ffmpeg" -ios -theos_ios -osx -ngc -ps3 -psp1 -qnx -wii
 libretro_ffmpeg_name="FFmpeg"
@@ -194,12 +200,14 @@ libretro_ffmpeg_build_opengl="optional"
 register_core "bsnes_cplusplus98" -theos_ios -ngc -ps3 -psp1 -wii
 libretro_bsnes_cplusplus98_name="bsnes C++98 (v0.85)"
 libretro_bsnes_cplusplus98_git_url="https://github.com/libretro/bsnes-libretro-cplusplus98.git"
-libretro_bsnes_cplusplus98_build_rule=none # NEED CUSTOM RULE
+libretro_bsnes_cplusplus98_build_rule=legacy
+libretro_bsnes_cplusplus98_build_legacy=build_libretro_bsnes_cplusplus98
 
 register_core "bsnes_mercury" -theos_ios -ngc -ps3 -psp1 -qnx -wii
 libretro_bsnes_mercury_name="bsnes-mercury"
 libretro_bsnes_mercury_git_url="https://github.com/libretro/bsnes-mercury.git"
-libretro_bsnes_mercury_build_rule=none # NEED CUSTOM RULE
+libretro_bsnes_mercury_build_rule=legacy
+libretro_bsnes_mercury_build_legacy=build_libretro_bsnes_mercury
 
 register_core "picodrive" -theos_ios -ngc -ps3 -wii
 libretro_picodrive_name="Picodrive"
@@ -214,7 +222,8 @@ libretro_tgbdual_git_url="https://github.com/libretro/tgbdual-libretro.git"
 register_core "mupen64plus" -theos_ios -ngc -ps3 -psp1 -wii
 libretro_mupen64plus_name="Mupen64Plus"
 libretro_mupen64plus_git_url="https://github.com/libretro/mupen64plus-libretro.git"
-libretro_mupen64plus_build_rule=none # NEED CUSTOM RULE
+libretro_mupen64plus_build_rule=legacy
+libretro_mupen64plus_build_legacy=build_libretro_mupen64
 
 register_core "dinothawr" -theos_ios -ngc -ps3 -psp1 -qnx -wii
 libretro_dinothawr_name="Dinothawr"
@@ -300,7 +309,8 @@ libretro_gpsp_git_url="https://github.com/libretro/gpsp.git"
 register_core "emux" -theos_ios -ngc -ps3 -psp1 -qnx -wii
 libretro_emux_name="Emux"
 libretro_emux_git_url="https://github.com/libretro/emux.git"
-libretro_emux_build_rule=none # NEED CUSTOM RULE
+libretro_emux_build_rule=legacy
+libretro_emux_build_legacy=build_libretro_emux
 
 register_core "fuse" -theos_ios -ngc -ps3 -psp1 -qnx -wii
 libretro_fuse_name="Fuse"

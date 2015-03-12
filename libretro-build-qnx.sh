@@ -22,57 +22,57 @@ CXX11="QCC -Vgcc_ntoarmv7le"
 if [ $1 ]; then
 	$1
 else
-	build_libretro_2048
-	build_libretro_4do
-	build_libretro_bluemsx
-	build_libretro_fmsx
-	build_libretro_bsnes_cplusplus98
-	#build_libretro_bsnes
-	#build_libretro_bsnes_mercury
-	build_libretro_beetle_lynx
-	build_libretro_beetle_gba
-	build_libretro_beetle_pce_fast
-	build_libretro_beetle_supergrafx
-	build_libretro_beetle_pcfx
-	build_libretro_beetle_vb
-	build_libretro_beetle_wswan
-	build_libretro_mednafen_psx
-	build_libretro_beetle_snes
-	build_libretro_catsfc
-	build_libretro_snes9x
-	build_libretro_snes9x_next
-	build_libretro_genesis_plus_gx
-	build_libretro_fb_alpha
-	build_libretro_vbam
-	build_libretro_vba_next
-	build_libretro_fceumm
-	build_libretro_gambatte
-	#build_libretro_meteor
-	build_libretro_nx
-	build_libretro_prboom
-	build_libretro_stella
-	build_libretro_quicknes
-	build_libretro_nestopia
-	build_libretro_tyrquake
-	build_libretro_mame078
-	#build_libretro_mame
-	build_libretro_dosbox
-	build_libretro_scummvm
-	build_libretro_picodrive
-	build_libretro_handy
-	#build_libretro_desmume
-	#build_libretro_yabause
-	build_libretro_pcsx_rearmed
-	build_libretro_vecx
-	build_libretro_tgbdual
-	build_libretro_prosystem
-	#build_libretro_dinothawr
-	build_libretro_virtualjaguar
-	build_libretro_mupen64
-	build_libretro_3dengine
-	#build_libretro_bnes
-	#build_libretro_ffmpeg
-	#build_libretro_ppsspp
-	build_libretro_o2em
-	build_libretro_gpsp
+	libretro_build_core 2048
+	libretro_build_core 3dengine
+	libretro_build_core 4do
+	libretro_build_core bluemsx
+	#libretro_build_core bnes
+	#libretro_build_core bsnes
+	libretro_build_core bsnes_cplusplus98
+	#libretro_build_core bsnes_mercury
+	libretro_build_core catsfc
+	#libretro_build_core desmume
+	#libretro_build_core dinothawr
+	libretro_build_core dosbox
+	libretro_build_core fb_alpha
+	#libretro_build_core ffmpeg
+	libretro_build_core fceumm
+	libretro_build_core fmsx
+	libretro_build_core gambatte
+	libretro_build_core genesis_plus_gx
+	libretro_build_core gpsp
+	libretro_build_core handy
+	#libretro_build_core mame
+	libretro_build_core mame078
+	libretro_build_core mednafen_gba
+	libretro_build_core mednafen_lynx
+	libretro_build_core mednafen_pce_fast
+	libretro_build_core mednafen_pcfx
+	libretro_build_core mednafen_psx
+	libretro_build_core mednafen_snes
+	libretro_build_core mednafen_supergrafx
+	libretro_build_core mednafen_vb
+	libretro_build_core mednafen_wswan
+	#libretro_build_core meteor
+	libretro_build_core mupen64plus
+	libretro_build_core nestopia
+	libretro_build_core nxengine
+	libretro_build_core o2em
+	libretro_build_core pcsx_rearmed
+	libretro_build_core picodrive
+	#libretro_build_core ppsspp
+	libretro_build_core prboom
+	libretro_build_core prosystem
+	libretro_build_core quicknes
+	libretro_build_core scummvm
+	libretro_build_core snes9x
+	libretro_build_core snes9x_next
+	libretro_build_core stella
+	libretro_build_core tgbdual
+	libretro_build_core tyrquake
+	libretro_build_core vba_next
+	libretro_build_core vbam
+	libretro_build_core vecx
+	libretro_build_core virtualjaguar
+	#libretro_build_core yabause
 fi
