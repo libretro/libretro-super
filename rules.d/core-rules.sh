@@ -309,8 +309,10 @@ libretro_gpsp_git_url="https://github.com/libretro/gpsp.git"
 register_core "emux" -theos_ios -ngc -ps3 -psp1 -qnx -wii
 libretro_emux_name="Emux"
 libretro_emux_git_url="https://github.com/libretro/emux.git"
-libretro_emux_build_rule=legacy
-libretro_emux_build_legacy=build_libretro_emux
+libretro_emux_build_subdir=libretro
+libretro_emux_build_cores="emux_chip8 emux_gb emux_nes emux_sms"
+#libretro_emux_build_rule=legacy
+#libretro_emux_build_legacy=build_libretro_emux
 
 register_core "fuse" -theos_ios -ngc -ps3 -psp1 -qnx -wii
 libretro_fuse_name="Fuse"
@@ -399,6 +401,9 @@ libretro_lutro_game_of_life_git_url="https://github.com/libretro/lutro-game-of-l
 #
 # build_opengl				Set to "optional" to use OpenGL/GLES if available
 #								Set to "yes" if the core requires it
+#
+# build_cores				String containing the core(s) produced
+#								Defaults to "<core>"
 #
 # Example:
 #

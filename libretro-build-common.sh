@@ -185,6 +185,7 @@ build_libretro_generic_makefile() {
 # $core_build_subdir		Subdir of the makefile (if any)
 # $core_build_makefile	Name of the makefile (if not {GNUm,m,M}akefile)
 # $core_build_platform	Usually some variant of $FORMAT_COMPILER_TARGET
+# $core_build_cores		A list of cores produced by the builds
 build_makefile() {
 	[ -n "$core_build_subdir" ] && core_build_subdir="/$core_build_subdir"
 
@@ -216,7 +217,9 @@ build_makefile() {
 		echo_cmd "$make_cmdline"
 
 		# TODO: Make this a separate stage rule
-		copy_core_to_dist $1
+		for a in $core_build_cores; do
+			copy_core_to_dist $a
+		done
 	else
 		echo "$1 not fetched, skipping ..."
 	fi
@@ -269,6 +272,7 @@ libretro_build_core() {
 			eval "core_build_platform=\$libretro_${1}_build_platform"
 			core_build_platform="${core_build_platform:-$FORMAT_COMPILER_TARGET}$opengl_type"
 
+			eval "core_build_cores=\${libretro_${1}_build_cores:-$1}"
 			echo "Building ${1}..."
 			build_makefile $1
 			;;
