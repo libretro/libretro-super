@@ -184,6 +184,7 @@ build_libretro_generic_makefile() {
 #
 # $core_build_subdir		Subdir of the makefile (if any)
 # $core_build_makefile	Name of the makefile (if not {GNUm,m,M}akefile)
+# $core_build_args		Extra arguments to make
 # $core_build_platform	Usually some variant of $FORMAT_COMPILER_TARGET
 # $core_build_cores		A list of cores produced by the builds
 build_makefile() {
@@ -211,14 +212,14 @@ build_makefile() {
 		echo_cmd "cd \"$build_dir\""
 
 		if [ -z "$NOCLEAN" ]; then
-			echo_cmd "$make_cmdline clean"
+			echo_cmd "$make_cmdline $core_build_args clean"
 		fi
 		make_cmdline="$make_cmdline $COMPILER"
-		echo_cmd "$make_cmdline"
+		echo_cmd "$make_cmdline $core_build_args"
 
 		# TODO: Make this a separate stage rule
 		for a in $core_build_cores; do
-			copy_core_to_dist $a
+			copy_core_to_dist ${core_build_products:+$core_build_products/}$a $a
 		done
 	else
 		echo "$1 not fetched, skipping ..."
@@ -267,12 +268,14 @@ libretro_build_core() {
 		generic_makefile)
 			eval "core_build_makefile=\$libretro_${1}_build_makefile"
 			eval "core_build_subdir=\$libretro_${1}_build_subdir"
+			eval "core_build_args=\$libretro_${1}_build_args"
 
 			# TODO: Really, clean this up...
 			eval "core_build_platform=\$libretro_${1}_build_platform"
 			core_build_platform="${core_build_platform:-$FORMAT_COMPILER_TARGET}$opengl_type"
 
 			eval "core_build_cores=\${libretro_${1}_build_cores:-$1}"
+			eval "core_build_products=\$libretro_${1}_build_products"
 			echo "Building ${1}..."
 			build_makefile $1
 			;;
@@ -413,122 +416,6 @@ create_dist_dir
 
 ########## LEGACY RULES
 # TODO: Port these to modern rules
-
-build_libretro_bnes() {
-	build_dir="$WORKDIR/libretro-bnes"
-
-	if build_should_skip bnes "$build_dir"; then
-		echo "Core bnes is already built, skipping..."
-		return
-	fi
-
-	if [ -d "$build_dir" ]; then
-		echo '=== Building bNES ==='
-		echo_cmd "cd \"$build_dir\""
-
-		mkdir -p obj
-		if [ -z "$NOCLEAN" ]; then
-			echo_cmd "$MAKE -f Makefile \"-j$JOBS\" clean" || die 'Failed to clean bNES'
-		fi
-		echo_cmd "$MAKE -f Makefile $COMPILER \"-j$JOBS\" compiler=\"${CXX11}\"" || die 'Failed to build bNES'
-		copy_core_to_dist "bnes"
-		build_save_revision $? "bnes"
-	else
-		echo 'bNES not fetched, skipping ...'
-	fi
-}
-
-build_libretro_bsnes_modern() {
-	build_dir="$WORKDIR/libretro-$1"
-	if [ -d "$build_dir" ]; then
-		echo "=== Building $1 ==="
-		echo_cmd "cd \"$build_dir\""
-		
-		if [ -z "$NOCLEAN" ]; then
-			echo_cmd "rm -f obj/*.{o,\"$FORMAT_EXT\"}"
-			echo_cmd "rm -f out/*.{o,\"$FORMAT_EXT\"}"
-		fi
-
-		cmdline="$MAKE target=libretro -j$JOBS"
-		cmdline="$cmdline platform=\"$FORMAT_COMPILER_TARGET\""
-		cmdline="$cmdline compiler=\"$CXX11\""
-		ret=0
-		for a in accuracy balanced performance; do
-			echo_cmd "$cmdline profile=$a"
-			copy_core_to_dist "out/${1}_$a" "${1}_$a"
-			[ $ret -eq 0 ] || break
-		done
-
-		return $ret
-	else
-		echo "$1 not fetched, skipping ..."
-	fi
-}
-
-build_libretro_bsnes() {
-	if build_should_skip bsnes "$WORKDIR/libretro-bsnes"; then
-		echo "Core bsnes is already built, skipping..."
-		return
-	fi
-
-	build_libretro_bsnes_modern "bsnes"
-	build_save_revision $? bsnes
-}
-
-build_libretro_bsnes_cplusplus98() {
-	CORENAME="bsnes_cplusplus98"
-	build_dir="$WORKDIR/libretro-$CORENAME"
-
-	if build_should_skip $CORENAME "$build_dir"; then
-		echo "Core $CORENAME is already built, skipping..."
-		return
-	fi
-
-	if [ -d "$build_dir" ]; then
-		echo "=== Building $CORENAME ==="
-		echo_cmd "cd \"$build_dir\""
-
-		if [ -z "$NOCLEAN" ]; then
-			# byuu's "make clean" doesn't
-			echo_cmd "rm -f obj/*.{o,\"$FORMAT_EXT\"}"
-			echo_cmd "rm -f out/*.{o,\"$FORMAT_EXT\"}"
-		fi
-
-		echo_cmd "$MAKE platform=\"$FORMAT_COMPILER_TARGET\" $COMPILER \"-j$JOBS\""
-		copy_core_to_dist "out/$CORENAME" "$CORENAME"
-		build_save_revision $? $CORENAME
-	else
-		echo "$CORENAME not fetched, skipping ..."
-	fi
-}
-
-build_libretro_bsnes_mercury() {
-	if build_should_skip bsnes_mercury "$WORKDIR/libretro-bsnes"; then
-		echo "Core bsnes_mercury is already built, skipping..."
-		return
-	fi
-
-	build_libretro_bsnes_modern "bsnes_mercury"
-	build_save_revision $? bsnes_mercury
-}
-
-
-build_libretro_emux() {
-	if build_should_skip emux "$WORKDIR/libretro-emux"; then
-		echo "Cores for emux are already built, skipping..."
-		return
-	fi
-
-	build_libretro_generic_makefile "emux" "libretro" "Makefile" $FORMAT_COMPILER_TARGET 1
-
-	copy_core_to_dist "emux_chip8"
-	copy_core_to_dist "emux_gb"
-	copy_core_to_dist "emux_nes"
-	copy_core_to_dist "emux_sms"
-
-	# TODO: Check for more than emux_sms here...
-	build_save_revision $? "emux"
-}
 
 build_libretro_mupen64() {
 	if check_opengl; then
