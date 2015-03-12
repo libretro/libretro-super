@@ -342,23 +342,6 @@ build_libretro_test() {
 }
 
 
-build_libretro_emux() {
-	if build_should_skip emux "$WORKDIR/libretro-emux"; then
-		echo "Cores for emux are already built, skipping..."
-		return
-	fi
-
-	build_libretro_generic_makefile "emux" "libretro" "Makefile" $FORMAT_COMPILER_TARGET 1
-
-	copy_core_to_dist "emux_chip8"
-	copy_core_to_dist "emux_gb"
-	copy_core_to_dist "emux_nes"
-	copy_core_to_dist "emux_sms"
-
-	# TODO: Check for more than emux_sms here...
-	build_save_revision $? "emux"
-}
-
 build_libretro_mame_modern() {
 	build_dir="$WORKDIR/libretro-mame"
 	if [ -d "$build_dir" ]; then
@@ -393,55 +376,6 @@ build_libretro_mame_modern() {
 	fi
 }
 
-build_libretro_mame_prerule() {
-	build_dir="$WORKDIR/libretro-mame"
-
-	if build_should_skip mame "$build_dir"; then
-		echo "Core mame is already built, skipping..."
-		return
-	fi
-
-	if [ -d "$build_dir" ]; then
-		echo ''
-		echo "=== Building MAME ==="
-		echo_cmd "cd \"$build_dir\""
-
-		local extra_args
-		[ "$X86_64" = "true" ] && extra_args="PTR64=1"
-
-		if [ -z "$NOCLEAN" ]; then
-			echo_cmd "$MAKE -f Makefile.libretro $extra_args platform=\"$FORMAT_COMPILER_TARGET\" \"-j$JOBS\" clean" || die 'Failed to clean MAME'
-		fi
-
-		if [ -n "$IOS" ]; then
-			# FIXME: iOS doesn't build right now, so let's leave this simple until it does.
-			target=mame
-			echo_cmd "$MAKE -f Makefile.libretro \"TARGET=$target\" platform=\"$FORMAT_COMPILER_TARGET\" CC=\"$CC\" CXX=\"$CXX\" \"NATIVE=1\" buildtools \"-j$JOBS\""
-			ret=$?
-			if [ "$ret" = 0 ]; then
-				echo_cmd "$MAKE -f Makefile.libretro \"TARGET=$target\" platform=\"$FORMAT_COMPILER_TARGET\" CC=\"$CC\" CXX=\"$CXX\" emulator \"-j$JOBS\""
-				ret=$?
-			fi
-			[ "$ret" -gt 0 ] && die 'Failed to build MAME'
-			build_summary_log $ret "$target"
-		else
-			for target in mame mess ume; do
-				echo_cmd "$MAKE -f Makefile.libretro $extra_args \"TARGET=$target\" platform=\"$FORMAT_COMPILER_TARGET\" $COMPILER \"-j$JOBS\" emulator" || die "Failed to build $target"
-				copy_core_to_dist "$target"
-				ret=$?
-
-				# If a target fails, stop here...
-				[ $ret -eq 0 ] || break
-			done
-		fi
-
-	else
-		echo 'MAME not fetched, skipping ...'
-	fi
-
-	build_save_revision $ret mame
-}
-
 # radius uses these, let's not pull them out from under him just yet
 build_libretro_mame() {
 	build_libretro_mame_modern "MAME" "mame" ""
@@ -457,145 +391,6 @@ build_libretro_ume() {
 }
 rebuild_libretro_ume() {
 	build_libretro_mame_modern "UME" "ume" "1"
-}
-
-# $1 is corename
-# $2 is profile shortname.
-# $3 is profile name
-build_libretro_bsnes_modern() {
-	build_dir="$WORKDIR/libretro-$1"
-	if [ -d "$build_dir" ]; then
-		echo "=== Building $1 $3 ==="
-		echo_cmd "cd \"$build_dir\""
-		
-		if [ -z "$NOCLEAN" ]; then
-			echo_cmd "rm -f obj/*.{o,\"$FORMAT_EXT\"}"
-			echo_cmd "rm -f out/*.{o,\"$FORMAT_EXT\"}"
-		fi
-
-		cmdline="$MAKE target=libretro -j$JOBS"
-		cmdline="$cmdline platform=\"$FORMAT_COMPILER_TARGET\""
-		cmdline="$cmdline compiler=\"$CXX11\""
-		ret=0
-		for a in accuracy balanced performance; do
-			echo_cmd "$cmdline profile=$a"
-			copy_core_to_dist "out/${1}_$a" "${1}_$a"
-			[ $ret -eq 0 ] || break
-		done
-
-		return $ret
-	else
-		echo "$1 not fetched, skipping ..."
-	fi
-}
-
-build_libretro_bsnes() {
-	if build_should_skip bsnes "$WORKDIR/libretro-bsnes"; then
-		echo "Core bsnes is already built, skipping..."
-		return
-	fi
-
-	build_libretro_bsnes_modern "bsnes"
-	build_save_revision $? bsnes
-}
-
-build_libretro_bsnes_mercury() {
-	if build_should_skip bsnes_mercury "$WORKDIR/libretro-bsnes"; then
-		echo "Core bsnes_mercury is already built, skipping..."
-		return
-	fi
-
-	build_libretro_bsnes_modern "bsnes_mercury"
-	build_save_revision $? bsnes_mercury
-}
-
-build_libretro_bsnes_cplusplus98() {
-	CORENAME="bsnes_cplusplus98"
-	build_dir="$WORKDIR/libretro-$CORENAME"
-
-	if build_should_skip $CORENAME "$build_dir"; then
-		echo "Core $CORENAME is already built, skipping..."
-		return
-	fi
-
-	if [ -d "$build_dir" ]; then
-		echo "=== Building $CORENAME ==="
-		echo_cmd "cd \"$build_dir\""
-
-		if [ -z "$NOCLEAN" ]; then
-			# byuu's "make clean" doesn't
-			echo_cmd "rm -f obj/*.{o,\"$FORMAT_EXT\"}"
-			echo_cmd "rm -f out/*.{o,\"$FORMAT_EXT\"}"
-		fi
-
-		echo_cmd "$MAKE platform=\"$FORMAT_COMPILER_TARGET\" $COMPILER \"-j$JOBS\""
-		copy_core_to_dist "out/$CORENAME" "$CORENAME"
-		build_save_revision $? $CORENAME
-	else
-		echo "$CORENAME not fetched, skipping ..."
-	fi
-}
-
-build_libretro_bnes() {
-	build_dir="$WORKDIR/libretro-bnes"
-
-	if build_should_skip bnes "$build_dir"; then
-		echo "Core bnes is already built, skipping..."
-		return
-	fi
-
-	if [ -d "$build_dir" ]; then
-		echo '=== Building bNES ==='
-		echo_cmd "cd \"$build_dir\""
-
-		mkdir -p obj
-		if [ -z "$NOCLEAN" ]; then
-			echo_cmd "$MAKE -f Makefile \"-j$JOBS\" clean" || die 'Failed to clean bNES'
-		fi
-		echo_cmd "$MAKE -f Makefile $COMPILER \"-j$JOBS\" compiler=\"${CXX11}\"" || die 'Failed to build bNES'
-		copy_core_to_dist "bnes"
-		build_save_revision $? "bnes"
-	else
-		echo 'bNES not fetched, skipping ...'
-	fi
-}
-
-build_libretro_mupen64() {
-	if check_opengl; then
-		build_dir="$WORKDIR/libretro-mupen64plus"
-
-		if build_should_skip mupen64plus "$build_dir"; then
-			echo "Core mupen64plus is already built, skipping..."
-			return
-		fi
-
-		if [ -d "$build_dir" ]; then
-			echo_cmd "cd \"$build_dir\""
-
-			mkdir -p obj
-
-			if iscpu_x86_64 $ARCH; then
-				dynarec="WITH_DYNAREC=x86_64"
-			elif iscpu_x86 $ARCH; then
-				dynarec="WITH_DYNAREC=x86"
-			elif [ "${CORTEX_A8}" ] || [ "${CORTEX_A9}" ] || [ "$platform" = "ios" ]; then
-				dynarec="WITH_DYNAREC=arm"
-			fi
-
-			echo '=== Building Mupen 64 Plus ==='
-			if [ -z "$NOCLEAN" ]; then
-				echo_cmd "$MAKE $dynarec platform=\"$FORMAT_COMPILER_TARGET_ALT\" \"-j$JOBS\" clean" || die 'Failed to clean Mupen 64'
-			fi
-
-			echo_cmd "$MAKE $dynarec platform=\"$FORMAT_COMPILER_TARGET_ALT\" $COMPILER \"-j$JOBS\"" || die 'Failed to build Mupen 64'
-
-			copy_core_to_dist "mupen64plus"
-			build_save_revision $? "mupen64plus"
-		else
-			echo 'Mupen64 Plus not fetched, skipping ...'
-		fi
-		reset_compiler_targets
-	fi
 }
 
 build_summary() {
@@ -638,7 +433,7 @@ create_dist_dir
 
 
 ########## LEGACY RULES
-# TODO: delete these
+# TODO: Safe to delete these when scripts no longer reference them
 
 build_libretro_2048() {
 	libretro_build_core 2048
@@ -801,4 +596,209 @@ build_libretro_gw() {
 }
 build_libretro_lutro() {
 	libretro_build_core lutro
+}
+
+########## LEGACY RULES
+# TODO: Port these to modern rules
+
+build_libretro_bsnes_modern() {
+	build_dir="$WORKDIR/libretro-$1"
+	if [ -d "$build_dir" ]; then
+		echo "=== Building $1 ==="
+		echo_cmd "cd \"$build_dir\""
+		
+		if [ -z "$NOCLEAN" ]; then
+			echo_cmd "rm -f obj/*.{o,\"$FORMAT_EXT\"}"
+			echo_cmd "rm -f out/*.{o,\"$FORMAT_EXT\"}"
+		fi
+
+		cmdline="$MAKE target=libretro -j$JOBS"
+		cmdline="$cmdline platform=\"$FORMAT_COMPILER_TARGET\""
+		cmdline="$cmdline compiler=\"$CXX11\""
+		ret=0
+		for a in accuracy balanced performance; do
+			echo_cmd "$cmdline profile=$a"
+			copy_core_to_dist "out/${1}_$a" "${1}_$a"
+			[ $ret -eq 0 ] || break
+		done
+
+		return $ret
+	else
+		echo "$1 not fetched, skipping ..."
+	fi
+}
+
+build_libretro_bsnes() {
+	if build_should_skip bsnes "$WORKDIR/libretro-bsnes"; then
+		echo "Core bsnes is already built, skipping..."
+		return
+	fi
+
+	build_libretro_bsnes_modern "bsnes"
+	build_save_revision $? bsnes
+}
+build_libretro_bnes() {
+	build_dir="$WORKDIR/libretro-bnes"
+
+	if build_should_skip bnes "$build_dir"; then
+		echo "Core bnes is already built, skipping..."
+		return
+	fi
+
+	if [ -d "$build_dir" ]; then
+		echo '=== Building bNES ==='
+		echo_cmd "cd \"$build_dir\""
+
+		mkdir -p obj
+		if [ -z "$NOCLEAN" ]; then
+			echo_cmd "$MAKE -f Makefile \"-j$JOBS\" clean" || die 'Failed to clean bNES'
+		fi
+		echo_cmd "$MAKE -f Makefile $COMPILER \"-j$JOBS\" compiler=\"${CXX11}\"" || die 'Failed to build bNES'
+		copy_core_to_dist "bnes"
+		build_save_revision $? "bnes"
+	else
+		echo 'bNES not fetched, skipping ...'
+	fi
+}
+
+build_libretro_bsnes_cplusplus98() {
+	CORENAME="bsnes_cplusplus98"
+	build_dir="$WORKDIR/libretro-$CORENAME"
+
+	if build_should_skip $CORENAME "$build_dir"; then
+		echo "Core $CORENAME is already built, skipping..."
+		return
+	fi
+
+	if [ -d "$build_dir" ]; then
+		echo "=== Building $CORENAME ==="
+		echo_cmd "cd \"$build_dir\""
+
+		if [ -z "$NOCLEAN" ]; then
+			# byuu's "make clean" doesn't
+			echo_cmd "rm -f obj/*.{o,\"$FORMAT_EXT\"}"
+			echo_cmd "rm -f out/*.{o,\"$FORMAT_EXT\"}"
+		fi
+
+		echo_cmd "$MAKE platform=\"$FORMAT_COMPILER_TARGET\" $COMPILER \"-j$JOBS\""
+		copy_core_to_dist "out/$CORENAME" "$CORENAME"
+		build_save_revision $? $CORENAME
+	else
+		echo "$CORENAME not fetched, skipping ..."
+	fi
+}
+
+build_libretro_bsnes_mercury() {
+	if build_should_skip bsnes_mercury "$WORKDIR/libretro-bsnes"; then
+		echo "Core bsnes_mercury is already built, skipping..."
+		return
+	fi
+
+	build_libretro_bsnes_modern "bsnes_mercury"
+	build_save_revision $? bsnes_mercury
+}
+
+
+build_libretro_emux() {
+	if build_should_skip emux "$WORKDIR/libretro-emux"; then
+		echo "Cores for emux are already built, skipping..."
+		return
+	fi
+
+	build_libretro_generic_makefile "emux" "libretro" "Makefile" $FORMAT_COMPILER_TARGET 1
+
+	copy_core_to_dist "emux_chip8"
+	copy_core_to_dist "emux_gb"
+	copy_core_to_dist "emux_nes"
+	copy_core_to_dist "emux_sms"
+
+	# TODO: Check for more than emux_sms here...
+	build_save_revision $? "emux"
+}
+
+build_libretro_mupen64() {
+	if check_opengl; then
+		build_dir="$WORKDIR/libretro-mupen64plus"
+
+		if build_should_skip mupen64plus "$build_dir"; then
+			echo "Core mupen64plus is already built, skipping..."
+			return
+		fi
+
+		if [ -d "$build_dir" ]; then
+			echo_cmd "cd \"$build_dir\""
+
+			mkdir -p obj
+
+			if iscpu_x86_64 $ARCH; then
+				dynarec="WITH_DYNAREC=x86_64"
+			elif iscpu_x86 $ARCH; then
+				dynarec="WITH_DYNAREC=x86"
+			elif [ "${CORTEX_A8}" ] || [ "${CORTEX_A9}" ] || [ "$platform" = "ios" ]; then
+				dynarec="WITH_DYNAREC=arm"
+			fi
+
+			echo '=== Building Mupen 64 Plus ==='
+			if [ -z "$NOCLEAN" ]; then
+				echo_cmd "$MAKE $dynarec platform=\"$FORMAT_COMPILER_TARGET_ALT\" \"-j$JOBS\" clean" || die 'Failed to clean Mupen 64'
+			fi
+
+			echo_cmd "$MAKE $dynarec platform=\"$FORMAT_COMPILER_TARGET_ALT\" $COMPILER \"-j$JOBS\"" || die 'Failed to build Mupen 64'
+
+			copy_core_to_dist "mupen64plus"
+			build_save_revision $? "mupen64plus"
+		else
+			echo 'Mupen64 Plus not fetched, skipping ...'
+		fi
+		reset_compiler_targets
+	fi
+}
+
+build_libretro_mame_prerule() {
+	build_dir="$WORKDIR/libretro-mame"
+
+	if build_should_skip mame "$build_dir"; then
+		echo "Core mame is already built, skipping..."
+		return
+	fi
+
+	if [ -d "$build_dir" ]; then
+		echo ''
+		echo "=== Building MAME ==="
+		echo_cmd "cd \"$build_dir\""
+
+		local extra_args
+		[ "$X86_64" = "true" ] && extra_args="PTR64=1"
+
+		if [ -z "$NOCLEAN" ]; then
+			echo_cmd "$MAKE -f Makefile.libretro $extra_args platform=\"$FORMAT_COMPILER_TARGET\" \"-j$JOBS\" clean" || die 'Failed to clean MAME'
+		fi
+
+		if [ -n "$IOS" ]; then
+			# FIXME: iOS doesn't build right now, so let's leave this simple until it does.
+			target=mame
+			echo_cmd "$MAKE -f Makefile.libretro \"TARGET=$target\" platform=\"$FORMAT_COMPILER_TARGET\" CC=\"$CC\" CXX=\"$CXX\" \"NATIVE=1\" buildtools \"-j$JOBS\""
+			ret=$?
+			if [ "$ret" = 0 ]; then
+				echo_cmd "$MAKE -f Makefile.libretro \"TARGET=$target\" platform=\"$FORMAT_COMPILER_TARGET\" CC=\"$CC\" CXX=\"$CXX\" emulator \"-j$JOBS\""
+				ret=$?
+			fi
+			[ "$ret" -gt 0 ] && die 'Failed to build MAME'
+			build_summary_log $ret "$target"
+		else
+			for target in mame mess ume; do
+				echo_cmd "$MAKE -f Makefile.libretro $extra_args \"TARGET=$target\" platform=\"$FORMAT_COMPILER_TARGET\" $COMPILER \"-j$JOBS\" emulator" || die "Failed to build $target"
+				copy_core_to_dist "$target"
+				ret=$?
+
+				# If a target fails, stop here...
+				[ $ret -eq 0 ] || break
+			done
+		fi
+
+	else
+		echo 'MAME not fetched, skipping ...'
+	fi
+
+	build_save_revision $ret mame
 }

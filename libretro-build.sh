@@ -126,12 +126,17 @@ build_default_cores() {
 	# Nothing past here supports theos
 	[ "$platform" = "theos_ios" ] && return
 
+	libretro_build_core bsnes
+	libretro_build_core bsnes_cplusplus98
+	libretro_build_core bsnes_mercury
 	libretro_build_core dinothawr
+	libretro_build_core emux
 	libretro_build_core fuse
 	libretro_build_core genesis_plus_gx
 	libretro_build_core gw
 	libretro_build_core hatari
 	libretro_build_core lutro
+	libretro_build_core mame
 	libretro_build_core mame078
 	libretro_build_core mednafen_gba
 	libretro_build_core mednafen_lynx
@@ -143,17 +148,11 @@ build_default_cores() {
 	libretro_build_core mednafen_supergrafx
 	libretro_build_core mednafen_vb
 	libretro_build_core mednafen_wswan
+	libretro_build_core mupen64plus
 	libretro_build_core picodrive
 	libretro_build_core scummvm
 	libretro_build_core stonesoup
 	libretro_build_core yabause
-
-	build_libretro_bsnes
-	build_libretro_bsnes_cplusplus98
-	build_libretro_bsnes_mercury
-	build_libretro_emux
-	build_libretro_mame_prerule
-	build_libretro_mupen64
 
 	if [ $platform != "win" ]; then
 		libretro_build_core pcsx_rearmed
@@ -166,7 +165,7 @@ build_default_cores() {
 		libretro_build_core ffmpeg
 		libretro_build_core ppsspp
 
-		build_libretro_bnes
+		libretro_build_core bnes
 	fi
 
 	build_libretro_test
