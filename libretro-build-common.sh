@@ -272,10 +272,13 @@ libretro_build_core() {
 
 	case "$core_build_rule" in
 		generic_makefile)
-			core_build_configure="libretro_${1}_build_configure"
-			core_build_preclean="libretro_${1}_build_preclean"
-			core_build_prebuild="libretro_${1}_build_prebuild"
-			core_build_prepkg="libretro_${1}_build_prepkg"
+			for a in configure preclean prebuild prepkg; do
+				if [ "$(type -f libretro_${1}_build_$a)" = "function" ]; then
+					eval "core_build_$a=libretro_${1}_build_$a"
+				else
+					eval "core_build_$a="
+				fi
+			done
 			eval "core_build_makefile=\$libretro_${1}_build_makefile"
 			eval "core_build_subdir=\$libretro_${1}_build_subdir"
 			eval "core_build_args=\$libretro_${1}_build_args"
