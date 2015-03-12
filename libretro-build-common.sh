@@ -296,7 +296,15 @@ libretro_build_core() {
 
 			echo "Building ${1}..."
 			build_makefile $1
+			;;
 
+		legacy)
+			eval "core_build_legacy=\$libretro_${1}_build_legacy"
+			if [ -n "$core_build_legacy" ]; then
+				echo "Warning: $1 hasn't been ported to a modern build rule yet."
+				echo "         Will build it using legacy \"$core_build_legacy\"..."
+				$core_build_legacy
+			fi
 			;;
 		none)
 			echo "Don't have a build rule for $1, skipping..."
