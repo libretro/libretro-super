@@ -222,8 +222,16 @@ libretro_tgbdual_git_url="https://github.com/libretro/tgbdual-libretro.git"
 register_core "mupen64plus" -theos_ios -ngc -ps3 -psp1 -wii
 libretro_mupen64plus_name="Mupen64Plus"
 libretro_mupen64plus_git_url="https://github.com/libretro/mupen64plus-libretro.git"
-libretro_mupen64plus_build_rule=legacy
-libretro_mupen64plus_build_legacy=build_libretro_mupen64
+libretro_mupen64plus_build_platform="$FORMAT_COMPILER_TARGET_ALT"
+libretro_mupen64Plus_build_configure() {
+	if iscpu_x86_64 $ARCH; then
+		core_build_args="WITH_DYNAREC=x86_64"
+	elif iscpu_x86 $ARCH; then
+		core_build_args="WITH_DYNAREC=x86"
+	elif [ "${CORTEX_A8}" ] || [ "${CORTEX_A9}" ] || [ "$platform" = "ios" ]; then
+		core_build_args="WITH_DYNAREC=arm"
+	fi
+}
 
 register_core "dinothawr" -theos_ios -ngc -ps3 -psp1 -qnx -wii
 libretro_dinothawr_name="Dinothawr"
