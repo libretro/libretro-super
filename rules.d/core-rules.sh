@@ -3,8 +3,9 @@
 register_core "bsnes" -theos_ios -ngc -ps3 -psp1 -qnx -wii
 libretro_bsnes_name="bsnes/higan"
 libretro_bsnes_git_url="https://github.com/libretro/bsnes-libretro.git"
-libretro_bsnes_build_rule=legacy
-libretro_bsnes_build_legacy=build_libretro_bsnes
+libretro_bsnes_build_args="compiler=\"${CXX11}\""
+libretro_bsnes_build_products="out"
+libretro_bsnes_build_cores="bsnes_accuracy bsnes_balanced bsnes_performance"
 
 register_core "snes9x" -ngc -ps3 -psp1 -wii
 libretro_snes9x_name="SNES9x"
@@ -53,8 +54,7 @@ libretro_cap32_build_makefile="Makefile"
 register_core "bnes" -ios -theos_ios -ngc -ps3 -psp1 -qnx -wii
 libretro_bnes_name="bnes/higan"
 libretro_bnes_git_url="https://github.com/libretro/bnes-libretro.git"
-libretro_bnes_build_rule=legacy
-libretro_bnes_build_legacy=build_libretro_bnes
+libretro_bnes_build_args="compiler=\"${CXX11}\""
 
 register_core "fceumm"
 libretro_fceumm_name="FCEUmm"
@@ -200,14 +200,14 @@ libretro_ffmpeg_build_opengl="optional"
 register_core "bsnes_cplusplus98" -theos_ios -ngc -ps3 -psp1 -wii
 libretro_bsnes_cplusplus98_name="bsnes C++98 (v0.85)"
 libretro_bsnes_cplusplus98_git_url="https://github.com/libretro/bsnes-libretro-cplusplus98.git"
-libretro_bsnes_cplusplus98_build_rule=legacy
-libretro_bsnes_cplusplus98_build_legacy=build_libretro_bsnes_cplusplus98
+libretro_bsnes_cplusplus98_build_products="out"
 
 register_core "bsnes_mercury" -theos_ios -ngc -ps3 -psp1 -qnx -wii
 libretro_bsnes_mercury_name="bsnes-mercury"
 libretro_bsnes_mercury_git_url="https://github.com/libretro/bsnes-mercury.git"
-libretro_bsnes_mercury_build_rule=legacy
-libretro_bsnes_mercury_build_legacy=build_libretro_bsnes_mercury
+libretro_bsnes_mercury_build_args="compiler=\"${CXX11}\""
+libretro_bsnes_mercury_build_products="out"
+libretro_bsnes_mercury_build_cores="bsnes_mercury_accuracy bsnes_mercury_balanced bsnes_mercury_performance"
 
 register_core "picodrive" -theos_ios -ngc -ps3 -wii
 libretro_picodrive_name="Picodrive"
@@ -309,8 +309,8 @@ libretro_gpsp_git_url="https://github.com/libretro/gpsp.git"
 register_core "emux" -theos_ios -ngc -ps3 -psp1 -qnx -wii
 libretro_emux_name="Emux"
 libretro_emux_git_url="https://github.com/libretro/emux.git"
-libretro_emux_build_rule=legacy
-libretro_emux_build_legacy=build_libretro_emux
+libretro_emux_build_subdir=libretro
+libretro_emux_build_cores="emux_chip8 emux_gb emux_nes emux_sms"
 
 register_core "fuse" -theos_ios -ngc -ps3 -psp1 -qnx -wii
 libretro_fuse_name="Fuse"
@@ -394,11 +394,21 @@ libretro_lutro_game_of_life_git_url="https://github.com/libretro/lutro-game-of-l
 # build_makefile			Name of makefile
 #								If unset, GNU make has rules for default makefile names
 #
+# build_subdir				The subdir containing the makefile, if any
+#
+# build_args				Any extra arguments to pass to make
+#
 # build_platform			Set to override the default platform
 #								(e.g., $FORMAT_COMPILER_TARGET_ALT)
 #
 # build_opengl				Set to "optional" to use OpenGL/GLES if available
 #								Set to "yes" if the core requires it
+#
+# build_cores				String containing the core(s) produced
+#								Defaults to "<core>"
+#
+# build_products			Directory build products are located in
+#								bsnes puts cores in "out" for some reason
 #
 # Example:
 #
