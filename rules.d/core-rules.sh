@@ -3,8 +3,6 @@
 register_core "bsnes" -theos_ios -ngc -ps3 -psp1 -qnx -wii
 libretro_bsnes_name="bsnes/higan"
 libretro_bsnes_git_url="https://github.com/libretro/bsnes-libretro.git"
-#libretro_bsnes_build_rule=legacy
-#libretro_bsnes_build_legacy=build_libretro_bsnes
 libretro_bsnes_build_args="compiler=\"${CXX11}\""
 libretro_bsnes_build_products="out"
 libretro_bsnes_build_cores="bsnes_accuracy bsnes_balanced bsnes_performance"
