@@ -430,42 +430,6 @@ create_dist_dir
 ########## LEGACY RULES
 # TODO: Port these to modern rules
 
-build_libretro_mupen64() {
-	if check_opengl; then
-		build_dir="$WORKDIR/libretro-mupen64plus"
-
-		if build_should_skip mupen64plus "$build_dir"; then
-			echo "Core mupen64plus is already built, skipping..."
-			return
-		fi
-
-		if [ -d "$build_dir" ]; then
-			echo_cmd "cd \"$build_dir\""
-
-			if iscpu_x86_64 $ARCH; then
-				dynarec="WITH_DYNAREC=x86_64"
-			elif iscpu_x86 $ARCH; then
-				dynarec="WITH_DYNAREC=x86"
-			elif [ "${CORTEX_A8}" ] || [ "${CORTEX_A9}" ] || [ "$platform" = "ios" ]; then
-				dynarec="WITH_DYNAREC=arm"
-			fi
-
-			echo '=== Building Mupen 64 Plus ==='
-			if [ -z "$NOCLEAN" ]; then
-				echo_cmd "$MAKE $dynarec platform=\"$FORMAT_COMPILER_TARGET_ALT\" \"-j$JOBS\" clean" || die 'Failed to clean Mupen 64'
-			fi
-
-			echo_cmd "$MAKE $dynarec platform=\"$FORMAT_COMPILER_TARGET_ALT\" $COMPILER \"-j$JOBS\"" || die 'Failed to build Mupen 64'
-
-			copy_core_to_dist "mupen64plus"
-			build_save_revision $? "mupen64plus"
-		else
-			echo 'Mupen64 Plus not fetched, skipping ...'
-		fi
-		reset_compiler_targets
-	fi
-}
-
 build_libretro_mame_prerule() {
 	build_dir="$WORKDIR/libretro-mame"
 
