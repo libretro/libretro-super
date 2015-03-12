@@ -601,6 +601,30 @@ build_libretro_lutro() {
 ########## LEGACY RULES
 # TODO: Port these to modern rules
 
+build_libretro_bnes() {
+	build_dir="$WORKDIR/libretro-bnes"
+
+	if build_should_skip bnes "$build_dir"; then
+		echo "Core bnes is already built, skipping..."
+		return
+	fi
+
+	if [ -d "$build_dir" ]; then
+		echo '=== Building bNES ==='
+		echo_cmd "cd \"$build_dir\""
+
+		mkdir -p obj
+		if [ -z "$NOCLEAN" ]; then
+			echo_cmd "$MAKE -f Makefile \"-j$JOBS\" clean" || die 'Failed to clean bNES'
+		fi
+		echo_cmd "$MAKE -f Makefile $COMPILER \"-j$JOBS\" compiler=\"${CXX11}\"" || die 'Failed to build bNES'
+		copy_core_to_dist "bnes"
+		build_save_revision $? "bnes"
+	else
+		echo 'bNES not fetched, skipping ...'
+	fi
+}
+
 build_libretro_bsnes_modern() {
 	build_dir="$WORKDIR/libretro-$1"
 	if [ -d "$build_dir" ]; then
@@ -636,29 +660,6 @@ build_libretro_bsnes() {
 
 	build_libretro_bsnes_modern "bsnes"
 	build_save_revision $? bsnes
-}
-build_libretro_bnes() {
-	build_dir="$WORKDIR/libretro-bnes"
-
-	if build_should_skip bnes "$build_dir"; then
-		echo "Core bnes is already built, skipping..."
-		return
-	fi
-
-	if [ -d "$build_dir" ]; then
-		echo '=== Building bNES ==='
-		echo_cmd "cd \"$build_dir\""
-
-		mkdir -p obj
-		if [ -z "$NOCLEAN" ]; then
-			echo_cmd "$MAKE -f Makefile \"-j$JOBS\" clean" || die 'Failed to clean bNES'
-		fi
-		echo_cmd "$MAKE -f Makefile $COMPILER \"-j$JOBS\" compiler=\"${CXX11}\"" || die 'Failed to build bNES'
-		copy_core_to_dist "bnes"
-		build_save_revision $? "bnes"
-	else
-		echo 'bNES not fetched, skipping ...'
-	fi
 }
 
 build_libretro_bsnes_cplusplus98() {

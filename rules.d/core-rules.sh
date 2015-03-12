@@ -53,7 +53,8 @@ libretro_cap32_build_makefile="Makefile"
 register_core "bnes" -ios -theos_ios -ngc -ps3 -psp1 -qnx -wii
 libretro_bnes_name="bnes/higan"
 libretro_bnes_git_url="https://github.com/libretro/bnes-libretro.git"
-libretro_bnes_build_rule=none # NEED CUSTOM RULE
+libretro_bnes_build_rule=legacy
+libretro_bnes_build_legacy=build_libretro_bnes
 
 register_core "fceumm"
 libretro_fceumm_name="FCEUmm"
