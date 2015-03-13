@@ -478,31 +478,3 @@ build_libretro_mame_prerule() {
 
 	build_save_revision $ret mame
 }
-
-build_libretro_pcsx_rearmed() {
-	build_dir="$WORKDIR/libretro-pcsx_rearmed"
-
-	if build_should_skip "pcsx_rearmed" "$build_dir"; then
-		echo "Core pcsx_rearmed is already built, skipping..."
-		return
-	fi
-
-	if [ -d "$build_dir" ]; then
-		echo '=== Building PCSX ReARMed ==='
-		echo_cmd "cd \"$build_dir\""
-
-		if [ -z "$NOCLEAN" ]; then
-			echo_cmd "$MAKE -f Makefile.libretro platform=\"$FORMAT_COMPILER_TARGET\" \"-j$JOBS\" clean" || die 'Failed to clean PCSX ReARMed'
-		fi
-		echo_cmd "$MAKE -f Makefile.libretro platform=\"$FORMAT_COMPILER_TARGET\" $COMPILER \"-j$JOBS\"" || die 'Failed to build PCSX ReARMed'
-		copy_core_to_dist "pcsx_rearmed"
-		ret=$?
-		if [ "$platform" = "ios" ]; then
-			copy_core_to_dist "pcsx_rearmed_interpreter"
-			ret=$?
-		fi
-		build_save_revision $ret "pcsx_rearmed"
-	else
-		echo 'PCSX ReARMed not fetched, skipping ...'
-	fi
-}
