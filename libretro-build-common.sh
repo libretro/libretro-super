@@ -273,7 +273,7 @@ libretro_build_core() {
 	case "$core_build_rule" in
 		generic_makefile)
 			for a in configure preclean prebuild prepkg; do
-				if [ "$(type -f libretro_${1}_build_$a)" = "function" ]; then
+				if [ "$(type -t libretro_${1}_build_$a 2> /dev/null)" = "function" ]; then
 					eval "core_build_$a=libretro_${1}_build_$a"
 				else
 					eval "core_build_$a="
