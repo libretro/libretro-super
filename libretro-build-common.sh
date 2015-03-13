@@ -112,29 +112,6 @@ reset_compiler_targets() {
 	export FORMAT_COMPILER_TARGET_ALT=$RESET_FORMAT_COMPILER_TARGET_ALT
 }
 
-build_libretro_pcsx_rearmed_interpreter() {
-	build_dir="$WORKDIR/libretro-pcsx_rearmed"
-
-	if build_should_skip "pcsx_rearmed_interpreter" "$build_dir"; then
-		echo "Core test is already built, skipping..."
-		return
-	fi
-
-	if [ -d "$build_dir" ]; then
-		echo '=== Building PCSX ReARMed Interpreter ==='
-		echo_cmd "cd \"$build_dir\""
-
-		if [ -z "$NOCLEAN" ]; then
-			echo_cmd "$MAKE -f Makefile.libretro platform=\"$FORMAT_COMPILER_TARGET\" \"-j$JOBS\" clean" || die 'Failed to clean PCSX ReARMed'
-		fi
-		echo_cmd "$MAKE -f Makefile.libretro USE_DYNAREC=0 platform=\"$FORMAT_COMPILER_TARGET\" $COMPILER \"-j$JOBS\"" || die 'Failed to build PCSX ReARMed'
-		copy_core_to_dist "pcsx_rearmed" "pcsx_rearmed_interpreter"
-		build_save_revision $? "pcsx_rearmed_interpreter"
-	else
-		echo 'PCSX ReARMed not fetched, skipping ...'
-	fi
-}
-
 # $1 is corename
 # $2 is subcorename
 # $3 is subdir. In case there is no subdir, enter "." here
@@ -205,11 +182,11 @@ build_libretro_generic_makefile() {
 
 # build_makefile
 #
-# $1	Name of the core
-# $2	Subdirectory of makefile (use "." for none)
-# $3	Name of makefile
-# $4	Either FORMAT_COMPILER_TARGET or an alternative
-# $5	Skip copying (for cores that don't produce exactly one core)
+# $core_build_subdir		Subdir of the makefile (if any)
+# $core_build_makefile	Name of the makefile (if not {GNUm,m,M}akefile)
+# $core_build_args		Extra arguments to make
+# $core_build_platform	Usually some variant of $FORMAT_COMPILER_TARGET
+# $core_build_cores		A list of cores produced by the builds
 build_makefile() {
 	[ -n "$core_build_subdir" ] && core_build_subdir="/$core_build_subdir"
 
@@ -234,14 +211,22 @@ build_makefile() {
 	if [ -d "$build_dir" ]; then
 		echo_cmd "cd \"$build_dir\""
 
+		$core_build_configure
+
 		if [ -z "$NOCLEAN" ]; then
-			echo_cmd "$make_cmdline clean"
+			$core_build_preclean
+			echo_cmd "$make_cmdline $core_build_args clean"
 		fi
 		make_cmdline="$make_cmdline $COMPILER"
-		echo_cmd "$make_cmdline"
 
-		# TODO: Make this a separate stage rule
-		copy_core_to_dist $1
+		$core_build_prebuild
+		echo_cmd "$make_cmdline $core_build_args"
+
+		# TODO: Make this a separate stage/package rule
+		$core_build_prepkg
+		for a in $core_build_cores; do
+			copy_core_to_dist ${core_build_products:+$core_build_products/}$a $a
+		done
 	else
 		echo "$1 not fetched, skipping ..."
 	fi
@@ -287,16 +272,34 @@ libretro_build_core() {
 
 	case "$core_build_rule" in
 		generic_makefile)
+			for a in configure preclean prebuild prepkg; do
+				if [ "$(type -f libretro_${1}_build_$a)" = "function" ]; then
+					eval "core_build_$a=libretro_${1}_build_$a"
+				else
+					eval "core_build_$a="
+				fi
+			done
 			eval "core_build_makefile=\$libretro_${1}_build_makefile"
 			eval "core_build_subdir=\$libretro_${1}_build_subdir"
+			eval "core_build_args=\$libretro_${1}_build_args"
 
 			# TODO: Really, clean this up...
 			eval "core_build_platform=\$libretro_${1}_build_platform"
 			core_build_platform="${core_build_platform:-$FORMAT_COMPILER_TARGET}$opengl_type"
 
+			eval "core_build_cores=\${libretro_${1}_build_cores:-$1}"
+			eval "core_build_products=\$libretro_${1}_build_products"
 			echo "Building ${1}..."
 			build_makefile $1
+			;;
 
+		legacy)
+			eval "core_build_legacy=\$libretro_${1}_build_legacy"
+			if [ -n "$core_build_legacy" ]; then
+				echo "Warning: $1 hasn't been ported to a modern build rule yet."
+				echo "         Will build it using legacy \"$core_build_legacy\"..."
+				$core_build_legacy
+			fi
 			;;
 		none)
 			echo "Don't have a build rule for $1, skipping..."
@@ -334,23 +337,6 @@ build_libretro_test() {
 }
 
 
-build_libretro_emux() {
-	if build_should_skip emux "$WORKDIR/libretro-emux"; then
-		echo "Cores for emux are already built, skipping..."
-		return
-	fi
-
-	build_libretro_generic_makefile "emux" "libretro" "Makefile" $FORMAT_COMPILER_TARGET 1
-
-	copy_core_to_dist "emux_chip8"
-	copy_core_to_dist "emux_gb"
-	copy_core_to_dist "emux_nes"
-	copy_core_to_dist "emux_sms"
-
-	# TODO: Check for more than emux_sms here...
-	build_save_revision $? "emux"
-}
-
 build_libretro_mame_modern() {
 	build_dir="$WORKDIR/libretro-mame"
 	if [ -d "$build_dir" ]; then
@@ -384,6 +370,65 @@ build_libretro_mame_modern() {
 		echo 'MAME not fetched, skipping ...'
 	fi
 }
+
+# radius uses these, let's not pull them out from under him just yet
+build_libretro_mame() {
+	build_libretro_mame_modern "MAME" "mame" ""
+}
+build_libretro_mess() {
+	build_libretro_mame_modern "MESS" "mess" ""
+}
+rebuild_libretro_mess() {
+	build_libretro_mame_modern "MESS" "mess" "1"
+}
+build_libretro_ume() {
+	build_libretro_mame_modern "UME" "ume" ""
+}
+rebuild_libretro_ume() {
+	build_libretro_mame_modern "UME" "ume" "1"
+}
+
+build_summary() {
+	if [ -z "$NOBUILD_SUMMARY" ]; then
+		if command -v fmt > /dev/null; then
+			use_fmt=1
+		fi
+		printf -v summary "=== Core Build Summary ===\n\n"
+		if [ -n "$build_success" ]; then
+			printf -v summary "%s%s%d%s\n" "$summary" "$(color 32)" "$(echo $build_success | wc -w)" " core(s)$(color) successfully built:"
+			if [ -n "$use_fmt" ]; then
+				printf -v summary "%s%s\n\n" "$summary" "$(echo "	$build_success" | fmt)"
+			else
+				printf -v summary "%s%s\n\n" "$summary" "$(echo $build_success)"
+			fi
+		fi
+		if [ -n "$build_fail" ]; then
+			printf -v summary "%s%s%d%s\n" "$summary" "$(color 31)" "$(echo $build_fail | wc -w)" " core(s)$(color) failed to build:"
+			if [ -n "$use_fmt" ]; then
+				printf -v summary "%s%s\n\n" "$summary" "$(echo "	$build_fail" | fmt)"
+			else
+				printf -v summary "%s%s\n\n" "$summary" "$(echo $build_fail)"
+			fi
+		fi
+		if [[ -z "$build_success" && -z "$build_fail" ]]; then
+			printf -v summary "%s%s\n\n" "$summary" "No build actions performed."
+		fi
+		if [ -n "$BUILD_SUMMARY" ]; then
+			echo "$summary" > "$BUILD_SUMMARY"
+		fi
+		echo "$summary"
+	fi
+}
+
+create_dist_dir() {
+	mkdir -p "$RARCH_DIST_DIR"
+}
+
+create_dist_dir
+
+
+########## LEGACY RULES
+# TODO: Port these to modern rules
 
 build_libretro_mame_prerule() {
 	build_dir="$WORKDIR/libretro-mame"
@@ -434,363 +479,30 @@ build_libretro_mame_prerule() {
 	build_save_revision $ret mame
 }
 
-# radius uses these, let's not pull them out from under him just yet
-build_libretro_mame() {
-	build_libretro_mame_modern "MAME" "mame" ""
-}
-build_libretro_mess() {
-	build_libretro_mame_modern "MESS" "mess" ""
-}
-rebuild_libretro_mess() {
-	build_libretro_mame_modern "MESS" "mess" "1"
-}
-build_libretro_ume() {
-	build_libretro_mame_modern "UME" "ume" ""
-}
-rebuild_libretro_ume() {
-	build_libretro_mame_modern "UME" "ume" "1"
-}
-
-# $1 is corename
-# $2 is profile shortname.
-# $3 is profile name
-build_libretro_bsnes_modern() {
-	build_dir="$WORKDIR/libretro-$1"
-	if [ -d "$build_dir" ]; then
-		echo "=== Building $1 $3 ==="
-		echo_cmd "cd \"$build_dir\""
-		
-		if [ -z "$NOCLEAN" ]; then
-			echo_cmd "rm -f obj/*.{o,\"$FORMAT_EXT\"}"
-			echo_cmd "rm -f out/*.{o,\"$FORMAT_EXT\"}"
-		fi
-
-		cmdline="$MAKE target=libretro -j$JOBS"
-		cmdline="$cmdline platform=\"$FORMAT_COMPILER_TARGET\""
-		cmdline="$cmdline compiler=\"$CXX11\""
-		ret=0
-		for a in accuracy balanced performance; do
-			echo_cmd "$cmdline profile=$a"
-			copy_core_to_dist "out/${1}_$a" "${1}_$a"
-			[ $ret -eq 0 ] || break
-		done
-
-		return $ret
-	else
-		echo "$1 not fetched, skipping ..."
-	fi
-}
-
-build_libretro_bsnes() {
-	if build_should_skip bsnes "$WORKDIR/libretro-bsnes"; then
-		echo "Core bsnes is already built, skipping..."
-		return
-	fi
-
-	build_libretro_bsnes_modern "bsnes"
-	build_save_revision $? bsnes
-}
-
-build_libretro_bsnes_mercury() {
-	if build_should_skip bsnes_mercury "$WORKDIR/libretro-bsnes"; then
-		echo "Core bsnes_mercury is already built, skipping..."
-		return
-	fi
-
-	build_libretro_bsnes_modern "bsnes_mercury"
-	build_save_revision $? bsnes_mercury
-}
-
-build_libretro_bsnes_cplusplus98() {
-	CORENAME="bsnes_cplusplus98"
-	build_dir="$WORKDIR/libretro-$CORENAME"
-
-	if build_should_skip $CORENAME "$build_dir"; then
-		echo "Core $CORENAME is already built, skipping..."
-		return
-	fi
-
-	if [ -d "$build_dir" ]; then
-		echo "=== Building $CORENAME ==="
-		echo_cmd "cd \"$build_dir\""
-
-		if [ -z "$NOCLEAN" ]; then
-			# byuu's "make clean" doesn't
-			echo_cmd "rm -f obj/*.{o,\"$FORMAT_EXT\"}"
-			echo_cmd "rm -f out/*.{o,\"$FORMAT_EXT\"}"
-		fi
-
-		echo_cmd "$MAKE platform=\"$FORMAT_COMPILER_TARGET\" $COMPILER \"-j$JOBS\""
-		copy_core_to_dist "out/$CORENAME" "$CORENAME"
-		build_save_revision $? $CORENAME
-	else
-		echo "$CORENAME not fetched, skipping ..."
-	fi
-}
-
-build_libretro_bnes() {
-	build_dir="$WORKDIR/libretro-bnes"
-
-	if build_should_skip bnes "$build_dir"; then
-		echo "Core bnes is already built, skipping..."
-		return
-	fi
-
-	if [ -d "$build_dir" ]; then
-		echo '=== Building bNES ==='
-		echo_cmd "cd \"$build_dir\""
-
-		mkdir -p obj
-		if [ -z "$NOCLEAN" ]; then
-			echo_cmd "$MAKE -f Makefile \"-j$JOBS\" clean" || die 'Failed to clean bNES'
-		fi
-		echo_cmd "$MAKE -f Makefile $COMPILER \"-j$JOBS\" compiler=\"${CXX11}\"" || die 'Failed to build bNES'
-		copy_core_to_dist "bnes"
-		build_save_revision $? "bnes"
-	else
-		echo 'bNES not fetched, skipping ...'
-	fi
-}
-
-build_libretro_mupen64() {
-	if check_opengl; then
-		build_dir="$WORKDIR/libretro-mupen64plus"
-
-		if build_should_skip mupen64plus "$build_dir"; then
-			echo "Core mupen64plus is already built, skipping..."
-			return
-		fi
-
-		if [ -d "$build_dir" ]; then
-			echo_cmd "cd \"$build_dir\""
-
-			mkdir -p obj
-
-			if iscpu_x86_64 $ARCH; then
-				dynarec="WITH_DYNAREC=x86_64"
-			elif iscpu_x86 $ARCH; then
-				dynarec="WITH_DYNAREC=x86"
-			elif [ "${CORTEX_A8}" ] || [ "${CORTEX_A9}" ] || [ "$platform" = "ios" ]; then
-				dynarec="WITH_DYNAREC=arm"
-			fi
-
-			echo '=== Building Mupen 64 Plus ==='
-			if [ -z "$NOCLEAN" ]; then
-				echo_cmd "$MAKE $dynarec platform=\"$FORMAT_COMPILER_TARGET_ALT\" \"-j$JOBS\" clean" || die 'Failed to clean Mupen 64'
-			fi
-
-			echo_cmd "$MAKE $dynarec platform=\"$FORMAT_COMPILER_TARGET_ALT\" $COMPILER \"-j$JOBS\"" || die 'Failed to build Mupen 64'
-
-			copy_core_to_dist "mupen64plus"
-			build_save_revision $? "mupen64plus"
-		else
-			echo 'Mupen64 Plus not fetched, skipping ...'
-		fi
-		reset_compiler_targets
-	fi
-}
-
-build_summary() {
-	if [ -z "$NOBUILD_SUMMARY" ]; then
-		if command -v fmt > /dev/null; then
-			use_fmt=1
-		fi
-		printf -v summary "=== Core Build Summary ===\n\n"
-		if [ -n "$build_success" ]; then
-			printf -v summary "%s%s%d%s\n" "$summary" "$(color 32)" "$(echo $build_success | wc -w)" " core(s)$(color) successfully built:"
-			if [ -n "$use_fmt" ]; then
-				printf -v summary "%s%s\n\n" "$summary" "$(echo "	$build_success" | fmt)"
-			else
-				printf -v summary "%s%s\n\n" "$summary" "$(echo $build_success)"
-			fi
-		fi
-		if [ -n "$build_fail" ]; then
-			printf -v summary "%s%s%d%s\n" "$summary" "$(color 31)" "$(echo $build_fail | wc -w)" " core(s)$(color) failed to build:"
-			if [ -n "$use_fmt" ]; then
-				printf -v summary "%s%s\n\n" "$summary" "$(echo "	$build_fail" | fmt)"
-			else
-				printf -v summary "%s%s\n\n" "$summary" "$(echo $build_fail)"
-			fi
-		fi
-		if [[ -z "$build_success" && -z "$build_fail" ]]; then
-			printf -v summary "%s%s\n\n" "$summary" "No build actions performed."
-		fi
-		if [ -n "$BUILD_SUMMARY" ]; then
-			echo "$summary" > "$BUILD_SUMMARY"
-		fi
-		echo "$summary"
-	fi
-}
-
-create_dist_dir() {
-	mkdir -p "$RARCH_DIST_DIR"
-}
-
-create_dist_dir
-
-
-########## LEGACY RULES
-# TODO: delete these
-
-build_libretro_2048() {
-	libretro_build_core 2048
-}
-build_libretro_3dengine() {
-	libretro_build_core 3dengine
-}
-build_libretro_4do() {
-	libretro_build_core 4do
-}
-build_libretro_beetle_gba() {
-	libretro_build_core mednafen_gba
-}
-build_libretro_beetle_lynx() {
-	libretro_build_core mednafen_lynx
-}
-build_libretro_beetle_ngp() {
-	libretro_build_core mednafen_ngp
-}
-build_libretro_beetle_pce_fast() {
-	libretro_build_core mednafen_pce_fast
-}
-build_libretro_beetle_pcfx() {
-	libretro_build_core mednafen_pcfx
-}
-build_libretro_beetle_psx() {
-	libretro_build_core mednafen_psx
-}
-build_libretro_beetle_snes() {
-	libretro_build_core mednafen_snes
-}
-build_libretro_beetle_supergrafx() {
-	libretro_build_core mednafen_supergrafx
-}
-build_libretro_beetle_vb() {
-	libretro_build_core mednafen_vb
-}
-build_libretro_beetle_wswan() {
-	libretro_build_core mednafen_wsawn
-}
-build_libretro_bluemsx() {
-	libretro_build_core bluemsx
-}
-build_libretro_catsfc() {
-	libretro_build_core catsfc
-}
-build_libretro_desmume() {
-	libretro_build_core desmume
-}
-build_libretro_dinothawr() {
-	libretro_build_core dinothawr
-}
-build_libretro_dosbox() {
-	libretro_build_core dosbox
-}
-build_libretro_fb_alpha() {
-	libretro_build_core fb_alpha
-}
-build_libretro_fceumm() {
-	libretro_build_core fceumm
-}
-build_libretro_ffmpeg() {
-	libretro_build_core ffmpeg
-}
-build_libretro_fmsx() {
-	libretro_build_core fmsx
-}
-build_libretro_fuse() {
-	libretro_build_core fuse
-}
-build_libretro_gambatte() {
-	libretro_build_core gambatte
-}
-build_libretro_genesis_plus_gx() {
-	libretro_build_core genesis_plus_gx
-}
-build_libretro_gpsp() {
-	libretro_build_core gpsp
-}
-build_libretro_handy() {
-	libretro_build_core handy
-}
-build_libretro_hatari() {
-	libretro_build_core hatari
-}
-build_libretro_mame078() {
-	libretro_build_core mame078
-}
-build_libretro_mednafen_psx() {
-	libretro_build_core mednafen_psx
-}
-build_libretro_meteor() {
-	libretro_build_core meteor
-}
-build_libretro_nestopia() {
-	libretro_build_core nestopia
-}
-build_libretro_nx() {
-	libretro_build_core nxengine
-}
-build_libretro_o2em() {
-	libretro_build_core o2em
-}
 build_libretro_pcsx_rearmed() {
-	libretro_build_core pcsx_rearmed
-}
-build_libretro_picodrive() {
-	libretro_build_core picodrive
-}
-build_libretro_ppsspp() {
-	libretro_build_core ppsspp
-}
-build_libretro_prboom() {
-	libretro_build_core prboom
-}
-build_libretro_prosystem() {
-	libretro_build_core prosystem
-}
-build_libretro_quicknes() {
-	libretro_build_core quicknes
-}
-build_libretro_scummvm() {
-	libretro_build_core scummvm
-}
-build_libretro_snes9x() {
-	libretro_build_core snes9x
-}
-build_libretro_snes9x_next() {
-	libretro_build_core snes9x_next
-}
-build_libretro_stella() {
-	libretro_build_core stella
-}
-build_libretro_stonesoup() {
-	libretro_build_core stonesoup
-}
-build_libretro_tgbdual() {
-	libretro_build_core tgbdual
-}
-build_libretro_tyrquake() {
-	libretro_build_core tyrquake
-}
-build_libretro_vba_next() {
-	libretro_build_core vba_next
-}
-build_libretro_vbam() {
-	libretro_build_core vbam
-}
-build_libretro_vecx() {
-	libretro_build_core vecx
-}
-build_libretro_virtualjaguar() {
-	libretro_build_core virtualjaguar
-}
-build_libretro_yabause() {
-	libretro_build_core yabause
-}
-build_libretro_gw() {
-	libretro_build_core gw
-}
-build_libretro_lutro() {
-	libretro_build_core lutro
+	build_dir="$WORKDIR/libretro-pcsx_rearmed"
+
+	if build_should_skip "pcsx_rearmed" "$build_dir"; then
+		echo "Core pcsx_rearmed is already built, skipping..."
+		return
+	fi
+
+	if [ -d "$build_dir" ]; then
+		echo '=== Building PCSX ReARMed ==='
+		echo_cmd "cd \"$build_dir\""
+
+		if [ -z "$NOCLEAN" ]; then
+			echo_cmd "$MAKE -f Makefile.libretro platform=\"$FORMAT_COMPILER_TARGET\" \"-j$JOBS\" clean" || die 'Failed to clean PCSX ReARMed'
+		fi
+		echo_cmd "$MAKE -f Makefile.libretro platform=\"$FORMAT_COMPILER_TARGET\" $COMPILER \"-j$JOBS\"" || die 'Failed to build PCSX ReARMed'
+		copy_core_to_dist "pcsx_rearmed"
+		ret=$?
+		if [ "$platform" = "ios" ]; then
+			copy_core_to_dist "pcsx_rearmed_interpreter"
+			ret=$?
+		fi
+		build_save_revision $ret "pcsx_rearmed"
+	else
+		echo 'PCSX ReARMed not fetched, skipping ...'
+	fi
 }
