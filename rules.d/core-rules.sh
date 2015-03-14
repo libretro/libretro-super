@@ -346,6 +346,10 @@ register_core "lutro_platformer" none
 libretro_lutro_platformer_name="Lutro-Platformer"
 libretro_lutro_platformer_git_url="https://github.com/libretro/lutro-platformer.git"
 
+register_core "lutro_pong" none
+libretro_lutro_pong_name="Lutro-Pong"
+libretro_lutro_pong_git_url="https://github.com/libretro/lutro-pong.git"
+
 register_core "lutro_tetris" none
 libretro_lutro_tetris_name="Lutro-tetris"
 libretro_lutro_tetris_git_url="https://github.com/libretro/lutro-tetris.git"
