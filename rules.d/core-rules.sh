@@ -23,6 +23,11 @@ libretro_genesis_plus_gx_name="Genesis Plus GX"
 libretro_genesis_plus_gx_git_url="https://github.com/libretro/Genesis-Plus-GX.git"
 libretro_genesis_plus_gx_build_makefile="Makefile.libretro"
 
+register_core "imageviewer"
+libretro_imageviewer_name="ImageViewer"
+libretro_imageviewer_git_url="https://github.com/libretro/imageviewer-libretro.git"
+libretro_imageviewer_build_makefile="Makefile.libretro"
+
 register_core "fb_alpha" -psp1
 libretro_fb_alpha_name="Final Burn Alpha"
 libretro_fb_alpha_git_url="https://github.com/libretro/fba-libretro.git"
