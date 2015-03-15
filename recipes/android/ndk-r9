@@ -2,3 +2,4 @@ desmume libretro-desmume https://github.com/libretro/desmume.git PROJECT YES GEN
 mupen64plus libretro-mupen64plus https://github.com/libretro/mupen64plus-libretro.git PROJECT YES GENERIC_JNI Makefile libretro/jni 
 o2em libretro-o2em https://github.com/libretro/libretro-o2em.git PROJECT YES GENERIC_JNI Makefile jni 
 prosystem libretro-prosystem https://github.com/libretro/prosystem-libretro.git PROJECT YES GENERIC_JNI Makefile jni 
+imageviewer libretro-imageviewer https://github.com/libretro/imageviewer-libretro.git PROJECT YES GENERIC_JNI Makefile.libretro jni 
