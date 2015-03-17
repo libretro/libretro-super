@@ -463,6 +463,7 @@ build_libretro_mame_prerule() {
 			build_summary_log $ret "$target"
 		else
 			for target in mame mess ume; do
+				[ "$target" != "mame" ] && echo_cmd "$MAKE -f Makefile.libretro PARTIAL=1 $extra_args platform=\"$FORMAT_COMPILER_TARGET\" \"-j$JOBS\" clean" || die 'Failed to clean MAME'
 				echo_cmd "$MAKE -f Makefile.libretro $extra_args \"TARGET=$target\" platform=\"$FORMAT_COMPILER_TARGET\" $COMPILER \"-j$JOBS\" emulator" || die "Failed to build $target"
 				copy_core_to_dist "$target"
 				ret=$?
