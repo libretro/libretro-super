@@ -564,6 +564,11 @@ while read line; do
 					BUILD="YES"
 				fi
 
+				if [[ "${PREVCORE}" == *"fb"* ]] && [[ "${PREVBUILD}" = "YES" ]] && [[ "${NAME}" == *"fba"* ]]; then
+					FORCE="YES"
+					BUILD="YES"
+				fi
+
 				cd ..
 			else
 				echo "cloning repo..."
