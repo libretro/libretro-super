@@ -463,7 +463,7 @@ build_libretro_mame_prerule() {
 			[ "$ret" -gt 0 ] && die 'Failed to build MAME'
 			build_summary_log $ret "$target"
 		else
-			mame_targets="mame mess ume" 
+			mame_targets="mame mess ume"
 			[ "$MAME_GIT_TINY" -eq 1 ] && mame_targets="mame mess"
 			for target in $mame_targets; do
 				[ "$target" != "mame" ] && echo_cmd "$MAKE -f Makefile.libretro PARTIAL=1 $extra_args platform=\"$FORMAT_COMPILER_TARGET\" \"-j$JOBS\" clean" || die 'Failed to clean MAME'
