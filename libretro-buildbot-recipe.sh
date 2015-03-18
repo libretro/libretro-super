@@ -564,7 +564,7 @@ while read line; do
 					BUILD="YES"
 				fi
 
-				if [[ "${PREVCORE}" == *"fb"* ]] && [[ "${PREVBUILD}" = "YES" ]] && [[ "${NAME}" == *"fba"* ]]; then
+				if [[ "${PREVCORE}" =~ *.fb.* ]] && [[ "${PREVBUILD}" = "YES" ]] && [[ "${NAME}" =~ .*fba.* ]]; then
 					FORCE="YES"
 					BUILD="YES"
 				fi
