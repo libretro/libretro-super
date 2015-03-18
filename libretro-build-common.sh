@@ -445,6 +445,7 @@ build_libretro_mame_prerule() {
 
 		local extra_args
 		[ "$X86_64" = "true" ] && extra_args="PTR64=1"
+		[ "$MAME_GIT_TINY" -eq 1 ] && extra_args="$extra_args SUBTARGET=tiny"
 
 		if [ -z "$NOCLEAN" ]; then
 			echo_cmd "$MAKE -f Makefile.libretro $extra_args platform=\"$FORMAT_COMPILER_TARGET\" \"-j$JOBS\" clean" || die 'Failed to clean MAME'
@@ -453,16 +454,18 @@ build_libretro_mame_prerule() {
 		if [ -n "$IOS" ]; then
 			# FIXME: iOS doesn't build right now, so let's leave this simple until it does.
 			target=mame
-			echo_cmd "$MAKE -f Makefile.libretro \"TARGET=$target\" platform=\"$FORMAT_COMPILER_TARGET\" CC=\"$CC\" CXX=\"$CXX\" \"NATIVE=1\" buildtools \"-j$JOBS\""
+			echo_cmd "$MAKE -f Makefile.libretro $extra_args \"TARGET=$target\" platform=\"$FORMAT_COMPILER_TARGET\" CC=\"$CC\" CXX=\"$CXX\" \"NATIVE=1\" buildtools \"-j$JOBS\""
 			ret=$?
 			if [ "$ret" = 0 ]; then
-				echo_cmd "$MAKE -f Makefile.libretro \"TARGET=$target\" platform=\"$FORMAT_COMPILER_TARGET\" CC=\"$CC\" CXX=\"$CXX\" emulator \"-j$JOBS\""
+				echo_cmd "$MAKE -f Makefile.libretro $extra_args \"TARGET=$target\" platform=\"$FORMAT_COMPILER_TARGET\" CC=\"$CC\" CXX=\"$CXX\" emulator \"-j$JOBS\""
 				ret=$?
 			fi
 			[ "$ret" -gt 0 ] && die 'Failed to build MAME'
 			build_summary_log $ret "$target"
 		else
-			for target in mame mess ume; do
+			mame_targets="mame mess ume" 
+			[ "$MAME_GIT_TINY" -eq 1 ] && mame_targets="mame mess"
+			for target in $mame_targets; do
 				[ "$target" != "mame" ] && echo_cmd "$MAKE -f Makefile.libretro PARTIAL=1 $extra_args platform=\"$FORMAT_COMPILER_TARGET\" \"-j$JOBS\" clean" || die 'Failed to clean MAME'
 				echo_cmd "$MAKE -f Makefile.libretro $extra_args \"TARGET=$target\" platform=\"$FORMAT_COMPILER_TARGET\" $COMPILER \"-j$JOBS\" emulator" || die "Failed to build $target"
 				copy_core_to_dist "$target"
