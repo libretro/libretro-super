@@ -549,6 +549,9 @@ while read line; do
 					BUILD="YES"
 				fi
 
+				OLDFORCE=$FORCE
+                                OLDBUILD=$BUILD
+
 				if [ "${PREVCORE}" = "bsnes" -a "${PREVBUILD}" = "YES" -a "${COMMAND}" = "BSNES" ]; then
 					FORCE="YES"
 					BUILD="YES"
@@ -564,7 +567,7 @@ while read line; do
 					BUILD="YES"
 				fi
 
-				if [[ "${PREVCORE}" =~ *.fb.* ]] && [[ "${PREVBUILD}" = "YES" ]] && [[ "${NAME}" =~ .*fba.* ]]; then
+				if [[ "${PREVCORE}" == *fb* ]] && [[ "${PREVBUILD}" = "YES" ]] && [[ "${NAME}" == *fb* ]]; then
 					FORCE="YES"
 					BUILD="YES"
 				fi
@@ -646,6 +649,10 @@ while read line; do
 	cd "${BASE_DIR}"
 	PREVCORE=$NAME
 	PREVBUILD=$BUILD
+
+	BUILD=$OLDBUILD
+        FORCE=$OLDFORCE
+
 done < $1
 
 echo "BUILDBOT JOB: $jobid Building Retroarch"
