@@ -1057,7 +1057,14 @@ if [ "${PLATFORM}" = "MINGW64" ] || [ "${PLATFORM}" = "MINGW32" ] && [ "${RA}" =
 			echo BUILDBOT JOB: $jobid retroarch configure success!		
 		else
 			echo BUILDBOT JOB: $jobid retroarch configure failure!
-		fi		
+		fi
+
+
+
+		## hack, remove when the configure script has been fixed
+		grep -v "HAVE_SOCKET_LEGACY" config.h > temp && mv temp config.h
+		grep -v "HAVE_SOCKET_LEGACY" config.mk > temp && mv temp config.mk
+		
 
 		echo "building..."
 		echo "build command: $MAKE -j${JOBS}"
