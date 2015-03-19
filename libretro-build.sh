@@ -33,7 +33,7 @@ if [ "$HOST_CC" ]; then
 fi
 
 if [ -z "$MAKE" ]; then
-	if uname -s | grep -i MINGW32 > /dev/null 2>&1; then
+	if uname -s | grep -i MINGW > /dev/null 2>&1; then
 		MAKE=mingw32-make
 	else
 		if type gmake > /dev/null 2>&1; then
