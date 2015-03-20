@@ -13,6 +13,13 @@ host_cpu() {
 
 
 
+iscpu_64bit() {
+	case ${1:-`uname -m`} in
+		x86_64|amd64) return 0 ;;
+	esac
+	return 1
+}
+
 iscpu_x86() {
    case ${1:-`uname -m`} in
       i386|i486|i586|i686|x86_64) return 0 ;;
@@ -22,7 +29,9 @@ iscpu_x86() {
 }
 
 iscpu_x86_64() {
-   [ ${1:-`uname -m`} = "x86_64" ] && return 0
+   case ${1:-`uname -m`} in
+		x86_64|amd64) return 0 ;;
+	esac
 	return 1
 }
 
