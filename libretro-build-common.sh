@@ -337,57 +337,6 @@ build_libretro_test() {
 }
 
 
-build_libretro_mame_modern() {
-	build_dir="$WORKDIR/libretro-mame"
-	if [ -d "$build_dir" ]; then
-		echo ''
-		echo "=== Building $1 ==="
-		echo_cmd "cd \"$build_dir\""
-
-		if [ -n "$IOS" ]; then
-			if [ -z "$NOCLEAN" ]; then
-				echo_cmd "$MAKE -f Makefile.libretro \"TARGET=$2\" \"PARTIAL=$3\" platform=\"$FORMAT_COMPILER_TARGET\" \"-j$JOBS\" clean" || die 'Failed to clean MAME'
-			fi
-			echo_cmd "$MAKE -f Makefile.libretro \"TARGET=$2\" platform=\"$FORMAT_COMPILER_TARGET\" $COMPILER \"NATIVE=1\" buildtools \"-j$JOBS\""
-			ret=$?
-			if [ "$ret" = 0 ]; then
-				echo_cmd "$MAKE -f Makefile.libretro \"TARGET=$2\" platform=\"$FORMAT_COMPILER_TARGET\" CC=\"$CC\" CXX=\"$CXX\" emulator \"-j$JOBS\""
-				ret=$?
-			fi
-		else
-			[ "$X86_64" = "true" ] && PTR64=1
-			if [ -z "$NOCLEAN" ]; then
-				echo_cmd "$MAKE -f Makefile.libretro PTR64=\"$PTR64\" \"TARGET=$2\" \"PARTIAL=$3\" platform=\"$FORMAT_COMPILER_TARGET\" \"-j$JOBS\" clean" || die 'Failed to clean MAME'
-			fi
-			echo_cmd "$MAKE -f Makefile.libretro PTR64=\"$PTR64\" \"TARGET=$2\" platform=\"$FORMAT_COMPILER_TARGET\" $COMPILER \"-j$JOBS\""
-			ret=$?
-		fi
-		[ "$ret" -gt 0 ] && die 'Failed to build MAME'
-
-		copy_core_to_dist "$2"
-		return $?
-	else
-		echo 'MAME not fetched, skipping ...'
-	fi
-}
-
-# radius uses these, let's not pull them out from under him just yet
-build_libretro_mame() {
-	build_libretro_mame_modern "MAME" "mame" ""
-}
-build_libretro_mess() {
-	build_libretro_mame_modern "MESS" "mess" ""
-}
-rebuild_libretro_mess() {
-	build_libretro_mame_modern "MESS" "mess" "1"
-}
-build_libretro_ume() {
-	build_libretro_mame_modern "UME" "ume" ""
-}
-rebuild_libretro_ume() {
-	build_libretro_mame_modern "UME" "ume" "1"
-}
-
 build_summary() {
 	if [ -z "$NOBUILD_SUMMARY" ]; then
 		if command -v fmt > /dev/null; then
@@ -463,11 +412,14 @@ build_libretro_mame_prerule() {
 			[ "$ret" -gt 0 ] && die 'Failed to build MAME'
 			build_summary_log $ret "$target"
 		else
+			# This hack is because mame uses $(CC) to comiple C++ code because "historical reasons"
+			# It can/should be removed when upstream MAME fixes it on their end.
+			MAME_COMPILER="REALCC=\"${CC:-cc}\" CC=\"${CXX:-c++}\""
 			mame_targets="mame mess ume"
 			[ "$MAME_GIT_TINY" -eq 1 ] && mame_targets="mame mess"
 			for target in $mame_targets; do
-				[ "$target" != "mame" ] && echo_cmd "$MAKE -f Makefile.libretro PARTIAL=1 $extra_args platform=\"$FORMAT_COMPILER_TARGET\" \"-j$JOBS\" clean" || die 'Failed to clean MAME'
-				echo_cmd "$MAKE -f Makefile.libretro $extra_args \"TARGET=$target\" platform=\"$FORMAT_COMPILER_TARGET\" $COMPILER \"-j$JOBS\" emulator" || die "Failed to build $target"
+				[ "$target" != "mame" ] && echo_cmd "$MAKE -f Makefile.libretro $extra_args platform=\"$FORMAT_COMPILER_TARGET\" \"-j$JOBS\" osd-clean" || die 'Failed to clean MAME OSD'
+				echo_cmd "$MAKE -f Makefile.libretro $extra_args \"TARGET=$target\" platform=\"$FORMAT_COMPILER_TARGET\" $MAME_COMPILER \"-j$JOBS\" emulator" || die "Failed to build $target"
 				copy_core_to_dist "$target"
 				ret=$?
 
