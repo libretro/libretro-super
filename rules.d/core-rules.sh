@@ -28,6 +28,11 @@ libretro_imageviewer_name="ImageViewer"
 libretro_imageviewer_git_url="https://github.com/libretro/imageviewer-libretro.git"
 libretro_imageviewer_build_makefile="Makefile.libretro"
 
+register_core "mgba"
+libretro_mgba_name="mGBA"
+libretro_mgba_git_url="https://github.com/libretro/mgba.git"
+libretro_mgba_build_makefile="Makefile.libretro"
+
 register_core "fb_alpha" -psp1
 libretro_fb_alpha_name="Final Burn Alpha"
 libretro_fb_alpha_git_url="https://github.com/libretro/fba-libretro.git"
