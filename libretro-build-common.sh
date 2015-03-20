@@ -393,7 +393,6 @@ build_libretro_mame_prerule() {
 		echo_cmd "cd \"$build_dir\""
 
 		local extra_args
-		[ "$X86_64" = "true" ] && extra_args="PTR64=1"
 		[ "$MAME_GIT_TINY" -eq 1 ] && extra_args="$extra_args SUBTARGET=tiny"
 
 		if [ -z "$NOCLEAN" ]; then
