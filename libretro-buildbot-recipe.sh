@@ -572,7 +572,7 @@ while read line; do
 					BUILD="YES"
 				fi
 
-				cd ..
+				cd $WORK
 			else
 				echo "cloning repo..."
 				git clone --depth=1 "$URL" "$DIR"
@@ -589,14 +589,14 @@ while read line; do
 				else
 					BUILD="YES"
 				fi
-				cd ..
+				cd $WORK
 
 			else
 				echo "cloning repo..."
 				git clone "$URL" "$DIR"
 				cd $DIR
 				git checkout $TYPE
-				cd ..
+				cd $WORK
 				BUILD="YES"
 			fi
 
@@ -612,7 +612,7 @@ while read line; do
 					BUILD="YES"
 				fi
 				OUT=`git submodule foreach git pull origin master`
-				cd ..
+				cd $WORK
 		else
 				echo "cloning repo..."
 				git clone --depth=1 "$URL" "$DIR"
@@ -620,7 +620,7 @@ while read line; do
 				git submodule update --init
 				BUILD="YES"
 			fi
-		cd ..
+		cd $WORK
 		fi
 
 		if [ "${BUILD}" = "YES" -o "${FORCE}" = "YES" ]; then
@@ -656,7 +656,7 @@ while read line; do
 done < $1
 
 echo "BUILDBOT JOB: $jobid Building Retroarch"
-echo 
+echo
 cd $WORK
 BUILD=""
 
