@@ -1062,8 +1062,8 @@ if [ "${PLATFORM}" = "MINGW64" ] || [ "${PLATFORM}" = "MINGW32" ] && [ "${RA}" =
 
 
 		## hack, remove when the configure script has been fixed
-		grep -v "HAVE_SOCKET_LEGACY" config.h > temp && mv temp config.h
-		grep -v "HAVE_SOCKET_LEGACY" config.mk > temp && mv temp config.mk
+		#grep -v "HAVE_SOCKET_LEGACY" config.h > temp && mv temp config.h
+		#grep -v "HAVE_SOCKET_LEGACY" config.mk > temp && mv temp config.mk
 		
 
 		echo "building..."
