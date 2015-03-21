@@ -750,28 +750,34 @@ if [ "${PLATFORM}" = "android" ] && [ "${RA}" = "YES" ]; then
 
 	if [ "${BUILD}" = "YES" -o "${FORCE}" = "YES" ]; then
 		echo "BUILDBOT JOB: $jobid Compiling Shaders"
-		echo 
+		echo
 
 		echo RADIR $RADIR
 		cd $RADIR
 		$MAKE -f Makefile.griffin shaders-convert-glsl PYTHON3=$PYTHON
 
 		echo "BUILDBOT JOB: $jobid Processing Assets"
-		echo 
+		echo
 
+		rm -rfv android/phoenix/assets/*
+		mkdir -p android/phoenix/assets
 		mkdir -p android/phoenix/assets/
-		rm -Rfv android/phoenix/assets/assets
-		cp -Rfv media/assets android/phoenix/assets/
-		rm -Rfv android/phoenix/assets/libretrodb
-		cp -Rfv media/libretrodb android/phoenix//assets/libretrodb/
-		rm -Rfv android/phoenix/assets/overlays
-		cp -Rfv media/overlays android/phoenix/assets/
-		rm -Rfv android/phoenix/assets/shaders_glsl
-		cp -Rfv media/shaders_glsl android/phoenix/assets/
-		rm -Rfv android/phoenix/assets/autoconfig
-		cp -Rfv media/autoconfig android/phoenix/assets/
-		rm -Rfv android/phoenix/assets/info
-		cp -Rfv $RARCH_DIR/info android/phoenix/assets/
+		mkdir -p android/phoenix/assets/assets
+		mkdir -p android/phoenix/assets/cores
+		mkdir -p android/phoenix/assets/info
+		mkdir -p android/phoenix/assets/overlays
+		mkdir -p android/phoenix/assets/shaders_glsl
+		mkdir -p android/phoenix/assets/libretrodb
+
+		cp -rfv media/assets/* android/phoenix/assets/assets/
+		cp -rfv media/autoconfig/* android/phoenix/assets/autoconfig/
+		cp -rfv media/libretrodb/cht android/phoenix/assets/libretrodb/
+		cp -rfv media/libretrodb/rdb android/phoenix/assets/libretrodb/
+		cp -rfv media/libretrodb/cursors android/phoenix/assets/libretrodb/
+		cp -rfv media/overlays/* android/phoenix/assets/overlays/
+		cp -rfv media/shaders_glsl/* android/phoenix/assets/shaders_glsl/
+		cp -rfv $RARCH_DIR/info/* android/phoenix/assets/info/
+
 
 		echo "BUILDBOT JOB: $jobid Building"
 		echo 
