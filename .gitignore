@@ -68,7 +68,9 @@
 /libretro-lutro_iyfct/
 /libretro-lutro_platformer/
 /libretro-lutro_snake/
+/libretro-lutro_pong/
 /libretro-lutro_tetris/
+/libretro-imageviewer/
 /libretro-devkit/
 /retroarch/
 /build-summary.log
