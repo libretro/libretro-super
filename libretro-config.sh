@@ -34,9 +34,9 @@ case "$platform" in
 		MIN_IOS7="-miphoneos-version-min=7.0"
 
 		# Use generic names rather than gcc/clang to better support both
-		CC="cc -arch armv7 -isysroot $IOSSDK"
-		CXX="c++ -arch armv7 -isysroot $IOSSDK"
-		CXX11="clang++ -std=c++11 -stdlib=libc++ -arch armv7  -isysroot $IOSSDK"
+		CC="cc -arch armv7 -miphoneos-version-min=5.0 -isysroot $IOSSDK"
+		CXX="c++ -arch armv7 -miphoneos-version-min=5.0 -isysroot $IOSSDK"
+		CXX11="clang++ -std=c++11 -stdlib=libc++ -arch armv7 -miphoneos-version-min=5.0 -isysroot $IOSSDK"
 		;;
 
 	theos_ios)
