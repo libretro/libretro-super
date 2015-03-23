@@ -4,6 +4,7 @@
 . "$BASE_DIR/script-modules/fetch-rules.sh"
 . "$BASE_DIR/script-modules/cpu.sh"
 . "$BASE_DIR/script-modules/modules.sh"
+. "$BASE_DIR/script-modules/build-tools.sh"
 
 . "$BASE_DIR/rules.d/core-rules.sh"
 
@@ -394,7 +395,7 @@ build_libretro_mame_prerule() {
 		echo_cmd "cd \"$build_dir\""
 
 		local extra_args
-		[ "$MAME_GIT_TINY" -eq 1 ] && extra_args="$extra_args SUBTARGET=tiny"
+		[ "${MAME_GIT_TINY:=0}" -eq 1 ] && extra_args="$extra_args SUBTARGET=tiny"
 
 		if [ -z "$NOCLEAN" ]; then
 			echo_cmd "$MAKE -f Makefile.libretro $extra_args platform=\"$FORMAT_COMPILER_TARGET\" \"-j$JOBS\" clean"
