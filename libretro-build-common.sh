@@ -387,6 +387,7 @@ build_libretro_mame_prerule() {
 		return
 	fi
 
+	ret=0
 	if [ -d "$build_dir" ]; then
 		echo ''
 		echo "=== Building MAME ==="
@@ -396,36 +397,37 @@ build_libretro_mame_prerule() {
 		[ "$MAME_GIT_TINY" -eq 1 ] && extra_args="$extra_args SUBTARGET=tiny"
 
 		if [ -z "$NOCLEAN" ]; then
-			echo_cmd "$MAKE -f Makefile.libretro $extra_args platform=\"$FORMAT_COMPILER_TARGET\" \"-j$JOBS\" clean" || die 'Failed to clean MAME'
-		fi
-
-		if [ -n "$IOS" ]; then
-			# FIXME: iOS doesn't build right now, so let's leave this simple until it does.
-			target=mame
-			echo_cmd "$MAKE -f Makefile.libretro $extra_args \"TARGET=$target\" platform=\"$FORMAT_COMPILER_TARGET\" CC=\"$CC\" CXX=\"$CXX\" \"NATIVE=1\" buildtools \"-j$JOBS\""
+			echo_cmd "$MAKE -f Makefile.libretro $extra_args platform=\"$FORMAT_COMPILER_TARGET\" \"-j$JOBS\" clean"
 			ret=$?
-			if [ "$ret" = 0 ]; then
-				echo_cmd "$MAKE -f Makefile.libretro $extra_args \"TARGET=$target\" platform=\"$FORMAT_COMPILER_TARGET\" CC=\"$CC\" CXX=\"$CXX\" emulator \"-j$JOBS\""
-				ret=$?
-			fi
-			[ "$ret" -gt 0 ] && die 'Failed to build MAME'
-			build_summary_log $ret "$target"
-		else
-			# This hack is because mame uses $(CC) to comiple C++ code because "historical reasons"
-			# It can/should be removed when upstream MAME fixes it on their end.
-			MAME_COMPILER="REALCC=\"${CC:-cc}\" CC=\"${CXX:-c++}\""
-			mame_targets="mame mess ume"
-			[ "$MAME_GIT_TINY" -eq 1 ] && mame_targets="mame mess"
-			for target in $mame_targets; do
-				[ "$target" != "mame" ] && echo_cmd "$MAKE -f Makefile.libretro $extra_args platform=\"$FORMAT_COMPILER_TARGET\" \"-j$JOBS\" osd-clean" || die 'Failed to clean MAME OSD'
-				echo_cmd "$MAKE -f Makefile.libretro $extra_args \"TARGET=$target\" platform=\"$FORMAT_COMPILER_TARGET\" $MAME_COMPILER \"-j$JOBS\" emulator" || die "Failed to build $target"
-				copy_core_to_dist "$target"
-				ret=$?
 
-				# If a target fails, stop here...
-				[ $ret -eq 0 ] || break
-			done
+			if [ "$ret" != 0 ]; then
+				die 'Failed to clean MAME'
+				return $ret
+			fi
 		fi
+
+		# For mame platforms that are CROSS_BUILD's (iOS/Android), we must make buildtools natively
+		if [ "$platform" = "ios" ]; then
+			echo_cmd "$MAKE -f Makefile.libretro platform=\"\" buildtools" || die 'Failed to build MAME buildtools'
+		fi
+
+		# This hack is because mame uses $(CC) to comiple C++ code because "historical reasons"
+		# It can/should be removed when upstream MAME fixes it on their end.
+		MAME_COMPILER="REALCC=\"${CC:-cc}\" CC=\"${CXX:-c++}\""
+
+		# mame's tiny subtarget doesn't support UME
+		mame_targets="mame mess ume"
+		[ "$MAME_GIT_TINY" -eq 1 ] && mame_targets="mame mess"
+
+		for target in $mame_targets; do
+			echo_cmd "$MAKE -f Makefile.libretro $extra_args platform=\"$FORMAT_COMPILER_TARGET\" \"-j$JOBS\" osd-clean" || die 'Failed to clean MAME OSD'
+			echo_cmd "$MAKE -f Makefile.libretro $extra_args \"TARGET=$target\" platform=\"$FORMAT_COMPILER_TARGET\" $MAME_COMPILER \"-j$JOBS\"" || die "Failed to build $target"
+			copy_core_to_dist "$target"
+			ret=$?
+
+			# If a target fails, stop here...
+			[ $ret -eq 0 ] || break
+		done
 
 	else
 		echo 'MAME not fetched, skipping ...'
