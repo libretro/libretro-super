@@ -136,8 +136,7 @@ build_default_cores() {
 	libretro_build_core gw
 	libretro_build_core hatari
 	libretro_build_core lutro
-	# Consider current mame to be WIP (temporary)
-#	libretro_build_core mame
+	libretro_build_core mame
 	libretro_build_core mame078
 	libretro_build_core mednafen_gba
 	libretro_build_core mednafen_lynx
