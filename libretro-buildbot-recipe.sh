@@ -759,15 +759,27 @@ if [ "${PLATFORM}" = "android" ] && [ "${RA}" = "YES" ]; then
 		echo "BUILDBOT JOB: $jobid Processing Assets"
 		echo
 
-		rm -rfv android/phoenix/assets/*
-		mkdir -p android/phoenix/assets
-		mkdir -p android/phoenix/assets/
-		mkdir -p android/phoenix/assets/assets
-		mkdir -p android/phoenix/assets/cores
-		mkdir -p android/phoenix/assets/info
-		mkdir -p android/phoenix/assets/overlays
-		mkdir -p android/phoenix/assets/shaders_glsl
-		mkdir -p android/phoenix/assets/libretrodb
+
+                rm -rfv android/phoenix/assets/assets
+                rm -rfv android/phoenix/assets/core
+                rm -rfv android/phoenix/assets/info
+                rm -rfv android/phoenix/assets/overlays
+                rm -rfv android/phoenix/assets/libretrodb
+                rm -rfv android/phoenix/assets/shaders_glsl
+                rm -rfv android/phoenix/assets/autoconfig
+
+
+
+                mkdir -p android/phoenix/assets
+                mkdir -p android/phoenix/assets/
+                mkdir -p android/phoenix/assets/assets
+                mkdir -p android/phoenix/assets/cores
+                mkdir -p android/phoenix/assets/info
+                mkdir -p android/phoenix/assets/overlays
+                mkdir -p android/phoenix/assets/shaders_glsl
+                mkdir -p android/phoenix/assets/libretrodb
+                mkdir -p android/phoenix/assets/autoconfig
+
 
 		cp -rfv media/assets/* android/phoenix/assets/assets/
 		cp -rfv media/autoconfig/* android/phoenix/assets/autoconfig/
