@@ -144,7 +144,7 @@ case "$platform" in
 				android)
 					FORMAT_EXT="so"
 					FORMAT_COMPILER_TARGET="android"
-					DIST_DIR="android"
+					DIST_DIR="android/armeabi-v7a"
 					;;
 				*android-armv7*)
 					FORMAT_EXT="so"

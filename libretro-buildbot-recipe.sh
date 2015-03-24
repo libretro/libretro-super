@@ -225,7 +225,7 @@ build_libretro_generic_makefile() {
 			echo "$1 running retrolink ($jobid)"
 			$WORK/retrolink.sh ${NAME}_libretro${FORMAT}${SUFFIX}.${FORMAT_EXT}
 		fi
-		cp -v ${NAME}_libretro${FORMAT}${SUFFIX}.${FORMAT_EXT} $RARCH_DIST_DIR/${NAME}_libretro${FORMAT}.${FORMAT_EXT}
+		cp -v ${NAME}_libretro${FORMAT}${SUFFIX}.${FORMAT_EXT} $RARCH_DIST_DIR/${NAME}_libretro${FORMAT}${DISTDIR}.${FORMAT_EXT}
 	else
 		MESSAGE="$1 build failed ($jobid)"
 	fi
