@@ -421,7 +421,7 @@ build_libretro_mame_prerule() {
 		[ "$MAME_GIT_TINY" -eq 1 ] && mame_targets="mame mess"
 
 		for target in $mame_targets; do
-			echo_cmd "$MAKE -f Makefile.libretro $extra_args platform=\"$FORMAT_COMPILER_TARGET\" \"-j$JOBS\" osd-clean" || die 'Failed to clean MAME OSD'
+			echo_cmd "$MAKE -f Makefile.libretro $extra_args platform=\"$FORMAT_COMPILER_TARGET\" \"-j$JOBS\" clean-osd" || die 'Failed to clean MAME OSD'
 			echo_cmd "$MAKE -f Makefile.libretro $extra_args \"TARGET=$target\" platform=\"$FORMAT_COMPILER_TARGET\" $MAME_COMPILER \"-j$JOBS\"" || die "Failed to build $target"
 			copy_core_to_dist "$target"
 			ret=$?
