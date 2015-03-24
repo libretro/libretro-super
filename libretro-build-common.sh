@@ -4,7 +4,6 @@
 . "$BASE_DIR/script-modules/fetch-rules.sh"
 . "$BASE_DIR/script-modules/cpu.sh"
 . "$BASE_DIR/script-modules/modules.sh"
-. "$BASE_DIR/script-modules/build-tools.sh"
 
 . "$BASE_DIR/rules.d/core-rules.sh"
 
