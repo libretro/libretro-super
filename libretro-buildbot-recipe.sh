@@ -219,13 +219,13 @@ build_libretro_generic_makefile() {
 		${MAKE} -f ${MAKEFILE} platform=${PLATFORM} -j${JOBS} ${ARGS}
 	fi
 
-	if [ $? -eq 0 ]; then 
+	if [ $? -eq 0 ]; then
 		MESSAGE="$1 build successful ($jobid)"
 		if [ "${MAKEPORTABLE}" == "YES" ]; then
 			echo "$1 running retrolink ($jobid)"
 			$WORK/retrolink.sh ${NAME}_libretro${FORMAT}${SUFFIX}.${FORMAT_EXT}
 		fi
-		cp -v ${NAME}_libretro${FORMAT}${SUFFIX}.${FORMAT_EXT} $RARCH_DIST_DIR/${NAME}_libretro${FORMAT}.${FORMAT_EXT}
+		cp -v ${NAME}_libretro${FORMAT}${SUFFIX}.${FORMAT_EXT} $RARCH_DIST_DIR/${NAME}_libretro${FORMAT}${SUFFIX}.${FORMAT_EXT}
 	else
 		MESSAGE="$1 build failed ($jobid)"
 	fi
@@ -310,10 +310,10 @@ build_libretro_generic_jni() {
 			${NDK} -j${JOBS} APP_ABI=${a} ${ARGS}
 		fi
 		if [ $? -eq 0 ]; then
-			MESSAGE="$1-$a build successful ($jobid)"		
+			MESSAGE="$1-$a build successful ($jobid)"
 			echo BUILDBOT JOB: $MESSAGE
 			buildbot_log "$MESSAGE"
-			cp -v ../libs/${a}/libretro.${FORMAT_EXT} $RARCH_DIST_DIR/${a}/${1}_libretro${FORMAT}.${FORMAT_EXT}
+			cp -v ../libs/${a}/libretro.${FORMAT_EXT} $RARCH_DIST_DIR/${a}/${1}_libretro${FORMAT}${SUFFIX}.${FORMAT_EXT}
 		else
 			MESSAGE="$1-$a build U+0002failureU+0002 ($jobid)"
 			echo BUILDBOT JOB: $MESSAGE
@@ -358,7 +358,7 @@ build_libretro_bsnes_jni() {
 		fi
 		if [ $? -eq 0 ]; then
 			MESSAGE="$1 build successful ($jobid)"
-			cp -v ../libs/${a}/libretro_${CORENAME}_${PROFILE}.${FORMAT_EXT} $RARCH_DIST_DIR/${a}/${NAME}_${PROFILE}_libretro${FORMAT}.${FORMAT_EXT}
+			cp -v ../libs/${a}/libretro_${CORENAME}_${PROFILE}.${FORMAT_EXT} $RARCH_DIST_DIR/${a}/${NAME}_${PROFILE}_libretro${FORMAT}${SUFFIX}.${FORMAT_EXT}
 		else
 			MESSAGE="$1 build failure ($jobid)"
 		fi
@@ -462,7 +462,7 @@ build_libretro_bsnes() {
 		elif [ "${PROFILE}" = "bnes" ]; then
 			cp -fv "${NAME}_libretro${FORMAT}${SUFFIX}.${FORMAT_EXT}" "${RARCH_DIST_DIR}/${NAME}_libretro${FORMAT}${SUFFIX}.${FORMAT_EXT}"
 		else
-			cp -fv "out/${NAME}_${PROFILE}_libretro$FORMAT.${FORMAT_EXT}" $RARCH_DIST_DIR/${NAME}_${PROFILE}_libretro${FORMAT}${SUFFIX}.${FORMAT_EXT}
+			cp -fv "out/${NAME}_${PROFILE}_libretro${FORMAT}.${FORMAT_EXT}" $RARCH_DIST_DIR/${NAME}_${PROFILE}_libretro${FORMAT}${SUFFIX}.${FORMAT_EXT}
 		fi
 	else
 		MESSAGE="$1 build failure ($jobid)"
@@ -1055,44 +1055,38 @@ if [ "${PLATFORM}" = "MINGW64" ] || [ "${PLATFORM}" = "MINGW32" ] && [ "${RA}" =
 		fi
 		
 		cd ..
-		cd ..		
-		
+		cd ..
+
 		echo "cleaning up..."
 		echo "cleanup command: $MAKE clean"
 		$MAKE clean
-		
+
 		if [ $? -eq 0 ]; then
-			echo BUILDBOT JOB: $jobid retroarch cleanup success!		
+			echo BUILDBOT JOB: $jobid retroarch cleanup success!
 		else
 			echo BUILDBOT JOB: $jobid retroarch cleanup failure!
-		fi		
+		fi
 
 		echo "configuring..."
 		echo "configure command: $CONFIGURE"
 		${CONFIGURE}
-		
+
 		if [ $? -eq 0 ]; then
-			echo BUILDBOT JOB: $jobid retroarch configure success!		
+			echo BUILDBOT JOB: $jobid retroarch configure success!
 		else
 			echo BUILDBOT JOB: $jobid retroarch configure failure!
 		fi
 
 
-
-		## hack, remove when the configure script has been fixed
-		#grep -v "HAVE_SOCKET_LEGACY" config.h > temp && mv temp config.h
-		#grep -v "HAVE_SOCKET_LEGACY" config.mk > temp && mv temp config.mk
-		
-
 		echo "building..."
 		echo "build command: $MAKE -j${JOBS}"
 		$MAKE -j${JOBS}
-		
+
 		if [ $? -eq 0 ]; then
 			MESSAGE="retroarch build successful ($jobid)"
 			echo $MESSAGE
 			buildbot_log "$MESSAGE"
-			
+
 			echo "Packaging"
 			echo ============================================
 			cp retroarch.cfg retroarch.default.cfg
@@ -1259,7 +1253,7 @@ if [ "${PLATFORM}" = "psp1" ] && [ "${RA}" = "YES" ]; then
 			cd dist-scripts
 			rm *.a
 			cp -v $RARCH_DIST_DIR/*.a .
-			ls -1 *.a  | awk -F "." ' { print "cp " $0 " " $1 "_psp1." $2 }' |sh
+			#ls -1 *.a  | awk -F "." ' { print "cp " $0 " " $1 "_psp1." $2 }' |sh
 
 			./psp1-cores.sh
 			if [ $? -eq 0 ]; then
@@ -1270,7 +1264,7 @@ if [ "${PLATFORM}" = "psp1" ] && [ "${RA}" = "YES" ]; then
 				echo $MESSAGE
 			fi
             buildbot_log "$MESSAGE"
-            
+
 			echo "Packaging"
 			echo ============================================
             cd $WORK/$RADIR            
@@ -1389,7 +1383,7 @@ if [ "${PLATFORM}" == "wii" ] && [ "${RA}" == "YES" ]; then
 			rm *.a
 			cp -v $RARCH_DIST_DIR/*.a .
 
-			ls -1 *.a  | awk -F "." ' { print "cp " $0 " " $1 "_wii." $2 }' |sh
+			#ls -1 *.a  | awk -F "." ' { print "cp " $0 " " $1 "_wii." $2 }' |sh
 			sh ./wii-cores.sh
 			if [ $? -eq 0 ]; then
 				MESSAGE="retroarch build successful ($jobid)"
@@ -1536,7 +1530,7 @@ then
 		rm *.a
 		cp -v $RARCH_DIST_DIR/*.a .
 		
-		ls -1 *.a  | awk -F "." ' { print "cp " $0 " " $1 "_ngc." $2 }' |sh
+		#ls -1 *.a  | awk -F "." ' { print "cp " $0 " " $1 "_ngc." $2 }' |sh
 		sh ./ngc-cores.sh
         if [ $? -eq 0 ];
         then
