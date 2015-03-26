@@ -268,13 +268,11 @@ if [[ "$FORMAT_COMPILER_TARGET" = "osx" && -z "$NOUNIVERSAL" ]]; then
 	esac
 fi
 
-#CORE BUILD SUMMARY
-#==================
+#LOGGING
+#=======
 
-# Uncomment this to disable the core build summary
-# NOBUILD_SUMMARY=1
-
-BUILD_SUMMARY="$WORKDIR/build-summary.log"
+# Uncomment this to enable per-core logging
+#LIBRETRO_LOGDIR=$WORKDIR/log
 
 
 # BUILD_REVISIONS

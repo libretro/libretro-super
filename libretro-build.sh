@@ -194,4 +194,4 @@ if [ -n "$1" ]; then
 else
 	build_default_cores
 fi
-build_summary
+summary

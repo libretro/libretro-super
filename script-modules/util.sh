@@ -6,6 +6,16 @@ echo_cmd() {
 	return $?
 }
 
+find_tool() {
+	while [ -n "$1" ]; do
+		if [ -n "$1" ] && command -v "$1" > /dev/null; then
+			echo "$1"
+			return
+		fi
+		shift
+	done
+}
+
 color() {
 	[ -n "$NO_COLOR" ] && return
 

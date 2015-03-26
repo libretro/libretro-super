@@ -41,6 +41,9 @@ echo "$FORMAT_COMPILER_TARGET_ALT"
 RESET_FORMAT_COMPILER_TARGET=$FORMAT_COMPILER_TARGET
 RESET_FORMAT_COMPILER_TARGET_ALT=$FORMAT_COMPILER_TARGET_ALT
 
+# FIXME: We should use the theos toolchain without their make system which is
+#        buggy on Linux and doesn't do what we want anyway.  It'd remove need
+#        for this and other hacks.
 CORE_PREFIX=""
 CORE_SUFFIX="_libretro${FORMAT}.$FORMAT_EXT"
 if [ "$platform" = "theos_ios" ]; then
@@ -195,7 +198,7 @@ build_makefile() {
 		make_cmdline="$make_cmdline -f $core_build_makefile"
 	fi
 
-	# TODO: Do this better
+	# TODO: Do $platform type stuff better (requires modding each core)
 	make_cmdline="$make_cmdline platform=\"$core_build_platform\""
 
 	[ -n "$JOBS" ] && make_cmdline="$make_cmdline -j$JOBS"
@@ -338,35 +341,42 @@ build_libretro_test() {
 
 
 build_summary() {
-	if [ -z "$NOBUILD_SUMMARY" ]; then
-		if command -v fmt > /dev/null; then
-			use_fmt=1
-		fi
-		printf -v summary "=== Core Build Summary ===\n\n"
-		if [ -n "$build_success" ]; then
-			printf -v summary "%s%s%d%s\n" "$summary" "$(color 32)" "$(echo $build_success | wc -w)" " core(s)$(color) successfully built:"
-			if [ -n "$use_fmt" ]; then
-				printf -v summary "%s%s\n\n" "$summary" "$(echo "	$build_success" | fmt)"
-			else
-				printf -v summary "%s%s\n\n" "$summary" "$(echo $build_success)"
-			fi
-		fi
-		if [ -n "$build_fail" ]; then
-			printf -v summary "%s%s%d%s\n" "$summary" "$(color 31)" "$(echo $build_fail | wc -w)" " core(s)$(color) failed to build:"
-			if [ -n "$use_fmt" ]; then
-				printf -v summary "%s%s\n\n" "$summary" "$(echo "	$build_fail" | fmt)"
-			else
-				printf -v summary "%s%s\n\n" "$summary" "$(echo $build_fail)"
-			fi
-		fi
-		if [[ -z "$build_success" && -z "$build_fail" ]]; then
-			printf -v summary "%s%s\n\n" "$summary" "No build actions performed."
-		fi
-		if [ -n "$BUILD_SUMMARY" ]; then
-			echo "$summary" > "$BUILD_SUMMARY"
-		fi
-		echo "$summary"
+	fmt_output="$(find_tool "fmt" "cat")"
+	local num_success="$(echo $build_success | wc -w)"
+	local fmt_success="$(echo "	$build_success" | $fmt_output)"
+	local num_fail="$(echo $build_fail | wc -w)"
+	local fmt_fail="$(echo "	$build_fail" | $fmt_output)"
+
+	echo ""
+	if [[ -z "$build_success" && -z "$build_fail" ]]; then
+		echo "No build actions performed."
+		return
 	fi
+
+	if [ -n "$build_success" ]; then
+		echo "$(color 32)$num_success core(s)$(color) successfully built:"
+		echo "$fmt_success"
+	fi
+	if [ -n "$build_fail" ]; then
+		echo "$(color 31)$num_fail core(s)$(color) failed to build:"
+		echo "$fmt_fail"
+	fi
+	if [ -n "$LIBRETRO_LOGDIR" ]; then
+		{
+			if [ -n "$build_success" ]; then
+				echo "$num_success core(s) successfully built:"
+				echo "$fmt_success"
+			fi
+			if [ -n "$build_fail" ]; then
+				echo "$num_fail core(s) failed to build:"
+				echo "$fmt_fail"
+			fi
+		} > $LIBRETRO_LOGDIR/build_summary.log 2>&1
+	fi
+}
+
+summary() {
+	build_summary
 }
 
 create_dist_dir() {
