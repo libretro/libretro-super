@@ -54,10 +54,12 @@ fi
 build_summary_log() {
 	# Trailing spaces are intentional here
 	if [ "$1" -eq "0" ]; then
-		build_success="$build_success$2 "
+		export build_success="$build_success$2 "
 	else
-		build_fail="$build_fail$2 "
+		export build_fail="$build_fail$2 "
 	fi
+	echo "Called with \"$@\""
+	echo "Build success: $build_success"
 }
 
 copy_core_to_dist() {
@@ -292,8 +294,16 @@ libretro_build_core() {
 
 			eval "core_build_cores=\${libretro_${1}_build_cores:-$1}"
 			eval "core_build_products=\$libretro_${1}_build_products"
-			echo "Building ${1}..."
-			build_makefile $1
+			if [ -n "$LIBRETRO_LOGDIR" ]; then
+				{
+					echo "Building ${1}..."
+					build_makefile $1
+				#} > >($OUTPUT_CMD $LIBRETRO_LOGDIR/${1}.log > /dev/stdout) 2>&1
+				} > >(eval "$OUTPUT_CMD $LIBRETRO_LOGDIR/${1}.log") 2>&1
+			else
+				echo "Building ${1}..."
+				build_makefile $1 > /dev/stdout
+			fi
 			;;
 
 		legacy)
@@ -341,6 +351,7 @@ build_libretro_test() {
 
 
 build_summary() {
+	echo "Build success: $build_success"
 	fmt_output="$(find_tool "fmt" "cat")"
 	local num_success="$(echo $build_success | wc -w)"
 	local fmt_success="$(echo "	$build_success" | $fmt_output)"
@@ -445,3 +456,5 @@ build_libretro_mame_prerule() {
 
 	build_save_revision $ret mame
 }
+
+OUTPUT_CMD="tee"
