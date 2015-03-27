@@ -1,5 +1,6 @@
 # vim: set ts=3 sw=3 noet ft=sh : bash
 
+. "$BASE_DIR/script-modules/log.sh"
 . "$BASE_DIR/script-modules/util.sh"
 . "$BASE_DIR/script-modules/fetch-rules.sh"
 . "$BASE_DIR/script-modules/cpu.sh"
@@ -58,8 +59,6 @@ build_summary_log() {
 	else
 		export build_fail="$build_fail$2 "
 	fi
-	echo "Called with \"$@\""
-	echo "Build success: $build_success"
 }
 
 copy_core_to_dist() {
@@ -350,44 +349,40 @@ build_libretro_test() {
 }
 
 
-build_summary() {
-	echo "Build success: $build_success"
+summary() {
 	fmt_output="$(find_tool "fmt" "cat")"
 	local num_success="$(echo $build_success | wc -w)"
 	local fmt_success="$(echo "	$build_success" | $fmt_output)"
 	local num_fail="$(echo $build_fail | wc -w)"
 	local fmt_fail="$(echo "	$build_fail" | $fmt_output)"
 
-	echo ""
-	if [[ -z "$build_success" && -z "$build_fail" ]]; then
-		echo "No build actions performed."
-		return
-	fi
-
-	if [ -n "$build_success" ]; then
-		echo "$(color 32)$num_success core(s)$(color) successfully built:"
-		echo "$fmt_success"
-	fi
-	if [ -n "$build_fail" ]; then
-		echo "$(color 31)$num_fail core(s)$(color) failed to build:"
-		echo "$fmt_fail"
-	fi
-	if [ -n "$LIBRETRO_LOGDIR" ]; then
+	for output in "" ${LIBRETRO_LOG_SUPER:+$super_log}; do
+		if [ -n "$output" ]; then
+			exec 6>&1
+			exec > $output
+			use_color=""
+		fi
 		{
+			echo ""
+			if [[ -z "$build_success" && -z "$build_fail" ]]; then
+				echo "No build actions performed."
+				continue
+			fi
+
 			if [ -n "$build_success" ]; then
-				echo "$num_success core(s) successfully built:"
+				echo "$(color 32)$num_success core(s)$(color) successfully processed:"
 				echo "$fmt_success"
 			fi
 			if [ -n "$build_fail" ]; then
-				echo "$num_fail core(s) failed to build:"
+				echo "$(color 31)$num_fail core(s)$(color) failed:"
 				echo "$fmt_fail"
 			fi
-		} > $LIBRETRO_LOGDIR/build_summary.log 2>&1
-	fi
-}
-
-summary() {
-	build_summary
+		}
+		if [ -n "$output" ]; then
+			exec 1>&6 6>&-
+			use_color="$want_color"
+		fi
+	done
 }
 
 create_dist_dir() {

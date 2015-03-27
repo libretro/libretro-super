@@ -268,12 +268,36 @@ if [[ "$FORMAT_COMPILER_TARGET" = "osx" && -z "$NOUNIVERSAL" ]]; then
 	esac
 fi
 
-#LOGGING
-#=======
+# OUTPUT AND LOGGING
+# ==================
+#
+# libretro-super has two kinds of output, the basic kind showing what the
+# script is doing in a big-picture sense, and the commands and output from
+# individual commands.  End-users don't necessarily need to see this more
+# detailed output, except when we're talking about huge cores like mame.
+#
+# If each can be directed to null, to the screen, to a log file, or to both
+# the screen and a log file, you end up with the following truth table, along
+# with my assessment of the usefulness of each combination:
+#
+# 	Basic		Detailed		Usefulness
+#	screen	screen		developer
+#	screen	both			developer
+#	both		both			developer
+#	screen	log			end-user
+#	log		log			buildbot
 
-# Uncomment this to enable per-core logging
-#LIBRETRO_LOGDIR=$WORKDIR/log
+# Uncomment this to avoid clobbering logs
+#LIBRETRO_LOG_APPEND=1
 
+# Change this to adjust where logs are written
+#LIBRETRO_LOG_DIR="$WORKDIR/log"
+
+# Change this to rename the libretro-super main log file
+#LIBRETRO_LOG_SUPER="libretro-super.txt"
+
+# Change this to rename core log files (%s for core's "safe" name)
+#LIBRETRO_LOG_CORE="%s.txt"
 
 # BUILD_REVISIONS
 # ===============

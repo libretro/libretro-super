@@ -15,6 +15,7 @@ else
 fi
 
 . "$BASE_DIR/libretro-config.sh"
+. "$BASE_DIR/script-modules/log.sh"
 . "$BASE_DIR/script-modules/util.sh"
 . "$BASE_DIR/script-modules/fetch-rules.sh"
 . "$BASE_DIR/script-modules/modules.sh"
