@@ -243,15 +243,11 @@ build_makefile() {
 libretro_build_core() {
 	local opengl_type
 
-	eval "core_name=\$libretro_${1}_name"
-	[ -z "$core_name" ] && core_name="$1"
+	eval "core_name=\${libretro_${1}_name:-$1}"
 	echo "$(color 34)=== $(color 1)$core_name$(color)"
 
-	eval "core_build_rule=\$libretro_${1}_build_rule"
-	[ -z "$core_build_rule" ] && core_build_rule=generic_makefile
-
-	eval "core_dir=\$libretro_${1}_dir"
-	[ -z "$core_dir" ] && core_dir="libretro-$1"
+	eval "core_build_rule=\${libretro_${1}_build_rule:-generic_makefile}"
+	eval "core_dir=\${libretro_${1}_dir:-libretro-$1}"
 
 	eval "core_build_opengl=\$libretro_${1}_build_opengl"
 	if [ -n "$core_build_opengl" ]; then
@@ -287,9 +283,8 @@ libretro_build_core() {
 			eval "core_build_subdir=\$libretro_${1}_build_subdir"
 			eval "core_build_args=\$libretro_${1}_build_args"
 
-			# TODO: Really, clean this up...
-			eval "core_build_platform=\$libretro_${1}_build_platform"
-			core_build_platform="${core_build_platform:-$FORMAT_COMPILER_TARGET}$opengl_type"
+			# TODO: Really, change how all of this is done...
+			eval "core_build_platform=\${libretro_${1}_build_platform:-$FORMAT_COMPILER_TARGET}$opengl_type"
 
 			eval "core_build_cores=\${libretro_${1}_build_cores:-$1}"
 			eval "core_build_products=\$libretro_${1}_build_products"
@@ -297,7 +292,6 @@ libretro_build_core() {
 				{
 					echo "Building ${1}..."
 					build_makefile $1
-				#} > >($OUTPUT_CMD $LIBRETRO_LOGDIR/${1}.log > /dev/stdout) 2>&1
 				} > >(eval "$OUTPUT_CMD $LIBRETRO_LOGDIR/${1}.log") 2>&1
 			else
 				echo "Building ${1}..."
