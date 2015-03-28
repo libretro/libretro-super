@@ -243,8 +243,12 @@ build_makefile() {
 libretro_build_core() {
 	local opengl_type
 
+	# Set log_core only if LIBRETRO_LOG_CORE is set
+	printf -v log_core "${LIBRETRO_LOG_CORE:+$LIBRETRO_LOG_DIR/$LIBRETRO_LOG_CORE}" "$1"
+
 	eval "core_name=\${libretro_${1}_name:-$1}"
 	echo "$(color 34)=== $(color 1)$core_name$(color)"
+	lecho "=== $core_name"
 
 	eval "core_build_rule=\${libretro_${1}_build_rule:-generic_makefile}"
 	eval "core_dir=\${libretro_${1}_dir:-libretro-$1}"
@@ -270,6 +274,20 @@ libretro_build_core() {
 		fi
 	fi
 
+	echo "Building ${1}..."
+	lecho "Building ${1}..."
+	if [ -n "$log_core" ]; then
+		exec 6>&1
+		echo "Building ${1}..." >> $log_core
+
+		# TODO: Possibly a shell function for tee?
+		if [[ -n "$LIBRETRO_DEVELOPER" && -n "${cmd_tee:=$(find_tool "tee")}" ]]; then
+			exec > >($cmd_tee -a $log_core)
+		else
+			exec > $log_core
+		fi
+	fi
+
 	case "$core_build_rule" in
 		generic_makefile)
 			for a in configure preclean prebuild prepkg; do
@@ -288,15 +306,7 @@ libretro_build_core() {
 
 			eval "core_build_cores=\${libretro_${1}_build_cores:-$1}"
 			eval "core_build_products=\$libretro_${1}_build_products"
-			if [ -n "$LIBRETRO_LOGDIR" ]; then
-				{
-					echo "Building ${1}..."
-					build_makefile $1
-				} > >(eval "$OUTPUT_CMD $LIBRETRO_LOGDIR/${1}.log") 2>&1
-			else
-				echo "Building ${1}..."
-				build_makefile $1 > /dev/stdout
-			fi
+			build_makefile $1 2>&1
 			;;
 
 		legacy)
@@ -304,17 +314,20 @@ libretro_build_core() {
 			if [ -n "$core_build_legacy" ]; then
 				echo "Warning: $1 hasn't been ported to a modern build rule yet."
 				echo "         Will build it using legacy \"$core_build_legacy\"..."
-				$core_build_legacy
+				$core_build_legacy 2>&1
 			fi
 			;;
 		none)
 			echo "Don't have a build rule for $1, skipping..."
 			;;
 		*)
-			echo "libretro_build_core:Unknown build rule for $1: \"$core_build_rule\"."
+			echo "libretro_build_core:Unknown build rule for $1: \"$core_build_rule\"." >&2
 			exit 1
 			;;
 	esac
+	if [ -n "$log_core" ]; then
+		exec 1>&6 6>&-
+	fi
 }
 
 
@@ -342,13 +355,13 @@ build_libretro_test() {
 	fi
 }
 
-
 summary() {
-	fmt_output="$(find_tool "fmt" "cat")"
-	local num_success="$(echo $build_success | wc -w)"
-	local fmt_success="$(echo "	$build_success" | $fmt_output)"
-	local num_fail="$(echo $build_fail | wc -w)"
-	local fmt_fail="$(echo "	$build_fail" | $fmt_output)"
+	# fmt is external and may not be available
+	fmt_output="$(find_tool "fmt")"
+	local num_success="$(numwords $build_success)"
+	local fmt_success="${fmt_output:+$(echo "	$build_success" | $fmt_output)}"
+	local num_fail="$(numwords $build_fail)"
+	local fmt_fail="${fmt_output:+$(echo "   $build_fail" | $fmt_output)}"
 
 	for output in "" ${LIBRETRO_LOG_SUPER:+$super_log}; do
 		if [ -n "$output" ]; then
@@ -445,5 +458,3 @@ build_libretro_mame_prerule() {
 
 	build_save_revision $ret mame
 }
-
-OUTPUT_CMD="tee"

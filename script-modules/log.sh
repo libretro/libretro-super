@@ -12,14 +12,16 @@ lecho() {
 
 
 LIBRETRO_LOG_DIR="${LIBRETRO_LOG_DIR:-$WORKDIR/log}"
-LIBRETRO_LOG_SUPER="${LIBRETRO_LOG_SUPER:-libretro-super.txt}"
 LIBRETRO_LOG_CORE="${LIBRETRO_LOG_CORE:-%s.txt}"
-mkdir -p "$LIBRETRO_LOG_DIR"
+LIBRETRO_LOG_SUPER="${LIBRETRO_LOG_SUPER:-libretro-super.txt}"
 if [ -n "$LIBRETRO_LOG_SUPER" ]; then
 	super_log="$LIBRETRO_LOG_DIR/$LIBRETRO_LOG_SUPER"
 fi
+# Core log can't be handled here
 
-if [[ -t 1 || -n $FORCE_COLOR ]]; then
+mkdir -p "$LIBRETRO_LOG_DIR"
+
+if [[ -n $FORCE_COLOR || -t 1 && -z "$NO_COLOR" ]]; then
 	want_color=1
 	use_color=1
 else

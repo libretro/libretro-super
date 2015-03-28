@@ -299,6 +299,10 @@ fi
 # Change this to rename core log files (%s for core's "safe" name)
 #LIBRETRO_LOG_CORE="%s.txt"
 
+# Comment this if you don't need to see developer output
+LIBRETRO_DEVELOPER=1
+
+
 # BUILD_REVISIONS
 # ===============
 #
