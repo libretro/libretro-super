@@ -271,21 +271,34 @@ fi
 # OUTPUT AND LOGGING
 # ==================
 #
+# This is kind of an inline design document that'll be changed for basic user
+# instructions when the logging system is finished and tested.
+#
 # libretro-super has two kinds of output, the basic kind showing what the
 # script is doing in a big-picture sense, and the commands and output from
 # individual commands.  End-users don't necessarily need to see this more
 # detailed output, except when we're talking about huge cores like mame.
 #
 # If each can be directed to null, to the screen, to a log file, or to both
-# the screen and a log file, you end up with the following truth table, along
-# with my assessment of the usefulness of each combination:
+# the screen and a log file, you end up with a matrix os 16 possibilities.  Of
+# those, only a few are truly useful:
 #
-# 	Basic		Detailed		Usefulness
-#	screen	screen		developer
+# 	Basic		Detailed		Useful to
+#	screen	screen		developer/end-user w/ space issues
 #	screen	both			developer
 #	both		both			developer
 #	screen	log			end-user
 #	log		log			buildbot
+#
+# What this tells me is that we need to log by default, as long as we kill
+# old logfiles to avoid filling your HD with gigabytes of mame build logs.
+# Output should go to both screen and log for developers, but users don't need
+# to see the make commands, etc.  Being able to disable both would be useful,
+# but that a near-term TODO item.  That just leaves being able to squelch the
+# screen output for buildbot usage, and that's just > /dev/null on the command
+# line, so not our problem here.
+#
+# Again, the ability to turn OFF these logs will be wanted very soon.
 
 # Uncomment this to avoid clobbering logs
 #LIBRETRO_LOG_APPEND=1

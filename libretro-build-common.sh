@@ -243,8 +243,10 @@ build_makefile() {
 libretro_build_core() {
 	local opengl_type
 
-	# Set log_core only if LIBRETRO_LOG_CORE is set
-	printf -v log_core "${LIBRETRO_LOG_CORE:+$LIBRETRO_LOG_DIR/$LIBRETRO_LOG_CORE}" "$1"
+	if [ -n "${LIBRETRO_LOG_CORE}" ]; then
+		printf -v log_core "$LIBRETRO_LOG_DIR/$LIBRETRO_LOG_CORE" "$1"
+		[ -z "$LIBRETRO_LOG_APPEND" ] && : > $log_core
+	fi
 
 	eval "core_name=\${libretro_${1}_name:-$1}"
 	echo "$(color 34)=== $(color 1)$core_name$(color)"
@@ -363,10 +365,10 @@ summary() {
 	local num_fail="$(numwords $build_fail)"
 	local fmt_fail="${fmt_output:+$(echo "   $build_fail" | $fmt_output)}"
 
-	for output in "" ${LIBRETRO_LOG_SUPER:+$super_log}; do
+	for output in "" ${LIBRETRO_LOG_SUPER:+$log_super}; do
 		if [ -n "$output" ]; then
 			exec 6>&1
-			exec > $output
+			exec >> $output
 			use_color=""
 		fi
 		{
