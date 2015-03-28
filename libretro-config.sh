@@ -294,10 +294,10 @@ fi
 #LIBRETRO_LOG_DIR="$WORKDIR/log"
 
 # Change this to rename the libretro-super main log file
-#LIBRETRO_LOG_SUPER="libretro-super.txt"
+#LIBRETRO_LOG_SUPER="libretro-super.log"
 
 # Change this to rename core log files (%s for core's "safe" name)
-#LIBRETRO_LOG_CORE="%s.txt"
+#LIBRETRO_LOG_CORE="%s.log"
 
 # Comment this if you don't need to see developer output
 LIBRETRO_DEVELOPER=1
