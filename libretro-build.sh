@@ -180,16 +180,23 @@ fi
 if [ -n "$1" ]; then
 	while [ -n "$1" ]; do
 		case "$1" in
-			build_libretro_*)
-				# "Old"-style
-				$1
+			--nologs)
+				LIBRETRO_LOG_SUPER=""
+				LIBRETRO_LOG_CORE=""
 				;;
 			*)
 				# New style (just generic cores for now)
-				libretro_build_core $1
+				want_cores="$want_cores $1"
 				;;
 		esac
 		shift
+	done
+fi
+
+libretro_log_init
+if [ -n "$want_cores" ]; then
+	for core in $want_cores; do
+		libretro_build_core $core
 	done
 else
 	build_default_cores

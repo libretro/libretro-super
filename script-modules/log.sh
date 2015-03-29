@@ -14,14 +14,23 @@ lecho() {
 LIBRETRO_LOG_DIR="${LIBRETRO_LOG_DIR:-$WORKDIR/log}"
 LIBRETRO_LOG_CORE="${LIBRETRO_LOG_CORE:-%s.log}"
 LIBRETRO_LOG_SUPER="${LIBRETRO_LOG_SUPER:-libretro-super.log}"
-if [ -n "$LIBRETRO_LOG_SUPER" ]; then
-	log_super="$LIBRETRO_LOG_DIR/$LIBRETRO_LOG_SUPER"
-	[ -z "$LIBRETRO_LOG_APPEND" ] && : > $log_super
-fi
-# Core log can't be handled here
 
-mkdir -p "$LIBRETRO_LOG_DIR"
+libretro_log_init() {
+	if [ -z "$LIBRETRO_LOG_SUPER" -a -z "$LIBRETRO_LOG_CORE" ]; then
+		return
+	fi
 
+	if [ -n "$LIBRETRO_LOG_SUPER" ]; then
+		log_super="$LIBRETRO_LOG_DIR/$LIBRETRO_LOG_SUPER"
+		[ -z "$LIBRETRO_LOG_APPEND" ] && : > $log_super
+	fi
+	# Core log can't be truncated here
+
+	mkdir -p "$LIBRETRO_LOG_DIR"
+
+}
+
+# TODO: Move this into libretro_log_init once libretro-fetch is fixed
 if [[ -n $FORCE_COLOR || -t 1 && -z "$NO_COLOR" ]]; then
 	want_color=1
 	use_color=1
