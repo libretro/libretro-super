@@ -14,6 +14,7 @@ bsnes_mercury libretro-bsnes_mercury https://github.com/libretro/bsnes-mercury.g
 catsfc libretro-catsfc https://github.com/libretro/CATSFC-libretro.git PROJECT YES GENERIC Makefile .
 desmume libretro-desmume https://github.com/libretro/desmume.git PROJECT YES GENERIC Makefile.libretro desmume
 dinothawr libretro-dinothawr https://github.com/libretro/Dinothawr.git PROJECT YES GENERIC_ALT Makefile .
+dosbox libretro-dosbox https://github.com/libretro/dosbox-libretro.git PROJECT YES GENERIC Makefile.libretro .
 fb_alpha libretro-fba https://github.com/libretro/fba-libretro.git PROJECT YES GENERIC makefile.libretro svn-current/trunk
 fba_cores_cps1 libretro-fba https://github.com/libretro/fba-libretro.git PROJECT YES GENERIC makefile.libretro svn-current/trunk/fbacores/cps1
 fba_cores_cps2 libretro-fba https://github.com/libretro/fba-libretro.git PROJECT YES GENERIC makefile.libretro svn-current/trunk/fbacores/cps2
@@ -46,6 +47,7 @@ nxengine libretro-nxengine https://github.com/libretro/nxengine-libretro.git PRO
 o2em libretro-o2em https://github.com/libretro/libretro-o2em.git PROJECT YES GENERIC Makefile .
 pcsx_rearmed libretro-pcsx_rearmed https://github.com/libretro/pcsx_rearmed.git PROJECT YES GENERIC Makefile.libretro . USE_DYNAREC=0
 picodrive libretro-picodrive https://github.com/libretro/picodrive.git SUBMODULE YES GENERIC Makefile.libretro .
+prboom libretro-prboom  https://github.com/libretro/libretro-prboom.git PROJECT YES GENERIC_ALT Makefile .
 prosystem libretro-prosystem https://github.com/libretro/prosystem-libretro.git PROJECT YES GENERIC Makefile .
 puae libretro-uae https://github.com/libretro/libretro-uae.git PROJECT YES GENERIC Makefile build
 quicknes libretro-quicknes  https://github.com/libretro/QuickNES_Core.git PROJECT YES GENERIC Makefile libretro
@@ -61,3 +63,4 @@ vbam libretro-vbam https://github.com/libretro/vbam-libretro.git PROJECT YES GEN
 vecx libretro-vecx  https://github.com/libretro/libretro-vecx.git PROJECT YES GENERIC Makefile.libretro .
 virtualjaguar libretro-virtualjaguar https://github.com/libretro/virtualjaguar-libretro.git PROJECT YES GENERIC Makefile .
 yabause libretro-yabause https://github.com/libretro/yabause.git PROJECT YES GENERIC Makefile libretro
+
