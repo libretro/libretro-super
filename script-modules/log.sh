@@ -20,14 +20,13 @@ libretro_log_init() {
 		return
 	fi
 
+	mkdir -p "$LIBRETRO_LOG_DIR"
+
 	if [ -n "$LIBRETRO_LOG_SUPER" ]; then
 		log_super="$LIBRETRO_LOG_DIR/$LIBRETRO_LOG_SUPER"
 		[ -z "$LIBRETRO_LOG_APPEND" ] && : > $log_super
 	fi
 	# Core log can't be truncated here
-
-	mkdir -p "$LIBRETRO_LOG_DIR"
-
 }
 
 # TODO: Move this into libretro_log_init once libretro-fetch is fixed
