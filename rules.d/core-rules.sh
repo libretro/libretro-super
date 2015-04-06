@@ -3,6 +3,7 @@
 register_core "bsnes" -theos_ios -ngc -ps3 -psp1 -qnx -wii
 libretro_bsnes_name="bsnes/higan"
 libretro_bsnes_git_url="https://github.com/libretro/bsnes-libretro.git"
+libretro_bsnes_build_makefile_targets="profile=\"accuracy\" profile=\"balanced\" profile=\"performance\""
 libretro_bsnes_build_args="compiler=\"${CXX11}\""
 libretro_bsnes_build_products="out"
 libretro_bsnes_build_cores="bsnes_accuracy bsnes_balanced bsnes_performance"
@@ -217,6 +218,7 @@ libretro_bsnes_cplusplus98_build_products="out"
 register_core "bsnes_mercury" -theos_ios -ngc -ps3 -psp1 -qnx -wii
 libretro_bsnes_mercury_name="bsnes-mercury"
 libretro_bsnes_mercury_git_url="https://github.com/libretro/bsnes-mercury.git"
+libretro_bsnes_mercury_build_makefile_targets="profile=\"accuracy\" profile=\"balanced\" profile=\"performance\""
 libretro_bsnes_mercury_build_args="compiler=\"${CXX11}\""
 libretro_bsnes_mercury_build_products="out"
 libretro_bsnes_mercury_build_cores="bsnes_mercury_accuracy bsnes_mercury_balanced bsnes_mercury_performance"
