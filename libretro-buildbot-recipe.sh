@@ -315,7 +315,7 @@ build_libretro_generic_jni() {
 			buildbot_log "$MESSAGE"
 			cp -v ../libs/${a}/libretro.${FORMAT_EXT} $RARCH_DIST_DIR/${a}/${1}_libretro${FORMAT}${SUFFIX}.${FORMAT_EXT}
 		else
-			MESSAGE="$1-$a build U+0002failureU+0002 ($jobid)"
+			MESSAGE="$1-$a build failure ($jobid)"
 			echo BUILDBOT JOB: $MESSAGE
 			buildbot_log "$MESSAGE"
 		fi
