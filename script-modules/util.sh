@@ -14,3 +14,7 @@ find_tool() {
 		shift
 	done
 }
+
+do_nothing() {
+	:
+}
