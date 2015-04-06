@@ -121,7 +121,7 @@ register_core "pcsx_rearmed" -theos_ios -ngc -ps3 -psp1 -wii
 libretro_pcsx_rearmed_name="PCSX ReARMed"
 libretro_pcsx_rearmed_git_url="https://github.com/libretro/pcsx_rearmed.git"
 libretro_pcsx_rearmed_build_makefile="Makefile.libretro"
-libretro_pcsx_rearmed_build_configure() {
+libretro_pcsx_rearmed_configure() {
 	if [ "$platform" = "ios" ]; then
 		core_build_cores="pcsx_rearmed_interpreter pcsx_rearmed"
 	fi
@@ -235,7 +235,7 @@ register_core "mupen64plus" -theos_ios -ngc -ps3 -psp1 -wii
 libretro_mupen64plus_name="Mupen64Plus"
 libretro_mupen64plus_git_url="https://github.com/libretro/mupen64plus-libretro.git"
 libretro_mupen64plus_build_platform="$FORMAT_COMPILER_TARGET_ALT"
-libretro_mupen64Plus_build_configure() {
+libretro_mupen64Plus_configure() {
 	if iscpu_x86_64 $ARCH; then
 		core_build_args="WITH_DYNAREC=x86_64"
 	elif iscpu_x86 $ARCH; then
@@ -352,29 +352,35 @@ libretro_lutro_build_makefile="Makefile"
 ## TODO: The lutro modules here aren't really "cores", they're assets
 ##       Figure out where to put them and what to do with them.
 
-register_core "lutro_platformer" none
+register_core "lutro_platformer" any
 libretro_lutro_platformer_name="Lutro-Platformer"
 libretro_lutro_platformer_git_url="https://github.com/libretro/lutro-platformer.git"
+libretro_lutro_platformer_build_rule=none
 
-register_core "lutro_pong" none
+register_core "lutro_pong" any
 libretro_lutro_pong_name="Lutro-Pong"
 libretro_lutro_pong_git_url="https://github.com/libretro/lutro-pong.git"
+libretro_lutro_pong_build_rule=none
 
-register_core "lutro_tetris" none
+register_core "lutro_tetris" any
 libretro_lutro_tetris_name="Lutro-tetris"
 libretro_lutro_tetris_git_url="https://github.com/libretro/lutro-tetris.git"
+libretro_lutro_tetris_build_rule=none
 
-register_core "lutro_snake" none
+register_core "lutro_snake" any
 libretro_lutro_snake_name="Lutro-snake"
 libretro_lutro_snake_git_url="https://github.com/libretro/lutro-snake.git"
+libretro_lutro_snake_build_rule=none
 
-register_core "lutro_iyfct" none
+register_core "lutro_iyfct" any
 libretro_lutro_iyfct_name="Lutro-iyfct"
 libretro_lutro_iyfct_git_url="https://github.com/libretro/lutro-iyfct.git"
+libretro_lutro_iyfct_build_rule=none
 
-register_core "lutro_game_of_life" none
+register_core "lutro_game_of_life" any
 libretro_lutro_game_of_life_name="Lutro-Game-of-Life"
 libretro_lutro_game_of_life_git_url="https://github.com/libretro/lutro-game-of-life.git"
+libretro_lutro_game_of_life_build_rule=none
 
 # CORE RULE VARIABLES
 #
@@ -402,16 +408,6 @@ libretro_lutro_game_of_life_git_url="https://github.com/libretro/lutro-game-of-l
 #
 # build_subdir				Subdir containing the libretro makefile
 #								Leave unset if in top level of core
-#
-# For the "multi_git" fetch rule:
-#
-# mgit_urls					Number of URLs to fetch
-#
-# mgit_url_<n>				<n>th URL to fetch, start with 0
-#								If you have 4 mgit_urls, <n> will be 0, 1, 2, or 3
-#
-# mgit_dir_<n>				<n>th directory to fetch into
-#								You must set this for each URL
 #
 # For the generic makefile build rule:
 #
