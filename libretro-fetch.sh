@@ -76,7 +76,6 @@ libretro_fetch() {
 }
 
 libretro_players="retroarch"
-libretro_devkits="devkit"
 
 if [ -n "$1" ]; then
 	no_more_args=""
@@ -101,16 +100,16 @@ if [ -n "$1" ]; then
 else
 	# Make libretro-fetch.sh with no args behave traditionally by default
 	fetch_cores="$libretro_cores"
-	fetch_players="retroarch"
-	fetch_devkit="devkit"
+	fetch_players="$libretro_players"
+	fetch_devkit="$libretro_devkits"
 fi
 
 for a in $fetch_players; do
-	libretro_fetch $a
+	libretro_fetch "${a%%:*}"
 done
 
 for a in $fetch_devkits; do
-	libretro_fetch $a
+	libretro_fetch "${a%%:*}"
 done
 
 for a in $fetch_cores; do
