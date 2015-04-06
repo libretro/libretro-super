@@ -171,8 +171,11 @@ case "$platform" in
 		config_log_build_host
 
 		if [ -z "$JOBS" ]; then
+			# nproc is generally Linux-specific.
 			if command -v nproc >/dev/null; then
 				JOBS="$(nproc)"
+			elif [ "$pltaform" = "osx" ] && command -v sysctl >/dev/null; then
+				JOBS="$(sysctl -n hw.physicalcpu)"
 			else
 				JOBS=1
 			fi
