@@ -22,7 +22,8 @@ register_module() {
 				build_plats="${build_plats#,}"
 				skip_plats="${skip_plats#,}"
 
-				eval "libretro_${mod_type}s=\"\$libretro_${mod_type}s $mod_name:${build_plats:-any}:$skip_plats\""
+				eval "libretro_${mod_type}s=\"\$libretro_${mod_type}s $mod_name:${build_plats:=any}:$skip_plats\""
+				libretro_modules="$libretro_modules $mod_name:$build_plats:$skip_plats"
 			else
 				echo "register_module:Trying to register a $mod_type without a name"
 				exit 1
@@ -40,9 +41,11 @@ register_core() {
 }
 
 can_build_module() {
+	[ -n "$force" ] && return 0
+
 	if [[ "$1" != *:*:* ]]; then
-		# Not in <name>:<build>:<skip> format, assume developer mode
-		return 0
+		# Not in <name>:<build>:<skip> format, assume error
+		return 1
 	fi
 
 	build_plats="${1#*:}"
@@ -63,4 +66,15 @@ can_build_module() {
 	fi
 
 	return 0
+}
+
+find_module() {
+	needle="$1"
+	shift
+
+	for haystack in $@; do
+		if [[ "$needle" == $haystack:* ]]; then
+			echo "$needle"
+		fi
+	done
 }
