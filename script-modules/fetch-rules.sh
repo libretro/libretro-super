@@ -36,6 +36,10 @@ fetch_revision_git() {
 	git log -n 1 --pretty=format:%H
 }
 
+local_files_git() {
+	git diff-files --quiet --ignore-submodules
+	return $?
+}
 
 # fetch_revision: Output SCM-dependent revision string of a module
 #                 (currently just calls fetch_revision_git)
@@ -43,4 +47,19 @@ fetch_revision_git() {
 # $1	The directory of the module
 fetch_revision() {
 	   fetch_revision_git $1
+}
+
+module_get_revision() {
+	if [ -d "$WORKDIR/$module_dir" ]; then
+		cd "$WORKDIR/$module_dir"
+		case "$module_fetch_rule" in
+			git)
+				if [ -n "$1" ]; then
+					git diff-files --quiet --ignore-submodules || echo -n "changed from "
+				fi
+				git log -n 1 --pretty=format:%H
+				;;
+			*) ;;
+		esac
+	fi
 }
