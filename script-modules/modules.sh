@@ -40,6 +40,14 @@ register_core() {
 	register_module core $@
 }
 
+register_devkit() {
+	register_module devkit $@
+}
+
+register_player() {
+	register_module player $@
+}
+
 can_build_module() {
 	[ -n "$force" ] && return 0
 
