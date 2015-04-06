@@ -101,13 +101,11 @@ libretro_players="retroarch"
 libretro_devkits="devkit"
 
 if [ -n "$1" ]; then
-	fetch_devel=""
 	no_more_args=""
 	while [ -n "$1" ]; do
 		if [[ "$1" = -* && -z "$no_more_args" ]]; then
 			case "$1" in
 				--) no_more_args=1 ;;
-				--devel) fetch_devel=1 ;;
 				--cores) fetch_cores="$libretro_cores" ;;
 				--devkit) fetch_devkits="$libretro_devkits" ;;
 				--players) fetch_players="$libretro_players" ;;
@@ -124,7 +122,6 @@ if [ -n "$1" ]; then
 	done
 else
 	# Make libretro-fetch.sh with no args behave traditionally by default
-	fetch_devel=1
 	fetch_cores="$libretro_cores"
 	fetch_players="retroarch"
 	fetch_devkit="devkit"
@@ -139,7 +136,5 @@ for a in $fetch_devkits; do
 done
 
 for a in $fetch_cores; do
-	if [ -n "$fetch_devel" ] || can_build_module "$a"; then
-		libretro_fetch "${a%%:*}"
-	fi
+	libretro_fetch "${a%%:*}"
 done
