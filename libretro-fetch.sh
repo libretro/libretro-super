@@ -62,28 +62,6 @@ libretro_fetch() {
 			fetch_git "$git_url" "$module_dir" "$git_submodules"
 			;;
 	
-		multi_git)
-			local num_git_urls
-			local git_url
-			local git_subdir
-			local git_submodules
-			local i
-
-			eval "num_git_urls=\${libretro_${1}_mgit_urls:-0}"
-			if [ "$num_git_urls" -lt 1 ]; then
-				echo "Cannot fetch \"$num_git_urls\" multiple git URLs"
-				return 1
-			fi
-
-			[ "$module_dir" != "." ] && echo_cmd "mkdir -p \"$WORKDIR/$module_dir\""
-			for (( i=0; i < $num_git_urls; ++i )); do
-				eval "git_url=\$libretro_${1}_mgit_url_$i"
-				eval "git_subdir=\$libretro_${1}_mgit_dir_$i"
-				eval "git_submodules=\$libretro_${1}_mgit_submodules_$i"
-				fetch_git "$git_url" "$module_dir/$git_subdir" "$git_submodules"
-			done
-			;;
-
 		*)
 			echo "libretro_fetch:Unknown fetch rule for $1: \"$fetch_rule\"."
 			exit 1
