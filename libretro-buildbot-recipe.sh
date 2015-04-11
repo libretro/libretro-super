@@ -209,7 +209,7 @@ build_libretro_generic_makefile() {
 	echo "compiling..."
 	if [ -z "${ARGS}" ]; then
 		echo "build command: ${MAKE} -f ${MAKEFILE} platform=${PLATFORM} -j${JOBS}"
-		${MAKE} -f ${MAKEFILE} platform=${PLATFORM} -j${JOBS}
+		${MAKE} -f ${MAKEFILE} platform=${PLATFORM} -j${JOBS} &> /tmp/buildbot.log
 	else
 		if [ "${NAME}" = "mame2010" ]; then
 
@@ -217,7 +217,7 @@ build_libretro_generic_makefile() {
 			${MAKE} -f ${MAKEFILE} platform=${PLATFORM} -j${JOBS} ${ARGS} buildtools
 		fi
 		echo "build command: ${MAKE} -f ${MAKEFILE} platform=${PLATFORM} -j${JOBS} ${ARGS}"
-		${MAKE} -f ${MAKEFILE} platform=${PLATFORM} -j${JOBS} ${ARGS}  | tee /tmp/current.log
+		${MAKE} -f ${MAKEFILE} platform=${PLATFORM} -j${JOBS} ${ARGS} &> /tmp/buildbot.log
 	fi
 
 	if [ $? -eq 0 ]; then
@@ -228,9 +228,11 @@ build_libretro_generic_makefile() {
 		fi
 		cp -v ${NAME}_libretro${FORMAT}${SUFFIX}.${FORMAT_EXT} $RARCH_DIST_DIR/${DIST}/${NAME}_libretro${FORMAT}${SUFFIX}.${FORMAT_EXT}
 	else
-                ERROR=`cat /tmp/current.log | tail -n 1000`
-                HASTE=`curl -XPOST http://hastebin.com/documents -d"$ERROR"`
+                ERROR=`cat /tmp/buildbot.log | tail -n 1000`
+                HASTE=`curl -XPOST http://hastebin.com/documents -d"$ERROR" | cut --fields=4 --delimiter='"'`
 		MESSAGE="$1 build failed [$jobid] [LOG: $HASTE]"
+
+
 
 	fi
 	echo BUILDBOT JOB: $MESSAGE
