@@ -1066,6 +1066,13 @@ if [ "${PLATFORM}" = "MINGW64" ] || [ "${PLATFORM}" = "MINGW32" ] && [ "${RA}" =
 		cd ..
 		cd ..
 
+		echo "configuring..."
+		echo "configure command: 
+
+                $CONFIGURE"
+		${CONFIGURE}
+
+
 		echo "cleaning up..."
 		echo "cleanup command: $MAKE clean"
 		$MAKE clean
@@ -1076,16 +1083,13 @@ if [ "${PLATFORM}" = "MINGW64" ] || [ "${PLATFORM}" = "MINGW32" ] && [ "${RA}" =
 			echo BUILDBOT JOB: $jobid retroarch cleanup failure!
 		fi
 
-		echo "configuring..."
-		echo "configure command: $CONFIGURE"
-		${CONFIGURE}
+
 
 		if [ $? -eq 0 ]; then
 			echo BUILDBOT JOB: $jobid retroarch configure success!
 		else
 			echo BUILDBOT JOB: $jobid retroarch configure failure!
 		fi
-
 
 		echo "building..."
 		echo "build command: $MAKE -j${JOBS}"
