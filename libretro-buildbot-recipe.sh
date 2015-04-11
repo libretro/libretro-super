@@ -223,7 +223,7 @@ build_libretro_generic_makefile() {
 	if [ $? -eq 0 ]; then
 		MESSAGE="$1 build successful [$jobid]"
 		if [ "${MAKEPORTABLE}" == "YES" ]; then
-			echo "$1 running retrolink ($jobid)"
+			echo "$1 running retrolink [$jobid]"
 			$WORK/retrolink.sh ${NAME}_libretro${FORMAT}${SUFFIX}.${FORMAT_EXT}
 		fi
 		cp -v ${NAME}_libretro${FORMAT}${SUFFIX}.${FORMAT_EXT} $RARCH_DIST_DIR/${DIST}/${NAME}_libretro${FORMAT}${SUFFIX}.${FORMAT_EXT}
@@ -274,7 +274,7 @@ build_libretro_generic_theos() {
 	fi
 
 	if [ $? -eq 0 ]; then
-		MESSAGE="$1 build successful ($jobid)"
+		MESSAGE="$1 build successful [$jobid]"
 		cp -v objs/obj/${NAME}_libretro${FORMAT}${SUFFIX}.${FORMAT_EXT} $RARCH_DIST_DIR/${NAME}_libretro${FORMAT}${SUFFIX}.${FORMAT_EXT}
 	else
                 ERROR=`cat /tmp/buildbot.log | tail -n 1000`
@@ -318,7 +318,7 @@ build_libretro_generic_jni() {
 			${NDK} -j${JOBS} APP_ABI=${a} ${ARGS}
 		fi
 		if [ $? -eq 0 ]; then
-			MESSAGE="$1-$a build successful ($jobid)"
+			MESSAGE="$1-$a build successful [$jobid]"
 			echo BUILDBOT JOB: $MESSAGE
 			buildbot_log "$MESSAGE"
 			cp -v ../libs/${a}/libretro.${FORMAT_EXT} $RARCH_DIST_DIR/${a}/${1}_libretro${FORMAT}${SUFFIX}.${FORMAT_EXT}
@@ -367,7 +367,7 @@ build_libretro_bsnes_jni() {
 			${NDK} -j${JOBS} APP_ABI=${a}
 		fi
 		if [ $? -eq 0 ]; then
-			MESSAGE="$1 build successful ($jobid)"
+			MESSAGE="$1 build successful [$jobid]"
 			cp -v ../libs/${a}/libretro_${CORENAME}_${PROFILE}.${FORMAT_EXT} $RARCH_DIST_DIR/${a}/${NAME}_${PROFILE}_libretro${FORMAT}${SUFFIX}.${FORMAT_EXT}
 		else
                 ERROR=`cat /tmp/buildbot.log | tail -n 1000`
@@ -415,7 +415,7 @@ build_libretro_generic_gl_makefile() {
 	fi
 
 	if [ $? -eq 0 ]; then 
-		MESSAGE="$1 build successful ($jobid)"
+		MESSAGE="$1 build successful [$jobid]"
 		cp -v ${NAME}_libretro${FORMAT}${SUFFIX}.${FORMAT_EXT} $RARCH_DIST_DIR/${NAME}_libretro${FORMAT}${SUFFIX}.${FORMAT_EXT}
 	else
                 ERROR=`cat /tmp/buildbot.log | tail -n 1000`
@@ -470,7 +470,7 @@ build_libretro_bsnes() {
 	fi
 
 	if [ $? -eq 0 ]; then
-		MESSAGE="$1 build successful ($jobid)"
+		MESSAGE="$1 build successful [$jobid]"
 		if [ "${PROFILE}" = "cpp98" ]; then
 			cp -fv "out/${NAME}_libretro${FORMAT}${SUFFIX}.${FORMAT_EXT}" "${RARCH_DIST_DIR}/${NAME}_libretro${FORMAT}${SUFFIX}.${FORMAT_EXT}"
 		elif [ "${PROFILE}" = "bnes" ]; then
@@ -825,7 +825,7 @@ if [ "${PLATFORM}" = "android" ] && [ "${RA}" = "YES" ]; then
 		android update project --path libs/appcompat --target android-21
 		ant debug
 		if [ $? -eq 0 ]; then
-			MESSAGE="retroarch build successful ($jobid)"
+			MESSAGE="retroarch build successful [$jobid]"
 			echo $MESSAGE
 		else
                 ERROR=`cat /tmp/buildbot.log | tail -n 1000`
@@ -1110,7 +1110,7 @@ if [ "${PLATFORM}" = "MINGW64" ] || [ "${PLATFORM}" = "MINGW32" ] && [ "${RA}" =
 		$MAKE -j${JOBS}
 
 		if [ $? -eq 0 ]; then
-			MESSAGE="retroarch build successful ($jobid)"
+			MESSAGE="retroarch build successful [$jobid]"
 			echo $MESSAGE
 			buildbot_log "$MESSAGE"
 
@@ -1286,7 +1286,7 @@ if [ "${PLATFORM}" = "psp1" ] && [ "${RA}" = "YES" ]; then
 
 			./psp1-cores.sh
 			if [ $? -eq 0 ]; then
-				MESSAGE="retroarch build successful ($jobid)"
+				MESSAGE="retroarch build successful [$jobid]"
 				echo $MESSAGE
 			else
                 ERROR=`cat /tmp/buildbot.log | tail -n 1000`
@@ -1417,7 +1417,7 @@ if [ "${PLATFORM}" == "wii" ] && [ "${RA}" == "YES" ]; then
 			#ls -1 *.a  | awk -F "." ' { print "cp " $0 " " $1 "_wii." $2 }' |sh
 			sh ./wii-cores.sh
 			if [ $? -eq 0 ]; then
-				MESSAGE="retroarch build successful ($jobid)"
+				MESSAGE="retroarch build successful [$jobid]"
 				echo $MESSAGE
 			else
                 ERROR=`cat /tmp/buildbot.log | tail -n 1000`
@@ -1567,7 +1567,7 @@ then
 		sh ./ngc-cores.sh
         if [ $? -eq 0 ];
         then
-            MESSAGE="retroarch build successful ($jobid)"
+            MESSAGE="retroarch build successful [$jobid]"
             echo $MESSAGE
 	    else
                 ERROR=`cat /tmp/buildbot.log | tail -n 1000`
