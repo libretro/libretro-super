@@ -230,7 +230,7 @@ build_libretro_generic_makefile() {
 	else
                 ERROR=`cat /tmp/buildbot.log | tail -n 1000`
                 HASTE=`curl -XPOST http://hastebin.com/documents -d"$ERROR" | cut --fields=4 --delimiter='"'`
-		MESSAGE="$1 build failed [$jobid] [LOG: $HASTE]"
+		MESSAGE="$1 build failed [$jobid] LOG: http://hastebin.com$HASTE"
 
 
 
