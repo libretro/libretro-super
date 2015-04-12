@@ -18,7 +18,7 @@ fi
 . "$BASE_DIR/script-modules/log.sh"
 . "$BASE_DIR/script-modules/util.sh"
 . "$BASE_DIR/script-modules/fetch-rules.sh"
-. "$BASE_DIR/script-modules/modules.sh"
+. "$BASE_DIR/script-modules/module_base.sh"
 
 # Rules for fetching things are in these files:
 . "$BASE_DIR/rules.d/core-rules.sh"
