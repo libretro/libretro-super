@@ -201,8 +201,16 @@ libretro_mame139_build_rule=none # NEED A BUILD RULE
 register_core "mame" -theos_ios -ngc -ps3 -psp1 -qnx -wii
 libretro_mame_name="MAME (git)"
 libretro_mame_git_url="https://github.com/libretro/mame.git"
-libretro_mame_build_rule=legacy
-libretro_mame_build_legacy=build_libretro_mame_prerule
+libretro_mame_build_makefile=Makefile.libretro
+libretro_mame_build_compiler="REALCC=\"${CC:-cc}\" CC=\"${CXX:-c++}\""
+libretro_mame_build_makefile_targets="TARGET=\"mame\" TARGET=\"mess\" TARGET=\"ume\""
+libretro_mame_build_cores="mame mess ume"
+libretro_mame_configure() {
+	if [ "$platform" = "ios" ]; then
+		# We don't have the means to do this "properly" yet...
+		echo_cmd "$MAKE -C \"$module_build_dir\" -f Makefile.libretro platform=\"\" buildtools"
+	fi
+}
 
 register_core "ffmpeg" -ios -theos_ios -osx -ngc -ps3 -psp1 -qnx -wii
 libretro_ffmpeg_name="FFmpeg"
