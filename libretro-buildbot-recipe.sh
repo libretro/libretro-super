@@ -1117,7 +1117,22 @@ if [ "${PLATFORM}" = "MINGW64" ] || [ "${PLATFORM}" = "MINGW32" ] && [ "${RA}" =
 			echo "Packaging"
 			echo ============================================
 			cp retroarch.cfg retroarch.default.cfg
-cat << EOF > retroarch.cfg
+
+			rm -rfv windows
+			mkdir -p windows
+			mkdir -p windows/overlays
+			mkdir -p windows/shaders
+			mkdir -p windows/autoconfig
+			mkdir -p windows/filters
+			mkdir -p windows/filters/video
+			mkdir -p windows/filters/audio
+			mkdir -p windows/assets
+			mkdir -p windows/cheats
+			mkdir -p windows/database
+			mkdir -p windows/database/cursors
+			mkdir -p windows/database/rdb
+
+cat << EOF > windows/retroarch.cfg
 assets_directory = ":\assets"
 audio_filter_dir = ":\filters\audio"
 cheat_database_path = ":\cheats"
@@ -1145,20 +1160,6 @@ video_filter_dir = ":\filters\video"
 video_shader_dir = ":\shaders"
 
 EOF
-
-			rm -rfv windows
-			mkdir -p windows
-			mkdir -p windows/overlays
-			mkdir -p windows/shaders
-			mkdir -p windows/autoconfig
-			mkdir -p windows/filters
-			mkdir -p windows/filters/video
-			mkdir -p windows/filters/audio
-			mkdir -p windows/assets
-			mkdir -p windows/cheats
-			mkdir -p windows/database
-			mkdir -p windows/database/cursors
-			mkdir -p windows/database/rdb
 
 			cp -v *.cfg windows/
 			cp -v *.exe tools/*.exe windows/
