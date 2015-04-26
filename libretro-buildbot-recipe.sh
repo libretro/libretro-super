@@ -1161,7 +1161,7 @@ video_shader_dir = ":\shaders"
 
 EOF
 
-			cp -v *.cfg windows/
+			#cp -v *.cfg windows/
 			cp -v *.exe tools/*.exe windows/
 			cp -Rfv media/overlays/* windows/overlays
 			cp -Rfv media/shaders_cg/* windows/shaders
