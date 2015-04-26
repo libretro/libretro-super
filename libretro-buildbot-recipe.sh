@@ -1107,7 +1107,7 @@ if [ "${PLATFORM}" = "MINGW64" ] || [ "${PLATFORM}" = "MINGW32" ] && [ "${RA}" =
 
 		echo "building..."
 		echo "build command: $MAKE -j${JOBS}"
-		$MAKE -j${JOBS}
+		$MAKE -j${JOBS} &> /tmp/buildbot.log
 
 		if [ $? -eq 0 ]; then
 			MESSAGE="retroarch build successful [$jobid]"
@@ -1161,7 +1161,7 @@ video_shader_dir = ":\shaders"
 
 EOF
 
-			#cp -v *.cfg windows/
+			cp -v retroarch.default.cfg windows/
 			cp -v *.exe tools/*.exe windows/
 			cp -Rfv media/overlays/* windows/overlays
 			cp -Rfv media/shaders_cg/* windows/shaders
