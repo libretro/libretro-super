@@ -17,56 +17,128 @@ else
 	fi
 fi
 
+
+####################################################################
+##
+## NEW TOOLCHAIN STUFF
+## FIXME: This stuff is incomplete and won't quite work as I've done it here.
+##        Doing it right is going to depend on the config submodule which isn't
+##        written yet.  Probably after 1.1...  :/
+##
+####################################################################
+#
+##register_toolchain osx x86 x86_64
+#toolchain_osx_CC="cc"
+#toolchain_osx_CXX="c++"
+#toolchain_osx_CXX11="clang++"
+#toolchain_osx_CXX11_args="-std=c++11 -stdlib=libc++"
+#toolchain_osx_x86_args=" -arch i386"
+#toolchain_osx_x86_64_args=" -arch x86_64"
+#toolchain_osx_platform="osx"
+#
+##register_toolchain ios armv7 # x86?
+#toolchain_ios_CC="cc"
+#toolchain_ios_CXX="c++"
+#toolchain_ios_CXX11="clang++"
+#toolchain_ios_CXX11_args="-std=c++11 -stdlib=libc++"
+#toolchain_ios_armv7_args="-arch armv7 -marm -miphoneos-version-min=5.0 -isysroot \$IOSSDK"
+#toolchain_ios_platform="ios"
+#toolchain_ios_configure() {
+#	if [ -z "$IOSSDK" ]; then
+#		if [ -z "${xcodebuild:-$(find_tool xcodebuild)}" ]; then
+#			lsecho "You must set IOSSDK or have xcodebuild in your path for ios"
+#			return 1
+#		fi
+#		export IOSSDK=$(xcodebuild -version -sdk iphoneos Path)
+#	fi
+#
+#	if [ ! -d "$IOSSDK/usr" ]; then
+#		lsecho "\"$IOSSDK\" does not appear to be a valid iOS SDK."
+#		return 1
+#	fi
+#}
+#
+#toolchain_guess() {
+#	if [ -z "${UNAME:+$(find_tool $LIBRETRO_UNAME uname)}" ]; then
+#		lsecho "toolchain_guess: cannot find the uname program to guess your platform"
+#		return 1
+#	fi
+#
+#	local cpu="$(uname -m)"
+#	case "$cpu" in
+#		x86_64) ;;
+#		i[3456]86) ;;
+#		armv4) ;;
+#		armv7) ;;
+#	esac
+#
+#	local os="$(uname -s)"
+#
+#	case "$(uname -s)" in
+#		# uname will find these
+#
+#		*BSD*) os="bsd" ;;
+#		linux) os="linux" ;;
+#		*mingw*|*MINGW*|*MSYS_NT*) os="win" ;;
+#
+#		Darwin)
+#			# TODO: This won't support iOS simulator, add something that will
+#			if [ "$cpu" = arm* ]; then
+#				os="ios"
+#			else
+#				os="osx"
+#			fi
+#			;;
+#
+#		# Consoles and mobile, uname won't usually report these
+#		android) os="android" ;;
+#		ios) os="ios" ;;
+#		ngc) os="ngc" ;;
+#		psp1) os="psp1" ;;
+#		wii) os="wii" ;;
+#	esac
+#}
+#
+#toolchain_setup() {
+#	if [[ "$1" != *-* ]]; then
+#		lsecho "toolchain_setup: Invalid platform \"$1\""
+#		return 1
+#	fi
+#	local os="${1%%-*}"
+#	local cpu="${1#*-}"
+#
+#	eval "local cpu_prefix=\"\$toolchain_${os}_${cpu}_prefix\""
+#	eval "local cpu_suffix=\"\$toolchain_${os}_${cpu}_suffix\""
+#	eval "local cpu_args=\"\$toolchain_${os}_${cpu}_args\""
+#	toolchain_platform="$1"
+#
+#	if [ "$(type -t toolchain_${os}_configure)" ]; then
+#		toolchain_configure=toolchatarget_in_${os}_configure
+#	else
+#		toolchain_configure=do_nothing
+#	fi
+#
+#	for compiler in CC CXX CXX11; do
+#		eval "cmdline=\"\$toolchain_${os}_${cpu}_prefix\$toolchain_${os}_${compiler}\$toolchain_${os}_${cpu}_suffix\""
+#		eval "compiler_args=\"\$toolchain_${os}_${compiler}_args\""
+#		if command -v $cmdline > /dev/null; then
+#			eval "toolchain_$compiler=\"\$cmdline\${cpu_args:+ \$cpu_args}\${compiler_args:+ \$compiler_args}\""
+#		else
+#			eval "toolchain_$compiler=\"\""
+#		fi
+#	done
+#}
+
 ###################################################################
 #
-# NEW PLATFORM STUFF
-# Move to rules files like cores are done
+# OLD TOOLCHAIN STUFF (basically libretro-config.sh)
+# For now, if you want to build for other than the detected default
+# you're going to have to do it the old way.  Something like this:
 #
-###################################################################
-
-# TODO: implement register_toolchain
-
-#register_toolchain OSX x86 x86_64
-toolchain_OSX_CC="cc"
-toolchain_OSX_CXX="c++"
-toolchain_OSX_CXX11="clang++"
-toolchain_OSX_CXX11_args="-std=c++11 -stdlib=libc++"
-toolchain_OSX_x86_suffix=" -arch i386"
-toolchain_OSX_x86_64_suffix=" -arch x86_64"
-toolchain_OSX_platform="osx"
-
-#register_toolchain iOS armv7 # x86?
-toolchain_iOS_CC="cc"
-toolchain_iOS_CXX="c++"
-toolchain_iOS_CXX11="clang++"
-toolchain_iOS_CXX11_args="-std=c++11 -stdlib=libc++"
-toolchain_iOS_armv7_suffix="-arch armv7 -marm -miphoneos-version-min=5.0 -isysroot \$IOSSDK"
-toolchain_iOS_platform="ios"
-toolchain_iOS_configure() {
-	if [ -z "$IOSSDK" ]; then
-		if [ -z "${xcodebuild:-$(find_tool xcodebuild)}" ]; then
-			lsecho "You must set IOSSDK or have xcodebuild in your path for iOS"
-			return 1
-		fi
-		export IOSSDK=$(xcodebuild -version -sdk iphoneos Path)
-	fi
-
-	if [ ! -d "$IOSSDK/usr" ]; then
-		lsecho "\"$IOSSDK\" does not appear to be a valid iOS SDK."
-		return 1
-	fi
-}
-
-
-###################################################################
+#    platform=<foo> ARCH=<bar> ./libretro-super.sh
 #
-# LIBRETRO-CONFIG
-# Replace with args, rules-based --platform selection, and config
-# file to save user preferences
-#
-# Config file generation will ultimately be something like Linux
-# kernel menuconfig if you have dialog/whiptail, but those won't
-# be required.
+# This will be replaced by a rules-based solution (similar to how
+# cores are handled, but not yet.
 #
 ###################################################################
 
@@ -107,21 +179,6 @@ case "$platform" in
 		CC="cc -arch armv7 -marm -miphoneos-version-min=5.0 -isysroot $IOSSDK"
 		CXX="c++ -arch armv7 -marm -miphoneos-version-min=5.0 -isysroot $IOSSDK"
 		CXX11="clang++ -std=c++11 -stdlib=libc++ -arch armv7 -marm -miphoneos-version-min=5.0 -isysroot $IOSSDK"
-		;;
-
-	theos_ios)
-		DIST_DIR="theos_ios"
-		BUILD_PRODUCT_PREFIX="objs/obj"
-		FORMAT_EXT=dylib
-		IOS=1
-		ARCH=armv7
-		FORMAT=_ios
-		FORMAT_COMPILER_TARGET=theos_ios
-		FORMAT_COMPILER_TARGET_ALT=theos_ios
-
-		# Make sure that the cross bins you need are first in your path
-		CXX11="clang++ -std=c++11 -stdlib=libc++ -miphoneos-version-min=5.0"
-
 		;;
 
 	##
@@ -322,32 +379,11 @@ export RA_ANDROID_MIN_API=android-9
 #OSX DEFINES
 #===========
 
-# Define this to skip the universal build
-# export NOUNIVERSAL=1
-
-# ARCHFLAGS is a very convenient way of doing this for simple/obvious cores
-# that don't need anything defined on the command line for 32 vs 64 bit
-# systems, however it won't work for anything that does.  For that, you need
-# to do two separate builds, one for each arch, and then do something like:
-#  lipo -create core_i386.dylib core_x86_64.dylib -output core_ub.dylib
-#
-# If building on 10.5/10.6, it's possible that you could actually build a UB
-# for Intel/PowerPC, but please don't. ;) Consider this a proof of concept
-# for now just to test a few cores.
-
-if [[ "$FORMAT_COMPILER_TARGET" = "osx" && -z "$NOUNIVERSAL" ]]; then
-	case "$ARCH" in
-		i386|x86_64)
-			export ARCHFLAGS="-arch i386 -arch x86_64"
-			;;
-		ppc|ppc64)
-			export ARCHFLAGS="-arch ppc -arch ppc64"
-			;;
-		*)
-			echo "Will not build universal binaries for unknown ARCH=\"$ARCH\""
-			;;
-	esac
-fi
+# [snip]
+# Let's disable universal builds completely for now.  We don't use it, the new
+# toolchain code won't need it, and most of the cores don't currently support
+# it anyway.  We'll revisit this later.
+export NOUNIVERSAL=1
 
 # OUTPUT AND LOGGING
 # ==================
@@ -420,7 +456,7 @@ fi
 #
 # LIBRETRO-BUILD-COMMON
 # Summary already re-written, CORE_SUFFIX def may be moved
-# RARCH_DIST_DIR stuff will change with --platform
+# RARCH_DIST_DIR stuff will change with new toolchain code
 #
 ###################################################################
 
@@ -461,12 +497,9 @@ if [ -z "$RARCH_DIST_DIR" ]; then
 fi
 create_dist_dir
 
-###################################################################
-#
-# LIBRETRO-BUILD-COMMON
-# Default tool selection goes into --platform stuff
-#
-###################################################################
+
+# The following bits are from libretro-build.sh
+# Will replace with new toolchain code later
 
 if [ -z "$JOBS" ]; then
 	JOBS=7
@@ -621,15 +654,10 @@ if [ -n "$1" ]; then
 
 
 				#
-				# Platform controls
+				# Toolchain controls
 				#
 
-				--platform)
-					if [ -n "$2" ]; then
-						build_platforms="$build_platforms $2"
-						shift
-					fi
-					;;
+				# TODO, requires configuration system
 
 				#
 				# Module type controls
@@ -673,7 +701,6 @@ letter to Creative Commons, PO Box 1866, Mountain View, CA 94042, USA."
 	exit 0
 fi
 lsecho "Licensed under CC-BY-4.0 (--license for details)"
-# XXX: MIT vs CC-BY vs CC-0?
 
 # Configure some defaults
 [ -z "$actions" ] && actions="$default_actions"
