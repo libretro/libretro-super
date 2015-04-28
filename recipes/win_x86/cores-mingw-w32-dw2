@@ -36,7 +36,7 @@ o2em libretro-o2em https://github.com/libretro/libretro-o2em.git PROJECT YES GEN
 pcsx_rearmed libretro-pcsx_rearmed https://github.com/libretro/pcsx_rearmed.git PROJECT YES GENERIC Makefile.libretro . USE_DYNAREC=0
 picodrive libretro-picodrive https://github.com/libretro/picodrive.git SUBMODULE YES GENERIC Makefile.libretro .
 prosystem libretro-prosystem https://github.com/libretro/prosystem-libretro.git PROJECT YES GENERIC Makefile .
-puae libretro-uae https://github.com/libretro/libretro-uae.git PROJECT YES GENERIC Makefile build
+puae libretro-uae https://github.com/libretro/libretro-uae.git PROJECT YES GENERIC Makefile . 
 quicknes libretro-quicknes  https://github.com/libretro/QuickNES_Core.git PROJECT YES GENERIC Makefile libretro
 remotejoy libretro-remotejoy  https://github.com/libretro/libretro-remotejoy.git PROJECT YES GENERIC Makefile .
 scummvm libretro-scummvm  https://github.com/libretro/scummvm.git PROJECT YES GENERIC Makefile backends/platform/libretro/build
