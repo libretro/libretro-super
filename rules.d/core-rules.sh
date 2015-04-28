@@ -61,6 +61,11 @@ libretro_cap32_name="Caprice32"
 libretro_cap32_git_url="https://github.com/libretro/libretro-cap32.git"
 libretro_cap32_build_makefile="Makefile"
 
+register_core "puae" -ngc -ps3 -psp1 -qnx -wii
+libretro_puae_name="PUAE"
+libretro_puae_git_url="https://github.com/libretro/libretro-uae.git"
+libretro_puae_build_makefile="Makefile"
+
 register_core "bnes" -ios -theos_ios -ngc -ps3 -psp1 -qnx -wii
 libretro_bnes_name="bnes/higan"
 libretro_bnes_git_url="https://github.com/libretro/bnes-libretro.git"
