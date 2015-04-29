@@ -61,6 +61,11 @@ libretro_cap32_name="Caprice32"
 libretro_cap32_git_url="https://github.com/libretro/libretro-cap32.git"
 libretro_cap32_build_makefile="Makefile"
 
+register_core "puae" -ngc -ps3 -psp1 -qnx -wii
+libretro_puae_name="PUAE"
+libretro_puae_git_url="https://github.com/libretro/libretro-uae.git"
+libretro_puae_build_makefile="Makefile"
+
 register_core "bnes" -ios -theos_ios -ngc -ps3 -psp1 -qnx -wii
 libretro_bnes_name="bnes/higan"
 libretro_bnes_git_url="https://github.com/libretro/bnes-libretro.git"
@@ -249,11 +254,6 @@ register_core "dinothawr" -theos_ios -ngc -ps3 -psp1 -qnx -wii
 libretro_dinothawr_name="Dinothawr"
 libretro_dinothawr_git_url="https://github.com/libretro/Dinothawr.git"
 libretro_dinothawr_build_platform="$FORMAT_COMPILER_TARGET_ALT"
-
-register_core "uae" none
-libretro_uae_name="UAE"
-libretro_uae_git_url="https://github.com/libretro/libretro-uae.git"
-libretro_uae_build_rule=none # NEED A BUILD RULE
 
 register_core "3dengine" -ngc -ps3 -psp1 -wii
 libretro_3dengine_name="3DEngine"
