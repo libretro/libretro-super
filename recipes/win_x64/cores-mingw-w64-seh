@@ -1,3 +1,4 @@
+gw libretro-gw https://github.com/libretro/gw-libretro.git PROJECT YES GENERIC Makefile.mingw32 build 
 2048 libretro-2048  https://github.com/libretro/libretro-2048.git PROJECT YES GENERIC Makefile.libretro .
 3dengine libretro-3dengine  https://github.com/libretro/libretro-3dengine.git PROJECT YES GENERIC_GL Makefile .
 4do libretro-4do https://github.com/libretro/4do-libretro.git PROJECT YES GENERIC Makefile .
@@ -63,4 +64,3 @@ vbam libretro-vbam https://github.com/libretro/vbam-libretro.git PROJECT YES GEN
 vecx libretro-vecx  https://github.com/libretro/libretro-vecx.git PROJECT YES GENERIC Makefile.libretro .
 virtualjaguar libretro-virtualjaguar https://github.com/libretro/virtualjaguar-libretro.git PROJECT YES GENERIC Makefile .
 yabause libretro-yabause https://github.com/libretro/yabause.git PROJECT YES GENERIC Makefile libretro
-
