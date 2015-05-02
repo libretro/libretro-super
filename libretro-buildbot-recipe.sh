@@ -226,7 +226,11 @@ build_libretro_generic_makefile() {
 			echo "$1 running retrolink [$jobid]"
 			$WORK/retrolink.sh ${NAME}_libretro${FORMAT}${SUFFIX}.${FORMAT_EXT}
 		fi
-		cp -v ${NAME}_libretro${FORMAT}${SUFFIX}.${FORMAT_EXT} $RARCH_DIST_DIR/${DIST}/${NAME}_libretro${FORMAT}${SUFFIX}.${FORMAT_EXT}
+                   if [ "${NAME}" = "gw" ]; then
+   		      cp -v ${NAME}_libretro${FORMAT}${SUFFIX}.${FORMAT_EXT} $RARCH_DIST_DIR/${DIST}/${NAME}_libretro${FORMAT}.${FORMAT_EXT}
+                   else
+   		      cp -v ${NAME}_libretro${FORMAT}${SUFFIX}.${FORMAT_EXT} $RARCH_DIST_DIR/${DIST}/${NAME}_libretro${FORMAT}${SUFFIX}.${FORMAT_EXT}
+                   fi
 	else
                 ERROR=`cat /tmp/buildbot.log | tail -n 1000`
                 HASTE=`curl -XPOST http://hastebin.com/documents -d"$ERROR" | cut --fields=4 --delimiter='"'`
@@ -312,10 +316,10 @@ build_libretro_generic_jni() {
 		echo "compiling for ${a}..."
 		if [ -z "${ARGS}" ]; then
 			echo "build command: ${NDK} -j${JOBS} APP_ABI=${a}"
-			${NDK} -j${JOBS} APP_ABI=${a}
+			${NDK} -j${JOBS} APP_ABI=${a}  &> /tmp/buildbot.log
 		else
 			echo "build command: ${NDK} -j${JOBS} APP_ABI=${a} ${ARGS} "
-			${NDK} -j${JOBS} APP_ABI=${a} ${ARGS}
+			${NDK} -j${JOBS} APP_ABI=${a} ${ARGS}  &> /tmp/buildbot.log
 		fi
 		if [ $? -eq 0 ]; then
 			MESSAGE="$1-$a build successful [$jobid]"
@@ -408,10 +412,10 @@ build_libretro_generic_gl_makefile() {
 	echo "compiling..."
 	if [ -z "${ARGS}" ]; then
 		echo "build command: ${MAKE} -f ${MAKEFILE} platform=${PLATFORM} -j${JOBS}"
-		${MAKE} -f ${MAKEFILE} platform=${PLATFORM} -j${JOBS}
+		${MAKE} -f ${MAKEFILE} platform=${PLATFORM} -j${JOBS}  &> /tmp/buildbot.log
 	else
 		echo "build command: ${MAKE} -f ${MAKEFILE} platform=${PLATFORM} ${COMPILER} -j${JOBS} ${ARGS}"
-		${MAKE} -f ${MAKEFILE} platform=${PLATFORM} -j${JOBS} ${ARGS}
+		${MAKE} -f ${MAKEFILE} platform=${PLATFORM} -j${JOBS} ${ARGS}  &> /tmp/buildbot.log
 	fi
 
 	if [ $? -eq 0 ]; then 
@@ -1107,7 +1111,7 @@ if [ "${PLATFORM}" = "MINGW64" ] || [ "${PLATFORM}" = "MINGW32" ] && [ "${RA}" =
 
 		echo "building..."
 		echo "build command: $MAKE -j${JOBS}"
-		$MAKE -j${JOBS}
+		$MAKE -j${JOBS} &> /tmp/buildbot.log
 
 		if [ $? -eq 0 ]; then
 			MESSAGE="retroarch build successful [$jobid]"
@@ -1161,7 +1165,7 @@ video_shader_dir = ":\shaders"
 
 EOF
 
-			cp -v *.cfg windows/
+			cp -v retroarch.default.cfg windows/
 			cp -v *.exe tools/*.exe windows/
 			cp -Rfv media/overlays/* windows/overlays
 			cp -Rfv media/shaders_cg/* windows/shaders
