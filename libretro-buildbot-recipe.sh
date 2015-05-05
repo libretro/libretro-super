@@ -232,7 +232,7 @@ build_libretro_generic_makefile() {
    		      cp -v ${NAME}_libretro${FORMAT}${SUFFIX}.${FORMAT_EXT} $RARCH_DIST_DIR/${DIST}/${NAME}_libretro${FORMAT}${SUFFIX}.${FORMAT_EXT}
                    fi
 	else
-                ERROR=`cat /tmp/buildbot.log | tail -n 1000`
+                ERROR=`cat /tmp/buildbot.log | tail -n 5000`
                 HASTE=`curl -XPOST http://hastebin.com/documents -d"$ERROR" | cut --fields=4 --delimiter='"'`
 		        MESSAGE="$1 build failed [$jobid] LOG: http://hastebin.com/$HASTE"
 
@@ -281,7 +281,7 @@ build_libretro_generic_theos() {
 		MESSAGE="$1 build successful [$jobid]"
 		cp -v objs/obj/${NAME}_libretro${FORMAT}${SUFFIX}.${FORMAT_EXT} $RARCH_DIST_DIR/${NAME}_libretro${FORMAT}${SUFFIX}.${FORMAT_EXT}
 	else
-                ERROR=`cat /tmp/buildbot.log | tail -n 1000`
+                ERROR=`cat /tmp/buildbot.log | tail -n 5000`
                 HASTE=`curl -XPOST http://hastebin.com/documents -d"$ERROR" | cut --fields=4 --delimiter='"'`
 		        MESSAGE="$1 build failed [$jobid] LOG: http://hastebin.com/$HASTE"
 	fi
@@ -327,7 +327,7 @@ build_libretro_generic_jni() {
 			buildbot_log "$MESSAGE"
 			cp -v ../libs/${a}/libretro.${FORMAT_EXT} $RARCH_DIST_DIR/${a}/${1}_libretro${FORMAT}${SUFFIX}.${FORMAT_EXT}
 		else
-                ERROR=`cat /tmp/buildbot.log | tail -n 1000`
+                ERROR=`cat /tmp/buildbot.log | tail -n 5000`
                 HASTE=`curl -XPOST http://hastebin.com/documents -d"$ERROR" | cut --fields=4 --delimiter='"'`
 		        MESSAGE="$1-$a build failed [$jobid] LOG: http://hastebin.com/$HASTE"
 			echo BUILDBOT JOB: $MESSAGE
@@ -374,7 +374,7 @@ build_libretro_bsnes_jni() {
 			MESSAGE="$1 build successful [$jobid]"
 			cp -v ../libs/${a}/libretro_${CORENAME}_${PROFILE}.${FORMAT_EXT} $RARCH_DIST_DIR/${a}/${NAME}_${PROFILE}_libretro${FORMAT}${SUFFIX}.${FORMAT_EXT}
 		else
-                ERROR=`cat /tmp/buildbot.log | tail -n 1000`
+                ERROR=`cat /tmp/buildbot.log | tail -n 5000`
                 HASTE=`curl -XPOST http://hastebin.com/documents -d"$ERROR" | cut --fields=4 --delimiter='"'`
 		        MESSAGE="$1 build failed [$jobid] LOG: http://hastebin.com/$HASTE"
 		fi
@@ -422,7 +422,7 @@ build_libretro_generic_gl_makefile() {
 		MESSAGE="$1 build successful [$jobid]"
 		cp -v ${NAME}_libretro${FORMAT}${SUFFIX}.${FORMAT_EXT} $RARCH_DIST_DIR/${NAME}_libretro${FORMAT}${SUFFIX}.${FORMAT_EXT}
 	else
-                ERROR=`cat /tmp/buildbot.log | tail -n 1000`
+                ERROR=`cat /tmp/buildbot.log | tail -n 5000`
                 HASTE=`curl -XPOST http://hastebin.com/documents -d"$ERROR" | cut --fields=4 --delimiter='"'`
 		        MESSAGE="$1 build failed [$jobid] LOG: http://hastebin.com/$HASTE"
 	fi
@@ -483,7 +483,7 @@ build_libretro_bsnes() {
 			cp -fv "out/${NAME}_${PROFILE}_libretro${FORMAT}.${FORMAT_EXT}" $RARCH_DIST_DIR/${NAME}_${PROFILE}_libretro${FORMAT}${SUFFIX}.${FORMAT_EXT}
 		fi
 	else
-                ERROR=`cat /tmp/buildbot.log | tail -n 1000`
+                ERROR=`cat /tmp/buildbot.log | tail -n 5000`
                 HASTE=`curl -XPOST http://hastebin.com/documents -d"$ERROR" | cut --fields=4 --delimiter='"'`
 		        MESSAGE="$1 build failed [$jobid] LOG: http://hastebin.com/$HASTE"
 	fi
@@ -821,18 +821,18 @@ if [ "${PLATFORM}" = "android" ] && [ "${RA}" = "YES" ]; then
 		cd android/phoenix
 		rm bin/*.apk
 
-		$NDK clean
-		$NDK -j${JOBS}
-		ant clean
+		$NDK clean &> /tmp/buildbot.log
+		$NDK -j${JOBS} &>> /tmp/buildbot.log
+		ant clean &>> /tmp/buildbot.log
 		android update project --path . --target android-21
 		android update project --path libs/googleplay --target android-21
 		android update project --path libs/appcompat --target android-21
-		ant debug
+		ant debug &>> /tmp/buildbot.log
 		if [ $? -eq 0 ]; then
 			MESSAGE="retroarch build successful [$jobid]"
 			echo $MESSAGE
 		else
-                ERROR=`cat /tmp/buildbot.log | tail -n 1000`
+                ERROR=`cat /tmp/buildbot.log | tail -n 5000`
                 HASTE=`curl -XPOST http://hastebin.com/documents -d"$ERROR" | cut --fields=4 --delimiter='"'`
 		        MESSAGE="retroarch build failed [$jobid] LOG: http://hastebin.com/$HASTE"
 			echo $MESSAGE
@@ -1180,7 +1180,7 @@ EOF
 			cp -Rfv gfx/video_filters/*.dll windows/filters/video
 			cp -Rfv gfx/video_filters/*.filt windows/filters/video
 		else
-                ERROR=`cat /tmp/buildbot.log | tail -n 1000`
+                ERROR=`cat /tmp/buildbot.log | tail -n 5000`
                 HASTE=`curl -XPOST http://hastebin.com/documents -d"$ERROR" | cut --fields=4 --delimiter='"'`
 		        MESSAGE="retroarch build failed [$jobid] LOG: http://hastebin.com/$HASTE"
 			echo $MESSAGE
@@ -1294,7 +1294,7 @@ if [ "${PLATFORM}" = "psp1" ] && [ "${RA}" = "YES" ]; then
 				MESSAGE="retroarch build successful [$jobid]"
 				echo $MESSAGE
 			else
-                ERROR=`cat /tmp/buildbot.log | tail -n 1000`
+                ERROR=`cat /tmp/buildbot.log | tail -n 5000`
                 HASTE=`curl -XPOST http://hastebin.com/documents -d"$ERROR" | cut --fields=4 --delimiter='"'`
 		        MESSAGE="retroarch build failed [$jobid] LOG: http://hastebin.com/$HASTE"
 				echo $MESSAGE
@@ -1425,7 +1425,7 @@ if [ "${PLATFORM}" == "wii" ] && [ "${RA}" == "YES" ]; then
 				MESSAGE="retroarch build successful [$jobid]"
 				echo $MESSAGE
 			else
-                ERROR=`cat /tmp/buildbot.log | tail -n 1000`
+                ERROR=`cat /tmp/buildbot.log | tail -n 5000`
                 HASTE=`curl -XPOST http://hastebin.com/documents -d"$ERROR" | cut --fields=4 --delimiter='"'`
 		        MESSAGE="retroarch build failed [$jobid] LOG: http://hastebin.com/$HASTE"
 				echo $MESSAGE
@@ -1575,7 +1575,7 @@ then
             MESSAGE="retroarch build successful [$jobid]"
             echo $MESSAGE
 	    else
-                ERROR=`cat /tmp/buildbot.log | tail -n 1000`
+                ERROR=`cat /tmp/buildbot.log | tail -n 5000`
                 HASTE=`curl -XPOST http://hastebin.com/documents -d"$ERROR" | cut --fields=4 --delimiter='"'`
 		        MESSAGE="retroarch build failed [$jobid] LOG: http://hastebin.com/$HASTE"
             echo $MESSAGE
