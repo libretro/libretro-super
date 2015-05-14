@@ -15,6 +15,7 @@ catsfc libretro-catsfc https://github.com/libretro/CATSFC-libretro.git PROJECT Y
 desmume libretro-desmume https://github.com/libretro/desmume.git PROJECT YES GENERIC Makefile.libretro desmume
 dinothawr libretro-dinothawr https://github.com/libretro/Dinothawr.git PROJECT YES GENERIC_ALT Makefile .
 dosbox libretro-dosbox https://github.com/libretro/dosbox-libretro.git PROJECT YES GENERIC Makefile.libretro .
+fba_libretro libretro-fba_new https://github.com/libretro/libretro-fba.git PROJECT YES GENERIC makefile.libretro .
 fb_alpha libretro-fba https://github.com/libretro/fba-libretro.git PROJECT YES GENERIC makefile.libretro svn-current/trunk
 fba_cores_cps1 libretro-fba https://github.com/libretro/fba-libretro.git PROJECT YES GENERIC makefile.libretro svn-current/trunk/fbacores/cps1
 fba_cores_cps2 libretro-fba https://github.com/libretro/fba-libretro.git PROJECT YES GENERIC makefile.libretro svn-current/trunk/fbacores/cps2
