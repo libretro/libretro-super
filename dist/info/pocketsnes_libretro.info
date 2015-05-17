@@ -1,5 +1,5 @@
 display_name = "SNES / Super Famicom (PocketSNES)"
-authors = "Snes9X Team|PocketSNES Team|Toadking"
+authors = "Snes9x Team|PocketSNES Team|Toadking"
 supported_extensions = "smc|fig|sfc|gd3|gd7|dx2|bsx|swc"
 corename = "PocketSNES"
 manufacturer = "Nintendo"
