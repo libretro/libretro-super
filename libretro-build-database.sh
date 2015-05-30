@@ -238,6 +238,7 @@ build_libretro_databases() {
 	build_libretro_database "Watara - Supervision" "rom.crc"
 	build_libretro_database "MAME" "rom.name"
 	build_libretro_database "DOOM" "rom.crc"
+	build_libretro_database "Game and Watch" "rom.crc"
 }
 
 build_libretrodb
