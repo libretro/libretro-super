@@ -227,9 +227,9 @@ build_libretro_generic_makefile() {
 			$WORK/retrolink.sh ${NAME}_libretro${FORMAT}${SUFFIX}.${FORMAT_EXT}
 		fi
                    if [ "${NAME}" = "gw" ]; then
-   		      cp -v ${NAME}_libretro${FORMAT}${SUFFIX}.${FORMAT_EXT} $RARCH_DIST_DIR/${DIST}/${NAME}_libretro${FORMAT}.${FORMAT_EXT}
+   		      cp -v ${NAME}_libretro${FORMAT}${SUFFIX}.${FORMAT_EXT} $RARCH_DIST_DIR/${DIST}/${NAME}_libretro${FORMAT}.${FORMAT_EXT}  &> /tmp/buildbot.log
                    else
-   		      cp -v ${NAME}_libretro${FORMAT}${SUFFIX}.${FORMAT_EXT} $RARCH_DIST_DIR/${DIST}/${NAME}_libretro${FORMAT}${SUFFIX}.${FORMAT_EXT}
+   		      cp -v ${NAME}_libretro${FORMAT}${SUFFIX}.${FORMAT_EXT} $RARCH_DIST_DIR/${DIST}/${NAME}_libretro${FORMAT}${SUFFIX}.${FORMAT_EXT}  &> /tmp/buildbot.log
                    fi
 	else
                 ERROR=`cat /tmp/buildbot.log | tail -n 5000`
@@ -808,31 +808,31 @@ if [ "${PLATFORM}" = "android" ] && [ "${RA}" = "YES" ]; then
 
 		cp -rfv media/assets/* android/phoenix/assets/assets/
 		cp -rfv media/autoconfig/* android/phoenix/assets/autoconfig/
-		cp -rfv media/libretrodb/cht android/phoenix/assets/libretrodb/
+		#cp -rfv media/libretrodb/cht android/phoenix/assets/libretrodb/
 		cp -rfv media/libretrodb/rdb android/phoenix/assets/libretrodb/
 		cp -rfv media/libretrodb/cursors android/phoenix/assets/libretrodb/
 		cp -rfv media/overlays/* android/phoenix/assets/overlays/
 		cp -rfv media/shaders_glsl/* android/phoenix/assets/shaders_glsl/
+		cp -rfv media/shaders_glsl /tmp/
 		cp -rfv $RARCH_DIR/info/* android/phoenix/assets/info/
 
-
 		echo "BUILDBOT JOB: $jobid Building"
-		echo 
+		echo
 		cd android/phoenix
 		rm bin/*.apk
 
 		$NDK clean &> /tmp/buildbot.log
 		$NDK -j${JOBS} &>> /tmp/buildbot.log
 		ant clean &>> /tmp/buildbot.log
-		android update project --path . --target android-21
-		android update project --path libs/googleplay --target android-21
-		android update project --path libs/appcompat --target android-21
+		android update project --path . --target android-21 &>> /tmp/buildbot.log
+		android update project --path libs/googleplay --target android-21 &>> /tmp/buildbot.log
+		android update project --path libs/appcompat --target android-21 &>> /tmp/buildbot.log
 		ant debug &>> /tmp/buildbot.log
 		if [ $? -eq 0 ]; then
 			MESSAGE="retroarch build successful [$jobid]"
 			echo $MESSAGE
 		else
-                ERROR=`cat /tmp/buildbot.log | tail -n 5000`
+                ERROR=`cat /tmp/buildbot.log | tail -n 1000`
                 HASTE=`curl -XPOST http://hastebin.com/documents -d"$ERROR" | cut --fields=4 --delimiter='"'`
 		        MESSAGE="retroarch build failed [$jobid] LOG: http://hastebin.com/$HASTE"
 			echo $MESSAGE
