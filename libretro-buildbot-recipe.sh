@@ -1030,7 +1030,7 @@ if [ "${PLATFORM}" = "MINGW64" ] || [ "${PLATFORM}" = "MINGW32" ] && [ "${RA}" =
 				RADIR=$DIR
 				if [[ $OUT == *"Already up-to-date"* ]]; then
 					BUILD="NO"
-				else	
+				else
 					BUILD="YES"
 				fi
 			fi
@@ -1040,7 +1040,7 @@ if [ "${PLATFORM}" = "MINGW64" ] || [ "${PLATFORM}" = "MINGW32" ] && [ "${RA}" =
 			cd $PARENTDIR
 			git clone "$URL" "$DIR" --depth=1
 			cd $DIR
-	
+
 			if [ "${TYPE}" = "PROJECT" ]; then
 				BUILD="YES"
 				RADIR=$DIR
@@ -1063,24 +1063,24 @@ if [ "${PLATFORM}" = "MINGW64" ] || [ "${PLATFORM}" = "MINGW32" ] && [ "${RA}" =
 		echo "audio filter build command: ${MAKE}"
 		$MAKE
 		if [ $? -eq 0 ]; then
-			echo BUILDBOT JOB: $jobid audio filter build success!		
+			echo BUILDBOT JOB: $jobid audio filter build success!
 		else
 			echo BUILDBOT JOB: $jobid audio filter build failure!
 		fi
-		
+
+        	cd ..
 		cd ..
-		cd ..
-		
+
 		echo "compiling video filters"
 		cd gfx/video_filters
 		echo "audio filter build command: ${MAKE}"
 		$MAKE
 		if [ $? -eq 0 ]; then
-			echo BUILDBOT JOB: $jobid video filter build success!		
+			echo BUILDBOT JOB: $jobid video filter build success!
 		else
 			echo BUILDBOT JOB: $jobid video filter build failure!
 		fi
-		
+
 		cd ..
 		cd ..
 
@@ -1200,7 +1200,7 @@ if [ "${PLATFORM}" = "psp1" ] && [ "${RA}" = "YES" ]; then
 
 		if [ "${ENABLED}" = "YES" ]; then
 			echo "BUILDBOT JOB: $jobid Processing $NAME"
-			echo 
+			echo
 			echo NAME: $NAME
 			echo DIR: $DIR
 			echo PARENT: $PARENTDIR
@@ -1254,7 +1254,7 @@ if [ "${PLATFORM}" = "psp1" ] && [ "${RA}" = "YES" ]; then
 					RADIR=$DIR
 					if [[ $OUT == *"Already up-to-date"* ]]; then
 						BUILD="NO"
-					else	
+					else
 						BUILD="YES"
 					fi
 				fi
@@ -1264,7 +1264,7 @@ if [ "${PLATFORM}" = "psp1" ] && [ "${RA}" = "YES" ]; then
 				cd $PARENTDIR
 				git clone "$URL" "$DIR" --depth=1
 				cd $DIR
-		
+
 				if [ "${TYPE}" = "PROJECT" ]; then
 					BUILD="YES"
 					RADIR=$DIR
@@ -1303,7 +1303,7 @@ if [ "${PLATFORM}" = "psp1" ] && [ "${RA}" = "YES" ]; then
 
 			echo "Packaging"
 			echo ============================================
-            cd $WORK/$RADIR            
+            cd $WORK/$RADIR
 			cp retroarch.cfg retroarch.default.cfg
 
 			mkdir -p psp1/pkg/
@@ -1311,7 +1311,7 @@ if [ "${PLATFORM}" = "psp1" ] && [ "${RA}" = "YES" ]; then
 			mkdir -p psp1/pkg/database
 			mkdir -p psp1/pkg/database/cursors
 			mkdir -p psp1/pkg/database/rdb
-			
+
 			cp -Rfv media/libretrodb/cht/* psp1/pkg/cheats
 			cp -Rfv media/libretrodb/rdb/* psp1/pkg/database/rdb
 			cp -Rfv media/libretrodb/cursors/* psp1/pkg/database/cursors
@@ -1530,7 +1530,7 @@ then
 				if [[ $OUT == *"Already up-to-date"* ]]
 				then
 					BUILD="NO"
-				else	
+				else
 					BUILD="YES"
 				fi
 			fi
@@ -1540,7 +1540,7 @@ then
 			cd $PARENTDIR
 			git clone "$URL" "$DIR" --depth=1
 			cd $DIR
-	
+
 			if [ "${TYPE}" == "PROJECT" ];
 			then
 				BUILD="YES"
@@ -1567,7 +1567,7 @@ then
 		cd dist-scripts
 		rm *.a
 		cp -v $RARCH_DIST_DIR/*.a .
-		
+
 		#ls -1 *.a  | awk -F "." ' { print "cp " $0 " " $1 "_ngc." $2 }' |sh
 		sh ./ngc-cores.sh &> /tmp/buildbot.log
         if [ $? -eq 0 ];
@@ -1581,27 +1581,24 @@ then
             echo $MESSAGE
 		fi
         buildbot_log "$MESSAGE"
-        cd ..      
+        cd ..
 
-	fi            
-			
-			echo "Packaging"
+	fi
+
+             		echo "Packaging"
 			echo ============================================
 			cp retroarch.cfg retroarch.default.cfg
-			
-			
 			mkdir -p ngc/pkg/
 			mkdir -p ngc/pkg/cheats
 			mkdir -p ngc/pkg/database
 			mkdir -p ngc/pkg/database/cursors
 			mkdir -p ngc/pkg/database/rdb
 			mkdir -p ngc/pkg/overlays
-			
 			cp -Rfv media/libretrodb/cht/* ngc/pkg/cheats
 			cp -Rfv media/libretrodb/rdb/* ngc/pkg/database/rdb
 			cp -Rfv media/libretrodb/cursors/* ngc/pkg/database/cursors
                         cp -Rfv media/overlays/* ngc/pkg/overlays
- 
+
 
 
 	fi
