@@ -246,12 +246,14 @@ module_process() {
 
 	log_module_start $module_varname
 
-	module_revision_old="$(module_get_revision)"
 	if [[ "$actions" = *fetch* ]]; then
+		module_revision_old="$(module_get_revision)"
 		if ! module_fetch $1; then
 			log_module_stop "module_process: Unable to fetch ${module_varname}."
 			return 1
 		fi
+	else
+		module_revision_old="ASSUMED DIFFERENT"
 	fi
 	module_revision="$(module_get_revision 1)"
 	if [ "0$skip_unchanged" -eq 1 ]; then
