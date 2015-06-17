@@ -597,9 +597,12 @@ if [ -n "$1" ]; then
 				#
 
 				# TODO
-				--help) ;;
+				--help) 
+					info_only=1
+					;;
 
 				--license|--licence)
+					info_only=1
 					show_license=1
 					LIBRETRO_LOG_SUPER=""
 					LIBRETRO_LOG_MODULE=""
@@ -717,6 +720,10 @@ letter to Creative Commons, PO Box 1866, Mountain View, CA 94042, USA."
 	exit 0
 fi
 lsecho "Licensed under CC-BY-4.0 (--license for details)"
+
+if [ -n "$info_only" ]; then
+	exit 0
+fi
 
 # Configure some defaults
 [ -z "$actions" ] && actions="$default_actions"
