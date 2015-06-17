@@ -1,5 +1,5 @@
 display_name = "Game Boy Advance (Mednafen GBA)"
-authors = "Forgotten|VisualBoyAdvance team|Ryphecha"
+authors = "Forgotten|Ryphecha"
 supported_extensions = "gba|agb|bin"
 corename = "Mednafen/Beetle GBA"
 manufacturer = "Nintendo"

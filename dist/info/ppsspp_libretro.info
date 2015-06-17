@@ -1,4 +1,4 @@
-display_name = "PSP (PlayStation Portable)"
+display_name = "PSP (PPSSPP)"
 authors = "Henrik Hrydgard"
 supported_extensions = "elf|iso|cso|prx|pbp"
 corename = "PPSSPP"

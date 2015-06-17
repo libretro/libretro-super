@@ -226,9 +226,13 @@ build_libretro_generic_makefile() {
 			echo "$1 running retrolink [$jobid]"
 			$WORK/retrolink.sh ${NAME}_libretro${FORMAT}${SUFFIX}.${FORMAT_EXT}
 		fi
-		cp -v ${NAME}_libretro${FORMAT}${SUFFIX}.${FORMAT_EXT} $RARCH_DIST_DIR/${DIST}/${NAME}_libretro${FORMAT}${SUFFIX}.${FORMAT_EXT}
+                   if [ "${NAME}" = "gw" ]; then
+   		      cp -v ${NAME}_libretro${FORMAT}${SUFFIX}.${FORMAT_EXT} $RARCH_DIST_DIR/${DIST}/${NAME}_libretro${FORMAT}.${FORMAT_EXT}  &> /tmp/buildbot.log
+                   else
+   		      cp -v ${NAME}_libretro${FORMAT}${SUFFIX}.${FORMAT_EXT} $RARCH_DIST_DIR/${DIST}/${NAME}_libretro${FORMAT}${SUFFIX}.${FORMAT_EXT}  &> /tmp/buildbot.log
+                   fi
 	else
-                ERROR=`cat /tmp/buildbot.log | tail -n 1000`
+                ERROR=`cat /tmp/buildbot.log | tail -n 5000`
                 HASTE=`curl -XPOST http://hastebin.com/documents -d"$ERROR" | cut --fields=4 --delimiter='"'`
 		        MESSAGE="$1 build failed [$jobid] LOG: http://hastebin.com/$HASTE"
 
@@ -277,7 +281,7 @@ build_libretro_generic_theos() {
 		MESSAGE="$1 build successful [$jobid]"
 		cp -v objs/obj/${NAME}_libretro${FORMAT}${SUFFIX}.${FORMAT_EXT} $RARCH_DIST_DIR/${NAME}_libretro${FORMAT}${SUFFIX}.${FORMAT_EXT}
 	else
-                ERROR=`cat /tmp/buildbot.log | tail -n 1000`
+                ERROR=`cat /tmp/buildbot.log | tail -n 5000`
                 HASTE=`curl -XPOST http://hastebin.com/documents -d"$ERROR" | cut --fields=4 --delimiter='"'`
 		        MESSAGE="$1 build failed [$jobid] LOG: http://hastebin.com/$HASTE"
 	fi
@@ -312,10 +316,10 @@ build_libretro_generic_jni() {
 		echo "compiling for ${a}..."
 		if [ -z "${ARGS}" ]; then
 			echo "build command: ${NDK} -j${JOBS} APP_ABI=${a}"
-			${NDK} -j${JOBS} APP_ABI=${a}
+			${NDK} -j${JOBS} APP_ABI=${a}  &> /tmp/buildbot.log
 		else
 			echo "build command: ${NDK} -j${JOBS} APP_ABI=${a} ${ARGS} "
-			${NDK} -j${JOBS} APP_ABI=${a} ${ARGS}
+			${NDK} -j${JOBS} APP_ABI=${a} ${ARGS}  &> /tmp/buildbot.log
 		fi
 		if [ $? -eq 0 ]; then
 			MESSAGE="$1-$a build successful [$jobid]"
@@ -323,7 +327,7 @@ build_libretro_generic_jni() {
 			buildbot_log "$MESSAGE"
 			cp -v ../libs/${a}/libretro.${FORMAT_EXT} $RARCH_DIST_DIR/${a}/${1}_libretro${FORMAT}${SUFFIX}.${FORMAT_EXT}
 		else
-                ERROR=`cat /tmp/buildbot.log | tail -n 1000`
+                ERROR=`cat /tmp/buildbot.log | tail -n 5000`
                 HASTE=`curl -XPOST http://hastebin.com/documents -d"$ERROR" | cut --fields=4 --delimiter='"'`
 		        MESSAGE="$1-$a build failed [$jobid] LOG: http://hastebin.com/$HASTE"
 			echo BUILDBOT JOB: $MESSAGE
@@ -370,7 +374,7 @@ build_libretro_bsnes_jni() {
 			MESSAGE="$1 build successful [$jobid]"
 			cp -v ../libs/${a}/libretro_${CORENAME}_${PROFILE}.${FORMAT_EXT} $RARCH_DIST_DIR/${a}/${NAME}_${PROFILE}_libretro${FORMAT}${SUFFIX}.${FORMAT_EXT}
 		else
-                ERROR=`cat /tmp/buildbot.log | tail -n 1000`
+                ERROR=`cat /tmp/buildbot.log | tail -n 5000`
                 HASTE=`curl -XPOST http://hastebin.com/documents -d"$ERROR" | cut --fields=4 --delimiter='"'`
 		        MESSAGE="$1 build failed [$jobid] LOG: http://hastebin.com/$HASTE"
 		fi
@@ -408,17 +412,17 @@ build_libretro_generic_gl_makefile() {
 	echo "compiling..."
 	if [ -z "${ARGS}" ]; then
 		echo "build command: ${MAKE} -f ${MAKEFILE} platform=${PLATFORM} -j${JOBS}"
-		${MAKE} -f ${MAKEFILE} platform=${PLATFORM} -j${JOBS}
+		${MAKE} -f ${MAKEFILE} platform=${PLATFORM} -j${JOBS}  &> /tmp/buildbot.log
 	else
 		echo "build command: ${MAKE} -f ${MAKEFILE} platform=${PLATFORM} ${COMPILER} -j${JOBS} ${ARGS}"
-		${MAKE} -f ${MAKEFILE} platform=${PLATFORM} -j${JOBS} ${ARGS}
+		${MAKE} -f ${MAKEFILE} platform=${PLATFORM} -j${JOBS} ${ARGS}  &> /tmp/buildbot.log
 	fi
 
 	if [ $? -eq 0 ]; then 
 		MESSAGE="$1 build successful [$jobid]"
 		cp -v ${NAME}_libretro${FORMAT}${SUFFIX}.${FORMAT_EXT} $RARCH_DIST_DIR/${NAME}_libretro${FORMAT}${SUFFIX}.${FORMAT_EXT}
 	else
-                ERROR=`cat /tmp/buildbot.log | tail -n 1000`
+                ERROR=`cat /tmp/buildbot.log | tail -n 5000`
                 HASTE=`curl -XPOST http://hastebin.com/documents -d"$ERROR" | cut --fields=4 --delimiter='"'`
 		        MESSAGE="$1 build failed [$jobid] LOG: http://hastebin.com/$HASTE"
 	fi
@@ -479,7 +483,7 @@ build_libretro_bsnes() {
 			cp -fv "out/${NAME}_${PROFILE}_libretro${FORMAT}.${FORMAT_EXT}" $RARCH_DIST_DIR/${NAME}_${PROFILE}_libretro${FORMAT}${SUFFIX}.${FORMAT_EXT}
 		fi
 	else
-                ERROR=`cat /tmp/buildbot.log | tail -n 1000`
+                ERROR=`cat /tmp/buildbot.log | tail -n 5000`
                 HASTE=`curl -XPOST http://hastebin.com/documents -d"$ERROR" | cut --fields=4 --delimiter='"'`
 		        MESSAGE="$1 build failed [$jobid] LOG: http://hastebin.com/$HASTE"
 	fi
@@ -804,26 +808,26 @@ if [ "${PLATFORM}" = "android" ] && [ "${RA}" = "YES" ]; then
 
 		cp -rfv media/assets/* android/phoenix/assets/assets/
 		cp -rfv media/autoconfig/* android/phoenix/assets/autoconfig/
-		cp -rfv media/libretrodb/cht android/phoenix/assets/libretrodb/
+		#cp -rfv media/libretrodb/cht android/phoenix/assets/libretrodb/
 		cp -rfv media/libretrodb/rdb android/phoenix/assets/libretrodb/
 		cp -rfv media/libretrodb/cursors android/phoenix/assets/libretrodb/
 		cp -rfv media/overlays/* android/phoenix/assets/overlays/
 		cp -rfv media/shaders_glsl/* android/phoenix/assets/shaders_glsl/
+		cp -rfv media/shaders_glsl /tmp/
 		cp -rfv $RARCH_DIR/info/* android/phoenix/assets/info/
 
-
 		echo "BUILDBOT JOB: $jobid Building"
-		echo 
+		echo
 		cd android/phoenix
 		rm bin/*.apk
 
-		$NDK clean
-		$NDK -j${JOBS}
-		ant clean
-		android update project --path . --target android-21
-		android update project --path libs/googleplay --target android-21
-		android update project --path libs/appcompat --target android-21
-		ant debug
+		$NDK clean &> /tmp/buildbot.log
+		$NDK -j${JOBS} &>> /tmp/buildbot.log
+		ant clean &>> /tmp/buildbot.log
+		android update project --path . --target android-21 &>> /tmp/buildbot.log
+		android update project --path libs/googleplay --target android-21 &>> /tmp/buildbot.log
+		android update project --path libs/appcompat --target android-21 &>> /tmp/buildbot.log
+		ant debug &>> /tmp/buildbot.log
 		if [ $? -eq 0 ]; then
 			MESSAGE="retroarch build successful [$jobid]"
 			echo $MESSAGE
@@ -1026,7 +1030,7 @@ if [ "${PLATFORM}" = "MINGW64" ] || [ "${PLATFORM}" = "MINGW32" ] && [ "${RA}" =
 				RADIR=$DIR
 				if [[ $OUT == *"Already up-to-date"* ]]; then
 					BUILD="NO"
-				else	
+				else
 					BUILD="YES"
 				fi
 			fi
@@ -1036,7 +1040,7 @@ if [ "${PLATFORM}" = "MINGW64" ] || [ "${PLATFORM}" = "MINGW32" ] && [ "${RA}" =
 			cd $PARENTDIR
 			git clone "$URL" "$DIR" --depth=1
 			cd $DIR
-	
+
 			if [ "${TYPE}" = "PROJECT" ]; then
 				BUILD="YES"
 				RADIR=$DIR
@@ -1059,24 +1063,24 @@ if [ "${PLATFORM}" = "MINGW64" ] || [ "${PLATFORM}" = "MINGW32" ] && [ "${RA}" =
 		echo "audio filter build command: ${MAKE}"
 		$MAKE
 		if [ $? -eq 0 ]; then
-			echo BUILDBOT JOB: $jobid audio filter build success!		
+			echo BUILDBOT JOB: $jobid audio filter build success!
 		else
 			echo BUILDBOT JOB: $jobid audio filter build failure!
 		fi
-		
+
+        	cd ..
 		cd ..
-		cd ..
-		
+
 		echo "compiling video filters"
 		cd gfx/video_filters
 		echo "audio filter build command: ${MAKE}"
 		$MAKE
 		if [ $? -eq 0 ]; then
-			echo BUILDBOT JOB: $jobid video filter build success!		
+			echo BUILDBOT JOB: $jobid video filter build success!
 		else
 			echo BUILDBOT JOB: $jobid video filter build failure!
 		fi
-		
+
 		cd ..
 		cd ..
 
@@ -1176,7 +1180,7 @@ EOF
 			cp -Rfv gfx/video_filters/*.dll windows/filters/video
 			cp -Rfv gfx/video_filters/*.filt windows/filters/video
 		else
-                ERROR=`cat /tmp/buildbot.log | tail -n 1000`
+                ERROR=`cat /tmp/buildbot.log | tail -n 5000`
                 HASTE=`curl -XPOST http://hastebin.com/documents -d"$ERROR" | cut --fields=4 --delimiter='"'`
 		        MESSAGE="retroarch build failed [$jobid] LOG: http://hastebin.com/$HASTE"
 			echo $MESSAGE
@@ -1196,7 +1200,7 @@ if [ "${PLATFORM}" = "psp1" ] && [ "${RA}" = "YES" ]; then
 
 		if [ "${ENABLED}" = "YES" ]; then
 			echo "BUILDBOT JOB: $jobid Processing $NAME"
-			echo 
+			echo
 			echo NAME: $NAME
 			echo DIR: $DIR
 			echo PARENT: $PARENTDIR
@@ -1250,7 +1254,7 @@ if [ "${PLATFORM}" = "psp1" ] && [ "${RA}" = "YES" ]; then
 					RADIR=$DIR
 					if [[ $OUT == *"Already up-to-date"* ]]; then
 						BUILD="NO"
-					else	
+					else
 						BUILD="YES"
 					fi
 				fi
@@ -1260,7 +1264,7 @@ if [ "${PLATFORM}" = "psp1" ] && [ "${RA}" = "YES" ]; then
 				cd $PARENTDIR
 				git clone "$URL" "$DIR" --depth=1
 				cd $DIR
-		
+
 				if [ "${TYPE}" = "PROJECT" ]; then
 					BUILD="YES"
 					RADIR=$DIR
@@ -1290,7 +1294,7 @@ if [ "${PLATFORM}" = "psp1" ] && [ "${RA}" = "YES" ]; then
 				MESSAGE="retroarch build successful [$jobid]"
 				echo $MESSAGE
 			else
-                ERROR=`cat /tmp/buildbot.log | tail -n 1000`
+                ERROR=`cat /tmp/buildbot.log | tail -n 5000`
                 HASTE=`curl -XPOST http://hastebin.com/documents -d"$ERROR" | cut --fields=4 --delimiter='"'`
 		        MESSAGE="retroarch build failed [$jobid] LOG: http://hastebin.com/$HASTE"
 				echo $MESSAGE
@@ -1299,7 +1303,7 @@ if [ "${PLATFORM}" = "psp1" ] && [ "${RA}" = "YES" ]; then
 
 			echo "Packaging"
 			echo ============================================
-            cd $WORK/$RADIR            
+            cd $WORK/$RADIR
 			cp retroarch.cfg retroarch.default.cfg
 
 			mkdir -p psp1/pkg/
@@ -1307,7 +1311,7 @@ if [ "${PLATFORM}" = "psp1" ] && [ "${RA}" = "YES" ]; then
 			mkdir -p psp1/pkg/database
 			mkdir -p psp1/pkg/database/cursors
 			mkdir -p psp1/pkg/database/rdb
-			
+
 			cp -Rfv media/libretrodb/cht/* psp1/pkg/cheats
 			cp -Rfv media/libretrodb/rdb/* psp1/pkg/database/rdb
 			cp -Rfv media/libretrodb/cursors/* psp1/pkg/database/cursors
@@ -1421,7 +1425,7 @@ if [ "${PLATFORM}" == "wii" ] && [ "${RA}" == "YES" ]; then
 				MESSAGE="retroarch build successful [$jobid]"
 				echo $MESSAGE
 			else
-                ERROR=`cat /tmp/buildbot.log | tail -n 1000`
+                ERROR=`cat /tmp/buildbot.log | tail -n 5000`
                 HASTE=`curl -XPOST http://hastebin.com/documents -d"$ERROR" | cut --fields=4 --delimiter='"'`
 		        MESSAGE="retroarch build failed [$jobid] LOG: http://hastebin.com/$HASTE"
 				echo $MESSAGE
@@ -1526,7 +1530,7 @@ then
 				if [[ $OUT == *"Already up-to-date"* ]]
 				then
 					BUILD="NO"
-				else	
+				else
 					BUILD="YES"
 				fi
 			fi
@@ -1536,7 +1540,7 @@ then
 			cd $PARENTDIR
 			git clone "$URL" "$DIR" --depth=1
 			cd $DIR
-	
+
 			if [ "${TYPE}" == "PROJECT" ];
 			then
 				BUILD="YES"
@@ -1563,7 +1567,7 @@ then
 		cd dist-scripts
 		rm *.a
 		cp -v $RARCH_DIST_DIR/*.a .
-		
+
 		#ls -1 *.a  | awk -F "." ' { print "cp " $0 " " $1 "_ngc." $2 }' |sh
 		sh ./ngc-cores.sh &> /tmp/buildbot.log
         if [ $? -eq 0 ];
@@ -1571,33 +1575,30 @@ then
             MESSAGE="retroarch build successful [$jobid]"
             echo $MESSAGE
 	    else
-                ERROR=`cat /tmp/buildbot.log | tail -n 1000`
+                ERROR=`cat /tmp/buildbot.log | tail -n 5000`
                 HASTE=`curl -XPOST http://hastebin.com/documents -d"$ERROR" | cut --fields=4 --delimiter='"'`
 		        MESSAGE="retroarch build failed [$jobid] LOG: http://hastebin.com/$HASTE"
             echo $MESSAGE
 		fi
         buildbot_log "$MESSAGE"
-        cd ..      
+        cd ..
 
-	fi            
-			
-			echo "Packaging"
+	fi
+
+             		echo "Packaging"
 			echo ============================================
 			cp retroarch.cfg retroarch.default.cfg
-			
-			
 			mkdir -p ngc/pkg/
 			mkdir -p ngc/pkg/cheats
 			mkdir -p ngc/pkg/database
 			mkdir -p ngc/pkg/database/cursors
 			mkdir -p ngc/pkg/database/rdb
 			mkdir -p ngc/pkg/overlays
-			
 			cp -Rfv media/libretrodb/cht/* ngc/pkg/cheats
 			cp -Rfv media/libretrodb/rdb/* ngc/pkg/database/rdb
 			cp -Rfv media/libretrodb/cursors/* ngc/pkg/database/cursors
                         cp -Rfv media/overlays/* ngc/pkg/overlays
- 
+
 
 
 	fi

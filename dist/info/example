@@ -1,42 +1,42 @@
 ## All data is optional, but helps improve user experience.
 
-# Name displayed when the user is selecting the core.
+# Name displayed when the user is selecting the core:
 # display_name = "NES / Famicom"
 
-# The authors.
+# Name of the authors who wrote the core:
 # authors = "Martin Freij|R. Belmont|R. Danbrook"
 
-# List of supported extensions.
+# List of extensions the core supports:
 # supported_extensions = "nes|fds"
 
-# Name of the core.
+# Name of the core:
 # corename = "Nestopia"
 
-# The developer.
+# Name of the manufacturer who produced the emulated system:
 # manufacturer = "Nintendo"
 #
-# Categories that the core belongs to (optional).
+# Categories that the core belongs to (optional):
 # categories = "Emulator"
 
-# Name of the system that the core targets (optional).
+# Name of the system that the core targets (optional):
 # systemname = "Nintendo Entertainment System"
 
-# Name of the database that the core supports (optional).
+# Name of the database that the core supports (optional):
 # database = "Nintendo - Nintendo Entertainment System|Nintendo - Famicom Disk System"
 
-# License of the core's sourcecode
+# License of the cores source code:
 # license = "GPLv3"
 
-# Privacy-specific permissions needed for using the core
+# Privacy-specific permissions needed for using the core:
 # permissions = ""
 
-# Version of the core.
+# Version of the core:
 # display_version = "v0.2.97.30"
 
-# Whether or not the core requires an external file to work.
+# Whether or not the core requires an external file to work:
 # supports_no_game = "false"
 
-# The number of mandatory/optional firmware files the core needs
+# The number of mandatory/optional firmware files the core needs:
 # firmware_count = 7
 
 # Firmware entries should be named from 0 
@@ -47,5 +47,5 @@
 # Is firmware optional or not, if not defined RetroArch will assume it is required
 # firmware0_opt = "true/false"
 
-# Notes
+# Additional notes:
 #notes = "note1|note2|note3 with spaces|note 4 with spaces|note 5 (test)|note6"

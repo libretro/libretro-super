@@ -25,7 +25,7 @@ echo "Script: $SCRIPT"
 BASE_DIR=$(dirname "$SCRIPT")
 LIBRETRODATABASE_BASE_DIR="$BASE_DIR/retroarch/media/libretrodb"
 RDB_DIR="${LIBRETRODATABASE_BASE_DIR}/rdb"
-LIBRETRODB_BASE_DIR=libretrodb
+LIBRETRODB_BASE_DIR=libretro-devkit/libretrodb
 LIBRETRODATABASE_DAT_DIR=${LIBRETRODATABASE_BASE_DIR}/dat
 LIBRETRODATABASE_META_DAT_DIR=${LIBRETRODATABASE_BASE_DIR}/metadat
 
@@ -237,6 +237,7 @@ build_libretro_databases() {
 	build_libretro_database "VTech - V.Smile" "rom.crc"
 	build_libretro_database "Watara - Supervision" "rom.crc"
 	build_libretro_database "MAME" "rom.name"
+	build_libretro_database "DOOM" "rom.crc"
 }
 
 build_libretrodb
