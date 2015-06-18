@@ -4,7 +4,7 @@
 . "$BASE_DIR/script-modules/util.sh"
 . "$BASE_DIR/script-modules/fetch-rules.sh"
 . "$BASE_DIR/script-modules/cpu.sh"
-. "$BASE_DIR/script-modules/modules.sh"
+. "$BASE_DIR/script-modules/module_base.sh"
 
 . "$BASE_DIR/rules.d/core-rules.sh"
 
@@ -243,9 +243,9 @@ build_makefile() {
 libretro_build_core() {
 	local opengl_type
 
-	if [ -n "${LIBRETRO_LOG_CORE}" ]; then
-		printf -v log_core "$LIBRETRO_LOG_DIR/$LIBRETRO_LOG_CORE" "$1"
-		[ -z "$LIBRETRO_LOG_APPEND" ] && : > $log_core
+	if [ -n "${LIBRETRO_LOG_MODULE}" ]; then
+		printf -v log_module "$LIBRETRO_LOG_DIR/$LIBRETRO_LOG_MODULE" "$1"
+		[ -z "$LIBRETRO_LOG_APPEND" ] && : > $log_module
 	fi
 
 	eval "core_name=\${libretro_${1}_name:-$1}"
@@ -278,27 +278,26 @@ libretro_build_core() {
 
 	echo "Building ${1}..."
 	lecho "Building ${1}..."
-	if [ -n "$log_core" ]; then
+	if [ -n "$log_module" ]; then
 		exec 6>&1
-		echo "Building ${1}..." >> $log_core
+		echo "Building ${1}..." >> $log_module
 
 		# TODO: Possibly a shell function for tee?
 		if [[ -n "$LIBRETRO_DEVELOPER" && -n "${cmd_tee:=$(find_tool "tee")}" ]]; then
-			exec > >($cmd_tee -a $log_core)
+			exec > >($cmd_tee -a $log_module)
 		else
-			exec > $log_core
+			exec > $log_module
 		fi
 	fi
 
 	case "$core_build_rule" in
 		generic_makefile)
-			for a in configure preclean prebuild prepkg; do
-				if [ "$(type -t libretro_${1}_build_$a 2> /dev/null)" = "function" ]; then
-					eval "core_build_$a=libretro_${1}_build_$a"
-				else
-					eval "core_build_$a="
-				fi
-			done
+			# As of right now, only configure is used for now...
+			if [ "$(type -t libretro_${1}_configure 2> /dev/null)" = "function" ]; then
+				eval "core_configure=libretro_${1}_configure"
+			else
+				eval "core_configure=do_nothing"
+			fi
 			eval "core_build_makefile=\$libretro_${1}_build_makefile"
 			eval "core_build_subdir=\$libretro_${1}_build_subdir"
 			eval "core_build_args=\$libretro_${1}_build_args"
@@ -327,7 +326,7 @@ libretro_build_core() {
 			exit 1
 			;;
 	esac
-	if [ -n "$log_core" ]; then
+	if [ -n "$log_module" ]; then
 		exec 1>&6 6>&-
 	fi
 }
@@ -365,33 +364,21 @@ summary() {
 	local num_fail="$(numwords $build_fail)"
 	local fmt_fail="${fmt_output:+$(echo "   $build_fail" | $fmt_output)}"
 
-	for output in "" ${LIBRETRO_LOG_SUPER:+$log_super}; do
-		if [ -n "$output" ]; then
-			exec 6>&1
-			exec >> $output
-			use_color=""
-		fi
-		{
-			echo ""
-			if [[ -z "$build_success" && -z "$build_fail" ]]; then
-				echo "No build actions performed."
-				continue
-			fi
+	if [[ -z "$build_success" && -z "$build_fail" ]]; then
+		lsecho "No build actions performed."
+		return
+	fi
 
-			if [ -n "$build_success" ]; then
-				echo "$(color 32)$num_success core(s)$(color) successfully processed:"
-				echo "$fmt_success"
-			fi
-			if [ -n "$build_fail" ]; then
-				echo "$(color 31)$num_fail core(s)$(color) failed:"
-				echo "$fmt_fail"
-			fi
-		}
-		if [ -n "$output" ]; then
-			exec 1>&6 6>&-
-			use_color="$want_color"
-		fi
-	done
+	if [ -n "$build_success" ]; then
+		secho "$(color 32)$num_success core(s)$(color) successfully processed:"
+		lecho "$num_success core(s) successfully processed:"
+		lsecho "$fmt_success"
+	fi
+	if [ -n "$build_fail" ]; then
+		secho "$(color 31)$num_fail core(s)$(color) failed:"
+		lecho "$num_fail core(s) failed:"
+		lsecho "$fmt_fail"
+	fi
 }
 
 create_dist_dir() {
@@ -399,64 +386,3 @@ create_dist_dir() {
 }
 
 create_dist_dir
-
-
-########## LEGACY RULES
-# TODO: Port these to modern rules
-
-build_libretro_mame_prerule() {
-	build_dir="$WORKDIR/libretro-mame"
-
-	if build_should_skip mame "$build_dir"; then
-		echo "Core mame is already built, skipping..."
-		return
-	fi
-
-	ret=0
-	if [ -d "$build_dir" ]; then
-		echo ''
-		echo "=== Building MAME ==="
-		echo_cmd "cd \"$build_dir\""
-
-		local extra_args
-		[ "${MAME_GIT_TINY:=0}" -eq 1 ] && extra_args="$extra_args SUBTARGET=tiny"
-
-		if [ -z "$NOCLEAN" ]; then
-			echo_cmd "$MAKE -f Makefile.libretro $extra_args platform=\"$FORMAT_COMPILER_TARGET\" \"-j$JOBS\" clean"
-			ret=$?
-
-			if [ "$ret" != 0 ]; then
-				die 'Failed to clean MAME'
-				return $ret
-			fi
-		fi
-
-		# For mame platforms that are CROSS_BUILD's (iOS/Android), we must make buildtools natively
-		if [ "$platform" = "ios" ]; then
-			echo_cmd "$MAKE -f Makefile.libretro platform=\"\" buildtools" || die 'Failed to build MAME buildtools'
-		fi
-
-		# This hack is because mame uses $(CC) to comiple C++ code because "historical reasons"
-		# It can/should be removed when upstream MAME fixes it on their end.
-		MAME_COMPILER="REALCC=\"${CC:-cc}\" CC=\"${CXX:-c++}\""
-
-		# mame's tiny subtarget doesn't support UME
-		mame_targets="mame mess ume"
-		[ "$MAME_GIT_TINY" -eq 1 ] && mame_targets="mame mess"
-
-		for target in $mame_targets; do
-			echo_cmd "$MAKE -f Makefile.libretro $extra_args platform=\"$FORMAT_COMPILER_TARGET\" \"-j$JOBS\" clean-osd" || die 'Failed to clean MAME OSD'
-			echo_cmd "$MAKE -f Makefile.libretro $extra_args \"TARGET=$target\" platform=\"$FORMAT_COMPILER_TARGET\" $MAME_COMPILER \"-j$JOBS\"" || die "Failed to build $target"
-			copy_core_to_dist "$target"
-			ret=$?
-
-			# If a target fails, stop here...
-			[ $ret -eq 0 ] || break
-		done
-
-	else
-		echo 'MAME not fetched, skipping ...'
-	fi
-
-	build_save_revision $ret mame
-}

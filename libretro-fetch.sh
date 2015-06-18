@@ -18,7 +18,7 @@ fi
 . "$BASE_DIR/script-modules/log.sh"
 . "$BASE_DIR/script-modules/util.sh"
 . "$BASE_DIR/script-modules/fetch-rules.sh"
-. "$BASE_DIR/script-modules/modules.sh"
+. "$BASE_DIR/script-modules/module_base.sh"
 
 # Rules for fetching things are in these files:
 . "$BASE_DIR/rules.d/core-rules.sh"
@@ -62,28 +62,6 @@ libretro_fetch() {
 			fetch_git "$git_url" "$module_dir" "$git_submodules"
 			;;
 	
-		multi_git)
-			local num_git_urls
-			local git_url
-			local git_subdir
-			local git_submodules
-			local i
-
-			eval "num_git_urls=\${libretro_${1}_mgit_urls:-0}"
-			if [ "$num_git_urls" -lt 1 ]; then
-				echo "Cannot fetch \"$num_git_urls\" multiple git URLs"
-				return 1
-			fi
-
-			[ "$module_dir" != "." ] && echo_cmd "mkdir -p \"$WORKDIR/$module_dir\""
-			for (( i=0; i < $num_git_urls; ++i )); do
-				eval "git_url=\$libretro_${1}_mgit_url_$i"
-				eval "git_subdir=\$libretro_${1}_mgit_dir_$i"
-				eval "git_submodules=\$libretro_${1}_mgit_submodules_$i"
-				fetch_git "$git_url" "$module_dir/$git_subdir" "$git_submodules"
-			done
-			;;
-
 		*)
 			echo "libretro_fetch:Unknown fetch rule for $1: \"$fetch_rule\"."
 			exit 1
@@ -98,16 +76,13 @@ libretro_fetch() {
 }
 
 libretro_players="retroarch"
-libretro_devkits="devkit"
 
 if [ -n "$1" ]; then
-	fetch_devel=""
 	no_more_args=""
 	while [ -n "$1" ]; do
 		if [[ "$1" = -* && -z "$no_more_args" ]]; then
 			case "$1" in
 				--) no_more_args=1 ;;
-				--devel) fetch_devel=1 ;;
 				--cores) fetch_cores="$libretro_cores" ;;
 				--devkit) fetch_devkits="$libretro_devkits" ;;
 				--players) fetch_players="$libretro_players" ;;
@@ -124,22 +99,19 @@ if [ -n "$1" ]; then
 	done
 else
 	# Make libretro-fetch.sh with no args behave traditionally by default
-	fetch_devel=1
 	fetch_cores="$libretro_cores"
-	fetch_players="retroarch"
-	fetch_devkit="devkit"
+	fetch_players="$libretro_players"
+	fetch_devkit="$libretro_devkits"
 fi
 
 for a in $fetch_players; do
-	libretro_fetch $a
+	libretro_fetch "${a%%:*}"
 done
 
 for a in $fetch_devkits; do
-	libretro_fetch $a
+	libretro_fetch "${a%%:*}"
 done
 
 for a in $fetch_cores; do
-	if [ -n "$fetch_devel" ] || can_build_module "$a"; then
-		libretro_fetch "${a%%:*}"
-	fi
+	libretro_fetch "${a%%:*}"
 done

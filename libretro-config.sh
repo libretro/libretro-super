@@ -75,7 +75,7 @@ case "$platform" in
 					ARM=true
 					export FORMAT_COMPILER_TARGET=armv
 					export RARCHCFLAGS="$RARCHCFLAGS -marm"
-					case "${ARCH}" in
+					case "$ARCH" in
 						armv5tel) ARMV5=true ;;
 						armv6l)	ARMV6=true ;;
 						armv7l)	ARMV7=true ;;
@@ -103,7 +103,14 @@ case "$platform" in
 					platform=osx
 					FORMAT_EXT="dylib"
 					FORMAT_COMPILER_TARGET="osx"
-					DIST_DIR="osx"
+					case "$ARCH" in
+						x86_64|i386|ppc*)
+							DIST_DIR="osx-$ARCH"
+							;;
+						*)
+							DIST_DIR="osx-unknown"
+							;;
+					esac
 					;;
 				win|*mingw32*|*MINGW32*|*MSYS_NT*)
 					platform=win
@@ -171,8 +178,11 @@ case "$platform" in
 		config_log_build_host
 
 		if [ -z "$JOBS" ]; then
+			# nproc is generally Linux-specific.
 			if command -v nproc >/dev/null; then
 				JOBS="$(nproc)"
+			elif [ "$pltaform" = "osx" ] && command -v sysctl >/dev/null; then
+				JOBS="$(sysctl -n hw.physicalcpu)"
 			else
 				JOBS=1
 			fi
