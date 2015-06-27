@@ -1194,6 +1194,7 @@ if [ "${PLATFORM}" = "MINGW64" ] || [ "${PLATFORM}" = "MINGW32" ] && [ "${RA}" =
 			mkdir -p windows/database
 			mkdir -p windows/database/cursors
 			mkdir -p windows/database/rdb
+			mkdir -p windows/playlists
 
 cat << EOF > windows/retroarch.cfg
 assets_directory = ":\assets"
