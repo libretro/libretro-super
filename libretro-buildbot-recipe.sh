@@ -226,6 +226,7 @@ build_libretro_generic_makefile() {
 			echo "$1 running retrolink [$jobid]"
 			$WORK/retrolink.sh ${NAME}_libretro${FORMAT}${SUFFIX}.${FORMAT_EXT}
 		fi
+		      strip -s ${NAME}_libretro${FORMAT}${SUFFIX}.${FORMAT_EXT}
                       cp -v ${NAME}_libretro${FORMAT}${SUFFIX}.${FORMAT_EXT} $RARCH_DIST_DIR/${DIST}/${NAME}_libretro${FORMAT}${SUFFIX}.${FORMAT_EXT}  &> /tmp/buildbot.log
 	else
                 ERROR=`cat /tmp/buildbot.log | tail -n 500`
@@ -1171,6 +1172,7 @@ if [ "${PLATFORM}" = "MINGW64" ] || [ "${PLATFORM}" = "MINGW32" ] && [ "${RA}" =
 		echo "building..."
 		echo "build command: $MAKE -j${JOBS}"
 		$MAKE -j${JOBS} &> /tmp/buildbot.log
+		strip -s retroarch.exe
 
 		if [ $? -eq 0 ]; then
 			MESSAGE="retroarch build successful [$jobid]"
@@ -1242,10 +1244,10 @@ EOF
 		else
                 ERROR=`cat /tmp/buildbot.log | tail -n 500`
                 HASTE=`curl -XPOST http://hastebin.com/documents -d"$ERROR" | cut --fields=4 --delimiter='"'`
-		        MESSAGE="retroarch build failed [$jobid] LOG: http://hastebin.com/$HASTE"
-			echo $MESSAGE
-			buildbot_log "$MESSAGE"
-		fi
+		MESSAGE="retroarch build failed [$jobid] LOG: http://hastebin.com/$HASTE"
+		echo $MESSAGE
+		buildbot_log "$MESSAGE"
+	   fi
 	fi
 fi
 
