@@ -26,10 +26,6 @@ case "$platform" in
 		FORMAT_COMPILER_TARGET=ios
 		FORMAT_COMPILER_TARGET_ALT=ios
 		export IOSSDK=$(xcodebuild -version -sdk iphoneos Path)
-		iosver=$(xcodebuild -version -sdk iphoneos ProductVersion)
-		IOSVER_MAJOR=${iosver%.*}
-		IOSVER_MINOR=${iosver#*.}
-		IOSVER=${IOSVER_MAJOR}${IOSVER_MINOR}
 		MIN_IOS5="-miphoneos-version-min=5.0"
 		MIN_IOS7="-miphoneos-version-min=7.0"
 
