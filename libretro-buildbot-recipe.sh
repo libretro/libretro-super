@@ -226,7 +226,9 @@ build_libretro_generic_makefile() {
 			echo "$1 running retrolink [$jobid]"
 			$WORK/retrolink.sh ${NAME}_libretro${FORMAT}${SUFFIX}.${FORMAT_EXT}
 		fi
-		      strip -s ${NAME}_libretro${FORMAT}${SUFFIX}.${FORMAT_EXT}
+          	      if [ "${PLATFORM}" = "windows" ]; then
+                         strip -s ${NAME}_libretro${FORMAT}${SUFFIX}.${FORMAT_EXT}
+                      fi
                       cp -v ${NAME}_libretro${FORMAT}${SUFFIX}.${FORMAT_EXT} $RARCH_DIST_DIR/${DIST}/${NAME}_libretro${FORMAT}${SUFFIX}.${FORMAT_EXT}  &> /tmp/buildbot.log
 	else
                 ERROR=`cat /tmp/buildbot.log | tail -n 500`
