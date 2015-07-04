@@ -1,4 +1,4 @@
-display_name = "Arcade (FB Alpha - old port)"
+display_name = "Arcade (FB Alpha)"
 authors = "Team FB Alpha"
 supported_extensions = "iso|zip"
 corename = "Final Burn Alpha"
