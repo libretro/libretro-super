@@ -257,13 +257,9 @@ build_libretro_leiradel_makefile() {
 	cd $SUBDIR
 	OLDJ=$JOBS
 
-	if [ "${NAME}" = "mame078" ]; then
-		JOBS=1
-	fi
-
 	if [ -z "${NOCLEAN}" ]; then
 		echo "cleaning up..."
-		echo "cleanup command: ${MAKE}.${ARGS} -f ${MAKEFILE} platform=${PLATFORM} -j${JOBS} ${ARGS} clean"
+		echo "cleanup command: ${MAKE} -f ${MAKEFILE}.${ARGS} platform=${PLATFORM} -j${JOBS} ${ARGS} clean"
 		${MAKE} -f ${MAKEFILE}.${ARGS} platform=${PLATFORM} -j${JOBS} clean
 		if [ $? -eq 0 ]; then
 			echo BUILDBOT JOB: $jobid $1 cleanup success!
@@ -273,7 +269,7 @@ build_libretro_leiradel_makefile() {
 	fi
 
 	echo "compiling..."
-		echo "build command: ${MAKE}.${ARGS} -f ${MAKEFILE} platform=${PLATFORM} -j${JOBS}"
+		echo "build command: ${MAKE} -f ${MAKEFILE}.${ARGS} platform=${PLATFORM} -j${JOBS}"
 		${MAKE} -f ${MAKEFILE}.${ARGS} platform=${PLATFORM} -j${JOBS} &> /tmp/buildbot.log
 
 	if [ $? -eq 0 ]; then
