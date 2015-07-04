@@ -278,7 +278,12 @@ build_libretro_leiradel_makefile() {
 
 	if [ $? -eq 0 ]; then
 		MESSAGE="$1 build successful [$jobid]"
-                cp -v ${NAME}_libretro${FORMAT}.${ARGS}.${FORMAT_EXT} $RARCH_DIST_DIR/${DIST}/${ARGS}/${NAME}_libretro${SUFFIX}${FORMAT}.${FORMAT_EXT}  &>> /tmp/buildbot.log
+                if [ "${PLATFORM}" = "android" ]; then
+                   cp -v ${NAME}_libretro${FORMAT}.${ARGS}.${FORMAT_EXT} $RARCH_DIST_DIR/${DIST}/${ARGS}/${NAME}_libretro${SUFFIX}${FORMAT}.${FORMAT_EXT}  &>> /tmp/buildbot.log
+                else
+                   cp -v ${NAME}_libretro${FORMAT}.${ARGS}.${FORMAT_EXT} $RARCH_DIST_DIR/${DIST}/${NAME}_libretro${SUFFIX}${FORMAT}.${FORMAT_EXT}  &>> /tmp/buildbot.log
+
+                fi
 	else
                 ERROR=`cat /tmp/buildbot.log | tail -n 300`
                 HASTE=`curl -XPOST http://hastebin.com/documents -d"$ERROR" | cut --fields=4 --delimiter='"'`
