@@ -870,6 +870,7 @@ if [ "${PLATFORM}" = "android" ] && [ "${RA}" = "YES" ]; then
                 mkdir -p android/phoenix/assets/cheats
                 mkdir -p android/phoenix/assets/playlists
                 mkdir -p android/phoenix/assets/dowloads
+                mkdir -p android/phoenix/assets/remaps
 
 
 
@@ -1521,11 +1522,12 @@ if [ "${PLATFORM}" == "wii" ] && [ "${RA}" == "YES" ]; then
 		mkdir -p wii/pkg/
 		mkdir -p wii/pkg/overlays
 		mkdir -p wii/pkg/cheats
+		mkdir -p wii/pkg/remaps
 #		mkdir -p wii/pkg/database
 #		mkdir -p wii/pkg/database/cursors
 #		mkdir -p wii/pkg/database/rdb
 
-		cp -Rfv media/libretrodb/cht/* wii/pkg/cheats
+#		cp -Rfv media/libretrodb/cht/* wii/pkg/cheats
 #		cp -Rfv media/libretrodb/rdb/* wii/pkg/database/rdb
 #		cp -Rfv media/libretrodb/cursors/* wii/pkg/database/cursors
 		cp -Rfv media/overlays/wii/* wii/pkg/overlays
@@ -1670,11 +1672,12 @@ then
 			cp retroarch.cfg retroarch.default.cfg
 			mkdir -p ngc/pkg/
 			mkdir -p ngc/pkg/cheats
+			mkdir -p ngc/pkg/remaps
 #			mkdir -p ngc/pkg/database
 #			mkdir -p ngc/pkg/database/cursors
 #			mkdir -p ngc/pkg/database/rdb
 			mkdir -p ngc/pkg/overlays
-			cp -Rfv media/libretrodb/cht/* ngc/pkg/cheats
+#			cp -Rfv media/libretrodb/cht/* ngc/pkg/cheats
 #			cp -Rfv media/libretrodb/rdb/* ngc/pkg/database/rdb
 #			cp -Rfv media/libretrodb/cursors/* ngc/pkg/database/cursors
                         cp -Rfv media/overlays/wii/* ngc/pkg/overlays
