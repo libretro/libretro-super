@@ -1209,6 +1209,7 @@ if [ "${PLATFORM}" = "MINGW64" ] || [ "${PLATFORM}" = "MINGW32" ] && [ "${RA}" =
 			mkdir -p windows/playlists
                         mkdir -p windows/content
                         mkdir -p windows/downloads
+                        mkdir -p windows/info
 
 cat << EOF > windows/retroarch.cfg
 dpi_override_value = "160"
@@ -1252,7 +1253,7 @@ EOF
 			cp -Rfv media/libretrodb/cht/* windows/cheats
 			cp -Rfv media/libretrodb/rdb/* windows/database/rdb
 			cp -Rfv media/libretrodb/cursors/* windows/database/cursors
-			cp -Rfv $RARCH_DIR/info windows/cores
+			cp -Rfv $RARCH_DIR/info windows/info
 			cp -Rfv audio/audio_filters/*.dll windows/filters/audio
 			cp -Rfv audio/audio_filters/*.dsp windows/filters/audio
 			cp -Rfv gfx/video_filters/*.dll windows/filters/video
