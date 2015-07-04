@@ -1,2 +1,1 @@
-gw libretro-gw https://github.com/libretro/gw-libretro.git PROJECT YES GENERIC Makefile.mingw32 build 
-
+gw libretro-gw https://github.com/libretro/gw-libretro.git PROJECT YES LEIRADEL Makefile build mingw64

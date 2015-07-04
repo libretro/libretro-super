@@ -1,8 +1,8 @@
 desmume libretro-desmume https://github.com/libretro/desmume.git PROJECT YES GENERIC Makefile.libretro desmume
 dosbox libretro-dosbox https://github.com/libretro/dosbox-libretro.git PROJECT YES GENERIC Makefile.libretro .
-mame libretro-mame https://github.com/libretro/mame.git PROJECT YES GENERIC Makefile.libretro . TARGET=mame PTR64=0
-mess libretro-mame https://github.com/libretro/mame.git PROJECT YES GENERIC Makefile.libretro . TARGET=mess PTR64=0 PARTIAL=1
-ume libretro-mame https://github.com/libretro/mame.git PROJECT YES GENERIC Makefile.libretro . TARGET=ume PTR64=0 PARTIAL=1
+mame libretro-mame https://github.com/libretro/mame.git PROJECT NO GENERIC Makefile.libretro . TARGET=mame PTR64=0
+mess libretro-mame https://github.com/libretro/mame.git PROJECT NO GENERIC Makefile.libretro . TARGET=mess PTR64=0 PARTIAL=1
+ume libretro-mame https://github.com/libretro/mame.git PROJECT NO GENERIC Makefile.libretro . TARGET=ume PTR64=0 PARTIAL=1
 mednafen_gba libretro-mednafen_gba https://github.com/libretro/beetle-gba-libretro.git PROJECT YES GENERIC Makefile .
 mednafen_lynx libretro-mednafen_lynx https://github.com/libretro/beetle-lynx-libretro.git PROJECT YES GENERIC Makefile .
 mednafen_ngp libretro-mednafen_ngp https://github.com/libretro/beetle-ngp-libretro.git PROJECT YES GENERIC Makefile .
