@@ -278,7 +278,7 @@ build_libretro_leiradel_makefile() {
 
 	if [ $? -eq 0 ]; then
 		MESSAGE="$1 build successful [$jobid]"
-                cp -v ${NAME}_libretro${FORMAT}.${ARGS}.${FORMAT_EXT} $RARCH_DIST_DIR/${DIST}/${ARGS}/${NAME}_libretro${FORMAT}.${FORMAT_EXT}  &>> /tmp/buildbot.log
+                cp -v ${NAME}_libretro${FORMAT}.${ARGS}.${FORMAT_EXT} $RARCH_DIST_DIR/${DIST}/${ARGS}/${NAME}_libretro${SUFFIX}${FORMAT}.${FORMAT_EXT}  &>> /tmp/buildbot.log
 	else
                 ERROR=`cat /tmp/buildbot.log | tail -n 300`
                 HASTE=`curl -XPOST http://hastebin.com/documents -d"$ERROR" | cut --fields=4 --delimiter='"'`
@@ -867,6 +867,8 @@ if [ "${PLATFORM}" = "android" ] && [ "${RA}" = "YES" ]; then
                 mkdir -p android/phoenix/assets/database
                 mkdir -p android/phoenix/assets/autoconfig
                 mkdir -p android/phoenix/assets/cheats
+                mkdir -p android/phoenix/assets/playlists
+
 
 
 		cp -rfv media/assets/* android/phoenix/assets/assets/
@@ -877,7 +879,8 @@ if [ "${PLATFORM}" = "android" ] && [ "${RA}" = "YES" ]; then
 		cp -rfv media/overlays/* android/phoenix/assets/overlays/
 		cp -rfv media/shaders_glsl/* android/phoenix/assets/shaders_glsl/
 		cp -rfv media/shaders_glsl /tmp/
-                touch  android/phoenix/assets/cheats/cheatshere.txt
+                touch  android/phoenix/assets/cheats/placeholder
+                touch  android/phoenix/assets/cheats/placeholder
 
 		cp -rfv $RARCH_DIR/info/* android/phoenix/assets/info/
 
