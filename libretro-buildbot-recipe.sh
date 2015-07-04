@@ -869,6 +869,7 @@ if [ "${PLATFORM}" = "android" ] && [ "${RA}" = "YES" ]; then
                 mkdir -p android/phoenix/assets/autoconfig
                 mkdir -p android/phoenix/assets/cheats
                 mkdir -p android/phoenix/assets/playlists
+                mkdir -p android/phoenix/assets/dowloads
 
 
 
@@ -1206,25 +1207,29 @@ if [ "${PLATFORM}" = "MINGW64" ] || [ "${PLATFORM}" = "MINGW32" ] && [ "${RA}" =
 			mkdir -p windows/database/cursors
 			mkdir -p windows/database/rdb
 			mkdir -p windows/playlists
+                        mkdir -p windows/content
+                        mkdir -p windows/downloads
 
 cat << EOF > windows/retroarch.cfg
+dpi_override_value = "160"
+menu_driver = "xmb"
 assets_directory = ":\assets"
 audio_filter_dir = ":\filters\audio"
 cheat_database_path = ":\cheats"
 config_save_on_exit = "true"
-content_database_directory = ":\database\rdb"
+content_database_path = ":\database\rdb"
 cursor_directory = ":\database\cursors"
 input_joypad_driver = "winxinput"
 input_osk_overlay_enable = "false"
 input_remapping_directory = ":\config"
 joypad_autoconfig_dir = ":\autoconfig"
 libretro_directory = ":\cores"
+libretro_directory = ":\cores"
 load_dummy_on_core_shutdown = "false"
 menu_collapse_subgroups_enable = "true"
 osk_overlay_directory = ":\overlays"
 overlay_directory = ":\overlays"
 playlist_directory = ":\playlists"
-rgui_browser_directory = ":\content"
 rgui_config_directory = ":\config"
 savefile_directory = ":\saves"
 savestate_directory = ":\states"
@@ -1233,6 +1238,8 @@ system_directory = ":\system"
 video_driver = "gl"
 video_filter_dir = ":\filters\video"
 video_shader_dir = ":\shaders"
+core_assets_directory = ":\downloads"
+libretro_info_path = ":\info"
 
 EOF
 
@@ -1512,14 +1519,14 @@ if [ "${PLATFORM}" == "wii" ] && [ "${RA}" == "YES" ]; then
 		mkdir -p wii/pkg/
 		mkdir -p wii/pkg/overlays
 		mkdir -p wii/pkg/cheats
-		mkdir -p wii/pkg/database
-		mkdir -p wii/pkg/database/cursors
-		mkdir -p wii/pkg/database/rdb
+#		mkdir -p wii/pkg/database
+#		mkdir -p wii/pkg/database/cursors
+#		mkdir -p wii/pkg/database/rdb
 
 		cp -Rfv media/libretrodb/cht/* wii/pkg/cheats
-		cp -Rfv media/libretrodb/rdb/* wii/pkg/database/rdb
-		cp -Rfv media/libretrodb/cursors/* wii/pkg/database/cursors
-		cp -Rfv media/overlays/* wii/pkg/overlays
+#		cp -Rfv media/libretrodb/rdb/* wii/pkg/database/rdb
+#		cp -Rfv media/libretrodb/cursors/* wii/pkg/database/cursors
+		cp -Rfv media/overlays/wii/* wii/pkg/overlays
 	fi
 fi
 
@@ -1661,14 +1668,14 @@ then
 			cp retroarch.cfg retroarch.default.cfg
 			mkdir -p ngc/pkg/
 			mkdir -p ngc/pkg/cheats
-			mkdir -p ngc/pkg/database
-			mkdir -p ngc/pkg/database/cursors
-			mkdir -p ngc/pkg/database/rdb
+#			mkdir -p ngc/pkg/database
+#			mkdir -p ngc/pkg/database/cursors
+#			mkdir -p ngc/pkg/database/rdb
 			mkdir -p ngc/pkg/overlays
 			cp -Rfv media/libretrodb/cht/* ngc/pkg/cheats
-			cp -Rfv media/libretrodb/rdb/* ngc/pkg/database/rdb
-			cp -Rfv media/libretrodb/cursors/* ngc/pkg/database/cursors
-                        cp -Rfv media/overlays/* ngc/pkg/overlays
+#			cp -Rfv media/libretrodb/rdb/* ngc/pkg/database/rdb
+#			cp -Rfv media/libretrodb/cursors/* ngc/pkg/database/cursors
+                        cp -Rfv media/overlays/wii/* ngc/pkg/overlays
 
 
 
