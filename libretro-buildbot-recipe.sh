@@ -850,7 +850,7 @@ if [ "${PLATFORM}" = "android" ] && [ "${RA}" = "YES" ]; then
                 rm -rfv android/phoenix/assets/info
                 rm -rfv android/phoenix/assets/overlays
                 rm -rfv android/phoenix/assets/libretrodb
-                rm -rfv android/phoenix/assets/shaders_glsl
+                rm -rfv android/phoenix/assets/shaders
                 rm -rfv android/phoenix/assets/autoconfig
 
 
@@ -861,7 +861,7 @@ if [ "${PLATFORM}" = "android" ] && [ "${RA}" = "YES" ]; then
                 mkdir -p android/phoenix/assets/cores
                 mkdir -p android/phoenix/assets/info
                 mkdir -p android/phoenix/assets/overlays
-                mkdir -p android/phoenix/assets/shaders_glsl
+                mkdir -p android/phoenix/assets/shaders/shaders_glsl
                 mkdir -p android/phoenix/assets/libretrodb
                 mkdir -p android/phoenix/assets/autoconfig
 
@@ -872,7 +872,7 @@ if [ "${PLATFORM}" = "android" ] && [ "${RA}" = "YES" ]; then
 		cp -rfv media/libretrodb/rdb android/phoenix/assets/libretrodb/
 		cp -rfv media/libretrodb/cursors android/phoenix/assets/libretrodb/
 		cp -rfv media/overlays/* android/phoenix/assets/overlays/
-		cp -rfv media/shaders_glsl/* android/phoenix/assets/shaders_glsl/
+		cp -rfv media/shaders_glsl/* android/phoenix/assets/shaders/shaders_glsl/
 		cp -rfv media/shaders_glsl /tmp/
 		cp -rfv $RARCH_DIR/info/* android/phoenix/assets/info/
 
@@ -1186,7 +1186,7 @@ if [ "${PLATFORM}" = "MINGW64" ] || [ "${PLATFORM}" = "MINGW32" ] && [ "${RA}" =
 			rm -rfv windows
 			mkdir -p windows
 			mkdir -p windows/overlays
-			mkdir -p windows/shaders
+			mkdir -p windows/shaders/shaders_cg
 			mkdir -p windows/autoconfig
 			mkdir -p windows/filters
 			mkdir -p windows/filters/video
@@ -1230,7 +1230,7 @@ EOF
 			cp -v retroarch.default.cfg windows/
 			cp -v *.exe tools/*.exe windows/
 			cp -Rfv media/overlays/* windows/overlays
-			cp -Rfv media/shaders_cg/* windows/shaders
+			cp -Rfv media/shaders_cg/* windows/shaders/shaders_cg
 			cp -Rfv media/autoconfig/* windows/autoconfig
 			cp -Rfv media/assets/* windows/assets
 			cp -Rfv media/libretrodb/cht/* windows/cheats
