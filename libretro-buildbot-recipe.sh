@@ -869,6 +869,7 @@ if [ "${PLATFORM}" = "android" ] && [ "${RA}" = "YES" ]; then
                 mkdir -p android/phoenix/assets/autoconfig
                 mkdir -p android/phoenix/assets/cheats
                 mkdir -p android/phoenix/assets/playlists
+                mkdir -p android/phoenix/assets/core_assets
 
 
 
@@ -1206,13 +1207,15 @@ if [ "${PLATFORM}" = "MINGW64" ] || [ "${PLATFORM}" = "MINGW32" ] && [ "${RA}" =
 			mkdir -p windows/database/cursors
 			mkdir -p windows/database/rdb
 			mkdir -p windows/playlists
+                        mkdir -p windows/content
+                        mkdir -p windows/downloads
 
 cat << EOF > windows/retroarch.cfg
 assets_directory = ":\assets"
 audio_filter_dir = ":\filters\audio"
 cheat_database_path = ":\cheats"
 config_save_on_exit = "true"
-content_database_directory = ":\database\rdb"
+content_database_path = ":\database\rdb"
 cursor_directory = ":\database\cursors"
 input_joypad_driver = "winxinput"
 input_osk_overlay_enable = "false"
@@ -1224,7 +1227,6 @@ menu_collapse_subgroups_enable = "true"
 osk_overlay_directory = ":\overlays"
 overlay_directory = ":\overlays"
 playlist_directory = ":\playlists"
-rgui_browser_directory = ":\content"
 rgui_config_directory = ":\config"
 savefile_directory = ":\saves"
 savestate_directory = ":\states"
@@ -1233,6 +1235,7 @@ system_directory = ":\system"
 video_driver = "gl"
 video_filter_dir = ":\filters\video"
 video_shader_dir = ":\shaders"
+core_assets_directory = ":\downloads"
 
 EOF
 
