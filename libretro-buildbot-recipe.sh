@@ -1210,6 +1210,7 @@ if [ "${PLATFORM}" = "MINGW64" ] || [ "${PLATFORM}" = "MINGW32" ] && [ "${RA}" =
                         mkdir -p windows/content
                         mkdir -p windows/downloads
                         mkdir -p windows/info
+                        mkdir -p windows/config/remap
 
 cat << EOF > windows/retroarch.cfg
 dpi_override_value = "160"
@@ -1222,7 +1223,7 @@ content_database_path = ":\database\rdb"
 cursor_directory = ":\database\cursors"
 input_joypad_driver = "winxinput"
 input_osk_overlay_enable = "false"
-input_remapping_directory = ":\config"
+input_remapping_directory = ":\config\remap"
 joypad_autoconfig_dir = ":\autoconfig"
 libretro_directory = ":\cores"
 libretro_directory = ":\cores"
