@@ -1,2 +1,3 @@
-gw libretro-gw https://github.com/libretro/gw-libretro.git PROJECT YES GENERIC Makefile.linux_x86_64 build
+gw libretro-gw https://github.com/libretro/gw-libretro.git PROJECT YES LEIRADEL Makefile build linux_x86_64
+
 
