@@ -226,12 +226,14 @@ build_libretro_generic_makefile() {
 			echo "$1 running retrolink [$jobid]"
 			$WORK/retrolink.sh ${NAME}_libretro${FORMAT}${SUFFIX}.${FORMAT_EXT}
 		fi
-		      strip -s ${NAME}_libretro${FORMAT}${SUFFIX}.${FORMAT_EXT}
+          	      if [ "${PLATFORM}" = "windows" ]; then
+                         strip -s ${NAME}_libretro${FORMAT}${SUFFIX}.${FORMAT_EXT}
+                      fi
                       cp -v ${NAME}_libretro${FORMAT}${SUFFIX}.${FORMAT_EXT} $RARCH_DIST_DIR/${DIST}/${NAME}_libretro${FORMAT}${SUFFIX}.${FORMAT_EXT}  &> /tmp/buildbot.log
 	else
-                ERROR=`cat /tmp/buildbot.log | tail -n 500`
+                ERROR=`cat /tmp/buildbot.log | tail -n 100`
                 HASTE=`curl -XPOST http://hastebin.com/documents -d"$ERROR" | cut --fields=4 --delimiter='"'`
-		        MESSAGE="$1 build failed [$jobid] LOG: http://hastebin.com/$HASTE"
+		MESSAGE="$1 build failed [$jobid] LOG: http://hastebin.com/$HASTE"
 
 
 
@@ -276,9 +278,14 @@ build_libretro_leiradel_makefile() {
 
 	if [ $? -eq 0 ]; then
 		MESSAGE="$1 build successful [$jobid]"
-                cp -v ${NAME}_libretro${FORMAT}.${ARGS}.${FORMAT_EXT} $RARCH_DIST_DIR/${DIST}/${ARGS}/${NAME}_libretro${FORMAT}.${FORMAT_EXT}  &>> /tmp/buildbot.log
+                if [ "${PLATFORM}" = "android" ]; then
+                   cp -v ${NAME}_libretro${FORMAT}.${ARGS}.${FORMAT_EXT} $RARCH_DIST_DIR/${DIST}/${ARGS}/${NAME}_libretro${SUFFIX}${FORMAT}.${FORMAT_EXT}  &>> /tmp/buildbot.log
+                else
+                   cp -v ${NAME}_libretro${FORMAT}.${ARGS}.${FORMAT_EXT} $RARCH_DIST_DIR/${DIST}/${NAME}_libretro${SUFFIX}${FORMAT}.${FORMAT_EXT}  &>> /tmp/buildbot.log
+
+                fi
 	else
-                ERROR=`cat /tmp/buildbot.log | tail -n 500`
+                ERROR=`cat /tmp/buildbot.log | tail -n 100`
                 HASTE=`curl -XPOST http://hastebin.com/documents -d"$ERROR" | cut --fields=4 --delimiter='"'`
 	        MESSAGE="$1 build failed [$jobid] LOG: http://hastebin.com/$HASTE"
 
@@ -328,7 +335,7 @@ build_libretro_generic_theos() {
 		MESSAGE="$1 build successful [$jobid]"
 		cp -v objs/obj/${NAME}_libretro${FORMAT}${SUFFIX}.${FORMAT_EXT} $RARCH_DIST_DIR/${NAME}_libretro${FORMAT}${SUFFIX}.${FORMAT_EXT}
 	else
-                ERROR=`cat /tmp/buildbot.log | tail -n 500`
+                ERROR=`cat /tmp/buildbot.log | tail -n 100`
                 HASTE=`curl -XPOST http://hastebin.com/documents -d"$ERROR" | cut --fields=4 --delimiter='"'`
 		        MESSAGE="$1 build failed [$jobid] LOG: http://hastebin.com/$HASTE"
 	fi
@@ -374,7 +381,7 @@ build_libretro_generic_jni() {
 			buildbot_log "$MESSAGE"
 			cp -v ../libs/${a}/libretro.${FORMAT_EXT} $RARCH_DIST_DIR/${a}/${1}_libretro${FORMAT}${SUFFIX}.${FORMAT_EXT}
 		else
-                ERROR=`cat /tmp/buildbot.log | tail -n 500`
+                ERROR=`cat /tmp/buildbot.log | tail -n 100`
                 HASTE=`curl -XPOST http://hastebin.com/documents -d"$ERROR" | cut --fields=4 --delimiter='"'`
 		        MESSAGE="$1-$a build failed [$jobid] LOG: http://hastebin.com/$HASTE"
 			echo BUILDBOT JOB: $MESSAGE
@@ -421,7 +428,7 @@ build_libretro_bsnes_jni() {
 			MESSAGE="$1 build successful [$jobid]"
 			cp -v ../libs/${a}/libretro_${CORENAME}_${PROFILE}.${FORMAT_EXT} $RARCH_DIST_DIR/${a}/${NAME}_${PROFILE}_libretro${FORMAT}${SUFFIX}.${FORMAT_EXT}
 		else
-                ERROR=`cat /tmp/buildbot.log | tail -n 500`
+                ERROR=`cat /tmp/buildbot.log | tail -n 100`
                 HASTE=`curl -XPOST http://hastebin.com/documents -d"$ERROR" | cut --fields=4 --delimiter='"'`
 		        MESSAGE="$1 build failed [$jobid] LOG: http://hastebin.com/$HASTE"
 		fi
@@ -469,7 +476,7 @@ build_libretro_generic_gl_makefile() {
 		MESSAGE="$1 build successful [$jobid]"
 		cp -v ${NAME}_libretro${FORMAT}${SUFFIX}.${FORMAT_EXT} $RARCH_DIST_DIR/${NAME}_libretro${FORMAT}${SUFFIX}.${FORMAT_EXT}
 	else
-                ERROR=`cat /tmp/buildbot.log | tail -n 500`
+                ERROR=`cat /tmp/buildbot.log | tail -n 100`
                 HASTE=`curl -XPOST http://hastebin.com/documents -d"$ERROR" | cut --fields=4 --delimiter='"'`
 		        MESSAGE="$1 build failed [$jobid] LOG: http://hastebin.com/$HASTE"
 	fi
@@ -530,7 +537,7 @@ build_libretro_bsnes() {
 			cp -fv "out/${NAME}_${PROFILE}_libretro${FORMAT}.${FORMAT_EXT}" $RARCH_DIST_DIR/${NAME}_${PROFILE}_libretro${FORMAT}${SUFFIX}.${FORMAT_EXT}
 		fi
 	else
-                ERROR=`cat /tmp/buildbot.log | tail -n 500`
+                ERROR=`cat /tmp/buildbot.log | tail -n 100`
                 HASTE=`curl -XPOST http://hastebin.com/documents -d"$ERROR" | cut --fields=4 --delimiter='"'`
 		        MESSAGE="$1 build failed [$jobid] LOG: http://hastebin.com/$HASTE"
 	fi
@@ -756,7 +763,7 @@ if [ "${PLATFORM}" = "android" ] && [ "${RA}" = "YES" ]; then
 
 		if [ "${ENABLED}" = "YES" ]; then
 			echo "BUILDBOT JOB: $jobid Processing $NAME"
-			echo 
+			echo
 			echo NAME: $NAME
 			echo DIR: $DIR
 			echo PARENT: $PARENTDIR
@@ -861,19 +868,25 @@ if [ "${PLATFORM}" = "android" ] && [ "${RA}" = "YES" ]; then
                 mkdir -p android/phoenix/assets/cores
                 mkdir -p android/phoenix/assets/info
                 mkdir -p android/phoenix/assets/overlays
-                mkdir -p android/phoenix/assets/shaders/shaders_glsl
-                mkdir -p android/phoenix/assets/libretrodb
+                mkdir -p android/phoenix/assets/shaders_glsl
+                mkdir -p android/phoenix/assets/database
                 mkdir -p android/phoenix/assets/autoconfig
+                mkdir -p android/phoenix/assets/cheats
+                mkdir -p android/phoenix/assets/playlists
+
 
 
 		cp -rfv media/assets/* android/phoenix/assets/assets/
 		cp -rfv media/autoconfig/* android/phoenix/assets/autoconfig/
 		#cp -rfv media/libretrodb/cht android/phoenix/assets/libretrodb/
-		cp -rfv media/libretrodb/rdb android/phoenix/assets/libretrodb/
-		cp -rfv media/libretrodb/cursors android/phoenix/assets/libretrodb/
+		cp -rfv media/libretrodb/rdb android/phoenix/assets/database/
+		cp -rfv media/libretrodb/cursors android/phoenix/assets/database/
 		cp -rfv media/overlays/* android/phoenix/assets/overlays/
 		cp -rfv media/shaders_glsl/* android/phoenix/assets/shaders/shaders_glsl/
 		cp -rfv media/shaders_glsl /tmp/
+                touch  android/phoenix/assets/cheats/placeholder
+                touch  android/phoenix/assets/cheats/placeholder
+
 		cp -rfv $RARCH_DIR/info/* android/phoenix/assets/info/
 
 		echo "BUILDBOT JOB: $jobid Building"
@@ -892,7 +905,7 @@ if [ "${PLATFORM}" = "android" ] && [ "${RA}" = "YES" ]; then
 			MESSAGE="retroarch build successful [$jobid]"
 			echo $MESSAGE
 		else
-                ERROR=`cat /tmp/buildbot.log | tail -n 1000`
+                ERROR=`cat /tmp/buildbot.log | tail -n 100`
                 HASTE=`curl -XPOST http://hastebin.com/documents -d"$ERROR" | cut --fields=4 --delimiter='"'`
 		        MESSAGE="retroarch build failed [$jobid] LOG: http://hastebin.com/$HASTE"
 			echo $MESSAGE
@@ -1242,7 +1255,7 @@ EOF
 			cp -Rfv gfx/video_filters/*.dll windows/filters/video
 			cp -Rfv gfx/video_filters/*.filt windows/filters/video
 		else
-                ERROR=`cat /tmp/buildbot.log | tail -n 500`
+                ERROR=`cat /tmp/buildbot.log | tail -n 100`
                 HASTE=`curl -XPOST http://hastebin.com/documents -d"$ERROR" | cut --fields=4 --delimiter='"'`
 		MESSAGE="retroarch build failed [$jobid] LOG: http://hastebin.com/$HASTE"
 		echo $MESSAGE
@@ -1356,7 +1369,7 @@ if [ "${PLATFORM}" = "psp1" ] && [ "${RA}" = "YES" ]; then
 				MESSAGE="retroarch build successful [$jobid]"
 				echo $MESSAGE
 			else
-                ERROR=`cat /tmp/buildbot.log | tail -n 500`
+                ERROR=`cat /tmp/buildbot.log | tail -n 100`
                 HASTE=`curl -XPOST http://hastebin.com/documents -d"$ERROR" | cut --fields=4 --delimiter='"'`
 		        MESSAGE="retroarch build failed [$jobid] LOG: http://hastebin.com/$HASTE"
 				echo $MESSAGE
@@ -1487,7 +1500,7 @@ if [ "${PLATFORM}" == "wii" ] && [ "${RA}" == "YES" ]; then
 				MESSAGE="retroarch build successful [$jobid]"
 				echo $MESSAGE
 			else
-                ERROR=`cat /tmp/buildbot.log | tail -n 500`
+                ERROR=`cat /tmp/buildbot.log | tail -n 100`
                 HASTE=`curl -XPOST http://hastebin.com/documents -d"$ERROR" | cut --fields=4 --delimiter='"'`
 		        MESSAGE="retroarch build failed [$jobid] LOG: http://hastebin.com/$HASTE"
 				echo $MESSAGE
@@ -1637,7 +1650,7 @@ then
             MESSAGE="retroarch build successful [$jobid]"
             echo $MESSAGE
 	    else
-                ERROR=`cat /tmp/buildbot.log | tail -n 500`
+                ERROR=`cat /tmp/buildbot.log | tail -n 100`
                 HASTE=`curl -XPOST http://hastebin.com/documents -d"$ERROR" | cut --fields=4 --delimiter='"'`
 		        MESSAGE="retroarch build failed [$jobid] LOG: http://hastebin.com/$HASTE"
             echo $MESSAGE
