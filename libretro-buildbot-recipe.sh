@@ -1211,6 +1211,8 @@ if [ "${PLATFORM}" = "MINGW64" ] || [ "${PLATFORM}" = "MINGW32" ] && [ "${RA}" =
                         mkdir -p windows/downloads
 
 cat << EOF > windows/retroarch.cfg
+dpi_override_value = "160"
+menu_driver = "xmb"
 assets_directory = ":\assets"
 audio_filter_dir = ":\filters\audio"
 cheat_database_path = ":\cheats"
@@ -1221,6 +1223,7 @@ input_joypad_driver = "winxinput"
 input_osk_overlay_enable = "false"
 input_remapping_directory = ":\config"
 joypad_autoconfig_dir = ":\autoconfig"
+libretro_directory = ":\cores"
 libretro_directory = ":\cores"
 load_dummy_on_core_shutdown = "false"
 menu_collapse_subgroups_enable = "true"
@@ -1236,6 +1239,7 @@ video_driver = "gl"
 video_filter_dir = ":\filters\video"
 video_shader_dir = ":\shaders"
 core_assets_directory = ":\downloads"
+libretro_info_path = ":\info"
 
 EOF
 
