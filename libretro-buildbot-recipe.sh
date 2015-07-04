@@ -869,7 +869,7 @@ if [ "${PLATFORM}" = "android" ] && [ "${RA}" = "YES" ]; then
                 mkdir -p android/phoenix/assets/autoconfig
                 mkdir -p android/phoenix/assets/cheats
                 mkdir -p android/phoenix/assets/playlists
-                mkdir -p android/phoenix/assets/core_assets
+                mkdir -p android/phoenix/assets/dowloads
 
 
 
