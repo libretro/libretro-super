@@ -871,6 +871,7 @@ if [ "${PLATFORM}" = "android" ] && [ "${RA}" = "YES" ]; then
                 mkdir -p android/phoenix/assets/playlists
                 mkdir -p android/phoenix/assets/dowloads
                 mkdir -p android/phoenix/assets/remaps
+                mkdir -p android/phoenix/assets/system
 
 
 
@@ -1213,6 +1214,7 @@ if [ "${PLATFORM}" = "MINGW64" ] || [ "${PLATFORM}" = "MINGW32" ] && [ "${RA}" =
                         mkdir -p windows/info
                         mkdir -p windows/cores
                         mkdir -p windows/config/remap
+                        mkdir -p windows/system
 
 cat << EOF > windows/retroarch.cfg
 dpi_override_value = "160"
