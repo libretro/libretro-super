@@ -874,7 +874,7 @@ if [ "${PLATFORM}" = "android" ] && [ "${RA}" = "YES" ]; then
 
 
 
-		cp -rfv media/assets/* android/phoenix/assets/assets/
+		cp -rfv media/assets/xmb android/phoenix/assets/assets/
 		cp -rfv media/autoconfig/* android/phoenix/assets/autoconfig/
 		#cp -rfv media/libretrodb/cht android/phoenix/assets/libretrodb/
 		cp -rfv media/libretrodb/rdb android/phoenix/assets/database/
@@ -895,7 +895,7 @@ if [ "${PLATFORM}" = "android" ] && [ "${RA}" = "YES" ]; then
 		$NDK clean &> /tmp/buildbot.log
 		$NDK -j${JOBS} &>> /tmp/buildbot.log
 		ant clean &>> /tmp/buildbot.log
-		android update project --path . --target android-21 &>> /tmp/buildbot.log
+		android update project --path . --target android-22 &>> /tmp/buildbot.log
 		android update project --path libs/googleplay --target android-21 &>> /tmp/buildbot.log
 		android update project --path libs/appcompat --target android-21 &>> /tmp/buildbot.log
 		ant debug &>> /tmp/buildbot.log
@@ -1211,6 +1211,7 @@ if [ "${PLATFORM}" = "MINGW64" ] || [ "${PLATFORM}" = "MINGW32" ] && [ "${RA}" =
                         mkdir -p windows/content
                         mkdir -p windows/downloads
                         mkdir -p windows/info
+                        mkdir -p windows/cores
                         mkdir -p windows/config/remap
 
 cat << EOF > windows/retroarch.cfg
