@@ -876,7 +876,7 @@ if [ "${PLATFORM}" = "android" ] && [ "${RA}" = "YES" ]; then
 
 
 		cp -rfv media/assets/xmb android/phoenix/assets/assets/
-		cp -rfv media/autoconfig/android/* android/phoenix/assets/autoconfig/
+		cp -rfv media/autoconfig/* android/phoenix/assets/autoconfig/
 		#cp -rfv media/libretrodb/cht android/phoenix/assets/libretrodb/
 		cp -rfv media/libretrodb/rdb android/phoenix/assets/database/
 		cp -rfv media/libretrodb/cursors android/phoenix/assets/database/
