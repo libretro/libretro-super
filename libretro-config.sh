@@ -40,9 +40,20 @@ case "$platform" in
 		FORMAT_EXT=a
 		FORMAT_COMPILER_TARGET=ps3
 		FORMAT_COMPILER_TARGET_ALT=sncps3
+		FORMAT=_ps3
 
 		CC="ppu-lv2-gcc.exe"
 		CXX="ppu-lv2-g++.exe"
+		;;
+
+	sncps3)
+		DIST_DIR="ps3"
+		FORMAT_EXT=a
+		FORMAT_COMPILER_TARGET=sncps3
+		FORMAT=_ps3
+
+		CC="$CELL_SDK/host-win32/sn/bin/ps3ppusnc.exe"
+		CXX="$CELL_SDK/host-win32/sn/bin/ps3ppusnc.exe"
 		;;
 
 	theos_ios)

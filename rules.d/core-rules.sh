@@ -1,6 +1,6 @@
 # vim: set ts=3 sw=3 noet ft=sh : bash
 
-register_module core "bsnes" -theos_ios -ngc -ps3 -psp1 -qnx -wii
+register_module core "bsnes" -theos_ios -ngc -sncps3 -ps3 -psp1 -qnx -wii
 libretro_bsnes_name="bsnes/higan"
 libretro_bsnes_git_url="https://github.com/libretro/bsnes-libretro.git"
 libretro_bsnes_build_makefile_targets="profile=\"accuracy\" profile=\"balanced\" profile=\"performance\""
@@ -8,12 +8,12 @@ libretro_bsnes_build_args="compiler=\"${CXX11}\""
 libretro_bsnes_build_products="out"
 libretro_bsnes_build_cores="bsnes_accuracy bsnes_balanced bsnes_performance"
 
-register_module core "snes9x" -ngc -psp1 -wii
+register_module core "snes9x" -ngc -sncps3 -ps3 -psp1 -wii
 libretro_snes9x_name="SNES9x"
 libretro_snes9x_git_url="https://github.com/libretro/snes9x.git"
 libretro_snes9x_build_subdir="libretro"
 
-register_module core "snes9x_next"
+register_module core "snes9x_next" -ps3
 libretro_snes9x_next_name="SNES9x Next"
 libretro_snes9x_next_git_url="https://github.com/libretro/snes9x-next.git"
 libretro_snes9x_next_build_makefile="Makefile.libretro"
@@ -265,7 +265,7 @@ libretro_dinothawr_name="Dinothawr"
 libretro_dinothawr_git_url="https://github.com/libretro/Dinothawr.git"
 libretro_dinothawr_build_platform="$FORMAT_COMPILER_TARGET_ALT"
 
-register_module core "3dengine" -ngc -ps3 -psp1 -wii
+register_module core "3dengine" -ngc -sncps3 -ps3 -psp1 -wii
 libretro_3dengine_name="3DEngine"
 libretro_3dengine_git_url="https://github.com/libretro/libretro-3dengine.git"
 libretro_3dengine_build_opengl=yes
@@ -284,7 +284,7 @@ register_module core "fmsx" -ps3
 libretro_fmsx_name="fMSX"
 libretro_fmsx_git_url="https://github.com/libretro/fmsx-libretro.git"
 
-register_module core "2048" -ngc -ps3 -wii
+register_module core "2048" -ngc -sncps3 -ps3 -wii
 libretro_2048_git_url="https://github.com/libretro/libretro-2048.git"
 libretro_2048_build_makefile="Makefile.libretro"
 
@@ -307,7 +307,7 @@ register_module core "o2em" -ngc -ps3 -wii
 libretro_o2em_name="O2EM"
 libretro_o2em_git_url="https://github.com/libretro/libretro-o2em.git"
 
-register_module core "4do" -ngc -ps3 -psp1 -wii
+register_module core "4do" -ngc -sncps3 -ps3 -psp1 -wii
 libretro_4do_name="4DO"
 libretro_4do_git_url="https://github.com/libretro/4do-libretro.git"
 
@@ -332,23 +332,23 @@ libretro_tempgba_name="TempGBA"
 libretro_tempgba_git_url="https://github.com/libretro/TempGBA-libretro.git"
 libretro_tempgba_build_rule=none # NEED A BUILD RULE
 
-register_module core "gpsp" -ngc -ps3 -psp1 -wii
+register_module core "gpsp" -ngc -sncps3 -ps3 -psp1 -wii
 libretro_gpsp_name="gpSP"
 libretro_gpsp_git_url="https://github.com/libretro/gpsp.git"
 
-register_module core "emux" -theos_ios -ngc -ps3 -psp1 -qnx -wii
+register_module core "emux" -theos_ios -ngc -sncps3 -ps3 -psp1 -qnx -wii
 libretro_emux_name="Emux"
 libretro_emux_git_url="https://github.com/libretro/emux.git"
 libretro_emux_build_subdir=libretro
 libretro_emux_build_cores="emux_chip8 emux_gb emux_nes emux_sms"
 
-register_module core "fuse" -theos_ios -ngc -ps3 -psp1 -qnx -wii
+register_module core "fuse" -theos_ios -ngc -sncps3 -ps3 -psp1 -qnx -wii
 libretro_fuse_name="Fuse"
 libretro_fuse_git_url="https://github.com/libretro/fuse-libretro.git"
 libretro_fuse_build_makefile="Makefile.libretro"
 libretro_fuse_build_platform="$FORMAT_COMPILER_TARGET_ALT"
 
-register_module core "gw" -theos_ios -ngc -ps3 -psp1 -qnx -wii
+register_module core "gw" -theos_ios -ngc -sncps3 -ps3 -psp1 -qnx -wii
 libretro_gw_name="Game & Watch"
 libretro_gw_git_url="https://github.com/libretro/gw-libretro.git"
 libretro_gw_git_submodules="yes"
