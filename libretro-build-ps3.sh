@@ -19,9 +19,7 @@ fi
 if [[ -z "$1" ]]; then
 WANT_CORES=" \
 	fb_alpha \
-	snes9x_next \
 	fceumm  \
-	gambatte \
 	genesis_plus_gx \
 	handy \
 	mame078 \
@@ -35,15 +33,11 @@ WANT_CORES=" \
 	mednafen_vb \
 	nestopia \
 	nxengine \
-	prboom \
 	quicknes \
-	snes9x_next \
 	stella \
-	tyrquake \
-	vba_next"
+	tyrquake"
 else
 WANT_CORES="$@"
 fi
 
-platform=ps3 ${BASE_DIR}/libretro-build.sh $WANT_CORES
-	
+platform=ps3 ${BASE_DIR}/libretro-build.sh ${WANT_CORES}
