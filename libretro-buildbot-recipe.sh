@@ -853,7 +853,7 @@ if [ "${PLATFORM}" = "android" ] && [ "${RA}" = "YES" ]; then
                 rm -rfv android/phoenix/assets/info
                 rm -rfv android/phoenix/assets/overlays
                 rm -rfv android/phoenix/assets/libretrodb
-                rm -rfv android/phoenix/assets/shaders
+                rm -rfv android/phoenix/assets/shaders/shaders_glsl
                 rm -rfv android/phoenix/assets/autoconfig
 
 
@@ -864,7 +864,7 @@ if [ "${PLATFORM}" = "android" ] && [ "${RA}" = "YES" ]; then
                 mkdir -p android/phoenix/assets/cores
                 mkdir -p android/phoenix/assets/info
                 mkdir -p android/phoenix/assets/overlays
-                mkdir -p android/phoenix/assets/shaders_glsl
+                mkdir -p android/phoenix/assets/shaders/
                 mkdir -p android/phoenix/assets/database
                 mkdir -p android/phoenix/assets/autoconfig
                 mkdir -p android/phoenix/assets/cheats
@@ -883,7 +883,6 @@ if [ "${PLATFORM}" = "android" ] && [ "${RA}" = "YES" ]; then
 		cp -rfv media/overlays/* android/phoenix/assets/overlays/
 		cp -rfv media/shaders_glsl/* android/phoenix/assets/shaders/shaders_glsl/
 		cp -rfv media/shaders_glsl /tmp/
-                touch  android/phoenix/assets/cheats/placeholder
                 touch  android/phoenix/assets/cheats/placeholder
 
 		cp -rfv $RARCH_DIR/info/* android/phoenix/assets/info/
