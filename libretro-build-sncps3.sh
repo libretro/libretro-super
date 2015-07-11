@@ -16,4 +16,14 @@ fi
 
 # The SNC PS3 build rules have all been moved to libretro-build.sh
 
-platform=sncps3 ${BASE_DIR}/libretro-build.sh $@
+if [[ -z "$1" ]]; then
+WANT_CORES=" \
+	snes9x_next \
+	gambatte \
+	prboom \
+	vba_next"
+else
+WANT_CORES="$@"
+fi
+
+platform=sncps3 ${BASE_DIR}/libretro-build.sh ${WANT_CORES}
