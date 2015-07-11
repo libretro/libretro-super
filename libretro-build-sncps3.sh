@@ -14,6 +14,6 @@ else
 	fi
 fi
 
-# The PS3 build rules have all been moved to libretro-build.sh
+# The SNC PS3 build rules have all been moved to libretro-build.sh
 
-platform=ps3 ${BASE_DIR}/libretro-build.sh $@
+platform=sncps3 ${BASE_DIR}/libretro-build.sh $@
