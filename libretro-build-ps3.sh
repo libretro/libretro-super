@@ -16,4 +16,34 @@ fi
 
 # The PS3 build rules have all been moved to libretro-build.sh
 
-platform=ps3 ${BASE_DIR}/libretro-build.sh $@
+if [[ -z "$1" ]]; then
+WANT_CORES=" \
+	fb_alpha \
+	snes9x_next \
+	fceumm  \
+	gambatte \
+	genesis_plus_gx \
+	handy \
+	mame078 \
+	mednafen_gba \
+	mednafen_lynx \
+	mednafen_ngp \
+	mednafen_pce_fast \
+	mednafen_pcfx \
+	mednafen_psx \
+	mednafen_supergrafx \
+	mednafen_vb \
+	nestopia \
+	nxengine \
+	prboom \
+	quicknes \
+	snes9x_next \
+	stella \
+	tyrquake \
+	vba_next"
+else
+WANT_CORES="$@"
+fi
+
+platform=ps3 ${BASE_DIR}/libretro-build.sh $WANT_CORES
+	
