@@ -35,6 +35,16 @@ case "$platform" in
 		CXX11="clang++ -std=c++11 -stdlib=libc++ -arch armv7 -marm -miphoneos-version-min=5.0 -isysroot $IOSSDK"
 		;;
 
+	ps3)
+		DIST_DIR="ps3"
+		FORMAT_EXT=a
+		FORMAT_COMPILER_TARGET=ps3
+		FORMAT_COMPILER_TARGET_ALT=sncps3
+
+		CC="ppu-lv2-gcc.exe"
+		CXX="ppu-lv2-g++.exe"
+		;;
+
 	theos_ios)
 		DIST_DIR="theos_ios"
 		BUILD_PRODUCT_PREFIX="objs/obj"
@@ -125,6 +135,13 @@ case "$platform" in
 					FORMAT_EXT="a"
 					FORMAT_COMPILER_TARGET="psp1"
 					DIST_DIR="psp1"
+					;;
+				*ps3*)
+					platform=ps3
+					FORMAT_EXT="a"
+					FORMAT_COMPILER_TARGET="ps3"
+					FORMAT_COMPILER_TARGET_ALT="sncps3"
+					DIST_DIR="ps3"
 					;;
 				*wii*)
 					platform=wii

@@ -8,12 +8,12 @@ libretro_bsnes_build_args="compiler=\"${CXX11}\""
 libretro_bsnes_build_products="out"
 libretro_bsnes_build_cores="bsnes_accuracy bsnes_balanced bsnes_performance"
 
-register_module core "snes9x" -ngc -ps3 -psp1 -wii
+register_module core "snes9x" -ngc -psp1 -wii
 libretro_snes9x_name="SNES9x"
 libretro_snes9x_git_url="https://github.com/libretro/snes9x.git"
 libretro_snes9x_build_subdir="libretro"
 
-register_module core "snes9x_next" -ps3
+register_module core "snes9x_next"
 libretro_snes9x_next_name="SNES9x Next"
 libretro_snes9x_next_git_url="https://github.com/libretro/snes9x-next.git"
 libretro_snes9x_next_build_makefile="Makefile.libretro"
