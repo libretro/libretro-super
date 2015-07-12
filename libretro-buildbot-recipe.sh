@@ -864,7 +864,7 @@ if [ "${PLATFORM}" = "android" ] && [ "${RA}" = "YES" ]; then
                 mkdir -p android/phoenix/assets/cores
                 mkdir -p android/phoenix/assets/info
                 mkdir -p android/phoenix/assets/overlays
-                mkdir -p android/phoenix/assets/shaders/
+                mkdir -p android/phoenix/assets/shaders/shaders_glsl/
                 mkdir -p android/phoenix/assets/database
                 mkdir -p android/phoenix/assets/autoconfig
                 mkdir -p android/phoenix/assets/cheats
