@@ -14,44 +14,32 @@ else
 	fi
 fi
 
-RARCH_DIR=$BASE_DIR/dist
-RARCH_DIST_DIR=$RARCH_DIR/wii
-FORMAT=_wii
-FORMAT_COMPILER_TARGET=wii
-FORMAT_COMPILER_TARGET_ALT=wii
-FORMAT_EXT=a
-JOBS=7
-MAKE=make
+# The Wii build rules have all been moved to libretro-build.sh
 
-. "$BASE_DIR/libretro-build-common-gx.sh"
-. "$BASE_DIR/libretro-build-common.sh"
-
-if [ $1 ]; then
-	$1
+if [[ -z "$1" ]]; then
+WANT_CORES=" \
+	bluemsx \
+	fceumm  \
+	fmsx \
+	gambatte \
+	genesis_plus_gx \
+	mednafen_gba \
+	mednafen_lynx \
+	mednafen_ngp \
+	mednafen_pce_fast \
+	mednafen_pcfx \
+	mednafen_supergrafx \
+	mednafen_wswan \
+	mednafen_vb \
+	nestopia \
+	nxengine \
+	quicknes \
+	prboom \
+	snes9x_next \
+	vba_next \
+	tyrquake"
 else
-	libretro_build_core bluemsx
-	libretro_build_core fceumm
-	libretro_build_core fmsx
-	libretro_build_core gambatte
-	libretro_build_core genesis_plus_gx
-	libretro_build_core mednafen_bsnes
-	libretro_build_core mednafen_gba
-	libretro_build_core mednafen_lynx
-	libretro_build_core mednafen_ngp
-	libretro_build_core mednafen_pce_fast
-	libretro_build_core mednafen_pcfx
-	libretro_build_core mednafen_psx
-	libretro_build_core mednafen_supergrafx
-	libretro_build_core mednafen_vb
-	libretro_build_core mednafen_wswan
-	libretro_build_core nestopia
-	libretro_build_core nxengine
-	libretro_build_core prboom
-	libretro_build_core quicknes
-	libretro_build_core snes9x_next
-	libretro_build_core tyrquake
-	libretro_build_core vba_next
-	#libretro_build_core yabause
-
-	build_libretro_fba # not in libretro-build-common!
+WANT_CORES="$@"
 fi
+
+platform=wii ${BASE_DIR}/libretro-build.sh ${WANT_CORES}
