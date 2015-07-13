@@ -807,7 +807,7 @@ if [ "${PLATFORM}" = "android" ] && [ "${RA}" = "YES" ]; then
 				cd $PARENTDIR
 				cd $DIR
 				echo "pulling from repo... "
-				OUT=`git pull`
+#				OUT=`git pull`
 				echo $OUT
 				if [ "${TYPE}" = "PROJECT" ]; then
 					RADIR=$DIR
@@ -842,21 +842,24 @@ if [ "${PLATFORM}" = "android" ] && [ "${RA}" = "YES" ]; then
 
 		echo RADIR $RADIR
 		cd $RADIR
-		$MAKE -f Makefile.griffin shaders-convert-glsl PYTHON3=$PYTHON
+#		$MAKE -f Makefile.griffin shaders-convert-glsl PYTHON3=$PYTHON
 
 		echo "BUILDBOT JOB: $jobid Processing Assets"
 		echo
 
 
                 rm -rfv android/phoenix/assets/assets
-                rm -rfv android/phoenix/assets/core
+                rm -rfv android/phoenix/assets/cores
                 rm -rfv android/phoenix/assets/info
                 rm -rfv android/phoenix/assets/overlays
-                rm -rfv android/phoenix/assets/libretrodb
-                rm -rfv android/phoenix/assets/shaders/shaders_glsl
+                rm -rfv android/phoenix/assets/shaders/shaders_glsl/
+                rm -rfv android/phoenix/assets/database
                 rm -rfv android/phoenix/assets/autoconfig
-
-
+                rm -rfv android/phoenix/assets/cheats
+                rm -rfv android/phoenix/assets/playlists
+                rm -rfv android/phoenix/assets/dowloads
+                rm -rfv android/phoenix/assets/remaps
+                rm -rfv android/phoenix/assets/system
 
                 mkdir -p android/phoenix/assets
                 mkdir -p android/phoenix/assets/
@@ -871,19 +874,22 @@ if [ "${PLATFORM}" = "android" ] && [ "${RA}" = "YES" ]; then
                 mkdir -p android/phoenix/assets/playlists
                 mkdir -p android/phoenix/assets/dowloads
                 mkdir -p android/phoenix/assets/remaps
-                mkdir -p android/phoenix/assets/system
-
+                mkdir -p android/phoenix/assets/saves/
+                mkdir -p android/phoenix/assets/states/
+                mkdir -p android/phoenix/assets/system/
 
 
 		cp -rfv media/assets/xmb android/phoenix/assets/assets/
 		cp -rfv media/autoconfig/* android/phoenix/assets/autoconfig/
-		#cp -rfv media/libretrodb/cht android/phoenix/assets/libretrodb/
 		cp -rfv media/libretrodb/rdb android/phoenix/assets/database/
 		cp -rfv media/libretrodb/cursors android/phoenix/assets/database/
 		cp -rfv media/overlays/* android/phoenix/assets/overlays/
 		cp -rfv media/shaders_glsl/* android/phoenix/assets/shaders/shaders_glsl/
 		cp -rfv media/shaders_glsl /tmp/
-                touch  android/phoenix/assets/cheats/placeholder
+                touch  android/phoenix/assets/cheats/.empty-folder
+                touch  android/phoenix/assets/saves/.empty-folder
+                touch  android/phoenix/assets/states/.empty-folder
+                touch  android/phoenix/assets/system/.empty-folder
 
 		cp -rfv $RARCH_DIR/info/* android/phoenix/assets/info/
 
