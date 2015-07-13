@@ -1220,6 +1220,8 @@ if [ "${PLATFORM}" = "MINGW64" ] || [ "${PLATFORM}" = "MINGW32" ] && [ "${RA}" =
                         mkdir -p windows/cores
                         mkdir -p windows/config/remap
                         mkdir -p windows/system
+                        mkdir -p windows/saves
+                        mkdir -p windows/states
 
 cat << EOF > windows/retroarch.cfg
 dpi_override_value = "160"
@@ -1242,10 +1244,7 @@ osk_overlay_directory = ":\overlays"
 overlay_directory = ":\overlays"
 playlist_directory = ":\playlists"
 rgui_config_directory = ":\config"
-savefile_directory = ":\saves"
-savestate_directory = ":\states"
 screenshot_directory = ":\screenshots"
-system_directory = ":\system"
 video_driver = "gl"
 video_filter_dir = ":\filters\video"
 video_shader_dir = ":\shaders"
