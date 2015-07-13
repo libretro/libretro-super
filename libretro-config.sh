@@ -45,6 +45,16 @@ case "$platform" in
 		CC="ppu-lv2-gcc.exe"
 		CXX="ppu-lv2-g++.exe"
 		;;
+	
+	wii)
+		DIST_DIR="wii"
+		FORMAT_EXT=a
+		FORMAT_COMPILER_TARGET=wii
+		FORMAT=_wii
+
+		CC="$DEVKITPPC/bin/powerpc-eabi-gcc$BINARY_EXT"
+		CXX="$DEVKITPPC/bin/powerpc-eabi-g++$BINARY_EXT"
+		;;
 
 	sncps3)
 		DIST_DIR="ps3"
@@ -113,12 +123,14 @@ case "$platform" in
 				*BSD*)
 					platform=bsd
 					FORMAT_EXT="so"
+					BINARY_EXT=""
 					FORMAT_COMPILER_TARGET="unix"
 					DIST_DIR="bsd"
 					;;
 				osx|*Darwin*)
 					platform=osx
 					FORMAT_EXT="dylib"
+					BINARY_EXT=""
 					FORMAT_COMPILER_TARGET="osx"
 					case "$ARCH" in
 						x86_64|i386|ppc*)
@@ -132,12 +144,14 @@ case "$platform" in
 				win|*mingw32*|*MINGW32*|*MSYS_NT*)
 					platform=win
 					FORMAT_EXT="dll"
+					BINARY_EXT=".exe"
 					FORMAT_COMPILER_TARGET="win"
 					DIST_DIR="win_x86"
 					;;
 				win64|*mingw64*|*MINGW64*)
 					platform=win
 					FORMAT_EXT="dll"
+					BINARY_EXT=".exe"
 					FORMAT_COMPILER_TARGET="win"
 					DIST_DIR="win_x64"
 					;;
@@ -184,6 +198,7 @@ case "$platform" in
 					;;
 				*)
 					FORMAT_EXT="so"
+					BINARY_EXT=""
 					FORMAT_COMPILER_TARGET="unix"
 					DIST_DIR="unix"
 					;;
