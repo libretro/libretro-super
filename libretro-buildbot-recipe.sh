@@ -842,7 +842,7 @@ if [ "${PLATFORM}" = "android" ] && [ "${RA}" = "YES" ]; then
 
 		echo RADIR $RADIR
 		cd $RADIR
-#		$MAKE -f Makefile.griffin shaders-convert-glsl PYTHON3=$PYTHON
+		$MAKE -f Makefile.griffin shaders-convert-glsl PYTHON3=$PYTHON
 
 		echo "BUILDBOT JOB: $jobid Processing Assets"
 		echo
