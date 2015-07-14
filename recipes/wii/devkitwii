@@ -13,10 +13,10 @@ mednafen_vb libretro-mednafen_vb https://github.com/libretro/beetle-vb-libretro.
 mednafen_wswan libretro-mednafen_wswan https://github.com/libretro/beetle-wswan-libretro.git PROJECT YES GENERIC Makefile . 
 nestopia libretro-nestopia https://github.com/libretro/nestopia.git PROJECT YES GENERIC Makefile libretro 
 nxengine libretro-nxengine https://github.com/libretro/nxengine-libretro.git PROJECT YES GENERIC Makefile . 
-prboom libretro-prboom  https://github.com/libretro/libretro-prboom.git PROJECT YES GENERIC_ALT Makefile . 
+prboom libretro-prboom  https://github.com/libretro/libretro-prboom.git PROJECT YES GENERIC Makefile . 
 quicknes libretro-quicknes  https://github.com/libretro/QuickNES_Core.git PROJECT YES GENERIC Makefile libretro 
 snes9x libretro-snes9x https://github.com/libretro/snes9x.git PROJECT YES GENERIC Makefile libretro 
-snes9x_next libretro-snes9x_next https://github.com/libretro/snes9x-next.git PROJECT YES GENERIC_ALT Makefile.libretro . 
+snes9x_next libretro-snes9x_next https://github.com/libretro/snes9x-next.git PROJECT YES GENERIC Makefile.libretro . 
 tyrquake libretro-tyrquake https://github.com/libretro/tyrquake.git PROJECT YES GENERIC Makefile . 
 vba_next libretro-vba_next https://github.com/libretro/vba-next.git PROJECT YES GENERIC Makefile.libretro . 
 imageviewer libretro-imageviewer https://github.com/libretro/imageviewer-libretro.git PROJECT YES GENERIC Makefile.libretro . 
