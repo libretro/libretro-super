@@ -807,7 +807,7 @@ if [ "${PLATFORM}" = "android" ] && [ "${RA}" = "YES" ]; then
 				cd $PARENTDIR
 				cd $DIR
 				echo "pulling from repo... "
-#				OUT=`git pull`
+				OUT=`git pull`
 				echo $OUT
 				if [ "${TYPE}" = "PROJECT" ]; then
 					RADIR=$DIR
