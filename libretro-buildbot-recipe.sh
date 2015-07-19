@@ -1418,7 +1418,7 @@ if [ "${PLATFORM}" == "wii" ] && [ "${RA}" == "YES" ]; then
 
 		if [ "${ENABLED}" == "YES" ]; then
 			echo "BUILDBOT JOB: $jobid Processing $NAME"
-			echo 
+			echo
 			echo NAME: $NAME
 			echo DIR: $DIR
 			echo PARENT: $PARENTDIR
