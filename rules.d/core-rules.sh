@@ -40,6 +40,24 @@ libretro_fb_alpha_git_url="https://github.com/libretro/fba-libretro.git"
 libretro_fb_alpha_build_subdir="svn-current/trunk"
 libretro_fb_alpha_build_makefile="makefile.libretro"
 
+register_module core "fb_alpha_cps1" -psp1
+libretro_fb_alpha_cps1_name="Final Burn Alpha CPS1"
+libretro_fb_alpha_cps1_git_url="https://github.com/libretro/fba-libretro.git"
+libretro_fb_alpha_cps1_build_subdir="svn-old/trunk/fbacores/cps1"
+libretro_fb_alpha_cps1_build_makefile="makefile.libretro"
+
+register_module core "fb_alpha_cps2" -psp1
+libretro_fb_alpha_cps2_name="Final Burn Alpha CPS2"
+libretro_fb_alpha_cps2_git_url="https://github.com/libretro/fba-libretro.git"
+libretro_fb_alpha_cps2_build_subdir="svn-old/trunk/fbacores/cps2"
+libretro_fb_alpha_cps2_build_makefile="makefile.libretro"
+
+register_module core "fb_alpha_neo" -psp1
+libretro_fb_alpha_neo_name="Final Burn Alpha NeoGeo"
+libretro_fb_alpha_neo_git_url="https://github.com/libretro/fba-libretro.git"
+libretro_fb_alpha_neo_build_subdir="svn-old/trunk/fbacores/neogeo"
+libretro_fb_alpha_neo_build_makefile="makefile.libretro"
+
 register_module core "vba_next"
 libretro_vba_next_name="VBA Next"
 libretro_vba_next_git_url="https://github.com/libretro/vba-next.git"
