@@ -1,7 +1,7 @@
 fb_alpha libretro-fba https://github.com/libretro/fba-libretro.git PROJECT YES GENERIC makefile.libretro svn-current/trunk 
-fba_cores_cps1 libretro-fba https://github.com/libretro/fba-libretro.git PROJECT YES GENERIC makefile.libretro svn-current/trunk/fbacores/cps1 
-fba_cores_cps2 libretro-fba https://github.com/libretro/fba-libretro.git PROJECT YES GENERIC makefile.libretro svn-current/trunk/fbacores/cps2 
-fba_cores_neo libretro-fba https://github.com/libretro/fba-libretro.git PROJECT YES GENERIC makefile.libretro svn-current/trunk/fbacores/neogeo 
+fba_cores_cps1 libretro-fba_cps1 https://github.com/libretro/fba-libretro.git PROJECT YES GENERIC makefile.libretro svn-current/trunk/fbacores/cps1 
+fba_cores_cps2 libretro-fba_cps2 https://github.com/libretro/fba-libretro.git PROJECT YES GENERIC makefile.libretro svn-current/trunk/fbacores/cps2 
+fba_cores_neo libretro-fba_neo https://github.com/libretro/fba-libretro.git PROJECT YES GENERIC makefile.libretro svn-current/trunk/fbacores/neogeo 
 fceumm libretro-fceuumm  https://github.com/libretro/libretro-fceumm.git PROJECT YES GENERIC Makefile.libretro . 
 gambatte libretro-gambatte https://github.com/libretro/gambatte-libretro.git PROJECT YES GENERIC Makefile.libretro libgambatte 
 genesis_plus_gx libretro-genesis_plus_gx https://github.com/libretro/Genesis-Plus-GX.git PROJECT YES GENERIC Makefile.libretro . 
