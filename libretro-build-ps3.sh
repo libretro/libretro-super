@@ -35,7 +35,8 @@ WANT_CORES=" \
 	nxengine \
 	quicknes \
 	stella \
-	tyrquake"
+	tyrquake \
+	gw"
 else
 WANT_CORES="$@"
 fi

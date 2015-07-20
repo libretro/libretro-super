@@ -21,7 +21,8 @@ WANT_CORES=" \
 	snes9x_next \
 	gambatte \
 	prboom \
-	vba_next"
+	vba_next \
+	vecx"
 else
 WANT_CORES="$@"
 fi

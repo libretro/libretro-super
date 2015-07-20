@@ -37,7 +37,9 @@ WANT_CORES=" \
 	prboom \
 	snes9x_next \
 	vba_next \
-	tyrquake"
+	tyrquake \
+	gw \
+	vecx"
 else
 WANT_CORES="$@"
 fi
