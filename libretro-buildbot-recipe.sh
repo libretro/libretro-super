@@ -14,6 +14,7 @@ echo
 
 ORIGPATH=$PATH
 WORK=$PWD
+OLDFORCE=YES
 
 echo Original PATH: $PATH
 
@@ -226,17 +227,14 @@ build_libretro_generic_makefile() {
 			echo "$1 running retrolink [$jobid]"
 			$WORK/retrolink.sh ${NAME}_libretro${FORMAT}${SUFFIX}.${FORMAT_EXT}
 		fi
-          	      if [ "${PLATFORM}" = "windows" ]; then
-                         strip -s ${NAME}_libretro${FORMAT}${SUFFIX}.${FORMAT_EXT}
-                      fi
-                      cp -v ${NAME}_libretro${FORMAT}${SUFFIX}.${FORMAT_EXT} $RARCH_DIST_DIR/${DIST}/${NAME}_libretro${FORMAT}${SUFFIX}.${FORMAT_EXT}  &> /tmp/buildbot.log
+		if [ "${PLATFORM}" = "windows" ]; then
+			strip -s ${NAME}_libretro${FORMAT}${SUFFIX}.${FORMAT_EXT}
+		fi
+		cp -v ${NAME}_libretro${FORMAT}${SUFFIX}.${FORMAT_EXT} $RARCH_DIST_DIR/${DIST}/${NAME}_libretro${FORMAT}${SUFFIX}.${FORMAT_EXT}  &> /tmp/buildbot.log
 	else
-                ERROR=`cat /tmp/buildbot.log | tail -n 100`
-                HASTE=`curl -XPOST http://hastebin.com/documents -d"$ERROR" | cut --fields=4 --delimiter='"'`
+		ERROR=`cat /tmp/buildbot.log | tail -n 100`
+		HASTE=`curl -XPOST http://hastebin.com/documents -d"$ERROR" | cut --fields=4 --delimiter='"'`
 		MESSAGE="$1 build failed [$jobid] LOG: http://hastebin.com/$HASTE"
-
-
-
 	fi
 	echo BUILDBOT JOB: $MESSAGE
 	buildbot_log "$MESSAGE"
@@ -272,21 +270,17 @@ build_libretro_leiradel_makefile() {
 		echo "build command: ${MAKE} -f ${MAKEFILE}.${ARGS} platform=${PLATFORM} -j${JOBS}"
 		${MAKE} -f ${MAKEFILE}.${ARGS} platform=${PLATFORM} -j${JOBS} &> /tmp/buildbot.log
 
-	if [ $? -eq 0 ]; then
-		MESSAGE="$1 build successful [$jobid]"
-                if [ "${PLATFORM}" = "android" ]; then
-                   cp -v ${NAME}_libretro${FORMAT}.${ARGS}.${FORMAT_EXT} $RARCH_DIST_DIR/${DIST}/${ARGS}/${NAME}_libretro${SUFFIX}${FORMAT}.${FORMAT_EXT}  &>> /tmp/buildbot.log
-                else
-                   cp -v ${NAME}_libretro${FORMAT}.${ARGS}.${FORMAT_EXT} $RARCH_DIST_DIR/${DIST}/${NAME}_libretro${SUFFIX}${FORMAT}.${FORMAT_EXT}  &>> /tmp/buildbot.log
-
-                fi
-	else
-                ERROR=`cat /tmp/buildbot.log | tail -n 100`
-                HASTE=`curl -XPOST http://hastebin.com/documents -d"$ERROR" | cut --fields=4 --delimiter='"'`
-	        MESSAGE="$1 build failed [$jobid] LOG: http://hastebin.com/$HASTE"
-
-
-
+		if [ $? -eq 0 ]; then
+			MESSAGE="$1 build successful [$jobid]"
+			if [ "${PLATFORM}" = "android" ]; then
+				cp -v ${NAME}_libretro${FORMAT}.${ARGS}.${FORMAT_EXT} $RARCH_DIST_DIR/${DIST}/${ARGS}/${NAME}_libretro${SUFFIX}${FORMAT}.${FORMAT_EXT}  &>> /tmp/buildbot.log
+			else
+				cp -v ${NAME}_libretro${FORMAT}.${ARGS}.${FORMAT_EXT} $RARCH_DIST_DIR/${DIST}/${NAME}_libretro${SUFFIX}${FORMAT}.${FORMAT_EXT}  &>> /tmp/buildbot.log
+			fi
+		else
+		ERROR=`cat /tmp/buildbot.log | tail -n 100`
+		HASTE=`curl -XPOST http://hastebin.com/documents -d"$ERROR" | cut --fields=4 --delimiter='"'`
+		MESSAGE="$1 build failed [$jobid] LOG: http://hastebin.com/$HASTE"
 	fi
 	echo BUILDBOT JOB: $MESSAGE
 	buildbot_log "$MESSAGE"
@@ -424,9 +418,9 @@ build_libretro_bsnes_jni() {
 			MESSAGE="$1 build successful [$jobid]"
 			cp -v ../libs/${a}/libretro_${CORENAME}_${PROFILE}.${FORMAT_EXT} $RARCH_DIST_DIR/${a}/${NAME}_${PROFILE}_libretro${FORMAT}${SUFFIX}.${FORMAT_EXT}
 		else
-                ERROR=`cat /tmp/buildbot.log | tail -n 100`
-                HASTE=`curl -XPOST http://hastebin.com/documents -d"$ERROR" | cut --fields=4 --delimiter='"'`
-		        MESSAGE="$1 build failed [$jobid] LOG: http://hastebin.com/$HASTE"
+			ERROR=`cat /tmp/buildbot.log | tail -n 100`
+			HASTE=`curl -XPOST http://hastebin.com/documents -d"$ERROR" | cut --fields=4 --delimiter='"'`
+			MESSAGE="$1 build failed [$jobid] LOG: http://hastebin.com/$HASTE"
 		fi
 		echo BUILDBOT JOB: $MESSAGE
 		buildbot_log "$MESSAGE"
@@ -472,9 +466,9 @@ build_libretro_generic_gl_makefile() {
 		MESSAGE="$1 build successful [$jobid]"
 		cp -v ${NAME}_libretro${FORMAT}${SUFFIX}.${FORMAT_EXT} $RARCH_DIST_DIR/${NAME}_libretro${FORMAT}${SUFFIX}.${FORMAT_EXT}
 	else
-                ERROR=`cat /tmp/buildbot.log | tail -n 100`
-                HASTE=`curl -XPOST http://hastebin.com/documents -d"$ERROR" | cut --fields=4 --delimiter='"'`
-		        MESSAGE="$1 build failed [$jobid] LOG: http://hastebin.com/$HASTE"
+		ERROR=`cat /tmp/buildbot.log | tail -n 100`
+		HASTE=`curl -XPOST http://hastebin.com/documents -d"$ERROR" | cut --fields=4 --delimiter='"'`
+		MESSAGE="$1 build failed [$jobid] LOG: http://hastebin.com/$HASTE"
 	fi
 	echo BUILDBOT JOB: $MESSAGE
 	buildbot_log "$MESSAGE"
@@ -606,7 +600,6 @@ while read line; do
 		echo ARGS: $ARGS
 		echo
 		echo
-
 		if [ "${TYPE}" = "PROJECT" ]; then
 			if [ -d "${DIR}/.git" ]; then
 
@@ -620,7 +613,7 @@ while read line; do
 				fi
 
 				OLDFORCE=$FORCE
-                                OLDBUILD=$BUILD
+				OLDBUILD=$BUILD
 
 				if [ "${PREVCORE}" = "bsnes" -a "${PREVBUILD}" = "YES" -a "${COMMAND}" = "BSNES" ]; then
 					FORCE="YES"
@@ -739,7 +732,7 @@ while read line; do
 	PREVBUILD=$BUILD
 
 	BUILD=$OLDBUILD
-        FORCE=$OLDFORCE
+	FORCE=$OLDFORCE
 
 done < $1
 
@@ -848,18 +841,18 @@ if [ "${PLATFORM}" = "android" ] && [ "${RA}" = "YES" ]; then
 		echo
 
 
-                rm -rfv android/phoenix/assets/assets
-                rm -rfv android/phoenix/assets/cores
-                rm -rfv android/phoenix/assets/info
-                rm -rfv android/phoenix/assets/overlays
-                rm -rfv android/phoenix/assets/shaders/shaders_glsl/
-                rm -rfv android/phoenix/assets/database
-                rm -rfv android/phoenix/assets/autoconfig
-                rm -rfv android/phoenix/assets/cheats
-                rm -rfv android/phoenix/assets/playlists
-                rm -rfv android/phoenix/assets/dowloads
-                rm -rfv android/phoenix/assets/remaps
-                rm -rfv android/phoenix/assets/system
+                rm -rf android/phoenix/assets/assets
+                rm -rf android/phoenix/assets/cores
+                rm -rf android/phoenix/assets/info
+                rm -rf android/phoenix/assets/overlays
+                rm -rf android/phoenix/assets/shaders/shaders_glsl/
+                rm -rf android/phoenix/assets/database
+                rm -rf android/phoenix/assets/autoconfig
+                rm -rf android/phoenix/assets/cheats
+                rm -rf android/phoenix/assets/playlists
+                rm -rf android/phoenix/assets/dowloads
+                rm -rf android/phoenix/assets/remaps
+                rm -rf android/phoenix/assets/system
 
                 mkdir -p android/phoenix/assets
                 mkdir -p android/phoenix/assets/
@@ -879,19 +872,19 @@ if [ "${PLATFORM}" = "android" ] && [ "${RA}" = "YES" ]; then
                 mkdir -p android/phoenix/assets/system/
 
 
-		cp -rfv media/assets/xmb android/phoenix/assets/assets/
-		cp -rfv media/autoconfig/* android/phoenix/assets/autoconfig/
-		cp -rfv media/libretrodb/rdb android/phoenix/assets/database/
-		cp -rfv media/libretrodb/cursors android/phoenix/assets/database/
-		cp -rfv media/overlays/* android/phoenix/assets/overlays/
-		cp -rfv media/shaders_glsl/* android/phoenix/assets/shaders/shaders_glsl/
-		cp -rfv media/shaders_glsl /tmp/
+		cp -rf media/assets/xmb android/phoenix/assets/assets/
+		cp -rf media/autoconfig/* android/phoenix/assets/autoconfig/
+		cp -rf media/libretrodb/rdb android/phoenix/assets/database/
+		cp -rf media/libretrodb/cursors android/phoenix/assets/database/
+		cp -rf media/overlays/* android/phoenix/assets/overlays/
+		cp -rf media/shaders_glsl/* android/phoenix/assets/shaders/shaders_glsl/
+		cp -rf media/shaders_glsl /tmp/
                 touch  android/phoenix/assets/cheats/.empty-folder
                 touch  android/phoenix/assets/saves/.empty-folder
                 touch  android/phoenix/assets/states/.empty-folder
                 touch  android/phoenix/assets/system/.empty-folder
 
-		cp -rfv $RARCH_DIR/info/* android/phoenix/assets/info/
+		cp -rf $RARCH_DIR/info/* android/phoenix/assets/info/
 
 		echo "BUILDBOT JOB: $jobid Building"
 		echo
@@ -1024,15 +1017,15 @@ if [ "${PLATFORM}" = "theos_ios" ] && [ "${RA}" = "YES" ]; then
 		cd apple/iOS
 		rm RetroArch.app -rf
 
-		rm -rfv *.deb
+		rm -rf *.deb
 		export PRODUCT_NAME=RetroArch
 		$MAKE clean
 		$MAKE -j8
 		./package.sh
 
 		mkdir obj/RetroArch.app/modules
-		cp -rfv ../../../dist/theos/*.* obj/RetroArch.app/modules
-		cp -rfv ../../../dist/info/*.* obj/RetroArch.app/modules
+		cp -rf ../../../dist/theos/*.* obj/RetroArch.app/modules
+		cp -rf ../../../dist/info/*.* obj/RetroArch.app/modules
 
 		$MAKE package
 
@@ -1059,77 +1052,61 @@ if [ "${PLATFORM}" = "MINGW64" ] || [ "${PLATFORM}" = "MINGW32" ] && [ "${RA}" =
 			echo URL: $URL
 			echo REPO TYPE: $TYPE
 			echo ENABLED: $ENABLED
-
-			ARGS=""
-
-			TEMP=`echo $line | cut -f 9 -d " "`
-			if [ -n ${TEMP} ];
-			then
-				ARGS="${TEMP}"
-		fi
-		TEMP=""
-		TEMP=`echo $line | cut -f 10 -d " "`
-		if [ -n ${TEMP} ]; then
-			ARGS="${ARGS} ${TEMP}"
-		fi
-		TEMP=""
-		TEMP=`echo $line | cut -f 11 -d " "`
-		if [ -n ${TEMP} ]; then
-			ARGS="${ARGS} ${TEMP}"
-		fi
-		TEMP=""
-		TEMP=`echo $line | cut -f 12 -d " "`
-		if [ -n ${TEMP} ]; then
-			ARGS="${ARGS} ${TEMP}"
-		fi
-		TEMP=""
-		TEMP=`echo $line | cut -f 13 -d " "`
-		if [ -n ${TEMP} ]; then
-			ARGS="${ARGS} ${TEMP}"
-		fi
-		TEMP=""
-		TEMP=`echo $line | cut -f 14 -d " "`
-		if [ -n ${TEMP} ]; then
-			ARGS="${ARGS} ${TEMP}"
-		fi
-
-		ARGS="${ARGS%"${ARGS##*[![:space:]]}"}"
-
-		echo ARGS: $ARGS
-
-		if [ -d "${PARENTDIR}/${DIR}/.git" ]; then
-		cd $PARENTDIR
-			cd $DIR
-			echo "pulling from repo... "
-			OUT=`git pull`
-			echo $OUT
-			if [ "${TYPE}" = "PROJECT" ]; then
-				RADIR=$DIR
-				if [[ $OUT == *"Already up-to-date"* ]]; then
-					BUILD="NO"
-				else
-					BUILD="YES"
+			
+			if [ "${NAME}" = "retroarch" ]; then
+				ARGS=""
+				TEMP=`echo $line | cut -f 7 -d " "`
+				if [ -n ${TEMP} ];
+				then
+					ARGS="${TEMP}"
 				fi
+				TEMP=""
+				TEMP=`echo $line | cut -f 8 -d " "`
+				if [ -n ${TEMP} ]; then
+					ARGS="${ARGS} ${TEMP}"
+				fi
+				TEMP=""
+				TEMP=`echo $line | cut -f 9 -d " "`
+				if [ -n ${TEMP} ]; then
+					ARGS="${ARGS} ${TEMP}"
+				fi
+				ARGS="${ARGS%"${ARGS##*[![:space:]]}"}"
+				echo ARGS: $ARGS
 			fi
-			cd $WORK
-		else
-			echo "cloning repo..."
-			cd $PARENTDIR
-			git clone "$URL" "$DIR" --depth=1
-			cd $DIR
 
-			if [ "${TYPE}" = "PROJECT" ]; then
-				BUILD="YES"
-				RADIR=$DIR
+			if [ -d "${PARENTDIR}/${DIR}/.git" ]; then
+				cd $PARENTDIR
+				cd $DIR
+				echo "pulling from repo... "
+				OUT=`git pull`
+				echo $OUT
+				if [ "${TYPE}" = "PROJECT" ]; then
+					RADIR=$DIR
+					if [[ $OUT == *"Already up-to-date"* ]]; then
+						BUILD="NO"
+					else
+						BUILD="YES"
+					fi
+				fi
+				cd $WORK
+			else
+				echo "cloning repo..."
+				cd $PARENTDIR
+				git clone "$URL" "$DIR" --depth=1
+				cd $DIR
+
+				if [ "${TYPE}" = "PROJECT" ]; then
+					BUILD="YES"
+					RADIR=$DIR
+				fi
+				cd $WORK
 			fi
-			cd $WORK
 		fi
-	fi
 
 	echo
 	echo
 	done < $1.ra
-
+echo b=$BUILD f=$FORCE
 	if [ "${BUILD}" = "YES" -o "${FORCE}" = "YES" ]; then
 		cd $RADIR
 		echo "BUILDBOT JOB: $jobid Building"
@@ -1162,10 +1139,8 @@ if [ "${PLATFORM}" = "MINGW64" ] || [ "${PLATFORM}" = "MINGW32" ] && [ "${RA}" =
 		cd ..
 
 		echo "configuring..."
-		echo "configure command: 
-
-                $CONFIGURE"
-		${CONFIGURE}
+		echo "configure command: $CONFIGURE $ARGS"
+		${CONFIGURE} ${ARGS}
 
 
 		echo "cleaning up..."
@@ -1200,7 +1175,7 @@ if [ "${PLATFORM}" = "MINGW64" ] || [ "${PLATFORM}" = "MINGW32" ] && [ "${RA}" =
 			echo ============================================
 			cp retroarch.cfg retroarch.default.cfg
 
-			rm -rfv windows
+			rm -rf windows
 			mkdir -p windows
 			mkdir -p windows/overlays
 			mkdir -p windows/shaders/shaders_cg
@@ -1255,18 +1230,18 @@ EOF
 
 			cp -v retroarch.default.cfg windows/
 			cp -v *.exe tools/*.exe windows/
-			cp -Rfv media/overlays/* windows/overlays
-			cp -Rfv media/shaders_cg/* windows/shaders/shaders_cg
-			cp -Rfv media/autoconfig/* windows/autoconfig
-			cp -Rfv media/assets/* windows/assets
-			cp -Rfv media/libretrodb/cht/* windows/cheats
-			cp -Rfv media/libretrodb/rdb/* windows/database/rdb
-			cp -Rfv media/libretrodb/cursors/* windows/database/cursors
-			cp -Rfv $RARCH_DIR/info/* windows/info
-			cp -Rfv audio/audio_filters/*.dll windows/filters/audio
-			cp -Rfv audio/audio_filters/*.dsp windows/filters/audio
-			cp -Rfv gfx/video_filters/*.dll windows/filters/video
-			cp -Rfv gfx/video_filters/*.filt windows/filters/video
+			cp -rf media/overlays/* windows/overlays
+			cp -rf media/shaders_cg/* windows/shaders/shaders_cg
+			cp -rf media/autoconfig/* windows/autoconfig
+			cp -rf media/assets/* windows/assets
+			cp -rf media/libretrodb/cht/* windows/cheats
+			cp -rf media/libretrodb/rdb/* windows/database/rdb
+			cp -rf media/libretrodb/cursors/* windows/database/cursors
+			cp -rf $RARCH_DIR/info/* windows/info
+			cp -rf audio/audio_filters/*.dll windows/filters/audio
+			cp -rf audio/audio_filters/*.dsp windows/filters/audio
+			cp -rf gfx/video_filters/*.dll windows/filters/video
+			cp -rf gfx/video_filters/*.filt windows/filters/video
 		else
                 ERROR=`cat /tmp/buildbot.log | tail -n 100`
                 HASTE=`curl -XPOST http://hastebin.com/documents -d"$ERROR" | cut --fields=4 --delimiter='"'`
@@ -1367,7 +1342,7 @@ if [ "${PLATFORM}" = "psp1" ] && [ "${RA}" = "YES" ]; then
 
 	if [ "${BUILD}" = "YES" -o "${FORCE}" = "YES" ]; then
 		cd $RADIR
-		rm -rfv psp1/pkg
+		rm -rf psp1/pkg
 		echo "BUILDBOT JOB: $jobid Building"
 		echo 
 
@@ -1400,9 +1375,9 @@ if [ "${PLATFORM}" = "psp1" ] && [ "${RA}" = "YES" ]; then
 #			mkdir -p psp1/pkg/database/cursors
 			mkdir -p psp1/pkg/database/rdb
 
-#			cp -Rfv media/libretrodb/cht/* psp1/pkg/cheats
-#			cp -Rfv media/libretrodb/rdb/* psp1/pkg/database/rdb
-#			cp -Rfv media/libretrodb/cursors/* psp1/pkg/database/cursors
+#			cp -rf media/libretrodb/cht/* psp1/pkg/cheats
+#			cp -rf media/libretrodb/rdb/* psp1/pkg/database/rdb
+#			cp -rf media/libretrodb/cursors/* psp1/pkg/database/cursors
 		fi
 	fi
 fi
@@ -1498,7 +1473,7 @@ if [ "${PLATFORM}" == "wii" ] && [ "${RA}" == "YES" ]; then
 
 	if [ "${BUILD}" == "YES" -o "${FORCE}" == "YES" ]; then
 		cd $RADIR
-		  #rm -rfv wii/pkg
+		  #rm -rf wii/pkg
 		echo "BUILDBOT JOB: $jobid Building"
 		echo
 
@@ -1534,10 +1509,10 @@ if [ "${PLATFORM}" == "wii" ] && [ "${RA}" == "YES" ]; then
 #		mkdir -p wii/pkg/database/cursors
 #		mkdir -p wii/pkg/database/rdb
 
-#		cp -Rfv media/libretrodb/cht/* wii/pkg/cheats
-#		cp -Rfv media/libretrodb/rdb/* wii/pkg/database/rdb
-#		cp -Rfv media/libretrodb/cursors/* wii/pkg/database/cursors
-		cp -Rfv media/overlays/wii/* wii/pkg/overlays
+#		cp -rf media/libretrodb/cht/* wii/pkg/cheats
+#		cp -rf media/libretrodb/rdb/* wii/pkg/database/rdb
+#		cp -rf media/libretrodb/cursors/* wii/pkg/database/cursors
+		cp -rf media/overlays/wii/* wii/pkg/overlays
 	fi
 fi
 
@@ -1684,10 +1659,10 @@ then
 #			mkdir -p ngc/pkg/database/cursors
 #			mkdir -p ngc/pkg/database/rdb
 			mkdir -p ngc/pkg/overlays
-#			cp -Rfv media/libretrodb/cht/* ngc/pkg/cheats
-#			cp -Rfv media/libretrodb/rdb/* ngc/pkg/database/rdb
-#			cp -Rfv media/libretrodb/cursors/* ngc/pkg/database/cursors
-                        cp -Rfv media/overlays/wii/* ngc/pkg/overlays
+#			cp -rf media/libretrodb/cht/* ngc/pkg/cheats
+#			cp -rf media/libretrodb/rdb/* ngc/pkg/database/rdb
+#			cp -rf media/libretrodb/cursors/* ngc/pkg/database/cursors
+                        cp -rf media/overlays/wii/* ngc/pkg/overlays
 
 
 
