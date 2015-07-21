@@ -40,6 +40,7 @@ WANT_CORES=" \
 	vba_next \
 	tyrquake \
 	gw \
+	mgba \
 	vecx"
 else
 WANT_CORES="$@"

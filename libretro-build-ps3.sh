@@ -36,7 +36,8 @@ WANT_CORES=" \
 	quicknes \
 	stella \
 	tyrquake \
-	gw"
+	gw \
+	mgba"
 else
 WANT_CORES="$@"
 fi
