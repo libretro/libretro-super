@@ -18,6 +18,7 @@ fi
 
 if [[ -z "$1" ]]; then
 WANT_CORES=" \
+	2048
 	snes9x_next \
 	gambatte \
 	prboom \

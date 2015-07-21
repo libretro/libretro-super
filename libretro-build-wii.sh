@@ -18,6 +18,7 @@ fi
 
 if [[ -z "$1" ]]; then
 WANT_CORES=" \
+	2048 \
 	bluemsx \
 	fceumm  \
 	fmsx \
