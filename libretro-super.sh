@@ -711,7 +711,7 @@ lsecho
 lsecho "   If any of that describes you, stick with the old scripts for now.  They"
 lsecho "   will continue to be supported until this new system is finished, tested,"
 lsecho "   and working.  If you can handle the bleeding edge though, please do feel"
-lsecho "   free to check this out and report feedback to iKarith/tjcarter."
+lsecho "   free to check this out and report feedback to libretro."
 lsecho
 lsecho " - WARNING - EXPERIMENTAL - WARNING - EXPERIMENTAL - WARNING - EXPERIMENTAL -"
 lsecho
@@ -720,7 +720,7 @@ lsecho "libretro-super v$libretro_version
 Script Copyright (C) 2015 by The Libretro Team"
 if [ -n "$show_license" ]; then
 	lsecho "
-This script ant its components are a work that is licensed under the
+This script and its components are a work that is licensed under the
 Creative Commons Attribution 4.0 International License. To view a copy of
 this license, visit http://creativecommons.org/licenses/by/4.0/ or send a
 letter to Creative Commons, PO Box 1866, Mountain View, CA 94042, USA."
