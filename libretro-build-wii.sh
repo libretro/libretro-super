@@ -43,6 +43,7 @@ WANT_CORES=" \
 	mgba \
 	fb_alpha_cps1 \
 	fb_alpha_cps2 \
+	fb_alpha_neo \
 	vecx"
 else
 WANT_CORES="$@"
