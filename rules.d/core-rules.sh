@@ -42,12 +42,12 @@ libretro_fb_alpha_build_makefile="makefile.libretro"
 
 register_module core "fb_alpha_cps1" -psp1
 libretro_fb_alpha_cps1_name="Final Burn Alpha CPS1"
-libretro_fb_alpha_cps1_git_url="https://github.com/libretro/fb_alpha_cps1.git"
+libretro_fb_alpha_cps1_git_url="https://github.com/libretro/fba_cores_cps1.git"
 libretro_fb_alpha_cps1_build_makefile="makefile.libretro"
 
 register_module core "fb_alpha_cps2" -psp1
 libretro_fb_alpha_cps2_name="Final Burn Alpha CPS2"
-libretro_fb_alpha_cps2_git_url="https://github.com/libretro/fb_alpha_cps2.git"
+libretro_fb_alpha_cps2_git_url="https://github.com/libretro/fba_cores_cps2.git"
 libretro_fb_alpha_cps2_build_makefile="makefile.libretro"
 
 register_module core "fb_alpha_neo" -psp1
