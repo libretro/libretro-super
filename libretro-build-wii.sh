@@ -41,6 +41,8 @@ WANT_CORES=" \
 	tyrquake \
 	gw \
 	mgba \
+	fb_alpha_cps1 \
+	fb_alpha_cps2 \
 	vecx"
 else
 WANT_CORES="$@"
