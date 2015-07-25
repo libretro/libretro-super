@@ -899,18 +899,18 @@ if [ "${PLATFORM}" = "android" ] && [ "${RA}" = "YES" ]; then
 		cd android/phoenix
 		rm bin/*.apk
 
-		$NDK clean &> /tmp/log/`date +%Y-%m-%d`_${NAME}_${PLATFORM}.log
-		$NDK -j${JOBS} &>> /tmp/log/`date +%Y-%m-%d`_${NAME}_${PLATFORM}.log
-		ant clean &>> /tmp/log/`date +%Y-%m-%d`_${NAME}_${PLATFORM}.log
-		android update project --path . --target android-22 &>> /tmp/log/`date +%Y-%m-%d`_${NAME}_${PLATFORM}.log
-		android update project --path libs/googleplay --target android-21 &>> /tmp/log/`date +%Y-%m-%d`_${NAME}_${PLATFORM}.log
-		android update project --path libs/appcompat --target android-21 &>> /tmp/log/`date +%Y-%m-%d`_${NAME}_${PLATFORM}.log
-		ant debug &>> /tmp/log/`date +%Y-%m-%d`_${NAME}_${PLATFORM}.log
+		$NDK clean &> /tmp/log/`date +%Y-%m-%d`_RetroArch_${PLATFORM}.log
+		$NDK -j${JOBS} &>> /tmp/log/`date +%Y-%m-%d`_RetroArch_${PLATFORM}.log
+		ant clean &>> /tmp/log/`date +%Y-%m-%d`_RetroArch_${PLATFORM}.log
+		android update project --path . --target android-22 &>> /tmp/log/`date +%Y-%m-%d`_RetroArch_${PLATFORM}.log
+		android update project --path libs/googleplay --target android-21 &>> /tmp/log/`date +%Y-%m-%d`_RetroArch_${PLATFORM}.log
+		android update project --path libs/appcompat --target android-21 &>> /tmp/log/`date +%Y-%m-%d`_RetroArch_${PLATFORM}.log
+		ant debug &>> /tmp/log/`date +%Y-%m-%d`_RetroArch_${PLATFORM}.log
 		if [ $? -eq 0 ]; then
 			MESSAGE="retroarch build successful [$jobid]"
 			echo $MESSAGE
 		else
-                ERROR=`cat /tmp/log/`date +%Y-%m-%d`_${NAME}_${PLATFORM}.log | tail -n 100`
+                ERROR=`cat /tmp/log/`date +%Y-%m-%d`_RetroArch_${PLATFORM}.log | tail -n 100`
                 HASTE=`curl -XPOST http://hastebin.com/documents -d"$ERROR" | cut --fields=4 --delimiter='"'`
 		        MESSAGE="retroarch build failed [$jobid] LOG: http://hastebin.com/$HASTE"
 			echo $MESSAGE
@@ -1172,7 +1172,7 @@ echo b=$BUILD f=$FORCE
 
 		echo "building..."
 		echo "build command: $MAKE -j${JOBS}"
-		$MAKE -j${JOBS} &> /tmp/log/`date +%Y-%m-%d`_${NAME}_${PLATFORM}.log
+		$MAKE -j${JOBS} &> /tmp/log/`date +%Y-%m-%d`_RetroArch_${PLATFORM}.log
 		strip -s retroarch.exe
 
 		if [ $? -eq 0 ]; then
@@ -1253,7 +1253,7 @@ EOF
 			cp -rf gfx/video_filters/*.dll windows/filters/video
 			cp -rf gfx/video_filters/*.filt windows/filters/video
 		else
-                ERROR=`cat /tmp/log/`date +%Y-%m-%d`_${NAME}_${PLATFORM}.log | tail -n 100`
+                ERROR=`cat /tmp/log/`date +%Y-%m-%d`_RetroArch_${PLATFORM}.log | tail -n 100`
                 HASTE=`curl -XPOST http://hastebin.com/documents -d"$ERROR" | cut --fields=4 --delimiter='"'`
 		MESSAGE="retroarch build failed [$jobid] LOG: http://hastebin.com/$HASTE"
 		echo $MESSAGE
@@ -1363,12 +1363,12 @@ if [ "${PLATFORM}" = "psp1" ] && [ "${RA}" = "YES" ]; then
 			cp -v $RARCH_DIST_DIR/*.a .
 			#ls -1 *.a  | awk -F "." ' { print "cp " $0 " " $1 "_psp1." $2 }' |sh
 
-			./psp1-cores.sh &> /tmp/log/`date +%Y-%m-%d`_${NAME}_${PLATFORM}.log
+			./psp1-cores.sh &> /tmp/log/`date +%Y-%m-%d`_RetroArch_${PLATFORM}.log
 			if [ $? -eq 0 ]; then
 				MESSAGE="retroarch build successful [$jobid]"
 				echo $MESSAGE
 			else
-                ERROR=`cat /tmp/log/`date +%Y-%m-%d`_${NAME}_${PLATFORM}.log | tail -n 100`
+                ERROR=`cat /tmp/log/`date +%Y-%m-%d`_RetroArch_${PLATFORM}.log | tail -n 100`
                 HASTE=`curl -XPOST http://hastebin.com/documents -d"$ERROR" | cut --fields=4 --delimiter='"'`
 		        MESSAGE="retroarch build failed [$jobid] LOG: http://hastebin.com/$HASTE"
 				echo $MESSAGE
@@ -1495,12 +1495,12 @@ if [ "${PLATFORM}" == "wii" ] && [ "${RA}" == "YES" ]; then
 			cp -v $RARCH_DIST_DIR/*.a .
 
 			#ls -1 *.a  | awk -F "." ' { print "cp " $0 " " $1 "_wii." $2 }' |sh
-			sh ./wii-cores.sh &> /tmp/log/`date +%Y-%m-%d`_${NAME}_${PLATFORM}.log
+			sh ./wii-cores.sh &> /tmp/log/`date +%Y-%m-%d`_RetroArch_${PLATFORM}.log
 			if [ $? -eq 0 ]; then
 				MESSAGE="retroarch build successful [$jobid]"
 				echo $MESSAGE
 			else
-                ERROR=`cat /tmp/log/`date +%Y-%m-%d`_${NAME}_${PLATFORM}.log | tail -n 100`
+                ERROR=`cat /tmp/log/`date +%Y-%m-%d`_RetroArch_${PLATFORM}.log | tail -n 100`
                 HASTE=`curl -XPOST http://hastebin.com/documents -d"$ERROR" | cut --fields=4 --delimiter='"'`
 		        MESSAGE="retroarch build failed [$jobid] LOG: http://hastebin.com/$HASTE"
 				echo $MESSAGE
@@ -1646,13 +1646,13 @@ then
 		cp -v $RARCH_DIST_DIR/*.a .
 
 		#ls -1 *.a  | awk -F "." ' { print "cp " $0 " " $1 "_ngc." $2 }' |sh
-		sh ./ngc-cores.sh &> /tmp/log/`date +%Y-%m-%d`_${NAME}_${PLATFORM}.log
+		sh ./ngc-cores.sh &> /tmp/log/`date +%Y-%m-%d`_RetroArch_${PLATFORM}.log
         if [ $? -eq 0 ];
         then
             MESSAGE="retroarch build successful [$jobid]"
             echo $MESSAGE
 	    else
-                ERROR=`cat /tmp/log/`date +%Y-%m-%d`_${NAME}_${PLATFORM}.log | tail -n 100`
+                ERROR=`cat /tmp/log/`date +%Y-%m-%d`_RetroArch_${PLATFORM}.log | tail -n 100`
                 HASTE=`curl -XPOST http://hastebin.com/documents -d"$ERROR" | cut --fields=4 --delimiter='"'`
 		        MESSAGE="retroarch build failed [$jobid] LOG: http://hastebin.com/$HASTE"
             echo $MESSAGE
