@@ -12,6 +12,7 @@
 echo "BUILDBOT JOB: Setting up Environment for $1"
 echo
 
+LOGDATE=${LOGDATE}
 ORIGPATH=$PATH
 WORK=$PWD
 OLDFORCE=YES
@@ -210,7 +211,7 @@ build_libretro_generic_makefile() {
 	echo "compiling..."
 	if [ -z "${ARGS}" ]; then
 		echo "build command: ${MAKE} -f ${MAKEFILE} platform=${PLATFORM} -j${JOBS}"
-		${MAKE} -f ${MAKEFILE} platform=${PLATFORM} -j${JOBS} &> /tmp/log/`date +%Y-%m-%d`_${NAME}_${PLATFORM}.log
+		${MAKE} -f ${MAKEFILE} platform=${PLATFORM} -j${JOBS} &> /tmp/log/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}.log
 	else
 		if [ "${NAME}" = "mame2010" ]; then
 
@@ -218,7 +219,7 @@ build_libretro_generic_makefile() {
 			${MAKE} -f ${MAKEFILE} platform=${PLATFORM} -j${JOBS} ${ARGS} buildtools
 		fi
 		echo "build command: ${MAKE} -f ${MAKEFILE} platform=${PLATFORM} -j${JOBS} ${ARGS}"
-		${MAKE} -f ${MAKEFILE} platform=${PLATFORM} -j${JOBS} ${ARGS} &>> /tmp/log/`date +%Y-%m-%d`_${NAME}_${PLATFORM}.log
+		${MAKE} -f ${MAKEFILE} platform=${PLATFORM} -j${JOBS} ${ARGS} &>> /tmp/log/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}.log
 	fi
 
 	if [ $? -eq 0 ]; then
@@ -230,15 +231,15 @@ build_libretro_generic_makefile() {
 		if [ "${PLATFORM}" = "windows" ]; then
 			strip -s ${NAME}_libretro${FORMAT}${SUFFIX}.${FORMAT_EXT}
 		fi
-		cp -v ${NAME}_libretro${FORMAT}${SUFFIX}.${FORMAT_EXT} $RARCH_DIST_DIR/${DIST}/${NAME}_libretro${FORMAT}${SUFFIX}.${FORMAT_EXT}  &>> /tmp/log/`date +%Y-%m-%d`_${NAME}_${PLATFORM}.log
+		cp -v ${NAME}_libretro${FORMAT}${SUFFIX}.${FORMAT_EXT} $RARCH_DIST_DIR/${DIST}/${NAME}_libretro${FORMAT}${SUFFIX}.${FORMAT_EXT}  &>> /tmp/log/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}.log
 
 	else
-		ERROR=`cat /tmp/log/`date +%Y-%m-%d`_${NAME}_${PLATFORM}.log | tail -n 100`
+		ERROR=`cat /tmp/log/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}.log | tail -n 100`
 		HASTE=`curl -XPOST http://hastebin.com/documents -d"$ERROR" | cut --fields=4 --delimiter='"'`
 		MESSAGE="$1 build failed [$jobid] LOG: http://hastebin.com/$HASTE"
 	fi
         echo BUILDBOT JOB: $MESSAGE
-	echo BUILDBOT JOB: $MESSAGE >> /tmp/log/`date +%Y-%m-%d`_summary.log
+	echo BUILDBOT JOB: $MESSAGE >> /tmp/log/${LOGDATE}/${LOGDATE}_summary.log
 	buildbot_log "$MESSAGE"
 	JOBS=$OLDJ
 }
@@ -270,22 +271,22 @@ build_libretro_leiradel_makefile() {
 
 	echo "compiling..."
 		echo "build command: ${MAKE} -f ${MAKEFILE}.${ARGS} platform=${PLATFORM} -j${JOBS}"
-		${MAKE} -f ${MAKEFILE}.${ARGS} platform=${PLATFORM} -j${JOBS} &> /tmp/log/`date +%Y-%m-%d`_${NAME}_${PLATFORM}.log
+		${MAKE} -f ${MAKEFILE}.${ARGS} platform=${PLATFORM} -j${JOBS} &> /tmp/log/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}.log
 
 		if [ $? -eq 0 ]; then
 			MESSAGE="$1 build successful [$jobid]"
 			if [ "${PLATFORM}" = "android" ]; then
-				cp -v ${NAME}_libretro${FORMAT}.${ARGS}.${FORMAT_EXT} $RARCH_DIST_DIR/${DIST}/${ARGS}/${NAME}_libretro${SUFFIX}${FORMAT}.${FORMAT_EXT}  &>> /tmp/log/`date +%Y-%m-%d`_${NAME}_${PLATFORM}.log
+				cp -v ${NAME}_libretro${FORMAT}.${ARGS}.${FORMAT_EXT} $RARCH_DIST_DIR/${DIST}/${ARGS}/${NAME}_libretro${SUFFIX}${FORMAT}.${FORMAT_EXT}  &>> /tmp/log/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}.log
 			else
-				cp -v ${NAME}_libretro${FORMAT}.${ARGS}.${FORMAT_EXT} $RARCH_DIST_DIR/${DIST}/${NAME}_libretro${SUFFIX}${FORMAT}.${FORMAT_EXT}  &>> /tmp/log/`date +%Y-%m-%d`_${NAME}_${PLATFORM}.log
+				cp -v ${NAME}_libretro${FORMAT}.${ARGS}.${FORMAT_EXT} $RARCH_DIST_DIR/${DIST}/${NAME}_libretro${SUFFIX}${FORMAT}.${FORMAT_EXT}  &>> /tmp/log/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}.log
 			fi
 		else
-		ERROR=`cat /tmp/log/`date +%Y-%m-%d`_${NAME}_${PLATFORM}.log | tail -n 100`
+		ERROR=`cat /tmp/log/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}.log | tail -n 100`
 		HASTE=`curl -XPOST http://hastebin.com/documents -d"$ERROR" | cut --fields=4 --delimiter='"'`
 		MESSAGE="$1 build failed [$jobid] LOG: http://hastebin.com/$HASTE"
 	fi
 	echo BUILDBOT JOB: $MESSAGE
-        echo BUILDBOT JOB: $MESSAGE >> /tmp/log/`date +%Y-%m-%d`_summary.log
+        echo BUILDBOT JOB: $MESSAGE >> /tmp/log/${LOGDATE}/${LOGDATE}_summary.log
 	buildbot_log "$MESSAGE"
 	JOBS=$OLDJ
 }
@@ -328,12 +329,12 @@ build_libretro_generic_theos() {
 		MESSAGE="$1 build successful [$jobid]"
 		cp -v objs/obj/${NAME}_libretro${FORMAT}${SUFFIX}.${FORMAT_EXT} $RARCH_DIST_DIR/${NAME}_libretro${FORMAT}${SUFFIX}.${FORMAT_EXT}
 	else
-                ERROR=`cat /tmp/log/`date +%Y-%m-%d`_${NAME}_${PLATFORM}.log | tail -n 100`
+                ERROR=`cat /tmp/log/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}.log | tail -n 100`
                 HASTE=`curl -XPOST http://hastebin.com/documents -d"$ERROR" | cut --fields=4 --delimiter='"'`
 		        MESSAGE="$1 build failed [$jobid] LOG: http://hastebin.com/$HASTE"
 	fi
 	echo BUILDBOT JOB: $MESSAGE
-        echo BUILDBOT JOB: $MESSAGE >> /tmp/log/`date +%Y-%m-%d`_summary.log
+        echo BUILDBOT JOB: $MESSAGE >> /tmp/log/${LOGDATE}/${LOGDATE}_summary.log
 	buildbot_log "$MESSAGE"
 }
 
@@ -364,10 +365,10 @@ build_libretro_generic_jni() {
 		echo "compiling for ${a}..."
 		if [ -z "${ARGS}" ]; then
 			echo "build command: ${NDK} -j${JOBS} APP_ABI=${a}"
-			${NDK} -j${JOBS} APP_ABI=${a}  &> /tmp/log/`date +%Y-%m-%d`_${NAME}_${PLATFORM}_${a}.log
+			${NDK} -j${JOBS} APP_ABI=${a}  &> /tmp/log/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}_${a}.log
 		else
 			echo "build command: ${NDK} -j${JOBS} APP_ABI=${a} ${ARGS} "
-			${NDK} -j${JOBS} APP_ABI=${a} ${ARGS}  &> /tmp/log/`date +%Y-%m-%d`_${NAME}_${PLATFORM}_${a}.log
+			${NDK} -j${JOBS} APP_ABI=${a} ${ARGS}  &> /tmp/log/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}_${a}.log
 		fi
 		if [ $? -eq 0 ]; then
 			MESSAGE="$1-$a build successful [$jobid]"
@@ -375,11 +376,11 @@ build_libretro_generic_jni() {
 			buildbot_log "$MESSAGE"
 			cp -v ../libs/${a}/libretro.${FORMAT_EXT} $RARCH_DIST_DIR/${a}/${1}_libretro${FORMAT}${SUFFIX}.${FORMAT_EXT}
 		else
-                ERROR=`cat /tmp/log/`date +%Y-%m-%d`_${NAME}_${PLATFORM}_${a}.log | tail -n 100`
+                ERROR=`cat /tmp/log/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}_${a}.log | tail -n 100`
                 HASTE=`curl -XPOST http://hastebin.com/documents -d"$ERROR" | cut --fields=4 --delimiter='"'`
 		        MESSAGE="$1-$a build failed [$jobid] LOG: http://hastebin.com/$HASTE"
 			echo BUILDBOT JOB: $MESSAGE
-                        echo BUILDBOT JOB: $MESSAGE >> /tmp/log/`date +%Y-%m-%d`_summary.log
+                        echo BUILDBOT JOB: $MESSAGE >> /tmp/log/${LOGDATE}/${LOGDATE}_summary.log
 			buildbot_log "$MESSAGE"
 		fi
 	done
@@ -423,12 +424,12 @@ build_libretro_bsnes_jni() {
 			MESSAGE="$1 build successful [$jobid]"
 			cp -v ../libs/${a}/libretro_${CORENAME}_${PROFILE}.${FORMAT_EXT} $RARCH_DIST_DIR/${a}/${NAME}_${PROFILE}_libretro${FORMAT}${SUFFIX}.${FORMAT_EXT}
 		else
-			ERROR=`cat /tmp/log/`date +%Y-%m-%d`_${NAME}_${PLATFORM}.log | tail -n 100`
+			ERROR=`cat /tmp/log/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}.log | tail -n 100`
 			HASTE=`curl -XPOST http://hastebin.com/documents -d"$ERROR" | cut --fields=4 --delimiter='"'`
 			MESSAGE="$1 build failed [$jobid] LOG: http://hastebin.com/$HASTE"
 		fi
 		echo BUILDBOT JOB: $MESSAGE
-                echo BUILDBOT JOB: $MESSAGE >> /tmp/log/`date +%Y-%m-%d`_summary.log
+                echo BUILDBOT JOB: $MESSAGE >> /tmp/log/${LOGDATE}/${LOGDATE}_summary.log
 		buildbot_log "$MESSAGE"
 	done
 }
@@ -462,22 +463,22 @@ build_libretro_generic_gl_makefile() {
 	echo "compiling..."
 	if [ -z "${ARGS}" ]; then
 		echo "build command: ${MAKE} -f ${MAKEFILE} platform=${PLATFORM} -j${JOBS}"
-		${MAKE} -f ${MAKEFILE} platform=${PLATFORM} -j${JOBS}  &> /tmp/log/`date +%Y-%m-%d`_${NAME}_${PLATFORM}.log
+		${MAKE} -f ${MAKEFILE} platform=${PLATFORM} -j${JOBS}  &> /tmp/log/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}.log
 	else
 		echo "build command: ${MAKE} -f ${MAKEFILE} platform=${PLATFORM} ${COMPILER} -j${JOBS} ${ARGS}"
-		${MAKE} -f ${MAKEFILE} platform=${PLATFORM} -j${JOBS} ${ARGS}  &> /tmp/log/`date +%Y-%m-%d`_${NAME}_${PLATFORM}.log
+		${MAKE} -f ${MAKEFILE} platform=${PLATFORM} -j${JOBS} ${ARGS}  &> /tmp/log/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}.log
 	fi
 
 	if [ $? -eq 0 ]; then 
 		MESSAGE="$1 build successful [$jobid]"
 		cp -v ${NAME}_libretro${FORMAT}${SUFFIX}.${FORMAT_EXT} $RARCH_DIST_DIR/${NAME}_libretro${FORMAT}${SUFFIX}.${FORMAT_EXT}
 	else
-		ERROR=`cat /tmp/log/`date +%Y-%m-%d`_${NAME}_${PLATFORM}.log | tail -n 100`
+		ERROR=`cat /tmp/log/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}.log | tail -n 100`
 		HASTE=`curl -XPOST http://hastebin.com/documents -d"$ERROR" | cut --fields=4 --delimiter='"'`
 		MESSAGE="$1 build failed [$jobid] LOG: http://hastebin.com/$HASTE"
 	fi
 	echo BUILDBOT JOB: $MESSAGE
-        echo BUILDBOT JOB: $MESSAGE >> /tmp/log/`date +%Y-%m-%d`_summary.log
+        echo BUILDBOT JOB: $MESSAGE >> /tmp/log/${LOGDATE}/${LOGDATE}_summary.log
 	buildbot_log "$MESSAGE"
 
 	reset_compiler_targets
@@ -534,12 +535,12 @@ build_libretro_bsnes() {
 			cp -fv "out/${NAME}_${PROFILE}_libretro${FORMAT}.${FORMAT_EXT}" $RARCH_DIST_DIR/${NAME}_${PROFILE}_libretro${FORMAT}${SUFFIX}.${FORMAT_EXT}
 		fi
 	else
-                ERROR=`cat /tmp/log/`date +%Y-%m-%d`_${NAME}_${PLATFORM}.log | tail -n 100`
+                ERROR=`cat /tmp/log/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}.log | tail -n 100`
                 HASTE=`curl -XPOST http://hastebin.com/documents -d"$ERROR" | cut --fields=4 --delimiter='"'`
 		        MESSAGE="$1 build failed [$jobid] LOG: http://hastebin.com/$HASTE"
 	fi
 	echo BUILDBOT JOB: $MESSAGE
-        echo BUILDBOT JOB: $MESSAGE >> /tmp/log/`date +%Y-%m-%d`_summary.log
+        echo BUILDBOT JOB: $MESSAGE >> /tmp/log/${LOGDATE}/${LOGDATE}_summary.log
 	buildbot_log "$MESSAGE"
 }
 
@@ -899,23 +900,23 @@ if [ "${PLATFORM}" = "android" ] && [ "${RA}" = "YES" ]; then
 		cd android/phoenix
 		rm bin/*.apk
 
-		$NDK clean &> /tmp/log/`date +%Y-%m-%d`_RetroArch_${PLATFORM}.log
-		$NDK -j${JOBS} &>> /tmp/log/`date +%Y-%m-%d`_RetroArch_${PLATFORM}.log
-		ant clean &>> /tmp/log/`date +%Y-%m-%d`_RetroArch_${PLATFORM}.log
-		android update project --path . --target android-22 &>> /tmp/log/`date +%Y-%m-%d`_RetroArch_${PLATFORM}.log
-		android update project --path libs/googleplay --target android-21 &>> /tmp/log/`date +%Y-%m-%d`_RetroArch_${PLATFORM}.log
-		android update project --path libs/appcompat --target android-21 &>> /tmp/log/`date +%Y-%m-%d`_RetroArch_${PLATFORM}.log
-		ant debug &>> /tmp/log/`date +%Y-%m-%d`_RetroArch_${PLATFORM}.log
+		$NDK clean &> /tmp/log/${LOGDATE}/${LOGDATE}_RetroArch_${PLATFORM}.log
+		$NDK -j${JOBS} &>> /tmp/log/${LOGDATE}/${LOGDATE}_RetroArch_${PLATFORM}.log
+		ant clean &>> /tmp/log/${LOGDATE}/${LOGDATE}_RetroArch_${PLATFORM}.log
+		android update project --path . --target android-22 &>> /tmp/log/${LOGDATE}/${LOGDATE}_RetroArch_${PLATFORM}.log
+		android update project --path libs/googleplay --target android-21 &>> /tmp/log/${LOGDATE}/${LOGDATE}_RetroArch_${PLATFORM}.log
+		android update project --path libs/appcompat --target android-21 &>> /tmp/log/${LOGDATE}/${LOGDATE}_RetroArch_${PLATFORM}.log
+		ant debug &>> /tmp/log/${LOGDATE}/${LOGDATE}_RetroArch_${PLATFORM}.log
 		if [ $? -eq 0 ]; then
 			MESSAGE="retroarch build successful [$jobid]"
 			echo $MESSAGE
 		else
-                ERROR=`cat /tmp/log/`date +%Y-%m-%d`_RetroArch_${PLATFORM}.log | tail -n 100`
+                ERROR=`cat /tmp/log/${LOGDATE}/${LOGDATE}_RetroArch_${PLATFORM}.log | tail -n 100`
                 HASTE=`curl -XPOST http://hastebin.com/documents -d"$ERROR" | cut --fields=4 --delimiter='"'`
 		        MESSAGE="retroarch build failed [$jobid] LOG: http://hastebin.com/$HASTE"
 			echo $MESSAGE
 		fi
-                echo BUILDBOT JOB: $MESSAGE >> /tmp/log/`date +%Y-%m-%d`_summary.log
+                echo BUILDBOT JOB: $MESSAGE >> /tmp/log/${LOGDATE}/${LOGDATE}_summary.log
 		buildbot_log "$MESSAGE"
 	fi
 fi
@@ -1172,13 +1173,13 @@ echo b=$BUILD f=$FORCE
 
 		echo "building..."
 		echo "build command: $MAKE -j${JOBS}"
-		$MAKE -j${JOBS} &> /tmp/log/`date +%Y-%m-%d`_RetroArch_${PLATFORM}.log
+		$MAKE -j${JOBS} &> /tmp/log/${LOGDATE}/${LOGDATE}_RetroArch_${PLATFORM}.log
 		strip -s retroarch.exe
 
 		if [ $? -eq 0 ]; then
 			MESSAGE="retroarch build successful [$jobid]"
 			echo $MESSAGE
-                        echo BUILDBOT JOB: $MESSAGE >> /tmp/log/`date +%Y-%m-%d`_summary.log
+                        echo BUILDBOT JOB: $MESSAGE >> /tmp/log/${LOGDATE}/${LOGDATE}_summary.log
 			buildbot_log "$MESSAGE"
 
 			echo "Packaging"
@@ -1253,11 +1254,11 @@ EOF
 			cp -rf gfx/video_filters/*.dll windows/filters/video
 			cp -rf gfx/video_filters/*.filt windows/filters/video
 		else
-                ERROR=`cat /tmp/log/`date +%Y-%m-%d`_RetroArch_${PLATFORM}.log | tail -n 100`
+                ERROR=`cat /tmp/log/${LOGDATE}/${LOGDATE}_RetroArch_${PLATFORM}.log | tail -n 100`
                 HASTE=`curl -XPOST http://hastebin.com/documents -d"$ERROR" | cut --fields=4 --delimiter='"'`
 		MESSAGE="retroarch build failed [$jobid] LOG: http://hastebin.com/$HASTE"
 		echo $MESSAGE
-                echo BUILDBOT JOB: $MESSAGE >> /tmp/log/`date +%Y-%m-%d`_summary.log
+                echo BUILDBOT JOB: $MESSAGE >> /tmp/log/${LOGDATE}/${LOGDATE}_summary.log
 		buildbot_log "$MESSAGE"
 	   fi
 	fi
@@ -1363,18 +1364,18 @@ if [ "${PLATFORM}" = "psp1" ] && [ "${RA}" = "YES" ]; then
 			cp -v $RARCH_DIST_DIR/*.a .
 			#ls -1 *.a  | awk -F "." ' { print "cp " $0 " " $1 "_psp1." $2 }' |sh
 
-			./psp1-cores.sh &> /tmp/log/`date +%Y-%m-%d`_RetroArch_${PLATFORM}.log
+			./psp1-cores.sh &> /tmp/log/${LOGDATE}/${LOGDATE}_RetroArch_${PLATFORM}.log
 			if [ $? -eq 0 ]; then
 				MESSAGE="retroarch build successful [$jobid]"
 				echo $MESSAGE
 			else
-                ERROR=`cat /tmp/log/`date +%Y-%m-%d`_RetroArch_${PLATFORM}.log | tail -n 100`
+                ERROR=`cat /tmp/log/${LOGDATE}/${LOGDATE}_RetroArch_${PLATFORM}.log | tail -n 100`
                 HASTE=`curl -XPOST http://hastebin.com/documents -d"$ERROR" | cut --fields=4 --delimiter='"'`
 		        MESSAGE="retroarch build failed [$jobid] LOG: http://hastebin.com/$HASTE"
 				echo $MESSAGE
 			fi
             buildbot_log "$MESSAGE"
-            echo BUILDBOT JOB: $MESSAGE >> /tmp/log/`date +%Y-%m-%d`_summary.log
+            echo BUILDBOT JOB: $MESSAGE >> /tmp/log/${LOGDATE}/${LOGDATE}_summary.log
 
 			echo "Packaging"
 			echo ============================================
@@ -1495,18 +1496,18 @@ if [ "${PLATFORM}" == "wii" ] && [ "${RA}" == "YES" ]; then
 			cp -v $RARCH_DIST_DIR/*.a .
 
 			#ls -1 *.a  | awk -F "." ' { print "cp " $0 " " $1 "_wii." $2 }' |sh
-			sh ./wii-cores.sh &> /tmp/log/`date +%Y-%m-%d`_RetroArch_${PLATFORM}.log
+			sh ./wii-cores.sh &> /tmp/log/${LOGDATE}/${LOGDATE}_RetroArch_${PLATFORM}.log
 			if [ $? -eq 0 ]; then
 				MESSAGE="retroarch build successful [$jobid]"
 				echo $MESSAGE
 			else
-                ERROR=`cat /tmp/log/`date +%Y-%m-%d`_RetroArch_${PLATFORM}.log | tail -n 100`
+                ERROR=`cat /tmp/log/${LOGDATE}/${LOGDATE}_RetroArch_${PLATFORM}.log | tail -n 100`
                 HASTE=`curl -XPOST http://hastebin.com/documents -d"$ERROR" | cut --fields=4 --delimiter='"'`
 		        MESSAGE="retroarch build failed [$jobid] LOG: http://hastebin.com/$HASTE"
 				echo $MESSAGE
 			fi
 			buildbot_log "$MESSAGE"
-                        echo BUILDBOT JOB: $MESSAGE >> /tmp/log/`date +%Y-%m-%d`_summary.log
+                        echo BUILDBOT JOB: $MESSAGE >> /tmp/log/${LOGDATE}/${LOGDATE}_summary.log
 			cd $WORK/$RADIR
 		fi
 
@@ -1646,19 +1647,19 @@ then
 		cp -v $RARCH_DIST_DIR/*.a .
 
 		#ls -1 *.a  | awk -F "." ' { print "cp " $0 " " $1 "_ngc." $2 }' |sh
-		sh ./ngc-cores.sh &> /tmp/log/`date +%Y-%m-%d`_RetroArch_${PLATFORM}.log
+		sh ./ngc-cores.sh &> /tmp/log/${LOGDATE}/${LOGDATE}_RetroArch_${PLATFORM}.log
         if [ $? -eq 0 ];
         then
             MESSAGE="retroarch build successful [$jobid]"
             echo $MESSAGE
 	    else
-                ERROR=`cat /tmp/log/`date +%Y-%m-%d`_RetroArch_${PLATFORM}.log | tail -n 100`
+                ERROR=`cat /tmp/log/${LOGDATE}/${LOGDATE}_RetroArch_${PLATFORM}.log | tail -n 100`
                 HASTE=`curl -XPOST http://hastebin.com/documents -d"$ERROR" | cut --fields=4 --delimiter='"'`
 		        MESSAGE="retroarch build failed [$jobid] LOG: http://hastebin.com/$HASTE"
             echo $MESSAGE
 		fi
         buildbot_log "$MESSAGE"
-        echo BUILDBOT JOB: $MESSAGE >> /tmp/log/`date +%Y-%m-%d`_summary.log
+        echo BUILDBOT JOB: $MESSAGE >> /tmp/log/${LOGDATE}/${LOGDATE}_summary.log
         cd ..
 
 	fi
