@@ -12,7 +12,8 @@
 echo "BUILDBOT JOB: Setting up Environment for $1"
 echo
 
-LOGDATE=${LOGDATE}
+LOGDATE=`date +%Y-%m-%d`
+
 ORIGPATH=$PATH
 WORK=$PWD
 OLDFORCE=YES
@@ -239,7 +240,7 @@ build_libretro_generic_makefile() {
 		MESSAGE="$1 build failed [$jobid] LOG: http://hastebin.com/$HASTE"
 	fi
         echo BUILDBOT JOB: $MESSAGE
-	echo BUILDBOT JOB: $MESSAGE >> /tmp/log/${LOGDATE}/${LOGDATE}_summary.log
+	echo BUILDBOT JOB: $MESSAGE >> /tmp/log/${LOGDATE}.log
 	buildbot_log "$MESSAGE"
 	JOBS=$OLDJ
 }
@@ -286,7 +287,7 @@ build_libretro_leiradel_makefile() {
 		MESSAGE="$1 build failed [$jobid] LOG: http://hastebin.com/$HASTE"
 	fi
 	echo BUILDBOT JOB: $MESSAGE
-        echo BUILDBOT JOB: $MESSAGE >> /tmp/log/${LOGDATE}/${LOGDATE}_summary.log
+        echo BUILDBOT JOB: $MESSAGE >> /tmp/log/${LOGDATE}.log
 	buildbot_log "$MESSAGE"
 	JOBS=$OLDJ
 }
@@ -334,7 +335,7 @@ build_libretro_generic_theos() {
 		        MESSAGE="$1 build failed [$jobid] LOG: http://hastebin.com/$HASTE"
 	fi
 	echo BUILDBOT JOB: $MESSAGE
-        echo BUILDBOT JOB: $MESSAGE >> /tmp/log/${LOGDATE}/${LOGDATE}_summary.log
+        echo BUILDBOT JOB: $MESSAGE >> /tmp/log/${LOGDATE}.log
 	buildbot_log "$MESSAGE"
 }
 
@@ -380,7 +381,7 @@ build_libretro_generic_jni() {
                 HASTE=`curl -XPOST http://hastebin.com/documents -d"$ERROR" | cut --fields=4 --delimiter='"'`
 		        MESSAGE="$1-$a build failed [$jobid] LOG: http://hastebin.com/$HASTE"
 			echo BUILDBOT JOB: $MESSAGE
-                        echo BUILDBOT JOB: $MESSAGE >> /tmp/log/${LOGDATE}/${LOGDATE}_summary.log
+                        echo BUILDBOT JOB: $MESSAGE >> /tmp/log/${LOGDATE}.log
 			buildbot_log "$MESSAGE"
 		fi
 	done
@@ -429,7 +430,7 @@ build_libretro_bsnes_jni() {
 			MESSAGE="$1 build failed [$jobid] LOG: http://hastebin.com/$HASTE"
 		fi
 		echo BUILDBOT JOB: $MESSAGE
-                echo BUILDBOT JOB: $MESSAGE >> /tmp/log/${LOGDATE}/${LOGDATE}_summary.log
+                echo BUILDBOT JOB: $MESSAGE >> /tmp/log/${LOGDATE}.log
 		buildbot_log "$MESSAGE"
 	done
 }
@@ -478,7 +479,7 @@ build_libretro_generic_gl_makefile() {
 		MESSAGE="$1 build failed [$jobid] LOG: http://hastebin.com/$HASTE"
 	fi
 	echo BUILDBOT JOB: $MESSAGE
-        echo BUILDBOT JOB: $MESSAGE >> /tmp/log/${LOGDATE}/${LOGDATE}_summary.log
+        echo BUILDBOT JOB: $MESSAGE >> /tmp/log/${LOGDATE}.log
 	buildbot_log "$MESSAGE"
 
 	reset_compiler_targets
@@ -516,13 +517,13 @@ build_libretro_bsnes() {
 	echo "compiling..."
 
 	if [ "${PROFILE}" = "cpp98" ]; then
-		${MAKE} platform="${PLATFORM}" ${COMPILER} "-j${JOBS}"
+		${MAKE} platform="${PLATFORM}" ${COMPILER} "-j${JOBS}" &>> /tmp/log/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}.log
 	elif [ "${PROFILE}" = "bnes" ]; then
 		echo "build command: ${MAKE} -f Makefile ${COMPILER} "-j${JOBS}" compiler=${BSNESCOMPILER}" platform=${FORMAT_COMPILER_TARGET}
-		${MAKE} -f Makefile ${COMPILER} "-j${JOBS}" compiler="${BSNESCOMPILER}" platform=${FORMAT_COMPILER_TARGET}
+		${MAKE} -f Makefile ${COMPILER} "-j${JOBS}" compiler="${BSNESCOMPILER}" platform=${FORMAT_COMPILER_TARGET}  &>> /tmp/log/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}.log
 	else
 		echo "build command: ${MAKE} -f ${MAKEFILE} platform=${PLATFORM} compiler=${BSNESCOMPILER} ui='target-libretro' profile=${PROFILE} -j${JOBS}"
-		${MAKE} -f ${MAKEFILE} platform=${PLATFORM} compiler=${BSNESCOMPILER} ui='target-libretro' profile=${PROFILE} -j${JOBS}
+		${MAKE} -f ${MAKEFILE} platform=${PLATFORM} compiler=${BSNESCOMPILER} ui='target-libretro' profile=${PROFILE} -j${JOBS}  &>> /tmp/log/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}.log
 	fi
 
 	if [ $? -eq 0 ]; then
@@ -540,7 +541,7 @@ build_libretro_bsnes() {
 		        MESSAGE="$1 build failed [$jobid] LOG: http://hastebin.com/$HASTE"
 	fi
 	echo BUILDBOT JOB: $MESSAGE
-        echo BUILDBOT JOB: $MESSAGE >> /tmp/log/${LOGDATE}/${LOGDATE}_summary.log
+        echo BUILDBOT JOB: $MESSAGE >> /tmp/log/${LOGDATE}.log
 	buildbot_log "$MESSAGE"
 }
 
@@ -916,7 +917,7 @@ if [ "${PLATFORM}" = "android" ] && [ "${RA}" = "YES" ]; then
 		        MESSAGE="retroarch build failed [$jobid] LOG: http://hastebin.com/$HASTE"
 			echo $MESSAGE
 		fi
-                echo BUILDBOT JOB: $MESSAGE >> /tmp/log/${LOGDATE}/${LOGDATE}_summary.log
+                echo BUILDBOT JOB: $MESSAGE >> /tmp/log/${LOGDATE}.log
 		buildbot_log "$MESSAGE"
 	fi
 fi
@@ -1179,7 +1180,7 @@ echo b=$BUILD f=$FORCE
 		if [ $? -eq 0 ]; then
 			MESSAGE="retroarch build successful [$jobid]"
 			echo $MESSAGE
-                        echo BUILDBOT JOB: $MESSAGE >> /tmp/log/${LOGDATE}/${LOGDATE}_summary.log
+                        echo BUILDBOT JOB: $MESSAGE >> /tmp/log/${LOGDATE}.log
 			buildbot_log "$MESSAGE"
 
 			echo "Packaging"
@@ -1258,7 +1259,7 @@ EOF
                 HASTE=`curl -XPOST http://hastebin.com/documents -d"$ERROR" | cut --fields=4 --delimiter='"'`
 		MESSAGE="retroarch build failed [$jobid] LOG: http://hastebin.com/$HASTE"
 		echo $MESSAGE
-                echo BUILDBOT JOB: $MESSAGE >> /tmp/log/${LOGDATE}/${LOGDATE}_summary.log
+                echo BUILDBOT JOB: $MESSAGE >> /tmp/log/${LOGDATE}.log
 		buildbot_log "$MESSAGE"
 	   fi
 	fi
@@ -1375,7 +1376,7 @@ if [ "${PLATFORM}" = "psp1" ] && [ "${RA}" = "YES" ]; then
 				echo $MESSAGE
 			fi
             buildbot_log "$MESSAGE"
-            echo BUILDBOT JOB: $MESSAGE >> /tmp/log/${LOGDATE}/${LOGDATE}_summary.log
+            echo BUILDBOT JOB: $MESSAGE >> /tmp/log/${LOGDATE}.log
 
 			echo "Packaging"
 			echo ============================================
@@ -1507,7 +1508,7 @@ if [ "${PLATFORM}" == "wii" ] && [ "${RA}" == "YES" ]; then
 				echo $MESSAGE
 			fi
 			buildbot_log "$MESSAGE"
-                        echo BUILDBOT JOB: $MESSAGE >> /tmp/log/${LOGDATE}/${LOGDATE}_summary.log
+                        echo BUILDBOT JOB: $MESSAGE >> /tmp/log/${LOGDATE}.log
 			cd $WORK/$RADIR
 		fi
 
@@ -1659,7 +1660,7 @@ then
             echo $MESSAGE
 		fi
         buildbot_log "$MESSAGE"
-        echo BUILDBOT JOB: $MESSAGE >> /tmp/log/${LOGDATE}/${LOGDATE}_summary.log
+        echo BUILDBOT JOB: $MESSAGE >> /tmp/log/${LOGDATE}.log
         cd ..
 
 	fi
