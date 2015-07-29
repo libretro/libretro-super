@@ -129,7 +129,7 @@ build_default_cores() {
 	libretro_build_core bsnes
 	libretro_build_core bsnes_cplusplus98
 	libretro_build_core bsnes_mercury
-	libretro_build_core dinothawr
+
 	libretro_build_core emux
 	libretro_build_core fuse
 	libretro_build_core genesis_plus_gx
@@ -151,14 +151,19 @@ build_default_cores() {
 	libretro_build_core mupen64plus
 	libretro_build_core picodrive
 	libretro_build_core scummvm
-	libretro_build_core stonesoup
 	libretro_build_core yabause
+
+	if [ $platform != "qnx" ]; then
+		# C++11 cores - not supported yet for these targets
+		libretro_build_core dinothawr
+		libretro_build_core stonesoup
+	fi
 
 	if [ $platform != "win" ]; then
 		libretro_build_core pcsx_rearmed
 	fi
 
-	if [ $platform != "ios" ]; then
+	if [ $platform != "ios" ] && [ $platform != "qnx" ]; then
 		libretro_build_core ffmpeg
 		libretro_build_core ppsspp
 

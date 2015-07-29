@@ -43,8 +43,8 @@ case "$platform" in
 		FORMAT_COMPILER_TARGET_ALT=qnx
 
 		CC="qcc -Vgcc_ntoarmv7le"
-		CXX="QCC -Vgcc_ntoarmv7le"
-		CXX11="QCC -Vgcc_ntoarmv7le"
+		CXX="QCC -Vgcc_ntoarmv7le_cpp"
+		CXX11="QCC -Vgcc_ntoarmv7le_cpp"
 		;;
 
 	ps3)
