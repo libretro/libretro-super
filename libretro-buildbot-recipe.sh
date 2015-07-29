@@ -14,7 +14,7 @@ echo
 
 LOGDATE=`date +%Y-%m-%d`
 
-echo $LOGDATE $BOT
+echo $LOGDATE $BOT $FORCE
 
 ORIGPATH=$PATH
 WORK=$PWD

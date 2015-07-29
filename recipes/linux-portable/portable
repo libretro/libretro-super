@@ -15,6 +15,10 @@ catsfc libretro-catsfc https://github.com/libretro/CATSFC-libretro.git PROJECT Y
 desmume libretro-desmume https://github.com/libretro/desmume.git PROJECT YES GENERIC Makefile.libretro desmume 
 dinothawr libretro-dinothawr https://github.com/libretro/Dinothawr.git PROJECT YES GENERIC Makefile . 
 dosbox libretro-dosbox https://github.com/libretro/dosbox-libretro.git PROJECT YES GENERIC Makefile.libretro . 
+emux_nes libretro-emux_nes https://github.com/sronsse/emux PROJECT YES GENERIC Makefile libretro nes 
+emux_gb libretro-emux_gb https://github.com/sronsse/emux PROJECT YES GENERIC Makefile libretro gb 
+emux_sms libretro-emux_sms https://github.com/sronsse/emux PROJECT YES GENERIC Makefile libretro sms 
+emux_chip8 libretro-emux_chip8 https://github.com/sronsse/emux PROJECT YES GENERIC Makefile libretro chip8 
 fba libretro-fba_new https://github.com/libretro/libretro-fba.git PROJECT YES GENERIC makefile.libretro . 
 fb_alpha libretro-fba https://github.com/libretro/fba-libretro.git PROJECT YES GENERIC makefile.libretro svn-current/trunk 
 fba_cores_cps1 libretro-fba https://github.com/libretro/fba-libretro.git PROJECT YES GENERIC makefile.libretro svn-current/trunk/fbacores/cps1 
@@ -70,3 +74,4 @@ virtualjaguar libretro-virtualjaguar https://github.com/libretro/virtualjaguar-l
 yabause libretro-yabause https://github.com/libretro/yabause.git PROJECT YES GENERIC Makefile libretro 
 ppsspp libretro-ppsspp https://github.com/libretro/ppsspp.git SUBMODULE YES GENERIC_GL Makefile libretro 
 ffmpeg libretro-ffmpeg  https://github.com/libretro/FFmpeg.git PROJECT YES GENERIC_GL Makefile libretro 
+
