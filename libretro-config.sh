@@ -35,6 +35,18 @@ case "$platform" in
 		CXX11="clang++ -std=c++11 -stdlib=libc++ -arch armv7 -marm -miphoneos-version-min=5.0 -isysroot $IOSSDK"
 		;;
 
+	qnx)
+		DIST_DIR="qnx"
+		FORMAT_EXT=so
+		FORMAT=_qnx
+		FORMAT_COMPILER_TARGET=qnx
+		FORMAT_COMPILER_TARGET_ALT=qnx
+
+		CC="qcc -Vgcc_ntoarmv7le"
+		CXX="QCC -Vgcc_ntoarmv7le"
+		CXX11="QCC -Vgcc_ntoarmv7le"
+		;;
+
 	ps3)
 		DIST_DIR="ps3"
 		FORMAT_EXT=a
