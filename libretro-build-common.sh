@@ -135,19 +135,6 @@ build_libretro_generic_makefile_subcore() {
 	fi
 }
 
-build_libretro_fba_cps2() {
-	build_libretro_generic_makefile_subcore "fb_alpha" "fba_cores_cps2" "svn-current/trunk/fbacores/cps2" "makefile.libretro" $FORMAT_COMPILER_TARGET
-}
-
-build_libretro_fba_neogeo() {
-	build_libretro_generic_makefile_subcore "fb_alpha" "fba_cores_neo" "svn-current/trunk/fbacores/neogeo" "makefile.libretro" $FORMAT_COMPILER_TARGET
-}
-
-build_libretro_fba_cps1() {
-	build_libretro_generic_makefile_subcore "fb_alpha" "fba_cores_cps1" "svn-current/trunk/fbacores/cps1" "makefile.libretro" $FORMAT_COMPILER_TARGET
-}
-
-
 build_libretro_generic() {
 	echo_cmd "cd \"$5/$2\""
 
@@ -343,10 +330,10 @@ build_libretro_test() {
 	if [ -d "$build_dir" ]; then
 		echo "=== Building RetroArch test cores ==="
 		if check_opengl; then
-			build_libretro_generic "retroarch" "libretro-test-gl" "Makefile" $FORMAT_COMPILER_TARGET "$build_dir"
+			build_libretro_generic "retroarch" "cores/libretro-test-gl" "Makefile" $FORMAT_COMPILER_TARGET "$build_dir"
 			copy_core_to_dist "testgl"
 		fi
-		build_libretro_generic "retroarch" "libretro-test" "Makefile" $FORMAT_COMPILER_TARGET "$build_dir"
+		build_libretro_generic "retroarch" "cores/libretro-test" "Makefile" $FORMAT_COMPILER_TARGET "$build_dir"
 		copy_core_to_dist "test"
 
 		# TODO: Check for more than test here...
