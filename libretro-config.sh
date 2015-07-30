@@ -57,11 +57,23 @@ case "$platform" in
 		CC="ppu-lv2-gcc.exe"
 		CXX="ppu-lv2-g++.exe"
 		;;
+
+	ngc)
+		DIST_DIR="ngc"
+		FORMAT_EXT=a
+		FORMAT_COMPILER_TARGET=ngc
+		FORMAT_COMPILER_TARGET_ALT=ngc
+		FORMAT=_ngc
+
+		CC="$DEVKITPPC/bin/powerpc-eabi-gcc$BINARY_EXT"
+		CXX="$DEVKITPPC/bin/powerpc-eabi-g++$BINARY_EXT"
+		;;
 	
 	wii)
 		DIST_DIR="wii"
 		FORMAT_EXT=a
 		FORMAT_COMPILER_TARGET=wii
+		FORMAT_COMPILER_TARGET_ALT=wii
 		FORMAT=_wii
 
 		CC="$DEVKITPPC/bin/powerpc-eabi-gcc$BINARY_EXT"
