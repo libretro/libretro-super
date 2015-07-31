@@ -111,7 +111,7 @@ build_default_cores_little_endian_only() {
 	libretro_build_core prosystem
 }
 
-# These are C++11 cores - not supported by these targets
+# These are C++11 cores
 
 build_default_cores_cpp11() {
 	libretro_build_core dinothawr
@@ -202,11 +202,9 @@ build_default_cores() {
 		# Excluded for performance reasons
 		libretro_build_core mednafen_pcfx
 		libretro_build_core mednafen_psx
-	fi
-
-	if [ $platform != "qnx" ] && [ $platform != "psp1" ] && [ $platform != "ngc" ] && [ $platform != "wii" ] && [ $platform != "ps3" ] && [ $platform != "sncps3" ]; then
-		# Compilation and/or perforamnce issues
-		libretro_build_core mednafen_snes
+		if [ $platform != "qnx" ]; then
+			libretro_build_core mednafen_snes
+		fi
 	fi
 
 	libretro_build_core mednafen_supergrafx
@@ -255,24 +253,24 @@ build_default_cores() {
 
 	if [ $platform != "qnx" ] && [ $platform != "ps3" ] && [ $platform != "sncps3" ] && [ $platform != "psp1" ] && [ $platform != "ngc" ] && [ $platform != "wii" ]; then
 		build_default_cores_cpp11
-	fi
 
-	if [ $platform != "win" ] && [ $platform != "qnx" ] && [ $platform != "psp1" ] && [ $platform != "ngc" ] && [ $platform != "wii" ] && [ $platform != "ps3" ] && [ $platform != "sncps3" ]; then
-		# Reasons for not compiling this on Windows yet -
-		# (Windows) - Doesn't work properly
-		# (QNX)     - Compilation issues
-		# (PSP1)    - Performance/compilation issues
-		# (Wii)     - Performance/compilation issues
-		# (PS3)     - Performance/compilation issues
-		libretro_build_core pcsx_rearmed
-	fi
+		if [ $platform != "win" ]; then
+			# Reasons for not compiling this on Windows yet -
+			# (Windows) - Doesn't work properly
+			# (QNX)     - Compilation issues
+			# (PSP1)    - Performance/compilation issues
+			# (Wii)     - Performance/compilation issues
+			# (PS3)     - Performance/compilation issues
+			libretro_build_core pcsx_rearmed
+		fi
 
-	if [ $platform != "ios" ] && [ $platform != "qnx" ] && [ $platform != "psp1" ] && [ $platform != "ps3" ] && [ $platform != "sncps3" ] && [ $platform != "ngc" ] && [ $platform != "wii" ]; then
-		# Would need ffmpeg libraries baked in
-		libretro_build_core ffmpeg
-		libretro_build_core ppsspp
+		if [ $platform != "ios" ]; then
+			# Would need ffmpeg libraries baked in
+			libretro_build_core ffmpeg
+			libretro_build_core ppsspp
 
-		libretro_build_core bnes
+			libretro_build_core bnes
+		fi
 	fi
 
 	build_libretro_test
