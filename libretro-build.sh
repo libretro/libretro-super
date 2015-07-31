@@ -88,6 +88,26 @@ echo "STRIP = $STRIP"
 
 . "$BASE_DIR/libretro-build-common.sh"
 
+# These are cores which only work properly right
+# now on little-endian architecture systems
+
+build_default_cores_little_endian_only() {
+	libretro_build_core tgbdual
+	libretro_build_core gpsp
+	libretro_build_core o2em
+	libretro_build_core 4do
+
+	if [ $platform != "qnx" ]; then
+		# (QNX) - Compilation issues
+		libretro_build_core desmume
+		libretro_build_core picodrive
+	fi
+
+	# TODO - Verify endianness compatibility - for now exclude
+	libretro_build_core virtualjaguar
+	libretro_build_core prosystem
+}
+
 # These are C++11 cores - not supported by these targets
 
 build_default_cores_cpp11() {
@@ -112,7 +132,10 @@ build_default_cores_libretro_gl() {
 	# Reasons for not compiling this yet on these targets (other than endianness issues)
 	# 1) Wii/NGC - no PPC dynarec, no usable graphics plugins that work with GX
 	# 2) PS3     - no PPC dynarec, PSGL is GLES 1.0 while graphics plugins right now require GL 2.0+/GLES2
-	libretro_build_core mupen64plus
+	# 3) QNX     - Compilation issues, ARM NEON compiler issues
+	if [ $platform != "qnx" ]; then
+		libretro_build_core mupen64plus
+	fi
 
 	# Graphics require GLES 2/GL 2.0
 	libretro_build_core 3dengine
@@ -134,54 +157,63 @@ build_default_cores() {
 	libretro_build_core fmsx
 	libretro_build_core gambatte
 	libretro_build_core handy
-	libretro_build_core meteor
 	libretro_build_core nestopia
 	libretro_build_core nxengine
 	libretro_build_core prboom
-	libretro_build_core prosystem
 	libretro_build_core quicknes
-	libretro_build_core snes9x
 	libretro_build_core snes9x_next
 	libretro_build_core stella
 	libretro_build_core tyrquake
 	libretro_build_core vba_next
 	libretro_build_core vbam
 	libretro_build_core vecx
+	libretro_build_core mgba
 
 	libretro_build_core bsnes_cplusplus98
 
-	libretro_build_core emux
-	libretro_build_core fuse
 	libretro_build_core genesis_plus_gx
-	libretro_build_core hatari
+
+	if [ $platform != "qnx" ]; then
+		# Compilation issues
+		libretro_build_core hatari
+		libretro_build_core meteor
+	fi
+
 	libretro_build_core lutro
 	libretro_build_core mame078
+
 	libretro_build_core mednafen_gba
 	libretro_build_core mednafen_lynx
 	libretro_build_core mednafen_ngp
 	libretro_build_core mednafen_pce_fast
 	libretro_build_core mednafen_pcfx
 	libretro_build_core mednafen_psx
-	libretro_build_core mednafen_snes
+	if [ $platform != "qnx" ]; then
+		libretro_build_core mednafen_snes
+	fi
 	libretro_build_core mednafen_supergrafx
 	libretro_build_core mednafen_vb
 	libretro_build_core mednafen_wswan
 
 	libretro_build_core gw
 
-	if [ $platform != "ps3" ] && [ $platform != "sncps3" ] && [ $platform != "wii" ] && [ $platform != "ngc" ]; then
-		# These cores might not yet be big-endian compatible
-		libretro_build_core picodrive
-		libretro_build_core tgbdual
-		libretro_build_core gpsp
-		libretro_build_core o2em
-		libretro_build_core 4do
-		libretro_build_core desmume
 
-		# TODO - Verify endianness compatibility - for now exclude
-		libretro_build_core virtualjaguar
+	if [ $platform != "ps3" ] && [ $platform != "sncps3" ]; then
+		libretro_build_core fuse
+	fi
+
+	if [ $platform != "ps3" ] && [ $platform != "sncps3" ] && [ $platform != "wii" ] && [ $platform != "ngc" ]; then
+		build_default_cores_little_endian_only
 
 		build_default_cores_libretro_gl
+
+		# Exclude this for PS3/NGC/Wii because SNES9x Next is a faster variant
+		libretro_build_core snes9x
+
+		if [ $platform != "qnx" ]; then
+			# Just basic compilation issues right now for these platforms
+			libretro_build_core emux
+		fi
 
 		# The only reason this won't be compiled in yet for PS3/Wii is
 		# 1) Wii/NGC - too big in binary size
@@ -198,9 +230,10 @@ build_default_cores() {
 		build_default_cores_cpp11
 	fi
 
-	if [ $platform != "win" ]; then
+	if [ $platform != "win" ] && [ $platform != "qnx" ]; then
 		# Reasons for not compiling this on Windows yet -
 		# (Windows) - Doesn't work properly
+		# (QNX)     - Compilation issues
 		libretro_build_core pcsx_rearmed
 	fi
 
