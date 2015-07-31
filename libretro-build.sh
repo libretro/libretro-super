@@ -205,14 +205,13 @@ build_default_cores() {
 
 	if [ $platform != "ps3" ] && [ $platform != "sncps3" ]; then
 		libretro_build_core fuse
+		libretro_build_core lutro
 	fi
 
 	if [ $platform != "ps3" ] && [ $platform != "sncps3" ] && [ $platform != "wii" ] && [ $platform != "ngc" ]; then
 		build_default_cores_little_endian_only
 
 		build_default_cores_libretro_gl
-
-		libretro_build_core lutro
 
 		# (PS3/NGC/Wii) Excluded for performance reasons
 		libretro_build_core snes9x
