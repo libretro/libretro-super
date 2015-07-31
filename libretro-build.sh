@@ -98,6 +98,16 @@ build_default_cores_cpp11() {
 	libretro_build_core mame
 }
 
+build_default_cores_libretro_gl() {
+	# Reasons for not compiling this yet on these targets (other than endianness issues)
+	# 1) Wii/NGC - no PPC dynarec, no usable graphics plugins that work with GX
+	# 2) PS3     - no PPC dynarec, PSGL is GLES 1.0 while graphics plugins right now require GL 2.0+/GLES2
+	libretro_build_core mupen64plus
+
+	# Graphics require GLES 2/GL 2.0
+	libretro_build_core 3dengine
+}
+
 # These build everywhere libretro-build.sh works
 # (They also use rules builds, which will help later)
 
@@ -158,13 +168,7 @@ build_default_cores() {
 		libretro_build_core 4do
 		libretro_build_core desmume
 
-		# Reasons for not compiling this yet on these targets (other than endianness issues)
-		# 1) Wii/NGC - no PPC dynarec, no usable graphics plugins that work with GX
-		# 2) PS3     - no PPC dynarec, PSGL is GLES 1.0 while graphics plugins right now require GL 2.0+/GLES2
-		libretro_build_core mupen64plus
-
-		# Graphics require GLES 2/GL 2.0
-		libretro_build_core 3dengine
+		build_default_cores_libretro_gl
 
 		# The only reason this won't be compiled in yet for PS3/Wii is
 		# 1) Wii/NGC - too big in binary size
