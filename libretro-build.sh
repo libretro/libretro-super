@@ -88,11 +88,20 @@ echo "STRIP = $STRIP"
 
 . "$BASE_DIR/libretro-build-common.sh"
 
+# These are C++11 cores - not supported by these targets
+
+build_default_cores_cpp11() {
+	libretro_build_core dinothawr
+	libretro_build_core stonesoup
+	libretro_build_core bsnes
+	libretro_build_core bsnes_mercury
+	libretro_build_core mame
+}
+
+# These build everywhere libretro-build.sh works
+# (They also use rules builds, which will help later)
+
 build_default_cores() {
-
-	# These build everywhere libretro-build.sh works
-	# (They also use rules builds, which will help later)
-
 	libretro_build_core 2048
 	libretro_build_core bluemsx
 	libretro_build_core catsfc
@@ -116,9 +125,6 @@ build_default_cores() {
 	libretro_build_core vbam
 	libretro_build_core vecx
 	libretro_build_core virtualjaguar
-
-	# Nothing past here supports theos
-	[ "$platform" = "theos_ios" ] && return
 
 	libretro_build_core bsnes_cplusplus98
 
@@ -170,13 +176,8 @@ build_default_cores() {
 		libretro_build_core yabause
 	fi
 
-	if [ $platform != "qnx" && [ $platform != "ps3" ] && [ $platform != "sncps3" ]; then
-		# These are C++11 cores - not supported by these targets
-		libretro_build_core dinothawr
-		libretro_build_core stonesoup
-		libretro_build_core bsnes
-		libretro_build_core bsnes_mercury
-		libretro_build_core mame
+	if [ $platform != "qnx" ] && [ $platform != "ps3" ] && [ $platform != "sncps3" ]; then
+		build_default_cores_cpp11
 	fi
 
 	if [ $platform != "win" ]; then
@@ -186,6 +187,7 @@ build_default_cores() {
 	fi
 
 	if [ $platform != "ios" ] && [ $platform != "qnx" ]; then
+		# Would need ffmpeg libraries baked in
 		libretro_build_core ffmpeg
 		libretro_build_core ppsspp
 
