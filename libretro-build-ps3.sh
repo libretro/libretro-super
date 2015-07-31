@@ -14,8 +14,6 @@ else
 	fi
 fi
 
-# The PS3 build rules have all been moved to libretro-build.sh
-
 if [[ -z "$1" ]]; then
 WANT_CORES=" \
 	fb_alpha \

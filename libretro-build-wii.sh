@@ -14,6 +14,4 @@ else
 	fi
 fi
 
-# The Wii build rules have all been moved to libretro-build.sh
-
 platform=wii ${BASE_DIR}/libretro-build.sh $@

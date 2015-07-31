@@ -14,6 +14,4 @@ else
 	fi
 fi
 
-# The theos build rules have all been moved to libretro-build.sh
-
 platform=theos_ios ${BASE_DIR}/libretro-build.sh $@

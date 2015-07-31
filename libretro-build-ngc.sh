@@ -14,6 +14,4 @@ else
 	fi
 fi
 
-# The NGC build rules have all been moved to libretro-build.sh
-
 platform=ngc ${BASE_DIR}/libretro-build.sh $@

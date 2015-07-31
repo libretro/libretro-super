@@ -187,25 +187,15 @@ build_default_cores() {
 	fi
 
 	if [ $platform != "psp1" ] && [ $platform != "wii" ] && [ $platform != "ngc" ]; then
-		# (PSP/NGC/Wii) Performance issues
+		# (PSP/NGC/Wii) Performance and/or binary size issues
 		libretro_build_core bsnes_cplusplus98
-		if [ $platform != "psp1" ]; then
-			libretro_build_core mame078
-		fi
+		libretro_build_core mame078
 		libretro_build_core mednafen_gba
 	fi
 
 	libretro_build_core mednafen_lynx
 	libretro_build_core mednafen_ngp
 	libretro_build_core mednafen_pce_fast
-	if [ $platform != "psp1" ] && [ $platform != "wii" ] && [ $platform != "ngc" ] && [ $platform != "ps3" ] && [ $platform != "sncps3" ]; then
-		# Excluded for performance reasons
-		libretro_build_core mednafen_pcfx
-		libretro_build_core mednafen_psx
-		if [ $platform != "qnx" ]; then
-			libretro_build_core mednafen_snes
-		fi
-	fi
 
 	libretro_build_core mednafen_supergrafx
 	libretro_build_core mednafen_vb
@@ -214,9 +204,6 @@ build_default_cores() {
 	libretro_build_core gw
 
 	if [ $platform != "ps3" ] && [ $platform != "sncps3" ]; then
-		if [ $platform != "wii" ] && [ $platform != "ngc" ]; then
-			libretro_build_core lutro
-		fi
 		libretro_build_core fuse
 	fi
 
@@ -225,20 +212,24 @@ build_default_cores() {
 
 		build_default_cores_libretro_gl
 
+		libretro_build_core lutro
+
 		# (PS3/NGC/Wii) Excluded for performance reasons
 		libretro_build_core snes9x
 		libretro_build_core vbam
 
-		if [ $platform != "qnx" ] && [ $platform != "psp1" ]; then
-			# Just basic compilation issues right now for these platforms
-			libretro_build_core emux
-		fi
-
-		# The only reason this won't be compiled in yet for PS3/Wii is
-		# 1) Wii/NGC - too big in binary size
-		# 2) PS3 - filesystem API issues
 		if [ $platform != "psp1" ]; then
+			# The only reason ScummVM won't be compiled in yet is
+			# 1) Wii/NGC/PSP - too big in binary size
+			# 2) PS3 - filesystem API issues
 			libretro_build_core scummvm
+
+			# Excluded for performance reasons
+			libretro_build_core mednafen_pcfx
+			libretro_build_core mednafen_psx
+			if [ $platform != "qnx" ]; then
+				libretro_build_core mednafen_snes
+			fi
 		fi
 
 		# Could work on PS3/Wii right now but way too slow right now,
@@ -248,32 +239,34 @@ build_default_cores() {
 		# Compilation/port status issues
 		libretro_build_core hatari
 		libretro_build_core meteor
-	fi
 
+		if [ $platform != "qnx" ] && [ $platform != "psp1" ]; then
+			build_default_cores_cpp11
 
-	if [ $platform != "qnx" ] && [ $platform != "ps3" ] && [ $platform != "sncps3" ] && [ $platform != "psp1" ] && [ $platform != "ngc" ] && [ $platform != "wii" ]; then
-		build_default_cores_cpp11
+			# Just basic compilation issues right now for these platforms
+			libretro_build_core emux
 
-		if [ $platform != "win" ]; then
-			# Reasons for not compiling this on Windows yet -
-			# (Windows) - Doesn't work properly
-			# (QNX)     - Compilation issues
-			# (PSP1)    - Performance/compilation issues
-			# (Wii)     - Performance/compilation issues
-			# (PS3)     - Performance/compilation issues
-			libretro_build_core pcsx_rearmed
+			if [ $platform != "win" ]; then
+				# Reasons for not compiling this on Windows yet -
+				# (Windows) - Doesn't work properly
+				# (QNX)     - Compilation issues
+				# (PSP1)    - Performance/compilation issues
+				# (Wii)     - Performance/compilation issues
+				# (PS3)     - Performance/compilation issues
+				libretro_build_core pcsx_rearmed
+			fi
+
+			if [ $platform != "ios" ]; then
+				# Would need ffmpeg libraries baked in
+				libretro_build_core ffmpeg
+				libretro_build_core ppsspp
+
+				libretro_build_core bnes
+			fi
 		fi
 
-		if [ $platform != "ios" ]; then
-			# Would need ffmpeg libraries baked in
-			libretro_build_core ffmpeg
-			libretro_build_core ppsspp
-
-			libretro_build_core bnes
-		fi
+		build_libretro_test
 	fi
-
-	build_libretro_test
 }
 
 

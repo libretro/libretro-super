@@ -14,6 +14,4 @@ else
 	fi
 fi
 
-# The QNX build rules have all been moved to libretro-build.sh
-
 platform=qnx ${BASE_DIR}/libretro-build.sh $@
