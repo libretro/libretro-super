@@ -173,13 +173,6 @@ build_default_cores() {
 
 	libretro_build_core genesis_plus_gx
 
-	if [ $platform != "qnx" ]; then
-		# Compilation issues
-		libretro_build_core hatari
-		libretro_build_core meteor
-	fi
-
-	libretro_build_core lutro
 	libretro_build_core mame078
 
 	libretro_build_core mednafen_gba
@@ -189,7 +182,10 @@ build_default_cores() {
 	libretro_build_core mednafen_pcfx
 	libretro_build_core mednafen_psx
 	if [ $platform != "qnx" ]; then
+		# (QNX) Compilation issues
 		libretro_build_core mednafen_snes
+		libretro_build_core hatari
+		libretro_build_core meteor
 	fi
 	libretro_build_core mednafen_supergrafx
 	libretro_build_core mednafen_vb
@@ -197,8 +193,10 @@ build_default_cores() {
 
 	libretro_build_core gw
 
-
 	if [ $platform != "ps3" ] && [ $platform != "sncps3" ]; then
+		if [ $platform != "wii" ] && [ $platform != "ngc" ]; then
+			libretro_build_core lutro
+		fi
 		libretro_build_core fuse
 	fi
 
