@@ -98,6 +98,16 @@ build_default_cores_cpp11() {
 	libretro_build_core mame
 }
 
+# These are cores intended for platforms with a limited
+# amount of RAM, where the full version would not fit
+# into memory
+
+build_default_cores_small_memory_footprint() {
+	libretro_build_core fb_alpha_cps1
+	libretro_build_core fb_alpha_cps2
+	libretro_build_core fb_alpha_neo
+}
+
 build_default_cores_libretro_gl() {
 	# Reasons for not compiling this yet on these targets (other than endianness issues)
 	# 1) Wii/NGC - no PPC dynarec, no usable graphics plugins that work with GX
@@ -112,6 +122,9 @@ build_default_cores_libretro_gl() {
 # (They also use rules builds, which will help later)
 
 build_default_cores() {
+	if [ $platform == "wii" ] || [ $platform == "ngc" ]; then
+		build_default_cores_small_memory_footprint
+	fi
 	libretro_build_core 2048
 	libretro_build_core bluemsx
 	libretro_build_core catsfc
@@ -177,6 +190,7 @@ build_default_cores() {
 		# and messed up big-endian colors
 		libretro_build_core yabause
 	fi
+
 
 	if [ $platform != "qnx" ] && [ $platform != "ps3" ] && [ $platform != "sncps3" ]; then
 		build_default_cores_cpp11
