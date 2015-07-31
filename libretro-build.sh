@@ -155,9 +155,9 @@ build_default_cores() {
 	fi
 	libretro_build_core 2048
 	libretro_build_core bluemsx
-	libretro_build_core catsfc
-	if [ $platform != "psp1" ]; then
+	if [ $platform != "psp1" ] && [ $platform != "ngc" ] && [ $platform != "wii" ] && [ $platform != "ps3" ] && [ $platform != "sncps3" ]; then
 		libretro_build_core dosbox
+		libretro_build_core catsfc
 	fi
 	if [ $platform != "psp1" ]; then
 		# Excluded for binary size reasons
@@ -166,16 +166,17 @@ build_default_cores() {
 	libretro_build_core fceumm
 	libretro_build_core fmsx
 	libretro_build_core gambatte
-	libretro_build_core handy
+	if [ $platform != "ngc" ] && [ $platform != "wii" ] && [ $platform != "ps3" ] && [ $platform != "sncps3" ]; then
+		libretro_build_core handy
+	fi
+	libretro_build_core stella
 	libretro_build_core nestopia
 	libretro_build_core nxengine
 	libretro_build_core prboom
 	libretro_build_core quicknes
 	libretro_build_core snes9x_next
-	libretro_build_core stella
 	libretro_build_core tyrquake
 	libretro_build_core vba_next
-	libretro_build_core vbam
 	libretro_build_core vecx
 
 	if [ $platform != "psp1" ]; then
@@ -203,11 +204,9 @@ build_default_cores() {
 		libretro_build_core mednafen_psx
 	fi
 
-	if [ $platform != "qnx" ] && [ $platform != "psp1" ]; then
-		# Compilation issues
+	if [ $platform != "qnx" ] && [ $platform != "psp1" ] && [ $platform != "ngc" ] && [ $platform != "wii" ] && [ $platform != "ps3" ] && [ $platform != "sncps3" ]; then
+		# Compilation and/or perforamnce issues
 		libretro_build_core mednafen_snes
-		libretro_build_core hatari
-		libretro_build_core meteor
 	fi
 
 	libretro_build_core mednafen_supergrafx
@@ -230,6 +229,7 @@ build_default_cores() {
 
 		# (PS3/NGC/Wii) Excluded for performance reasons
 		libretro_build_core snes9x
+		libretro_build_core vbam
 
 		if [ $platform != "qnx" ] && [ $platform != "psp1" ]; then
 			# Just basic compilation issues right now for these platforms
@@ -246,22 +246,28 @@ build_default_cores() {
 		# Could work on PS3/Wii right now but way too slow right now,
 		# and messed up big-endian colors
 		libretro_build_core yabause
+
+		# Compilation/port status issues
+		libretro_build_core hatari
+		libretro_build_core meteor
 	fi
 
 
-	if [ $platform != "qnx" ] && [ $platform != "ps3" ] && [ $platform != "sncps3" ] && [ $platform != "psp1" ]; then
+	if [ $platform != "qnx" ] && [ $platform != "ps3" ] && [ $platform != "sncps3" ] && [ $platform != "psp1" ] && [ $platform != "ngc" ] && [ $platform != "wii" ]; then
 		build_default_cores_cpp11
 	fi
 
-	if [ $platform != "win" ] && [ $platform != "qnx" ] && [ $platform != "psp1" ]; then
+	if [ $platform != "win" ] && [ $platform != "qnx" ] && [ $platform != "psp1" ] && [ $platform != "ngc" ] && [ $platform != "wii" ] && [ $platform != "ps3" ] && [ $platform != "sncps3" ]; then
 		# Reasons for not compiling this on Windows yet -
 		# (Windows) - Doesn't work properly
 		# (QNX)     - Compilation issues
-		# (PSP1)    - Performance issues
+		# (PSP1)    - Performance/compilation issues
+		# (Wii)     - Performance/compilation issues
+		# (PS3)     - Performance/compilation issues
 		libretro_build_core pcsx_rearmed
 	fi
 
-	if [ $platform != "ios" ] && [ $platform != "qnx" ] && [ $platform != "psp1" ]; then
+	if [ $platform != "ios" ] && [ $platform != "qnx" ] && [ $platform != "psp1" ] && [ $platform != "ps3" ] && [ $platform != "sncps3" ] && [ $platform != "ngc" ] && [ $platform != "wii" ]; then
 		# Would need ffmpeg libraries baked in
 		libretro_build_core ffmpeg
 		libretro_build_core ppsspp

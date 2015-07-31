@@ -16,37 +16,4 @@ fi
 
 # The Wii build rules have all been moved to libretro-build.sh
 
-if [[ -z "$1" ]]; then
-WANT_CORES=" \
-	2048 \
-	bluemsx \
-	fceumm  \
-	fmsx \
-	gambatte \
-	genesis_plus_gx \
-	mednafen_gba \
-	mednafen_lynx \
-	mednafen_ngp \
-	mednafen_pce_fast \
-	mednafen_pcfx \
-	mednafen_supergrafx \
-	mednafen_wswan \
-	mednafen_vb \
-	nestopia \
-	nxengine \
-	quicknes \
-	prboom \
-	snes9x_next \
-	vba_next \
-	tyrquake \
-	gw \
-	mgba \
-	fb_alpha_cps1 \
-	fb_alpha_cps2 \
-	fb_alpha_neo \
-	vecx"
-else
-WANT_CORES="$@"
-fi
-
-platform=wii ${BASE_DIR}/libretro-build.sh ${WANT_CORES}
+platform=wii ${BASE_DIR}/libretro-build.sh $@
