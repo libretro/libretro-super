@@ -147,7 +147,6 @@ build_default_cores() {
 	libretro_build_core vba_next
 	libretro_build_core vbam
 	libretro_build_core vecx
-	libretro_build_core virtualjaguar
 
 	libretro_build_core bsnes_cplusplus98
 
@@ -178,6 +177,9 @@ build_default_cores() {
 		libretro_build_core o2em
 		libretro_build_core 4do
 		libretro_build_core desmume
+
+		# TODO - Verify endianness compatibility - for now exclude
+		libretro_build_core virtualjaguar
 
 		build_default_cores_libretro_gl
 
