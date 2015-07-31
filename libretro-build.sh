@@ -155,9 +155,7 @@ build_default_cores() {
 	libretro_build_core mednafen_vb
 	libretro_build_core mednafen_wswan
 
-	if [ $platform != "qnx" ]; then
-		libretro_build_core gw
-	fi
+	libretro_build_core gw
 
 	if [ $platform != "ps3" ] && [ $platform != "sncps3" ] && [ $platform != "wii" ] && [ $platform != "ngc" ]; then
 		# These cores might not yet be big-endian compatible
