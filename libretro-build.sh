@@ -93,13 +93,16 @@ echo "STRIP = $STRIP"
 
 build_default_cores_little_endian_only() {
 	libretro_build_core tgbdual
-	libretro_build_core gpsp
-	libretro_build_core o2em
+	if [ $platform != "psp1" ]; then
+		libretro_build_core gpsp
+		libretro_build_core o2em
+	fi
 	libretro_build_core 4do
 
 	if [ $platform != "qnx" ]; then
-		# (QNX) - Compilation issues
-		libretro_build_core desmume
+		if [ $platform != "psp1" ]; then
+			libretro_build_core desmume
+		fi
 		libretro_build_core picodrive
 	fi
 
@@ -138,7 +141,9 @@ build_default_cores_libretro_gl() {
 	fi
 
 	# Graphics require GLES 2/GL 2.0
-	libretro_build_core 3dengine
+	if [ $platform != "psp1" ]; then
+		libretro_build_core 3dengine
+	fi
 }
 
 # These build everywhere libretro-build.sh works
@@ -198,8 +203,8 @@ build_default_cores() {
 		libretro_build_core mednafen_psx
 	fi
 
-	if [ $platform != "qnx" ]; then
-		# (QNX) Compilation issues
+	if [ $platform != "qnx" ] && [ $platform != "psp1" ]; then
+		# Compilation issues
 		libretro_build_core mednafen_snes
 		libretro_build_core hatari
 		libretro_build_core meteor
@@ -226,7 +231,7 @@ build_default_cores() {
 		# (PS3/NGC/Wii) Excluded for performance reasons
 		libretro_build_core snes9x
 
-		if [ $platform != "qnx" ]; then
+		if [ $platform != "qnx" ] && [ $platform != "psp1" ]; then
 			# Just basic compilation issues right now for these platforms
 			libretro_build_core emux
 		fi
@@ -234,7 +239,9 @@ build_default_cores() {
 		# The only reason this won't be compiled in yet for PS3/Wii is
 		# 1) Wii/NGC - too big in binary size
 		# 2) PS3 - filesystem API issues
-		libretro_build_core scummvm
+		if [ $platform != "psp1" ]; then
+			libretro_build_core scummvm
+		fi
 
 		# Could work on PS3/Wii right now but way too slow right now,
 		# and messed up big-endian colors
@@ -242,7 +249,7 @@ build_default_cores() {
 	fi
 
 
-	if [ $platform != "qnx" ] && [ $platform != "ps3" ] && [ $platform != "sncps3" ]; then
+	if [ $platform != "qnx" ] && [ $platform != "ps3" ] && [ $platform != "sncps3" ] && [ $platform != "psp1" ]; then
 		build_default_cores_cpp11
 	fi
 
@@ -254,7 +261,7 @@ build_default_cores() {
 		libretro_build_core pcsx_rearmed
 	fi
 
-	if [ $platform != "ios" ] && [ $platform != "qnx" ]; then
+	if [ $platform != "ios" ] && [ $platform != "qnx" ] && [ $platform != "psp1" ]; then
 		# Would need ffmpeg libraries baked in
 		libretro_build_core ffmpeg
 		libretro_build_core ppsspp
