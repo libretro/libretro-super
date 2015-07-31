@@ -145,14 +145,19 @@ build_default_cores_libretro_gl() {
 # (They also use rules builds, which will help later)
 
 build_default_cores() {
-	if [ $platform == "wii" ] || [ $platform == "ngc" ]; then
+	if [ $platform == "wii" ] || [ $platform == "ngc" ] || [ $platform == "psp1" ]; then
 		build_default_cores_small_memory_footprint
 	fi
 	libretro_build_core 2048
 	libretro_build_core bluemsx
 	libretro_build_core catsfc
-	libretro_build_core dosbox
-	libretro_build_core fb_alpha
+	if [ $platform != "psp1" ]; then
+		libretro_build_core dosbox
+	fi
+	if [ $platform != "psp1" ]; then
+		# Excluded for binary size reasons
+		libretro_build_core fb_alpha
+	fi
 	libretro_build_core fceumm
 	libretro_build_core fmsx
 	libretro_build_core gambatte
@@ -167,26 +172,39 @@ build_default_cores() {
 	libretro_build_core vba_next
 	libretro_build_core vbam
 	libretro_build_core vecx
-	libretro_build_core mgba
 
-	libretro_build_core bsnes_cplusplus98
+	if [ $platform != "psp1" ]; then
+		# (PSP) Compilation issues
+		libretro_build_core mgba
+		# (PSP) Performance issues
+		libretro_build_core genesis_plus_gx
+	fi
 
-	libretro_build_core genesis_plus_gx
+	if [ $platform != "psp1" ] && [ $platform != "wii" ] && [ $platform != "ngc" ]; then
+		# (PSP/NGC/Wii) Performance issues
+		libretro_build_core bsnes_cplusplus98
+		if [ $platform != "psp1" ]; then
+			libretro_build_core mame078
+		fi
+		libretro_build_core mednafen_gba
+	fi
 
-	libretro_build_core mame078
-
-	libretro_build_core mednafen_gba
 	libretro_build_core mednafen_lynx
 	libretro_build_core mednafen_ngp
 	libretro_build_core mednafen_pce_fast
-	libretro_build_core mednafen_pcfx
-	libretro_build_core mednafen_psx
+	if [ $platform != "psp1" ] && [ $platform != "wii" ] && [ $platform != "ngc" ] && [ $platform != "ps3" ] && [ $platform != "sncps3" ]; then
+		# Excluded for performance reasons
+		libretro_build_core mednafen_pcfx
+		libretro_build_core mednafen_psx
+	fi
+
 	if [ $platform != "qnx" ]; then
 		# (QNX) Compilation issues
 		libretro_build_core mednafen_snes
 		libretro_build_core hatari
 		libretro_build_core meteor
 	fi
+
 	libretro_build_core mednafen_supergrafx
 	libretro_build_core mednafen_vb
 	libretro_build_core mednafen_wswan
@@ -205,7 +223,7 @@ build_default_cores() {
 
 		build_default_cores_libretro_gl
 
-		# Exclude this for PS3/NGC/Wii because SNES9x Next is a faster variant
+		# (PS3/NGC/Wii) Excluded for performance reasons
 		libretro_build_core snes9x
 
 		if [ $platform != "qnx" ]; then
@@ -228,10 +246,11 @@ build_default_cores() {
 		build_default_cores_cpp11
 	fi
 
-	if [ $platform != "win" ] && [ $platform != "qnx" ]; then
+	if [ $platform != "win" ] && [ $platform != "qnx" ] && [ $platform != "psp1" ]; then
 		# Reasons for not compiling this on Windows yet -
 		# (Windows) - Doesn't work properly
 		# (QNX)     - Compilation issues
+		# (PSP1)    - Performance issues
 		libretro_build_core pcsx_rearmed
 	fi
 

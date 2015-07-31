@@ -47,6 +47,17 @@ case "$platform" in
 		CXX11="QCC -Vgcc_ntoarmv7le_cpp"
 		;;
 
+	psp1)
+		DIST_DIR="psp1"
+		FORMAT_EXT=a
+		FORMAT=_psp1
+		FORMAT_COMPILER_TARGET=psp1
+		FORMAT_COMPILER_TARGET_ALT=psp1
+
+		CC="psp-gcc${BINARY_EXT}"
+		CXX="psp-g++${BINARY_EXT}"
+		;;
+
 	ps3)
 		DIST_DIR="ps3"
 		FORMAT_EXT=a
