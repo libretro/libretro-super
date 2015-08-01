@@ -367,7 +367,6 @@ register_module core "gw" -theos_ios -ngc -sncps3 -ps3 -psp1 -qnx -wii
 libretro_gw_name="Game & Watch"
 libretro_gw_git_url="https://github.com/libretro/gw-libretro.git"
 libretro_gw_git_submodules="yes"
-libretro_gw_build_subdir=build
 libretro_gw_build_makefile="Makefile.libretro"
 
 register_module core "lutro" -theos_ios -ngc -ps3 -psp1 -qnx -wii
