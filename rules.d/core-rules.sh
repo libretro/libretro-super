@@ -42,21 +42,18 @@ libretro_fb_alpha_build_makefile="makefile.libretro"
 
 register_module core "fb_alpha_cps1" -psp1
 libretro_fb_alpha_cps1_name="Final Burn Alpha CPS1"
-libretro_fb_alpha_cps1_git_url="https://github.com/libretro/fba-libretro.git"
-libretro_fb_alpha_cps1_build_subdir="svn-old/trunk/fbacores/cps1"
+libretro_fb_alpha_cps1_git_url="https://github.com/libretro/fba_cores_cps1.git"
 libretro_fb_alpha_cps1_build_makefile="makefile.libretro"
 
 register_module core "fb_alpha_cps2" -psp1
 libretro_fb_alpha_cps2_name="Final Burn Alpha CPS2"
-libretro_fb_alpha_cps2_git_url="https://github.com/libretro/fba-libretro.git"
-libretro_fb_alpha_cps2_build_subdir="svn-old/trunk/fbacores/cps2"
+libretro_fb_alpha_cps2_git_url="https://github.com/libretro/fba_cores_cps2.git"
 libretro_fb_alpha_cps2_build_makefile="makefile.libretro"
 
 register_module core "fb_alpha_neo" -psp1
 libretro_fb_alpha_neo_name="Final Burn Alpha NeoGeo"
-libretro_fb_alpha_neo_git_url="https://github.com/libretro/fba-libretro.git"
-libretro_fb_alpha_neo_build_subdir="svn-old/trunk/fbacores/neogeo"
-libretro_fb_alpha_neo_build_makefile="makefile.libretro"
+libretro_fb_alpha_neo_git_url="https://github.com/libretro/fba_cores_neo.git"
+libretro_fb_alpha_neo_build_makefile="Makefile"
 
 register_module core "vba_next"
 libretro_vba_next_name="VBA Next"
@@ -370,6 +367,7 @@ register_module core "gw" -theos_ios -ngc -sncps3 -ps3 -psp1 -qnx -wii
 libretro_gw_name="Game & Watch"
 libretro_gw_git_url="https://github.com/libretro/gw-libretro.git"
 libretro_gw_git_submodules="yes"
+libretro_gw_build_subdir=build
 libretro_gw_build_makefile="Makefile.libretro"
 
 register_module core "lutro" -theos_ios -ngc -ps3 -psp1 -qnx -wii

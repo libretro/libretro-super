@@ -88,84 +88,184 @@ echo "STRIP = $STRIP"
 
 . "$BASE_DIR/libretro-build-common.sh"
 
-build_default_cores() {
+# These are cores which only work properly right
+# now on little-endian architecture systems
 
-	# These build everywhere libretro-build.sh works
-	# (They also use rules builds, which will help later)
-
-	libretro_build_core 2048
-	libretro_build_core 3dengine
+build_default_cores_little_endian_only() {
+	libretro_build_core tgbdual
+	if [ $platform != "psp1" ]; then
+		libretro_build_core gpsp
+		libretro_build_core o2em
+	fi
 	libretro_build_core 4do
+
+	if [ $platform != "qnx" ]; then
+		if [ $platform != "psp1" ]; then
+			libretro_build_core desmume
+		fi
+		libretro_build_core picodrive
+	fi
+
+	# TODO - Verify endianness compatibility - for now exclude
+	libretro_build_core virtualjaguar
+	libretro_build_core prosystem
+}
+
+# These are C++11 cores
+
+build_default_cores_cpp11() {
+	libretro_build_core dinothawr
+	libretro_build_core stonesoup
+	libretro_build_core bsnes
+	libretro_build_core bsnes_mercury
+	libretro_build_core mame
+}
+
+# These are cores intended for platforms with a limited
+# amount of RAM, where the full version would not fit
+# into memory
+
+build_default_cores_small_memory_footprint() {
+	libretro_build_core fb_alpha_cps1
+	libretro_build_core fb_alpha_cps2
+	libretro_build_core fb_alpha_neo
+}
+
+build_default_cores_libretro_gl() {
+	# Reasons for not compiling this yet on these targets (other than endianness issues)
+	# 1) Wii/NGC - no PPC dynarec, no usable graphics plugins that work with GX
+	# 2) PS3     - no PPC dynarec, PSGL is GLES 1.0 while graphics plugins right now require GL 2.0+/GLES2
+	# 3) QNX     - Compilation issues, ARM NEON compiler issues
+	if [ $platform != "qnx" ]; then
+		libretro_build_core mupen64plus
+	fi
+
+	# Graphics require GLES 2/GL 2.0
+	if [ $platform != "psp1" ]; then
+		libretro_build_core 3dengine
+	fi
+}
+
+# These build everywhere libretro-build.sh works
+# (They also use rules builds, which will help later)
+
+build_default_cores() {
+	if [ $platform == "wii" ] || [ $platform == "ngc" ] || [ $platform == "psp1" ]; then
+		build_default_cores_small_memory_footprint
+	fi
+	libretro_build_core 2048
 	libretro_build_core bluemsx
-	libretro_build_core catsfc
-	libretro_build_core desmume
-	libretro_build_core dosbox
-	libretro_build_core fb_alpha
+	if [ $platform != "psp1" ] && [ $platform != "ngc" ] && [ $platform != "wii" ] && [ $platform != "ps3" ] && [ $platform != "sncps3" ]; then
+		libretro_build_core dosbox
+		libretro_build_core catsfc
+	fi
+	if [ $platform != "psp1" ]; then
+		# Excluded for binary size reasons
+		libretro_build_core fb_alpha
+	fi
 	libretro_build_core fceumm
 	libretro_build_core fmsx
 	libretro_build_core gambatte
-	libretro_build_core gpsp
-	libretro_build_core handy
-	libretro_build_core meteor
+	if [ $platform != "ngc" ] && [ $platform != "wii" ] && [ $platform != "ps3" ] && [ $platform != "sncps3" ]; then
+		libretro_build_core handy
+	fi
+	libretro_build_core stella
 	libretro_build_core nestopia
 	libretro_build_core nxengine
-	libretro_build_core o2em
 	libretro_build_core prboom
-	libretro_build_core prosystem
 	libretro_build_core quicknes
-	libretro_build_core snes9x
 	libretro_build_core snes9x_next
-	libretro_build_core stella
-	libretro_build_core tgbdual
 	libretro_build_core tyrquake
 	libretro_build_core vba_next
-	libretro_build_core vbam
 	libretro_build_core vecx
-	libretro_build_core virtualjaguar
 
-	# Nothing past here supports theos
-	[ "$platform" = "theos_ios" ] && return
+	if [ $platform != "psp1" ]; then
+		# (PSP) Compilation issues
+		libretro_build_core mgba
+		# (PSP) Performance issues
+		libretro_build_core genesis_plus_gx
+	fi
 
-	libretro_build_core bsnes
-	libretro_build_core bsnes_cplusplus98
-	libretro_build_core bsnes_mercury
-	libretro_build_core dinothawr
-	libretro_build_core emux
-	libretro_build_core fuse
-	libretro_build_core genesis_plus_gx
-	libretro_build_core gw
-	libretro_build_core hatari
-	libretro_build_core lutro
-	libretro_build_core mame
-	libretro_build_core mame078
-	libretro_build_core mednafen_gba
+	if [ $platform != "psp1" ] && [ $platform != "wii" ] && [ $platform != "ngc" ]; then
+		# (PSP/NGC/Wii) Performance and/or binary size issues
+		libretro_build_core bsnes_cplusplus98
+		libretro_build_core mame078
+		libretro_build_core mednafen_gba
+	fi
+
 	libretro_build_core mednafen_lynx
 	libretro_build_core mednafen_ngp
 	libretro_build_core mednafen_pce_fast
-	libretro_build_core mednafen_pcfx
-	libretro_build_core mednafen_psx
-	libretro_build_core mednafen_snes
+
 	libretro_build_core mednafen_supergrafx
 	libretro_build_core mednafen_vb
 	libretro_build_core mednafen_wswan
-	libretro_build_core mupen64plus
-	libretro_build_core picodrive
-	libretro_build_core scummvm
-	libretro_build_core stonesoup
-	libretro_build_core yabause
 
-	if [ $platform != "win" ]; then
-		libretro_build_core pcsx_rearmed
+	libretro_build_core gw
+
+	if [ $platform != "ps3" ] && [ $platform != "sncps3" ]; then
+		libretro_build_core fuse
+		libretro_build_core lutro
 	fi
 
-	if [ $platform != "ios" ]; then
-		libretro_build_core ffmpeg
-		libretro_build_core ppsspp
+	if [ $platform != "ps3" ] && [ $platform != "sncps3" ] && [ $platform != "wii" ] && [ $platform != "ngc" ]; then
+		build_default_cores_little_endian_only
 
-		libretro_build_core bnes
+		build_default_cores_libretro_gl
+
+		# (PS3/NGC/Wii) Excluded for performance reasons
+		libretro_build_core snes9x
+		libretro_build_core vbam
+
+		if [ $platform != "psp1" ]; then
+			# The only reason ScummVM won't be compiled in yet is
+			# 1) Wii/NGC/PSP - too big in binary size
+			# 2) PS3 - filesystem API issues
+			libretro_build_core scummvm
+
+			# Excluded for performance reasons
+			libretro_build_core mednafen_pcfx
+			libretro_build_core mednafen_psx
+			if [ $platform != "qnx" ]; then
+				libretro_build_core mednafen_snes
+			fi
+		fi
+
+		# Could work on PS3/Wii right now but way too slow right now,
+		# and messed up big-endian colors
+		libretro_build_core yabause
+
+		# Compilation/port status issues
+		libretro_build_core hatari
+		libretro_build_core meteor
+
+		if [ $platform != "qnx" ] && [ $platform != "psp1" ]; then
+			build_default_cores_cpp11
+
+			# Just basic compilation issues right now for these platforms
+			libretro_build_core emux
+
+			if [ $platform != "win" ]; then
+				# Reasons for not compiling this on Windows yet -
+				# (Windows) - Doesn't work properly
+				# (QNX)     - Compilation issues
+				# (PSP1)    - Performance/compilation issues
+				# (Wii)     - Performance/compilation issues
+				# (PS3)     - Performance/compilation issues
+				libretro_build_core pcsx_rearmed
+			fi
+
+			if [ $platform != "ios" ]; then
+				# Would need ffmpeg libraries baked in
+				libretro_build_core ffmpeg
+				libretro_build_core ppsspp
+
+				libretro_build_core bnes
+			fi
+		fi
+
+		build_libretro_test
 	fi
-
-	build_libretro_test
 }
 
 

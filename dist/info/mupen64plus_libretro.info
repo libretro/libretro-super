@@ -1,5 +1,5 @@
 display_name = "Nintendo 64 (Mupen64Plus)"
-authors = "Hacktarux|Mupen64Plus Team|Squarepusher"
+authors = "Hacktarux|Mupen64Plus Team"
 supported_extensions = "n64|v64|z64|bin|u1|ndd"
 corename = "Mupen64Plus"
 manufacturer = "Nintendo"

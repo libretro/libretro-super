@@ -35,6 +35,29 @@ case "$platform" in
 		CXX11="clang++ -std=c++11 -stdlib=libc++ -arch armv7 -marm -miphoneos-version-min=5.0 -isysroot $IOSSDK"
 		;;
 
+	qnx)
+		DIST_DIR="qnx"
+		FORMAT_EXT=so
+		FORMAT=_qnx
+		FORMAT_COMPILER_TARGET=qnx
+		FORMAT_COMPILER_TARGET_ALT=qnx
+
+		CC="qcc -Vgcc_ntoarmv7le"
+		CXX="QCC -Vgcc_ntoarmv7le_cpp"
+		CXX11="QCC -Vgcc_ntoarmv7le_cpp"
+		;;
+
+	psp1)
+		DIST_DIR="psp1"
+		FORMAT_EXT=a
+		FORMAT=_psp1
+		FORMAT_COMPILER_TARGET=psp1
+		FORMAT_COMPILER_TARGET_ALT=psp1
+
+		CC="psp-gcc${BINARY_EXT}"
+		CXX="psp-g++${BINARY_EXT}"
+		;;
+
 	ps3)
 		DIST_DIR="ps3"
 		FORMAT_EXT=a
@@ -45,11 +68,23 @@ case "$platform" in
 		CC="ppu-lv2-gcc.exe"
 		CXX="ppu-lv2-g++.exe"
 		;;
+
+	ngc)
+		DIST_DIR="ngc"
+		FORMAT_EXT=a
+		FORMAT_COMPILER_TARGET=ngc
+		FORMAT_COMPILER_TARGET_ALT=ngc
+		FORMAT=_ngc
+
+		CC="$DEVKITPPC/bin/powerpc-eabi-gcc$BINARY_EXT"
+		CXX="$DEVKITPPC/bin/powerpc-eabi-g++$BINARY_EXT"
+		;;
 	
 	wii)
 		DIST_DIR="wii"
 		FORMAT_EXT=a
 		FORMAT_COMPILER_TARGET=wii
+		FORMAT_COMPILER_TARGET_ALT=wii
 		FORMAT=_wii
 
 		CC="$DEVKITPPC/bin/powerpc-eabi-gcc$BINARY_EXT"
