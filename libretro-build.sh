@@ -213,11 +213,11 @@ build_default_cores() {
 
 		build_default_cores_libretro_gl
 
-		# (PS3/NGC/Wii) Excluded for performance reasons
-		libretro_build_core snes9x
-		libretro_build_core vbam
-
 		if [ $platform != "psp1" ]; then
+			# (PS3/NGC/Wii/PSP) Excluded for performance reasons
+			libretro_build_core snes9x
+			libretro_build_core vbam
+
 			# The only reason ScummVM won't be compiled in yet is
 			# 1) Wii/NGC/PSP - too big in binary size
 			# 2) PS3 - filesystem API issues
