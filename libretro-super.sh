@@ -700,22 +700,6 @@ if [ -n "$1" ]; then
 	done
 fi
 
-lsecho " - WARNING - EXPERIMENTAL - WARNING - EXPERIMENTAL - WARNING - EXPERIMENTAL -"
-lsecho
-lsecho "   This script basically works for what it does, but it isn't quite yet"
-lsecho "   ready for end users.  Particularly it's not ready for end users who want"
-lsecho "   nice things like documentation, things to just work the way they're kind"
-lsecho "   of supposed to, or people who don't want to have to read a shell script"
-lsecho "   with tons of modules to figure out how to accomplish ANYTHING."
-lsecho
-lsecho "   If any of that describes you, stick with the old scripts for now.  They"
-lsecho "   will continue to be supported until this new system is finished, tested,"
-lsecho "   and working.  If you can handle the bleeding edge though, please do feel"
-lsecho "   free to check this out and report feedback to libretro."
-lsecho
-lsecho " - WARNING - EXPERIMENTAL - WARNING - EXPERIMENTAL - WARNING - EXPERIMENTAL -"
-lsecho
-
 lsecho "libretro-super v$libretro_version
 Script Copyright (C) 2015 by The Libretro Team"
 if [ -n "$show_license" ]; then
