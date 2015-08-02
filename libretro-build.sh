@@ -108,7 +108,6 @@ build_default_cores_little_endian_only() {
 
 	# TODO - Verify endianness compatibility - for now exclude
 	libretro_build_core virtualjaguar
-	libretro_build_core prosystem
 }
 
 # These are C++11 cores
@@ -207,6 +206,7 @@ build_default_cores() {
 	libretro_build_core mednafen_wswan
 
 	libretro_build_core gw
+	libretro_build_core prosystem
 
 	if [ $platform != "ps3" ] && [ $platform != "sncps3" ]; then
 		libretro_build_core fuse
