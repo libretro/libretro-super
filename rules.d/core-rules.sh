@@ -1,12 +1,22 @@
 # vim: set ts=3 sw=3 noet ft=sh : bash
 
-register_module core "bsnes" -theos_ios -ngc -sncps3 -ps3 -psp1 -qnx -wii
-libretro_bsnes_name="bsnes/higan"
-libretro_bsnes_git_url="https://github.com/libretro/bsnes-libretro.git"
-libretro_bsnes_build_makefile_targets="profile=\"accuracy\" profile=\"balanced\" profile=\"performance\""
-libretro_bsnes_build_args="compiler=\"${CXX11}\""
-libretro_bsnes_build_products="out"
-libretro_bsnes_build_cores="bsnes_accuracy bsnes_balanced bsnes_performance"
+register_module core "bsnes_accuracy" -theos_ios -ngc -sncps3 -ps3 -psp1 -qnx -wii
+libretro_bsnes_accuracy_name="bsnes/higan (Accuracy)"
+libretro_bsnes_accuracy_git_url="https://github.com/libretro/bsnes-libretro.git"
+libretro_bsnes_accuracy_build_args="compiler=\"${CXX11}\" profile=\"accuracy\""
+libretro_bsnes_accuracy_build_products="out"
+
+register_module core "bsnes_balanced" -theos_ios -ngc -sncps3 -ps3 -psp1 -qnx -wii
+libretro_bsnes_balanced_name="bsnes/higan (Balanced)"
+libretro_bsnes_balanced_git_url="https://github.com/libretro/bsnes-libretro.git"
+libretro_bsnes_balanced_build_args="compiler=\"${CXX11}\" profile=\"balanced\""
+libretro_bsnes_balanced_build_products="out"
+
+register_module core "bsnes_performance" -theos_ios -ngc -sncps3 -ps3 -psp1 -qnx -wii
+libretro_bsnes_performance_name="bsnes/higan (Performance)"
+libretro_bsnes_performance_git_url="https://github.com/libretro/bsnes-libretro.git"
+libretro_bsnes_performance_build_args="compiler=\"${CXX11}\" profile=\"performance\""
+libretro_bsnes_performance_build_products="out"
 
 register_module core "snes9x" -ngc -sncps3 -ps3 -psp1 -wii
 libretro_snes9x_name="SNES9x"

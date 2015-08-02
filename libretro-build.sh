@@ -116,7 +116,9 @@ build_default_cores_little_endian_only() {
 build_default_cores_cpp11() {
 	libretro_build_core dinothawr
 	libretro_build_core stonesoup
-	libretro_build_core bsnes
+	libretro_build_core bsnes_accuracy
+	libretro_build_core bsnes_balanced
+	libretro_build_core bsnes_performance
 	libretro_build_core bsnes_mercury
 	libretro_build_core mame
 }
