@@ -228,6 +228,11 @@ libretro_mame139_name="MAME 2010 (0.139)"
 libretro_mame139_git_url="https://github.com/libretro/mame2010-libretro.git"
 libretro_mame139_build_rule=none # NEED A BUILD RULE
 
+register_module core "mame159" -theos_ios -ngc -psp1 -wii
+libretro_mame159_name="MAME 2014 (0.159)"
+libretro_mame159_git_url="https://github.com/libretro/mame2014-libretro.git"
+libretro_mame159_makefile="Makefile.libretro"
+
 register_module core "mame" -theos_ios -ngc -ps3 -psp1 -qnx -wii
 libretro_mame_name="MAME (git)"
 libretro_mame_git_url="https://github.com/libretro/mame.git"
@@ -254,19 +259,19 @@ libretro_bsnes_cplusplus98_git_url="https://github.com/libretro/bsnes-libretro-c
 libretro_bsnes_cplusplus98_build_products="out"
 
 register_module core "bsnes_mercury_accuracy" -theos_ios -ngc -sncps3 -ps3 -psp1 -qnx -wii
-libretro_bsnes_mercury_accuracy_name="bsnes/higan (Accuracy)"
+libretro_bsnes_mercury_accuracy_name="bsnes/higan Mercury (Accuracy)"
 libretro_bsnes_mercury_accuracy_git_url="https://github.com/libretro/bsnes-mercury.git"
 libretro_bsnes_mercury_accuracy_build_args="compiler=\"${CXX11}\" profile=\"accuracy\""
 libretro_bsnes_mercury_accuracy_build_products="out"
 
 register_module core "bsnes_mercury_balanced" -theos_ios -ngc -sncps3 -ps3 -psp1 -qnx -wii
-libretro_bsnes_mercury_balanced_name="bsnes/higan (Balanced)"
+libretro_bsnes_mercury_balanced_name="bsnes/higan Mercury (Balanced)"
 libretro_bsnes_mercury_balanced_git_url="https://github.com/libretro/bsnes-mercury.git"
 libretro_bsnes_mercury_balanced_build_args="compiler=\"${CXX11}\" profile=\"balanced\""
 libretro_bsnes_mercury_balanced_build_products="out"
 
 register_module core "bsnes_mercury_performance" -theos_ios -ngc -sncps3 -ps3 -psp1 -qnx -wii
-libretro_bsnes_mercury_performance_name="bsnes/higan (Performance)"
+libretro_bsnes_mercury_performance_name="bsnes/higan Mercury (Performance)"
 libretro_bsnes_mercury_performance_git_url="https://github.com/libretro/bsnes-mercury.git"
 libretro_bsnes_mercury_performance_build_args="compiler=\"${CXX11}\" profile=\"performance\""
 libretro_bsnes_mercury_performance_build_products="out"
