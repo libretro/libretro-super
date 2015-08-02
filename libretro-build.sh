@@ -244,7 +244,10 @@ build_default_cores() {
 		libretro_build_core hatari
 		libretro_build_core meteor
 
+
 		if [ $platform != "qnx" ] && [ $platform != "psp1" ]; then
+			libretro_build_core mame139
+
 			build_default_cores_cpp11
 
 			# Just basic compilation issues right now for these platforms
