@@ -253,13 +253,23 @@ libretro_bsnes_cplusplus98_name="bsnes C++98 (v0.85)"
 libretro_bsnes_cplusplus98_git_url="https://github.com/libretro/bsnes-libretro-cplusplus98.git"
 libretro_bsnes_cplusplus98_build_products="out"
 
-register_module core "bsnes_mercury" -theos_ios -ngc -ps3 -psp1 -qnx -wii
-libretro_bsnes_mercury_name="bsnes-mercury"
-libretro_bsnes_mercury_git_url="https://github.com/libretro/bsnes-mercury.git"
-libretro_bsnes_mercury_build_makefile_targets="profile=\"accuracy\" profile=\"balanced\" profile=\"performance\""
-libretro_bsnes_mercury_build_args="compiler=\"${CXX11}\""
-libretro_bsnes_mercury_build_products="out"
-libretro_bsnes_mercury_build_cores="bsnes_mercury_accuracy bsnes_mercury_balanced bsnes_mercury_performance"
+register_module core "bsnes_mercury_accuracy" -theos_ios -ngc -sncps3 -ps3 -psp1 -qnx -wii
+libretro_bsnes_mercury_accuracy_name="bsnes/higan (Accuracy)"
+libretro_bsnes_mercury_accuracy_git_url="https://github.com/libretro/bsnes-mercury.git"
+libretro_bsnes_mercury_accuracy_build_args="compiler=\"${CXX11}\" profile=\"accuracy\""
+libretro_bsnes_mercury_accuracy_build_products="out"
+
+register_module core "bsnes_mercury_balanced" -theos_ios -ngc -sncps3 -ps3 -psp1 -qnx -wii
+libretro_bsnes_mercury_balanced_name="bsnes/higan (Balanced)"
+libretro_bsnes_mercury_balanced_git_url="https://github.com/libretro/bsnes-mercury.git"
+libretro_bsnes_mercury_balanced_build_args="compiler=\"${CXX11}\" profile=\"balanced\""
+libretro_bsnes_mercury_balanced_build_products="out"
+
+register_module core "bsnes_mercury_performance" -theos_ios -ngc -sncps3 -ps3 -psp1 -qnx -wii
+libretro_bsnes_mercury_performance_name="bsnes/higan (Performance)"
+libretro_bsnes_mercury_performance_git_url="https://github.com/libretro/bsnes-mercury.git"
+libretro_bsnes_mercury_performance_build_args="compiler=\"${CXX11}\" profile=\"performance\""
+libretro_bsnes_mercury_performance_build_products="out"
 
 register_module core "picodrive" -theos_ios -ngc -ps3 -wii
 libretro_picodrive_name="Picodrive"
