@@ -648,12 +648,12 @@ while read line; do
 					BUILD="YES"
 				fi
 
-				if [ "${PREVCORE}" = "mame" -a "${PREVBUILD}" = "YES" -a "${NAME}" = "mess" ]; then
+				if [ "${PREVCORE}" = "mame2014" -a "${PREVBUILD}" = "YES" -a "${NAME}" = "mess" ]; then
 					FORCE="YES"
 					BUILD="YES"
 				fi
 
-				if [ "${PREVCORE}" = "mess" -a "${PREVBUILD}" = "YES" -a "${NAME}" = "ume" ]; then
+				if [ "${PREVCORE}" = "mess2014" -a "${PREVBUILD}" = "YES" -a "${NAME}" = "ume" ]; then
 					FORCE="YES"
 					BUILD="YES"
 				fi
