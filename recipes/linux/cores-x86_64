@@ -33,7 +33,7 @@ gpsp libretro-gpsp https://github.com/libretro/gpsp.git PROJECT YES GENERIC Make
 handy libretro-handy https://github.com/libretro/libretro-handy.git PROJECT YES GENERIC Makefile . 
 hatari libretro-hatari https://github.com/libretro/libretro-hatari.git PROJECT YES GENERIC Makefile.libretro . 
 imageviewer libretro-imageviewer https://github.com/libretro/imageviewer-libretro.git PROJECT YES GENERIC Makefile.libretro . 
-mame078 libretro-mame2003 https://github.com/libretro/mame2003-libretro.git PROJECT YES GENERIC makefile . PTR64=1 
+mame078 libretro-mame2003 https://github.com/libretro/mame2003-libretro.git PROJECT YES GENERIC Makefile . PTR64=1 
 mame2010 libretro-mame2010 https://github.com/libretro/mame2010-libretro.git PROJECT YES GENERIC Makefile.libretro . VRENDER=soft PTR64=1 
 mednafen_gba libretro-mednafen_gba https://github.com/libretro/beetle-gba-libretro.git PROJECT YES GENERIC Makefile . 
 mednafen_lynx libretro-mednafen_lynx https://github.com/libretro/beetle-lynx-libretro.git PROJECT YES GENERIC Makefile . 
