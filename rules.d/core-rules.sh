@@ -394,6 +394,11 @@ libretro_gw_git_url="https://github.com/libretro/gw-libretro.git"
 libretro_gw_git_submodules="yes"
 libretro_gw_build_makefile="Makefile.libretro"
 
+register_module core "81" -theos_ios -ngc -sncps3 -ps3 -psp1 -qnx -wii
+libretro_81_name="81"
+libretro_81_git_url="https://github.com/libretro/81-libretro.git"
+libretro_81_build_makefile="Makefile.libretro"
+
 register_module core "lutro" -theos_ios -ngc -ps3 -psp1 -qnx -wii
 libretro_lutro_name="Lutro"
 libretro_lutro_git_url="https://github.com/libretro/libretro-lutro.git"
