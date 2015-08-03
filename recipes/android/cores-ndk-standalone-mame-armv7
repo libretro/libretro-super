@@ -1,5 +1,4 @@
-mame2014 libretro-mame https://github.com/libretro/mame2014-libretro.git PROJECT YES GENERIC Makefile.libretro . TARGET=mame
-mess2014 libretro-mame https://github.com/libretro/mame2014-libretro.git PROJECT YES GENERIC Makefile.libretro . TARGET=mess
-ume2014 libretro-mame https://github.com/libretro/mame2014-libretro.git PROJECT YES GENERIC Makefile.libretro . TARGET=ume
-mame libretro-mame https://github.com/libretro/mame.git PROJECT YES GENERIC Makefile.libretro . TARGET=mame
-
+mame libretro-mame https://github.com/libretro/mame.git PROJECT YES GENERIC Makefile.libretro . TARGET=mame 
+mame2014 libretro-mame2014 https://github.com/libretro/mame2014-libretro.git PROJECT YES GENERIC Makefile.libretro . TARGET=mame 
+mess2014 libretro-mame2014 https://github.com/libretro/mame2014-libretro.git PROJECT YES GENERIC Makefile.libretro . TARGET=mess 
+ume2014 libretro-mame2014 https://github.com/libretro/mame2014-libretro.git PROJECT YES GENERIC Makefile.libretro . TARGET=ume 
