@@ -35,6 +35,35 @@ case "$platform" in
 		CXX11="clang++ -std=c++11 -stdlib=libc++ -arch armv7 -marm -miphoneos-version-min=5.0 -isysroot $IOSSDK"
 		;;
 
+   android-armeabi_v7a)
+		DIST_DIR="android/armeabi-v7a"
+		FORMAT_EXT=so
+		FORMAT=_android
+		FORMAT_COMPILER_TARGET=android-armeabi_v7a
+		FORMAT_COMPILER_TARGET_ALT=android-armeabi_v7a
+		UNAME_PLATFORM="$(uname)"
+		HOST_PLATFORM="linux"
+
+		echo $UNAME_PLATFORM
+
+		case "$UNAME_PLATFORM" in
+			osx|*Darwin*)
+				HOST_PLATFORM="darwin"
+				;;
+			win|*mingw32*|*MINGW32*|*MSYS_NT*)
+				HOST_PLATFORM="windows"
+				;;
+			win64|*mingw64*|*MINGW64*)
+				HOST_PLATFORM="windows"
+				;;
+		esac
+		export NDK_ROOT_DIR
+		echo ${NDK_ROOT_DIR}
+		CC="$NDK_ROOT_DIR/toolchains/arm-linux-androideabi-4.8/prebuilt/${HOST_PLATFORM}-x86_64/bin/arm-linux-androideabi-gcc"
+		CXX="$NDK_ROOT_DIR/toolchains/arm-linux-androideabi-4.8/prebuilt/${HOST_PLATFORM}-x86_64/bin/arm-linux-androideabi-g++"
+		CXX11="$NDK_ROOT_DIR/toolchains/arm-linux-androideabi-4.8/prebuilt/${HOST_PLATFORM}-x86_64/bin/arm-linux-androideabi-g++"
+		;;
+
 	qnx)
 		DIST_DIR="qnx"
 		FORMAT_EXT=so
@@ -214,6 +243,12 @@ case "$platform" in
 					FORMAT_EXT="a"
 					FORMAT_COMPILER_TARGET="ngc"
 					DIST_DIR="ngc"
+					;;
+				android-armeabi_v7a)
+					platform=android-armeabi_v7a
+					FORMAT_EXT="so"
+					FORMAT_COMPILER_TARGET="android-armeabi_v7a"
+					DIST_DIR="android/armeabi-v7a"
 					;;
 				theos_ios*)
 					platform=theos_ios
