@@ -4,12 +4,12 @@ bluemsx libretro-bluemsx https://github.com/libretro/blueMSX-libretro.git PROJEC
 catsfc libretro-catsfc https://github.com/libretro/CATSFC-libretro.git PROJECT YES GENERIC Makefile . 
 dinothawr libretro-dinothawr https://github.com/libretro/Dinothawr.git PROJECT YES GENERIC Makefile . 
 dosbox libretro-dosbox https://github.com/libretro/dosbox-libretro.git PROJECT YES GENERIC Makefile.libretro . 
-emux_nes libretro-emux_nes https://github.com/sronsse/emux PROJECT YES GENERIC Makefile libretro TARGETS=nes 
-emux_gb libretro-emux_gb https://github.com/sronsse/emux PROJECT YES GENERIC Makefile libretro TARGETS=gb 
-emux_sms libretro-emux_sms https://github.com/sronsse/emux PROJECT YES GENERIC Makefile libretro TARGETS=sms 
 emux_chip8 libretro-emux_chip8 https://github.com/sronsse/emux PROJECT YES GENERIC Makefile libretro TARGETS=chip8 
-fba libretro-fba_new https://github.com/libretro/libretro-fba.git PROJECT YES GENERIC makefile.libretro . 
+emux_gb libretro-emux_gb https://github.com/sronsse/emux PROJECT YES GENERIC Makefile libretro TARGETS=gb 
+emux_nes libretro-emux_nes https://github.com/sronsse/emux PROJECT YES GENERIC Makefile libretro TARGETS=nes 
+emux_sms libretro-emux_sms https://github.com/sronsse/emux PROJECT YES GENERIC Makefile libretro TARGETS=sms 
 fb_alpha libretro-fba https://github.com/libretro/fba-libretro.git PROJECT YES GENERIC makefile.libretro svn-current/trunk 
+fba libretro-fba_new https://github.com/libretro/libretro-fba.git PROJECT YES GENERIC makefile.libretro . 
 fba_cores_cps1 libretro-fba https://github.com/libretro/fba-libretro.git PROJECT YES GENERIC makefile.libretro svn-current/trunk/fbacores/cps1 
 fba_cores_cps2 libretro-fba https://github.com/libretro/fba-libretro.git PROJECT YES GENERIC makefile.libretro svn-current/trunk/fbacores/cps2 
 fba_cores_neo libretro-fba https://github.com/libretro/fba-libretro.git PROJECT YES GENERIC makefile.libretro svn-current/trunk/fbacores/neogeo 
@@ -55,4 +55,8 @@ vbam libretro-vbam https://github.com/libretro/vbam-libretro.git PROJECT YES GEN
 vecx libretro-vecx  https://github.com/libretro/libretro-vecx.git PROJECT YES GENERIC Makefile.libretro . 
 virtualjaguar libretro-virtualjaguar https://github.com/libretro/virtualjaguar-libretro.git PROJECT YES GENERIC Makefile . 
 yabause libretro-yabause https://github.com/libretro/yabause.git PROJECT YES GENERIC Makefile libretro  
-
+mame078 libretro-mame078 https://github.com/libretro/mame2003-libretro.git PROJECT YES GENERIC Makefile . 
+mame libretro-mame https://github.com/libretro/mame.git PROJECT YES GENERIC Makefile.libretro . 
+mame2014 libretro-mame2014 https://github.com/libretro/mame2014-libretro.git PROJECT YES GENERIC Makefile.libretro . TARGET=mame PTR64=1 PARTIAL=0 
+mess2014 libretro-mame2014 https://github.com/libretro/mame2014-libretro.git PROJECT YES GENERIC Makefile.libretro . TARGET=mess PTR64=1 PARTIAL=1 
+ume2014 libretro-mame2014 https://github.com/libretro/mame2014-libretro.git PROJECT YES GENERIC Makefile.libretro . TARGET=ume PTR64=1 PARTIAL=1 

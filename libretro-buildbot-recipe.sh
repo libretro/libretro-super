@@ -14,7 +14,9 @@ echo
 
 LOGDATE=`date +%Y-%m-%d`
 
-echo $LOGDATE $BOT $FORCE
+echo $LOGDATE $BOT $FORCE $JOBS
+JOBS=4
+OLDJ=$JOBS
 
 ORIGPATH=$PATH
 WORK=$PWD
@@ -191,6 +193,7 @@ build_libretro_generic_makefile() {
 	MAKEFILE=$4
 	PLATFORM=$5
 	ARGS=$6
+	JOBS=$JOBS
 
 	cd $DIR
 	cd $SUBDIR
@@ -241,7 +244,7 @@ build_libretro_generic_makefile() {
 		HASTE=`curl -XPOST http://hastebin.com/documents -d"$ERROR" | cut --fields=4 --delimiter='"'`
 		MESSAGE="$1 build failed [$jobid] LOG: http://hastebin.com/$HASTE"
 	fi
-        echo BUILDBOT JOB: $MESSAGE
+		echo BUILDBOT JOB: $MESSAGE
 	echo BUILDBOT JOB: $MESSAGE >> /tmp/log/${BOT}/${LOGDATE}.log
 	buildbot_log "$MESSAGE"
 	JOBS=$OLDJ
@@ -648,12 +651,12 @@ while read line; do
 					BUILD="YES"
 				fi
 
-				if [ "${PREVCORE}" = "mame" -a "${PREVBUILD}" = "YES" -a "${NAME}" = "mess" ]; then
+				if [ "${PREVCORE}" = "mame2014" -a "${PREVBUILD}" = "YES" -a "${NAME}" = "mess2014" ]; then
 					FORCE="YES"
 					BUILD="YES"
 				fi
 
-				if [ "${PREVCORE}" = "mess" -a "${PREVBUILD}" = "YES" -a "${NAME}" = "ume" ]; then
+				if [ "${PREVCORE}" = "mess2014" -a "${PREVBUILD}" = "YES" -a "${NAME}" = "ume2014" ]; then
 					FORCE="YES"
 					BUILD="YES"
 				fi
@@ -853,35 +856,35 @@ if [ "${PLATFORM}" = "android" ] && [ "${RA}" = "YES" ]; then
 		echo
 
 
-                rm -rf android/phoenix/assets/assets
-                rm -rf android/phoenix/assets/cores
-                rm -rf android/phoenix/assets/info
-                rm -rf android/phoenix/assets/overlays
-                rm -rf android/phoenix/assets/shaders/shaders_glsl/
-                rm -rf android/phoenix/assets/database
-                rm -rf android/phoenix/assets/autoconfig
-                rm -rf android/phoenix/assets/cheats
-                rm -rf android/phoenix/assets/playlists
-                rm -rf android/phoenix/assets/dowloads
-                rm -rf android/phoenix/assets/remaps
-                rm -rf android/phoenix/assets/system
+		rm -rf android/phoenix/assets/assets
+		rm -rf android/phoenix/assets/cores
+		rm -rf android/phoenix/assets/info
+		rm -rf android/phoenix/assets/overlays
+		rm -rf android/phoenix/assets/shaders/shaders_glsl/
+		rm -rf android/phoenix/assets/database
+		rm -rf android/phoenix/assets/autoconfig
+		rm -rf android/phoenix/assets/cheats
+		rm -rf android/phoenix/assets/playlists
+		rm -rf android/phoenix/assets/dowloads
+		rm -rf android/phoenix/assets/remaps
+		rm -rf android/phoenix/assets/system
 
-                mkdir -p android/phoenix/assets
-                mkdir -p android/phoenix/assets/
-                mkdir -p android/phoenix/assets/assets
-                mkdir -p android/phoenix/assets/cores
-                mkdir -p android/phoenix/assets/info
-                mkdir -p android/phoenix/assets/overlays
-                mkdir -p android/phoenix/assets/shaders/shaders_glsl/
-                mkdir -p android/phoenix/assets/database
-                mkdir -p android/phoenix/assets/autoconfig
-                mkdir -p android/phoenix/assets/cheats
-                mkdir -p android/phoenix/assets/playlists
-                mkdir -p android/phoenix/assets/dowloads
-                mkdir -p android/phoenix/assets/remaps
-                mkdir -p android/phoenix/assets/saves/
-                mkdir -p android/phoenix/assets/states/
-                mkdir -p android/phoenix/assets/system/
+		mkdir -p android/phoenix/assets
+		mkdir -p android/phoenix/assets/
+		mkdir -p android/phoenix/assets/assets
+		mkdir -p android/phoenix/assets/cores
+		mkdir -p android/phoenix/assets/info
+		mkdir -p android/phoenix/assets/overlays
+		mkdir -p android/phoenix/assets/shaders/shaders_glsl/
+		mkdir -p android/phoenix/assets/database
+		mkdir -p android/phoenix/assets/autoconfig
+		mkdir -p android/phoenix/assets/cheats
+		mkdir -p android/phoenix/assets/playlists
+		mkdir -p android/phoenix/assets/dowloads
+		mkdir -p android/phoenix/assets/remaps
+		mkdir -p android/phoenix/assets/saves/
+		mkdir -p android/phoenix/assets/states/
+		mkdir -p android/phoenix/assets/system/
 
 
 		cp -rf media/assets/xmb android/phoenix/assets/assets/
@@ -891,10 +894,10 @@ if [ "${PLATFORM}" = "android" ] && [ "${RA}" = "YES" ]; then
 		cp -rf media/overlays/* android/phoenix/assets/overlays/
 		cp -rf media/shaders_glsl/* android/phoenix/assets/shaders/shaders_glsl/
 		cp -rf media/shaders_glsl /tmp/
-                touch  android/phoenix/assets/cheats/.empty-folder
-                touch  android/phoenix/assets/saves/.empty-folder
-                touch  android/phoenix/assets/states/.empty-folder
-                touch  android/phoenix/assets/system/.empty-folder
+		touch  android/phoenix/assets/cheats/.empty-folder
+		touch  android/phoenix/assets/saves/.empty-folder
+		touch  android/phoenix/assets/states/.empty-folder
+		touch  android/phoenix/assets/system/.empty-folder
 
 		cp -rf $RARCH_DIR/info/* android/phoenix/assets/info/
 
@@ -1203,14 +1206,14 @@ echo b=$BUILD f=$FORCE
 			mkdir -p windows/database/cursors
 			mkdir -p windows/database/rdb
 			mkdir -p windows/playlists
-                        mkdir -p windows/content
-                        mkdir -p windows/downloads
-                        mkdir -p windows/info
-                        mkdir -p windows/cores
-                        mkdir -p windows/config/remap
-                        mkdir -p windows/system
-                        mkdir -p windows/saves
-                        mkdir -p windows/states
+			mkdir -p windows/content
+			mkdir -p windows/downloads
+			mkdir -p windows/info
+			mkdir -p windows/cores
+			mkdir -p windows/config/remap
+			mkdir -p windows/system
+			mkdir -p windows/saves
+			mkdir -p windows/states
 
 cat << EOF > windows/retroarch.cfg
 dpi_override_value = "160"
@@ -1661,29 +1664,26 @@ then
 		        MESSAGE="retroarch build failed [$jobid] LOG: http://hastebin.com/$HASTE"
             echo $MESSAGE
 		fi
-        buildbot_log "$MESSAGE"
-        echo BUILDBOT JOB: $MESSAGE >> /tmp/log/${BOT}/${LOGDATE}.log
-        cd ..
+		buildbot_log "$MESSAGE"
+		echo BUILDBOT JOB: $MESSAGE >> /tmp/log/${BOT}/${LOGDATE}.log
+		cd ..
 
 	fi
 
-             		echo "Packaging"
-			echo ============================================
-			cp retroarch.cfg retroarch.default.cfg
-			mkdir -p ngc/pkg/
-			mkdir -p ngc/pkg/cheats
-			mkdir -p ngc/pkg/remaps
-#			mkdir -p ngc/pkg/database
-#			mkdir -p ngc/pkg/database/cursors
-#			mkdir -p ngc/pkg/database/rdb
-			mkdir -p ngc/pkg/overlays
-#			cp -rf media/libretrodb/cht/* ngc/pkg/cheats
-#			cp -rf media/libretrodb/rdb/* ngc/pkg/database/rdb
-#			cp -rf media/libretrodb/cursors/* ngc/pkg/database/cursors
-                        cp -rf media/overlays/wii/* ngc/pkg/overlays
-
-
-
+		echo "Packaging"
+		echo ============================================
+		cp retroarch.cfg retroarch.default.cfg
+		mkdir -p ngc/pkg/
+		mkdir -p ngc/pkg/cheats
+		mkdir -p ngc/pkg/remaps
+#		mkdir -p ngc/pkg/database
+#		mkdir -p ngc/pkg/database/cursors
+#		mkdir -p ngc/pkg/database/rdb
+		mkdir -p ngc/pkg/overlays
+#		cp -rf media/libretrodb/cht/* ngc/pkg/cheats
+#		cp -rf media/libretrodb/rdb/* ngc/pkg/database/rdb
+#		cp -rf media/libretrodb/cursors/* ngc/pkg/database/cursors
+		cp -rf media/overlays/wii/* ngc/pkg/overlays
 	fi
 
 fi
