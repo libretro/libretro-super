@@ -226,7 +226,7 @@ libretro_mame078_makefile="Makefile"
 register_module core "mame139"
 libretro_mame139_name="MAME 2010 (0.139)"
 libretro_mame139_git_url="https://github.com/libretro/mame2010-libretro.git"
-libretro_mame159_makefile="Makefile.libretro"
+libretro_mame139_makefile="Makefile.libretro"
 
 register_module core "mame159" -theos_ios -ngc -psp1 -wii
 libretro_mame159_name="MAME 2014 (0.159)"
