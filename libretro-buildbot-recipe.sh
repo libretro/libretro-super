@@ -1664,29 +1664,26 @@ then
 		        MESSAGE="retroarch build failed [$jobid] LOG: http://hastebin.com/$HASTE"
             echo $MESSAGE
 		fi
-        buildbot_log "$MESSAGE"
-        echo BUILDBOT JOB: $MESSAGE >> /tmp/log/${BOT}/${LOGDATE}.log
-        cd ..
+		buildbot_log "$MESSAGE"
+		echo BUILDBOT JOB: $MESSAGE >> /tmp/log/${BOT}/${LOGDATE}.log
+		cd ..
 
 	fi
 
-             		echo "Packaging"
-			echo ============================================
-			cp retroarch.cfg retroarch.default.cfg
-			mkdir -p ngc/pkg/
-			mkdir -p ngc/pkg/cheats
-			mkdir -p ngc/pkg/remaps
-#			mkdir -p ngc/pkg/database
-#			mkdir -p ngc/pkg/database/cursors
-#			mkdir -p ngc/pkg/database/rdb
-			mkdir -p ngc/pkg/overlays
-#			cp -rf media/libretrodb/cht/* ngc/pkg/cheats
-#			cp -rf media/libretrodb/rdb/* ngc/pkg/database/rdb
-#			cp -rf media/libretrodb/cursors/* ngc/pkg/database/cursors
-                        cp -rf media/overlays/wii/* ngc/pkg/overlays
-
-
-
+		echo "Packaging"
+		echo ============================================
+		cp retroarch.cfg retroarch.default.cfg
+		mkdir -p ngc/pkg/
+		mkdir -p ngc/pkg/cheats
+		mkdir -p ngc/pkg/remaps
+#		mkdir -p ngc/pkg/database
+#		mkdir -p ngc/pkg/database/cursors
+#		mkdir -p ngc/pkg/database/rdb
+		mkdir -p ngc/pkg/overlays
+#		cp -rf media/libretrodb/cht/* ngc/pkg/cheats
+#		cp -rf media/libretrodb/rdb/* ngc/pkg/database/rdb
+#		cp -rf media/libretrodb/cursors/* ngc/pkg/database/cursors
+		cp -rf media/overlays/wii/* ngc/pkg/overlays
 	fi
 
 fi
