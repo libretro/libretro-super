@@ -38,7 +38,7 @@ case "$platform" in
    android-armeabi_v7a)
 		DIST_DIR="android/armeabi-v7a"
 		FORMAT_EXT=so
-		FORMAT=_android
+		FORMAT=.armeabi-v7a
 		FORMAT_COMPILER_TARGET=android-armeabi_v7a
 		FORMAT_COMPILER_TARGET_ALT=android-armeabi_v7a
 		UNAME_PLATFORM="$(uname)"
