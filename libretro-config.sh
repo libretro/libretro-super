@@ -35,17 +35,45 @@ case "$platform" in
 		CXX11="clang++ -std=c++11 -stdlib=libc++ -arch armv7 -marm -miphoneos-version-min=5.0 -isysroot $IOSSDK"
 		;;
 
-   android-armeabi_v7a)
-		DIST_DIR="android/armeabi-v7a"
+   android-armeabi)
+		FORMAT_ABI="armeabi"
+		DIST_DIR="android/${FORMAT_ABI}"
 		FORMAT_EXT=so
-		FORMAT=.armeabi-v7a
+		FORMAT=.${FORMAT_ABI}
+		FORMAT_COMPILER_TARGET=android-${FORMAT_ABI}
+		FORMAT_COMPILER_TARGET_ALT=android-${FORMAT_ABI}
+		FORMAT_ABI_ANDROID=yes
+		UNAME_PLATFORM="$(uname)"
+		HOST_PLATFORM="linux"
+
+		case "$UNAME_PLATFORM" in
+			osx|*Darwin*)
+				HOST_PLATFORM="darwin"
+				;;
+			win|*mingw32*|*MINGW32*|*MSYS_NT*)
+				HOST_PLATFORM="windows"
+				;;
+			win64|*mingw64*|*MINGW64*)
+				HOST_PLATFORM="windows"
+				;;
+		esac
+		export NDK_ROOT_DIR
+		echo ${NDK_ROOT_DIR}
+		CC="$NDK_ROOT_DIR/toolchains/arm-linux-androideabi-4.8/prebuilt/${HOST_PLATFORM}-x86_64/bin/arm-linux-androideabi-gcc"
+		CXX="$NDK_ROOT_DIR/toolchains/arm-linux-androideabi-4.8/prebuilt/${HOST_PLATFORM}-x86_64/bin/arm-linux-androideabi-g++"
+		CXX11="$NDK_ROOT_DIR/toolchains/arm-linux-androideabi-4.8/prebuilt/${HOST_PLATFORM}-x86_64/bin/arm-linux-androideabi-g++"
+		;;
+
+   android-armeabi_v7a)
+		FORMAT_ABI="armeabi-v7a"
+		DIST_DIR="android/${FORMAT_ABI}"
+		FORMAT_EXT=so
+		FORMAT=.${FORMAT_ABI}
 		FORMAT_COMPILER_TARGET=android-armeabi_v7a
 		FORMAT_COMPILER_TARGET_ALT=android-armeabi_v7a
 		FORMAT_ABI_ANDROID=yes
 		UNAME_PLATFORM="$(uname)"
 		HOST_PLATFORM="linux"
-
-		echo $UNAME_PLATFORM
 
 		case "$UNAME_PLATFORM" in
 			osx|*Darwin*)
@@ -245,10 +273,16 @@ case "$platform" in
 					FORMAT_COMPILER_TARGET="ngc"
 					DIST_DIR="ngc"
 					;;
+				android-armeabi)
+					platform=android-armeabi
+					FORMAT_EXT="so"
+					FORMAT_COMPILER_TARGET="${platform}"
+					DIST_DIR="android/armeabi"
+					;;
 				android-armeabi_v7a)
 					platform=android-armeabi_v7a
 					FORMAT_EXT="so"
-					FORMAT_COMPILER_TARGET="android-armeabi_v7a"
+					FORMAT_COMPILER_TARGET="${platform}"
 					DIST_DIR="android/armeabi-v7a"
 					;;
 				theos_ios*)
