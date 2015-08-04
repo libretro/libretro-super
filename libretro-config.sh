@@ -41,6 +41,7 @@ case "$platform" in
 		FORMAT=.armeabi-v7a
 		FORMAT_COMPILER_TARGET=android-armeabi_v7a
 		FORMAT_COMPILER_TARGET_ALT=android-armeabi_v7a
+		FORMAT_ABI_ANDROID=yes
 		UNAME_PLATFORM="$(uname)"
 		HOST_PLATFORM="linux"
 

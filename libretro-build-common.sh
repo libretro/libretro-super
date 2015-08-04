@@ -64,8 +64,11 @@ build_summary_log() {
 copy_core_to_dist() {
 	[ -z "$1" ] && return 1
 	dest="${2:-$1}"
-	echo_cmd "cp \"$CORE_PREFIX$1$CORE_SUFFIX\" \"$RARCH_DIST_DIR/$dest$CORE_SUFFIX\""
-
+	if [ "$FORMAT_ABI_ANDROID" = "yes" ]; then
+		echo_cmd "cp \"$CORE_PREFIX$1$CORE_SUFFIX\" \"$RARCH_DIST_DIR/${dest}_libretro_android.so\""
+	else
+		echo_cmd "cp \"$CORE_PREFIX$1$CORE_SUFFIX\" \"$RARCH_DIST_DIR/$dest$CORE_SUFFIX\""
+	fi
 	ret=$?
 	build_summary_log $ret "$dest"
 	return $ret
