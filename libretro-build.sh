@@ -209,6 +209,7 @@ build_default_cores() {
 	libretro_build_core prosystem
 
 	if [ $platform != "ps3" ] && [ $platform != "sncps3" ]; then
+		libretro_build_core 81
 		libretro_build_core fuse
 		libretro_build_core lutro
 	fi

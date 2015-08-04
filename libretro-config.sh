@@ -274,6 +274,7 @@ case "$platform" in
 
 		CC="$DEVKITPPC/bin/powerpc-eabi-gcc$BINARY_EXT"
 		CXX="$DEVKITPPC/bin/powerpc-eabi-g++$BINARY_EXT"
+		AR="$DEVKITPPC/bin/powerpc-eabi-ar$BINARY_EXT"
 		;;
 	
 	wii)
@@ -285,6 +286,7 @@ case "$platform" in
 
 		CC="$DEVKITPPC/bin/powerpc-eabi-gcc$BINARY_EXT"
 		CXX="$DEVKITPPC/bin/powerpc-eabi-g++$BINARY_EXT"
+		AR="$DEVKITPPC/bin/powerpc-eabi-ar$BINARY_EXT"
 		;;
 
 	sncps3)
