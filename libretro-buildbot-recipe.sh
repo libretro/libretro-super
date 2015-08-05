@@ -266,8 +266,8 @@ build_libretro_leiradel_makefile() {
 
 	if [ -z "${NOCLEAN}" ]; then
 		echo "cleaning up..."
-		echo "cleanup command: ${MAKE} -f ${MAKEFILE}.${ARGS} platform=${PLATFORM} -j${JOBS} ${ARGS} clean"
-		${MAKE} -f ${MAKEFILE}.${ARGS} platform=${PLATFORM} -j${JOBS} clean
+		echo "cleanup command: ${MAKE} -f ${MAKEFILE}.${PLATFORM}-${ARGS} platform=${PLATFORM}-${ARGS} -j${JOBS} clean"
+		${MAKE} -f ${MAKEFILE}.${PLATFORM}-${ARGS} platform=${PLATFORM}-${ARGS} -j${JOBS} clean
 		if [ $? -eq 0 ]; then
 			echo BUILDBOT JOB: $jobid $1 cleanup success!
 		else
@@ -276,16 +276,12 @@ build_libretro_leiradel_makefile() {
 	fi
 
 	echo "compiling..."
-		echo "build command: ${MAKE} -f ${MAKEFILE}.${ARGS} platform=${PLATFORM} -j${JOBS}"
-		${MAKE} -f ${MAKEFILE}.${ARGS} platform=${PLATFORM} -j${JOBS} &> /tmp/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}.log
+		echo "build command: ${MAKE} -f ${MAKEFILE}.${PLATFORM}-${ARGS} platform=${PLATFORM}-${ARGS} -j${JOBS}"
+		${MAKE} -f ${MAKEFILE}.${PLATFORM}-${ARGS} platform=${PLATFORM}-${ARGS} -j${JOBS} &> /tmp/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}.log
 
 		if [ $? -eq 0 ]; then
 			MESSAGE="$1 build successful [$jobid]"
-			if [ "${PLATFORM}" = "android" ]; then
-				cp -v ${NAME}_libretro${FORMAT}.${ARGS}.${FORMAT_EXT} $RARCH_DIST_DIR/${DIST}/${ARGS}/${NAME}_libretro${SUFFIX}${FORMAT}.${FORMAT_EXT}  &>> /tmp/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}.log
-			else
-				cp -v ${NAME}_libretro${FORMAT}.${ARGS}.${FORMAT_EXT} $RARCH_DIST_DIR/${DIST}/${NAME}_libretro${SUFFIX}${FORMAT}.${FORMAT_EXT}  &>> /tmp/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}.log
-			fi
+              		cp -v ${NAME}_libretro.${PLATFORM}-${ARGS}.${FORMAT_EXT} $RARCH_DIST_DIR/${DIST}/${ARGS}/${NAME}_libretro${SUFFIX}.${FORMAT_EXT}  &>> /tmp/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}.log
 		else
 		ERROR=`cat /tmp/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}.log | tail -n 100`
 		HASTE=`curl -XPOST http://hastebin.com/documents -d"$ERROR" | cut --fields=4 --delimiter='"'`
@@ -641,6 +637,27 @@ while read line; do
 				fi
 
 				if [ "${PREVCORE}" = "fuse" -a "${PREVBUILD}" = "YES" -a "${COMMAND}" = "LEIRADEL" ]; then
+					FORCE="YES"
+					BUILD="YES"
+				fi
+
+				if [ "${PREVCORE}" = "81" -a "${PREVBUILD}" = "YES" -a "${COMMAND}" = "LEIRADEL" ]; then
+					FORCE="YES"
+					BUILD="YES"
+				fi
+
+
+				if [ "${PREVCORE}" = "snes9x-next" -a "${PREVBUILD}" = "YES" -a "${COMMAND}" = "LEIRADEL" ]; then
+					FORCE="YES"
+					BUILD="YES"
+				fi
+
+				if [ "${PREVCORE}" = "vba-next" -a "${PREVBUILD}" = "YES" -a "${COMMAND}" = "LEIRADEL" ]; then
+					FORCE="YES"
+					BUILD="YES"
+				fi
+
+				if [ "${PREVCORE}" = "mgba" -a "${PREVBUILD}" = "YES" -a "${COMMAND}" = "LEIRADEL" ]; then
 					FORCE="YES"
 					BUILD="YES"
 				fi
