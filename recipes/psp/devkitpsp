@@ -6,5 +6,5 @@ prboom libretro-prboom  https://github.com/libretro/libretro-prboom.git PROJECT 
 tempgba libretro-tempgba https://github.com/libretro/TempGBA-libretro.git PROJECT YES GENERIC Makefile . 
 mednafen_pce_fast libretro-mednafen_pce_fast https://github.com/aliaspider/beetle-pce-fast-libretro.git psp_hw_render YES GENERIC Makefile . 
 imageviewer libretro-imageviewer https://github.com/libretro/imageviewer-libretro.git PROJECT YES GENERIC Makefile.libretro . 
-njemu libretro-njemu https://github.com/aliaspider/NJEMU-libretro.git PROJECT YES GENERIC Makefile . 
+njemu_cps2 libretro-njemu https://github.com/aliaspider/NJEMU-libretro.git PROJECT YES GENERIC Makefile . 
 
