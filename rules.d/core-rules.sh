@@ -226,7 +226,7 @@ libretro_mame078_makefile="Makefile"
 register_module core "mame139"
 libretro_mame139_name="MAME 2010 (0.139)"
 libretro_mame139_git_url="https://github.com/libretro/mame2010-libretro.git"
-libretro_mame159_makefile="Makefile.libretro"
+libretro_mame139_makefile="Makefile.libretro"
 
 register_module core "mame159" -theos_ios -ngc -psp1 -wii
 libretro_mame159_name="MAME 2014 (0.159)"
@@ -393,6 +393,11 @@ libretro_gw_name="Game & Watch"
 libretro_gw_git_url="https://github.com/libretro/gw-libretro.git"
 libretro_gw_git_submodules="yes"
 libretro_gw_build_makefile="Makefile.libretro"
+
+register_module core "81" -theos_ios -ngc -sncps3 -ps3 -psp1 -qnx -wii
+libretro_81_name="81"
+libretro_81_git_url="https://github.com/libretro/81-libretro.git"
+libretro_81_build_makefile="Makefile.libretro"
 
 register_module core "lutro" -theos_ios -ngc -ps3 -psp1 -qnx -wii
 libretro_lutro_name="Lutro"

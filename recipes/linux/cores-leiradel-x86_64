@@ -1,0 +1,4 @@
+fuse libretro-fuse https://github.com/libretro/fuse-libretro.git PROJECT YES LEIRADEL Makefile build linux-x86_64
+gw libretro-gw https://github.com/libretro/gw-libretro.git PROJECT YES LEIRADEL Makefile build linux-x86_64
+
+

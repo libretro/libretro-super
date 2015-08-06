@@ -32,6 +32,7 @@ WANT_CORES=" \
 	nestopia \
 	nxengine \
 	quicknes \
+	prosystem \
 	stella \
 	tyrquake \
 	gw \

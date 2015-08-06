@@ -35,6 +35,202 @@ case "$platform" in
 		CXX11="clang++ -std=c++11 -stdlib=libc++ -arch armv7 -marm -miphoneos-version-min=5.0 -isysroot $IOSSDK"
 		;;
 
+   android-x86_64)
+		FORMAT_ABI="x86_64"
+		DIST_DIR="android/${FORMAT_ABI}"
+		FORMAT_EXT=so
+		FORMAT=.android-${FORMAT_ABI}
+		FORMAT_COMPILER_TARGET=android-${FORMAT_ABI}
+		FORMAT_COMPILER_TARGET_ALT=android-${FORMAT_ABI}
+		FORMAT_ABI_ANDROID=yes
+		UNAME_PLATFORM="$(uname)"
+		HOST_PLATFORM="linux"
+
+		case "$UNAME_PLATFORM" in
+			osx|*Darwin*)
+				HOST_PLATFORM="darwin"
+				;;
+			win|*mingw32*|*MINGW32*|*MSYS_NT*)
+				HOST_PLATFORM="windows"
+				;;
+			win64|*mingw64*|*MINGW64*)
+				HOST_PLATFORM="windows"
+				;;
+		esac
+		export NDK_ROOT_DIR
+		CC="$NDK_ROOT_DIR/toolchains/x86_64-4.9/prebuilt/${HOST_PLATFORM}-x86_64/bin/x86_64-linux-android-gcc"
+		CXX="$NDK_ROOT_DIR/toolchains/x86_64-4.9/prebuilt/${HOST_PLATFORM}-x86_64/bin/x86_64-linux-android-g++"
+		CXX11="$NDK_ROOT_DIR/toolchains/x86_64-4.9/prebuilt/${HOST_PLATFORM}-x86_64/bin/x86_64-linux-android-g++"
+		;;
+
+   android-x86)
+		FORMAT_ABI="x86"
+		DIST_DIR="android/${FORMAT_ABI}"
+		FORMAT_EXT=so
+		FORMAT=.android-${FORMAT_ABI}
+		FORMAT_COMPILER_TARGET=android-${FORMAT_ABI}
+		FORMAT_COMPILER_TARGET_ALT=android-${FORMAT_ABI}
+		FORMAT_ABI_ANDROID=yes
+		UNAME_PLATFORM="$(uname)"
+		HOST_PLATFORM="linux"
+
+		case "$UNAME_PLATFORM" in
+			osx|*Darwin*)
+				HOST_PLATFORM="darwin"
+				;;
+			win|*mingw32*|*MINGW32*|*MSYS_NT*)
+				HOST_PLATFORM="windows"
+				;;
+			win64|*mingw64*|*MINGW64*)
+				HOST_PLATFORM="windows"
+				;;
+		esac
+		export NDK_ROOT_DIR
+		CC="$NDK_ROOT_DIR/toolchains/x86-4.8/prebuilt/${HOST_PLATFORM}-x86_64/bin/i686-linux-android-gcc"
+		CXX="$NDK_ROOT_DIR/toolchains/x86-4.8/prebuilt/${HOST_PLATFORM}-x86_64/bin/i686-linux-android-g++"
+		CXX11="$NDK_ROOT_DIR/toolchains/x86-4.8/prebuilt/${HOST_PLATFORM}-x86_64/bin/i686-linux-android-g++"
+		;;
+
+   android-armeabi)
+		FORMAT_ABI="armeabi"
+		DIST_DIR="android/${FORMAT_ABI}"
+		FORMAT_EXT=so
+		FORMAT=.${FORMAT_ABI}
+		FORMAT_COMPILER_TARGET=android-${FORMAT_ABI}
+		FORMAT_COMPILER_TARGET_ALT=android-${FORMAT_ABI}
+		FORMAT_ABI_ANDROID=yes
+		UNAME_PLATFORM="$(uname)"
+		HOST_PLATFORM="linux"
+
+		case "$UNAME_PLATFORM" in
+			osx|*Darwin*)
+				HOST_PLATFORM="darwin"
+				;;
+			win|*mingw32*|*MINGW32*|*MSYS_NT*)
+				HOST_PLATFORM="windows"
+				;;
+			win64|*mingw64*|*MINGW64*)
+				HOST_PLATFORM="windows"
+				;;
+		esac
+		export NDK_ROOT_DIR
+		CC="$NDK_ROOT_DIR/toolchains/arm-linux-androideabi-4.8/prebuilt/${HOST_PLATFORM}-x86_64/bin/arm-linux-androideabi-gcc"
+		CXX="$NDK_ROOT_DIR/toolchains/arm-linux-androideabi-4.8/prebuilt/${HOST_PLATFORM}-x86_64/bin/arm-linux-androideabi-g++"
+		CXX11="$NDK_ROOT_DIR/toolchains/arm-linux-androideabi-4.8/prebuilt/${HOST_PLATFORM}-x86_64/bin/arm-linux-androideabi-g++"
+		;;
+
+   android-armeabi_v7a)
+		FORMAT_ABI="armeabi-v7a"
+		DIST_DIR="android/${FORMAT_ABI}"
+		FORMAT_EXT=so
+		FORMAT=.${FORMAT_ABI}
+		FORMAT_COMPILER_TARGET=android-armeabi_v7a
+		FORMAT_COMPILER_TARGET_ALT=android-armeabi_v7a
+		FORMAT_ABI_ANDROID=yes
+		UNAME_PLATFORM="$(uname)"
+		HOST_PLATFORM="linux"
+
+		case "$UNAME_PLATFORM" in
+			osx|*Darwin*)
+				HOST_PLATFORM="darwin"
+				;;
+			win|*mingw32*|*MINGW32*|*MSYS_NT*)
+				HOST_PLATFORM="windows"
+				;;
+			win64|*mingw64*|*MINGW64*)
+				HOST_PLATFORM="windows"
+				;;
+		esac
+		export NDK_ROOT_DIR
+		CC="$NDK_ROOT_DIR/toolchains/arm-linux-androideabi-4.8/prebuilt/${HOST_PLATFORM}-x86_64/bin/arm-linux-androideabi-gcc"
+		CXX="$NDK_ROOT_DIR/toolchains/arm-linux-androideabi-4.8/prebuilt/${HOST_PLATFORM}-x86_64/bin/arm-linux-androideabi-g++"
+		CXX11="$NDK_ROOT_DIR/toolchains/arm-linux-androideabi-4.8/prebuilt/${HOST_PLATFORM}-x86_64/bin/arm-linux-androideabi-g++"
+		;;
+
+   android-arm64_v8a)
+		FORMAT_ABI="arm64-v8a"
+		DIST_DIR="android/${FORMAT_ABI}"
+		FORMAT_EXT=so
+		FORMAT=.android_arm64_v8a
+		FORMAT_COMPILER_TARGET=android-arm64_v8a
+		FORMAT_COMPILER_TARGET_ALT=android-arm64_v8a
+		FORMAT_ABI_ANDROID=yes
+		UNAME_PLATFORM="$(uname)"
+		HOST_PLATFORM="linux"
+
+		case "$UNAME_PLATFORM" in
+			osx|*Darwin*)
+				HOST_PLATFORM="darwin"
+				;;
+			win|*mingw32*|*MINGW32*|*MSYS_NT*)
+				HOST_PLATFORM="windows"
+				;;
+			win64|*mingw64*|*MINGW64*)
+				HOST_PLATFORM="windows"
+				;;
+		esac
+		export NDK_ROOT_DIR
+		CC="$NDK_ROOT_DIR/toolchains/aarch64-linux-android-4.9/prebuilt/${HOST_PLATFORM}-x86_64/bin/aarch64-linux-android-gcc"
+		CXX="$NDK_ROOT_DIR/toolchains/aarch64-linux-android-4.9/prebuilt/${HOST_PLATFORM}-x86_64/bin/aarch64-linux-android-g++"
+		CXX11="$NDK_ROOT_DIR/toolchains/aarch64-linux-android-4.9/prebuilt/${HOST_PLATFORM}-x86_64/bin/aarch64-linux-android-g++"
+		;;
+
+   android-mips)
+		FORMAT_ABI="mips"
+		DIST_DIR="android/${FORMAT_ABI}"
+		FORMAT_EXT=so
+		FORMAT=.android_${FORMAT_ABI}
+		FORMAT_COMPILER_TARGET=android-${FORMAT_ABI}
+		FORMAT_COMPILER_TARGET_ALT=android-${FORMAT_ABI}
+		FORMAT_ABI_ANDROID=yes
+		UNAME_PLATFORM="$(uname)"
+		HOST_PLATFORM="linux"
+
+		case "$UNAME_PLATFORM" in
+			osx|*Darwin*)
+				HOST_PLATFORM="darwin"
+				;;
+			win|*mingw32*|*MINGW32*|*MSYS_NT*)
+				HOST_PLATFORM="windows"
+				;;
+			win64|*mingw64*|*MINGW64*)
+				HOST_PLATFORM="windows"
+				;;
+		esac
+		export NDK_ROOT_DIR
+		CC="$NDK_ROOT_DIR/toolchains/mipsel-linux-android-4.8/prebuilt/${HOST_PLATFORM}-x86_64/bin/mipsel-linux-android-gcc"
+		CXX="$NDK_ROOT_DIR/toolchains/mipsel-linux-android-4.8/prebuilt/${HOST_PLATFORM}-x86_64/bin/mipsel-linux-android-g++"
+		CXX11="$NDK_ROOT_DIR/toolchains/mipsel-linux-android-4.8/prebuilt/${HOST_PLATFORM}-x86_64/bin/mipsel-linux-android-g++"
+		;;
+
+   android-mips64)
+		FORMAT_ABI="mips64"
+		DIST_DIR="android/${FORMAT_ABI}"
+		FORMAT_EXT=so
+		FORMAT=.android_${FORMAT_ABI}
+		FORMAT_COMPILER_TARGET=android-${FORMAT_ABI}
+		FORMAT_COMPILER_TARGET_ALT=android-${FORMAT_ABI}
+		FORMAT_ABI_ANDROID=yes
+		UNAME_PLATFORM="$(uname)"
+		HOST_PLATFORM="linux"
+
+		case "$UNAME_PLATFORM" in
+			osx|*Darwin*)
+				HOST_PLATFORM="darwin"
+				;;
+			win|*mingw32*|*MINGW32*|*MSYS_NT*)
+				HOST_PLATFORM="windows"
+				;;
+			win64|*mingw64*|*MINGW64*)
+				HOST_PLATFORM="windows"
+				;;
+		esac
+		export NDK_ROOT_DIR
+		CC="$NDK_ROOT_DIR/toolchains/mips64el-linux-android-4.9/prebuilt/${HOST_PLATFORM}-x86_64/bin/mips64el-linux-android-gcc"
+		CXX="$NDK_ROOT_DIR/toolchains/mips64el-linux-android-4.9/prebuilt/${HOST_PLATFORM}-x86_64/bin/mips64el-linux-android-g++"
+		CXX11="$NDK_ROOT_DIR/toolchains/mips64el-linux-android-4.9/prebuilt/${HOST_PLATFORM}-x86_64/bin/mips64el-linux-android-g++"
+		;;
+
 	qnx)
 		DIST_DIR="qnx"
 		FORMAT_EXT=so
@@ -78,6 +274,7 @@ case "$platform" in
 
 		CC="$DEVKITPPC/bin/powerpc-eabi-gcc$BINARY_EXT"
 		CXX="$DEVKITPPC/bin/powerpc-eabi-g++$BINARY_EXT"
+		AR="$DEVKITPPC/bin/powerpc-eabi-ar$BINARY_EXT"
 		;;
 	
 	wii)
@@ -89,6 +286,7 @@ case "$platform" in
 
 		CC="$DEVKITPPC/bin/powerpc-eabi-gcc$BINARY_EXT"
 		CXX="$DEVKITPPC/bin/powerpc-eabi-g++$BINARY_EXT"
+		AR="$DEVKITPPC/bin/powerpc-eabi-ar$BINARY_EXT"
 		;;
 
 	sncps3)
@@ -214,6 +412,48 @@ case "$platform" in
 					FORMAT_EXT="a"
 					FORMAT_COMPILER_TARGET="ngc"
 					DIST_DIR="ngc"
+					;;
+				android-x86_64)
+					platform=android-x86_64
+					FORMAT_EXT="so"
+					FORMAT_COMPILER_TARGET="${platform}"
+					DIST_DIR="android/x86_64"
+					;;
+				android-x86)
+					platform=android-x86
+					FORMAT_EXT="so"
+					FORMAT_COMPILER_TARGET="${platform}"
+					DIST_DIR="android/x86"
+					;;
+				android-armeabi)
+					platform=android-armeabi
+					FORMAT_EXT="so"
+					FORMAT_COMPILER_TARGET="${platform}"
+					DIST_DIR="android/armeabi"
+					;;
+				android-armeabi_v7a)
+					platform=android-armeabi_v7a
+					FORMAT_EXT="so"
+					FORMAT_COMPILER_TARGET="${platform}"
+					DIST_DIR="android/armeabi-v7a"
+					;;
+				android-arm64_v8a)
+					platform=android-arm64_v8a
+					FORMAT_EXT="so"
+					FORMAT_COMPILER_TARGET="${platform}"
+					DIST_DIR="android/arm64-v8a"
+					;;
+				android-mips)
+					platform=android-mips
+					FORMAT_EXT="so"
+					FORMAT_COMPILER_TARGET="${platform}"
+					DIST_DIR="android/mips"
+					;;
+				android-mips64)
+					platform=android-mips64
+					FORMAT_EXT="so"
+					FORMAT_COMPILER_TARGET="${platform}"
+					DIST_DIR="android/mips64"
 					;;
 				theos_ios*)
 					platform=theos_ios
