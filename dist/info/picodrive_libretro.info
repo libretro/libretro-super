@@ -8,7 +8,6 @@ systemname = "Sega 8/16-bit + 32X (Various)"
 database = "Sega - Master System - Mark III|Sega - Mega Drive - Genesis|Sega - PICO|Sega - 32X"
 license = "MAME"
 permissions = "dynarec_optional"
-database = "Sega - Mega Drive - Genesis|Sega - 32X"
 display_version = "1.91"
 supports_no_game = "false"
 firmware_count = 3
