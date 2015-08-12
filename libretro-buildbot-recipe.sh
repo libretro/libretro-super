@@ -652,7 +652,7 @@ while read line; do
 					BUILD="YES"
 				fi
 
-				if [ "${PREVCORE}" = "vba-next" -a "${PREVBUILD}" = "YES" -a "${COMMAND}" = "LEIRADEL" ]; then
+				if [ "${PREVCORE}" = "vba_next" -a "${PREVBUILD}" = "YES" -a "${COMMAND}" = "LEIRADEL" ]; then
 					FORCE="YES"
 					BUILD="YES"
 				fi
