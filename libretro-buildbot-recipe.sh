@@ -739,7 +739,7 @@ while read line; do
 			if [ "${COMMAND}" = "GENERIC" ]; then
 				build_libretro_generic_makefile $NAME $DIR $SUBDIR $MAKEFILE ${FORMAT_COMPILER_TARGET} "${ARGS}"
 			elif [ "${COMMAND}" = "LEIRADEL" ]; then
-				build_libretro_leiradel_makefile $NAME $DIR $SUBDIR $MAKEFILE ${FORMAT_COMPILER_TARGET} "${ARGS}"
+				build_libretro_leiradel_makefile $NAME $DIR $SUBDIR $MAKEFILE ${PLATFORM} "${ARGS}"
 			elif [ "${COMMAND}" = "GENERIC_GL" ]; then
 				build_libretro_generic_gl_makefile $NAME $DIR $SUBDIR $MAKEFILE ${FORMAT_COMPILER_TARGET} "${ARGS}"
 			elif [ "${COMMAND}" = "GENERIC_ALT" ]; then
