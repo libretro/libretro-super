@@ -16,3 +16,12 @@ snes9x_next libretro-snes9x-next https://github.com/libretro/snes9x-next.git PRO
 vba_next libretro-vba-next https://github.com/libretro/vba-next.git PROJECT YES LEIRADEL Makefile build armeabi_v7a 
 vba_next libretro-vba-next https://github.com/libretro/vba-next.git PROJECT YES LEIRADEL Makefile build armeabi 
 vba_next libretro-vba-next https://github.com/libretro/vba-next.git PROJECT YES LEIRADEL Makefile build x86 
+emux_nes libretro-emux_nes https://github.com/libretro/emux PROJECT YES LEIRADEL Makefile libretro armeabi_v7a MACHINE=nes
+emux_nes libretro-emux_nes https://github.com/libretro/emux PROJECT YES LEIRADEL Makefile libretro armeabi MACHINE=nes
+emux_nes libretro-emux_nes https://github.com/libretro/emux PROJECT YES LEIRADEL Makefile libretro x86 MACHINE=nes
+emux_sms libretro-emux_sms https://github.com/libretro/emux PROJECT YES LEIRADEL Makefile libretro armeabi_v7a MACHINE=sms
+emux_sms libretro-emux_sms https://github.com/libretro/emux PROJECT YES LEIRADEL Makefile libretro armeabi MACHINE=sms
+emux_sms libretro-emux_sms https://github.com/libretro/emux PROJECT YES LEIRADEL Makefile libretro x86 MACHINE=sms
+
+
+

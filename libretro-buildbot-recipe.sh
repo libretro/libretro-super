@@ -657,6 +657,16 @@ while read line; do
 					BUILD="YES"
 				fi
 
+				if [ "${PREVCORE}" = "emux_nes" -a "${PREVBUILD}" = "YES" -a "${COMMAND}" = "LEIRADEL" ]; then
+					FORCE="YES"
+					BUILD="YES"
+				fi
+
+				if [ "${PREVCORE}" = "emux_sms" -a "${PREVBUILD}" = "YES" -a "${COMMAND}" = "LEIRADEL" ]; then
+					FORCE="YES"
+					BUILD="YES"
+				fi
+
 				if [ "${PREVCORE}" = "mgba" -a "${PREVBUILD}" = "YES" -a "${COMMAND}" = "LEIRADEL" ]; then
 					FORCE="YES"
 					BUILD="YES"
