@@ -32,7 +32,7 @@ mednafen_lynx libretro-mednafen_lynx https://github.com/libretro/beetle-lynx-lib
 mednafen_ngp libretro-mednafen_ngp https://github.com/libretro/beetle-ngp-libretro.git PROJECT YES GENERIC Makefile . 
 mednafen_pce_fast libretro-mednafen_pce_fast https://github.com/libretro/beetle-pce-fast-libretro.git PROJECT YES GENERIC Makefile . 
 mednafen_pcfx libretro-mednafen_pcfx https://github.com/libretro/beetle-pcfx-libretro.git PROJECT YES GENERIC Makefile . 
-mednafen_psx libretro-mednafen_psx https://github.com/libretro/mednafen-psx-libretro.git PROJECT YES GENERIC Makefile . 
+mednafen_psx libretro-mednafen_psx https://github.com/libretro/beetle-psx-libretro.git PROJECT YES GENERIC Makefile . 
 mednafen_snes libretro-mednafen_snes https://github.com/libretro/beetle-bsnes-libretro.git PROJECT YES GENERIC Makefile . 
 mednafen_supergrafx libretro-mednafen_supergrafx https://github.com/libretro/beetle-supergrafx-libretro.git PROJECT YES GENERIC Makefile . 
 mednafen_vb libretro-mednafen_vb https://github.com/libretro/beetle-vb-libretro.git PROJECT YES GENERIC Makefile . 
