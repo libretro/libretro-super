@@ -179,8 +179,8 @@ libretro_mednafen_supergrafx_name="Mednafen/Beetle SuperGrafx"
 libretro_mednafen_supergrafx_git_url="https://github.com/libretro/beetle-supergrafx-libretro.git"
 
 register_module core "mednafen_psx" -theos_ios -ngc -psp1
-libretro_mednafen_psx_name="Mednafen PSX"
-libretro_mednafen_psx_git_url="https://github.com/libretro/mednafen-psx-libretro.git"
+libretro_mednafen_psx_name="Mednafen/Beetle PSX"
+libretro_mednafen_psx_git_url="https://github.com/libretro/beetle-psx-libretro.git"
 
 register_module core "mednafen_pcfx" -theos_ios
 libretro_mednafen_pcfx_name="Mednafen/Beetle PC-FX"

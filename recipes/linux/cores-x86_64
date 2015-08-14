@@ -15,10 +15,6 @@ catsfc libretro-catsfc https://github.com/libretro/CATSFC-libretro.git PROJECT Y
 desmume libretro-desmume https://github.com/libretro/desmume.git PROJECT YES GENERIC Makefile.libretro desmume 
 dinothawr libretro-dinothawr https://github.com/libretro/Dinothawr.git PROJECT YES GENERIC Makefile . 
 dosbox libretro-dosbox https://github.com/libretro/dosbox-libretro.git PROJECT YES GENERIC Makefile.libretro . 
-emux_nes libretro-emux_nes https://github.com/sronsse/emux PROJECT YES GENERIC Makefile libretro TARGETS=nes 
-emux_gb libretro-emux_gb https://github.com/sronsse/emux PROJECT YES GENERIC Makefile libretro TARGETS=gb 
-emux_sms libretro-emux_sms https://github.com/sronsse/emux PROJECT YES GENERIC Makefile libretro TARGETS=sms 
-emux_chip8 libretro-emux_chip8 https://github.com/sronsse/emux PROJECT YES GENERIC Makefile libretro TARGETS=chip8 
 fba libretro-fba_new https://github.com/libretro/libretro-fba.git PROJECT YES GENERIC makefile.libretro . 
 fb_alpha libretro-fba https://github.com/libretro/fba-libretro.git PROJECT YES GENERIC makefile.libretro svn-current/trunk 
 fceumm libretro-fceuumm  https://github.com/libretro/libretro-fceumm.git PROJECT YES GENERIC Makefile.libretro . 
@@ -36,7 +32,7 @@ mednafen_lynx libretro-mednafen_lynx https://github.com/libretro/beetle-lynx-lib
 mednafen_ngp libretro-mednafen_ngp https://github.com/libretro/beetle-ngp-libretro.git PROJECT YES GENERIC Makefile . 
 mednafen_pce_fast libretro-mednafen_pce_fast https://github.com/libretro/beetle-pce-fast-libretro.git PROJECT YES GENERIC Makefile . 
 mednafen_pcfx libretro-mednafen_pcfx https://github.com/libretro/beetle-pcfx-libretro.git PROJECT YES GENERIC Makefile . 
-mednafen_psx libretro-mednafen_psx https://github.com/libretro/mednafen-psx-libretro.git PROJECT YES GENERIC Makefile . 
+mednafen_psx libretro-mednafen_psx https://github.com/libretro/beetle-psx-libretro.git PROJECT YES GENERIC Makefile . 
 mednafen_snes libretro-mednafen_snes https://github.com/libretro/beetle-bsnes-libretro.git PROJECT YES GENERIC Makefile . 
 mednafen_supergrafx libretro-mednafen_supergrafx https://github.com/libretro/beetle-supergrafx-libretro.git PROJECT YES GENERIC Makefile . 
 mednafen_vb libretro-mednafen_vb https://github.com/libretro/beetle-vb-libretro.git PROJECT YES GENERIC Makefile . 
