@@ -265,6 +265,8 @@ build_libretro_leiradel_makefile() {
 	PLATFORM=$5
 	ARGS=$6
 
+        ARG1=`echo ${ARGS} | cut -f 1 -d " "`
+
 	cd $DIR
 	cd $SUBDIR
 	OLDJ=$JOBS
@@ -286,7 +288,8 @@ build_libretro_leiradel_makefile() {
 
 		if [ $? -eq 0 ]; then
 			MESSAGE="$1 build successful [$jobid]"
-              		cp -v ${NAME}_libretro.${PLATFORM}-${ARGS}.${FORMAT_EXT} $RARCH_DIST_DIR/${DIST}/${ARGS}/${NAME}_libretro${SUFFIX}.${FORMAT_EXT}  &>> /tmp/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}.log
+              		echo "cp -v ${NAME}_libretro.${PLATFORM}-${ARG1}.${FORMAT_EXT} $RARCH_DIST_DIR/${DIST}/${ARG1}/${NAME}_libretro${SUFFIX}.${FORMAT_EXT}"
+              		cp -v ${NAME}_libretro.${PLATFORM}-${ARG1}.${FORMAT_EXT} $RARCH_DIST_DIR/${DIST}/${ARG1}/${NAME}_libretro${SUFFIX}.${FORMAT_EXT}  &>> /tmp/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}.log
 		else
 		ERROR=`cat /tmp/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}.log | tail -n 100`
 		HASTE=`curl -XPOST http://hastebin.com/documents -d"$ERROR" | cut --fields=4 --delimiter='"'`
@@ -657,7 +660,17 @@ while read line; do
 					BUILD="YES"
 				fi
 
-				if [ "${PREVCORE}" = "vba-next" -a "${PREVBUILD}" = "YES" -a "${COMMAND}" = "LEIRADEL" ]; then
+				if [ "${PREVCORE}" = "vba_next" -a "${PREVBUILD}" = "YES" -a "${COMMAND}" = "LEIRADEL" ]; then
+					FORCE="YES"
+					BUILD="YES"
+				fi
+
+				if [ "${PREVCORE}" = "emux_nes" -a "${PREVBUILD}" = "YES" -a "${COMMAND}" = "LEIRADEL" ]; then
+					FORCE="YES"
+					BUILD="YES"
+				fi
+
+				if [ "${PREVCORE}" = "emux_sms" -a "${PREVBUILD}" = "YES" -a "${COMMAND}" = "LEIRADEL" ]; then
 					FORCE="YES"
 					BUILD="YES"
 				fi
@@ -744,7 +757,7 @@ while read line; do
 			if [ "${COMMAND}" = "GENERIC" ]; then
 				build_libretro_generic_makefile $NAME $DIR $SUBDIR $MAKEFILE ${FORMAT_COMPILER_TARGET} "${ARGS}"
 			elif [ "${COMMAND}" = "LEIRADEL" ]; then
-				build_libretro_leiradel_makefile $NAME $DIR $SUBDIR $MAKEFILE ${FORMAT_COMPILER_TARGET} "${ARGS}"
+				build_libretro_leiradel_makefile $NAME $DIR $SUBDIR $MAKEFILE ${PLATFORM} "${ARGS}"
 			elif [ "${COMMAND}" = "GENERIC_GL" ]; then
 				build_libretro_generic_gl_makefile $NAME $DIR $SUBDIR $MAKEFILE ${FORMAT_COMPILER_TARGET} "${ARGS}"
 			elif [ "${COMMAND}" = "GENERIC_ALT" ]; then
