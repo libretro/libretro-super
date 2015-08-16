@@ -266,6 +266,7 @@ build_libretro_leiradel_makefile() {
 	ARGS=$6
 
         ARG1=`echo ${ARGS} | cut -f 1 -d " "`
+        mkdir -p $RARCH_DIST_DIR/${DIST}/${ARG1}
 
 	cd $DIR
 	cd $SUBDIR
@@ -273,8 +274,8 @@ build_libretro_leiradel_makefile() {
 
 	if [ -z "${NOCLEAN}" ]; then
 		echo "cleaning up..."
-		echo "cleanup command: ${MAKE} -f ${MAKEFILE}.${PLATFORM}-${ARGS} platform=${PLATFORM}-${ARGS} -j${JOBS} clean"
-		${MAKE} -f ${MAKEFILE}.${PLATFORM}-${ARGS} platform=${PLATFORM}-${ARGS} -j${JOBS} clean
+		echo "cleanup command: ${MAKE} -f ${MAKEFILE}.${PLATFORM}_${ARGS} platform=${PLATFORM}_${ARGS} -j${JOBS} clean"
+		${MAKE} -f ${MAKEFILE}.${PLATFORM}_${ARGS} platform=${PLATFORM}_${ARGS} -j${JOBS} clean
 		if [ $? -eq 0 ]; then
 			echo BUILDBOT JOB: $jobid $1 cleanup success!
 		else
@@ -283,12 +284,12 @@ build_libretro_leiradel_makefile() {
 	fi
 
 	echo "compiling..."
-		echo "build command: ${MAKE} -f ${MAKEFILE}.${PLATFORM}-${ARGS} platform=${PLATFORM}-${ARGS} -j${JOBS}"
-		${MAKE} -f ${MAKEFILE}.${PLATFORM}-${ARGS} platform=${PLATFORM}-${ARGS} -j${JOBS} &> /tmp/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}.log
+		echo "build command: ${MAKE} -f ${MAKEFILE}.${PLATFORM}_${ARGS} platform=${PLATFORM}_${ARGS} -j${JOBS}"
+		${MAKE} -f ${MAKEFILE}.${PLATFORM}_${ARGS} platform=${PLATFORM}_${ARGS} -j${JOBS} &> /tmp/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}.log
 
 		if [ $? -eq 0 ]; then
 			MESSAGE="$1 build successful [$jobid]"
-              		cp -v ${NAME}_libretro.${PLATFORM}-${ARG1}.${FORMAT_EXT} $RARCH_DIST_DIR/${DIST}/${ARG1}/${NAME}_libretro${SUFFIX}.${FORMAT_EXT} 
+              		cp -v ${NAME}_libretro.${PLATFORM}_${ARG1}.${FORMAT_EXT} $RARCH_DIST_DIR/${DIST}/${ARG1}/${NAME}_libretro${SUFFIX}.${FORMAT_EXT}
 		else
 		ERROR=`cat /tmp/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}.log | tail -n 100`
 		HASTE=`curl -XPOST http://hastebin.com/documents -d"$ERROR" | cut --fields=4 --delimiter='"'`
