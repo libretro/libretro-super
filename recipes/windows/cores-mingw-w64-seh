@@ -14,10 +14,6 @@ catsfc libretro-catsfc https://github.com/libretro/CATSFC-libretro.git PROJECT Y
 desmume libretro-desmume https://github.com/libretro/desmume.git PROJECT YES GENERIC Makefile.libretro desmume
 dinothawr libretro-dinothawr https://github.com/libretro/Dinothawr.git PROJECT YES GENERIC_ALT Makefile .
 dosbox libretro-dosbox https://github.com/libretro/dosbox-libretro.git PROJECT YES GENERIC Makefile.libretro .
-emux_chip8 libretro-emux_chip8 https://github.com/sronsse/emux PROJECT YES GENERIC Makefile libretro TARGETS=chip8 
-emux_gb libretro-emux_gb https://github.com/sronsse/emux PROJECT YES GENERIC Makefile libretro TARGETS=gb 
-emux_nes libretro-emux_nes https://github.com/sronsse/emux PROJECT YES GENERIC Makefile libretro TARGETS=nes 
-emux_sms libretro-emux_sms https://github.com/sronsse/emux PROJECT YES GENERIC Makefile libretro TARGETS=sms 
 fb_alpha libretro-fba https://github.com/libretro/fba-libretro.git PROJECT YES GENERIC makefile.libretro svn-current/trunk
 fba libretro-fba_new https://github.com/libretro/libretro-fba.git PROJECT YES GENERIC makefile.libretro .
 fceumm libretro-fceuumm  https://github.com/libretro/libretro-fceumm.git PROJECT YES GENERIC Makefile.libretro .
