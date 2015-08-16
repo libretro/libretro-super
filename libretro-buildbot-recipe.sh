@@ -185,7 +185,7 @@ buildbot_log() {
 	MESSAGE=`echo -e $1`
 
 	HASH=`echo -n "$MESSAGE" | openssl sha1 -hmac $SIG | cut -f 2 -d " "`
-	curl --data "message=$MESSAGE&sign=$HASH" $LOGURL
+	curl --max-time 30 --data "message=$MESSAGE&sign=$HASH" $LOGURL
 
 
 }
