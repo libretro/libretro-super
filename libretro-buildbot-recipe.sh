@@ -242,7 +242,7 @@ build_libretro_generic_makefile() {
 		if [ "${PLATFORM}" == "windows" -o "${PLATFORM}" == "unix" ]; then
 			strip -s ${NAME}_libretro${FORMAT}${SUFFIX}.${FORMAT_EXT}
 		fi
-		cp -v ${NAME}_libretro${FORMAT}${SUFFIX}.${FORMAT_EXT} $RARCH_DIST_DIR/${DIST}/${NAME}_libretro${FORMAT}${SUFFIX}.${FORMAT_EXT}  &>> /tmp/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}.log
+		cp -v ${NAME}_libretro${FORMAT}${SUFFIX}.${FORMAT_EXT} $RARCH_DIST_DIR/${DIST}/${NAME}_libretro${FORMAT}${SUFFIX}.${FORMAT_EXT}
 
 	else
 		ERROR=`cat /tmp/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}.log | tail -n 100`
@@ -288,8 +288,7 @@ build_libretro_leiradel_makefile() {
 
 		if [ $? -eq 0 ]; then
 			MESSAGE="$1 build successful [$jobid]"
-              		echo "cp -v ${NAME}_libretro.${PLATFORM}-${ARG1}.${FORMAT_EXT} $RARCH_DIST_DIR/${DIST}/${ARG1}/${NAME}_libretro${SUFFIX}.${FORMAT_EXT}"
-              		cp -v ${NAME}_libretro.${PLATFORM}-${ARG1}.${FORMAT_EXT} $RARCH_DIST_DIR/${DIST}/${ARG1}/${NAME}_libretro${SUFFIX}.${FORMAT_EXT}  &>> /tmp/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}.log
+              		cp -v ${NAME}_libretro.${PLATFORM}-${ARG1}.${FORMAT_EXT} $RARCH_DIST_DIR/${DIST}/${ARG1}/${NAME}_libretro${SUFFIX}.${FORMAT_EXT} 
 		else
 		ERROR=`cat /tmp/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}.log | tail -n 100`
 		HASTE=`curl -XPOST http://hastebin.com/documents -d"$ERROR" | cut --fields=4 --delimiter='"'`
