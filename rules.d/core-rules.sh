@@ -158,6 +158,16 @@ libretro_pcsx_rearmed_configure() {
 	fi
 }
 
+register_module core "pcsxr" -theos_ios -ngc -ps3 -psp1 -wii
+libretro_pcsxr_name="PCSXR"
+libretro_pcsxr_git_url="https://github.com/libretro/pcsxr-libretro.git"
+libretro_pcsxr_build_makefile="Makefile.libretro"
+libretro_pcsxr_configure() {
+	if [ "$platform" = "ios" ]; then
+		core_build_cores="pcsxr_interpreter pcsxr"
+	fi
+}
+
 register_module core "mednafen_gba" -theos_ios
 libretro_mednafen_gba_name="Mednafen/Beetle GBA"
 libretro_mednafen_gba_git_url="https://github.com/libretro/beetle-gba-libretro.git"
