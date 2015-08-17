@@ -39,7 +39,7 @@ case "$platform" in
 		FORMAT_ABI="x86_64"
 		DIST_DIR="android/${FORMAT_ABI}"
 		FORMAT_EXT=so
-		FORMAT=.android-${FORMAT_ABI}
+		FORMAT=".android_${FORMAT_ABI}"
 		FORMAT_COMPILER_TARGET=android_${FORMAT_ABI}
 		FORMAT_COMPILER_TARGET_ALT=android_${FORMAT_ABI}
 		FORMAT_ABI_ANDROID=yes
@@ -67,7 +67,7 @@ case "$platform" in
 		FORMAT_ABI="x86"
 		DIST_DIR="android/${FORMAT_ABI}"
 		FORMAT_EXT=so
-		FORMAT=.android-${FORMAT_ABI}
+		FORMAT=".android_${FORMAT_ABI}"
 		FORMAT_COMPILER_TARGET=android_${FORMAT_ABI}
 		FORMAT_COMPILER_TARGET_ALT=android_${FORMAT_ABI}
 		FORMAT_ABI_ANDROID=yes
@@ -95,7 +95,7 @@ case "$platform" in
 		FORMAT_ABI="armeabi"
 		DIST_DIR="android/${FORMAT_ABI}"
 		FORMAT_EXT=so
-		FORMAT=.${FORMAT_ABI}
+		FORMAT=".android_${FORMAT_ABI}"
 		FORMAT_COMPILER_TARGET=android_${FORMAT_ABI}
 		FORMAT_COMPILER_TARGET_ALT=android_${FORMAT_ABI}
 		FORMAT_ABI_ANDROID=yes
@@ -123,7 +123,7 @@ case "$platform" in
 		FORMAT_ABI="armeabi-v7a"
 		DIST_DIR="android/${FORMAT_ABI}"
 		FORMAT_EXT=so
-		FORMAT=.${FORMAT_ABI}
+		FORMAT=".android_${FORMAT_ABI}"
 		FORMAT_COMPILER_TARGET=android_armeabi-v7a
 		FORMAT_COMPILER_TARGET_ALT=android_armeabi-v7a
 		FORMAT_ABI_ANDROID=yes
@@ -151,7 +151,7 @@ case "$platform" in
 		FORMAT_ABI="arm64-v8a"
 		DIST_DIR="android/${FORMAT_ABI}"
 		FORMAT_EXT=so
-		FORMAT=.android_arm64_v8a
+		FORMAT=".android_${FORMAT_ABI}"
 		FORMAT_COMPILER_TARGET=android_arm64-v8a
 		FORMAT_COMPILER_TARGET_ALT=android_arm64-v8a
 		FORMAT_ABI_ANDROID=yes
@@ -179,7 +179,7 @@ case "$platform" in
 		FORMAT_ABI="mips"
 		DIST_DIR="android/${FORMAT_ABI}"
 		FORMAT_EXT=so
-		FORMAT=.android_${FORMAT_ABI}
+		FORMAT=".android_${FORMAT_ABI}"
 		FORMAT_COMPILER_TARGET=android_${FORMAT_ABI}
 		FORMAT_COMPILER_TARGET_ALT=android_${FORMAT_ABI}
 		FORMAT_ABI_ANDROID=yes
@@ -207,7 +207,7 @@ case "$platform" in
 		FORMAT_ABI="mips64"
 		DIST_DIR="android/${FORMAT_ABI}"
 		FORMAT_EXT=so
-		FORMAT=.android_${FORMAT_ABI}
+		FORMAT=".android_${FORMAT_ABI}"
 		FORMAT_COMPILER_TARGET=android_${FORMAT_ABI}
 		FORMAT_COMPILER_TARGET_ALT=android_${FORMAT_ABI}
 		FORMAT_ABI_ANDROID=yes
