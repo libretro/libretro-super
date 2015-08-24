@@ -160,7 +160,7 @@ libretro_pcsx_rearmed_configure() {
 
 register_module core "pcsx1" -theos_ios -ngc -ps3 -psp1 -wii
 libretro_pcsx1_name="PCSX1"
-libretro_pcsx1_git_url="https://github.com/libretro/pcsxr-libretro.git"
+libretro_pcsx1_git_url="https://github.com/libretro/pcsx1-libretro.git"
 libretro_pcsx1_build_makefile="Makefile.libretro"
 libretro_pcsx1_configure() {
 	if [ "$platform" = "ios" ]; then
