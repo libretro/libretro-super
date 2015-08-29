@@ -1,4 +1,3 @@
-
 # vim: set ts=3 sw=3 noet ft=sh : bash
 
 ####usage:
@@ -15,13 +14,6 @@ echo
 LOGDATE=`date +%Y-%m-%d`
 
 echo $LOGDATE $BOT $FORCE $JOBS
-
-if [ -z "JOBS" ]; then
-   JOBS=4
-fi
-
-
-OLDJ=$JOBS
 
 ORIGPATH=$PATH
 WORK=$PWD
@@ -45,6 +37,15 @@ echo
 echo
 
 . $WORK/libretro-config.sh
+
+if [ -z "$JOBS" ]; then
+   JOBS=4
+fi
+
+
+OLDJ=$JOBS
+
+echo $JOBS
 
 echo
 [[ "${ARM_NEON}" ]] && echo 'ARM NEON opts enabled...' && export FORMAT_COMPILER_TARGET="${FORMAT_COMPILER_TARGET}-neon"
@@ -203,6 +204,8 @@ build_libretro_generic_makefile() {
 	cd $DIR
 	cd $SUBDIR
 	OLDJ=$JOBS
+
+        echo BUILDBOT THREADS: $JOBS
 
 	if [ "${NAME}" = "mame078" ]; then
 		JOBS=1
