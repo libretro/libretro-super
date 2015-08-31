@@ -616,6 +616,82 @@ while read line; do
 		if [ -n ${TEMP} ]; then
 			ARGS="${ARGS} ${TEMP}"
 		fi
+                TEMP=""
+                TEMP=`echo $line | cut -f 15 -d " "`
+                if [ -n ${TEMP} ]; then
+                        ARGS="${ARGS} ${TEMP}"
+                fi
+                TEMP=""
+                TEMP=`echo $line | cut -f 16 -d " "`
+                if [ -n ${TEMP} ]; then
+                        ARGS="${ARGS} ${TEMP}"
+                fi
+                TEMP=""
+                TEMP=`echo $line | cut -f 17 -d " "`
+                if [ -n ${TEMP} ]; then
+                        ARGS="${ARGS} ${TEMP}"
+                fi
+                TEMP=""
+                TEMP=`echo $line | cut -f 18 -d " "`
+                if [ -n ${TEMP} ]; then
+                        ARGS="${ARGS} ${TEMP}"
+                fi
+                TEMP=""
+                TEMP=`echo $line | cut -f 19 -d " "`
+                if [ -n ${TEMP} ]; then
+                        ARGS="${ARGS} ${TEMP}"
+                fi
+                TEMP=""
+                TEMP=`echo $line | cut -f 20 -d " "`
+                if [ -n ${TEMP} ]; then
+                        ARGS="${ARGS} ${TEMP}"
+                fi
+                TEMP=""
+                TEMP=`echo $line | cut -f 21 -d " "`
+                if [ -n ${TEMP} ]; then
+                        ARGS="${ARGS} ${TEMP}"
+                fi
+
+                TEMP=""
+                TEMP=`echo $line | cut -f 22 -d " "`
+                if [ -n ${TEMP} ]; then
+                        ARGS="${ARGS} ${TEMP}"
+                fi
+                TEMP=""
+                TEMP=`echo $line | cut -f 23 -d " "`
+                if [ -n ${TEMP} ]; then
+                        ARGS="${ARGS} ${TEMP}"
+                fi
+                TEMP=""
+                TEMP=`echo $line | cut -f 24 -d " "`
+                if [ -n ${TEMP} ]; then
+                        ARGS="${ARGS} ${TEMP}"
+                fi
+                TEMP=""
+                TEMP=`echo $line | cut -f 25 -d " "`
+                if [ -n ${TEMP} ]; then
+                        ARGS="${ARGS} ${TEMP}"
+                fi
+                TEMP=""
+                TEMP=`echo $line | cut -f 26 -d " "`
+                if [ -n ${TEMP} ]; then
+                        ARGS="${ARGS} ${TEMP}"
+                fi
+                TEMP=""
+                TEMP=`echo $line | cut -f 27 -d " "`
+                if [ -n ${TEMP} ]; then
+                        ARGS="${ARGS} ${TEMP}"
+                fi
+                TEMP=""
+                TEMP=`echo $line | cut -f 28 -d " "`
+                if [ -n ${TEMP} ]; then
+                        ARGS="${ARGS} ${TEMP}"
+                fi
+                TEMP=""
+                TEMP=`echo $line | cut -f 29 -d " "`
+                if [ -n ${TEMP} ]; then
+                        ARGS="${ARGS} ${TEMP}"
+                fi
 
 		ARGS="${ARGS%"${ARGS##*[![:space:]]}"}"
 
