@@ -254,6 +254,17 @@ case "$platform" in
 		CXX="psp-g++${BINARY_EXT}"
 		;;
 
+	vita)
+		DIST_DIR="vita"
+		FORMAT_EXT=a
+		FORMAT=_vita
+		FORMAT_COMPILER_TARGET=vita
+		FORMAT_COMPILER_TARGET_ALT=vita
+
+		CC="arm-vita-eabi-gcc${BINARY_EXT}"
+		CXX="arm-vita-eabi-g++${BINARY_EXT}"
+		;;
+
 	ps3)
 		DIST_DIR="ps3"
 		FORMAT_EXT=a
@@ -393,6 +404,12 @@ case "$platform" in
 					FORMAT_EXT="a"
 					FORMAT_COMPILER_TARGET="psp1"
 					DIST_DIR="psp1"
+					;;
+				*vita*)
+					platform=vita
+					FORMAT_EXT="a"
+					FORMAT_COMPILER_TARGET="vita"
+					DIST_DIR="vita"
 					;;
 				*ps3*)
 					platform=ps3
