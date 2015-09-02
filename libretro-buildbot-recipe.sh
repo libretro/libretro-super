@@ -1621,7 +1621,7 @@ if [ "${PLATFORM}" == "wii" ] && [ "${RA}" == "YES" ]; then
 			cp -v $RARCH_DIST_DIR/*.a .
 
 			#ls -1 *.a  | awk -F "." ' { print "cp " $0 " " $1 "_wii." $2 }' |sh
-			sh ./wii-cores.sh &> /tmp/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_${PLATFORM}.log
+			sh ./dist-cores.sh wii &> /tmp/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_${PLATFORM}.log
 			if [ $? -eq 0 ]; then
 				MESSAGE="retroarch build successful [$jobid]"
 				echo $MESSAGE
