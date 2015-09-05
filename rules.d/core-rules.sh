@@ -417,6 +417,11 @@ libretro_lutro_build_makefile="Makefile"
 ## TODO: The lutro modules here aren't really "cores", they're assets
 ##       Figure out where to put them and what to do with them.
 
+register_module core "lutro_sienna" any
+libretro_lutro_sienna_name="Lutro-Sienna"
+libretro_lutro_sienna_git_url="https://github.com/libretro/lutro-sienna.git"
+libretro_lutro_sienna_build_rule=none
+
 register_module core "lutro_platformer" any
 libretro_lutro_platformer_name="Lutro-Platformer"
 libretro_lutro_platformer_git_url="https://github.com/libretro/lutro-platformer.git"
