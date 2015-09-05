@@ -190,8 +190,8 @@ build_default_cores() {
 		libretro_build_core genesis_plus_gx
 	fi
 
-	if [ $platform != "psp1" ] && [ $platform != "wii" ] && [ $platform != "ngc" ]; then
-		# (PSP/NGC/Wii) Performance and/or binary size issues
+	if [ $platform != "psp1" ] && [ $platform != "wii" ] && [ $platform != "ngc" ] && [ $platform != "vita" ]; then
+		# (PSP/NGC/Wii/Vita) Performance and/or binary size issues
 		libretro_build_core bsnes_cplusplus98
 		libretro_build_core mame078
 		libretro_build_core mednafen_gba
@@ -246,7 +246,7 @@ build_default_cores() {
 		libretro_build_core meteor
 
 
-		if [ $platform != "qnx" ] && [ $platform != "psp1" ]; then
+		if [ $platform != "qnx" ] && [ $platform != "psp1" ] && [ $platform != "vita" ]; then
 			libretro_build_core mame139
 
 			build_default_cores_cpp11
