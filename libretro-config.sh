@@ -254,6 +254,16 @@ case "$platform" in
 		CXX="psp-g++${BINARY_EXT}"
 		;;
 
+	ctr)
+		DIST_DIR="ctr"
+		FORMAT_EXT=a
+		FORMAT=_ctr
+		FORMAT_COMPILER_TARGET=ctr
+		FORMAT_COMPILER_TARGET_ALT=ctr
+
+		;;
+
+
 	vita)
 		DIST_DIR="vita"
 		FORMAT_EXT=a
