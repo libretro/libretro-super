@@ -1479,7 +1479,7 @@ if [ "${PLATFORM}" = "psp1" ] && [ "${RA}" = "YES" ]; then
 
 	if [ "${BUILD}" = "YES" -o "${FORCE}" = "YES" ]; then
 		cd $RADIR
-		rm -rf psp1/pkg
+		#rm -rf pkg/psp1
 		echo "BUILDBOT JOB: $jobid Building"
 		echo 
 
@@ -1507,15 +1507,15 @@ if [ "${PLATFORM}" = "psp1" ] && [ "${RA}" = "YES" ]; then
             cd $WORK/$RADIR
 			cp retroarch.cfg retroarch.default.cfg
 
-			mkdir -p psp1/pkg/
-			mkdir -p psp1/pkg/cheats
-#			mkdir -p psp1/pkg/database
-#			mkdir -p psp1/pkg/database/cursors
-			mkdir -p psp1/pkg/database/rdb
+			mkdir -p pkg/psp1/
+			mkdir -p pkg/psp1/cheats
+#			mkdir -p pkg/psp1/database
+#			mkdir -p pkg/psp1/database/cursors
+			mkdir -p pkg/psp1/database/rdb
 
-#			cp -rf media/libretrodb/cht/* psp1/pkg/cheats
-#			cp -rf media/libretrodb/rdb/* psp1/pkg/database/rdb
-#			cp -rf media/libretrodb/cursors/* psp1/pkg/database/cursors
+#			cp -rf media/libretrodb/cht/* pkg/psp1/cheats
+#			cp -rf media/libretrodb/rdb/* pkg/psp1/database/rdb
+#			cp -rf media/libretrodb/cursors/* pkg/psp1/database/cursors
 		fi
 	fi
 fi
@@ -1640,18 +1640,11 @@ if [ "${PLATFORM}" == "wii" ] && [ "${RA}" == "YES" ]; then
 		echo ============================================
 		cp retroarch.cfg retroarch.default.cfg
 
-		mkdir -p wii/pkg/
-		mkdir -p wii/pkg/overlays
-		mkdir -p wii/pkg/cheats
-		mkdir -p wii/pkg/remaps
-#		mkdir -p wii/pkg/database
-#		mkdir -p wii/pkg/database/cursors
-#		mkdir -p wii/pkg/database/rdb
-
-#		cp -rf media/libretrodb/cht/* wii/pkg/cheats
-#		cp -rf media/libretrodb/rdb/* wii/pkg/database/rdb
-#		cp -rf media/libretrodb/cursors/* wii/pkg/database/cursors
-		cp -rf media/overlays/wii/* wii/pkg/overlays
+		mkdir -p pkg/wii
+		mkdir -p pkg/wii/overlays
+		mkdir -p pkg/wii/cheats
+		mkdir -p pkg/wii/remaps
+		cp -rf media/overlays/wii/* pkg/wii/overlays
 	fi
 fi
 
@@ -1792,17 +1785,17 @@ then
 		echo "Packaging"
 		echo ============================================
 		cp retroarch.cfg retroarch.default.cfg
-		mkdir -p ngc/pkg/
-		mkdir -p ngc/pkg/cheats
-		mkdir -p ngc/pkg/remaps
-#		mkdir -p ngc/pkg/database
-#		mkdir -p ngc/pkg/database/cursors
-#		mkdir -p ngc/pkg/database/rdb
-		mkdir -p ngc/pkg/overlays
-#		cp -rf media/libretrodb/cht/* ngc/pkg/cheats
-#		cp -rf media/libretrodb/rdb/* ngc/pkg/database/rdb
-#		cp -rf media/libretrodb/cursors/* ngc/pkg/database/cursors
-		cp -rf media/overlays/wii/* ngc/pkg/overlays
+		mkdir -p pkg/ngc/
+		mkdir -p pkg/ngc/cheats
+		mkdir -p pkg/ngc/remaps
+#		mkdir -p pkg/ngc/database
+#		mkdir -p pkg/ngc/database/cursors
+#		mkdir -p pkg/ngc/database/rdb
+		mkdir -p pkg/ngc/overlays
+#		cp -rf media/libretrodb/cht/* pkg/ngc/cheats
+#		cp -rf media/libretrodb/rdb/* pkg/ngc/database/rdb
+#		cp -rf media/libretrodb/cursors/* pkg/ngc/database/cursors
+		cp -rf media/overlays/wii/* pkg/ngc/overlays
 	fi
 
 fi
