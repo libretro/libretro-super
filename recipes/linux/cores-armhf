@@ -68,7 +68,3 @@ yabause libretro-yabause https://github.com/libretro/yabause.git PROJECT YES GEN
 ppsspp libretro-ppsspp https://github.com/libretro/ppsspp.git SUBMODULE YES GENERIC_GL Makefile libretro 
 ffmpeg libretro-ffmpeg  https://github.com/libretro/FFmpeg.git PROJECT YES GENERIC_GL Makefile libretro 
 mame libretro-mame https://github.com/libretro/mame.git PROJECT YES GENERIC Makefile.libretro . 
-mame2014 libretro-mame2014 https://github.com/libretro/mame2014-libretro.git PROJECT YES GENERIC Makefile.libretro . TARGET=mame PTR64=1 PARTIAL=0 
-mess2014 libretro-mame2014 https://github.com/libretro/mame2014-libretro.git PROJECT YES GENERIC Makefile.libretro . TARGET=mess PTR64=1 PARTIAL=1 
-ume2014 libretro-mame2014 https://github.com/libretro/mame2014-libretro.git PROJECT YES GENERIC Makefile.libretro . TARGET=ume PTR64=1 PARTIAL=1 
-
