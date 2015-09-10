@@ -1,4 +1,4 @@
-2048 libretro-2048  https://github.com/libretro/libretro-2048.git PROJECT YES GENERIC Makefile.libretro . 
+2048 libretro-2048  https://github.com/libretro/libretro-2048.git PROJECT NO GENERIC Makefile.libretro . 
 fceumm libretro-fceuumm  https://github.com/libretro/libretro-fceumm.git PROJECT YES GENERIC Makefile.libretro . 
 gambatte libretro-gambatte https://github.com/libretro/gambatte-libretro.git PROJECT YES GENERIC Makefile.libretro libgambatte 
 genesis_plus_gx libretro-genesis_plus_gx https://github.com/libretro/Genesis-Plus-GX.git PROJECT YES GENERIC Makefile.libretro . 
@@ -8,11 +8,10 @@ mednafen_pce_fast libretro-beetle_pce_fast https://github.com/libretro/beetle-pc
 mednafen_vb libretro-beetle_vb https://github.com/libretro/beetle-vb-libretro.git PROJECT YES GENERIC Makefile . 
 mednafen_wswan libretro-beetle_wswan https://github.com/libretro/beetle-wswan-libretro.git PROJECT YES GENERIC Makefile . 
 mgba libretro-mgba https://github.com/libretro/mgba.git PROJECT NO GENERIC Makefile.libretro . 
-nestopia libretro-nestopia https://github.com/libretro/nestopia.git PROJECT YES GENERIC Makefile libretro 
+nestopia libretro-nestopia https://github.com/libretro/nestopia.git PROJECT NO GENERIC Makefile libretro 
 nxengine libretro-nxengine https://github.com/libretro/nxengine-libretro.git PROJECT YES GENERIC Makefile . 
 picodrive libretro-picodrive https://github.com/libretro/picodrive.git SUBMODULE YES GENERIC Makefile.libretro . 
-snes9x libretro-snes9x https://github.com/libretro/snes9x.git PROJECT YES GENERIC Makefile libretro 
-snes9x_next libretro-snes9x_next https://github.com/libretro/snes9x-next.git PROJECT YES GENERIC Makefile.libretro . 
-tgbdual libretro-tgbdual https://github.com/libretro/tgbdual-libretro.git PROJECT YES GENERIC Makefile . 
+snes9x_next libretro-snes9x_next https://github.com/libretro/snes9x-next.git PROJECT NO GENERIC Makefile.libretro . 
+tgbdual libretro-tgbdual https://github.com/libretro/tgbdual-libretro.git PROJECT NO GENERIC Makefile . 
 tyrquake libretro-tyrquake https://github.com/libretro/tyrquake.git PROJECT YES GENERIC Makefile . 
 
