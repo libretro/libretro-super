@@ -1925,11 +1925,11 @@ if [ "${PLATFORM}" == "ctr" ] && [ "${RA}" == "YES" ]; then
 		echo ============================================
 		cp retroarch.cfg retroarch.default.cfg
 
-		mkdir -p pkg/ctr
-		mkdir -p pkg/ctr/overlays
-		mkdir -p pkg/ctr/cheats
-		mkdir -p pkg/ctr/remaps
-		cp -rf media/overlays/ctr/* pkg/ctr/overlays
+		mkdir -p pkg/3ds
+		mkdir -p pkg/3ds/overlays
+		mkdir -p pkg/3ds/cheats
+		mkdir -p pkg/3ds/remaps
+		cp -rf media/overlays/* pkg/3ds/overlays/
 	fi
 fi
 
