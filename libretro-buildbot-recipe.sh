@@ -13,11 +13,12 @@ echo
 
 LOGDATE=`date +%Y-%m-%d`
 
-echo $LOGDATE $BOT $FORCE $JOBS
+
+echo $LOGDATE BOT: $BOT FORCE: $FORCE JOBS: $JOBS
 
 ORIGPATH=$PATH
 WORK=$PWD
-OLDFORCE=YES
+OLDFORCE=NO
 
 echo Original PATH: $PATH
 
@@ -40,6 +41,9 @@ echo
 
 if [ -z "$JOBS" ]; then
    JOBS=4
+fi
+if [ -z "$FORCE" ]; then
+   FORCE=NO
 fi
 
 
@@ -712,6 +716,8 @@ while read line; do
 
 				OLDFORCE=$FORCE
 				OLDBUILD=$BUILD
+
+                                echo $OUT $FORCE $BUILD
 
 				if [ "${PREVCORE}" = "bsnes" -a "${PREVBUILD}" = "YES" -a "${COMMAND}" = "BSNES" ]; then
 					FORCE="YES"
