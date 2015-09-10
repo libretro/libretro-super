@@ -41,9 +41,15 @@ echo
 if [ -z "$JOBS" ]; then
    JOBS=4
 fi
+
 if [ -z "$FORCE" ]; then
    FORCE=NO
 fi
+
+if [ -z "$FORCERA" ]; then
+   FORCERA=NO
+fi
+
 OLDFORCE=$FORCE
 
 
@@ -1871,11 +1877,11 @@ if [ "${PLATFORM}" == "ctr" ] && [ "${RA}" == "YES" ]; then
 					RADIR=$DIR
 					if [[ $OUT == *"Already up-to-date"* ]]; then
 						BUILD="NO"
-					else	
+					else
 						BUILD="YES"
 					fi
 				fi
-                                echo $OUT $BUILD $FORCE
+                                echo $OUT $BUILD $FORCE $FORCERA
 
 				cd $WORK
 			else
@@ -1897,12 +1903,12 @@ if [ "${PLATFORM}" == "ctr" ] && [ "${RA}" == "YES" ]; then
 		echo
 	done  < $1.ra
 
-	if [ "${BUILD}" == "YES" -o "${FORCE}" == "YES" ]; then
+	if [ "${BUILD}" == "YES" -o "${FORCE}" == "YES" -o "${FORCERA}" == "YES" ]; then
 		cd $RADIR
 		echo "BUILDBOT JOB: $jobid Building"
 		echo
 
-		if [ "${BUILD}" == "YES" -o "${FORCE}" == "YES" ]; then
+		if [ "${BUILD}" == "YES" -o "${FORCE}" == "YES" -o "${FORCERA}" == "YES" ]; then
 			cd dist-scripts
 			rm *.a
 			cp -v $RARCH_DIST_DIR/*.a .
