@@ -18,7 +18,6 @@ echo $LOGDATE BOT: $BOT FORCE: $FORCE JOBS: $JOBS
 
 ORIGPATH=$PATH
 WORK=$PWD
-OLDFORCE=NO
 
 echo Original PATH: $PATH
 
@@ -45,6 +44,7 @@ fi
 if [ -z "$FORCE" ]; then
    FORCE=NO
 fi
+OLDFORCE=$FORCE
 
 
 OLDJ=$JOBS
@@ -1875,6 +1875,8 @@ if [ "${PLATFORM}" == "ctr" ] && [ "${RA}" == "YES" ]; then
 						BUILD="YES"
 					fi
 				fi
+                                echo $OUT $BUILD $FORCE
+
 				cd $WORK
 			else
 				echo "cloning repo..."
