@@ -263,6 +263,17 @@ case "$platform" in
 
 		;;
 
+	ctr)
+		DIST_DIR="ctr"
+		FORMAT_EXT=a
+		FORMAT=_ctr
+		FORMAT_COMPILER_TARGET=ctr
+		FORMAT_COMPILER_TARGET_ALT=ctr
+
+		CC="$DEVKITARM/bin/arm-none-eabi-gcc$BINARY_EXT"
+		CXX="$DEVKITARM/bin/arm-none-eabi-g++$BINARY_EXT"
+		AR="$DEVKITARM/bin/arm-none-eabi-ar$BINARY_EXT"
+		;;
 
 	vita)
 		DIST_DIR="vita"
@@ -414,6 +425,12 @@ case "$platform" in
 					FORMAT_EXT="a"
 					FORMAT_COMPILER_TARGET="psp1"
 					DIST_DIR="psp1"
+					;;
+				*ctr*)
+					platform=ctr
+					FORMAT_EXT="a"
+					FORMAT_COMPILER_TARGET="ctr"
+					DIST_DIR="ctr"
 					;;
 				*vita*)
 					platform=vita
