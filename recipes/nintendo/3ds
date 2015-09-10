@@ -12,5 +12,5 @@ nestopia libretro-nestopia https://github.com/libretro/nestopia.git PROJECT YES 
 nxengine libretro-nxengine https://github.com/libretro/nxengine-libretro.git PROJECT YES GENERIC Makefile . 
 picodrive libretro-picodrive https://github.com/libretro/picodrive.git SUBMODULE YES GENERIC Makefile.libretro . 
 snes9x_next libretro-snes9x_next https://github.com/libretro/snes9x-next.git PROJECT YES GENERIC Makefile.libretro . 
-tgbdual libretro-tgbdual https://github.com/libretro/tgbdual-libretro.git PROJECT YES GENERIC Makefile . 
-tyrquake libretro-tyrquake https://github.com/libretro/tyrquake.git PROJECT YES GENERIC Makefile . 
+tgbdual libretro-tgbdual https://github.com/libretro/tgbdual-libretro.git PROJECT NO GENERIC Makefile . 
+tyrquake libretro-tyrquake https://github.com/libretro/tyrquake.git PROJECT NO GENERIC Makefile . 
