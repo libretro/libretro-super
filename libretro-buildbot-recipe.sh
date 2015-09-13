@@ -46,9 +46,10 @@ if [ -z "$FORCE" ]; then
 	FORCE=NO
 fi
 
-if [ -z "$FORCERA" ]; then
-	FORCERA=NO
+if [ -z "$FORCE_RETROARCH_BUILD" ]; then
+	FORCE_RETROARCH_BUILD=NO
 fi
+CORES_BUILT=NO
 
 OLDFORCE=$FORCE
 
@@ -849,6 +850,7 @@ while read line; do
 
 		if [ "${BUILD}" = "YES" -o "${FORCE}" = "YES" ]; then
 			touch /tmp/built-cores
+			CORES_BUILT=YES
 			echo building core...
 			if [ "${COMMAND}" = "GENERIC" ]; then
 				build_libretro_generic_makefile $NAME $DIR $SUBDIR $MAKEFILE ${FORMAT_COMPILER_TARGET} "${ARGS}"
@@ -975,7 +977,7 @@ if [ "${PLATFORM}" = "android" ] && [ "${RA}" = "YES" ]; then
 		echo
 	done < $1.ra
 
-	if [ "${BUILD}" = "YES" -o "${FORCE}" = "YES" ]; then
+	if [ "${BUILD}" = "YES" -o "${FORCE}" = "YES" -o "${FORCE_RETROARCH_BUILD}" == "YES" ]; then
 		touch /tmp/built-frontend
 		echo "BUILDBOT JOB: $jobid Compiling Shaders"
 		echo
@@ -1148,7 +1150,7 @@ if [ "${PLATFORM}" = "theos_ios" ] && [ "${RA}" = "YES" ]; then
 		echo
 	done < $1.ra
 
-	if [ "${BUILD}" = "YES" -o "${FORCE}" = "YES" ]; then
+	if [ "${BUILD}" = "YES" -o "${FORCE}" = "YES" -o "${FORCE_RETROARCH_BUILD}" == "YES" ]; then
 		touch /tmp/built-frontend
 		echo "BUILDBOT JOB: $jobid Compiling Shaders"
 		echo
@@ -1254,7 +1256,7 @@ if [ "${PLATFORM}" = "MINGW64" ] || [ "${PLATFORM}" = "MINGW32" ] && [ "${RA}" =
 	echo
 	echo
 	done < $1.ra
-	if [ "${BUILD}" = "YES" -o "${FORCE}" = "YES" ]; then
+	if [ "${BUILD}" = "YES" -o "${FORCE}" = "YES" -o "${FORCE_RETROARCH_BUILD}" == "YES" ]; then
 		touch /tmp/built-frontend
 		cd $RADIR
 		echo "BUILDBOT JOB: $jobid Building"
@@ -1490,39 +1492,38 @@ if [ "${PLATFORM}" = "psp1" ] && [ "${RA}" = "YES" ]; then
 		echo
 	done < $1.ra
 
-	if [ "${BUILD}" = "YES" -o "${FORCE}" = "YES" ]; then
+	if [ "${BUILD}" == "YES" -o "${FORCE}" == "YES" -o "${FORCE_RETROARCH_BUILD}" == "YES" -o "${CORES_BUILT}" == "YES" ]; then
 		touch /tmp/built-frontend
 		cd $RADIR
 		echo "BUILDBOT JOB: $jobid Building"
 		echo
 
-		if [ "${BUILD}" == "YES" -o "${FORCE}" == "YES" ]; then
-			cd dist-scripts
-			rm *.a
-			cp -v $RARCH_DIST_DIR/*.a .
-			#ls -1 *.a  | awk -F "." ' { print "cp " $0 " " $1 "_psp1." $2 }' |sh
+		cd dist-scripts
+		rm *.a
+		cp -v $RARCH_DIST_DIR/*.a .
+		#ls -1 *.a  | awk -F "." ' { print "cp " $0 " " $1 "_psp1." $2 }' |sh
 
-			./dist-cores.sh psp &> /tmp/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_${PLATFORM}.log
-			if [ $? -eq 0 ]; then
-				MESSAGE="retroarch build successful [$jobid]"
-				echo $MESSAGE
-			else
-				ERROR=`cat /tmp/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_${PLATFORM}.log | tail -n 100`
-				HASTE=`curl -XPOST http://hastebin.com/documents -d"$ERROR" | cut --fields=4 --delimiter='"'`
-				MESSAGE="retroarch build failed [$jobid] LOG: http://hastebin.com/$HASTE"
-				echo $MESSAGE
-			fi
-			buildbot_log "$MESSAGE"
-			echo BUILDBOT JOB: $MESSAGE >> /tmp/log/${BOT}/${LOGDATE}.log
-
-			echo "Packaging"
-			echo ============================================
-			cd $WORK/$RADIR
-			cp retroarch.cfg retroarch.default.cfg
-
-			mkdir -p pkg/psp1/
-			mkdir -p pkg/psp1/cheats
+		./dist-cores.sh psp &> /tmp/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_${PLATFORM}.log
+		if [ $? -eq 0 ]; then
+			MESSAGE="retroarch build successful [$jobid]"
+			echo $MESSAGE
+		else
+			ERROR=`cat /tmp/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_${PLATFORM}.log | tail -n 100`
+			HASTE=`curl -XPOST http://hastebin.com/documents -d"$ERROR" | cut --fields=4 --delimiter='"'`
+			MESSAGE="retroarch build failed [$jobid] LOG: http://hastebin.com/$HASTE"
+			echo $MESSAGE
 		fi
+		buildbot_log "$MESSAGE"
+		echo BUILDBOT JOB: $MESSAGE >> /tmp/log/${BOT}/${LOGDATE}.log
+
+		echo "Packaging"
+		echo ============================================
+		cd $WORK/$RADIR
+		cp retroarch.cfg retroarch.default.cfg
+
+		mkdir -p pkg/psp1/
+		mkdir -p pkg/psp1/cheats
+
 	fi
 fi
 
@@ -1615,7 +1616,7 @@ if [ "${PLATFORM}" == "wii" ] && [ "${RA}" == "YES" ]; then
 		echo
 	done  < $1.ra
 
-	if [ "${BUILD}" == "YES" -o "${FORCE}" == "YES" ]; then
+	if [ "${BUILD}" == "YES" -o "${FORCE}" == "YES" -o "${FORCE_RETROARCH_BUILD}" == "YES" -o "${CORES_BUILT}" == "YES" ]; then
 		touch /tmp/built-frontend
 		cd $RADIR
 		echo "BUILDBOT JOB: $jobid Building"
@@ -1756,15 +1757,11 @@ then
 	echo
 	echo
 	done  < $1.ra
-	if [ "${BUILD}" == "YES" -o "${FORCE}" == "YES" ];
-	then
+	if [ "${BUILD}" == "YES" -o "${FORCE}" == "YES" -o "${FORCE_RETROARCH_BUILD}" == "YES" -o "${CORES_BUILT}" == "YES" ]; then
 		touch /tmp/built-frontend
 		cd $RADIR
 		echo "BUILDBOT JOB: $jobid Building"
 		echo
-
-	if [ "${BUILD}" == "YES" -o "${FORCE}" == "YES" ];
-	then
 
 		cd dist-scripts
 		rm *.a
@@ -1785,8 +1782,6 @@ then
 		buildbot_log "$MESSAGE"
 		echo BUILDBOT JOB: $MESSAGE >> /tmp/log/${BOT}/${LOGDATE}.log
 		cd ..
-
-	fi
 
 		echo "Packaging"
 		echo ============================================
@@ -1869,7 +1864,7 @@ if [ "${PLATFORM}" == "ctr" ] && [ "${RA}" == "YES" ]; then
 						BUILD="YES"
 					fi
 				fi
-				echo $OUT $BUILD $FORCE $FORCERA
+				echo $OUT $BUILD $FORCE $FORCE_RETROARCH_BUILD
 
 				cd $WORK
 			else
@@ -1891,7 +1886,7 @@ if [ "${PLATFORM}" == "ctr" ] && [ "${RA}" == "YES" ]; then
 		echo
 	done  < $1.ra
 
-	if [ "${BUILD}" == "YES" -o "${FORCE}" == "YES" -o "${FORCERA}" == "YES" ]; then
+	if [ "${BUILD}" == "YES" -o "${FORCE}" == "YES" -o "${FORCE_RETROARCH_BUILD}" == "YES" -o "${CORES_BUILT}" == "YES" ]; then
 		touch /tmp/built-frontend
 		cd $RADIR
 		echo "BUILDBOT JOB: $jobid Building"
