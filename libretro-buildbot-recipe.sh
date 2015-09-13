@@ -39,15 +39,15 @@ echo
 . $WORK/libretro-config.sh
 
 if [ -z "$JOBS" ]; then
-   JOBS=4
+	JOBS=4
 fi
 
 if [ -z "$FORCE" ]; then
-   FORCE=NO
+	FORCE=NO
 fi
 
 if [ -z "$FORCERA" ]; then
-   FORCERA=NO
+	FORCERA=NO
 fi
 
 OLDFORCE=$FORCE
@@ -215,7 +215,7 @@ build_libretro_generic_makefile() {
 	cd $SUBDIR
 	OLDJ=$JOBS
 
-        echo BUILDBOT THREADS: $JOBS
+	echo BUILDBOT THREADS: $JOBS
 
 	if [ "${NAME}" = "mame078" ]; then
 		JOBS=1
@@ -278,8 +278,8 @@ build_libretro_leiradel_makefile() {
 	PLATFORM=$5
 	ARGS=$6
 
-        ARG1=`echo ${ARGS} | cut -f 1 -d " "`
-        mkdir -p $RARCH_DIST_DIR/${DIST}/${ARG1}
+	ARG1=`echo ${ARGS} | cut -f 1 -d " "`
+	mkdir -p $RARCH_DIST_DIR/${DIST}/${ARG1}
 
 	cd $DIR
 	cd $SUBDIR
@@ -302,14 +302,14 @@ build_libretro_leiradel_makefile() {
 
 		if [ $? -eq 0 ]; then
 			MESSAGE="$1 build successful [$jobid]"
-              		cp -v ${NAME}_libretro.${PLATFORM}_${ARG1}.${FORMAT_EXT} $RARCH_DIST_DIR/${DIST}/${ARG1}/${NAME}_libretro${SUFFIX}.${FORMAT_EXT}
+			cp -v ${NAME}_libretro.${PLATFORM}_${ARG1}.${FORMAT_EXT} $RARCH_DIST_DIR/${DIST}/${ARG1}/${NAME}_libretro${SUFFIX}.${FORMAT_EXT}
 		else
 		ERROR=`cat /tmp/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}.log | tail -n 100`
 		HASTE=`curl -XPOST http://hastebin.com/documents -d"$ERROR" | cut --fields=4 --delimiter='"'`
 		MESSAGE="$1 build failed [$jobid] LOG: http://hastebin.com/$HASTE"
 	fi
 	echo BUILDBOT JOB: $MESSAGE
-        echo BUILDBOT JOB: $MESSAGE >> /tmp/log/${BOT}/${LOGDATE}.log
+	echo BUILDBOT JOB: $MESSAGE >> /tmp/log/${BOT}/${LOGDATE}.log
 	buildbot_log "$MESSAGE"
 	JOBS=$OLDJ
 }
@@ -352,12 +352,12 @@ build_libretro_generic_theos() {
 		MESSAGE="$1 build successful [$jobid]"
 		cp -v objs/obj/${NAME}_libretro${FORMAT}${SUFFIX}.${FORMAT_EXT} $RARCH_DIST_DIR/${NAME}_libretro${FORMAT}${SUFFIX}.${FORMAT_EXT}
 	else
-                ERROR=`cat /tmp/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}.log | tail -n 100`
-                HASTE=`curl -XPOST http://hastebin.com/documents -d"$ERROR" | cut --fields=4 --delimiter='"'`
-		        MESSAGE="$1 build failed [$jobid] LOG: http://hastebin.com/$HASTE"
+		ERROR=`cat /tmp/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}.log | tail -n 100`
+		HASTE=`curl -XPOST http://hastebin.com/documents -d"$ERROR" | cut --fields=4 --delimiter='"'`
+		MESSAGE="$1 build failed [$jobid] LOG: http://hastebin.com/$HASTE"
 	fi
 	echo BUILDBOT JOB: $MESSAGE
-        echo BUILDBOT JOB: $MESSAGE >> /tmp/log/${BOT}/${LOGDATE}.log
+	echo BUILDBOT JOB: $MESSAGE >> /tmp/log/${BOT}/${LOGDATE}.log
 	buildbot_log "$MESSAGE"
 }
 
@@ -399,11 +399,11 @@ build_libretro_generic_jni() {
 			buildbot_log "$MESSAGE"
 			cp -v ../libs/${a}/libretro.${FORMAT_EXT} $RARCH_DIST_DIR/${a}/${1}_libretro${FORMAT}${SUFFIX}.${FORMAT_EXT}
 		else
-                ERROR=`cat /tmp/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}_${a}.log | tail -n 100`
-                HASTE=`curl -XPOST http://hastebin.com/documents -d"$ERROR" | cut --fields=4 --delimiter='"'`
-		        MESSAGE="$1-$a build failed [$jobid] LOG: http://hastebin.com/$HASTE"
+			ERROR=`cat /tmp/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}_${a}.log | tail -n 100`
+			HASTE=`curl -XPOST http://hastebin.com/documents -d"$ERROR" | cut --fields=4 --delimiter='"'`
+			MESSAGE="$1-$a build failed [$jobid] LOG: http://hastebin.com/$HASTE"
 			echo BUILDBOT JOB: $MESSAGE
-                        echo BUILDBOT JOB: $MESSAGE >> /tmp/log/${BOT}/${LOGDATE}.log
+			echo BUILDBOT JOB: $MESSAGE >> /tmp/log/${BOT}/${LOGDATE}.log
 			buildbot_log "$MESSAGE"
 		fi
 	done
@@ -452,7 +452,7 @@ build_libretro_bsnes_jni() {
 			MESSAGE="$1 build failed [$jobid] LOG: http://hastebin.com/$HASTE"
 		fi
 		echo BUILDBOT JOB: $MESSAGE
-                echo BUILDBOT JOB: $MESSAGE >> /tmp/log/${BOT}/${LOGDATE}.log
+		echo BUILDBOT JOB: $MESSAGE >> /tmp/log/${BOT}/${LOGDATE}.log
 		buildbot_log "$MESSAGE"
 	done
 }
@@ -486,10 +486,10 @@ build_libretro_generic_gl_makefile() {
 	echo "compiling..."
 	if [ -z "${ARGS}" ]; then
 		echo "build command: ${MAKE} -f ${MAKEFILE} platform=${PLATFORM} -j${JOBS}"
-		${MAKE} -f ${MAKEFILE} platform=${PLATFORM} -j${JOBS}  &> /tmp/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}.log
+		${MAKE} -f ${MAKEFILE} platform=${PLATFORM} -j${JOBS} &> /tmp/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}.log
 	else
 		echo "build command: ${MAKE} -f ${MAKEFILE} platform=${PLATFORM} ${COMPILER} -j${JOBS} ${ARGS}"
-		${MAKE} -f ${MAKEFILE} platform=${PLATFORM} -j${JOBS} ${ARGS}  &> /tmp/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}.log
+		${MAKE} -f ${MAKEFILE} platform=${PLATFORM} -j${JOBS} ${ARGS} &> /tmp/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}.log
 	fi
 
 	if [ $? -eq 0 ]; then 
@@ -501,7 +501,7 @@ build_libretro_generic_gl_makefile() {
 		MESSAGE="$1 build failed [$jobid] LOG: http://hastebin.com/$HASTE"
 	fi
 	echo BUILDBOT JOB: $MESSAGE
-        echo BUILDBOT JOB: $MESSAGE >> /tmp/log/${BOT}/${LOGDATE}.log
+	echo BUILDBOT JOB: $MESSAGE >> /tmp/log/${BOT}/${LOGDATE}.log
 	buildbot_log "$MESSAGE"
 
 	reset_compiler_targets
@@ -542,10 +542,10 @@ build_libretro_bsnes() {
 		${MAKE} platform="${PLATFORM}" ${COMPILER} "-j${JOBS}" &>> /tmp/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}.log
 	elif [ "${PROFILE}" = "bnes" ]; then
 		echo "build command: ${MAKE} -f Makefile ${COMPILER} "-j${JOBS}" compiler=${BSNESCOMPILER}" platform=${FORMAT_COMPILER_TARGET}
-		${MAKE} -f Makefile ${COMPILER} "-j${JOBS}" compiler="${BSNESCOMPILER}" platform=${FORMAT_COMPILER_TARGET}  &>> /tmp/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}.log
+		${MAKE} -f Makefile ${COMPILER} "-j${JOBS}" compiler="${BSNESCOMPILER}" platform=${FORMAT_COMPILER_TARGET} &>> /tmp/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}.log
 	else
 		echo "build command: ${MAKE} -f ${MAKEFILE} platform=${PLATFORM} compiler=${BSNESCOMPILER} ui='target-libretro' profile=${PROFILE} -j${JOBS}"
-		${MAKE} -f ${MAKEFILE} platform=${PLATFORM} compiler=${BSNESCOMPILER} ui='target-libretro' profile=${PROFILE} -j${JOBS}  &>> /tmp/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}.log
+		${MAKE} -f ${MAKEFILE} platform=${PLATFORM} compiler=${BSNESCOMPILER} ui='target-libretro' profile=${PROFILE} -j${JOBS} &>> /tmp/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}.log
 	fi
 
 	if [ $? -eq 0 ]; then
@@ -558,12 +558,12 @@ build_libretro_bsnes() {
 			cp -fv "out/${NAME}_${PROFILE}_libretro${FORMAT}.${FORMAT_EXT}" $RARCH_DIST_DIR/${NAME}_${PROFILE}_libretro${FORMAT}${SUFFIX}.${FORMAT_EXT}
 		fi
 	else
-                ERROR=`cat /tmp/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}.log | tail -n 100`
-                HASTE=`curl -XPOST http://hastebin.com/documents -d"$ERROR" | cut --fields=4 --delimiter='"'`
-		        MESSAGE="$1 build failed [$jobid] LOG: http://hastebin.com/$HASTE"
+		ERROR=`cat /tmp/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}.log | tail -n 100`
+		HASTE=`curl -XPOST http://hastebin.com/documents -d"$ERROR" | cut --fields=4 --delimiter='"'`
+		MESSAGE="$1 build failed [$jobid] LOG: http://hastebin.com/$HASTE"
 	fi
 	echo BUILDBOT JOB: $MESSAGE
-        echo BUILDBOT JOB: $MESSAGE >> /tmp/log/${BOT}/${LOGDATE}.log
+	echo BUILDBOT JOB: $MESSAGE >> /tmp/log/${BOT}/${LOGDATE}.log
 	buildbot_log "$MESSAGE"
 }
 
@@ -626,82 +626,81 @@ while read line; do
 		if [ -n ${TEMP} ]; then
 			ARGS="${ARGS} ${TEMP}"
 		fi
-                TEMP=""
-                TEMP=`echo $line | cut -f 15 -d " "`
-                if [ -n ${TEMP} ]; then
-                        ARGS="${ARGS} ${TEMP}"
-                fi
-                TEMP=""
-                TEMP=`echo $line | cut -f 16 -d " "`
-                if [ -n ${TEMP} ]; then
-                        ARGS="${ARGS} ${TEMP}"
-                fi
-                TEMP=""
-                TEMP=`echo $line | cut -f 17 -d " "`
-                if [ -n ${TEMP} ]; then
-                        ARGS="${ARGS} ${TEMP}"
-                fi
-                TEMP=""
-                TEMP=`echo $line | cut -f 18 -d " "`
-                if [ -n ${TEMP} ]; then
-                        ARGS="${ARGS} ${TEMP}"
-                fi
-                TEMP=""
-                TEMP=`echo $line | cut -f 19 -d " "`
-                if [ -n ${TEMP} ]; then
-                        ARGS="${ARGS} ${TEMP}"
-                fi
-                TEMP=""
-                TEMP=`echo $line | cut -f 20 -d " "`
-                if [ -n ${TEMP} ]; then
-                        ARGS="${ARGS} ${TEMP}"
-                fi
-                TEMP=""
-                TEMP=`echo $line | cut -f 21 -d " "`
-                if [ -n ${TEMP} ]; then
-                        ARGS="${ARGS} ${TEMP}"
-                fi
-
-                TEMP=""
-                TEMP=`echo $line | cut -f 22 -d " "`
-                if [ -n ${TEMP} ]; then
-                        ARGS="${ARGS} ${TEMP}"
-                fi
-                TEMP=""
-                TEMP=`echo $line | cut -f 23 -d " "`
-                if [ -n ${TEMP} ]; then
-                        ARGS="${ARGS} ${TEMP}"
-                fi
-                TEMP=""
-                TEMP=`echo $line | cut -f 24 -d " "`
-                if [ -n ${TEMP} ]; then
-                        ARGS="${ARGS} ${TEMP}"
-                fi
-                TEMP=""
-                TEMP=`echo $line | cut -f 25 -d " "`
-                if [ -n ${TEMP} ]; then
-                        ARGS="${ARGS} ${TEMP}"
-                fi
-                TEMP=""
-                TEMP=`echo $line | cut -f 26 -d " "`
-                if [ -n ${TEMP} ]; then
-                        ARGS="${ARGS} ${TEMP}"
-                fi
-                TEMP=""
-                TEMP=`echo $line | cut -f 27 -d " "`
-                if [ -n ${TEMP} ]; then
-                        ARGS="${ARGS} ${TEMP}"
-                fi
-                TEMP=""
-                TEMP=`echo $line | cut -f 28 -d " "`
-                if [ -n ${TEMP} ]; then
-                        ARGS="${ARGS} ${TEMP}"
-                fi
-                TEMP=""
-                TEMP=`echo $line | cut -f 29 -d " "`
-                if [ -n ${TEMP} ]; then
-                        ARGS="${ARGS} ${TEMP}"
-                fi
+			TEMP=""
+			TEMP=`echo $line | cut -f 15 -d " "`
+			if [ -n ${TEMP} ]; then
+				ARGS="${ARGS} ${TEMP}"
+			fi
+			TEMP=""
+			TEMP=`echo $line | cut -f 16 -d " "`
+			if [ -n ${TEMP} ]; then
+				ARGS="${ARGS} ${TEMP}"
+			fi
+			TEMP=""
+			TEMP=`echo $line | cut -f 17 -d " "`
+			if [ -n ${TEMP} ]; then
+				ARGS="${ARGS} ${TEMP}"
+			fi
+			TEMP=""
+			TEMP=`echo $line | cut -f 18 -d " "`
+			if [ -n ${TEMP} ]; then
+				ARGS="${ARGS} ${TEMP}"
+			fi
+			TEMP=""
+			TEMP=`echo $line | cut -f 19 -d " "`
+			if [ -n ${TEMP} ]; then
+				ARGS="${ARGS} ${TEMP}"
+			fi
+			TEMP=""
+			TEMP=`echo $line | cut -f 20 -d " "`
+			if [ -n ${TEMP} ]; then
+				ARGS="${ARGS} ${TEMP}"
+			fi
+			TEMP=""
+			TEMP=`echo $line | cut -f 21 -d " "`
+			if [ -n ${TEMP} ]; then
+				ARGS="${ARGS} ${TEMP}"
+			fi
+			TEMP=""
+			TEMP=`echo $line | cut -f 22 -d " "`
+			if [ -n ${TEMP} ]; then
+				ARGS="${ARGS} ${TEMP}"
+			fi
+			TEMP=""
+			TEMP=`echo $line | cut -f 23 -d " "`
+			if [ -n ${TEMP} ]; then
+				ARGS="${ARGS} ${TEMP}"
+			fi
+			TEMP=""
+			TEMP=`echo $line | cut -f 24 -d " "`
+			if [ -n ${TEMP} ]; then
+				ARGS="${ARGS} ${TEMP}"
+			fi
+			TEMP=""
+			TEMP=`echo $line | cut -f 25 -d " "`
+			if [ -n ${TEMP} ]; then
+				ARGS="${ARGS} ${TEMP}"
+			fi
+			TEMP=""
+			TEMP=`echo $line | cut -f 26 -d " "`
+			if [ -n ${TEMP} ]; then
+				ARGS="${ARGS} ${TEMP}"
+			fi
+			TEMP=""
+			TEMP=`echo $line | cut -f 27 -d " "`
+			if [ -n ${TEMP} ]; then
+				ARGS="${ARGS} ${TEMP}"
+			fi
+			TEMP=""
+			TEMP=`echo $line | cut -f 28 -d " "`
+			if [ -n ${TEMP} ]; then
+				ARGS="${ARGS} ${TEMP}"
+			fi
+			TEMP=""
+			TEMP=`echo $line | cut -f 29 -d " "`
+			if [ -n ${TEMP} ]; then
+				ARGS="${ARGS} ${TEMP}"
+			fi
 
 		ARGS="${ARGS%"${ARGS##*[![:space:]]}"}"
 
@@ -723,7 +722,7 @@ while read line; do
 				OLDFORCE=$FORCE
 				OLDBUILD=$BUILD
 
-                                echo $OUT $FORCE $BUILD
+				echo $OUT $FORCE $BUILD
 
 				if [ "${PREVCORE}" = "bsnes" -a "${PREVBUILD}" = "YES" -a "${COMMAND}" = "BSNES" ]; then
 					FORCE="YES"
@@ -849,7 +848,7 @@ while read line; do
 		fi
 
 		if [ "${BUILD}" = "YES" -o "${FORCE}" = "YES" ]; then
-                        touch /tmp/built-cores
+			touch /tmp/built-cores
 			echo building core...
 			if [ "${COMMAND}" = "GENERIC" ]; then
 				build_libretro_generic_makefile $NAME $DIR $SUBDIR $MAKEFILE ${FORMAT_COMPILER_TARGET} "${ARGS}"
@@ -977,7 +976,7 @@ if [ "${PLATFORM}" = "android" ] && [ "${RA}" = "YES" ]; then
 	done < $1.ra
 
 	if [ "${BUILD}" = "YES" -o "${FORCE}" = "YES" ]; then
-                touch /tmp/built-frontend
+		touch /tmp/built-frontend
 		echo "BUILDBOT JOB: $jobid Compiling Shaders"
 		echo
 
@@ -1050,12 +1049,12 @@ if [ "${PLATFORM}" = "android" ] && [ "${RA}" = "YES" ]; then
 			MESSAGE="retroarch build successful [$jobid]"
 			echo $MESSAGE
 		else
-                ERROR=`cat /tmp/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_${PLATFORM}.log | tail -n 100`
-                HASTE=`curl -XPOST http://hastebin.com/documents -d"$ERROR" | cut --fields=4 --delimiter='"'`
-		        MESSAGE="retroarch build failed [$jobid] LOG: http://hastebin.com/$HASTE"
+			ERROR=`cat /tmp/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_${PLATFORM}.log | tail -n 100`
+			HASTE=`curl -XPOST http://hastebin.com/documents -d"$ERROR" | cut --fields=4 --delimiter='"'`
+			MESSAGE="retroarch build failed [$jobid] LOG: http://hastebin.com/$HASTE"
 			echo $MESSAGE
 		fi
-                echo BUILDBOT JOB: $MESSAGE >> /tmp/log/${BOT}/${LOGDATE}.log
+			echo BUILDBOT JOB: $MESSAGE >> /tmp/log/${BOT}/${LOGDATE}.log
 		buildbot_log "$MESSAGE"
 	fi
 fi
@@ -1150,7 +1149,7 @@ if [ "${PLATFORM}" = "theos_ios" ] && [ "${RA}" = "YES" ]; then
 	done < $1.ra
 
 	if [ "${BUILD}" = "YES" -o "${FORCE}" = "YES" ]; then
-                touch /tmp/built-frontend
+		touch /tmp/built-frontend
 		echo "BUILDBOT JOB: $jobid Compiling Shaders"
 		echo
 
@@ -1256,7 +1255,7 @@ if [ "${PLATFORM}" = "MINGW64" ] || [ "${PLATFORM}" = "MINGW32" ] && [ "${RA}" =
 	echo
 	done < $1.ra
 	if [ "${BUILD}" = "YES" -o "${FORCE}" = "YES" ]; then
-                touch /tmp/built-frontend
+		touch /tmp/built-frontend
 		cd $RADIR
 		echo "BUILDBOT JOB: $jobid Building"
 		echo
@@ -1271,7 +1270,7 @@ if [ "${PLATFORM}" = "MINGW64" ] || [ "${PLATFORM}" = "MINGW32" ] && [ "${RA}" =
 			echo BUILDBOT JOB: $jobid audio filter build failure!
 		fi
 
-        	cd ..
+		cd ..
 		cd ..
 
 		echo "compiling video filters"
@@ -1318,7 +1317,7 @@ if [ "${PLATFORM}" = "MINGW64" ] || [ "${PLATFORM}" = "MINGW32" ] && [ "${RA}" =
 		if [ $? -eq 0 ]; then
 			MESSAGE="retroarch build successful [$jobid]"
 			echo $MESSAGE
-                        echo BUILDBOT JOB: $MESSAGE >> /tmp/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_${PLATFORM}.log
+			echo BUILDBOT JOB: $MESSAGE >> /tmp/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_${PLATFORM}.log
 			buildbot_log "$MESSAGE"
 
 			echo "Packaging"
@@ -1393,13 +1392,13 @@ EOF
 			cp -rf gfx/video_filters/*.dll windows/filters/video
 			cp -rf gfx/video_filters/*.filt windows/filters/video
 		else
-                ERROR=`cat /tmp/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_${PLATFORM}.log | tail -n 100`
-                HASTE=`curl -XPOST http://hastebin.com/documents -d"$ERROR" | cut --fields=4 --delimiter='"'`
-		MESSAGE="retroarch build failed [$jobid] LOG: http://hastebin.com/$HASTE"
-		echo $MESSAGE
-                echo BUILDBOT JOB: $MESSAGE >> /tmp/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_${PLATFORM}.log
-		buildbot_log "$MESSAGE"
-	   fi
+			ERROR=`cat /tmp/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_${PLATFORM}.log | tail -n 100`
+			HASTE=`curl -XPOST http://hastebin.com/documents -d"$ERROR" | cut --fields=4 --delimiter='"'`
+			MESSAGE="retroarch build failed [$jobid] LOG: http://hastebin.com/$HASTE"
+			echo $MESSAGE
+			echo BUILDBOT JOB: $MESSAGE >> /tmp/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_${PLATFORM}.log
+			buildbot_log "$MESSAGE"
+		fi
 	fi
 fi
 
@@ -1492,7 +1491,7 @@ if [ "${PLATFORM}" = "psp1" ] && [ "${RA}" = "YES" ]; then
 	done < $1.ra
 
 	if [ "${BUILD}" = "YES" -o "${FORCE}" = "YES" ]; then
-                touch /tmp/built-frontend
+		touch /tmp/built-frontend
 		cd $RADIR
 		echo "BUILDBOT JOB: $jobid Building"
 		echo
@@ -1508,17 +1507,17 @@ if [ "${PLATFORM}" = "psp1" ] && [ "${RA}" = "YES" ]; then
 				MESSAGE="retroarch build successful [$jobid]"
 				echo $MESSAGE
 			else
-                ERROR=`cat /tmp/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_${PLATFORM}.log | tail -n 100`
-                HASTE=`curl -XPOST http://hastebin.com/documents -d"$ERROR" | cut --fields=4 --delimiter='"'`
-		        MESSAGE="retroarch build failed [$jobid] LOG: http://hastebin.com/$HASTE"
+				ERROR=`cat /tmp/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_${PLATFORM}.log | tail -n 100`
+				HASTE=`curl -XPOST http://hastebin.com/documents -d"$ERROR" | cut --fields=4 --delimiter='"'`
+				MESSAGE="retroarch build failed [$jobid] LOG: http://hastebin.com/$HASTE"
 				echo $MESSAGE
 			fi
-            buildbot_log "$MESSAGE"
-            echo BUILDBOT JOB: $MESSAGE >> /tmp/log/${BOT}/${LOGDATE}.log
+			buildbot_log "$MESSAGE"
+			echo BUILDBOT JOB: $MESSAGE >> /tmp/log/${BOT}/${LOGDATE}.log
 
 			echo "Packaging"
 			echo ============================================
-            cd $WORK/$RADIR
+			cd $WORK/$RADIR
 			cp retroarch.cfg retroarch.default.cfg
 
 			mkdir -p pkg/psp1/
@@ -1617,7 +1616,7 @@ if [ "${PLATFORM}" == "wii" ] && [ "${RA}" == "YES" ]; then
 	done  < $1.ra
 
 	if [ "${BUILD}" == "YES" -o "${FORCE}" == "YES" ]; then
-                touch /tmp/built-frontend
+		touch /tmp/built-frontend
 		cd $RADIR
 		echo "BUILDBOT JOB: $jobid Building"
 		echo
@@ -1633,13 +1632,13 @@ if [ "${PLATFORM}" == "wii" ] && [ "${RA}" == "YES" ]; then
 				MESSAGE="retroarch build successful [$jobid]"
 				echo $MESSAGE
 			else
-                ERROR=`cat /tmp/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_${PLATFORM}.log | tail -n 100`
-                HASTE=`curl -XPOST http://hastebin.com/documents -d"$ERROR" | cut --fields=4 --delimiter='"'`
-		        MESSAGE="retroarch build failed [$jobid] LOG: http://hastebin.com/$HASTE"
+				ERROR=`cat /tmp/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_${PLATFORM}.log | tail -n 100`
+				HASTE=`curl -XPOST http://hastebin.com/documents -d"$ERROR" | cut --fields=4 --delimiter='"'`
+				MESSAGE="retroarch build failed [$jobid] LOG: http://hastebin.com/$HASTE"
 				echo $MESSAGE
 			fi
 			buildbot_log "$MESSAGE"
-                        echo BUILDBOT JOB: $MESSAGE >> /tmp/log/${BOT}/${LOGDATE}.log
+			echo BUILDBOT JOB: $MESSAGE >> /tmp/log/${BOT}/${LOGDATE}.log
 			cd $WORK/$RADIR
 		fi
 
@@ -1759,7 +1758,7 @@ then
 	done  < $1.ra
 	if [ "${BUILD}" == "YES" -o "${FORCE}" == "YES" ];
 	then
-                touch /tmp/built-frontend
+		touch /tmp/built-frontend
 		cd $RADIR
 		echo "BUILDBOT JOB: $jobid Building"
 		echo
@@ -1773,15 +1772,15 @@ then
 
 		#ls -1 *.a  | awk -F "." ' { print "cp " $0 " " $1 "_ngc." $2 }' |sh
 		sh ./dist-cores.sh ngc &> /tmp/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_${PLATFORM}.log
-        if [ $? -eq 0 ];
-        then
-            MESSAGE="retroarch build successful [$jobid]"
-            echo $MESSAGE
-	    else
-                ERROR=`cat /tmp/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_${PLATFORM}.log | tail -n 100`
-                HASTE=`curl -XPOST http://hastebin.com/documents -d"$ERROR" | cut --fields=4 --delimiter='"'`
-		        MESSAGE="retroarch build failed [$jobid] LOG: http://hastebin.com/$HASTE"
-            echo $MESSAGE
+		if [ $? -eq 0 ];
+		then
+			MESSAGE="retroarch build successful [$jobid]"
+			echo $MESSAGE
+		else
+			ERROR=`cat /tmp/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_${PLATFORM}.log | tail -n 100`
+			HASTE=`curl -XPOST http://hastebin.com/documents -d"$ERROR" | cut --fields=4 --delimiter='"'`
+			MESSAGE="retroarch build failed [$jobid] LOG: http://hastebin.com/$HASTE"
+			echo $MESSAGE
 		fi
 		buildbot_log "$MESSAGE"
 		echo BUILDBOT JOB: $MESSAGE >> /tmp/log/${BOT}/${LOGDATE}.log
@@ -1870,7 +1869,7 @@ if [ "${PLATFORM}" == "ctr" ] && [ "${RA}" == "YES" ]; then
 						BUILD="YES"
 					fi
 				fi
-                                echo $OUT $BUILD $FORCE $FORCERA
+				echo $OUT $BUILD $FORCE $FORCERA
 
 				cd $WORK
 			else
@@ -1893,7 +1892,7 @@ if [ "${PLATFORM}" == "ctr" ] && [ "${RA}" == "YES" ]; then
 	done  < $1.ra
 
 	if [ "${BUILD}" == "YES" -o "${FORCE}" == "YES" -o "${FORCERA}" == "YES" ]; then
-                touch /tmp/built-frontend
+		touch /tmp/built-frontend
 		cd $RADIR
 		echo "BUILDBOT JOB: $jobid Building"
 		echo
@@ -1909,13 +1908,13 @@ if [ "${PLATFORM}" == "ctr" ] && [ "${RA}" == "YES" ]; then
 				MESSAGE="retroarch build successful [$jobid]"
 				echo $MESSAGE
 			else
-                        ERROR=`cat /tmp/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_${PLATFORM}.log | tail -n 100`
-                        HASTE=`curl -XPOST http://hastebin.com/documents -d"$ERROR" | cut --fields=4 --delimiter='"'`
-		        MESSAGE="retroarch build failed [$jobid] LOG: http://hastebin.com/$HASTE"
+				ERROR=`cat /tmp/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_${PLATFORM}.log | tail -n 100`
+				HASTE=`curl -XPOST http://hastebin.com/documents -d"$ERROR" | cut --fields=4 --delimiter='"'`
+				MESSAGE="retroarch build failed [$jobid] LOG: http://hastebin.com/$HASTE"
 				echo $MESSAGE
 			fi
 			buildbot_log "$MESSAGE"
-                        echo BUILDBOT JOB: $MESSAGE >> /tmp/log/${BOT}/${LOGDATE}.log
+			echo BUILDBOT JOB: $MESSAGE >> /tmp/log/${BOT}/${LOGDATE}.log
 			cd $WORK/$RADIR
 		fi
 
