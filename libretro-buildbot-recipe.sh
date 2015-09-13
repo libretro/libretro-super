@@ -1897,26 +1897,25 @@ if [ "${PLATFORM}" == "ctr" ] && [ "${RA}" == "YES" ]; then
 		echo "BUILDBOT JOB: $jobid Building"
 		echo
 
-		if [ "${BUILD}" == "YES" -o "${FORCE}" == "YES" -o "${FORCERA}" == "YES" ]; then
-			cd dist-scripts
-			rm *.a
-			cp -v $RARCH_DIST_DIR/*.a .
+		cd dist-scripts
+		rm *.a
+		cp -v $RARCH_DIST_DIR/*.a .
 
-			#ls -1 *.a  | awk -F "." ' { print "cp " $0 " " $1 "_ctr." $2 }' |sh
-			JOBS=1 sh ./dist-cores.sh ctr &> /tmp/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_${PLATFORM}.log
-			if [ $? -eq 0 ]; then
-				MESSAGE="retroarch build successful [$jobid]"
-				echo $MESSAGE
-			else
-				ERROR=`cat /tmp/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_${PLATFORM}.log | tail -n 100`
-				HASTE=`curl -XPOST http://hastebin.com/documents -d"$ERROR" | cut --fields=4 --delimiter='"'`
-				MESSAGE="retroarch build failed [$jobid] LOG: http://hastebin.com/$HASTE"
-				echo $MESSAGE
-			fi
-			buildbot_log "$MESSAGE"
-			echo BUILDBOT JOB: $MESSAGE >> /tmp/log/${BOT}/${LOGDATE}.log
-			cd $WORK/$RADIR
+		#ls -1 *.a  | awk -F "." ' { print "cp " $0 " " $1 "_ctr." $2 }' |sh
+		JOBS=1 sh ./dist-cores.sh ctr &> /tmp/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_${PLATFORM}.log
+		if [ $? -eq 0 ]; then
+			MESSAGE="retroarch build successful [$jobid]"
+			echo $MESSAGE
+		else
+			ERROR=`cat /tmp/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_${PLATFORM}.log | tail -n 100`
+			HASTE=`curl -XPOST http://hastebin.com/documents -d"$ERROR" | cut --fields=4 --delimiter='"'`
+			MESSAGE="retroarch build failed [$jobid] LOG: http://hastebin.com/$HASTE"
+			echo $MESSAGE
 		fi
+		buildbot_log "$MESSAGE"
+		echo BUILDBOT JOB: $MESSAGE >> /tmp/log/${BOT}/${LOGDATE}.log
+		cd $WORK/$RADIR
+
 
 		echo "Packaging"
 		echo ============================================
