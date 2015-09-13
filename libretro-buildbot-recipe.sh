@@ -849,6 +849,7 @@ while read line; do
 		fi
 
 		if [ "${BUILD}" = "YES" -o "${FORCE}" = "YES" ]; then
+                        touch /tmp/built-cores
 			echo building core...
 			if [ "${COMMAND}" = "GENERIC" ]; then
 				build_libretro_generic_makefile $NAME $DIR $SUBDIR $MAKEFILE ${FORMAT_COMPILER_TARGET} "${ARGS}"
@@ -976,6 +977,7 @@ if [ "${PLATFORM}" = "android" ] && [ "${RA}" = "YES" ]; then
 	done < $1.ra
 
 	if [ "${BUILD}" = "YES" -o "${FORCE}" = "YES" ]; then
+                touch /tmp/built-frontend
 		echo "BUILDBOT JOB: $jobid Compiling Shaders"
 		echo
 
@@ -1148,19 +1150,20 @@ if [ "${PLATFORM}" = "theos_ios" ] && [ "${RA}" = "YES" ]; then
 	done < $1.ra
 
 	if [ "${BUILD}" = "YES" -o "${FORCE}" = "YES" ]; then
+                touch /tmp/built-frontend
 		echo "BUILDBOT JOB: $jobid Compiling Shaders"
-		echo 
+		echo
 
 		echo RADIR $RADIR
 		cd $RADIR
 		$MAKE -f Makefile.griffin shaders-convert-glsl PYTHON3=$PYTHON
 
 		echo "BUILDBOT JOB: $jobid Processing Assets"
-		echo 
+		echo
 
 
 		echo "BUILDBOT JOB: $jobid Building"
-		echo 
+		echo
 		cd apple/iOS
 		rm RetroArch.app -rf
 
@@ -1192,14 +1195,13 @@ if [ "${PLATFORM}" = "MINGW64" ] || [ "${PLATFORM}" = "MINGW32" ] && [ "${RA}" =
 
 		if [ "${ENABLED}" = "YES" ]; then
 			echo "BUILDBOT JOB: $jobid Processing $NAME"
-			echo 
+			echo
 			echo NAME: $NAME
 			echo DIR: $DIR
 			echo PARENT: $PARENTDIR
 			echo URL: $URL
 			echo REPO TYPE: $TYPE
 			echo ENABLED: $ENABLED
-			
 			if [ "${NAME}" = "retroarch" ]; then
 				ARGS=""
 				TEMP=`echo $line | cut -f 7 -d " "`
@@ -1253,11 +1255,11 @@ if [ "${PLATFORM}" = "MINGW64" ] || [ "${PLATFORM}" = "MINGW32" ] && [ "${RA}" =
 	echo
 	echo
 	done < $1.ra
-echo b=$BUILD f=$FORCE
 	if [ "${BUILD}" = "YES" -o "${FORCE}" = "YES" ]; then
+                touch /tmp/built-frontend
 		cd $RADIR
 		echo "BUILDBOT JOB: $jobid Building"
-		echo 
+		echo
 
 		echo "compiling audio filters"
 		cd audio/audio_filters
@@ -1490,10 +1492,10 @@ if [ "${PLATFORM}" = "psp1" ] && [ "${RA}" = "YES" ]; then
 	done < $1.ra
 
 	if [ "${BUILD}" = "YES" -o "${FORCE}" = "YES" ]; then
+                touch /tmp/built-frontend
 		cd $RADIR
-		#rm -rf pkg/psp1
 		echo "BUILDBOT JOB: $jobid Building"
-		echo 
+		echo
 
 		if [ "${BUILD}" == "YES" -o "${FORCE}" == "YES" ]; then
 			cd dist-scripts
@@ -1521,13 +1523,6 @@ if [ "${PLATFORM}" = "psp1" ] && [ "${RA}" = "YES" ]; then
 
 			mkdir -p pkg/psp1/
 			mkdir -p pkg/psp1/cheats
-#			mkdir -p pkg/psp1/database
-#			mkdir -p pkg/psp1/database/cursors
-			mkdir -p pkg/psp1/database/rdb
-
-#			cp -rf media/libretrodb/cht/* pkg/psp1/cheats
-#			cp -rf media/libretrodb/rdb/* pkg/psp1/database/rdb
-#			cp -rf media/libretrodb/cursors/* pkg/psp1/database/cursors
 		fi
 	fi
 fi
@@ -1622,8 +1617,8 @@ if [ "${PLATFORM}" == "wii" ] && [ "${RA}" == "YES" ]; then
 	done  < $1.ra
 
 	if [ "${BUILD}" == "YES" -o "${FORCE}" == "YES" ]; then
+                touch /tmp/built-frontend
 		cd $RADIR
-		  #rm -rf wii/pkg
 		echo "BUILDBOT JOB: $jobid Building"
 		echo
 
@@ -1764,10 +1759,10 @@ then
 	done  < $1.ra
 	if [ "${BUILD}" == "YES" -o "${FORCE}" == "YES" ];
 	then
-
+                touch /tmp/built-frontend
 		cd $RADIR
 		echo "BUILDBOT JOB: $jobid Building"
-		echo 
+		echo
 
 	if [ "${BUILD}" == "YES" -o "${FORCE}" == "YES" ];
 	then
@@ -1800,13 +1795,7 @@ then
 		mkdir -p pkg/ngc/
 		mkdir -p pkg/ngc/cheats
 		mkdir -p pkg/ngc/remaps
-#		mkdir -p pkg/ngc/database
-#		mkdir -p pkg/ngc/database/cursors
-#		mkdir -p pkg/ngc/database/rdb
 		mkdir -p pkg/ngc/overlays
-#		cp -rf media/libretrodb/cht/* pkg/ngc/cheats
-#		cp -rf media/libretrodb/rdb/* pkg/ngc/database/rdb
-#		cp -rf media/libretrodb/cursors/* pkg/ngc/database/cursors
 		cp -rf media/overlays/wii/* pkg/ngc/overlays
 	fi
 
@@ -1904,6 +1893,7 @@ if [ "${PLATFORM}" == "ctr" ] && [ "${RA}" == "YES" ]; then
 	done  < $1.ra
 
 	if [ "${BUILD}" == "YES" -o "${FORCE}" == "YES" -o "${FORCERA}" == "YES" ]; then
+                touch /tmp/built-frontend
 		cd $RADIR
 		echo "BUILDBOT JOB: $jobid Building"
 		echo
@@ -1919,8 +1909,8 @@ if [ "${PLATFORM}" == "ctr" ] && [ "${RA}" == "YES" ]; then
 				MESSAGE="retroarch build successful [$jobid]"
 				echo $MESSAGE
 			else
-                ERROR=`cat /tmp/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_${PLATFORM}.log | tail -n 100`
-                HASTE=`curl -XPOST http://hastebin.com/documents -d"$ERROR" | cut --fields=4 --delimiter='"'`
+                        ERROR=`cat /tmp/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_${PLATFORM}.log | tail -n 100`
+                        HASTE=`curl -XPOST http://hastebin.com/documents -d"$ERROR" | cut --fields=4 --delimiter='"'`
 		        MESSAGE="retroarch build failed [$jobid] LOG: http://hastebin.com/$HASTE"
 				echo $MESSAGE
 			fi
@@ -1934,8 +1924,6 @@ if [ "${PLATFORM}" == "ctr" ] && [ "${RA}" == "YES" ]; then
 		cp retroarch.cfg retroarch.default.cfg
 
 		mkdir -p pkg/3ds
-		mkdir -p pkg/3ds/overlays
-		mkdir -p pkg/3ds/cheats
 		mkdir -p pkg/3ds/remaps
 		cp -rf media/overlays/* pkg/3ds/overlays/
 	fi
