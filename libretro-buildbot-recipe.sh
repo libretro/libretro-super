@@ -1489,7 +1489,7 @@ if [ "${PLATFORM}" = "psp1" ] && [ "${RA}" = "YES" ]; then
 			cp -v $RARCH_DIST_DIR/*.a .
 			#ls -1 *.a  | awk -F "." ' { print "cp " $0 " " $1 "_psp1." $2 }' |sh
 
-			./dist-cores.sh psp &> /tmp/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_${PLATFORM}.log
+			./dist-cores.sh psp1 &> /tmp/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_${PLATFORM}.log
 			if [ $? -eq 0 ]; then
 				MESSAGE="retroarch build successful [$jobid]"
 				echo $MESSAGE
