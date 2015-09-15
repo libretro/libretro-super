@@ -713,7 +713,12 @@ while read line; do
 
 				cd $DIR
 				echo "pulling from repo... "
-				OUT=`git pull`
+                                echo >> /tmp/changelog
+                                echo $NAME $LOGDATE >> /tmp/changelog
+                                echo --------------------------------------- >> /tmp/changelog
+                                OUT=`git pull`
+                                git log --oneline ORIG_HEAD.. >>/tmp/changelog
+
 				if [[ $OUT == *"Already up-to-date"* ]]; then
 					BUILD="NO"
 				else
@@ -808,7 +813,12 @@ while read line; do
 
 				cd $DIR
 				echo "pulling from repo... "
-				OUT=`git pull`
+                                echo >> /tmp/changelog
+                                echo $NAME $LOGDATE >> /tmp/changelog
+                                echo --------------------------------------- >> /tmp/changelog
+                                OUT=`git pull`
+                                git log --oneline ORIG_HEAD.. >>/tmp/changelog
+
 				if [[ $OUT == *"Already up-to-date"* ]]; then
 					BUILD="NO"
 				else
@@ -830,13 +840,23 @@ while read line; do
 
 				cd $DIR
 				echo "pulling from repo... "
-				OUT=`git pull`
+                                echo >> /tmp/changelog
+                                echo $NAME $LOGDATE >> /tmp/changelog
+                                echo --------------------------------------- >> /tmp/changelog
+                                OUT=`git pull`
+                                git log --oneline ORIG_HEAD.. >>/tmp/changelog
+
 				if [[ $OUT == *"Already up-to-date"* ]]; then
 					BUILD="NO"
 				else
 					BUILD="YES"
 				fi
+                                echo >> /tmp/changelog
+                                echo $NAME $LOGDATE >> /tmp/changelog
+                                echo --------------------------------------- >> /tmp/changelog
 				OUT=`git submodule foreach git pull origin master`
+                                git log --oneline ORIG_HEAD.. >>/tmp/changelog
+
 				cd $WORK
 		else
 				echo "cloning repo..."
@@ -948,7 +968,12 @@ if [ "${PLATFORM}" = "android" ] && [ "${RA}" = "YES" ]; then
 				cd $PARENTDIR
 				cd $DIR
 				echo "pulling from repo... "
-				OUT=`git pull`
+                                echo >> /tmp/changelog
+                                echo $NAME $LOGDATE >> /tmp/changelog
+                                echo --------------------------------------- >> /tmp/changelog
+                                OUT=`git pull`
+                                git log --oneline ORIG_HEAD.. >>/tmp/changelog
+
 				echo $OUT
 				if [ "${TYPE}" = "PROJECT" ]; then
 					RADIR=$DIR
@@ -1120,7 +1145,12 @@ if [ "${PLATFORM}" = "theos_ios" ] && [ "${RA}" = "YES" ]; then
 				cd $PARENTDIR
 				cd $DIR
 				echo "pulling from repo... "
-				OUT=`git pull`
+                                echo >> /tmp/changelog
+                                echo $NAME $LOGDATE >> /tmp/changelog
+                                echo --------------------------------------- >> /tmp/changelog
+                                OUT=`git pull`
+                                git log --oneline ORIG_HEAD.. >>/tmp/changelog
+
 				echo $OUT
 				if [ "${TYPE}" = "PROJECT" ]; then
 					RADIR=$DIR
@@ -1228,7 +1258,12 @@ if [ "${PLATFORM}" = "MINGW64" ] || [ "${PLATFORM}" = "MINGW32" ] && [ "${RA}" =
 				cd $PARENTDIR
 				cd $DIR
 				echo "pulling from repo... "
-				OUT=`git pull`
+                                echo >> /tmp/changelog
+                                echo $NAME $LOGDATE >> /tmp/changelog
+                                echo --------------------------------------- >> /tmp/changelog
+                                OUT=`git pull`
+                                git log --oneline ORIG_HEAD.. >>/tmp/changelog
+
 				echo $OUT
 				if [ "${TYPE}" = "PROJECT" ]; then
 					RADIR=$DIR
@@ -1463,7 +1498,12 @@ if [ "${PLATFORM}" = "psp1" ] && [ "${RA}" = "YES" ]; then
 			cd $PARENTDIR
 				cd $DIR
 				echo "pulling from repo... "
-				OUT=`git pull`
+                                echo >> /tmp/changelog
+                                echo $NAME $LOGDATE >> /tmp/changelog
+                                echo --------------------------------------- >> /tmp/changelog
+                                OUT=`git pull`
+                                git log --oneline ORIG_HEAD.. >>/tmp/changelog
+
 				echo $OUT
 				if [ "${TYPE}" = "PROJECT" ]; then
 					RADIR=$DIR
@@ -1586,7 +1626,12 @@ if [ "${PLATFORM}" == "wii" ] && [ "${RA}" == "YES" ]; then
 				cd $PARENTDIR
 				cd $DIR
 				echo "pulling from repo... "
-				OUT=`git pull`
+                                echo >> /tmp/changelog
+                                echo $NAME $LOGDATE >> /tmp/changelog
+                                echo --------------------------------------- >> /tmp/changelog
+                                OUT=`git pull`
+                                git log --oneline ORIG_HEAD.. >>/tmp/changelog
+
 				echo $OUT
 				if [ "${TYPE}" == "PROJECT" ]; then
 					RADIR=$DIR
@@ -1725,7 +1770,12 @@ then
 		cd $PARENTDIR
 			cd $DIR
 			echo "pulling from repo... "
-			OUT=`git pull`
+                        echo >> /tmp/changelog
+                        echo $NAME $LOGDATE >> /tmp/changelog
+                        echo --------------------------------------- >> /tmp/changelog
+                        OUT=`git pull`
+                        git log --oneline ORIG_HEAD.. >>/tmp/changelog
+
 			echo $OUT
 			if [ "${TYPE}" == "PROJECT" ];
 			then
@@ -1854,7 +1904,12 @@ if [ "${PLATFORM}" == "ctr" ] && [ "${RA}" == "YES" ]; then
 				cd $PARENTDIR
 				cd $DIR
 				echo "pulling from repo... "
-				OUT=`git pull`
+                                echo >> /tmp/changelog
+                                echo $NAME $LOGDATE >> /tmp/changelog
+                                echo --------------------------------------- >> /tmp/changelog
+                                OUT=`git pull`
+                                git log --oneline ORIG_HEAD.. >>/tmp/changelog
+
 				echo $OUT
 				if [ "${TYPE}" == "PROJECT" ]; then
 					RADIR=$DIR
@@ -1981,7 +2036,12 @@ if [ "${PLATFORM}" == "vita" ] && [ "${RA}" == "YES" ]; then
 				cd $PARENTDIR
 				cd $DIR
 				echo "pulling from repo... "
-				OUT=`git pull`
+                                echo >> /tmp/changelog
+                                echo $NAME $LOGDATE >> /tmp/changelog
+                                echo --------------------------------------- >> /tmp/changelog
+                                OUT=`git pull`
+                                git log --oneline ORIG_HEAD.. >>/tmp/changelog
+
 				echo $OUT
 				if [ "${TYPE}" == "PROJECT" ]; then
 					RADIR=$DIR
