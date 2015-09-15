@@ -170,9 +170,7 @@ build_default_cores() {
 	libretro_build_core fceumm
 	libretro_build_core fmsx
 	libretro_build_core gambatte
-	if [ $platform != "ngc" ] && [ $platform != "wii" ] && [ $platform != "ps3" ] && [ $platform != "sncps3" ]; then
-		libretro_build_core handy
-	fi
+	libretro_build_core handy
 	libretro_build_core stella
 	libretro_build_core nestopia
 	libretro_build_core nxengine
