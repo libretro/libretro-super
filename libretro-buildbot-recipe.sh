@@ -720,10 +720,10 @@ while read line; do
 					BUILD="NO"
 				else
 					BUILD="YES"
-					echo >> /tmp/changelog
-					echo $NAME $LOGDATE >> /tmp/changelog
-					echo --------------------------------------- >> /tmp/changelog
-					echo $CLOG >> /tmp/changelog
+					echo >> /home/buildbot/changelog
+					echo $NAME $LOGDATE >> /home/buildbot/changelog
+					echo --------------------------------------- >> /home/buildbot/changelog
+					echo $CLOG >> /home/buildbot/changelog
 				fi
 
 				OLDFORCE=$FORCE
@@ -821,10 +821,10 @@ while read line; do
 					BUILD="NO"
 				else
 					BUILD="YES"
-					echo >> /tmp/changelog
-					echo $NAME $LOGDATE >> /tmp/changelog
-					echo --------------------------------------- >> /tmp/changelog
-					echo $CLOG >> /tmp/changelog
+					echo >> /home/buildbot/changelog
+					echo $NAME $LOGDATE >> /home/buildbot/changelog
+					echo --------------------------------------- >> /home/buildbot/changelog
+					echo $CLOG >> /home/buildbot/changelog
 				fi
 				cd $WORK
 
@@ -849,10 +849,10 @@ while read line; do
 					BUILD="NO"
 				else
 					BUILD="YES"
-					echo >> /tmp/changelog
-					echo $NAME $LOGDATE >> /tmp/changelog
-					echo --------------------------------------- >> /tmp/changelog
-					echo $CLOG >> /tmp/changelog
+					echo >> /home/buildbot/changelog
+					echo $NAME $LOGDATE >> /home/buildbot/changelog
+					echo --------------------------------------- >> /home/buildbot/changelog
+					echo $CLOG >> /home/buildbot/changelog
 				fi
 				OUT=`git submodule foreach git pull origin master`
 				cd $WORK
@@ -976,10 +976,10 @@ if [ "${PLATFORM}" = "android" ] && [ "${RA}" = "YES" ]; then
 						BUILD="NO"
 					else
 						BUILD="YES"
-						echo >> /tmp/changelog
-						echo $NAME $LOGDATE >> /tmp/changelog
-						echo --------------------------------------- >> /tmp/changelog
-						echo $CLOG >> /tmp/changelog
+						echo >> /home/buildbot/changelog
+						echo $NAME $LOGDATE >> /home/buildbot/changelog
+						echo --------------------------------------- >> /home/buildbot/changelog
+						echo $CLOG >> /home/buildbot/changelog
 					fi
 				fi
 				cd $WORK
@@ -1154,10 +1154,10 @@ if [ "${PLATFORM}" = "theos_ios" ] && [ "${RA}" = "YES" ]; then
 						BUILD="NO"
 					else
 						BUILD="YES"
-						echo >> /tmp/changelog
-						echo $NAME $LOGDATE >> /tmp/changelog
-						echo --------------------------------------- >> /tmp/changelog
-						echo $CLOG >> /tmp/changelog
+						echo >> /home/buildbot/changelog
+						echo $NAME $LOGDATE >> /home/buildbot/changelog
+						echo --------------------------------------- >> /home/buildbot/changelog
+						echo $CLOG >> /home/buildbot/changelog
 					fi
 				fi
 				cd $WORK
@@ -1268,10 +1268,10 @@ if [ "${PLATFORM}" = "MINGW64" ] || [ "${PLATFORM}" = "MINGW32" ] && [ "${RA}" =
 						BUILD="NO"
 					else
 						BUILD="YES"
-						echo >> /tmp/changelog
-						echo $NAME $LOGDATE >> /tmp/changelog
-						echo --------------------------------------- >> /tmp/changelog
-						echo $CLOG >> /tmp/changelog
+						echo >> /home/buildbot/changelog
+						echo $NAME $LOGDATE >> /home/buildbot/changelog
+						echo --------------------------------------- >> /home/buildbot/changelog
+						echo $CLOG >> /home/buildbot/changelog
 					fi
 				fi
 				cd $WORK
@@ -1509,10 +1509,10 @@ if [ "${PLATFORM}" = "psp1" ] && [ "${RA}" = "YES" ]; then
 						BUILD="NO"
 					else
 						BUILD="YES"
-						echo >> /tmp/changelog
-						echo $NAME $LOGDATE >> /tmp/changelog
-						echo --------------------------------------- >> /tmp/changelog
-						echo $CLOG >> /tmp/changelog
+						echo >> /home/buildbot/changelog
+						echo $NAME $LOGDATE >> /home/buildbot/changelog
+						echo --------------------------------------- >> /home/buildbot/changelog
+						echo $CLOG >> /home/buildbot/changelog
 					fi
 				fi
 				cd $WORK
@@ -1638,10 +1638,10 @@ if [ "${PLATFORM}" == "wii" ] && [ "${RA}" == "YES" ]; then
 						BUILD="NO"
 					else	
 						BUILD="YES"
-						echo >> /tmp/changelog
-						echo $NAME $LOGDATE >> /tmp/changelog
-						echo --------------------------------------- >> /tmp/changelog
-						echo $CLOG >> /tmp/changelog
+						echo >> /home/buildbot/changelog
+						echo $NAME $LOGDATE >> /home/buildbot/changelog
+						echo --------------------------------------- >> /home/buildbot/changelog
+						echo $CLOG >> /home/buildbot/changelog
 					fi
 				fi
 				cd $WORK
@@ -1785,10 +1785,10 @@ then
 					BUILD="NO"
 				else
 					BUILD="YES"
-					echo >> /tmp/changelog
-					echo $NAME $LOGDATE >> /tmp/changelog
-					echo --------------------------------------- >> /tmp/changelog
-					echo $CLOG >> /tmp/changelog
+					echo >> /home/buildbot/changelog
+					echo $NAME $LOGDATE >> /home/buildbot/changelog
+					echo --------------------------------------- >> /home/buildbot/changelog
+					echo $CLOG >> /home/buildbot/changelog
 				fi
 			fi
 			cd $WORK
@@ -1918,10 +1918,10 @@ if [ "${PLATFORM}" == "ctr" ] && [ "${RA}" == "YES" ]; then
 						BUILD="NO"
 					else
 						BUILD="YES"
-						echo >> /tmp/changelog
-						echo $NAME $LOGDATE >> /tmp/changelog
-						echo --------------------------------------- >> /tmp/changelog
-						echo $CLOG >> /tmp/changelog
+						echo >> /home/buildbot/changelog
+						echo $NAME $LOGDATE >> /home/buildbot/changelog
+						echo --------------------------------------- >> /home/buildbot/changelog
+						echo $CLOG >> /home/buildbot/changelog
 					fi
 				fi
 				echo $OUT $BUILD $FORCE $FORCE_RETROARCH_BUILD
@@ -2052,10 +2052,10 @@ if [ "${PLATFORM}" == "vita" ] && [ "${RA}" == "YES" ]; then
 						BUILD="NO"
 					else
 						BUILD="YES"
-						echo >> /tmp/changelog
-						echo $NAME $LOGDATE >> /tmp/changelog
-						echo --------------------------------------- >> /tmp/changelog
-						echo $CLOG >> /tmp/changelog
+						echo >> /home/buildbot/changelog
+						echo $NAME $LOGDATE >> /home/buildbot/changelog
+						echo --------------------------------------- >> /home/buildbot/changelog
+						echo $CLOG >> /home/buildbot/changelog
 					fi
 				fi
 				echo $OUT $BUILD $FORCE $FORCE_RETROARCH_BUILD
