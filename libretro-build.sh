@@ -161,8 +161,8 @@ build_default_cores() {
 	libretro_build_core bluemsx
 	if [ $platform != "psp1" ] && [ $platform != "ngc" ] && [ $platform != "wii" ] && [ $platform != "ps3" ] && [ $platform != "sncps3" ]; then
 		libretro_build_core dosbox
-		libretro_build_core catsfc
 	fi
+	libretro_build_core catsfc
 	if [ $platform != "psp1" ]; then
 		# Excluded for binary size reasons
 		libretro_build_core fb_alpha
