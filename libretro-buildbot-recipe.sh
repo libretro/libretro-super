@@ -713,16 +713,17 @@ while read line; do
 
 				cd $DIR
 				echo "pulling from repo... "
-                                echo >> /tmp/changelog
-                                echo $NAME $LOGDATE >> /tmp/changelog
-                                echo --------------------------------------- >> /tmp/changelog
-                                OUT=`git pull`
-                                git log --oneline ORIG_HEAD.. >>/tmp/changelog
+				OUT=`git pull`
+				CLOG=`git log --oneline ORIG_HEAD..`
 
 				if [[ $OUT == *"Already up-to-date"* ]]; then
 					BUILD="NO"
 				else
 					BUILD="YES"
+					echo >> /tmp/changelog
+					echo $NAME $LOGDATE >> /tmp/changelog
+					echo --------------------------------------- >> /tmp/changelog
+					echo $CLOG >> /tmp/changelog
 				fi
 
 				OLDFORCE=$FORCE
@@ -813,16 +814,17 @@ while read line; do
 
 				cd $DIR
 				echo "pulling from repo... "
-                                echo >> /tmp/changelog
-                                echo $NAME $LOGDATE >> /tmp/changelog
-                                echo --------------------------------------- >> /tmp/changelog
-                                OUT=`git pull`
-                                git log --oneline ORIG_HEAD.. >>/tmp/changelog
+				OUT=`git pull`
+				CLOG=`git log --oneline ORIG_HEAD..`
 
 				if [[ $OUT == *"Already up-to-date"* ]]; then
 					BUILD="NO"
 				else
 					BUILD="YES"
+					echo >> /tmp/changelog
+					echo $NAME $LOGDATE >> /tmp/changelog
+					echo --------------------------------------- >> /tmp/changelog
+					echo $CLOG >> /tmp/changelog
 				fi
 				cd $WORK
 
@@ -840,23 +842,19 @@ while read line; do
 
 				cd $DIR
 				echo "pulling from repo... "
-                                echo >> /tmp/changelog
-                                echo $NAME $LOGDATE >> /tmp/changelog
-                                echo --------------------------------------- >> /tmp/changelog
-                                OUT=`git pull`
-                                git log --oneline ORIG_HEAD.. >>/tmp/changelog
+				OUT=`git pull`
+				CLOG=`git log --oneline ORIG_HEAD..`
 
 				if [[ $OUT == *"Already up-to-date"* ]]; then
 					BUILD="NO"
 				else
 					BUILD="YES"
+					echo >> /tmp/changelog
+					echo $NAME $LOGDATE >> /tmp/changelog
+					echo --------------------------------------- >> /tmp/changelog
+					echo $CLOG >> /tmp/changelog
 				fi
-                                echo >> /tmp/changelog
-                                echo $NAME $LOGDATE >> /tmp/changelog
-                                echo --------------------------------------- >> /tmp/changelog
 				OUT=`git submodule foreach git pull origin master`
-                                git log --oneline ORIG_HEAD.. >>/tmp/changelog
-
 				cd $WORK
 		else
 				echo "cloning repo..."
@@ -968,11 +966,8 @@ if [ "${PLATFORM}" = "android" ] && [ "${RA}" = "YES" ]; then
 				cd $PARENTDIR
 				cd $DIR
 				echo "pulling from repo... "
-                                echo >> /tmp/changelog
-                                echo $NAME $LOGDATE >> /tmp/changelog
-                                echo --------------------------------------- >> /tmp/changelog
-                                OUT=`git pull`
-                                git log --oneline ORIG_HEAD.. >>/tmp/changelog
+				OUT=`git pull`
+				CLOG=`git log --oneline ORIG_HEAD..`
 
 				echo $OUT
 				if [ "${TYPE}" = "PROJECT" ]; then
@@ -981,6 +976,10 @@ if [ "${PLATFORM}" = "android" ] && [ "${RA}" = "YES" ]; then
 						BUILD="NO"
 					else
 						BUILD="YES"
+						echo >> /tmp/changelog
+						echo $NAME $LOGDATE >> /tmp/changelog
+						echo --------------------------------------- >> /tmp/changelog
+						echo $CLOG >> /tmp/changelog
 					fi
 				fi
 				cd $WORK
@@ -1145,11 +1144,8 @@ if [ "${PLATFORM}" = "theos_ios" ] && [ "${RA}" = "YES" ]; then
 				cd $PARENTDIR
 				cd $DIR
 				echo "pulling from repo... "
-                                echo >> /tmp/changelog
-                                echo $NAME $LOGDATE >> /tmp/changelog
-                                echo --------------------------------------- >> /tmp/changelog
-                                OUT=`git pull`
-                                git log --oneline ORIG_HEAD.. >>/tmp/changelog
+				OUT=`git pull`
+				CLOG=`git log --oneline ORIG_HEAD..`
 
 				echo $OUT
 				if [ "${TYPE}" = "PROJECT" ]; then
@@ -1158,6 +1154,10 @@ if [ "${PLATFORM}" = "theos_ios" ] && [ "${RA}" = "YES" ]; then
 						BUILD="NO"
 					else
 						BUILD="YES"
+						echo >> /tmp/changelog
+						echo $NAME $LOGDATE >> /tmp/changelog
+						echo --------------------------------------- >> /tmp/changelog
+						echo $CLOG >> /tmp/changelog
 					fi
 				fi
 				cd $WORK
@@ -1258,11 +1258,8 @@ if [ "${PLATFORM}" = "MINGW64" ] || [ "${PLATFORM}" = "MINGW32" ] && [ "${RA}" =
 				cd $PARENTDIR
 				cd $DIR
 				echo "pulling from repo... "
-                                echo >> /tmp/changelog
-                                echo $NAME $LOGDATE >> /tmp/changelog
-                                echo --------------------------------------- >> /tmp/changelog
-                                OUT=`git pull`
-                                git log --oneline ORIG_HEAD.. >>/tmp/changelog
+				OUT=`git pull`
+				CLOG=`git log --oneline ORIG_HEAD..`
 
 				echo $OUT
 				if [ "${TYPE}" = "PROJECT" ]; then
@@ -1271,6 +1268,10 @@ if [ "${PLATFORM}" = "MINGW64" ] || [ "${PLATFORM}" = "MINGW32" ] && [ "${RA}" =
 						BUILD="NO"
 					else
 						BUILD="YES"
+						echo >> /tmp/changelog
+						echo $NAME $LOGDATE >> /tmp/changelog
+						echo --------------------------------------- >> /tmp/changelog
+						echo $CLOG >> /tmp/changelog
 					fi
 				fi
 				cd $WORK
@@ -1498,11 +1499,8 @@ if [ "${PLATFORM}" = "psp1" ] && [ "${RA}" = "YES" ]; then
 			cd $PARENTDIR
 				cd $DIR
 				echo "pulling from repo... "
-                                echo >> /tmp/changelog
-                                echo $NAME $LOGDATE >> /tmp/changelog
-                                echo --------------------------------------- >> /tmp/changelog
-                                OUT=`git pull`
-                                git log --oneline ORIG_HEAD.. >>/tmp/changelog
+				OUT=`git pull`
+				CLOG=`git log --oneline ORIG_HEAD..`
 
 				echo $OUT
 				if [ "${TYPE}" = "PROJECT" ]; then
@@ -1511,6 +1509,10 @@ if [ "${PLATFORM}" = "psp1" ] && [ "${RA}" = "YES" ]; then
 						BUILD="NO"
 					else
 						BUILD="YES"
+						echo >> /tmp/changelog
+						echo $NAME $LOGDATE >> /tmp/changelog
+						echo --------------------------------------- >> /tmp/changelog
+						echo $CLOG >> /tmp/changelog
 					fi
 				fi
 				cd $WORK
@@ -1626,11 +1628,8 @@ if [ "${PLATFORM}" == "wii" ] && [ "${RA}" == "YES" ]; then
 				cd $PARENTDIR
 				cd $DIR
 				echo "pulling from repo... "
-                                echo >> /tmp/changelog
-                                echo $NAME $LOGDATE >> /tmp/changelog
-                                echo --------------------------------------- >> /tmp/changelog
-                                OUT=`git pull`
-                                git log --oneline ORIG_HEAD.. >>/tmp/changelog
+				OUT=`git pull`
+				CLOG=`git log --oneline ORIG_HEAD..`
 
 				echo $OUT
 				if [ "${TYPE}" == "PROJECT" ]; then
@@ -1639,6 +1638,10 @@ if [ "${PLATFORM}" == "wii" ] && [ "${RA}" == "YES" ]; then
 						BUILD="NO"
 					else	
 						BUILD="YES"
+						echo >> /tmp/changelog
+						echo $NAME $LOGDATE >> /tmp/changelog
+						echo --------------------------------------- >> /tmp/changelog
+						echo $CLOG >> /tmp/changelog
 					fi
 				fi
 				cd $WORK
@@ -1770,11 +1773,8 @@ then
 		cd $PARENTDIR
 			cd $DIR
 			echo "pulling from repo... "
-                        echo >> /tmp/changelog
-                        echo $NAME $LOGDATE >> /tmp/changelog
-                        echo --------------------------------------- >> /tmp/changelog
-                        OUT=`git pull`
-                        git log --oneline ORIG_HEAD.. >>/tmp/changelog
+			OUT=`git pull`
+			CLOG=`git log --oneline ORIG_HEAD..`
 
 			echo $OUT
 			if [ "${TYPE}" == "PROJECT" ];
@@ -1785,6 +1785,10 @@ then
 					BUILD="NO"
 				else
 					BUILD="YES"
+					echo >> /tmp/changelog
+					echo $NAME $LOGDATE >> /tmp/changelog
+					echo --------------------------------------- >> /tmp/changelog
+					echo $CLOG >> /tmp/changelog
 				fi
 			fi
 			cd $WORK
@@ -1904,11 +1908,8 @@ if [ "${PLATFORM}" == "ctr" ] && [ "${RA}" == "YES" ]; then
 				cd $PARENTDIR
 				cd $DIR
 				echo "pulling from repo... "
-                                echo >> /tmp/changelog
-                                echo $NAME $LOGDATE >> /tmp/changelog
-                                echo --------------------------------------- >> /tmp/changelog
-                                OUT=`git pull`
-                                git log --oneline ORIG_HEAD.. >>/tmp/changelog
+				OUT=`git pull`
+				CLOG=`git log --oneline ORIG_HEAD..`
 
 				echo $OUT
 				if [ "${TYPE}" == "PROJECT" ]; then
@@ -1917,6 +1918,10 @@ if [ "${PLATFORM}" == "ctr" ] && [ "${RA}" == "YES" ]; then
 						BUILD="NO"
 					else
 						BUILD="YES"
+						echo >> /tmp/changelog
+						echo $NAME $LOGDATE >> /tmp/changelog
+						echo --------------------------------------- >> /tmp/changelog
+						echo $CLOG >> /tmp/changelog
 					fi
 				fi
 				echo $OUT $BUILD $FORCE $FORCE_RETROARCH_BUILD
@@ -2036,11 +2041,9 @@ if [ "${PLATFORM}" == "vita" ] && [ "${RA}" == "YES" ]; then
 				cd $PARENTDIR
 				cd $DIR
 				echo "pulling from repo... "
-                                echo >> /tmp/changelog
-                                echo $NAME $LOGDATE >> /tmp/changelog
-                                echo --------------------------------------- >> /tmp/changelog
-                                OUT=`git pull`
-                                git log --oneline ORIG_HEAD.. >>/tmp/changelog
+
+				OUT=`git pull`
+				CLOG=`git log --oneline ORIG_HEAD..`
 
 				echo $OUT
 				if [ "${TYPE}" == "PROJECT" ]; then
@@ -2049,6 +2052,10 @@ if [ "${PLATFORM}" == "vita" ] && [ "${RA}" == "YES" ]; then
 						BUILD="NO"
 					else
 						BUILD="YES"
+						echo >> /tmp/changelog
+						echo $NAME $LOGDATE >> /tmp/changelog
+						echo --------------------------------------- >> /tmp/changelog
+						echo $CLOG >> /tmp/changelog
 					fi
 				fi
 				echo $OUT $BUILD $FORCE $FORCE_RETROARCH_BUILD
