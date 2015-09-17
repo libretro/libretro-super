@@ -1,5 +1,5 @@
 display_name = "Game & Watch (GW)"
-authors = "Leiradel"
+authors = "Andre Leiradella"
 supported_extensions = "mgw"
 corename = "GW"
 manufacturer = "Nintendo"
