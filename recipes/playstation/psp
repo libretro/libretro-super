@@ -4,6 +4,7 @@ gambatte libretro-gambatte https://github.com/libretro/gambatte-libretro.git PRO
 imageviewer libretro-imageviewer https://github.com/libretro/imageviewer-libretro.git PROJECT YES GENERIC Makefile.libretro . 
 lutro libretro-lutro https://github.com/libretro/libretro-lutro PROJECT YES GENERIC Makefile . 
 mednafen_pce_fast libretro-beetle_pce_fast https://github.com/aliaspider/beetle-pce-fast-libretro.git psp_hw_render YES GENERIC Makefile . 
+mgba libretro-mgba https://github.com/libretro/mgba.git PROJECT YES GENERIC Makefile.libretro . 
 njemu_cps2 libretro-njemu https://github.com/aliaspider/NJEMU-libretro.git PROJECT YES GENERIC Makefile . 
 nxengine libretro-nxengine https://github.com/libretro/nxengine-libretro.git PROJECT YES GENERIC Makefile . 
 prboom libretro-prboom  https://github.com/libretro/libretro-prboom.git PROJECT YES GENERIC Makefile . 
