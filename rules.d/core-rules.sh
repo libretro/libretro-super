@@ -136,7 +136,7 @@ libretro_desmume_build_makefile="Makefile.libretro"
 register_module core "quicknes"
 libretro_quicknes_name="QuickNES"
 libretro_quicknes_git_url="https://github.com/libretro/QuickNES_Core.git"
-libretro_quicknes_build_subdir="libretro"
+libretro_desmume_build_makefile="Makefile"
 
 register_module core "nestopia"
 libretro_nestopia_name="Nestopia"
