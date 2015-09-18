@@ -8,5 +8,5 @@ mgba libretro-mgba https://github.com/libretro/mgba.git PROJECT NO GENERIC Makef
 njemu_cps2 libretro-njemu https://github.com/aliaspider/NJEMU-libretro.git PROJECT YES GENERIC Makefile . 
 nxengine libretro-nxengine https://github.com/libretro/nxengine-libretro.git PROJECT YES GENERIC Makefile . 
 prboom libretro-prboom  https://github.com/libretro/libretro-prboom.git PROJECT YES GENERIC Makefile . 
-quicknes libretro-quicknes  https://github.com/libretro/QuickNES_Core.git PROJECT YES GENERIC Makefile .
+quicknes libretro-quicknes  https://github.com/libretro/QuickNES_Core.git PROJECT YES GENERIC Makefile . 
 tempgba libretro-tempgba https://github.com/libretro/TempGBA-libretro.git PROJECT YES GENERIC Makefile . 
