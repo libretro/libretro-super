@@ -15,3 +15,6 @@ quicknes libretro-quicknes  https://github.com/libretro/QuickNES_Core.git PROJEC
 snes9x_next libretro-snes9x_next https://github.com/libretro/snes9x-next.git PROJECT YES GENERIC Makefile.libretro . 
 tgbdual libretro-tgbdual https://github.com/libretro/tgbdual-libretro.git PROJECT NO GENERIC Makefile . 
 tyrquake libretro-tyrquake https://github.com/libretro/tyrquake.git PROJECT NO GENERIC Makefile . 
+fb_alpha_cps2 libretro-fba_cps2 https://github.com/libretro/fba_cores_cps2.git PROJECT YES GENERIC makefile.libretro . 
+fb_alpha_cps1 libretro-fba_cps1 https://github.com/libretro/fba_cores_cps1.git PROJECT YES GENERIC makefile.libretro . 
+fb_alpha_neo libretro-fba_cps2 https://github.com/libretro/fba_cores_neo.git PROJECT YES GENERIC makefile.libretro . 
