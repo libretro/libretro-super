@@ -1015,54 +1015,54 @@ if [ "${PLATFORM}" = "android" ] && [ "${RA}" = "YES" ]; then
 		echo
 
 
-		rm -rf android/phoenix/assets/assets
-		rm -rf android/phoenix/assets/cores
-		rm -rf android/phoenix/assets/info
-		rm -rf android/phoenix/assets/overlays
-		rm -rf android/phoenix/assets/shaders/shaders_glsl/
-		rm -rf android/phoenix/assets/database
-		rm -rf android/phoenix/assets/autoconfig
-		rm -rf android/phoenix/assets/cheats
-		rm -rf android/phoenix/assets/playlists
-		rm -rf android/phoenix/assets/dowloads
-		rm -rf android/phoenix/assets/remaps
-		rm -rf android/phoenix/assets/system
+		rm -rf pkg/android/phoenix/assets/assets
+		rm -rf pkg/android/phoenix/assets/cores
+		rm -rf pkg/android/phoenix/assets/info
+		rm -rf pkg/android/phoenix/assets/overlays
+		rm -rf pkg/android/phoenix/assets/shaders/shaders_glsl/
+		rm -rf pkg/android/phoenix/assets/database
+		rm -rf pkg/android/phoenix/assets/autoconfig
+		rm -rf pkg/android/phoenix/assets/cheats
+		rm -rf pkg/android/phoenix/assets/playlists
+		rm -rf pkg/android/phoenix/assets/dowloads
+		rm -rf pkg/android/phoenix/assets/remaps
+		rm -rf pkg/android/phoenix/assets/system
 
-		mkdir -p android/phoenix/assets
-		mkdir -p android/phoenix/assets/
-		mkdir -p android/phoenix/assets/assets
-		mkdir -p android/phoenix/assets/cores
-		mkdir -p android/phoenix/assets/info
-		mkdir -p android/phoenix/assets/overlays
-		mkdir -p android/phoenix/assets/shaders/shaders_glsl/
-		mkdir -p android/phoenix/assets/database
-		mkdir -p android/phoenix/assets/autoconfig
-		mkdir -p android/phoenix/assets/cheats
-		mkdir -p android/phoenix/assets/playlists
-		mkdir -p android/phoenix/assets/dowloads
-		mkdir -p android/phoenix/assets/remaps
-		mkdir -p android/phoenix/assets/saves/
-		mkdir -p android/phoenix/assets/states/
-		mkdir -p android/phoenix/assets/system/
+		mkdir -p pkg/android/phoenix/assets
+		mkdir -p pkg/android/phoenix/assets/
+		mkdir -p pkg/android/phoenix/assets/assets
+		mkdir -p pkg/android/phoenix/assets/cores
+		mkdir -p pkg/android/phoenix/assets/info
+		mkdir -p pkg/android/phoenix/assets/overlays
+		mkdir -p pkg/android/phoenix/assets/shaders/shaders_glsl/
+		mkdir -p pkg/android/phoenix/assets/database
+		mkdir -p pkg/android/phoenix/assets/autoconfig
+		mkdir -p pkg/android/phoenix/assets/cheats
+		mkdir -p pkg/android/phoenix/assets/playlists
+		mkdir -p pkg/android/phoenix/assets/dowloads
+		mkdir -p pkg/android/phoenix/assets/remaps
+		mkdir -p pkg/android/phoenix/assets/saves/
+		mkdir -p pkg/android/phoenix/assets/states/
+		mkdir -p pkg/android/phoenix/assets/system/
 
 
-		cp -rf media/assets/xmb android/phoenix/assets/assets/
-		cp -rf media/autoconfig/* android/phoenix/assets/autoconfig/
-		cp -rf media/libretrodb/rdb android/phoenix/assets/database/
-		cp -rf media/libretrodb/cursors android/phoenix/assets/database/
-		cp -rf media/overlays/* android/phoenix/assets/overlays/
-		cp -rf media/shaders_glsl/* android/phoenix/assets/shaders/shaders_glsl/
+		cp -rf media/assets/xmb pkg/android/phoenix/assets/assets/
+		cp -rf media/autoconfig/* pkg/android/phoenix/assets/autoconfig/
+		cp -rf media/libretrodb/rdb pkg/android/phoenix/assets/database/
+		cp -rf media/libretrodb/cursors pkg/android/phoenix/assets/database/
+		cp -rf media/overlays/* pkg/android/phoenix/assets/overlays/
+		cp -rf media/shaders_glsl/* pkg/android/phoenix/assets/shaders/shaders_glsl/
 		cp -rf media/shaders_glsl $TMPDIR/
-		touch  android/phoenix/assets/cheats/.empty-folder
-		touch  android/phoenix/assets/saves/.empty-folder
-		touch  android/phoenix/assets/states/.empty-folder
-		touch  android/phoenix/assets/system/.empty-folder
+		touch  pkg/android/phoenix/assets/cheats/.empty-folder
+		touch  pkg/android/phoenix/assets/saves/.empty-folder
+		touch  pkg/android/phoenix/assets/states/.empty-folder
+		touch  pkg/android/phoenix/assets/system/.empty-folder
 
-		cp -rf $RARCH_DIR/info/* android/phoenix/assets/info/
+		cp -rf $RARCH_DIR/info/* pkg/android/phoenix/assets/info/
 
 		echo "BUILDBOT JOB: $jobid Building"
 		echo
-		cd android/phoenix
+		cd pkg/android/phoenix
 		rm bin/*.apk
 
 		$NDK clean &> $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_${PLATFORM}.log
