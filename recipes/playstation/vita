@@ -11,3 +11,6 @@ nxengine libretro-nxengine https://github.com/libretro/nxengine-libretro.git PRO
 quicknes libretro-quicknes  https://github.com/libretro/QuickNES_Core.git PROJECT YES GENERIC Makefile . 
 handy libretro-handy https://github.com/libretro/libretro-handy.git PROJECT YES GENERIC Makefile . 
 snes9x_next libretro-snes9x_next https://github.com/libretro/snes9x-next.git PROJECT YES GENERIC Makefile.libretro . 
+fb_alpha_cps2 libretro-fba_cps2 https://github.com/libretro/fba_cores_cps2.git PROJECT YES GENERIC makefile.libretro . 
+fb_alpha_cps1 libretro-fba_cps1 https://github.com/libretro/fba_cores_cps1.git PROJECT YES GENERIC makefile.libretro . 
+fb_alpha_neo libretro-fba_neo https://github.com/libretro/fba_cores_neo.git PROJECT YES GENERIC Makefile . 
