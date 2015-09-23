@@ -1566,6 +1566,7 @@ if [ "${PLATFORM}" = "psp1" ] && [ "${RA}" = "YES" ]; then
 
 		mkdir -p pkg/psp1/
 		mkdir -p pkg/psp1/cheats
+                cp -p $RARCH_DIST_DIR/../info/*.info pkg/psp1/cores/
 
 	fi
 fi
