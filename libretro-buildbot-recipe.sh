@@ -267,7 +267,7 @@ build_libretro_generic_makefile() {
 	fi
 		echo BUILDBOT JOB: $MESSAGE
 	echo BUILDBOT JOB: $MESSAGE >> $TMPDIR/log/${BOT}/${LOGDATE}.log
-	buildbot_log "1 $MESSAGE"
+	buildbot_log "$MESSAGE"
 	JOBS=$OLDJ
 }
 
@@ -313,7 +313,7 @@ build_libretro_leiradel_makefile() {
 	fi
 	echo BUILDBOT JOB: $MESSAGE
 	echo BUILDBOT JOB: $MESSAGE >> $TMPDIR/log/${BOT}/${LOGDATE}.log
-	buildbot_log "2 $MESSAGE"
+	buildbot_log "$MESSAGE"
 	JOBS=$OLDJ
 }
 
@@ -361,7 +361,7 @@ build_libretro_generic_theos() {
 	fi
 	echo BUILDBOT JOB: $MESSAGE
 	echo BUILDBOT JOB: $MESSAGE >> $TMPDIR/log/${BOT}/${LOGDATE}.log
-	buildbot_log "3 $MESSAGE"
+	buildbot_log "$MESSAGE"
 }
 
 build_libretro_generic_jni() {
@@ -399,7 +399,7 @@ build_libretro_generic_jni() {
 		if [ $? -eq 0 ]; then
 			MESSAGE="$1-$a build successful [$jobid]"
 			echo BUILDBOT JOB: $MESSAGE
-			buildbot_log "4 $MESSAGE"
+			buildbot_log "$MESSAGE"
 			cp -v ../libs/${a}/libretro.${FORMAT_EXT} $RARCH_DIST_DIR/${a}/${1}_libretro${FORMAT}${SUFFIX}.${FORMAT_EXT}
 		else
 			ERROR=`cat $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}_${a}.log | tail -n 100`
@@ -407,7 +407,7 @@ build_libretro_generic_jni() {
 			MESSAGE="$1-$a build failed [$jobid] LOG: http://hastebin.com/$HASTE"
 			echo BUILDBOT JOB: $MESSAGE
 			echo BUILDBOT JOB: $MESSAGE >> $TMPDIR/log/${BOT}/${LOGDATE}.log
-			buildbot_log "5 $MESSAGE"
+			buildbot_log "$MESSAGE"
 		fi
 	done
 }
@@ -456,7 +456,7 @@ build_libretro_bsnes_jni() {
 		fi
 		echo BUILDBOT JOB: $MESSAGE
 		echo BUILDBOT JOB: $MESSAGE >> $TMPDIR/log/${BOT}/${LOGDATE}.log
-		buildbot_log "6 $MESSAGE"
+		buildbot_log "$MESSAGE"
 	done
 }
 
@@ -505,7 +505,7 @@ build_libretro_generic_gl_makefile() {
 	fi
 	echo BUILDBOT JOB: $MESSAGE
 	echo BUILDBOT JOB: $MESSAGE >> $TMPDIR/log/${BOT}/${LOGDATE}.log
-	buildbot_log "7 $MESSAGE"
+	buildbot_log "$MESSAGE"
 
 	reset_compiler_targets
 }
@@ -567,7 +567,7 @@ build_libretro_bsnes() {
 	fi
 	echo BUILDBOT JOB: $MESSAGE
 	echo BUILDBOT JOB: $MESSAGE >> $TMPDIR/log/${BOT}/${LOGDATE}.log
-	buildbot_log "8 $MESSAGE"
+	buildbot_log "$MESSAGE"
 }
 
 #fetch a project and mark it for building if there have been any changes
@@ -1083,7 +1083,7 @@ if [ "${PLATFORM}" = "android" ] && [ "${RA}" = "YES" ]; then
 			echo $MESSAGE
 		fi
 			echo BUILDBOT JOB: $MESSAGE >> $TMPDIR/log/${BOT}/${LOGDATE}.log
-		buildbot_log "9 $MESSAGE"
+		buildbot_log "$MESSAGE"
 	fi
 fi
 
@@ -1358,7 +1358,7 @@ if [ "${PLATFORM}" = "MINGW64" ] || [ "${PLATFORM}" = "MINGW32" ] && [ "${RA}" =
 			MESSAGE="retroarch build successful [$jobid]"
 			echo $MESSAGE
 			echo BUILDBOT JOB: $MESSAGE >> $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_${PLATFORM}.log
-			buildbot_log "10 $MESSAGE"
+			buildbot_log "$MESSAGE"
 
 			echo "Packaging"
 			echo ============================================
@@ -1437,7 +1437,7 @@ EOF
 			MESSAGE="retroarch build failed [$jobid] LOG: http://hastebin.com/$HASTE"
 			echo $MESSAGE
 			echo BUILDBOT JOB: $MESSAGE >> $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_${PLATFORM}.log
-			buildbot_log "11 $MESSAGE"
+			buildbot_log "$MESSAGE"
 		fi
 	fi
 fi
@@ -1557,7 +1557,7 @@ if [ "${PLATFORM}" = "psp1" ] && [ "${RA}" = "YES" ]; then
 			MESSAGE="retroarch build failed [$jobid] LOG: http://hastebin.com/$HASTE"
 			echo $MESSAGE
 		fi
-		buildbot_log "12 $MESSAGE"
+		buildbot_log "$MESSAGE"
 		echo BUILDBOT JOB: $MESSAGE >> $TMPDIR/log/${BOT}/${LOGDATE}.log
 
 		echo "Packaging"
@@ -1689,7 +1689,7 @@ if [ "${PLATFORM}" == "wii" ] && [ "${RA}" == "YES" ]; then
 				MESSAGE="retroarch build failed [$jobid] LOG: http://hastebin.com/$HASTE"
 				echo $MESSAGE
 			fi
-			buildbot_log "13 $MESSAGE"
+			buildbot_log "$MESSAGE"
 			echo BUILDBOT JOB: $MESSAGE >> $TMPDIR/log/${BOT}/${LOGDATE}.log
 			cd $WORK/$RADIR
 		fi
@@ -1836,7 +1836,7 @@ then
 			MESSAGE="retroarch build failed [$jobid] LOG: http://hastebin.com/$HASTE"
 			echo $MESSAGE
 		fi
-		buildbot_log "14 $MESSAGE"
+		buildbot_log "$MESSAGE"
 		echo BUILDBOT JOB: $MESSAGE >> $TMPDIR/log/${BOT}/${LOGDATE}.log
 		cd ..
 
@@ -1970,7 +1970,7 @@ if [ "${PLATFORM}" == "ctr" ] && [ "${RA}" == "YES" ]; then
 			MESSAGE="retroarch build failed [$jobid] LOG: http://hastebin.com/$HASTE"
 			echo $MESSAGE
 		fi
-		buildbot_log "15 $MESSAGE"
+		buildbot_log "$MESSAGE"
 		echo BUILDBOT JOB: $MESSAGE >> $TMPDIR/log/${BOT}/${LOGDATE}.log
 		cd $WORK/$RADIR
 
@@ -2104,7 +2104,7 @@ if [ "${PLATFORM}" == "vita" ] && [ "${RA}" == "YES" ]; then
 			MESSAGE="retroarch build failed [$jobid] LOG: http://hastebin.com/$HASTE"
 			echo $MESSAGE
 		fi
-		buildbot_log "16 $MESSAGE"
+		buildbot_log "$MESSAGE"
 		echo BUILDBOT JOB: $MESSAGE >> $TMPDIR/log/${BOT}/${LOGDATE}.log
 		cd $WORK/$RADIR
 
