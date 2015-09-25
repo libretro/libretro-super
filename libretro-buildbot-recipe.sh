@@ -195,6 +195,7 @@ cd "${BASE_DIR}"
 ####build commands
 buildbot_log() {
 
+        echo ========== $MESSAGE ==========
 	MESSAGE=`echo -e $1`
 
 	HASH=`echo -n "$MESSAGE" | openssl sha1 -hmac $SIG | cut -f 2 -d " "`
