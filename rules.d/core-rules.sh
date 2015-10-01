@@ -44,6 +44,11 @@ libretro_mgba_name="mGBA"
 libretro_mgba_git_url="https://github.com/libretro/mgba.git"
 libretro_mgba_build_makefile="Makefile.libretro"
 
+register_module core "fb_alpha_new" -psp1
+libretro_fb_alpha_new_name="Final Burn Alpha [New]"
+libretro_fb_alpha_new_git_url="https://github.com/libretro/libretro-fba.git"
+libretro_fb_alpha_new_build_makefile="makefile.libretro"
+
 register_module core "fb_alpha" -psp1
 libretro_fb_alpha_name="Final Burn Alpha"
 libretro_fb_alpha_git_url="https://github.com/libretro/fba-libretro.git"
