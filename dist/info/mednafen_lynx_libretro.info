@@ -1,4 +1,4 @@
-display_name = "Atari Lynx (Mednafen Lynx)"
+display_name = "Atari Lynx (Mednafen Handy)"
 authors = "K. Wilkins|Ryphecha"
 supported_extensions = "lnx"
 corename = "Mednafen Lynx"
