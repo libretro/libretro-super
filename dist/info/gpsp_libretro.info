@@ -14,3 +14,4 @@ firmware_count = 1
 firmware0_desc = "gba_bios.bin (GBA BIOS)"
 firmware0_path = "gba_bios.bin"
 firmware0_opt = "false"
+notes = "Suggested md5sum:|a860e8c0b6d573d191e4ec7db1b1e4f6 = gba_bios.bin"
