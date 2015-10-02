@@ -14,3 +14,4 @@ firmware_count = 1
 firmware0_desc = "o2rom.bin (Odyssey2 BIOS)"
 firmware0_path = "o2rom.bin"
 firmware0_opt = "false"
+notes = "Suggested md5sum:|562d5ebf9e030a40d6fabfc2f33139fd = o2rom.bin"

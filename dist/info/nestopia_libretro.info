@@ -14,3 +14,4 @@ firmware_count = 1
 firmware0_desc = "disksys.rom (Famicom Disk System BIOS)"
 firmware0_path = "disksys.rom"
 firmware0_opt = "false"
+notes = "Suggested md5sum:|CA30B50F880EB660A320674ED365EF7A = disksys.rom"
