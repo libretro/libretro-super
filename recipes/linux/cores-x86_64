@@ -15,6 +15,9 @@ desmume libretro-desmume https://github.com/libretro/desmume.git PROJECT YES GEN
 dinothawr libretro-dinothawr https://github.com/libretro/Dinothawr.git PROJECT YES GENERIC Makefile . 
 dosbox libretro-dosbox https://github.com/libretro/dosbox-libretro.git PROJECT YES GENERIC Makefile.libretro . 
 fb_alpha libretro-fba https://github.com/libretro/fba-libretro.git PROJECT YES GENERIC makefile.libretro svn-current/trunk 
+fb_alpha_cps1 libretro-fba_cps1 https://github.com/libretro/fba_cores_cps1.git PROJECT YES GENERIC makefile.libretro . 
+fb_alpha_cps2 libretro-fba_cps2 https://github.com/libretro/fba_cores_cps2.git PROJECT YES GENERIC makefile.libretro . 
+fb_alpha_neo libretro-fba_neo https://github.com/libretro/fba_cores_neo.git PROJECT YES GENERIC Makefile . 
 fba libretro-fba_new https://github.com/libretro/libretro-fba.git PROJECT YES GENERIC makefile.libretro . 
 fceumm libretro-fceuumm  https://github.com/libretro/libretro-fceumm.git PROJECT YES GENERIC Makefile.libretro . 
 ffmpeg libretro-ffmpeg  https://github.com/libretro/FFmpeg.git PROJECT YES GENERIC_GL Makefile libretro 
@@ -60,12 +63,3 @@ vbam libretro-vbam https://github.com/libretro/vbam-libretro.git PROJECT YES GEN
 vecx libretro-vecx  https://github.com/libretro/libretro-vecx.git PROJECT YES GENERIC Makefile.libretro . 
 virtualjaguar libretro-virtualjaguar https://github.com/libretro/virtualjaguar-libretro.git PROJECT YES GENERIC Makefile . 
 yabause libretro-yabause https://github.com/libretro/yabause.git PROJECT YES GENERIC Makefile libretro 
-fb_alpha_cps2 libretro-fba_cps2 https://github.com/libretro/fba_cores_cps2.git PROJECT YES GENERIC makefile.libretro . 
-fb_alpha_cps1 libretro-fba_cps1 https://github.com/libretro/fba_cores_cps1.git PROJECT YES GENERIC makefile.libretro . 
-fb_alpha_neo libretro-fba_neo https://github.com/libretro/fba_cores_neo.git PROJECT YES GENERIC Makefile . 
-mame libretro-mame https://github.com/libretro/mame.git PROJECT YES GENERIC Makefile.libretro . 
-mame078 libretro-mame2003 https://github.com/libretro/mame2003-libretro.git PROJECT YES GENERIC Makefile . PTR64=1 
-mame2010 libretro-mame2010 https://github.com/libretro/mame2010-libretro.git PROJECT YES GENERIC Makefile.libretro . VRENDER=soft PTR64=1 
-mame2014 libretro-mame2014 https://github.com/libretro/mame2014-libretro.git PROJECT YES GENERIC Makefile.libretro . TARGET=mame PTR64=1 PARTIAL=0 
-mess2014 libretro-mame2014 https://github.com/libretro/mame2014-libretro.git PROJECT YES GENERIC Makefile.libretro . TARGET=mess PTR64=1 PARTIAL=1 
-ume2014 libretro-mame2014 https://github.com/libretro/mame2014-libretro.git PROJECT YES GENERIC Makefile.libretro . TARGET=ume PTR64=1 PARTIAL=1 
