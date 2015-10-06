@@ -220,14 +220,18 @@ build_libretro_generic_makefile() {
 
 	echo BUILDBOT THREADS: $JOBS
 
-	if [ "${NAME}" = "mame078" ]; then
+	if [ "${NAME}" == "mame078" ]; then
 		JOBS=1
+	fi
+	if [ "${NAME}" == "mame2010" ]; then
+		JOBS=1
+                NOCLEAN=1
 	fi
 
 	if [ -z "${NOCLEAN}" ]; then
 		echo "cleaning up..."
-		echo "cleanup command: ${MAKE} -f ${MAKEFILE} platform=${PLATFORM} -j${JOBS} ${ARGS} clean"
-		${MAKE} -f ${MAKEFILE} platform=${PLATFORM} -j${JOBS} ${ARGS} clean
+		echo "cleanup command: ${MAKE} -f ${MAKEFILE} platform=${PLATFORM} -j${JOBS} clean"
+		${MAKE} -f ${MAKEFILE} platform=${PLATFORM} -j${JOBS} clean
 		if [ $? -eq 0 ]; then
 			echo BUILDBOT JOB: $jobid $1 cleanup success!
 		else
@@ -240,11 +244,11 @@ build_libretro_generic_makefile() {
 		echo "build command: ${MAKE} -f ${MAKEFILE} platform=${PLATFORM} -j${JOBS}"
 		${MAKE} -f ${MAKEFILE} platform=${PLATFORM} -j${JOBS} &> $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}.log
 	else
-		if [ "${NAME}" = "mame2010" ]; then
-
-			echo "build command: ${MAKE} -f ${MAKEFILE} platform=${PLATFORM} -j${JOBS} ${ARGS}" buildtools
-			${MAKE} -f ${MAKEFILE} platform=${PLATFORM} -j${JOBS} ${ARGS} buildtools
+		if [ "${NAME}" == "mame2010" ]; then
+ 	        	echo "build command: ${MAKE} -f ${MAKEFILE} "VRENDER=soft" "NATIVE=1" buildtools -j${JOBS}"
+	       	        ${MAKE} -f ${MAKEFILE} "VRENDER=soft" "NATIVE=1" buildtools -j${JOBS} &> $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}.log
 		fi
+
 		echo "build command: ${MAKE} -f ${MAKEFILE} platform=${PLATFORM} -j${JOBS} ${ARGS}"
 		${MAKE} -f ${MAKEFILE} platform=${PLATFORM} -j${JOBS} ${ARGS} &>> $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}.log
 	fi
@@ -804,6 +808,12 @@ while read line; do
 					FORCE="YES"
 					BUILD="YES"
 				fi
+
+				if [ "${PREVCORE}" = "mame2010" -a "${PREVBUILD}" = "YES" -a "${NAME}" = "mame2010" ]; then
+					FORCE="YES"
+					BUILD="YES"
+				fi
+
 
 				cd $WORK
 			else
