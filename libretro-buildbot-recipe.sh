@@ -218,6 +218,7 @@ build_libretro_generic_makefile() {
 	cd $SUBDIR
 	OLDJ=$JOBS
 
+   echo NAME: $NAME
    echo CC: $CC
    echo CXX: $CXX
 
