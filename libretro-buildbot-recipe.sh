@@ -197,10 +197,10 @@ cd "${BASE_DIR}"
 # logs to alcarobot
 buildbot_log() {
 
-        echo MSG: $MESSAGE
-        MESSAGE=`echo -e $1`
+   echo === BUILDBOT MSG: $MESSAGE ===
+   MESSAGE=`echo -e $1`
 
-	HASH=`echo -n "$MESSAGE" | openssl sha1 -hmac $SIG | cut -f 2 -d " "`
+	HASH=`echo -n "$MESSAGE" | openssl sha1 -hmac $SIG | cut -f 2`
 	curl --max-time 30 --data "message=$MESSAGE&sign=$HASH" $LOGURL
 }
 
