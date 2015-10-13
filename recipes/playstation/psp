@@ -10,3 +10,4 @@ nxengine libretro-nxengine https://github.com/libretro/nxengine-libretro.git PRO
 prboom libretro-prboom  https://github.com/libretro/libretro-prboom.git PROJECT YES GENERIC Makefile . 
 quicknes libretro-quicknes  https://github.com/libretro/QuickNES_Core.git PROJECT YES GENERIC Makefile . 
 tempgba libretro-tempgba https://github.com/libretro/TempGBA-libretro.git PROJECT YES GENERIC Makefile . 
+picodrive libretro-picodrive https://github.com/aliaspider/picodrive.git PROJECT YES GENERIC Makefile.libretro . 
