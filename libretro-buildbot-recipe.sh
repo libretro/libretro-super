@@ -214,13 +214,11 @@ build_libretro_generic_makefile() {
 	ARGS=$6
 	JOBS=$JOBS
 
+   BUILDBOT_DBG1="NAME: $NAME DIR: $DIR SUBDIR: $SUBDIR MAKEFILE: $MAKEFILE PLATFORM: $PLATFORM ARGS: $ARGS CC: $CC CXX: $CXX"
+
 	cd $DIR
 	cd $SUBDIR
 	OLDJ=$JOBS
-
-   echo NAME: $NAME
-   echo CC: $CC
-   echo CXX: $CXX
 
 	echo BUILDBOT THREADS: $JOBS
 
@@ -229,7 +227,7 @@ build_libretro_generic_makefile() {
 	fi
 	if [ "${NAME}" == "mame2010" ]; then
 		JOBS=1
-                NOCLEAN=1
+      NOCLEAN=1
 	fi
 
 	if [ -z "${NOCLEAN}" ]; then
@@ -245,23 +243,25 @@ build_libretro_generic_makefile() {
 
 	echo "compiling..."
 	if [ -z "${ARGS}" ]; then
-		echo "build command: ${MAKE} -f ${MAKEFILE} platform=${PLATFORM} -j${JOBS}"
+
+      BUILDBOT_DBG2="build command: ${MAKE} -f ${MAKEFILE} platform=${PLATFORM} -j${JOBS}"
+      echo "build command: ${MAKE} -f ${MAKEFILE} platform=${PLATFORM} -j${JOBS}"
 		${MAKE} -f ${MAKEFILE} platform=${PLATFORM} -j${JOBS} &> $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}.log
 	else
 		if [ "${NAME}" == "mame2010" ]; then
  	        	echo "build command: ${MAKE} -f ${MAKEFILE} "VRENDER=soft" "NATIVE=1" buildtools -j${JOBS}"
-	       	        PLATFORM=linux platform=linux ${MAKE} -f ${MAKEFILE} "VRENDER=soft" "NATIVE=1" buildtools -j${JOBS} &> $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}.log
+	         PLATFORM=linux platform=linux ${MAKE} -f ${MAKEFILE} "VRENDER=soft" "NATIVE=1" buildtools -j${JOBS} &> $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}.log
 			JOBS=$OLDJ
 		fi
-      if [ "${NAME}" == "picodrive" ]; then
-         echo "build command: CC="" CXX="" ${MAKE} -f ${MAKEFILE} platform=${PLATFORM} -j${JOBS} ${ARGS}"
-   		CC="" CXX="" ${MAKE} -f ${MAKEFILE} platform=${PLATFORM} -j${JOBS} ${ARGS} &>> $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}.log
-      else
-         echo "build command: ${MAKE} -f ${MAKEFILE} platform=${PLATFORM} -j${JOBS} ${ARGS}"
-   		${MAKE} -f ${MAKEFILE} platform=${PLATFORM} -j${JOBS} ${ARGS} &>> $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}.log
-      fi
 
+      BUILDBOT_DBG2="build command: ${MAKE} -f ${MAKEFILE} platform=${PLATFORM} -j${JOBS} ${ARGS}"
+      echo "build command: ${MAKE} -f ${MAKEFILE} platform=${PLATFORM} -j${JOBS} ${ARGS}"
+		echo "build command: ${MAKE} -f ${MAKEFILE} platform=${PLATFORM} -j${JOBS} ${ARGS}"
+		${MAKE} -f ${MAKEFILE} platform=${PLATFORM} -j${JOBS} ${ARGS} &>> $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}.log
 	fi
+
+   echo $BUILDBOT_DBG1 >> $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}.log
+   echo $BUILDBOT_DBG2 >> $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}.log
 
 	if [ $? -eq 0 ]; then
 		MESSAGE="$1 build successful [$jobid]"
