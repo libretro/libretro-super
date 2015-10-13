@@ -218,6 +218,9 @@ build_libretro_generic_makefile() {
 	cd $SUBDIR
 	OLDJ=$JOBS
 
+   echo CC: $CC
+   echo CXX: $CXX
+
 	echo BUILDBOT THREADS: $JOBS
 
 	if [ "${NAME}" == "mame078" ]; then
@@ -249,9 +252,14 @@ build_libretro_generic_makefile() {
 	       	        PLATFORM=linux platform=linux ${MAKE} -f ${MAKEFILE} "VRENDER=soft" "NATIVE=1" buildtools -j${JOBS} &> $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}.log
 			JOBS=$OLDJ
 		fi
+      if [ "${NAME}" == "picodrive" ]; then
+         echo "build command: CC="" CXX="" ${MAKE} -f ${MAKEFILE} platform=${PLATFORM} -j${JOBS} ${ARGS}"
+   		CC="" CXX="" ${MAKE} -f ${MAKEFILE} platform=${PLATFORM} -j${JOBS} ${ARGS} &>> $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}.log
+      else
+         echo "build command: ${MAKE} -f ${MAKEFILE} platform=${PLATFORM} -j${JOBS} ${ARGS}"
+   		${MAKE} -f ${MAKEFILE} platform=${PLATFORM} -j${JOBS} ${ARGS} &>> $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}.log
+      fi
 
-		echo "build command: ${MAKE} -f ${MAKEFILE} platform=${PLATFORM} -j${JOBS} ${ARGS}"
-		${MAKE} -f ${MAKEFILE} platform=${PLATFORM} -j${JOBS} ${ARGS} &>> $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}.log
 	fi
 
 	if [ $? -eq 0 ]; then
