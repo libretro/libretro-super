@@ -260,9 +260,6 @@ build_libretro_generic_makefile() {
 		${MAKE} -f ${MAKEFILE} platform=${PLATFORM} -j${JOBS} ${ARGS} &>> $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}.log
 	fi
 
-   echo $BUILDBOT_DBG1 >> $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}.log
-   echo $BUILDBOT_DBG2 >> $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}.log
-
 	if [ $? -eq 0 ]; then
 		MESSAGE="$1 build successful [$jobid]"
 		if [ "${MAKEPORTABLE}" == "YES" ]; then
@@ -279,7 +276,11 @@ build_libretro_generic_makefile() {
 		HASTE=`curl -XPOST http://hastebin.com/documents -d"$ERROR" | cut --fields=4 --delimiter='"'`
 		MESSAGE="$1 build failed [$jobid] LOG: http://hastebin.com/$HASTE"
 	fi
-		echo BUILDBOT JOB: $MESSAGE
+
+   echo $BUILDBOT_DBG1 >> $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}.log
+   echo $BUILDBOT_DBG2 >> $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}.log
+
+	echo BUILDBOT JOB: $MESSAGE
 	echo BUILDBOT JOB: $MESSAGE >> $TMPDIR/log/${BOT}/${LOGDATE}.log
 	buildbot_log "$MESSAGE"
 	JOBS=$OLDJ
