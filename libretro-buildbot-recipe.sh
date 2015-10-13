@@ -257,7 +257,7 @@ build_libretro_generic_makefile() {
       BUILDBOT_DBG2="build command: ${MAKE} -f ${MAKEFILE} platform=${PLATFORM} -j${JOBS} ${ARGS}"
       echo "build command: ${MAKE} -f ${MAKEFILE} platform=${PLATFORM} -j${JOBS} ${ARGS}"
 		echo "build command: ${MAKE} -f ${MAKEFILE} platform=${PLATFORM} -j${JOBS} ${ARGS}"
-		${MAKE} -f ${MAKEFILE} platform=${PLATFORM} -j${JOBS} ${ARGS} &>> $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}.log
+		${MAKE} -f ${MAKEFILE} platform=${PLATFORM} -j${JOBS} ${ARGS} | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}.log
 	fi
 
 	if [ $? -eq 0 ]; then
@@ -277,11 +277,11 @@ build_libretro_generic_makefile() {
 		MESSAGE="$1 build failed [$jobid] LOG: http://hastebin.com/$HASTE"
 	fi
 
-   echo $BUILDBOT_DBG1 >> $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}.log
-   echo $BUILDBOT_DBG2 >> $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}.log
+   echo $BUILDBOT_DBG1 | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}.log
+   echo $BUILDBOT_DBG2 | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}.log
 
 	echo BUILDBOT JOB: $MESSAGE
-	echo BUILDBOT JOB: $MESSAGE >> $TMPDIR/log/${BOT}/${LOGDATE}.log
+	echo BUILDBOT JOB: $MESSAGE | tee -a $TMPDIR/log/${BOT}/${LOGDATE}.log
 	buildbot_log "$MESSAGE"
 	JOBS=$OLDJ
 }
@@ -327,7 +327,7 @@ build_libretro_leiradel_makefile() {
 		MESSAGE="$1 build failed [$jobid] LOG: http://hastebin.com/$HASTE"
 	fi
 	echo BUILDBOT JOB: $MESSAGE
-	echo BUILDBOT JOB: $MESSAGE >> $TMPDIR/log/${BOT}/${LOGDATE}.log
+	echo BUILDBOT JOB: $MESSAGE | tee -a $TMPDIR/log/${BOT}/${LOGDATE}.log
 	buildbot_log "$MESSAGE"
 	JOBS=$OLDJ
 }
@@ -375,7 +375,7 @@ build_libretro_generic_theos() {
 		MESSAGE="$1 build failed [$jobid] LOG: http://hastebin.com/$HASTE"
 	fi
 	echo BUILDBOT JOB: $MESSAGE
-	echo BUILDBOT JOB: $MESSAGE >> $TMPDIR/log/${BOT}/${LOGDATE}.log
+	echo BUILDBOT JOB: $MESSAGE | tee -a $TMPDIR/log/${BOT}/${LOGDATE}.log
 	buildbot_log "$MESSAGE"
 }
 
@@ -421,7 +421,7 @@ build_libretro_generic_jni() {
 			HASTE=`curl -XPOST http://hastebin.com/documents -d"$ERROR" | cut --fields=4 --delimiter='"'`
 			MESSAGE="$1-$a build failed [$jobid] LOG: http://hastebin.com/$HASTE"
 			echo BUILDBOT JOB: $MESSAGE
-			echo BUILDBOT JOB: $MESSAGE >> $TMPDIR/log/${BOT}/${LOGDATE}.log
+			echo BUILDBOT JOB: $MESSAGE | tee -a $TMPDIR/log/${BOT}/${LOGDATE}.log
 			buildbot_log "$MESSAGE"
 		fi
 	done
@@ -470,7 +470,7 @@ build_libretro_bsnes_jni() {
 			MESSAGE="$1 build failed [$jobid] LOG: http://hastebin.com/$HASTE"
 		fi
 		echo BUILDBOT JOB: $MESSAGE
-		echo BUILDBOT JOB: $MESSAGE >> $TMPDIR/log/${BOT}/${LOGDATE}.log
+		echo BUILDBOT JOB: $MESSAGE | tee -a $TMPDIR/log/${BOT}/${LOGDATE}.log
 		buildbot_log "$MESSAGE"
 	done
 }
@@ -519,7 +519,7 @@ build_libretro_generic_gl_makefile() {
 		MESSAGE="$1 build failed [$jobid] LOG: http://hastebin.com/$HASTE"
 	fi
 	echo BUILDBOT JOB: $MESSAGE
-	echo BUILDBOT JOB: $MESSAGE >> $TMPDIR/log/${BOT}/${LOGDATE}.log
+	echo BUILDBOT JOB: $MESSAGE | tee -a $TMPDIR/log/${BOT}/${LOGDATE}.log
 	buildbot_log "$MESSAGE"
 
 	reset_compiler_targets
@@ -557,13 +557,13 @@ build_libretro_bsnes() {
 	echo "compiling..."
 
 	if [ "${PROFILE}" = "cpp98" ]; then
-		${MAKE} platform="${PLATFORM}" ${COMPILER} "-j${JOBS}" &>> $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}.log
+		${MAKE} platform="${PLATFORM}" ${COMPILER} "-j${JOBS}" | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}.log
 	elif [ "${PROFILE}" = "bnes" ]; then
 		echo "build command: ${MAKE} -f Makefile ${COMPILER} "-j${JOBS}" compiler=${BSNESCOMPILER}" platform=${FORMAT_COMPILER_TARGET}
-		${MAKE} -f Makefile ${COMPILER} "-j${JOBS}" compiler="${BSNESCOMPILER}" platform=${FORMAT_COMPILER_TARGET} &>> $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}.log
+		${MAKE} -f Makefile ${COMPILER} "-j${JOBS}" compiler="${BSNESCOMPILER}" platform=${FORMAT_COMPILER_TARGET} | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}.log
 	else
 		echo "build command: ${MAKE} -f ${MAKEFILE} platform=${PLATFORM} compiler=${BSNESCOMPILER} ui='target-libretro' profile=${PROFILE} -j${JOBS}"
-		${MAKE} -f ${MAKEFILE} platform=${PLATFORM} compiler=${BSNESCOMPILER} ui='target-libretro' profile=${PROFILE} -j${JOBS} &>> $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}.log
+		${MAKE} -f ${MAKEFILE} platform=${PLATFORM} compiler=${BSNESCOMPILER} ui='target-libretro' profile=${PROFILE} -j${JOBS} | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}.log
 	fi
 
 	if [ $? -eq 0 ]; then
@@ -581,7 +581,7 @@ build_libretro_bsnes() {
 		MESSAGE="$1 build failed [$jobid] LOG: http://hastebin.com/$HASTE"
 	fi
 	echo BUILDBOT JOB: $MESSAGE
-	echo BUILDBOT JOB: $MESSAGE >> $TMPDIR/log/${BOT}/${LOGDATE}.log
+	echo BUILDBOT JOB: $MESSAGE | tee -a $TMPDIR/log/${BOT}/${LOGDATE}.log
 	buildbot_log "$MESSAGE"
 }
 
@@ -737,10 +737,10 @@ while read line; do
 					BUILD="NO"
 				else
 					BUILD="YES"
-					echo >> $CLOGFILE
-					echo $NAME $LOGDATE >> $CLOGFILE
-					echo --------------------------------------- >> $CLOGFILE
-					echo "$CLOG" >> $CLOGFILE
+					echo | tee -a $CLOGFILE
+					echo $NAME $LOGDATE | tee -a $CLOGFILE
+					echo --------------------------------------- | tee -a $CLOGFILE
+					echo "$CLOG" | tee -a $CLOGFILE
 				fi
 
 				OLDFORCE=$FORCE
@@ -844,10 +844,10 @@ while read line; do
 					BUILD="NO"
 				else
 					BUILD="YES"
-					echo >> $CLOGFILE
-					echo $NAME $LOGDATE >> $CLOGFILE
-					echo --------------------------------------- >> $CLOGFILE
-					echo "$CLOG" >> $CLOGFILE
+					echo | tee -a $CLOGFILE
+					echo $NAME $LOGDATE | tee -a $CLOGFILE
+					echo --------------------------------------- | tee -a $CLOGFILE
+					echo "$CLOG" | tee -a $CLOGFILE
 				fi
 				cd $WORK
 
@@ -872,10 +872,10 @@ while read line; do
 					BUILD="NO"
 				else
 					BUILD="YES"
-					echo >> $CLOGFILE
-					echo $NAME $LOGDATE >> $CLOGFILE
-					echo --------------------------------------- >> $CLOGFILE
-					echo "$CLOG" >> $CLOGFILE
+					echo | tee -a $CLOGFILE
+					echo $NAME $LOGDATE | tee -a $CLOGFILE
+					echo --------------------------------------- | tee -a $CLOGFILE
+					echo "$CLOG" | tee -a $CLOGFILE
 				fi
 				OUT=`git submodule foreach git pull origin master`
 				cd $WORK
@@ -999,10 +999,10 @@ if [ "${PLATFORM}" = "android" ] && [ "${RA}" = "YES" ]; then
 						BUILD="NO"
 					else
 						BUILD="YES"
-						echo >> $CLOGFILE
-						echo $NAME $LOGDATE >> $CLOGFILE
-						echo --------------------------------------- >> $CLOGFILE
-						echo "$CLOG" >> $CLOGFILE
+						echo | tee -a $CLOGFILE
+						echo $NAME $LOGDATE | tee -a $CLOGFILE
+						echo --------------------------------------- | tee -a $CLOGFILE
+						echo "$CLOG" | tee -a $CLOGFILE
 					fi
 				fi
 				cd $WORK
@@ -1087,13 +1087,13 @@ if [ "${PLATFORM}" = "android" ] && [ "${RA}" = "YES" ]; then
 		cd pkg/android/phoenix
 		rm bin/*.apk
 
-		$NDK clean &> $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_${PLATFORM}.log
-		$NDK -j${JOBS} &>> $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_${PLATFORM}.log
-		ant clean &>> $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_${PLATFORM}.log
-		android update project --path . --target android-22 &>> $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_${PLATFORM}.log
-		android update project --path libs/googleplay --target android-21 &>> $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_${PLATFORM}.log
-		android update project --path libs/appcompat --target android-21 &>> $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_${PLATFORM}.log
-		ant debug &>> $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_${PLATFORM}.log
+		$NDK clean | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_${PLATFORM}.log
+		$NDK -j${JOBS} | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_${PLATFORM}.log
+		ant clean | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_${PLATFORM}.log
+		android update project --path . --target android-22 | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_${PLATFORM}.log
+		android update project --path libs/googleplay --target android-21 | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_${PLATFORM}.log
+		android update project --path libs/appcompat --target android-21 | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_${PLATFORM}.log
+		ant debug | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_${PLATFORM}.log
 		if [ $? -eq 0 ]; then
 			MESSAGE="retroarch build successful [$jobid]"
 			echo $MESSAGE
@@ -1103,7 +1103,7 @@ if [ "${PLATFORM}" = "android" ] && [ "${RA}" = "YES" ]; then
 			MESSAGE="retroarch build failed [$jobid] LOG: http://hastebin.com/$HASTE"
 			echo $MESSAGE
 		fi
-			echo BUILDBOT JOB: $MESSAGE >> $TMPDIR/log/${BOT}/${LOGDATE}.log
+			echo BUILDBOT JOB: $MESSAGE | tee -a $TMPDIR/log/${BOT}/${LOGDATE}.log
 		buildbot_log "$MESSAGE"
 	fi
 fi
@@ -1177,10 +1177,10 @@ if [ "${PLATFORM}" = "theos_ios" ] && [ "${RA}" = "YES" ]; then
 						BUILD="NO"
 					else
 						BUILD="YES"
-						echo >> $CLOGFILE
-						echo $NAME $LOGDATE >> $CLOGFILE
-						echo --------------------------------------- >> $CLOGFILE
-						echo "$CLOG" >> $CLOGFILE
+						echo | tee -a $CLOGFILE
+						echo $NAME $LOGDATE | tee -a $CLOGFILE
+						echo --------------------------------------- | tee -a $CLOGFILE
+						echo "$CLOG" | tee -a $CLOGFILE
 					fi
 				fi
 				cd $WORK
@@ -1291,10 +1291,10 @@ if [ "${PLATFORM}" = "MINGW64" ] || [ "${PLATFORM}" = "MINGW32" ] && [ "${RA}" =
 						BUILD="NO"
 					else
 						BUILD="YES"
-						echo >> $CLOGFILE
-						echo $NAME $LOGDATE >> $CLOGFILE
-						echo --------------------------------------- >> $CLOGFILE
-						echo "$CLOG" >> $CLOGFILE
+						echo | tee -a $CLOGFILE
+						echo $NAME $LOGDATE | tee -a $CLOGFILE
+						echo --------------------------------------- | tee -a $CLOGFILE
+						echo "$CLOG" | tee -a $CLOGFILE
 					fi
 				fi
 				cd $WORK
@@ -1378,7 +1378,7 @@ if [ "${PLATFORM}" = "MINGW64" ] || [ "${PLATFORM}" = "MINGW32" ] && [ "${RA}" =
 		if [ $? -eq 0 ]; then
 			MESSAGE="retroarch build successful [$jobid]"
 			echo $MESSAGE
-			echo BUILDBOT JOB: $MESSAGE >> $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_${PLATFORM}.log
+			echo BUILDBOT JOB: $MESSAGE | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_${PLATFORM}.log
 			buildbot_log "$MESSAGE"
 
 			echo "Packaging"
@@ -1457,7 +1457,7 @@ EOF
 			HASTE=`curl -XPOST http://hastebin.com/documents -d"$ERROR" | cut --fields=4 --delimiter='"'`
 			MESSAGE="retroarch build failed [$jobid] LOG: http://hastebin.com/$HASTE"
 			echo $MESSAGE
-			echo BUILDBOT JOB: $MESSAGE >> $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_${PLATFORM}.log
+			echo BUILDBOT JOB: $MESSAGE | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_${PLATFORM}.log
 			buildbot_log "$MESSAGE"
 		fi
 	fi
@@ -1532,10 +1532,10 @@ if [ "${PLATFORM}" = "psp1" ] && [ "${RA}" = "YES" ]; then
 						BUILD="NO"
 					else
 						BUILD="YES"
-						echo >> $CLOGFILE
-						echo $NAME $LOGDATE >> $CLOGFILE
-						echo --------------------------------------- >> $CLOGFILE
-						echo "$CLOG" >> $CLOGFILE
+						echo | tee -a $CLOGFILE
+						echo $NAME $LOGDATE | tee -a $CLOGFILE
+						echo --------------------------------------- | tee -a $CLOGFILE
+						echo "$CLOG" | tee -a $CLOGFILE
 					fi
 				fi
 				cd $WORK
@@ -1579,7 +1579,7 @@ if [ "${PLATFORM}" = "psp1" ] && [ "${RA}" = "YES" ]; then
 			echo $MESSAGE
 		fi
 		buildbot_log "$MESSAGE"
-		echo BUILDBOT JOB: $MESSAGE >> $TMPDIR/log/${BOT}/${LOGDATE}.log
+		echo BUILDBOT JOB: $MESSAGE | tee -a $TMPDIR/log/${BOT}/${LOGDATE}.log
 
 		echo "Packaging"
 		echo ============================================
@@ -1662,10 +1662,10 @@ if [ "${PLATFORM}" == "wii" ] && [ "${RA}" == "YES" ]; then
 						BUILD="NO"
 					else
 						BUILD="YES"
-						echo >> $CLOGFILE
-						echo $NAME $LOGDATE >> $CLOGFILE
-						echo --------------------------------------- >> $CLOGFILE
-						echo "$CLOG" >> $CLOGFILE
+						echo | tee -a $CLOGFILE
+						echo $NAME $LOGDATE | tee -a $CLOGFILE
+						echo --------------------------------------- | tee -a $CLOGFILE
+						echo "$CLOG" | tee -a $CLOGFILE
 					fi
 				fi
 				cd $WORK
@@ -1711,7 +1711,7 @@ if [ "${PLATFORM}" == "wii" ] && [ "${RA}" == "YES" ]; then
 				echo $MESSAGE
 			fi
 			buildbot_log "$MESSAGE"
-			echo BUILDBOT JOB: $MESSAGE >> $TMPDIR/log/${BOT}/${LOGDATE}.log
+			echo BUILDBOT JOB: $MESSAGE | tee -a $TMPDIR/log/${BOT}/${LOGDATE}.log
 			cd $WORK/$RADIR
 		fi
 
@@ -1809,10 +1809,10 @@ then
 					BUILD="NO"
 				else
 					BUILD="YES"
-					echo >> $CLOGFILE
-					echo $NAME $LOGDATE >> $CLOGFILE
-					echo --------------------------------------- >> $CLOGFILE
-					echo "$CLOG" >> $CLOGFILE
+					echo | tee -a $CLOGFILE
+					echo $NAME $LOGDATE | tee -a $CLOGFILE
+					echo --------------------------------------- | tee -a $CLOGFILE
+					echo "$CLOG" | tee -a $CLOGFILE
 				fi
 			fi
 			cd $WORK
@@ -1858,7 +1858,7 @@ then
 			echo $MESSAGE
 		fi
 		buildbot_log "$MESSAGE"
-		echo BUILDBOT JOB: $MESSAGE >> $TMPDIR/log/${BOT}/${LOGDATE}.log
+		echo BUILDBOT JOB: $MESSAGE | tee -a $TMPDIR/log/${BOT}/${LOGDATE}.log
 		cd ..
 
 		echo "Packaging"
@@ -1942,10 +1942,10 @@ if [ "${PLATFORM}" == "ctr" ] && [ "${RA}" == "YES" ]; then
 						BUILD="NO"
 					else
 						BUILD="YES"
-						echo >> $CLOGFILE
-						echo $NAME $LOGDATE >> $CLOGFILE
-						echo --------------------------------------- >> $CLOGFILE
-						echo "$CLOG" >> $CLOGFILE
+						echo | tee -a $CLOGFILE
+						echo $NAME $LOGDATE | tee -a $CLOGFILE
+						echo --------------------------------------- | tee -a $CLOGFILE
+						echo "$CLOG" | tee -a $CLOGFILE
 					fi
 				fi
 				echo $OUT $BUILD $FORCE $FORCE_RETROARCH_BUILD
@@ -1992,7 +1992,7 @@ if [ "${PLATFORM}" == "ctr" ] && [ "${RA}" == "YES" ]; then
 			echo $MESSAGE
 		fi
 		buildbot_log "$MESSAGE"
-		echo BUILDBOT JOB: $MESSAGE >> $TMPDIR/log/${BOT}/${LOGDATE}.log
+		echo BUILDBOT JOB: $MESSAGE | tee -a $TMPDIR/log/${BOT}/${LOGDATE}.log
 		cd $WORK/$RADIR
 
 
@@ -2076,10 +2076,10 @@ if [ "${PLATFORM}" == "vita" ] && [ "${RA}" == "YES" ]; then
 						BUILD="NO"
 					else
 						BUILD="YES"
-						echo >> $CLOGFILE
-						echo $NAME $LOGDATE >> $CLOGFILE
-						echo --------------------------------------- >> $CLOGFILE
-						echo "$CLOG" >> $CLOGFILE
+						echo | tee -a4 $CLOGFILE
+						echo $NAME $LOGDATE | tee -a $CLOGFILE
+						echo --------------------------------------- | tee -a $CLOGFILE
+						echo "$CLOG" | tee -a $CLOGFILE
 					fi
 				fi
 				echo $OUT $BUILD $FORCE $FORCE_RETROARCH_BUILD
@@ -2126,7 +2126,7 @@ if [ "${PLATFORM}" == "vita" ] && [ "${RA}" == "YES" ]; then
 			echo $MESSAGE
 		fi
 		buildbot_log "$MESSAGE"
-		echo BUILDBOT JOB: $MESSAGE >> $TMPDIR/log/${BOT}/${LOGDATE}.log
+		echo BUILDBOT JOB: $MESSAGE | tee -a $TMPDIR/log/${BOT}/${LOGDATE}.log
 		cd $WORK/$RADIR
 
 
