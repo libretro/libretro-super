@@ -1,26 +1,24 @@
 # vim: set ts=3 sw=3 noet ft=sh : bash
 
 ####usage:
-# ./libretro-fetch-and-build.sh configfile
+# ./libretro-buildbot-recipe.sh configfile
 # if you want to force all enabled cores to rebuild prepend FORCE=YES
 # you may need to specify your make command by prepending it to the commandline, for instance MAKE=mingw32-make
 #
 # eg: FORCE=YES MAKE=mingw32-make ./libretro-fetch-and-build.sh buildbot
 
-####environment configuration:
+
+
+# setup the environment with the variables from the recipe config
 echo "BUILDBOT JOB: Setting up Environment for $1"
 echo
 
 LOGDATE=`date +%Y-%m-%d`
 
-
-echo $LOGDATE BOT: $BOT FORCE: $FORCE JOBS: $JOBS
-
 ORIGPATH=$PATH
 WORK=$PWD
 
-
-echo Original PATH: $PATH
+echo OLD PATH: $PATH
 
 while read line; do
 	KEY=`echo $line | cut -f 1 -d " "`
@@ -28,7 +26,7 @@ while read line; do
 
 	if [ "${KEY}" = "PATH" ]; then
 		export PATH=${VALUE}:${ORIGPATH}
-		echo New PATH: $PATH
+		echo NEW PATH: $PATH
 	else
 		export ${KEY}=${VALUE}
 		echo $KEY: $VALUE
@@ -37,29 +35,37 @@ done < $1.conf
 echo
 echo
 
+# set a few extra variables with libretro-config.sh
 . $WORK/libretro-config.sh
 
+# set jobs to 2 if not specified
 if [ -z "$JOBS" ]; then
-	JOBS=4
+	JOBS=2
 fi
 
+# set force to NO if not specified
+# this is useful if running manually
 if [ -z "$FORCE" ]; then
 	FORCE=NO
 fi
 
+# set force_retroarch_build to NO if not specified
+# this is useful if running manually
 if [ -z "$FORCE_RETROARCH_BUILD" ]; then
 	FORCE_RETROARCH_BUILD=NO
 fi
+
+# keep track if cores have been built to force building RetroArch
+# for statically linked platforms
 CORES_BUILT=NO
 
+# original values of some variables that might change for a particular job
 OLDFORCE=$FORCE
-
-
 OLDJ=$JOBS
 
-echo $JOBS
+echo === BUILDBOT VARS: $LOGDATE BOTNAME: $BOT FORCE: $FORCE JOBS: $JOBS ===
 
-echo
+# set format_compiler_target
 [[ "${ARM_NEON}" ]] && echo 'ARM NEON opts enabled...' && export FORMAT_COMPILER_TARGET="${FORMAT_COMPILER_TARGET}-neon"
 [[ "${CORTEX_A8}" ]] && echo 'Cortex A8 opts enabled...' && export FORMAT_COMPILER_TARGET="${FORMAT_COMPILER_TARGET}-cortexa8"
 [[ "${CORTEX_A9}" ]] && echo 'Cortex A9 opts enabled...' && export FORMAT_COMPILER_TARGET="${FORMAT_COMPILER_TARGET}-cortexa9"
@@ -67,7 +73,6 @@ echo
 [[ "${ARM_SOFTFLOAT}" ]] && echo 'ARM softfloat ABI enabled...' && export FORMAT_COMPILER_TARGET="${FORMAT_COMPILER_TARGET}-softfloat"
 [[ "${IOS}" ]] && echo 'iOS detected...'
 
-# BSDs don't have readlink -f
 read_link()
 {
 	TARGET_FILE="$1"
@@ -91,8 +96,10 @@ if [ -z "$RARCH_DIST_DIR" ]; then
 	RARCH_DIST_DIR="$RARCH_DIR/$DIST_DIR"
 fi
 
+# create the folder that will hold compiled cores
 mkdir -v -p "$RARCH_DIST_DIR"
 
+# create the folder for each androi abi
 if [ "${PLATFORM}" = "android" ]; then
 	IFS=' ' read -ra ABIS <<< "$TARGET_ABIS"
 	for a in "${ABIS[@]}"; do
@@ -105,13 +112,13 @@ if [ "${PLATFORM}" = "android" ]; then
 	done
 fi
 
+# define the compilers
 if [ "$HOST_CC" ]; then
 	CC="${HOST_CC}-gcc"
 	CXX="${HOST_CC}-g++"
 	CXX11="${HOST_CC}-g++"
 	STRIP="${HOST_CC}-strip"
 fi
-
 
 if [ -z "$MAKE" ]; then
 	if uname -s | grep -i MINGW32 > /dev/null 2>&1; then
@@ -124,7 +131,6 @@ if [ -z "$MAKE" ]; then
 		fi
 	fi
 fi
-
 
 if [ -z "$CC" ]; then
 	if [ $FORMAT_COMPILER_TARGET = "osx" ]; then
@@ -155,12 +161,7 @@ else
 	COMPILER=""
 fi
 
-echo
-echo "CC = $CC"
-echo "CXX = $CXX"
-echo "STRIP = $STRIP"
-echo "COMPILER = $COMPILER"
-echo
+echo === BUILDBOT VARS: CC: $CC CXX:: $CXX STRIP: $STRIP COMPILER: $COMPILER ===
 
 export CC=$CC
 export CXX=$CXX
@@ -189,10 +190,11 @@ reset_compiler_targets() {
 	export FORMAT_COMPILER_TARGET_ALT=$RESET_FORMAT_COMPILER_TARGET_ALT
 }
 
-
 cd "${BASE_DIR}"
 
-####build commands
+# build commands
+
+# logs to alcarobot
 buildbot_log() {
 
         echo MSG: $MESSAGE
@@ -200,10 +202,10 @@ buildbot_log() {
 
 	HASH=`echo -n "$MESSAGE" | openssl sha1 -hmac $SIG | cut -f 2 -d " "`
 	curl --max-time 30 --data "message=$MESSAGE&sign=$HASH" $LOGURL
-
-
 }
 
+# generic makefile job
+# it includes a few workarounds for a few problematic cores, I plan to move these to a different command later
 build_libretro_generic_makefile() {
 
 	NAME=$1
@@ -277,16 +279,15 @@ build_libretro_generic_makefile() {
 		MESSAGE="$1 build failed [$jobid] LOG: http://hastebin.com/$HASTE"
 	fi
 
-   echo $BUILDBOT_DBG1 | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}.log
-   echo $BUILDBOT_DBG2 | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}.log
-
 	echo BUILDBOT JOB: $MESSAGE
+   echo === BUILDBOT VARS: $BUILDBOT_DBG1 === | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}.log
+   echo === BUILDBOT VARS: $BUILDBOT_DBG2 === | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}.log
 	echo BUILDBOT JOB: $MESSAGE | tee -a $TMPDIR/log/${BOT}/${LOGDATE}.log
 	buildbot_log "$MESSAGE"
 	JOBS=$OLDJ
 }
 
-
+# command fo leiradel's cross makefiles
 build_libretro_leiradel_makefile() {
 
 	NAME=$1
@@ -332,7 +333,7 @@ build_libretro_leiradel_makefile() {
 	JOBS=$OLDJ
 }
 
-
+# command for theos cores
 build_libretro_generic_theos() {
 	echo PARAMETERS: DIR $2, SUBDIR: $3, MAKEFILE: $4
 
@@ -379,6 +380,7 @@ build_libretro_generic_theos() {
 	buildbot_log "$MESSAGE"
 }
 
+# command for jni makefiles
 build_libretro_generic_jni() {
 	echo PARAMETERS: DIR $2, SUBDIR: $3
 
@@ -427,6 +429,7 @@ build_libretro_generic_jni() {
 	done
 }
 
+# command for bsnes jni makefiles
 build_libretro_bsnes_jni() {
 	echo PARAMETERS: DIR $2, SUBDIR: $3
 
@@ -475,7 +478,7 @@ build_libretro_bsnes_jni() {
 	done
 }
 
-
+# command for gl cores, not sure if this is still needed but it uses an alternate format_compiler_target
 build_libretro_generic_gl_makefile() {
 
 	NAME=$1
@@ -525,7 +528,7 @@ build_libretro_generic_gl_makefile() {
 	reset_compiler_targets
 }
 
-
+# command for bsnes
 build_libretro_bsnes() {
 
 	NAME=$1
@@ -585,11 +588,12 @@ build_libretro_bsnes() {
 	buildbot_log "$MESSAGE"
 }
 
-#fetch a project and mark it for building if there have been any changes
 
-#sleep 10
+# main part of the script
+
 export jobid=$1
 
+# fetch a project and mark it for building if there have been any changes
 echo
 echo
 while read line; do
@@ -725,76 +729,72 @@ while read line; do
 		echo ARGS: $ARGS
 		echo
 		echo
+      # repo is a regular repository
 		if [ "${TYPE}" = "PROJECT" ]; then
 			if [ -d "${DIR}/.git" ]; then
 
 				cd $DIR
 				echo "pulling from repo... "
 				OUT=`git pull`
-				CLOG=`git log --oneline ORIG_HEAD..`
 
 				if [[ $OUT == *"Already up-to-date"* ]]; then
 					BUILD="NO"
 				else
 					BUILD="YES"
-					echo | tee -a $CLOGFILE
-					echo $NAME $LOGDATE | tee -a $CLOGFILE
-					echo --------------------------------------- | tee -a $CLOGFILE
-					echo "$CLOG" | tee -a $CLOGFILE
 				fi
 
 				OLDFORCE=$FORCE
 				OLDBUILD=$BUILD
 
 				echo $OUT $FORCE $BUILD
-
+            # workarounds for a few cores that might be built from the same source tree (it will be already up-to-date so it would be skipped otherwise)
 				if [ "${PREVCORE}" = "bsnes" -a "${PREVBUILD}" = "YES" -a "${COMMAND}" = "BSNES" ]; then
 					FORCE="YES"
 					BUILD="YES"
 				fi
 
-				if [ "${PREVCORE}" = "gw" -a "${PREVBUILD}" = "YES" -a "${COMMAND}" = "LEIRADEL" ]; then
+				if [ "${PREVCORE}" = "gw" -a "${PREVBUILD}" = "YES" -a "${NAME}" = "gw" ]; then
 					FORCE="YES"
 					BUILD="YES"
 				fi
 
-				if [ "${PREVCORE}" = "fuse" -a "${PREVBUILD}" = "YES" -a "${COMMAND}" = "LEIRADEL" ]; then
+				if [ "${PREVCORE}" = "fuse" -a "${PREVBUILD}" = "YES" -a "${NAME}" = "fuse" ]; then
 					FORCE="YES"
 					BUILD="YES"
 				fi
 
-				if [ "${PREVCORE}" = "81" -a "${PREVBUILD}" = "YES" -a "${COMMAND}" = "LEIRADEL" ]; then
+				if [ "${PREVCORE}" = "81" -a "${PREVBUILD}" = "YES" -a "${NAME}" = "81" ]; then
 					FORCE="YES"
 					BUILD="YES"
 				fi
 
 
-				if [ "${PREVCORE}" = "snes9x-next" -a "${PREVBUILD}" = "YES" -a "${COMMAND}" = "LEIRADEL" ]; then
+				if [ "${PREVCORE}" = "snes9x-next" -a "${PREVBUILD}" = "YES" -a "${NAME}" = "snes9x-next" ]; then
 					FORCE="YES"
 					BUILD="YES"
 				fi
 
-				if [ "${PREVCORE}" = "vba_next" -a "${PREVBUILD}" = "YES" -a "${COMMAND}" = "LEIRADEL" ]; then
+				if [ "${PREVCORE}" = "vba_next" -a "${PREVBUILD}" = "YES" -a "${NAME}" = "vba_next" ]; then
 					FORCE="YES"
 					BUILD="YES"
 				fi
 
-				if [ "${PREVCORE}" = "emux_nes" -a "${PREVBUILD}" = "YES" -a "${COMMAND}" = "LEIRADEL" ]; then
+				if [ "${PREVCORE}" = "emux_nes" -a "${PREVBUILD}" = "YES" -a "${NAME}" = "emux_nes" ]; then
 					FORCE="YES"
 					BUILD="YES"
 				fi
 
-				if [ "${PREVCORE}" = "emux_sms" -a "${PREVBUILD}" = "YES" -a "${COMMAND}" = "LEIRADEL" ]; then
+				if [ "${PREVCORE}" = "emux_sms" -a "${PREVBUILD}" = "YES" -a "${NAME}" = "emux_sms" ]; then
 					FORCE="YES"
 					BUILD="YES"
 				fi
 
-				if [ "${PREVCORE}" = "mgba" -a "${PREVBUILD}" = "YES" -a "${COMMAND}" = "LEIRADEL" ]; then
+				if [ "${PREVCORE}" = "mgba" -a "${PREVBUILD}" = "YES" -a "${NAME}" = "mgba" ]; then
 					FORCE="YES"
 					BUILD="YES"
 				fi
 
-				if [ "${PREVCORE}" = "snes9x_next" -a "${PREVBUILD}" = "YES" -a "${COMMAND}" = "LEIRADEL" ]; then
+				if [ "${PREVCORE}" = "snes9x_next" -a "${PREVBUILD}" = "YES" -a "${NAME}" = "snes9x_next" ]; then
 					FORCE="YES"
 					BUILD="YES"
 				fi
@@ -832,22 +832,19 @@ while read line; do
 				git clone --depth=1 "$URL" "$DIR"
 				BUILD="YES"
 			fi
+
+      # repo is a branch, need to make this more generic, currently only used for psp mednafen_pce
 		elif [ "${TYPE}" = "psp_hw_render" ]; then
 			if [ -d "${DIR}/.git" ]; then
 
 				cd $DIR
 				echo "pulling from repo... "
 				OUT=`git pull`
-				CLOG=`git log --oneline ORIG_HEAD..`
 
 				if [[ $OUT == *"Already up-to-date"* ]]; then
 					BUILD="NO"
 				else
 					BUILD="YES"
-					echo | tee -a $CLOGFILE
-					echo $NAME $LOGDATE | tee -a $CLOGFILE
-					echo --------------------------------------- | tee -a $CLOGFILE
-					echo "$CLOG" | tee -a $CLOGFILE
 				fi
 				cd $WORK
 
@@ -860,22 +857,18 @@ while read line; do
 				BUILD="YES"
 			fi
 
+      # repo has submodules
 		elif [ "${TYPE}" == "SUBMODULE" ]; then
 			if [ -d "${DIR}/.git" ]; then
 
 				cd $DIR
 				echo "pulling from repo... "
 				OUT=`git pull`
-				CLOG=`git log --oneline ORIG_HEAD..`
 
 				if [[ $OUT == *"Already up-to-date"* ]]; then
 					BUILD="NO"
 				else
 					BUILD="YES"
-					echo | tee -a $CLOGFILE
-					echo $NAME $LOGDATE | tee -a $CLOGFILE
-					echo --------------------------------------- | tee -a $CLOGFILE
-					echo "$CLOG" | tee -a $CLOGFILE
 				fi
 				OUT=`git submodule foreach git pull origin master`
 				cd $WORK
@@ -925,6 +918,9 @@ while read line; do
 
 done < $1
 
+
+# retroarch area of the script, a lot of code duplication could be removed but it's quite easy
+# to copy this for any other case and customize for the particular platform
 echo "BUILDBOT JOB: $jobid Building Retroarch"
 echo
 cd $WORK
@@ -990,7 +986,6 @@ if [ "${PLATFORM}" = "android" ] && [ "${RA}" = "YES" ]; then
 				cd $DIR
 				echo "pulling from repo... "
 				OUT=`git pull`
-				CLOG=`git log --oneline ORIG_HEAD..`
 
 				echo $OUT
 				if [ "${TYPE}" = "PROJECT" ]; then
@@ -999,10 +994,6 @@ if [ "${PLATFORM}" = "android" ] && [ "${RA}" = "YES" ]; then
 						BUILD="NO"
 					else
 						BUILD="YES"
-						echo | tee -a $CLOGFILE
-						echo $NAME $LOGDATE | tee -a $CLOGFILE
-						echo --------------------------------------- | tee -a $CLOGFILE
-						echo "$CLOG" | tee -a $CLOGFILE
 					fi
 				fi
 				cd $WORK
@@ -1036,7 +1027,6 @@ if [ "${PLATFORM}" = "android" ] && [ "${RA}" = "YES" ]; then
 		echo "BUILDBOT JOB: $jobid Processing Assets"
 		echo
 
-
 		rm -rf pkg/android/phoenix/assets/assets
 		rm -rf pkg/android/phoenix/assets/cores
 		rm -rf pkg/android/phoenix/assets/info
@@ -1066,7 +1056,6 @@ if [ "${PLATFORM}" = "android" ] && [ "${RA}" = "YES" ]; then
 		mkdir -p pkg/android/phoenix/assets/saves/
 		mkdir -p pkg/android/phoenix/assets/states/
 		mkdir -p pkg/android/phoenix/assets/system/
-
 
 		cp -rf media/assets/xmb pkg/android/phoenix/assets/assets/
 		cp -rf media/autoconfig/* pkg/android/phoenix/assets/autoconfig/
@@ -1168,7 +1157,6 @@ if [ "${PLATFORM}" = "theos_ios" ] && [ "${RA}" = "YES" ]; then
 				cd $DIR
 				echo "pulling from repo... "
 				OUT=`git pull`
-				CLOG=`git log --oneline ORIG_HEAD..`
 
 				echo $OUT
 				if [ "${TYPE}" = "PROJECT" ]; then
@@ -1177,10 +1165,6 @@ if [ "${PLATFORM}" = "theos_ios" ] && [ "${RA}" = "YES" ]; then
 						BUILD="NO"
 					else
 						BUILD="YES"
-						echo | tee -a $CLOGFILE
-						echo $NAME $LOGDATE | tee -a $CLOGFILE
-						echo --------------------------------------- | tee -a $CLOGFILE
-						echo "$CLOG" | tee -a $CLOGFILE
 					fi
 				fi
 				cd $WORK
@@ -1215,7 +1199,6 @@ if [ "${PLATFORM}" = "theos_ios" ] && [ "${RA}" = "YES" ]; then
 		echo "BUILDBOT JOB: $jobid Processing Assets"
 		echo
 
-
 		echo "BUILDBOT JOB: $jobid Building"
 		echo
 		cd apple/iOS
@@ -1235,7 +1218,6 @@ if [ "${PLATFORM}" = "theos_ios" ] && [ "${RA}" = "YES" ]; then
 
 		cp -r *.deb /home/buildbot/www/.radius/
 	fi
-
 fi
 
 if [ "${PLATFORM}" = "MINGW64" ] || [ "${PLATFORM}" = "MINGW32" ] && [ "${RA}" = "YES" ]; then
@@ -1282,7 +1264,6 @@ if [ "${PLATFORM}" = "MINGW64" ] || [ "${PLATFORM}" = "MINGW32" ] && [ "${RA}" =
 				cd $DIR
 				echo "pulling from repo... "
 				OUT=`git pull`
-				CLOG=`git log --oneline ORIG_HEAD..`
 
 				echo $OUT
 				if [ "${TYPE}" = "PROJECT" ]; then
@@ -1291,10 +1272,6 @@ if [ "${PLATFORM}" = "MINGW64" ] || [ "${PLATFORM}" = "MINGW32" ] && [ "${RA}" =
 						BUILD="NO"
 					else
 						BUILD="YES"
-						echo | tee -a $CLOGFILE
-						echo $NAME $LOGDATE | tee -a $CLOGFILE
-						echo --------------------------------------- | tee -a $CLOGFILE
-						echo "$CLOG" | tee -a $CLOGFILE
 					fi
 				fi
 				cd $WORK
@@ -1523,7 +1500,6 @@ if [ "${PLATFORM}" = "psp1" ] && [ "${RA}" = "YES" ]; then
 				cd $DIR
 				echo "pulling from repo... "
 				OUT=`git pull`
-				CLOG=`git log --oneline ORIG_HEAD..`
 
 				echo $OUT
 				if [ "${TYPE}" = "PROJECT" ]; then
@@ -1532,10 +1508,6 @@ if [ "${PLATFORM}" = "psp1" ] && [ "${RA}" = "YES" ]; then
 						BUILD="NO"
 					else
 						BUILD="YES"
-						echo | tee -a $CLOGFILE
-						echo $NAME $LOGDATE | tee -a $CLOGFILE
-						echo --------------------------------------- | tee -a $CLOGFILE
-						echo "$CLOG" | tee -a $CLOGFILE
 					fi
 				fi
 				cd $WORK
@@ -1588,7 +1560,7 @@ if [ "${PLATFORM}" = "psp1" ] && [ "${RA}" = "YES" ]; then
 
 		mkdir -p pkg/psp1/
 		mkdir -p pkg/psp1/cheats
-                cp -p $RARCH_DIST_DIR/../info/*.info pkg/psp1/cores/
+      cp -p $RARCH_DIST_DIR/../info/*.info pkg/psp1/cores/
 
 	fi
 fi
@@ -1653,7 +1625,6 @@ if [ "${PLATFORM}" == "wii" ] && [ "${RA}" == "YES" ]; then
 				cd $DIR
 				echo "pulling from repo... "
 				OUT=`git pull`
-				CLOG=`git log --oneline ORIG_HEAD..`
 
 				echo $OUT
 				if [ "${TYPE}" == "PROJECT" ]; then
@@ -1662,10 +1633,6 @@ if [ "${PLATFORM}" == "wii" ] && [ "${RA}" == "YES" ]; then
 						BUILD="NO"
 					else
 						BUILD="YES"
-						echo | tee -a $CLOGFILE
-						echo $NAME $LOGDATE | tee -a $CLOGFILE
-						echo --------------------------------------- | tee -a $CLOGFILE
-						echo "$CLOG" | tee -a $CLOGFILE
 					fi
 				fi
 				cd $WORK
@@ -1798,7 +1765,6 @@ then
 			cd $DIR
 			echo "pulling from repo... "
 			OUT=`git pull`
-			CLOG=`git log --oneline ORIG_HEAD..`
 
 			echo $OUT
 			if [ "${TYPE}" == "PROJECT" ];
@@ -1809,10 +1775,6 @@ then
 					BUILD="NO"
 				else
 					BUILD="YES"
-					echo | tee -a $CLOGFILE
-					echo $NAME $LOGDATE | tee -a $CLOGFILE
-					echo --------------------------------------- | tee -a $CLOGFILE
-					echo "$CLOG" | tee -a $CLOGFILE
 				fi
 			fi
 			cd $WORK
@@ -1933,7 +1895,6 @@ if [ "${PLATFORM}" == "ctr" ] && [ "${RA}" == "YES" ]; then
 				cd $DIR
 				echo "pulling from repo... "
 				OUT=`git pull`
-				CLOG=`git log --oneline ORIG_HEAD..`
 
 				echo $OUT
 				if [ "${TYPE}" == "PROJECT" ]; then
@@ -1942,10 +1903,6 @@ if [ "${PLATFORM}" == "ctr" ] && [ "${RA}" == "YES" ]; then
 						BUILD="NO"
 					else
 						BUILD="YES"
-						echo | tee -a $CLOGFILE
-						echo $NAME $LOGDATE | tee -a $CLOGFILE
-						echo --------------------------------------- | tee -a $CLOGFILE
-						echo "$CLOG" | tee -a $CLOGFILE
 					fi
 				fi
 				echo $OUT $BUILD $FORCE $FORCE_RETROARCH_BUILD
@@ -2067,7 +2024,6 @@ if [ "${PLATFORM}" == "vita" ] && [ "${RA}" == "YES" ]; then
 				echo "pulling from repo... "
 
 				OUT=`git pull`
-				CLOG=`git log --oneline ORIG_HEAD..`
 
 				echo $OUT
 				if [ "${TYPE}" == "PROJECT" ]; then
@@ -2076,10 +2032,6 @@ if [ "${PLATFORM}" == "vita" ] && [ "${RA}" == "YES" ]; then
 						BUILD="NO"
 					else
 						BUILD="YES"
-						echo | tee -a4 $CLOGFILE
-						echo $NAME $LOGDATE | tee -a $CLOGFILE
-						echo --------------------------------------- | tee -a $CLOGFILE
-						echo "$CLOG" | tee -a $CLOGFILE
 					fi
 				fi
 				echo $OUT $BUILD $FORCE $FORCE_RETROARCH_BUILD
