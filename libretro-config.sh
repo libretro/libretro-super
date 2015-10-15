@@ -35,6 +35,29 @@ case "$platform" in
 		CXX11="clang++ -std=c++11 -stdlib=libc++ -arch armv7 -marm -miphoneos-version-min=5.0 -isysroot $IOSSDK"
 		;;
 
+	ios9)
+		# NOTE: This config requires a Mac with an Xcode installation.  These
+		#       scripts will work at least as far as 10.5 that we're sure of, but
+		#       we build with clang targeting iOS >= 5.  We'll accept patches for
+		#       older versions of iOS.
+
+		DIST_DIR="ios9"
+		FORMAT_EXT=dylib
+		IOS=1
+		ARCH=armv7
+		FORMAT=_ios9
+		FORMAT_COMPILER_TARGET=ios9
+		FORMAT_COMPILER_TARGET_ALT=ios9
+		export IOSSDK=$(xcodebuild -version -sdk iphoneos Path)
+		MIN_IOS5="-miphoneos-version-min=5.0"
+		MIN_IOS7="-miphoneos-version-min=7.0"
+
+		# Use generic names rather than gcc/clang to better support both
+		CC="cc -arch armv7 -marm -miphoneos-version-min=8.0 -isysroot $IOSSDK"
+		CXX="c++ -arch armv7 -marm -miphoneos-version-min=8.0 -isysroot $IOSSDK"
+		CXX11="clang++ -std=c++11 -stdlib=libc++ -arch armv7 -marm -miphoneos-version-min=8.0 -isysroot $IOSSDK"
+		;;
+
    android-x86_64)
 		FORMAT_ABI="x86_64"
 		DIST_DIR="android/${FORMAT_ABI}"

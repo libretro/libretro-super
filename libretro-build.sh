@@ -76,10 +76,6 @@ fi
 FORMAT_COMPILER_TARGET_ALT=$FORMAT_COMPILER_TARGET
 
 
-if [ "$FORMAT_COMPILER_TARGET" = "ios" ]; then
-	echo "iOS path: ${IOSSDK}"
-	echo "iOS version: ${IOSVER}"
-fi
 echo "CC = $CC"
 echo "CXX = $CXX"
 echo "CXX11 = $CXX11"
@@ -262,7 +258,7 @@ build_default_cores() {
 				libretro_build_core pcsx_rearmed
 			fi
 
-			if [ $platform != "ios" ]; then
+			if [ $platform != "ios" ] || [ $platform != "ios9" ]; then
 				# Would need ffmpeg libraries baked in
 				libretro_build_core ffmpeg
 				libretro_build_core ppsspp
