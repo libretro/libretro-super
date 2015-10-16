@@ -354,6 +354,13 @@ libretro_ppsspp_git_submodules="yes"
 libretro_ppsspp_build_subdir="libretro"
 libretro_ppsspp_build_opengl="yes"
 
+register_module core "psp1" -ios -theos_ios -ngc -ps3 -psp1 -qnx -wii
+libretro_psp1_name="PSP1"
+libretro_psp1_git_url="https://github.com/libretro/PSP1.git"
+libretro_psp1_git_submodules="yes"
+libretro_psp1_build_subdir="libretro"
+libretro_psp1_build_opengl="yes"
+
 register_module core "prosystem" -ngc -ps3 -wii
 libretro_prosystem_name="ProSystem"
 libretro_prosystem_git_url="https://github.com/libretro/prosystem-libretro.git"
