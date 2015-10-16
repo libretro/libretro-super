@@ -229,7 +229,6 @@ build_libretro_generic_makefile() {
 	fi
 	if [ "${NAME}" == "mame2010" ]; then
 		JOBS=1
-      NOCLEAN=1
 	fi
 
 	if [ -z "${NOCLEAN}" ]; then
