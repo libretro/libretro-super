@@ -267,7 +267,7 @@ build_libretro_generic_makefile() {
 		echo "build command: ${MAKE} -f ${MAKEFILE} platform=${PLATFORM} -j${JOBS} ${ARGS}"
 		${MAKE} -f ${MAKEFILE} platform=${PLATFORM} -j${JOBS} ${ARGS} | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}.log
 	fi
-
+   echo === $? ===
 	if [ $? -eq 0 ]; then
 		MESSAGE="$1 build succeeded [$jobid]"
 		if [ "${MAKEPORTABLE}" == "YES" ]; then
