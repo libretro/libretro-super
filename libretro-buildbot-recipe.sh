@@ -267,24 +267,17 @@ build_libretro_generic_makefile() {
 		echo "build command: ${MAKE} -f ${MAKEFILE} platform=${PLATFORM} -j${JOBS} ${ARGS}"
 		${MAKE} -f ${MAKEFILE} platform=${PLATFORM} -j${JOBS} ${ARGS} | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}.log
 	fi
-   echo === $? ===
+   echo "$1 running retrolink [$jobid]"
+	if [ "${MAKEPORTABLE}" == "YES" ]; then
+      $WORK/retrolink.sh ${NAME}_libretro${FORMAT}${LIBSUFFIX}.${FORMAT_EXT}
+   fi
+
+   cp -v ${NAME}_libretro${FORMAT}${LIBSUFFIX}.${FORMAT_EXT} $RARCH_DIST_DIR/${DIST}/${NAME}_libretro${FORMAT}${LIBSUFFIX}.${FORMAT_EXT}
 	if [ $? -eq 0 ]; then
 		MESSAGE="$1 build succeeded [$jobid]"
-		if [ "${MAKEPORTABLE}" == "YES" ]; then
-			echo "$1 running retrolink [$jobid]"
-			$WORK/retrolink.sh ${NAME}_libretro${FORMAT}${LIBSUFFIX}.${FORMAT_EXT}
-		fi
 		if [ "${PLATFORM}" == "windows" -o "${PLATFORM}" == "unix" ]; then
 			strip -s ${NAME}_libretro${FORMAT}${LIBSUFFIX}.${FORMAT_EXT}
 		fi
-		cp -v ${NAME}_libretro${FORMAT}${LIBSUFFIX}.${FORMAT_EXT} $RARCH_DIST_DIR/${DIST}/${NAME}_libretro${FORMAT}${LIBSUFFIX}.${FORMAT_EXT}
-      if [ $? -eq 0 ]; then
-         MESSAGE="$MESSAGE"
-      else
-         MESSAGE="$MESSAGE but the build product wasn't found"
-         echo $MESSAGE | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}.log
-         ls -la | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}.log
-      fi
 	else
 		ERROR=`cat $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}.log | tail -n 100`
 		HASTE=`curl -XPOST http://hastebin.com/documents -d"$ERROR"`
@@ -333,67 +326,19 @@ build_libretro_leiradel_makefile() {
 		echo "build command: ${MAKE} -f ${MAKEFILE}.${PLATFORM}_${ARGS} platform=${PLATFORM}_${ARGS} -j${JOBS}"
 		${MAKE} -f ${MAKEFILE}.${PLATFORM}_${ARGS} platform=${PLATFORM}_${ARGS} -j${JOBS} | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}.log
 
+      cp -v ${NAME}_libretro.${PLATFORM}_${ARG1}.${FORMAT_EXT} $RARCH_DIST_DIR/${DIST}/${ARG1}/${NAME}_libretro${LIBSUFFIX}.${FORMAT_EXT}
 		if [ $? -eq 0 ]; then
 			MESSAGE="$1 build succeeded [$jobid]"
-			cp -v ${NAME}_libretro.${PLATFORM}_${ARG1}.${FORMAT_EXT} $RARCH_DIST_DIR/${DIST}/${ARG1}/${NAME}_libretro${LIBSUFFIX}.${FORMAT_EXT}
 		else
 		ERROR=`cat $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}.log | tail -n 100`
-		 HASTE=`curl -XPOST http://hastebin.com/documents -d"$ERROR"`
-       HASTE=`echo $HASTE | cut -d"\"" -f4`
-		MESSAGE="$1 build failed [$jobid] LOG: http://hastebin.com/$HASTE"
-	fi
-	echo BUILDBOT JOB: $MESSAGE
-	echo BUILDBOT JOB: $MESSAGE | tee -a $TMPDIR/log/${BOT}/${LOGDATE}.log
-	buildbot_log "$MESSAGE"
-	JOBS=$OLDJ
-}
-
-# command for theos cores
-build_libretro_generic_theos() {
-	echo PARAMETERS: DIR $2, SUBDIR: $3, MAKEFILE: $4
-
-	NAME=$1
-	DIR=$2
-	SUBDIR=$3
-	MAKEFILE=$4
-	PLATFORM=$5
-	ARGS=$6
-
-	cd $DIR
-	cd $SUBDIR
-
-	if [ -z "${NOCLEAN}" ]; then
-		echo "cleaning up..."
-		echo "cleanup command: ${MAKE} -f ${MAKEFILE} platform=${PLATFORM} -j${JOBS} ${ARGS} clean"
-		${MAKE} -f ${MAKEFILE} platform=${PLATFORM} -j${JOBS} ${ARGS} clean
-		if [ $? -eq 0 ]; then
-			echo BUILDBOT JOB: $jobid $1 cleanup success!
-		else
-			echo BUILDBOT JOB: $jobid $1 cleanup failed!
-		fi
-	fi
-
-	echo "compiling..."
-	if [ -z "${ARGS}" ]; then
-		echo "build command: ${MAKE} -f ${MAKEFILE} platform=${PLATFORM} -j${JOBS}"
-		${MAKE} -f ${MAKEFILE} platform=${PLATFORM} -j${JOBS}
-	else
-		echo "build command: ${MAKE} -f ${MAKEFILE} platform=${PLATFORM} -j${JOBS} ${ARGS}"
-		${MAKE} -f ${MAKEFILE} platform=${PLATFORM} -j${JOBS} ${ARGS}
-	fi
-
-	if [ $? -eq 0 ]; then
-		MESSAGE="$1 build succeeded [$jobid]"
-		cp -v objs/obj/${NAME}_libretro${FORMAT}${LIBSUFFIX}.${FORMAT_EXT} $RARCH_DIST_DIR/${NAME}_libretro${FORMAT}${LIBSUFFIX}.${FORMAT_EXT}
-	else
-		ERROR=`cat $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}.log | tail -n 100`
-		HASTE=`curl -XPOST http://hastebin.com/documents -d"$ERROR"`
+	   HASTE=`curl -XPOST http://hastebin.com/documents -d"$ERROR"`
       HASTE=`echo $HASTE | cut -d"\"" -f4`
 		MESSAGE="$1 build failed [$jobid] LOG: http://hastebin.com/$HASTE"
 	fi
 	echo BUILDBOT JOB: $MESSAGE
 	echo BUILDBOT JOB: $MESSAGE | tee -a $TMPDIR/log/${BOT}/${LOGDATE}.log
 	buildbot_log "$MESSAGE"
+	JOBS=$OLDJ
 }
 
 # command for jni makefiles
@@ -424,16 +369,16 @@ build_libretro_generic_jni() {
 		echo "compiling for ${a}..."
 		if [ -z "${ARGS}" ]; then
 			echo "build command: ${NDK} -j${JOBS} APP_ABI=${a}"
-			${NDK} -j${JOBS} APP_ABI=${a} &> $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}_${a}.log
+			${NDK} -j${JOBS} APP_ABI=${a} | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}_${a}.log
 		else
 			echo "build command: ${NDK} -j${JOBS} APP_ABI=${a} ${ARGS} "
-			${NDK} -j${JOBS} APP_ABI=${a} ${ARGS} &> $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}_${a}.log
+			${NDK} -j${JOBS} APP_ABI=${a} ${ARGS} | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}_${a}.log
 		fi
+      cp -v ../libs/${a}/libretro.${FORMAT_EXT} $RARCH_DIST_DIR/${a}/${1}_libretro${FORMAT}${LIBSUFFIX}.${FORMAT_EXT}
 		if [ $? -eq 0 ]; then
 			MESSAGE="$1-$a build succeeded [$jobid]"
 			echo BUILDBOT JOB: $MESSAGE
 			buildbot_log "$MESSAGE"
-			cp -v ../libs/${a}/libretro.${FORMAT_EXT} $RARCH_DIST_DIR/${a}/${1}_libretro${FORMAT}${LIBSUFFIX}.${FORMAT_EXT}
 		else
 			ERROR=`cat $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}_${a}.log | tail -n 100`
 			HASTE=`curl -XPOST http://hastebin.com/documents -d"$ERROR"`
@@ -481,9 +426,9 @@ build_libretro_bsnes_jni() {
 			echo "build command: ${NDK} -j${JOBS} APP_ABI=${a}"
 			${NDK} -j${JOBS} APP_ABI=${a}
 		fi
+      cp -v ../libs/${a}/libretro_${CORENAME}_${PROFILE}.${FORMAT_EXT} $RARCH_DIST_DIR/${a}/${NAME}_${PROFILE}_libretro${FORMAT}${LIBSUFFIX}.${FORMAT_EXT}
 		if [ $? -eq 0 ]; then
 			MESSAGE="$1 build succeeded [$jobid]"
-			cp -v ../libs/${a}/libretro_${CORENAME}_${PROFILE}.${FORMAT_EXT} $RARCH_DIST_DIR/${a}/${NAME}_${PROFILE}_libretro${FORMAT}${LIBSUFFIX}.${FORMAT_EXT}
 		else
 			ERROR=`cat $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}.log | tail -n 100`
 			HASTE=`curl -XPOST http://hastebin.com/documents -d"$ERROR"`
@@ -531,9 +476,9 @@ build_libretro_generic_gl_makefile() {
 		${MAKE} -f ${MAKEFILE} platform=${PLATFORM} -j${JOBS} ${ARGS} | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}.log
 	fi
 
+   cp -v ${NAME}_libretro${FORMAT}${LIBSUFFIX}.${FORMAT_EXT} $RARCH_DIST_DIR/${NAME}_libretro${FORMAT}${LIBSUFFIX}.${FORMAT_EXT}
 	if [ $? -eq 0 ]; then
 		MESSAGE="$1 build succeeded [$jobid]"
-		cp -v ${NAME}_libretro${FORMAT}${LIBSUFFIX}.${FORMAT_EXT} $RARCH_DIST_DIR/${NAME}_libretro${FORMAT}${LIBSUFFIX}.${FORMAT_EXT}
 	else
 		ERROR=`cat $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}.log | tail -n 100`
 		HASTE=`curl -XPOST http://hastebin.com/documents -d"$ERROR"`
@@ -588,15 +533,15 @@ build_libretro_bsnes() {
 		${MAKE} -f ${MAKEFILE} platform=${PLATFORM} compiler=${BSNESCOMPILER} ui='target-libretro' profile=${PROFILE} -j${JOBS} | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}.log
 	fi
 
+   if [ "${PROFILE}" = "cpp98" ]; then
+      cp -fv "out/${NAME}_libretro${FORMAT}${LIBSUFFIX}.${FORMAT_EXT}" "${RARCH_DIST_DIR}/${NAME}_libretro${FORMAT}${LIBSUFFIX}.${FORMAT_EXT}"
+   elif [ "${PROFILE}" = "bnes" ]; then
+      cp -fv "${NAME}_libretro${FORMAT}${LIBSUFFIX}.${FORMAT_EXT}" "${RARCH_DIST_DIR}/${NAME}_libretro${FORMAT}${LIBSUFFIX}.${FORMAT_EXT}"
+   else
+      cp -fv "out/${NAME}_${PROFILE}_libretro${FORMAT}.${FORMAT_EXT}" $RARCH_DIST_DIR/${NAME}_${PROFILE}_libretro${FORMAT}${LIBSUFFIX}.${FORMAT_EXT}
+   fi
 	if [ $? -eq 0 ]; then
 		MESSAGE="$1 build succeeded [$jobid]"
-		if [ "${PROFILE}" = "cpp98" ]; then
-			cp -fv "out/${NAME}_libretro${FORMAT}${LIBSUFFIX}.${FORMAT_EXT}" "${RARCH_DIST_DIR}/${NAME}_libretro${FORMAT}${LIBSUFFIX}.${FORMAT_EXT}"
-		elif [ "${PROFILE}" = "bnes" ]; then
-			cp -fv "${NAME}_libretro${FORMAT}${LIBSUFFIX}.${FORMAT_EXT}" "${RARCH_DIST_DIR}/${NAME}_libretro${FORMAT}${LIBSUFFIX}.${FORMAT_EXT}"
-		else
-			cp -fv "out/${NAME}_${PROFILE}_libretro${FORMAT}.${FORMAT_EXT}" $RARCH_DIST_DIR/${NAME}_${PROFILE}_libretro${FORMAT}${LIBSUFFIX}.${FORMAT_EXT}
-		fi
 	else
 		ERROR=`cat $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}.log | tail -n 100`
 		HASTE=`curl -XPOST http://hastebin.com/documents -d"$ERROR"`
