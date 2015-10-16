@@ -221,7 +221,7 @@ build_libretro_generic_makefile() {
 	cd $DIR
 	cd $SUBDIR
 	OLDJ=$JOBS
-   
+
 	echo BUILDBOT THREADS: $JOBS
 
 	if [ "${NAME}" == "mame078" ]; then
@@ -266,8 +266,11 @@ build_libretro_generic_makefile() {
       $WORK/retrolink.sh ${NAME}_libretro${FORMAT}${LIBSUFFIX}.${FORMAT_EXT}
    fi
 
-   cp -v ${NAME}_libretro${FORMAT}${LIBSUFFIX}.${FORMAT_EXT} $RARCH_DIST_DIR/${DIST}/${NAME}_libretro${FORMAT}${LIBSUFFIX}.${FORMAT_EXT}
+   echo === BUILDBOT VARS: $BUILDBOT_DBG1 === | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}.log
+   echo === BUILDBOT VARS: $BUILDBOT_DBG3 === | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}.log
+   echo === BUILDBOT VARS: $BUILDBOT_DBG2 === | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}.log
 
+   cp -v ${NAME}_libretro${FORMAT}${LIBSUFFIX}.${FORMAT_EXT} $RARCH_DIST_DIR/${DIST}/${NAME}_libretro${FORMAT}${LIBSUFFIX}.${FORMAT_EXT}
    if [ $? -eq 0 ]; then
 		MESSAGE="$1 build succeeded [$jobid]"
 		if [ "${PLATFORM}" == "windows" -o "${PLATFORM}" == "unix" ]; then
@@ -281,9 +284,6 @@ build_libretro_generic_makefile() {
 	fi
 
 	echo BUILDBOT JOB: $MESSAGE
-   echo === BUILDBOT VARS: $BUILDBOT_DBG1 === | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}.log
-   echo === BUILDBOT VARS: $BUILDBOT_DBG3 === | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}.log
-   echo === BUILDBOT VARS: $BUILDBOT_DBG2 === | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}.log
 	echo BUILDBOT JOB: $MESSAGE | tee -a $TMPDIR/log/${BOT}/${LOGDATE}.log
 	buildbot_log "$MESSAGE"
 	JOBS=$OLDJ
