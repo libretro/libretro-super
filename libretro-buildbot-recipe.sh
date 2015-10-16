@@ -238,20 +238,27 @@ build_libretro_generic_makefile() {
 		if [ $? -eq 0 ]; then
 			echo BUILDBOT JOB: $jobid $1 cleanup success!
 		else
-			echo BUILDBOT JOB: $jobid $1 cleanup failure!
+			echo BUILDBOT JOB: $jobid $1 cleanup failed!
 		fi
 	fi
 
 	echo "compiling..."
 	if [ -z "${ARGS}" ]; then
+      if [ "${NAME}" == "mame2010" ]; then
+ 	      echo "build command: ${MAKE} -f ${MAKEFILE} "VRENDER=soft" "NATIVE=1" buildtools -j${JOBS}"
+         BUILDBOT_DBG3="build command: PLATFORM="" platform="" ${MAKE} -f ${MAKEFILE} "VRENDER=soft" "NATIVE=1" buildtools -j${JOBS}"
+	      PLATFORM="" platform="" ${MAKE} -f ${MAKEFILE} "VRENDER=soft" "NATIVE=1" buildtools -j${JOBS} | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}.log
+			JOBS=$OLDJ
+		fi
 
       BUILDBOT_DBG2="build command: ${MAKE} -f ${MAKEFILE} platform=${PLATFORM} -j${JOBS}"
       echo "build command: ${MAKE} -f ${MAKEFILE} platform=${PLATFORM} -j${JOBS}"
-		${MAKE} -f ${MAKEFILE} platform=${PLATFORM} -j${JOBS} &> $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}.log
+		${MAKE} -f ${MAKEFILE} platform=${PLATFORM} -j${JOBS} | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}.log
 	else
 		if [ "${NAME}" == "mame2010" ]; then
- 	        	echo "build command: ${MAKE} -f ${MAKEFILE} "VRENDER=soft" "NATIVE=1" buildtools -j${JOBS}"
-	         PLATFORM=linux platform=linux ${MAKE} -f ${MAKEFILE} "VRENDER=soft" "NATIVE=1" buildtools -j${JOBS} &> $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}.log
+ 	      echo "build command: ${MAKE} -f ${MAKEFILE} "VRENDER=soft" "NATIVE=1" buildtools -j${JOBS}"
+         BUILDBOT_DBG3="build command: PLATFORM="" platform="" ${MAKE} -f ${MAKEFILE} "VRENDER=soft" "NATIVE=1" buildtools -j${JOBS}"
+	      PLATFORM="" platform="" ${MAKE} -f ${MAKEFILE} "VRENDER=soft" "NATIVE=1" buildtools -j${JOBS} | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}.log
 			JOBS=$OLDJ
 		fi
 
@@ -262,7 +269,7 @@ build_libretro_generic_makefile() {
 	fi
 
 	if [ $? -eq 0 ]; then
-		MESSAGE="$1 build successful [$jobid]"
+		MESSAGE="$1 build succeeded [$jobid]"
 		if [ "${MAKEPORTABLE}" == "YES" ]; then
 			echo "$1 running retrolink [$jobid]"
 			$WORK/retrolink.sh ${NAME}_libretro${FORMAT}${LIBSUFFIX}.${FORMAT_EXT}
@@ -271,7 +278,13 @@ build_libretro_generic_makefile() {
 			strip -s ${NAME}_libretro${FORMAT}${LIBSUFFIX}.${FORMAT_EXT}
 		fi
 		cp -v ${NAME}_libretro${FORMAT}${LIBSUFFIX}.${FORMAT_EXT} $RARCH_DIST_DIR/${DIST}/${NAME}_libretro${FORMAT}${LIBSUFFIX}.${FORMAT_EXT}
-
+      if [ $? -eq 0 ]; then
+         MESSAGE="$MESSAGE"
+      else
+         MESSAGE="$MESSAGE but the build product wasn't found"
+         echo $MESSAGE | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}.log
+         ls -la | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}.log
+      fi
 	else
 		ERROR=`cat $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}.log | tail -n 100`
 		HASTE=`curl -XPOST http://hastebin.com/documents -d"$ERROR"`
@@ -281,6 +294,7 @@ build_libretro_generic_makefile() {
 
 	echo BUILDBOT JOB: $MESSAGE
    echo === BUILDBOT VARS: $BUILDBOT_DBG1 === | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}.log
+   echo === BUILDBOT VARS: $BUILDBOT_DBG3 === | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}.log
    echo === BUILDBOT VARS: $BUILDBOT_DBG2 === | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}.log
 	echo BUILDBOT JOB: $MESSAGE | tee -a $TMPDIR/log/${BOT}/${LOGDATE}.log
 	buildbot_log "$MESSAGE"
@@ -311,16 +325,16 @@ build_libretro_leiradel_makefile() {
 		if [ $? -eq 0 ]; then
 			echo BUILDBOT JOB: $jobid $1 cleanup success!
 		else
-			echo BUILDBOT JOB: $jobid $1 cleanup failure!
+			echo BUILDBOT JOB: $jobid $1 cleanup failed!
 		fi
 	fi
 
 	echo "compiling..."
 		echo "build command: ${MAKE} -f ${MAKEFILE}.${PLATFORM}_${ARGS} platform=${PLATFORM}_${ARGS} -j${JOBS}"
-		${MAKE} -f ${MAKEFILE}.${PLATFORM}_${ARGS} platform=${PLATFORM}_${ARGS} -j${JOBS} &> $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}.log
+		${MAKE} -f ${MAKEFILE}.${PLATFORM}_${ARGS} platform=${PLATFORM}_${ARGS} -j${JOBS} | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}.log
 
 		if [ $? -eq 0 ]; then
-			MESSAGE="$1 build successful [$jobid]"
+			MESSAGE="$1 build succeeded [$jobid]"
 			cp -v ${NAME}_libretro.${PLATFORM}_${ARG1}.${FORMAT_EXT} $RARCH_DIST_DIR/${DIST}/${ARG1}/${NAME}_libretro${LIBSUFFIX}.${FORMAT_EXT}
 		else
 		ERROR=`cat $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}.log | tail -n 100`
@@ -355,7 +369,7 @@ build_libretro_generic_theos() {
 		if [ $? -eq 0 ]; then
 			echo BUILDBOT JOB: $jobid $1 cleanup success!
 		else
-			echo BUILDBOT JOB: $jobid $1 cleanup failure!
+			echo BUILDBOT JOB: $jobid $1 cleanup failed!
 		fi
 	fi
 
@@ -369,7 +383,7 @@ build_libretro_generic_theos() {
 	fi
 
 	if [ $? -eq 0 ]; then
-		MESSAGE="$1 build successful [$jobid]"
+		MESSAGE="$1 build succeeded [$jobid]"
 		cp -v objs/obj/${NAME}_libretro${FORMAT}${LIBSUFFIX}.${FORMAT_EXT} $RARCH_DIST_DIR/${NAME}_libretro${FORMAT}${LIBSUFFIX}.${FORMAT_EXT}
 	else
 		ERROR=`cat $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}.log | tail -n 100`
@@ -403,20 +417,20 @@ build_libretro_generic_jni() {
 			if [ $? -eq 0 ]; then
 				echo BUILDBOT JOB: $jobid $a $1 cleanup success!
 			else
-				echo BUILDBOT JOB: $jobid $a $1 cleanup failure!
+				echo BUILDBOT JOB: $jobid $a $1 cleanup failed!
 			fi
 		fi
 
 		echo "compiling for ${a}..."
 		if [ -z "${ARGS}" ]; then
 			echo "build command: ${NDK} -j${JOBS} APP_ABI=${a}"
-			${NDK} -j${JOBS} APP_ABI=${a}  &> $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}_${a}.log
+			${NDK} -j${JOBS} APP_ABI=${a} | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}_${a}.log
 		else
 			echo "build command: ${NDK} -j${JOBS} APP_ABI=${a} ${ARGS} "
-			${NDK} -j${JOBS} APP_ABI=${a} ${ARGS}  &> $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}_${a}.log
+			${NDK} -j${JOBS} APP_ABI=${a} ${ARGS}  | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}_${a}.log
 		fi
 		if [ $? -eq 0 ]; then
-			MESSAGE="$1-$a build successful [$jobid]"
+			MESSAGE="$1-$a build succeeded [$jobid]"
 			echo BUILDBOT JOB: $MESSAGE
 			buildbot_log "$MESSAGE"
 			cp -v ../libs/${a}/libretro.${FORMAT_EXT} $RARCH_DIST_DIR/${a}/${1}_libretro${FORMAT}${LIBSUFFIX}.${FORMAT_EXT}
@@ -455,7 +469,7 @@ build_libretro_bsnes_jni() {
 			if [ $? -eq 0 ]; then
 				echo BUILDBOT JOB: $jobid $1 cleanup success!
 			else
-				echo BUILDBOT JOB: $jobid $1 cleanup failure!
+				echo BUILDBOT JOB: $jobid $1 cleanup failed!
 			fi
 		fi
 
@@ -468,7 +482,7 @@ build_libretro_bsnes_jni() {
 			${NDK} -j${JOBS} APP_ABI=${a}
 		fi
 		if [ $? -eq 0 ]; then
-			MESSAGE="$1 build successful [$jobid]"
+			MESSAGE="$1 build succeeded [$jobid]"
 			cp -v ../libs/${a}/libretro_${CORENAME}_${PROFILE}.${FORMAT_EXT} $RARCH_DIST_DIR/${a}/${NAME}_${PROFILE}_libretro${FORMAT}${LIBSUFFIX}.${FORMAT_EXT}
 		else
 			ERROR=`cat $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}.log | tail -n 100`
@@ -504,21 +518,21 @@ build_libretro_generic_gl_makefile() {
 		if [ $? -eq 0 ]; then
 			echo BUILDBOT JOB: $jobid $1 cleanup success!
 		else
-			echo BUILDBOT JOB: $jobid $1 cleanup failure!
+			echo BUILDBOT JOB: $jobid $1 cleanup failed!
 		fi
 	fi
 
 	echo "compiling..."
 	if [ -z "${ARGS}" ]; then
 		echo "build command: ${MAKE} -f ${MAKEFILE} platform=${PLATFORM} -j${JOBS}"
-		${MAKE} -f ${MAKEFILE} platform=${PLATFORM} -j${JOBS} &> $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}.log
+		${MAKE} -f ${MAKEFILE} platform=${PLATFORM} -j${JOBS} | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}.log
 	else
 		echo "build command: ${MAKE} -f ${MAKEFILE} platform=${PLATFORM} ${COMPILER} -j${JOBS} ${ARGS}"
-		${MAKE} -f ${MAKEFILE} platform=${PLATFORM} -j${JOBS} ${ARGS} &> $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}.log
+		${MAKE} -f ${MAKEFILE} platform=${PLATFORM} -j${JOBS} ${ARGS} | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}.log
 	fi
 
 	if [ $? -eq 0 ]; then
-		MESSAGE="$1 build successful [$jobid]"
+		MESSAGE="$1 build succeeded [$jobid]"
 		cp -v ${NAME}_libretro${FORMAT}${LIBSUFFIX}.${FORMAT_EXT} $RARCH_DIST_DIR/${NAME}_libretro${FORMAT}${LIBSUFFIX}.${FORMAT_EXT}
 	else
 		ERROR=`cat $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}.log | tail -n 100`
@@ -558,7 +572,7 @@ build_libretro_bsnes() {
 		if [ $? -eq 0 ]; then
 			echo BUILDBOT JOB: $jobid $1 cleanup success!
 		else
-			echo BUILDBOT JOB: $jobid $1 cleanup failure!
+			echo BUILDBOT JOB: $jobid $1 cleanup failed!
 		fi
 	fi
 
@@ -575,7 +589,7 @@ build_libretro_bsnes() {
 	fi
 
 	if [ $? -eq 0 ]; then
-		MESSAGE="$1 build successful [$jobid]"
+		MESSAGE="$1 build succeeded [$jobid]"
 		if [ "${PROFILE}" = "cpp98" ]; then
 			cp -fv "out/${NAME}_libretro${FORMAT}${LIBSUFFIX}.${FORMAT_EXT}" "${RARCH_DIST_DIR}/${NAME}_libretro${FORMAT}${LIBSUFFIX}.${FORMAT_EXT}"
 		elif [ "${PROFILE}" = "bnes" ]; then
@@ -1090,7 +1104,7 @@ if [ "${PLATFORM}" = "android" ] && [ "${RA}" = "YES" ]; then
 		android update project --path libs/appcompat --target android-21 | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_${PLATFORM}.log
 		ant debug | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_${PLATFORM}.log
 		if [ $? -eq 0 ]; then
-			MESSAGE="retroarch build successful [$jobid]"
+			MESSAGE="retroarch build succeeded [$jobid]"
 			echo $MESSAGE
 		else
 			ERROR=`cat $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_${PLATFORM}.log | tail -n 100`
@@ -1312,7 +1326,7 @@ if [ "${PLATFORM}" = "MINGW64" ] || [ "${PLATFORM}" = "MINGW32" ] && [ "${RA}" =
 		if [ $? -eq 0 ]; then
 			echo BUILDBOT JOB: $jobid audio filter build success!
 		else
-			echo BUILDBOT JOB: $jobid audio filter build failure!
+			echo BUILDBOT JOB: $jobid audio filter build failed!
 		fi
 
 		cd ..
@@ -1325,7 +1339,7 @@ if [ "${PLATFORM}" = "MINGW64" ] || [ "${PLATFORM}" = "MINGW32" ] && [ "${RA}" =
 		if [ $? -eq 0 ]; then
 			echo BUILDBOT JOB: $jobid video filter build success!
 		else
-			echo BUILDBOT JOB: $jobid video filter build failure!
+			echo BUILDBOT JOB: $jobid video filter build failed!
 		fi
 
 		cd ..
@@ -1343,7 +1357,7 @@ if [ "${PLATFORM}" = "MINGW64" ] || [ "${PLATFORM}" = "MINGW32" ] && [ "${RA}" =
 		if [ $? -eq 0 ]; then
 			echo BUILDBOT JOB: $jobid retroarch cleanup success!
 		else
-			echo BUILDBOT JOB: $jobid retroarch cleanup failure!
+			echo BUILDBOT JOB: $jobid retroarch cleanup failed!
 		fi
 
 
@@ -1351,16 +1365,16 @@ if [ "${PLATFORM}" = "MINGW64" ] || [ "${PLATFORM}" = "MINGW32" ] && [ "${RA}" =
 		if [ $? -eq 0 ]; then
 			echo BUILDBOT JOB: $jobid retroarch configure success!
 		else
-			echo BUILDBOT JOB: $jobid retroarch configure failure!
+			echo BUILDBOT JOB: $jobid retroarch configure failed!
 		fi
 
 		echo "building..."
 		echo "build command: $MAKE -j${JOBS}"
-		$MAKE -j${JOBS} &> $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_${PLATFORM}.log
+		$MAKE -j${JOBS} | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_${PLATFORM}.log
 		strip -s retroarch.exe
 
 		if [ $? -eq 0 ]; then
-			MESSAGE="retroarch build successful [$jobid]"
+			MESSAGE="retroarch build succeeded [$jobid]"
 			echo $MESSAGE
 			echo BUILDBOT JOB: $MESSAGE | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_${PLATFORM}.log
 			buildbot_log "$MESSAGE"
@@ -1548,9 +1562,9 @@ if [ "${PLATFORM}" = "psp1" ] && [ "${RA}" = "YES" ]; then
 		cp -v $RARCH_DIST_DIR/*.a .
 		#ls -1 *.a  | awk -F "." ' { print "cp " $0 " " $1 "_psp1." $2 }' |sh
 
-		./dist-cores.sh psp1 &> $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_${PLATFORM}.log
+		./dist-cores.sh psp1 | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_${PLATFORM}.log
 		if [ $? -eq 0 ]; then
-			MESSAGE="retroarch build successful [$jobid]"
+			MESSAGE="retroarch build succeeded [$jobid]"
 			echo $MESSAGE
 		else
 			ERROR=`cat $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_${PLATFORM}.log | tail -n 100`
@@ -1676,9 +1690,9 @@ if [ "${PLATFORM}" == "wii" ] && [ "${RA}" == "YES" ]; then
 			cp -v $RARCH_DIST_DIR/*.a .
 
 			#ls -1 *.a  | awk -F "." ' { print "cp " $0 " " $1 "_wii." $2 }' |sh
-			sh ./dist-cores.sh wii &> $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_${PLATFORM}.log
+			sh ./dist-cores.sh wii | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_${PLATFORM}.log
 			if [ $? -eq 0 ]; then
-				MESSAGE="retroarch build successful [$jobid]"
+				MESSAGE="retroarch build succeeded [$jobid]"
 				echo $MESSAGE
 			else
 				ERROR=`cat $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_${PLATFORM}.log | tail -n 100`
@@ -1818,10 +1832,10 @@ then
 		cp -v $RARCH_DIST_DIR/*.a .
 
 		#ls -1 *.a  | awk -F "." ' { print "cp " $0 " " $1 "_ngc." $2 }' |sh
-		sh ./dist-cores.sh ngc &> $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_${PLATFORM}.log
+		sh ./dist-cores.sh ngc | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_${PLATFORM}.log
 		if [ $? -eq 0 ];
 		then
-			MESSAGE="retroarch build successful [$jobid]"
+			MESSAGE="retroarch build succeeded [$jobid]"
 			echo $MESSAGE
 		else
 			ERROR=`cat $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_${PLATFORM}.log | tail -n 100`
@@ -1949,9 +1963,9 @@ if [ "${PLATFORM}" == "ctr" ] && [ "${RA}" == "YES" ]; then
 		cp -v $RARCH_DIST_DIR/*.a .
 
 		#ls -1 *.a  | awk -F "." ' { print "cp " $0 " " $1 "_ctr." $2 }' |sh
-		JOBS=1 sh ./dist-cores.sh ctr &> $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_${PLATFORM}.log
+		JOBS=1 sh ./dist-cores.sh ctr | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_${PLATFORM}.log
 		if [ $? -eq 0 ]; then
-			MESSAGE="retroarch build successful [$jobid]"
+			MESSAGE="retroarch build succeeded [$jobid]"
 			echo $MESSAGE
 		else
 			ERROR=`cat $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_${PLATFORM}.log | tail -n 100`
@@ -2079,9 +2093,9 @@ if [ "${PLATFORM}" == "vita" ] && [ "${RA}" == "YES" ]; then
 		cp -v $RARCH_DIST_DIR/*.a .
 
 		#ls -1 *.a  | awk -F "." ' { print "cp " $0 " " $1 "_vita." $2 }' |sh
-		JOBS=1 sh ./dist-cores.sh vita &> $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_${PLATFORM}.log
+		JOBS=1 sh ./dist-cores.sh vita | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_${PLATFORM}.log
 		if [ $? -eq 0 ]; then
-			MESSAGE="retroarch build successful [$jobid]"
+			MESSAGE="retroarch build succeeded [$jobid]"
 			echo $MESSAGE
 		else
 			ERROR=`cat $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_${PLATFORM}.log | tail -n 100`
