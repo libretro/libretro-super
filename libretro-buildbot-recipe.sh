@@ -398,6 +398,17 @@ build_libretro_generic_jni() {
 			echo BUILDBOT JOB: $MESSAGE | tee -a $TMPDIR/log/${BOT}/${LOGDATE}.log
 			buildbot_log "$MESSAGE"
 		fi
+		
+		if [ -z "${NOCLEAN}" ]; then
+			echo "cleaning up..."
+			echo "cleanup command: ${NDK} -j${JOBS} ${ARGS} APP_ABI=${a} clean"
+			${NDK} -j${JOBS} ${ARGS} APP_ABI=${a} clean
+			if [ $? -eq 0 ]; then
+				echo BUILDBOT JOB: $jobid $a $1 cleanup success!
+			else
+				echo BUILDBOT JOB: $jobid $a $1 cleanup failed!
+			fi
+		fi
 	done
 }
 
