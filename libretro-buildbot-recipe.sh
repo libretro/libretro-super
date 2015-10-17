@@ -287,6 +287,17 @@ build_libretro_generic_makefile() {
 	echo BUILDBOT JOB: $MESSAGE | tee -a $TMPDIR/log/${BOT}/${LOGDATE}.log
 	buildbot_log "$MESSAGE"
 	JOBS=$OLDJ
+	
+	if [ -z "${NOCLEAN}" ]; then
+		echo "cleaning up..."
+		echo "cleanup command: ${MAKE} -f ${MAKEFILE} platform=${PLATFORM} -j${JOBS} clean"
+		${MAKE} -f ${MAKEFILE} platform=${PLATFORM} -j${JOBS} clean
+		if [ $? -eq 0 ]; then
+			echo BUILDBOT JOB: $jobid $1 cleanup success!
+		else
+			echo BUILDBOT JOB: $jobid $1 cleanup failed!
+		fi
+	fi
 }
 
 # command fo leiradel's cross makefiles
