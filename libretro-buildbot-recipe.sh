@@ -310,6 +310,7 @@ build_libretro_leiradel_makefile() {
 	MAKEFILE=$4
 	PLATFORM=$5
 	ARGS=$6
+	buildbot_log "$1 build starting [$jobid]"
 
 	ARG1=`echo ${ARGS} | cut -f 1 -d " "`
 	mkdir -p $RARCH_DIST_DIR/${DIST}/${ARG1}
@@ -358,6 +359,7 @@ build_libretro_generic_jni() {
 	MAKEFILE=$4
 	PLATFORM=$5
 	ARGS=$6
+	buildbot_log "$1 build starting [$jobid]"
 
 	cd ${DIR}/${SUBDIR}
 
@@ -409,6 +411,7 @@ build_libretro_bsnes_jni() {
 	MAKEFILE=$4
 	PLATFORM=$5
 	PROFILE=$6
+	buildbot_log "$1 build starting [$jobid]"
 
 	CORENAME=bsnes
 
@@ -459,6 +462,7 @@ build_libretro_generic_gl_makefile() {
 	MAKEFILE=$4
 	PLATFORM=$5
 	ARGS=$6
+	buildbot_log "$1 build starting [$jobid]"
 
 	check_opengl
 
@@ -510,6 +514,7 @@ build_libretro_bsnes() {
 	MAKEFILE=$4
 	PLATFORM=$5
 	BSNESCOMPILER=$6
+	buildbot_log "$1 build starting [$jobid]"
 
 	cd $DIR
 
