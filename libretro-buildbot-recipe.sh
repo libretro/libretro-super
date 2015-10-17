@@ -215,6 +215,7 @@ build_libretro_generic_makefile() {
 	PLATFORM=$5
 	ARGS=$6
 	JOBS=$JOBS
+	buildbot_log "$1 build starting [$jobid]"
 
    BUILDBOT_DBG1="NAME: $NAME DIR: $DIR SUBDIR: $SUBDIR MAKEFILE: $MAKEFILE PLATFORM: $PLATFORM ARGS: $ARGS CC: $CC CXX: $CXX"
 
