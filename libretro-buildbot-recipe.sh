@@ -288,7 +288,7 @@ build_libretro_generic_makefile() {
 	echo BUILDBOT JOB: $MESSAGE | tee -a $TMPDIR/log/${BOT}/${LOGDATE}.log
 	buildbot_log "$MESSAGE"
 	JOBS=$OLDJ
-	
+
 	if [ -z "${NOCLEAN}" ]; then
 		echo "cleaning up..."
 		echo "cleanup command: ${MAKE} -f ${MAKEFILE} platform=${PLATFORM} -j${JOBS} clean"
@@ -398,7 +398,7 @@ build_libretro_generic_jni() {
 			echo BUILDBOT JOB: $MESSAGE | tee -a $TMPDIR/log/${BOT}/${LOGDATE}.log
 			buildbot_log "$MESSAGE"
 		fi
-		
+
 		if [ -z "${NOCLEAN}" ]; then
 			echo "cleaning up..."
 			echo "cleanup command: ${NDK} -j${JOBS} ${ARGS} APP_ABI=${a} clean"
@@ -1049,10 +1049,7 @@ if [ "${PLATFORM}" = "android" ] && [ "${RA}" = "YES" ]; then
 
 		cp -rf media/assets/xmb pkg/android/phoenix/assets/assets/
 		cp -rf media/autoconfig/* pkg/android/phoenix/assets/autoconfig/
-		cp -rf media/libretrodb/rdb pkg/android/phoenix/assets/database/
-		cp -rf media/libretrodb/cursors pkg/android/phoenix/assets/database/
 		cp -rf media/overlays/* pkg/android/phoenix/assets/overlays/
-		cp -rf media/shaders_glsl/* pkg/android/phoenix/assets/shaders/shaders_glsl/
 		cp -rf media/shaders_glsl $TMPDIR/
 		touch  pkg/android/phoenix/assets/cheats/.empty-folder
 		touch  pkg/android/phoenix/assets/saves/.empty-folder
@@ -1085,129 +1082,6 @@ if [ "${PLATFORM}" = "android" ] && [ "${RA}" = "YES" ]; then
 		fi
 			echo BUILDBOT JOB: $MESSAGE | tee -a $TMPDIR/log/${BOT}/${LOGDATE}.log
 		buildbot_log "$MESSAGE"
-	fi
-fi
-
-if [ "${PLATFORM}" = "theos_ios" ] && [ "${RA}" = "YES" ]; then
-	while read line; do
-		NAME=`echo $line | cut -f 1 -d " "`
-		DIR=`echo $line | cut -f 2 -d " "`
-		URL=`echo $line | cut -f 3 -d " "`
-		TYPE=`echo $line | cut -f 4 -d " "`
-		ENABLED=`echo $line | cut -f 5 -d " "`
-		PARENTDIR=`echo $line | cut -f 6 -d " "`
-
-		if [ "${ENABLED}" = "YES" ]; then
-			echo "BUILDBOT JOB: $jobid Processing $NAME"
-			echo
-			echo NAME: $NAME
-			echo DIR: $DIR
-			echo PARENT: $PARENTDIR
-			echo URL: $URL
-			echo REPO TYPE: $TYPE
-			echo ENABLED: $ENABLED
-
-			ARGS=""
-
-			TEMP=`echo $line | cut -f 9 -d " "`
-			if [ -n ${TEMP} ]; then
-				ARGS="${TEMP}"
-			fi
-			TEMP=""
-			TEMP=`echo $line | cut -f 10 -d " "`
-			if [ -n ${TEMP} ]; then
-				ARGS="${ARGS} ${TEMP}"
-			fi
-			TEMP=""
-			TEMP=`echo $line | cut -f 11 -d " "`
-			if [ -n ${TEMP} ]; then
-				ARGS="${ARGS} ${TEMP}"
-			fi
-			TEMP=""
-			TEMP=`echo $line | cut -f 12 -d " "`
-			if [ -n ${TEMP} ]; then
-				ARGS="${ARGS} ${TEMP}"
-			fi
-			TEMP=""
-			TEMP=`echo $line | cut -f 13 -d " "`
-			if [ -n ${TEMP} ]; then
-				ARGS="${ARGS} ${TEMP}"
-			fi
-			TEMP=""
-			TEMP=`echo $line | cut -f 14 -d " "`
-			if [ -n ${TEMP} ]; then
-				ARGS="${ARGS} ${TEMP}"
-			fi
-
-			ARGS="${ARGS%"${ARGS##*[![:space:]]}"}"
-
-			echo ARGS: $ARGS
-
-			if [ -d "${PARENTDIR}/${DIR}/.git" ]; then
-				cd $PARENTDIR
-				cd $DIR
-				echo "pulling from repo... "
-				OUT=`git pull`
-
-				echo $OUT
-				if [ "${TYPE}" = "PROJECT" ]; then
-					RADIR=$DIR
-					if [[ $OUT == *"Already up-to-date"* ]]; then
-						BUILD="NO"
-					else
-						BUILD="YES"
-					fi
-				fi
-				cd $WORK
-
-			else
-				echo "cloning repo..."
-				cd $PARENTDIR
-				git clone "$URL" "$DIR" --depth=1
-				cd $DIR
-				if [ "${TYPE}" = "PROJECT" ]; then
-					BUILD="YES"
-					RADIR=$DIR
-
-				fi
-				cd $WORK
-			fi
-		fi
-
-		echo
-		echo
-	done < $1.ra
-
-	if [ "${BUILD}" = "YES" -o "${FORCE}" = "YES" -o "${FORCE_RETROARCH_BUILD}" == "YES" ]; then
-		touch $TMPDIR/built-frontend
-		echo "BUILDBOT JOB: $jobid Compiling Shaders"
-		echo
-
-		echo RADIR $RADIR
-		cd $RADIR
-		$MAKE -f Makefile.griffin shaders-convert-glsl PYTHON3=$PYTHON
-
-		echo "BUILDBOT JOB: $jobid Processing Assets"
-		echo
-
-		echo "BUILDBOT JOB: $jobid Building"
-		echo
-		cd apple/iOS
-		rm RetroArch.app -rf
-
-		rm -rf *.deb
-		export PRODUCT_NAME=RetroArch
-		$MAKE clean
-		$MAKE -j8
-		./package.sh
-
-		mkdir obj/RetroArch.app/modules
-		cp -rf ../../../dist/theos/*.* obj/RetroArch.app/modules
-		cp -rf ../../../dist/info/*.* obj/RetroArch.app/modules
-
-		$MAKE package
-
-		cp -r *.deb /home/buildbot/www/.radius/
 	fi
 fi
 
@@ -1409,12 +1283,8 @@ EOF
 			cp -v retroarch.default.cfg windows/
 			cp -v *.exe tools/*.exe windows/
 			cp -rf media/overlays/* windows/overlays
-			cp -rf media/shaders_cg/* windows/shaders/shaders_cg
 			cp -rf media/autoconfig/* windows/autoconfig
 			cp -rf media/assets/* windows/assets
-			cp -rf media/libretrodb/cht/* windows/cheats
-			cp -rf media/libretrodb/rdb/* windows/database/rdb
-			cp -rf media/libretrodb/cursors/* windows/database/cursors
 			cp -rf $RARCH_DIR/info/* windows/info
 			cp -rf audio/audio_filters/*.dll windows/filters/audio
 			cp -rf audio/audio_filters/*.dsp windows/filters/audio
@@ -1955,6 +1825,7 @@ if [ "${PLATFORM}" == "ctr" ] && [ "${RA}" == "YES" ]; then
 
 		mkdir -p pkg/3ds
 		mkdir -p pkg/3ds/remaps
+      mkdir -p pkg/3ds/cheats
 		cp -rf media/overlays/* pkg/3ds/overlays/
 	fi
 fi
@@ -2085,6 +1956,7 @@ if [ "${PLATFORM}" == "vita" ] && [ "${RA}" == "YES" ]; then
 
 		mkdir -p pkg/vita
 		mkdir -p pkg/vita/remaps
+      mkdir -p pkg/vita/cheats
 		cp -rf media/overlays/* pkg/vita/overlays/
 	fi
 fi
