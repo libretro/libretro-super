@@ -911,7 +911,7 @@ done < $1
 
 # retroarch area of the script, a lot of code duplication could be removed but it's quite easy
 # to copy this for any other case and customize for the particular platform
-echo "BUILDBOT JOB: $jobid Building Retroarch"
+echo "BUILDBOT JOB: $jobid Building Retroarch" for $PLATFORM
 echo
 cd $WORK
 BUILD=""
