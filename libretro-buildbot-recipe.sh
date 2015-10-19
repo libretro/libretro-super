@@ -2073,6 +2073,9 @@ if [ "${PLATFORM}" == "osx" ] && [ "${RA}" == "YES" ]; then
 			echo $MESSAGE
 		fi
 
+      buildbot_log "$MESSAGE"
+      echo BUILDBOT JOB: $MESSAGE | tee -a $TMPDIR/log/${BOT}/${LOGDATE}.log
+
       cd pkg/apple
       xcodebuild -project RetroArch.xcodeproj -target "RetroArch Cg" -configuration Release 2>&1 | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_CG_${PLATFORM}.log
 
@@ -2080,7 +2083,7 @@ if [ "${PLATFORM}" == "osx" ] && [ "${RA}" == "YES" ]; then
 			MESSAGE="retroarch build succeeded [$jobid]"
 			echo $MESSAGE
 		else
-			ERROR=`cat $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_${PLATFORM}.log | tail -n 100`
+			ERROR=`cat $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_CG_${PLATFORM}.log | tail -n 100`
 			HASTE=`curl -XPOST http://hastebin.com/documents -d"$ERROR"`
 			HASTE=`echo $HASTE | cut -d"\"" -f4`
 			MESSAGE="retroarch build failed [$jobid] LOG: http://hastebin.com/$HASTE"
