@@ -1801,14 +1801,14 @@ if [ "${PLATFORM}" == "ctr" ] && [ "${RA}" == "YES" ]; then
 		cp -v $RARCH_DIST_DIR/*.a .
 
 		#ls -1 *.a  | awk -F "." ' { print "cp " $0 " " $1 "_ctr." $2 }' |sh
-		JOBS=1 sh ./dist-cores.sh ctr 2>&1 log
+		JOBS=1 sh ./dist-cores.sh ctr 2>&1 retroarch-ctr.log
 		if [ $? -eq 0 ]; then
 			MESSAGE="retroarch build succeeded [$jobid]"
 			echo $MESSAGE
-			touch $TMPDIR/built-frontend
+			cat retroarch-ctr.log > $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_${PLATFORM}.log
+			touch $TMPDIR/built-frontend-3ds
 		else
-			cat log | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_${PLATFORM}.log
-			rm log
+			cat retroarch-ctr.log > $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_${PLATFORM}.log
 			ERROR=`cat $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_${PLATFORM}.log | tail -n 100`
 			HASTE=`curl -XPOST http://hastebin.com/documents -d"$ERROR"`
 			HASTE=`echo $HASTE | cut -d"\"" -f4`
