@@ -1173,20 +1173,6 @@ if [ "${PLATFORM}" == "ios" ] && [ "${RA}" == "YES" ]; then
 			echo $MESSAGE
 		fi
 
-      buildbot_log "$MESSAGE"
-      echo BUILDBOT JOB: $MESSAGE | tee -a $TMPDIR/log/${BOT}/${LOGDATE}.log
-
-		if [ $? -eq 0 ]; then
-			MESSAGE="retroarch build succeeded [$jobid]"
-			echo $MESSAGE
-		else
-			ERROR=`cat $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_CG_${PLATFORM}.log | tail -n 100`
-			HASTE=`curl -XPOST http://hastebin.com/documents -d"$ERROR"`
-			HASTE=`echo $HASTE | cut -d"\"" -f4`
-			MESSAGE="retroarch build failed [$jobid] LOG: http://hastebin.com/$HASTE"
-			echo $MESSAGE
-		fi
-
 		buildbot_log "$MESSAGE"
 		echo BUILDBOT JOB: $MESSAGE | tee -a $TMPDIR/log/${BOT}/${LOGDATE}.log
 		cd $WORK/$RADIR
