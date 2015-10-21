@@ -36,7 +36,7 @@ echo
 echo
 
 # set a few extra variables with libretro-config.sh
-. $WORK/libretro-config.sh
+#. $WORK/libretro-config.sh
 
 # set jobs to 2 if not specified
 if [ -z "$JOBS" ]; then
@@ -113,24 +113,24 @@ if [ "${PLATFORM}" = "android" ]; then
 fi
 
 # define the compilers
-if [ "$HOST_CC" ]; then
-	CC="${HOST_CC}-gcc"
-	CXX="${HOST_CC}-g++"
-	CXX11="${HOST_CC}-g++"
-	STRIP="${HOST_CC}-strip"
-fi
+#if [ "$HOST_CC" ]; then
+#	CC="${HOST_CC}-gcc"
+#	CXX="${HOST_CC}-g++"
+#	CXX11="${HOST_CC}-g++"
+#	STRIP="${HOST_CC}-strip"
+#fi
 
-if [ -z "$MAKE" ]; then
-	if uname -s | grep -i MINGW32 > /dev/null 2>&1; then
-		MAKE=mingw32-make
-	else
-		if type gmake > /dev/null 2>&1; then
-			MAKE=gmake
-		else
-			MAKE=make
-		fi
-	fi
-fi
+#if [ -z "$MAKE" ]; then
+#	if uname -s | grep -i MINGW32 > /dev/null 2>&1; then
+#		MAKE=mingw32-make
+#	else
+#		if type gmake > /dev/null 2>&1; then
+#			MAKE=gmake
+#		else
+#			MAKE=make
+#		fi
+#	fi
+#fi
 
 #if [ -z "$CC" ]; then
 #	if [ $FORMAT_COMPILER_TARGET = "osx" ]; then
@@ -155,16 +155,16 @@ fi
 #	fi
 #fi
 
-if [ "${CC}" ] && [ "${CXX}" ]; then
-	COMPILER="CC=${CC} CXX=${CXX}"
-else
-	COMPILER=""
-fi
+#if [ "${CC}" ] && [ "${CXX}" ]; then
+#	COMPILER="CC=${CC} CXX=${CXX}"
+#else
+#	COMPILER=""
+#fi
 
 echo === BUILDBOT VARS: CC: $CC CXX:: $CXX STRIP: $STRIP COMPILER: $COMPILER ===
 
-export CC=$CC
-export CXX=$CXX
+#export CC=$CC
+#export CXX=$CXX
 
 RESET_FORMAT_COMPILER_TARGET=$FORMAT_COMPILER_TARGET
 RESET_FORMAT_COMPILER_TARGET_ALT=$FORMAT_COMPILER_TARGET_ALT
