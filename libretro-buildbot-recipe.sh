@@ -61,6 +61,9 @@ if [ "${CORE_JOB}" == "YES" ]; then
 		echo $RESULT
 	}
 
+	# set a few extra variables with libretro-config.sh
+	. $WORK/libretro-config.sh
+
 	SCRIPT=$(read_link "$0")
 	echo "SCRIPT: $SCRIPT"
 	BASE_DIR=$(dirname "$SCRIPT")
@@ -163,9 +166,6 @@ if [ "${CORE_JOB}" == "YES" ]; then
 		export FORMAT_COMPILER_TARGET_ALT=$RESET_FORMAT_COMPILER_TARGET_ALT
 	}
 fi
-
-# set a few extra variables with libretro-config.sh
-. $WORK/libretro-config.sh
 
 # set jobs to 2 if not specified
 if [ -z "$JOBS" ]; then
