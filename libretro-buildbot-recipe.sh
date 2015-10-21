@@ -35,8 +35,137 @@ done < $1.conf
 echo
 echo
 
+if [ "${CORE_JOB}" == "YES" ]; then
+	echo === BUILDBOT VARS: $LOGDATE BOTNAME: $BOT FORCE: $FORCE JOBS: $JOBS ===
+
+	# set format_compiler_target
+	[[ "${ARM_NEON}" ]] && echo 'ARM NEON opts enabled...' && export FORMAT_COMPILER_TARGET="${FORMAT_COMPILER_TARGET}-neon"
+	[[ "${CORTEX_A8}" ]] && echo 'Cortex A8 opts enabled...' && export FORMAT_COMPILER_TARGET="${FORMAT_COMPILER_TARGET}-cortexa8"
+	[[ "${CORTEX_A9}" ]] && echo 'Cortex A9 opts enabled...' && export FORMAT_COMPILER_TARGET="${FORMAT_COMPILER_TARGET}-cortexa9"
+	[[ "${ARM_HARDFLOAT}" ]] && echo 'ARM hardfloat ABI enabled...' && export FORMAT_COMPILER_TARGET="${FORMAT_COMPILER_TARGET}-hardfloat"
+	[[ "${ARM_SOFTFLOAT}" ]] && echo 'ARM softfloat ABI enabled...' && export FORMAT_COMPILER_TARGET="${FORMAT_COMPILER_TARGET}-softfloat"
+	[[ "${IOS}" ]] && echo 'iOS detected...'
+
+	read_link()
+	{
+		TARGET_FILE="$1"
+		cd $(dirname "$TARGET_FILE")
+		TARGET_FILE=$(basename "$TARGET_FILE")
+		while [ -L "$TARGET_FILE" ]; do
+			TARGET_FILE=$(readlink "$TARGET_FILE")
+			cd $(dirname "$TARGET_FILE")
+			TARGET_FILE=$(basename "$TARGET_FILE")
+		done
+		PHYS_DIR=$(pwd -P)
+		RESULT="$PHYS_DIR/$TARGET_FILE"
+		echo $RESULT
+	}
+
+	SCRIPT=$(read_link "$0")
+	echo "SCRIPT: $SCRIPT"
+	BASE_DIR=$(dirname "$SCRIPT")
+	if [ -z "$RARCH_DIST_DIR" ]; then
+		RARCH_DIR="$BASE_DIR/dist"
+		RARCH_DIST_DIR="$RARCH_DIR/$DIST_DIR"
+	fi
+
+	# create the folder that will hold compiled cores
+	mkdir -v -p "$RARCH_DIST_DIR"
+
+	# create the folder for each androi abi
+	if [ "${PLATFORM}" = "android" ]; then
+		IFS=' ' read -ra ABIS <<< "$TARGET_ABIS"
+		for a in "${ABIS[@]}"; do
+			echo $a
+			if [ -d $RARCH_DIST_DIR/${a} ]; then
+				echo "Directory $RARCH_DIST_DIR/${a} already exists, skipping creation..."
+			else
+				mkdir $RARCH_DIST_DIR/${a}
+			fi
+		done
+	fi
+
+	# define the compilers
+	if [ "$HOST_CC" ]; then
+		CC="${HOST_CC}-gcc"
+		CXX="${HOST_CC}-g++"
+		CXX11="${HOST_CC}-g++"
+		STRIP="${HOST_CC}-strip"
+	fi
+
+	if [ -z "$MAKE" ]; then
+		if uname -s | grep -i MINGW32 > /dev/null 2>&1; then
+			MAKE=mingw32-make
+		else
+			if type gmake > /dev/null 2>&1; then
+				MAKE=gmake
+			else
+				MAKE=make
+			fi
+		fi
+	fi
+
+	if [ -z "$CC" ]; then
+		if [ $FORMAT_COMPILER_TARGET = "osx" ]; then
+			CC=cc
+		elif uname -s | grep -i MINGW32 > /dev/null 2>&1; then
+			CC=mingw32-gcc
+		else
+			CC=gcc
+		fi
+	fi
+
+	if [ -z "$CXX" ]; then
+		if [ $FORMAT_COMPILER_TARGET = "osx" ]; then
+			CXX=c++
+			CXX11="clang++ -std=c++11 -stdlib=libc++"
+		elif uname -s | grep -i MINGW32 > /dev/null 2>&1; then
+			CXX=mingw32-g++
+			CXX11=mingw32-g++
+		else
+			CXX=g++
+			CXX11=g++
+		fi
+	fi
+
+	if [ "${CC}" ] && [ "${CXX}" ]; then
+		COMPILER="CC=${CC} CXX=${CXX}"
+	else
+		COMPILER=""
+	fi
+
+	echo === BUILDBOT VARS: CC: $CC CXX:: $CXX STRIP: $STRIP COMPILER: $COMPILER ===
+
+	export CC=$CC
+	export CXX=$CXX
+
+	RESET_FORMAT_COMPILER_TARGET=$FORMAT_COMPILER_TARGET
+	RESET_FORMAT_COMPILER_TARGET_ALT=$FORMAT_COMPILER_TARGET_ALT
+
+	check_opengl() {
+		if [ "${BUILD_LIBRETRO_GL}" ]; then
+			if [ "${ENABLE_GLES}" ]; then
+				echo '=== OpenGL ES enabled ==='
+				export FORMAT_COMPILER_TARGET="${FORMAT_COMPILER_TARGET}-gles"
+				export FORMAT_COMPILER_TARGET_ALT="${FORMAT_COMPILER_TARGET}"
+			else
+				echo '=== OpenGL enabled ==='
+				export FORMAT_COMPILER_TARGET="${FORMAT_COMPILER_TARGET}-opengl"
+				export FORMAT_COMPILER_TARGET_ALT="${FORMAT_COMPILER_TARGET}"
+			fi
+		else
+			echo '=== OpenGL disabled in build ==='
+		fi
+	}
+
+	reset_compiler_targets() {
+		export FORMAT_COMPILER_TARGET=$RESET_FORMAT_COMPILER_TARGET
+		export FORMAT_COMPILER_TARGET_ALT=$RESET_FORMAT_COMPILER_TARGET_ALT
+	}
+fi
+
 # set a few extra variables with libretro-config.sh
-#. $WORK/libretro-config.sh
+. $WORK/libretro-config.sh
 
 # set jobs to 2 if not specified
 if [ -z "$JOBS" ]; then
@@ -62,133 +191,6 @@ CORES_BUILT=NO
 # original values of some variables that might change for a particular job
 OLDFORCE=$FORCE
 OLDJ=$JOBS
-
-echo === BUILDBOT VARS: $LOGDATE BOTNAME: $BOT FORCE: $FORCE JOBS: $JOBS ===
-
-# set format_compiler_target
-[[ "${ARM_NEON}" ]] && echo 'ARM NEON opts enabled...' && export FORMAT_COMPILER_TARGET="${FORMAT_COMPILER_TARGET}-neon"
-[[ "${CORTEX_A8}" ]] && echo 'Cortex A8 opts enabled...' && export FORMAT_COMPILER_TARGET="${FORMAT_COMPILER_TARGET}-cortexa8"
-[[ "${CORTEX_A9}" ]] && echo 'Cortex A9 opts enabled...' && export FORMAT_COMPILER_TARGET="${FORMAT_COMPILER_TARGET}-cortexa9"
-[[ "${ARM_HARDFLOAT}" ]] && echo 'ARM hardfloat ABI enabled...' && export FORMAT_COMPILER_TARGET="${FORMAT_COMPILER_TARGET}-hardfloat"
-[[ "${ARM_SOFTFLOAT}" ]] && echo 'ARM softfloat ABI enabled...' && export FORMAT_COMPILER_TARGET="${FORMAT_COMPILER_TARGET}-softfloat"
-[[ "${IOS}" ]] && echo 'iOS detected...'
-
-read_link()
-{
-	TARGET_FILE="$1"
-	cd $(dirname "$TARGET_FILE")
-	TARGET_FILE=$(basename "$TARGET_FILE")
-	while [ -L "$TARGET_FILE" ]; do
-		TARGET_FILE=$(readlink "$TARGET_FILE")
-		cd $(dirname "$TARGET_FILE")
-		TARGET_FILE=$(basename "$TARGET_FILE")
-	done
-	PHYS_DIR=$(pwd -P)
-	RESULT="$PHYS_DIR/$TARGET_FILE"
-	echo $RESULT
-}
-
-SCRIPT=$(read_link "$0")
-echo "SCRIPT: $SCRIPT"
-BASE_DIR=$(dirname "$SCRIPT")
-if [ -z "$RARCH_DIST_DIR" ]; then
-	RARCH_DIR="$BASE_DIR/dist"
-	RARCH_DIST_DIR="$RARCH_DIR/$DIST_DIR"
-fi
-
-# create the folder that will hold compiled cores
-mkdir -v -p "$RARCH_DIST_DIR"
-
-# create the folder for each androi abi
-if [ "${PLATFORM}" = "android" ]; then
-	IFS=' ' read -ra ABIS <<< "$TARGET_ABIS"
-	for a in "${ABIS[@]}"; do
-		echo $a
-		if [ -d $RARCH_DIST_DIR/${a} ]; then
-			echo "Directory $RARCH_DIST_DIR/${a} already exists, skipping creation..."
-		else
-			mkdir $RARCH_DIST_DIR/${a}
-		fi
-	done
-fi
-
-# define the compilers
-#if [ "$HOST_CC" ]; then
-#	CC="${HOST_CC}-gcc"
-#	CXX="${HOST_CC}-g++"
-#	CXX11="${HOST_CC}-g++"
-#	STRIP="${HOST_CC}-strip"
-#fi
-
-#if [ -z "$MAKE" ]; then
-#	if uname -s | grep -i MINGW32 > /dev/null 2>&1; then
-#		MAKE=mingw32-make
-#	else
-#		if type gmake > /dev/null 2>&1; then
-#			MAKE=gmake
-#		else
-#			MAKE=make
-#		fi
-#	fi
-#fi
-
-#if [ -z "$CC" ]; then
-#	if [ $FORMAT_COMPILER_TARGET = "osx" ]; then
-#		CC=cc
-#	elif uname -s | grep -i MINGW32 > /dev/null 2>&1; then
-#		CC=mingw32-gcc
-#	else
-#		CC=gcc
-#	fi
-#fi
-
-#if [ -z "$CXX" ]; then
-#	if [ $FORMAT_COMPILER_TARGET = "osx" ]; then
-#		CXX=c++
-#		CXX11="clang++ -std=c++11 -stdlib=libc++"
-#	elif uname -s | grep -i MINGW32 > /dev/null 2>&1; then
-#		CXX=mingw32-g++
-#		CXX11=mingw32-g++
-#	else
-#		CXX=g++
-#		CXX11=g++
-#	fi
-#fi
-
-#if [ "${CC}" ] && [ "${CXX}" ]; then
-#	COMPILER="CC=${CC} CXX=${CXX}"
-#else
-#	COMPILER=""
-#fi
-
-echo === BUILDBOT VARS: CC: $CC CXX:: $CXX STRIP: $STRIP COMPILER: $COMPILER ===
-
-#export CC=$CC
-#export CXX=$CXX
-
-RESET_FORMAT_COMPILER_TARGET=$FORMAT_COMPILER_TARGET
-RESET_FORMAT_COMPILER_TARGET_ALT=$FORMAT_COMPILER_TARGET_ALT
-
-check_opengl() {
-	if [ "${BUILD_LIBRETRO_GL}" ]; then
-		if [ "${ENABLE_GLES}" ]; then
-			echo '=== OpenGL ES enabled ==='
-			export FORMAT_COMPILER_TARGET="${FORMAT_COMPILER_TARGET}-gles"
-			export FORMAT_COMPILER_TARGET_ALT="${FORMAT_COMPILER_TARGET}"
-		else
-			echo '=== OpenGL enabled ==='
-			export FORMAT_COMPILER_TARGET="${FORMAT_COMPILER_TARGET}-opengl"
-			export FORMAT_COMPILER_TARGET_ALT="${FORMAT_COMPILER_TARGET}"
-		fi
-	else
-		echo '=== OpenGL disabled in build ==='
-	fi
-}
-
-reset_compiler_targets() {
-	export FORMAT_COMPILER_TARGET=$RESET_FORMAT_COMPILER_TARGET
-	export FORMAT_COMPILER_TARGET_ALT=$RESET_FORMAT_COMPILER_TARGET_ALT
-}
 
 cd "${BASE_DIR}"
 
@@ -1156,8 +1158,6 @@ if [ "${PLATFORM}" == "ios" ] && [ "${RA}" == "YES" ]; then
 		echo "BUILDBOT JOB: $jobid Building"
 		echo
 
-		echo $CC
-		echo $GCC
 
 		cd pkg/apple
 		xcodebuild clean build CODE_SIGN_IDENTITY="" CODE_SIGNING_REQUIRED=NO -project RetroArch_iOS.xcodeproj -configuration Release &> $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_${PLATFORM}.log
