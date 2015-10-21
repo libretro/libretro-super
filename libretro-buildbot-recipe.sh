@@ -1156,6 +1156,9 @@ if [ "${PLATFORM}" == "ios" ] && [ "${RA}" == "YES" ]; then
 		echo "BUILDBOT JOB: $jobid Building"
 		echo
 
+		echo $CC
+		echo $GCC
+
 		cd pkg/apple
 		xcodebuild clean build CODE_SIGN_IDENTITY="" CODE_SIGNING_REQUIRED=NO -project RetroArch_iOS.xcodeproj -configuration Release &> $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_${PLATFORM}.log
 
