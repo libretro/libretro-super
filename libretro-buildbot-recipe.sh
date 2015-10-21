@@ -1801,7 +1801,7 @@ if [ "${PLATFORM}" == "ctr" ] && [ "${RA}" == "YES" ]; then
 		cp -v $RARCH_DIST_DIR/*.a .
 
 		#ls -1 *.a  | awk -F "." ' { print "cp " $0 " " $1 "_ctr." $2 }' |sh
-		JOBS=1 sh ./dist-cores.sh ctr 2>&1 > $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_${PLATFORM}.log
+		JOBS=1 sh ./dist-cores.sh ctr &> $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_${PLATFORM}.log 2>&1
 		if [ $? -eq 0 ]; then
 			MESSAGE="retroarch build succeeded [$jobid]"
 			echo $MESSAGE
