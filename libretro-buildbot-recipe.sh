@@ -1065,7 +1065,7 @@ if [ "${PLATFORM}" = "android" ] && [ "${RA}" = "YES" ]; then
 
 		$NDK clean &>  $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_${PLATFORM}.log
 		$NDK -j${JOBS} &>>  $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_${PLATFORM}.log
-		ant clean | &>>  $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_${PLATFORM}.log
+		ant clean &>>  $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_${PLATFORM}.log
 		android update project --path . --target android-22 &>>  $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_${PLATFORM}.log
 		android update project --path libs/googleplay --target android-21 &>>  $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_${PLATFORM}.log
 		android update project --path libs/appcompat --target android-21 &>>  $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_${PLATFORM}.log
