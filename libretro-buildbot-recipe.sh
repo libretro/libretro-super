@@ -1063,13 +1063,14 @@ if [ "${PLATFORM}" = "android" ] && [ "${RA}" = "YES" ]; then
 		cd pkg/android/phoenix
 		rm bin/*.apk
 
-		$NDK clean | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_${PLATFORM}.log
-		$NDK -j${JOBS} | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_${PLATFORM}.log
-		ant clean | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_${PLATFORM}.log
-		android update project --path . --target android-22 | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_${PLATFORM}.log
-		android update project --path libs/googleplay --target android-21 | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_${PLATFORM}.log
-		android update project --path libs/appcompat --target android-21 | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_${PLATFORM}.log
-		ant debug | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_${PLATFORM}.log
+		$NDK clean &>  $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_${PLATFORM}.log
+		$NDK -j${JOBS} &>>  $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_${PLATFORM}.log
+		ant clean | &>>  $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_${PLATFORM}.log
+		android update project --path . --target android-22 &>>  $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_${PLATFORM}.log
+		android update project --path libs/googleplay --target android-21 &>>  $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_${PLATFORM}.log
+		android update project --path libs/appcompat --target android-21 &>>  $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_${PLATFORM}.log
+		ant debug &>> $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_${PLATFORM}.log
+
 		if [ $? -eq 0 ]; then
 			MESSAGE="retroarch build succeeded [$jobid]"
 			echo $MESSAGE
@@ -1402,7 +1403,7 @@ if [ "${PLATFORM}" = "psp1" ] && [ "${RA}" = "YES" ]; then
 		cp -v $RARCH_DIST_DIR/*.a .
 		#ls -1 *.a  | awk -F "." ' { print "cp " $0 " " $1 "_psp1." $2 }' |sh
 
-		./dist-cores.sh psp1 2>&1 | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_${PLATFORM}.log
+		./dist-cores.sh psp1 &> $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_${PLATFORM}.log
 		if [ $? -eq 0 ]; then
 			MESSAGE="retroarch build succeeded [$jobid]"
 			echo $MESSAGE
@@ -1530,7 +1531,7 @@ if [ "${PLATFORM}" == "wii" ] && [ "${RA}" == "YES" ]; then
 			cp -v $RARCH_DIST_DIR/*.a .
 
 			#ls -1 *.a  | awk -F "." ' { print "cp " $0 " " $1 "_wii." $2 }' |sh
-			sh ./dist-cores.sh wii 2>&1 | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_${PLATFORM}.log
+			sh ./dist-cores.sh wii &> $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_${PLATFORM}.log
 			if [ $? -eq 0 ]; then
 				MESSAGE="retroarch build succeeded [$jobid]"
 				echo $MESSAGE
@@ -1671,7 +1672,7 @@ if [ "${PLATFORM}" == "ngc" ] && [ "${RA}" == "YES" ]; then
 		cp -v $RARCH_DIST_DIR/*.a .
 
 		#ls -1 *.a  | awk -F "." ' { print "cp " $0 " " $1 "_ngc." $2 }' |sh
-		sh ./dist-cores.sh ngc 2>&1 | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_${PLATFORM}.log
+		sh ./dist-cores.sh ngc &> $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_${PLATFORM}.log
 		if [ $? -eq 0 ];
 		then
 			MESSAGE="retroarch build succeeded [$jobid]"
@@ -1801,7 +1802,7 @@ if [ "${PLATFORM}" == "ctr" ] && [ "${RA}" == "YES" ]; then
 		cp -v $RARCH_DIST_DIR/*.a .
 
 		#ls -1 *.a  | awk -F "." ' { print "cp " $0 " " $1 "_ctr." $2 }' |sh
-		JOBS=1 sh ./dist-cores.sh ctr &> $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_${PLATFORM}.log 2>&1
+		JOBS=1 sh ./dist-cores.sh ctr &> $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_${PLATFORM}.log
 		if [ $? -eq 0 ]; then
 			MESSAGE="retroarch build succeeded [$jobid]"
 			echo $MESSAGE
@@ -1933,7 +1934,7 @@ if [ "${PLATFORM}" == "vita" ] && [ "${RA}" == "YES" ]; then
 		cp -v $RARCH_DIST_DIR/*.a .
 
 		#ls -1 *.a  | awk -F "." ' { print "cp " $0 " " $1 "_vita." $2 }' |sh
-		JOBS=1 sh ./dist-cores.sh vita 2>&1 | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_${PLATFORM}.log
+		JOBS=1 sh ./dist-cores.sh vita &> $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_${PLATFORM}.log
 		if [ $? -eq 0 ]; then
 			MESSAGE="retroarch build succeeded [$jobid]"
 			echo $MESSAGE
@@ -2060,7 +2061,7 @@ if [ "${PLATFORM}" == "osx" ] && [ "${RA}" == "YES" ]; then
 		echo
 
 		cd pkg/apple
-      xcodebuild -project RetroArch.xcodeproj -target RetroArch -configuration Release 2>&1 | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_${PLATFORM}.log
+      xcodebuild -project RetroArch.xcodeproj -target RetroArch -configuration Release &> $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_${PLATFORM}.log
 
 		if [ $? -eq 0 ]; then
 			MESSAGE="retroarch build succeeded [$jobid]"
@@ -2077,7 +2078,7 @@ if [ "${PLATFORM}" == "osx" ] && [ "${RA}" == "YES" ]; then
       echo BUILDBOT JOB: $MESSAGE | tee -a $TMPDIR/log/${BOT}/${LOGDATE}.log
 
       cd pkg/apple
-      xcodebuild -project RetroArch.xcodeproj -target "RetroArch Cg" -configuration Release 2>&1 | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_CG_${PLATFORM}.log
+      xcodebuild -project RetroArch.xcodeproj -target "RetroArch Cg" -configuration Release &> $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_CG_${PLATFORM}.log
 
 		if [ $? -eq 0 ]; then
 			MESSAGE="retroarch build succeeded [$jobid]"
