@@ -58,6 +58,8 @@ if [ -z "$RARCH_DIST_DIR" ]; then
 	RARCH_DIST_DIR="$RARCH_DIR/$DIST_DIR"
 fi
 
+echo DISTDIR: $RARCH_DIST_DIR
+
 
 if [ "${CORE_JOB}" == "YES" ]; then
 	echo === BUILDBOT VARS: $LOGDATE BOTNAME: $BOT FORCE: $FORCE JOBS: $JOBS ===
