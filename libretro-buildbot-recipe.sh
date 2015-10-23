@@ -35,6 +35,30 @@ done < $1.conf
 echo
 echo
 
+read_link()
+{
+	TARGET_FILE="$1"
+	cd $(dirname "$TARGET_FILE")
+	TARGET_FILE=$(basename "$TARGET_FILE")
+	while [ -L "$TARGET_FILE" ]; do
+		TARGET_FILE=$(readlink "$TARGET_FILE")
+		cd $(dirname "$TARGET_FILE")
+		TARGET_FILE=$(basename "$TARGET_FILE")
+	done
+	PHYS_DIR=$(pwd -P)
+	RESULT="$PHYS_DIR/$TARGET_FILE"
+	echo $RESULT
+}
+
+SCRIPT=$(read_link "$0")
+echo "SCRIPT: $SCRIPT"
+BASE_DIR=$(dirname "$SCRIPT")
+if [ -z "$RARCH_DIST_DIR" ]; then
+	RARCH_DIR="$BASE_DIR/dist"
+	RARCH_DIST_DIR="$RARCH_DIR/$DIST_DIR"
+fi
+
+
 if [ "${CORE_JOB}" == "YES" ]; then
 	echo === BUILDBOT VARS: $LOGDATE BOTNAME: $BOT FORCE: $FORCE JOBS: $JOBS ===
 
@@ -46,31 +70,10 @@ if [ "${CORE_JOB}" == "YES" ]; then
 	[[ "${ARM_SOFTFLOAT}" ]] && echo 'ARM softfloat ABI enabled...' && export FORMAT_COMPILER_TARGET="${FORMAT_COMPILER_TARGET}-softfloat"
 	[[ "${IOS}" ]] && echo 'iOS detected...'
 
-	read_link()
-	{
-		TARGET_FILE="$1"
-		cd $(dirname "$TARGET_FILE")
-		TARGET_FILE=$(basename "$TARGET_FILE")
-		while [ -L "$TARGET_FILE" ]; do
-			TARGET_FILE=$(readlink "$TARGET_FILE")
-			cd $(dirname "$TARGET_FILE")
-			TARGET_FILE=$(basename "$TARGET_FILE")
-		done
-		PHYS_DIR=$(pwd -P)
-		RESULT="$PHYS_DIR/$TARGET_FILE"
-		echo $RESULT
-	}
+
 
 	# set a few extra variables with libretro-config.sh
 	. $WORK/libretro-config.sh
-
-	SCRIPT=$(read_link "$0")
-	echo "SCRIPT: $SCRIPT"
-	BASE_DIR=$(dirname "$SCRIPT")
-	if [ -z "$RARCH_DIST_DIR" ]; then
-		RARCH_DIR="$BASE_DIR/dist"
-		RARCH_DIST_DIR="$RARCH_DIR/$DIST_DIR"
-	fi
 
 	# create the folder that will hold compiled cores
 	mkdir -v -p "$RARCH_DIST_DIR"
