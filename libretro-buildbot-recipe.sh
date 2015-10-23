@@ -50,17 +50,6 @@ read_link()
 	echo $RESULT
 }
 
-SCRIPT=$(read_link "$0")
-echo "SCRIPT: $SCRIPT"
-BASE_DIR=$(dirname "$SCRIPT")
-if [ -z "$RARCH_DIST_DIR" ]; then
-	RARCH_DIR="$BASE_DIR/dist"
-	RARCH_DIST_DIR="$RARCH_DIR/$DIST_DIR"
-fi
-
-echo DISTDIR: $RARCH_DIST_DIR
-
-
 if [ "${CORE_JOB}" == "YES" ]; then
 	echo === BUILDBOT VARS: $LOGDATE BOTNAME: $BOT FORCE: $FORCE JOBS: $JOBS ===
 
@@ -78,6 +67,13 @@ if [ "${CORE_JOB}" == "YES" ]; then
 	. $WORK/libretro-config.sh
 
 	# create the folder that will hold compiled cores
+	SCRIPT=$(read_link "$0")
+	echo "SCRIPT: $SCRIPT"
+	BASE_DIR=$(dirname "$SCRIPT")
+	if [ -z "$RARCH_DIST_DIR" ]; then
+		RARCH_DIR="$BASE_DIR/dist"
+		RARCH_DIST_DIR="$RARCH_DIR/$DIST_DIR"
+	fi
 	mkdir -v -p "$RARCH_DIST_DIR"
 
 	# create the folder for each androi abi
@@ -170,6 +166,17 @@ if [ "${CORE_JOB}" == "YES" ]; then
 		export FORMAT_COMPILER_TARGET=$RESET_FORMAT_COMPILER_TARGET
 		export FORMAT_COMPILER_TARGET_ALT=$RESET_FORMAT_COMPILER_TARGET_ALT
 	}
+else
+	SCRIPT=$(read_link "$0")
+	echo "SCRIPT: $SCRIPT"
+	BASE_DIR=$(dirname "$SCRIPT")
+	if [ -z "$RARCH_DIST_DIR" ]; then
+		RARCH_DIR="$BASE_DIR/dist"
+		RARCH_DIST_DIR="$RARCH_DIR/$PLATFORM"
+	fi
+
+	echo DISTDIR: $RARCH_DIST_DIR
+	
 fi
 
 # set jobs to 2 if not specified
