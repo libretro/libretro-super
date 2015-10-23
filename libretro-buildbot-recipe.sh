@@ -175,9 +175,9 @@ else
 		RARCH_DIST_DIR="$RARCH_DIR/$PLATFORM"
 	fi
 
-	echo DISTDIR: $RARCH_DIST_DIR
-	
 fi
+
+echo DISTDIR: $RARCH_DIST_DIR
 
 # set jobs to 2 if not specified
 if [ -z "$JOBS" ]; then
