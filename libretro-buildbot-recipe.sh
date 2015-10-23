@@ -1369,7 +1369,7 @@ if [ "${PLATFORM}" = "android" ] && [ "${RA}" = "YES" ]; then
 	fi
 fi
 
-if [ "${PLATFORM}" = "MINGW64" ] || [ "${PLATFORM}" = "MINGW32" ] && [ "${RA}" = "YES" ]; then
+if [ "${PLATFORM}" = "MINGW64" ] || [ "${PLATFORM}" = "MINGW32" ] || [ "${PLATFORM}" = "windows" ] && [ "${RA}" = "YES" ]; then
 	while read line; do
 		NAME=`echo $line | cut -f 1 -d " "`
 		DIR=`echo $line | cut -f 2 -d " "`
