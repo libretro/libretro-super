@@ -1329,7 +1329,9 @@ if [ "${PLATFORM}" = "android" ] && [ "${RA}" = "YES" ]; then
 		mkdir -p pkg/android/phoenix/assets/states/
 		mkdir -p pkg/android/phoenix/assets/system/
 
-		cp -rf media/assets/* pkg/android/phoenix/assets/assets/
+		cp -rf media/assets/glui  pkg/android/phoenix/assets/assets/
+		cp -rf media/assets/xmb   pkg/android/phoenix/assets/assets/
+		cp -rf media/assets/zarch pkg/android/phoenix/assets/assets/
 		cp -rf media/autoconfig/* pkg/android/phoenix/assets/autoconfig/
 		cp -rf media/overlays/* pkg/android/phoenix/assets/overlays/
 		cp -rf media/shaders_glsl $TMPDIR/
