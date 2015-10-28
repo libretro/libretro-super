@@ -1576,6 +1576,11 @@ EOF
 			cp -rf audio/audio_filters/*.dsp windows/filters/audio
 			cp -rf gfx/video_filters/*.dll windows/filters/video
 			cp -rf gfx/video_filters/*.filt windows/filters/video
+			
+			$MAKE clean
+			V=1 $MAKE -j${JOBS} DEBUG=1 | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_DEBUG_${PLATFORM}.log
+			cp -v retroarch.exe windows/retroarch_debug.exe
+
 		else
 			ERROR=`cat $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_${PLATFORM}.log | tail -n 100`
 			HASTE=`curl -XPOST http://hastebin.com/documents -d"$ERROR"`
