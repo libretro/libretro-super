@@ -193,6 +193,7 @@ build_makefile() {
 	make_cmdline="$make_cmdline platform=\"$core_build_platform\""
 
 	[ -n "$JOBS" ] && make_cmdline="$make_cmdline -j$JOBS"
+	[ -n "$DEBUG" ] && make_cmdline="$make_cmdline DEBUG=$DEBUG"
 
 	build_dir="$WORKDIR/$core_dir$core_build_subdir"
 
