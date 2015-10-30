@@ -1301,6 +1301,13 @@ if [ "${PLATFORM}" == "ios9" ] && [ "${RA}" == "YES" ]; then
 
 		if [ $? -eq 0 ]; then
 			MESSAGE="retroarch build succeeded [$jobid]"
+			cd build/Release-iphoneos
+         plat=/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/
+		   allocate=${plat}/Developer/usr/bin/codesign_allocate
+		   export CODESIGN_ALLOCATE=${allocate}
+			security unlock-keychain -p buildbot /Users/buildbot/Library/Keychains/login.keychain
+			codesign -fs "buildbot" RetroArch\ iOS9.app
+
 			echo $MESSAGE
 		else
 			ERROR=`cat $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_${PLATFORM}.log | tail -n 100`
