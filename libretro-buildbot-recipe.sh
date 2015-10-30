@@ -1306,7 +1306,7 @@ if [ "${PLATFORM}" == "ios9" ] && [ "${RA}" == "YES" ]; then
 		   allocate=${plat}/Developer/usr/bin/codesign_allocate
 		   export CODESIGN_ALLOCATE=${allocate}
 			security unlock-keychain -p buildbot /Users/buildbot/Library/Keychains/login.keychain
-			codesign -fs "buildbot" RetroArch\ iOS9.app
+			codesign -fs "buildbot" RetroArch.app
 
 			echo $MESSAGE
 		else
