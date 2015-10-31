@@ -133,7 +133,7 @@ if [ "${CORE_JOB}" == "YES" ]; then
 	fi
 
 	if [ "${CC}" ] && [ "${CXX}" ]; then
-		COMPILER="CC="${CC}" CXX="${CXX}""
+		COMPILER="CC="\""${CC}"\"" CXX="\""${CXX}"\"""
 	else
 		COMPILER=""
 	fi
