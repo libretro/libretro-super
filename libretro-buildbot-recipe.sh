@@ -190,6 +190,12 @@ if [ -z "$FORCE" ]; then
 	FORCE=NO
 fi
 
+ifStart=`date '+%d'`
+if [$ifStart == 01]
+then
+	FORCE=YES
+fi
+
 # set force_retroarch_build to NO if not specified
 # this is useful if running manually
 if [ -z "$FORCE_RETROARCH_BUILD" ]; then
