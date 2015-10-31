@@ -190,9 +190,8 @@ if [ -z "$FORCE" ]; then
 	FORCE=NO
 fi
 
-ifStart=`date '+%d'`
-if [$ifStart == 01]
-then
+DAY=`date '+%d'`
+if [ $DAY == 01 ]; then
 	FORCE=YES
 fi
 
