@@ -44,7 +44,8 @@ mupen64plus libretro-mupen64plus https://github.com/libretro/mupen64plus-libretr
 nestopia libretro-nestopia https://github.com/libretro/nestopia.git PROJECT YES GENERIC Makefile libretro 
 nxengine libretro-nxengine https://github.com/libretro/nxengine-libretro.git PROJECT YES GENERIC Makefile . 
 o2em libretro-o2em https://github.com/libretro/libretro-o2em.git PROJECT YES GENERIC Makefile . 
-pcsx_rearmed libretro-pcsx_rearmed https://github.com/libretro/pcsx_rearmed.git PROJECT YES GENERIC Makefile.libretro . USE_DYNAREC=0 
+pcsx_rearmed libretro-pcsx_rearmed https://github.com/libretro/pcsx_rearmed.git PROJECT YES GENERIC Makefile.libretro . USE_DYNAREC=1 
+pcsx_rearmed_interpreter libretro-pcsx_rearmed_interpreter https://github.com/libretro/pcsx_rearmed.git PROJECT YES GENERIC Makefile.libretro . USE_DYNAREC=0 
 picodrive libretro-picodrive https://github.com/libretro/picodrive.git SUBMODULE YES GENERIC Makefile.libretro . 
 ppsspp libretro-ppsspp https://github.com/libretro/ppsspp.git SUBMODULE YES GENERIC_GL Makefile libretro 
 prboom libretro-prboom  https://github.com/libretro/libretro-prboom.git PROJECT YES GENERIC_ALT Makefile . 

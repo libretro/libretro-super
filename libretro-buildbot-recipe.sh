@@ -559,16 +559,20 @@ build_libretro_bsnes() {
 			echo BUILDBOT JOB: $jobid $1 cleanup failed!
 		fi
 	fi
+	BUILDBOT_DBG1="NAME: $NAME DIR: $DIR SUBDIR: $SUBDIR MAKEFILE: $MAKEFILE PLATFORM: $PLATFORM ARGS: $ARGS CC: $CC CXX: $CXX"
 
 	echo "compiling..."
 
 	if [ "${PROFILE}" = "cpp98" ]; then
+		BUILDBOT_DBG2="build command: ${MAKE} platform="${PLATFORM}" ${COMPILER} "-j${JOBS}""
 		${MAKE} platform="${PLATFORM}" ${COMPILER} "-j${JOBS}" 2>&1 | tee $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}.log
 	elif [ "${PROFILE}" = "bnes" ]; then
 		echo "build command: ${MAKE} -f Makefile ${COMPILER} "-j${JOBS}" compiler=${BSNESCOMPILER}" platform=${FORMAT_COMPILER_TARGET}
+		BUILDBOT_DBG2="build command: ${MAKE} -f Makefile ${COMPILER} "-j${JOBS}" compiler="${BSNESCOMPILER}" platform=${FORMAT_COMPILER_TARGET}"
 		${MAKE} -f Makefile ${COMPILER} "-j${JOBS}" compiler="${BSNESCOMPILER}" platform=${FORMAT_COMPILER_TARGET} 2>&1 | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}.log
 	else
 		echo "build command: ${MAKE} -f ${MAKEFILE} platform=${PLATFORM} compiler=${BSNESCOMPILER} ui='target-libretro' profile=${PROFILE} -j${JOBS}"
+		BUILDBOT_DBG2="build command: ${MAKE} -f ${MAKEFILE} platform=${PLATFORM} compiler=${BSNESCOMPILER} ui='target-libretro' profile=${PROFILE} -j${JOBS}"
 		${MAKE} -f ${MAKEFILE} platform=${PLATFORM} compiler=${BSNESCOMPILER} ui='target-libretro' profile=${PROFILE} -j${JOBS} 2>&1 | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}.log
 	fi
 
@@ -582,6 +586,8 @@ build_libretro_bsnes() {
 	if [ $? -eq 0 ]; then
 		MESSAGE="$1 build succeeded [$jobid]"
 	else
+		echo === BUILDBOT VARS: $BUILDBOT_DBG1 === | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}.log
+		echo === BUILDBOT VARS: $BUILDBOT_DBG2 === | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}.log
 		ERROR=`cat $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}.log | tail -n 100`
 		HASTE=`curl -XPOST http://hastebin.com/documents -d"$ERROR"`
 		HASTE=`echo $HASTE | cut -d"\"" -f4`
