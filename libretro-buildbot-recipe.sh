@@ -564,8 +564,8 @@ build_libretro_bsnes() {
 	echo "compiling..."
 
 	if [ "${PROFILE}" = "cpp98" ]; then
-		BUILDBOT_DBG2="build command: ${MAKE} platform="${PLATFORM}" ${COMPILER} "-j${JOBS}""
-		${MAKE} platform="${PLATFORM}" ${COMPILER} "-j${JOBS}" 2>&1 | tee $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}.log
+		BUILDBOT_DBG2="build command: ${MAKE} platform="${PLATFORM}" "${COMPILER}" "-j${JOBS}""
+		${MAKE} platform="${PLATFORM}" "${COMPILER}" "-j${JOBS}" 2>&1 | tee $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}.log
 	elif [ "${PROFILE}" = "bnes" ]; then
 		echo "build command: ${MAKE} -f Makefile ${COMPILER} "-j${JOBS}" compiler=${BSNESCOMPILER}" platform=${FORMAT_COMPILER_TARGET}
 		BUILDBOT_DBG2="build command: ${MAKE} -f Makefile ${COMPILER} "-j${JOBS}" compiler="${BSNESCOMPILER}" platform=${FORMAT_COMPILER_TARGET}"
