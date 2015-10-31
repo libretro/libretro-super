@@ -62,7 +62,7 @@ if [ "${CORE_JOB}" == "YES" ]; then
 	[[ "${IOS}" ]] && echo 'iOS detected...'
 
 
-
+   echo === BUILDBOT VARS: CC: $CC CXX:: $CXX STRIP: $STRIP COMPILER: $COMPILER ===
 	# set a few extra variables with libretro-config.sh
 	. $WORK/libretro-config.sh
 
@@ -89,6 +89,7 @@ if [ "${CORE_JOB}" == "YES" ]; then
 		done
 	fi
 
+	echo === BUILDBOT VARS: CC: $CC CXX:: $CXX STRIP: $STRIP COMPILER: $COMPILER ===
 	# define the compilers
 	if [ "$HOST_CC" ]; then
 		CC="${HOST_CC}-gcc"
@@ -96,6 +97,8 @@ if [ "${CORE_JOB}" == "YES" ]; then
 		CXX11="${HOST_CC}-g++"
 		STRIP="${HOST_CC}-strip"
 	fi
+
+	echo === BUILDBOT VARS: CC: $CC CXX:: $CXX STRIP: $STRIP COMPILER: $COMPILER ===
 
 	if [ -z "$MAKE" ]; then
 		if uname -s | grep -i MINGW32 > /dev/null 2>&1; then
