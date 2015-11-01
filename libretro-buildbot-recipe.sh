@@ -194,7 +194,8 @@ fi
 CLEANUP=NO
 
 DAY=`date '+%d'`
-if [ $DAY == 01 ]; then
+HOUR=`date '+%H'`
+if [ $DAY == 01 -a $HOUR == 06 ]; then
 	FORCE=YES
 	CLEANUP=NO
 fi
