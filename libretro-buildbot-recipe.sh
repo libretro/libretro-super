@@ -366,6 +366,17 @@ build_libretro_leiradel_makefile() {
 	echo BUILDBOT JOB: $MESSAGE | tee -a $TMPDIR/log/${BOT}/${LOGDATE}.log
 	buildbot_log "$MESSAGE"
 	JOBS=$OLDJ
+
+	if [ -z "${NOCLEAN}" ]; then
+		echo "cleaning up..."
+		echo "cleanup command: ${MAKE} -f ${MAKEFILE}.${PLATFORM}_${ARGS} platform=${PLATFORM}_${ARGS} -j${JOBS} clean"
+		${MAKE} -f ${MAKEFILE}.${PLATFORM}_${ARGS} platform=${PLATFORM}_${ARGS} -j${JOBS} clean
+		if [ $? -eq 0 ]; then
+			echo BUILDBOT JOB: $jobid $1 cleanup success!
+		else
+			echo BUILDBOT JOB: $jobid $1 cleanup failed!
+		fi
+	fi
 }
 
 # command for jni makefiles
@@ -429,6 +440,17 @@ build_libretro_generic_jni() {
 			fi
 		fi
 	done
+	for a in "${ABIS[@]}"; do
+		if [ -z "${NOCLEAN}" ]; then
+			echo "cleaning up..."
+			echo "cleanup command: ${NDK} -j${JOBS} ${ARGS} APP_ABI=${a} clean"
+			${NDK} -j${JOBS} ${ARGS} APP_ABI=${a} clean
+			if [ $? -eq 0 ]; then
+				echo BUILDBOT JOB: $jobid $a $1 cleanup success!
+			else
+				echo BUILDBOT JOB: $jobid $a $1 cleanup failed!
+			fi
+		fi
 }
 
 # command for bsnes jni makefiles
@@ -481,6 +503,17 @@ build_libretro_bsnes_jni() {
 		echo BUILDBOT JOB: $MESSAGE | tee -a $TMPDIR/log/${BOT}/${LOGDATE}.log
 		buildbot_log "$MESSAGE"
 	done
+	for a in "${ABIS[@]}"; do
+		if [ -z "${NOCLEAN}" ]; then
+			echo "cleaning up..."
+			echo "cleanup command: ${NDK} -j${JOBS} APP_ABI=${a} clean"
+			${NDK} -j${JOBS} APP_ABI=${a} clean
+			if [ $? -eq 0 ]; then
+				echo BUILDBOT JOB: $jobid $1 cleanup success!
+			else
+				echo BUILDBOT JOB: $jobid $1 cleanup failed!
+			fi
+		fi
 }
 
 # command for gl cores, not sure if this is still needed but it uses an alternate format_compiler_target
@@ -533,6 +566,16 @@ build_libretro_generic_gl_makefile() {
 	buildbot_log "$MESSAGE"
 
 	reset_compiler_targets
+	if [ -z "${NOCLEAN}" ]; then
+		echo "cleaning up..."
+		echo "cleanup command: ${MAKE} -f ${MAKEFILE} platform=${PLATFORM} -j${JOBS} clean"
+		${MAKE} -f ${MAKEFILE} platform=${PLATFORM} -j${JOBS} clean
+		if [ $? -eq 0 ]; then
+			echo BUILDBOT JOB: $jobid $1 cleanup success!
+		else
+			echo BUILDBOT JOB: $jobid $1 cleanup failed!
+		fi
+	fi
 }
 
 # command for bsnes
@@ -601,6 +644,22 @@ build_libretro_bsnes() {
 	echo BUILDBOT JOB: $MESSAGE
 	echo BUILDBOT JOB: $MESSAGE | tee -a $TMPDIR/log/${BOT}/${LOGDATE}.log
 	buildbot_log "$MESSAGE"
+	if [ -z "${NOCLEAN}" ]; then
+		echo "cleaning up..."
+
+		rm -f obj/*.{o,"${FORMAT_EXT}"}
+		rm -f out/*.{o,"${FORMAT_EXT}"}
+
+		if [ "${PROFILE}" = "cpp98" -o "${PROFILE}" = "bnes" ]; then
+			${MAKE} clean
+		fi
+
+		if [ $? -eq 0 ]; then
+			echo BUILDBOT JOB: $jobid $1 cleanup success!
+		else
+			echo BUILDBOT JOB: $jobid $1 cleanup failed!
+		fi
+	fi
 }
 
 
