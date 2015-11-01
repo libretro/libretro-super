@@ -519,6 +519,7 @@ build_libretro_bsnes_jni() {
 				echo BUILDBOT JOB: $jobid $1 cleanup failed!
 			fi
 		fi
+	done
 }
 
 # command for gl cores, not sure if this is still needed but it uses an alternate format_compiler_target
