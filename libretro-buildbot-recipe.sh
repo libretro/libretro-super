@@ -190,9 +190,12 @@ if [ -z "$FORCE" ]; then
 	FORCE=NO
 fi
 
+# set cleanup to NO by default
+
 DAY=`date '+%d'`
 if [ $DAY == 01 ]; then
 	FORCE=YES
+	CLEANUP=YES
 fi
 
 # set force_retroarch_build to NO if not specified
@@ -806,15 +809,22 @@ while read line; do
 		# repo is a regular repository
 		if [ "${TYPE}" = "PROJECT" ]; then
 			if [ -d "${DIR}/.git" ]; then
-
-				cd $DIR
-				echo "pulling from repo... "
-				OUT=`git pull`
-
-				if [[ $OUT == *"Already up-to-date"* ]]; then
-					BUILD="NO"
-				else
+				if [ "${CLEANUP}" == "YES" ]; then
+					rm -rfv $DIR
+					echo "cloning repo..."
+					git clone --depth=1 "$URL" "$DIR"
 					BUILD="YES"
+				else
+					cd $DIR
+					echo "pulling from repo... "
+					OUT=`git pull`
+
+					if [[ $OUT == *"Already up-to-date"* ]]; then
+						BUILD="NO"
+					else
+						BUILD="YES"
+					fi
+
 				fi
 
 				OLDFORCE=$FORCE
