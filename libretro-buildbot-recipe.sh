@@ -191,11 +191,12 @@ if [ -z "$FORCE" ]; then
 fi
 
 # set cleanup to NO by default
+CLEANUP=NO
 
 DAY=`date '+%d'`
 if [ $DAY == 01 ]; then
 	FORCE=YES
-	CLEANUP=YES
+	CLEANUP=NO
 fi
 
 # set force_retroarch_build to NO if not specified
