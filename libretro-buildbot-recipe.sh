@@ -454,6 +454,7 @@ build_libretro_generic_jni() {
 				echo BUILDBOT JOB: $jobid $a $1 cleanup failed!
 			fi
 		fi
+	done
 }
 
 # command for bsnes jni makefiles
