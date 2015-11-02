@@ -24,3 +24,4 @@ mednafen_pce_fast libretro-beetle_pce_fast https://github.com/aliaspider/beetle-
 pcsx_rearmed libretro-pcsx_rearmed  https://github.com/libretro/pcsx_rearmed.git PROJECT YES GENERIC Makefile.libretro . 
 fb_alpha libretro-fba https://github.com/libretro/fba-libretro.git PROJECT NO GENERIC makefile.libretro svn-current/trunk 
 fmsx libretro-fmsx https://github.com/libretro/fmsx-libretro.git PROJECT YES GENERIC Makefile . 
+mame078 libretro-mame078 https://github.com/libretro/mame2003-libretro.git PROJECT YES GENERIC Makefile . 
