@@ -1718,7 +1718,7 @@ if [ "${PLATFORM}" = "MINGW64" ] || [ "${PLATFORM}" = "MINGW32" ] || [ "${PLATFO
 
 		echo "building..."
 		echo "build command: $MAKE -j${JOBS}"
-		$MAKE -j${JOBS} | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_${PLATFORM}.log
+		$MAKE -j${JOBS} 2>&1 | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_${PLATFORM}.log
 		strip -s retroarch.exe
 
 		if [ $? -eq 0 ]; then
