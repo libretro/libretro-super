@@ -251,7 +251,7 @@ libretro_mame2010_makefile="Makefile"
 register_module core "mame2014" -theos_ios -ngc -psp1 -wii
 libretro_mame2014_name="MAME 2014 (0.159)"
 libretro_mame2014_git_url="https://github.com/libretro/mame2014-libretro.git"
-libretro_mame2014_makefile="Makefile.libretro"
+libretro_mame2014_makefile="Makefile"
 
 register_module core "mame" -theos_ios -ngc -ps3 -psp1 -qnx -wii
 libretro_mame_name="MAME (git)"
