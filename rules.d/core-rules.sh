@@ -233,6 +233,11 @@ libretro_virtualjaguar_name="Virtual Jaguar"
 libretro_virtualjaguar_git_url="https://github.com/libretro/virtualjaguar-libretro.git"
 libretro_virtualjaguar_makefile="Makefile"
 
+register_module_core "mame037" -theos_ios -ngc -psp1 -wii
+libretro_mame037_name="MAME 2000 (0.37b5)"
+libretro_mame037_git_url="https://github.com/libretro/mame2000-libretro.git"
+libretro_mame037_makefile="makefile.libretro"
+
 register_module core "mame078" -theos_ios -ngc -psp1 -wii
 libretro_mame078_name="MAME 2003 (0.78)"
 libretro_mame078_git_url="https://github.com/libretro/mame2003-libretro.git"
