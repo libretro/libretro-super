@@ -35,7 +35,7 @@ imageviewer libretro-imageviewer https://github.com/libretro/imageviewer-libretr
 mame libretro-mame https://github.com/libretro/mame.git PROJECT YES GENERIC Makefile.libretro . 
 mame2000 libretro-mame2000 https://github.com/libretro/mame2000-libretro.git PROJECT YES GENERIC Makefile . 
 mame2003 libretro-mame2003 https://github.com/libretro/mame2003-libretro.git PROJECT YES GENERIC Makefile . 
-mame2010 libretro-mame2010 https://github.com/libretro/mame2010-libretro.git PROJECT YES GENERIC Makefile.libretro . VRENDER=soft 
+mame2010 libretro-mame2010 https://github.com/libretro/mame2010-libretro.git PROJECT YES GENERIC Makefile . VRENDER=soft 
 mame2014 libretro-mame2014 https://github.com/libretro/mame2014-libretro.git PROJECT YES GENERIC Makefile.libretro . TARGET=mame 
 mednafen_gba libretro-mednafen_gba https://github.com/libretro/beetle-gba-libretro.git PROJECT YES GENERIC Makefile . 
 mednafen_lynx libretro-mednafen_lynx https://github.com/libretro/beetle-lynx-libretro.git PROJECT YES GENERIC Makefile . 
