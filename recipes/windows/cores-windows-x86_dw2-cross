@@ -1,0 +1,7 @@
+emux_chip8 libretro-emux_chip8 https://github.com/libretro/emux PROJECT YES LEIRADEL Makefile libretro x86 MACHINE=chip8
+emux_gb libretro-emux_gb https://github.com/libretro/emux PROJECT YES LEIRADEL Makefile libretro x86 MACHINE=gb
+emux_nes libretro-emux_nes https://github.com/libretro/emux PROJECT YES LEIRADEL Makefile libretro x86 MACHINE=nes
+emux_sms libretro-emux_sms https://github.com/libretro/emux PROJECT YES LEIRADEL Makefile libretro x86 MACHINE=sms
+fuse libretro-fuse https://github.com/libretro/fuse-libretro.git PROJECT YES LEIRADEL Makefile build x86
+gw libretro-gw https://github.com/libretro/gw-libretro.git PROJECT YES LEIRADEL Makefile build x86
+
