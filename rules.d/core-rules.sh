@@ -236,7 +236,7 @@ libretro_virtualjaguar_makefile="Makefile"
 register_module core "mame2000" -theos_ios -ngc -psp1 -wii
 libretro_mame2000_name="MAME 2000 (0.37b5)"
 libretro_mame2000_git_url="https://github.com/libretro/mame2000-libretro.git"
-libretro_mame2000_makefile="makefile.libretro"
+libretro_mame2000_makefile="Makefile"
 
 register_module core "mame2003" -theos_ios -ngc -psp1 -wii
 libretro_mame2003_name="MAME 2003 (0.78)"
