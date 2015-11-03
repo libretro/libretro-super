@@ -233,25 +233,25 @@ libretro_virtualjaguar_name="Virtual Jaguar"
 libretro_virtualjaguar_git_url="https://github.com/libretro/virtualjaguar-libretro.git"
 libretro_virtualjaguar_makefile="Makefile"
 
-register_module_core "mame037" -theos_ios -ngc -psp1 -wii
-libretro_mame037_name="MAME 2000 (0.37b5)"
-libretro_mame037_git_url="https://github.com/libretro/mame2000-libretro.git"
-libretro_mame037_makefile="makefile.libretro"
+register_module_core "mame2000" -theos_ios -ngc -psp1 -wii
+libretro_mame2000_name="MAME 2000 (0.37b5)"
+libretro_mame2000_git_url="https://github.com/libretro/mame2000-libretro.git"
+libretro_mame2000_makefile="makefile.libretro"
 
-register_module core "mame078" -theos_ios -ngc -psp1 -wii
-libretro_mame078_name="MAME 2003 (0.78)"
-libretro_mame078_git_url="https://github.com/libretro/mame2003-libretro.git"
-libretro_mame078_makefile="Makefile"
+register_module core "mame2003" -theos_ios -ngc -psp1 -wii
+libretro_mame2003_name="MAME 2003 (0.78)"
+libretro_mame2003_git_url="https://github.com/libretro/mame2003-libretro.git"
+libretro_mame2003_makefile="Makefile"
 
-register_module core "mame139"
-libretro_mame139_name="MAME 2010 (0.139)"
-libretro_mame139_git_url="https://github.com/libretro/mame2010-libretro.git"
-libretro_mame139_makefile="Makefile.libretro"
+register_module core "mame2010"
+libretro_mame2010_name="MAME 2010 (0.139)"
+libretro_mame2010_git_url="https://github.com/libretro/mame2010-libretro.git"
+libretro_mame2010_makefile="Makefile.libretro"
 
-register_module core "mame159" -theos_ios -ngc -psp1 -wii
-libretro_mame159_name="MAME 2014 (0.159)"
-libretro_mame159_git_url="https://github.com/libretro/mame2014-libretro.git"
-libretro_mame159_makefile="Makefile.libretro"
+register_module core "mame2014" -theos_ios -ngc -psp1 -wii
+libretro_mame2014_name="MAME 2014 (0.159)"
+libretro_mame2014_git_url="https://github.com/libretro/mame2014-libretro.git"
+libretro_mame2014_makefile="Makefile.libretro"
 
 register_module core "mame" -theos_ios -ngc -ps3 -psp1 -qnx -wii
 libretro_mame_name="MAME (git)"

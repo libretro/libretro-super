@@ -117,7 +117,7 @@ build_default_cores_cpp11() {
 	libretro_build_core bsnes_mercury_accuracy
 	libretro_build_core bsnes_mercury_balanced
 	libretro_build_core bsnes_mercury_performance
-	libretro_build_core mame159
+	libretro_build_core mame2014
 	libretro_build_core mame
 }
 
@@ -187,7 +187,7 @@ build_default_cores() {
 	if [ $platform != "psp1" ] && [ $platform != "wii" ] && [ $platform != "ngc" ] && [ $platform != "vita" ]; then
 		# (PSP/NGC/Wii/Vita) Performance and/or binary size issues
 		libretro_build_core bsnes_cplusplus98
-		libretro_build_core mame078
+		libretro_build_core mame2003
 		libretro_build_core mednafen_gba
 	fi
 
@@ -241,7 +241,7 @@ build_default_cores() {
 
 
 		if [ $platform != "qnx" ] && [ $platform != "psp1" ] && [ $platform != "vita" ]; then
-			libretro_build_core mame139
+			libretro_build_core mame2010
 
 			build_default_cores_cpp11
 
