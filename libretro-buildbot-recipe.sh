@@ -249,7 +249,7 @@ build_libretro_generic_makefile() {
 
 	echo BUILDBOT THREADS: $JOBS
 
-	if [ "${NAME}" == "mame078" ]; then
+	if [ "${NAME}" == "mame2003" ]; then
 		JOBS=1
 	fi
 	if [ "${NAME}" == "mame2010" ]; then
