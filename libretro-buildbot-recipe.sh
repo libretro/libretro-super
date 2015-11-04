@@ -240,6 +240,9 @@ build_libretro_generic_makefile() {
 	ARGS=$6
 	JOBS=$JOBS
 	buildbot_log "$1 build starting [$jobid]"
+   BUILDBOT_DBG1=""
+   BUILDBOT_DBG2=""
+   BUILDBOT_DBG3=""
 
 	BUILDBOT_DBG1="NAME: $NAME DIR: $DIR SUBDIR: $SUBDIR MAKEFILE: $MAKEFILE PLATFORM: $PLATFORM ARGS: $ARGS CC: $CC CXX: $CXX"
 
@@ -596,7 +599,11 @@ build_libretro_bsnes() {
 	BSNESCOMPILER=$6
 	buildbot_log "$1 build starting [$jobid]"
 
-	cd $DIR
+   BUILDBOT_DBG1=""
+   BUILDBOT_DBG2=""
+   BUILDBOT_DBG3=""
+
+   cd $DIR
 
 	if [ -z "${NOCLEAN}" ]; then
 		echo "cleaning up..."
