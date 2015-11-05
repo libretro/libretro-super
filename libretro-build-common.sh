@@ -51,6 +51,12 @@ if [ "$platform" = "theos_ios" ]; then
 	CORE_PREFIX="objs/obj/"
 fi
 
+post_error_log() {
+	error=`cat $WORKDIR/log/$1.log | tail -n 100`
+	haste=`curl -s -XPOST http://hastebin.com/documents -d"$error"`
+	haste=`echo $haste | cut -d"\"" -f4`
+	echo "$1 build failed (platform: $2) LOG: http://hastebin.com/$haste"
+}
 
 build_summary_log() {
 	# Trailing spaces are intentional here
@@ -58,6 +64,7 @@ build_summary_log() {
 		export build_success="$build_success$2 "
 	else
 		export build_fail="$build_fail$2 "
+		#post_error_log $2
 	fi
 }
 
