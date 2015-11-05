@@ -18,6 +18,14 @@ libretro_bsnes_performance_git_url="https://github.com/libretro/bsnes-libretro.g
 libretro_bsnes_performance_build_args="compiler=\"${CXX11}\" profile=\"performance\""
 libretro_bsnes_performance_build_products="out"
 
+register_module core "pocketsnes" -ngc -ps3 -psp1 -wii
+libretro_pocketsnes_name="PocketSNES"
+libretro_pocketsnes_git_url="https://github.com/libretro/pocketsnes-libretro.git"
+
+register_module core "catsfc" -ngc -ps3 -psp1 -wii
+libretro_catsfc_name="CATSFC"
+libretro_catsfc_git_url="https://github.com/libretro/CATSFC-libretro.git"
+
 register_module core "snes9x" -ngc -sncps3 -ps3 -psp1 -wii
 libretro_snes9x_name="SNES9x"
 libretro_snes9x_git_url="https://github.com/libretro/snes9x.git"
@@ -378,9 +386,6 @@ register_module core "4do" -ngc -sncps3 -ps3 -psp1 -wii
 libretro_4do_name="4DO"
 libretro_4do_git_url="https://github.com/libretro/4do-libretro.git"
 
-register_module core "catsfc" -ngc -ps3 -psp1 -wii
-libretro_catsfc_name="CATSFC"
-libretro_catsfc_git_url="https://github.com/libretro/CATSFC-libretro.git"
 
 register_module core "stonesoup" -ngc -ps3 -psp1 -qnx -wii
 libretro_stonesoup_name="Dungeon Crawl Stone Soup"
