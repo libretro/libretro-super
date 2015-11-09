@@ -70,15 +70,6 @@ build_libretro_vbam() {
 	build_libretro_generic_makefile "vbam" "src/libretro/jni"
 }
 
-build_libretro_prboom()
-{
-	build_libretro_generic_makefile "prboom" "libretro/jni"
-}
-
-build_libretro_tyrquake() {
-	build_libretro_generic_makefile "tyrquake" "libretro/jni"
-}
-
 build_libretro_ppsspp() {
 	build_libretro_generic_makefile "ppsspp" "libretro/jni"
 }
@@ -209,7 +200,9 @@ WANT_CORES=" \
 	tgbdual \
 	quicknes \
 	handy \ 
-   gambatte"
+   gambatte \
+	prboom \
+	tyrquake"
 build_libretro_bsnes
 build_libretro_bsnes_mercury
 fi
