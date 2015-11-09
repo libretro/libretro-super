@@ -72,26 +72,7 @@ build_libretro_bsnes()
 				ndk-build clean APP_ABI=${a} || die "Failed to clean ${a} ${1}"
 			fi
 			ndk-build -j$JOBS APP_ABI=${a} || die "Failed to build ${a} ${1}"
-			cp ../libs/${a}/libretro_${1}_performance.${FORMAT_EXT} $RARCH_DIST_DIR/${a}/${1}_performance_libretro${FORMAT}.${FORMAT_EXT}
-		done
-	else
-		echo "${1} not fetched, skipping ..."
-	fi
-}
-
-build_libretro_bsnes_mercury()
-{
-	cd $BASE_DIR
-	if [ -d "libretro-${1}" ]; then
-		echo "=== Building ${1}-mercury ==="
-		cd libretro-${1}/
-		cd ${2}
-		for a in "${ABIS[@]}"; do
-			if [ -z "${NOCLEAN}" ]; then
-				ndk-build clean APP_ABI=${a} || die "Failed to clean ${a} ${1}"
-			fi
-			ndk-build -j$JOBS APP_ABI=${a} || die "Failed to build ${a} ${1}"
-			cp ../libs/${a}/libretro_${1}_performance.${FORMAT_EXT} $RARCH_DIST_DIR/${a}/${1}_mercury_performance_libretro${FORMAT}.${FORMAT_EXT}
+			cp ../libs/${a}/libretro_${1}.${FORMAT_EXT} $RARCH_DIST_DIR/${a}/${1}_libretro${FORMAT}.${FORMAT_EXT}
 		done
 	else
 		echo "${1} not fetched, skipping ..."
@@ -176,9 +157,9 @@ WANT_CORES=" \
 	vba_next \
 	vbam \
 	fceumm \
-	dinothawr"
-build_libretro_bsnes "bsnes" "target-libretro/jni"
-build_libretro_bsnes_mercury "bsnes" "target-libretro/jni"
+	dinothawr \
+	bsnes_mercury_performance \
+	bsnes_performance"
 fi
 
 for core in $WANT_CORES; do
@@ -189,6 +170,12 @@ for core in $WANT_CORES; do
 	if [ $core = "gambatte" ]; then
 		path="libgambatte/libretro/jni"
 	fi
-	build_libretro_generic_makefile $core $path
+
+	if [ $core = "bsnes_mercury_performance" ] || [ $core = "bsnes_performance" ]; then
+		path="target-libretro/jni"
+		build_libretro_bsnes $core $path
+	else
+		build_libretro_generic_makefile $core $path
+	fi
 done
 
