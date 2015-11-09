@@ -91,10 +91,6 @@ build_libretro_fceumm() {
 	build_libretro_generic_makefile "fceumm" "src/drivers/libretro/jni"
 }
 
-build_libretro_gambatte() {
-	build_libretro_generic_makefile "gambatte" "libgambatte/libretro/jni"
-}
-
 build_libretro_dinothawr() {
 	build_libretro_generic_makefile "dinothawr" "android/eclipse/jni"
 }
@@ -212,7 +208,8 @@ WANT_CORES=" \
 	nestopia \
 	tgbdual \
 	quicknes \
-	handy"
+	handy \ 
+   gambatte"
 build_libretro_bsnes
 build_libretro_bsnes_mercury
 fi
@@ -221,6 +218,9 @@ for core in $WANT_CORES; do
 	path="jni"
 	if [ $core = "snes9x" ] || [ $core = "snes9x_next" ] || [ $core = "genesis_plus_gx" ] || [ $core = "meteor" ] || [ $core = "nestopia" ]; then
 		path="libretro/jni"
+	fi
+	if [ $core = "gambatte" ]; then
+		path="libgambatte/libretro/jni"
 	fi
 	build_libretro_generic_makefile $core $path
 done
