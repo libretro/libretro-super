@@ -5,7 +5,7 @@ bsnes libretro-bsnes https://github.com/libretro/bsnes-libretro.git PROJECT YES 
 bsnes_mercury libretro-bsnes_mercury https://github.com/libretro/bsnes-mercury.git PROJECT YES BSNES_JNI Makefile target-libretro/jni performance 
 catsfc libretro-catsfc https://github.com/libretro/CATSFC-libretro.git PROJECT YES GENERIC_JNI Makefile jni 
 desmume libretro-desmume https://github.com/libretro/desmume.git PROJECT YES GENERIC_JNI Makefile.libretro desmume/src/libretro/jni 
-dinothawr libretro-dinothawr https://github.com/libretro/Dinothawr.git PROJECT YES GENERIC_JNI Makefile android/eclipse/jni
+dinothawr libretro-dinothawr https://github.com/libretro/Dinothawr.git PROJECT YES GENERIC_JNI Makefile jni
 dosbox libretro-dosbox https://github.com/libretro/dosbox-libretro.git PROJECT YES GENERIC_JNI Makefile.libretro jni 
 fb_alpha libretro-fba https://github.com/libretro/fba-libretro.git PROJECT YES GENERIC_JNI makefile.libretro svn-current/trunk/projectfiles/libretro-android/jni 
 fceumm libretro-fceuumm  https://github.com/libretro/libretro-fceumm.git PROJECT YES GENERIC_JNI Makefile.libretro jni 

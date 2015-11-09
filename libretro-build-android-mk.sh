@@ -66,10 +66,6 @@ build_libretro_ppsspp() {
 	build_libretro_generic_makefile "ppsspp" "libretro/jni"
 }
 
-build_libretro_dinothawr() {
-	build_libretro_generic_makefile "dinothawr" "android/eclipse/jni"
-}
-
 build_libretro_desmume() {
 	build_libretro_generic_makefile "desmume" "desmume/src/libretro/jni"
 }
@@ -189,7 +185,8 @@ WANT_CORES=" \
 	tyrquake \
 	vba_next \
 	vbam \
-	fceumm"
+	fceumm \
+	dinothawr"
 build_libretro_bsnes
 build_libretro_bsnes_mercury
 fi
