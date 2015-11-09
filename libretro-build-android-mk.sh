@@ -66,10 +66,6 @@ build_libretro_ppsspp() {
 	build_libretro_generic_makefile "ppsspp" "libretro/jni"
 }
 
-build_libretro_fceumm() {
-	build_libretro_generic_makefile "fceumm" "src/drivers/libretro/jni"
-}
-
 build_libretro_dinothawr() {
 	build_libretro_generic_makefile "dinothawr" "android/eclipse/jni"
 }
@@ -192,7 +188,8 @@ WANT_CORES=" \
 	prboom \
 	tyrquake \
 	vba_next \
-	vbam"
+	vbam \
+	fceumm"
 build_libretro_bsnes
 build_libretro_bsnes_mercury
 fi
