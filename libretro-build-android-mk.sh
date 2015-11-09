@@ -60,6 +60,44 @@ build_libretro_generic_makefile()
 	fi
 }
 
+build_libretro_bsnes()
+{
+	cd $BASE_DIR
+	if [ -d "libretro-${1}" ]; then
+		echo "=== Building ${1} ==="
+		cd libretro-${1}/
+		cd ${2}
+		for a in "${ABIS[@]}"; do
+			if [ -z "${NOCLEAN}" ]; then
+				ndk-build clean APP_ABI=${a} || die "Failed to clean ${a} ${1}"
+			fi
+			ndk-build -j$JOBS APP_ABI=${a} || die "Failed to build ${a} ${1}"
+			cp ../libs/${a}/libretro_${1}_performance.${FORMAT_EXT} $RARCH_DIST_DIR/${a}/${1}_performance_libretro${FORMAT}.${FORMAT_EXT}
+		done
+	else
+		echo "${1} not fetched, skipping ..."
+	fi
+}
+
+build_libretro_bsnes_mercury()
+{
+	cd $BASE_DIR
+	if [ -d "libretro-${1}" ]; then
+		echo "=== Building ${1}-mercury ==="
+		cd libretro-${1}/
+		cd ${2}
+		for a in "${ABIS[@]}"; do
+			if [ -z "${NOCLEAN}" ]; then
+				ndk-build clean APP_ABI=${a} || die "Failed to clean ${a} ${1}"
+			fi
+			ndk-build -j$JOBS APP_ABI=${a} || die "Failed to build ${a} ${1}"
+			cp ../libs/${a}/libretro_${1}_performance.${FORMAT_EXT} $RARCH_DIST_DIR/${a}/${1}_mercury_performance_libretro${FORMAT}.${FORMAT_EXT}
+		done
+	else
+		echo "${1} not fetched, skipping ..."
+	fi
+}
+
 build_libretro_desmume() {
 	build_libretro_generic_makefile "desmume" "desmume/src/libretro/jni"
 }
@@ -89,48 +127,6 @@ create_dist_dir()
 			mkdir $RARCH_DIST_DIR/${a}
 		fi
 	done
-}
-
-build_libretro_bsnes()
-{
-	CORENAME="bsnes"
-	#TODO - maybe accuracy/balanced cores as well
-	cd $BASE_DIR
-	if [ -d "libretro-${CORENAME}" ]; then
-		echo "=== Building ${CORENAME} ==="
-		cd libretro-${CORENAME}/
-		cd target-libretro/jni
-		for a in "${ABIS[@]}"; do
-			if [ -z "${NOCLEAN}" ]; then
-				ndk-build clean APP_ABI=${a} || die "Failed to clean ${a} ${CORENAME}"
-			fi
-			ndk-build -j$JOBS APP_ABI=${a} || die "Failed to build ${a} ${CORENAME}"
-			cp ../libs/${a}/libretro_${CORENAME}_performance.${FORMAT_EXT} $RARCH_DIST_DIR/${a}/${CORENAME}_performance_libretro${FORMAT}.${FORMAT_EXT}
-		done
-	else
-		echo "${CORENAME} not fetched, skipping ..."
-	fi
-}
-
-build_libretro_bsnes_mercury()
-{
-	CORENAME="bsnes"
-	#TODO - maybe accuracy/balanced cores as well
-	cd $BASE_DIR
-	if [ -d "libretro-${CORENAME}" ]; then
-		echo "=== Building ${CORENAME}-mercury ==="
-		cd libretro-${CORENAME}/
-		cd target-libretro/jni
-		for a in "${ABIS[@]}"; do
-			if [ -z "${NOCLEAN}" ]; then
-				ndk-build clean APP_ABI=${a} || die "Failed to clean ${a} ${CORENAME}"
-			fi
-			ndk-build -j$JOBS APP_ABI=${a} || die "Failed to build ${a} ${CORENAME}"
-			cp ../libs/${a}/libretro_${CORENAME}_performance.${FORMAT_EXT} $RARCH_DIST_DIR/${a}/${CORENAME}_mercury_performance_libretro${FORMAT}.${FORMAT_EXT}
-		done
-	else
-		echo "${CORENAME} not fetched, skipping ..."
-	fi
 }
 
 
@@ -181,8 +177,8 @@ WANT_CORES=" \
 	vbam \
 	fceumm \
 	dinothawr"
-build_libretro_bsnes
-build_libretro_bsnes_mercury
+build_libretro_bsnes "bsnes" "target-libretro/jni"
+build_libretro_bsnes_mercury "bsnes" "target-libretro/jni"
 fi
 
 for core in $WANT_CORES; do
