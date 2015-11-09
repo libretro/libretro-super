@@ -83,10 +83,6 @@ build_libretro_ppsspp() {
 	build_libretro_generic_makefile "ppsspp" "libretro/jni"
 }
 
-build_libretro_handy() {
-	build_libretro_generic_makefile "handy" "libretro/jni"
-}
-
 build_libretro_yabause() {
 	build_libretro_generic_makefile "yabause" "libretro/jni"
 }
@@ -99,12 +95,9 @@ build_libretro_gambatte() {
 	build_libretro_generic_makefile "gambatte" "libgambatte/libretro/jni"
 }
 
-
-
 build_libretro_dinothawr() {
 	build_libretro_generic_makefile "dinothawr" "android/eclipse/jni"
 }
-
 
 build_libretro_desmume() {
 	build_libretro_generic_makefile "desmume" "desmume/src/libretro/jni"
@@ -218,7 +211,8 @@ WANT_CORES=" \
 	vecx \
 	nestopia \
 	tgbdual \
-	quicknes"
+	quicknes \
+	handy"
 build_libretro_bsnes
 build_libretro_bsnes_mercury
 fi
