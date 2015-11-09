@@ -209,7 +209,7 @@ fi
 
 for core in $WANT_CORES; do
 	path="jni"
-	if [ $core = "snes9x" ] || [ $core = "snes9x_next" ] || [ $core = "genesis_plus_gx" ] || [ $core = "meteor" ] || [ $core = "nestopia" ]; then
+	if [ $core = "snes9x" ] || [ $core = "genesis_plus_gx" ] || [ $core = "meteor" ] || [ $core = "nestopia" ]; then
 		path="libretro/jni"
 	fi
 	if [ $core = "gambatte" ]; then
