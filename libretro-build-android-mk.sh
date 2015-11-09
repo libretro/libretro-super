@@ -39,8 +39,6 @@ die()
 	#exit 1
 }
 
-
-
 # $1 is core name
 # $2 is subdir (if there's no subdir, put "." here)
 build_libretro_generic_makefile()
@@ -60,10 +58,6 @@ build_libretro_generic_makefile()
 	else
 		echo "${1} not fetched, skipping ..."
 	fi
-}
-
-build_libretro_ppsspp() {
-	build_libretro_generic_makefile "ppsspp" "libretro/jni"
 }
 
 build_libretro_desmume() {
@@ -193,7 +187,7 @@ fi
 
 for core in $WANT_CORES; do
 	path="jni"
-	if [ $core = "snes9x" ] || [ $core = "genesis_plus_gx" ] || [ $core = "meteor" ] || [ $core = "nestopia" ] || [ $core = "yabause" ] || [ $core = "vbam" ] || [ $core = "vba_next" ]; then
+	if [ $core = "snes9x" ] || [ $core = "genesis_plus_gx" ] || [ $core = "meteor" ] || [ $core = "nestopia" ] || [ $core = "yabause" ] || [ $core = "vbam" ] || [ $core = "vba_next" ] || [ $core = "ppsspp" ]; then
 		path="libretro/jni"
 	fi
 	if [ $core = "gambatte" ]; then
