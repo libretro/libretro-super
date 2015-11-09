@@ -83,10 +83,6 @@ build_libretro_ppsspp() {
 	build_libretro_generic_makefile "ppsspp" "libretro/jni"
 }
 
-build_libretro_quicknes() {
-	build_libretro_generic_makefile "quicknes" "libretro/jni"
-}
-
 build_libretro_handy() {
 	build_libretro_generic_makefile "handy" "libretro/jni"
 }
@@ -221,7 +217,8 @@ WANT_CORES=" \
 	mupen64plus \
 	vecx \
 	nestopia \
-	tgbdual"
+	tgbdual \
+	quicknes"
 build_libretro_bsnes
 build_libretro_bsnes_mercury
 fi
