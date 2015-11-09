@@ -41,6 +41,7 @@ die()
 
 # $1 is core name
 # $2 is subdir (if there's no subdir, put "." here)
+# $3 is appendage to core name for output JNI file
 build_libretro_generic_makefile()
 {
 	cd $BASE_DIR
@@ -53,38 +54,11 @@ build_libretro_generic_makefile()
 				ndk-build clean APP_ABI=${a} || die "Failed to clean ${a} ${1}"
 			fi
 			ndk-build -j$JOBS APP_ABI=${a} || die "Failed to build  ${a} ${1}"
-			cp ../libs/${a}/libretro.${FORMAT_EXT} $RARCH_DIST_DIR/${a}/${1}_libretro${FORMAT}.${FORMAT_EXT}
+			cp ../libs/${a}/libretro${3}.${FORMAT_EXT} $RARCH_DIST_DIR/${a}/${1}_libretro${FORMAT}.${FORMAT_EXT}
 		done
 	else
 		echo "${1} not fetched, skipping ..."
 	fi
-}
-
-build_libretro_bsnes()
-{
-	cd $BASE_DIR
-	if [ -d "libretro-${1}" ]; then
-		echo "=== Building ${1} ==="
-		cd libretro-${1}/
-		cd ${2}
-		for a in "${ABIS[@]}"; do
-			if [ -z "${NOCLEAN}" ]; then
-				ndk-build clean APP_ABI=${a} || die "Failed to clean ${a} ${1}"
-			fi
-			ndk-build -j$JOBS APP_ABI=${a} || die "Failed to build ${a} ${1}"
-			cp ../libs/${a}/libretro_${1}.${FORMAT_EXT} $RARCH_DIST_DIR/${a}/${1}_libretro${FORMAT}.${FORMAT_EXT}
-		done
-	else
-		echo "${1} not fetched, skipping ..."
-	fi
-}
-
-build_libretro_desmume() {
-	build_libretro_generic_makefile "desmume" "desmume/src/libretro/jni"
-}
-
-build_libretro_fb_alpha() {
-	build_libretro_generic_makefile "fb_alpha" "svn-current/trunk/projectfiles/libretro-android/jni"
 }
 
 create_dist_dir()
@@ -158,24 +132,32 @@ WANT_CORES=" \
 	vbam \
 	fceumm \
 	dinothawr \
+	desmume \
+	fb_alpha \
 	bsnes_mercury_performance \
 	bsnes_performance"
 fi
 
 for core in $WANT_CORES; do
 	path="jni"
+	append=""
 	if [ $core = "snes9x" ] || [ $core = "genesis_plus_gx" ] || [ $core = "meteor" ] || [ $core = "nestopia" ] || [ $core = "yabause" ] || [ $core = "vbam" ] || [ $core = "vba_next" ] || [ $core = "ppsspp" ]; then
 		path="libretro/jni"
 	fi
 	if [ $core = "gambatte" ]; then
 		path="libgambatte/libretro/jni"
 	fi
+	if [ $core = "desmume" ]; then
+		path="desmume/src/libretro/jni"
+	fi
+	if [ $core = "fb_alpha" ]; then
+		path="svn-current/trunk/projectfiles/libretro-android/jni"
+	fi
 
 	if [ $core = "bsnes_mercury_performance" ] || [ $core = "bsnes_performance" ]; then
 		path="target-libretro/jni"
-		build_libretro_bsnes $core $path
-	else
-		build_libretro_generic_makefile $core $path
+		append="_$core"
 	fi
+	build_libretro_generic_makefile $core $path $append
 done
 
