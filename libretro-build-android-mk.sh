@@ -70,18 +70,9 @@ build_libretro_vbam() {
 	build_libretro_generic_makefile "vbam" "src/libretro/jni"
 }
 
-
-build_libretro_tgbdual() {
-	build_libretro_generic_makefile "tgbdual" "libretro/jni"
-}
-
 build_libretro_prboom()
 {
 	build_libretro_generic_makefile "prboom" "libretro/jni"
-}
-
-build_libretro_nestopia() {
-	build_libretro_generic_makefile "nestopia" "libretro/jni"
 }
 
 build_libretro_tyrquake() {
@@ -228,14 +219,16 @@ WANT_CORES=" \
 	o2em \
 	pcsx_rearmed \
 	mupen64plus \
-	vecx"
+	vecx \
+	nestopia \
+	tgbdual"
 build_libretro_bsnes
 build_libretro_bsnes_mercury
 fi
 
 for core in $WANT_CORES; do
 	path="jni"
-	if [ $core = "snes9x" ] || [ $core = "snes9x_next" ] || [ $core = "genesis_plus_gx" ] || [ $core = "meteor" ]; then
+	if [ $core = "snes9x" ] || [ $core = "snes9x_next" ] || [ $core = "genesis_plus_gx" ] || [ $core = "meteor" ] || [ $core = "nestopia" ]; then
 		path="libretro/jni"
 	fi
 	build_libretro_generic_makefile $core $path
