@@ -13,7 +13,7 @@ fmsx libretro-fmsx https://github.com/libretro/fmsx-libretro.git PROJECT YES GEN
 gambatte libretro-gambatte https://github.com/libretro/gambatte-libretro.git PROJECT YES GENERIC_JNI Makefile.libretro libgambatte/libretro/jni 
 genesis_plus_gx libretro-genesis_plus_gx https://github.com/libretro/Genesis-Plus-GX.git PROJECT YES GENERIC_JNI Makefile.libretro libretro/jni 
 gpsp libretro-gpsp https://github.com/libretro/gpsp.git PROJECT YES GENERIC_JNI Makefile jni 
-handy libretro-handy https://github.com/libretro/libretro-handy.git PROJECT YES GENERIC_JNI Makefile libretro/jni 
+handy libretro-handy https://github.com/libretro/libretro-handy.git PROJECT YES GENERIC_JNI Makefile jni 
 imageviewer libretro-imageviewer https://github.com/libretro/imageviewer-libretro.git PROJECT YES GENERIC_JNI Makefile.libretro jni 
 mednafen_gba libretro-beetle_gba https://github.com/libretro/beetle-gba-libretro.git PROJECT YES GENERIC_JNI Makefile jni 
 mednafen_lynx libretro-beetle_lynx https://github.com/libretro/beetle-lynx-libretro.git PROJECT YES GENERIC_JNI Makefile jni 
