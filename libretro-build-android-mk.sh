@@ -108,12 +108,6 @@ build_libretro_vecx() {
 	build_libretro_generic_makefile "vecx" "libretro/jni"
 }
 
-build_libretro_mupen64()
-{
-	build_libretro_generic_makefile "mupen64plus" "libretro/jni"
-}
-
-
 build_libretro_fceumm() {
 	build_libretro_generic_makefile "fceumm" "src/drivers/libretro/jni"
 }
@@ -236,7 +230,8 @@ WANT_CORES=" \
 	meteor \
 	nxengine \
 	o2em \
-	pcsx_rearmed"
+	pcsx_rearmed \
+	mupen64plus"
 build_libretro_bsnes
 build_libretro_bsnes_mercury
 fi
