@@ -104,10 +104,6 @@ build_libretro_yabause() {
 	build_libretro_generic_makefile "yabause" "libretro/jni"
 }
 
-build_libretro_vecx() {
-	build_libretro_generic_makefile "vecx" "libretro/jni"
-}
-
 build_libretro_fceumm() {
 	build_libretro_generic_makefile "fceumm" "src/drivers/libretro/jni"
 }
@@ -231,7 +227,8 @@ WANT_CORES=" \
 	nxengine \
 	o2em \
 	pcsx_rearmed \
-	mupen64plus"
+	mupen64plus \
+	vecx"
 build_libretro_bsnes
 build_libretro_bsnes_mercury
 fi

@@ -40,6 +40,6 @@ stella libretro-stella https://github.com/libretro/stella-libretro.git PROJECT Y
 tgbdual libretro-tgbdual https://github.com/libretro/tgbdual-libretro.git PROJECT YES GENERIC_JNI Makefile libretro/jni 
 tyrquake libretro-tyrquake https://github.com/libretro/tyrquake.git PROJECT YES GENERIC_JNI Makefile libretro/jni 
 vbam libretro-vbam https://github.com/libretro/vbam-libretro.git PROJECT YES GENERIC_JNI Makefile src/libretro/jni 
-vecx libretro-vecx https://github.com/libretro/libretro-vecx.git PROJECT YES GENERIC_JNI Makefile.libretro libretro/jni 
+vecx libretro-vecx https://github.com/libretro/libretro-vecx.git PROJECT YES GENERIC_JNI Makefile.libretro jni 
 virtualjaguar libretro-virtualjaguar https://github.com/libretro/virtualjaguar-libretro.git PROJECT YES GENERIC_JNI Makefile jni 
 yabause libretro-yabause https://github.com/libretro/yabause.git PROJECT YES GENERIC_JNI Makefile libretro/jni 
