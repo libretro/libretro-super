@@ -62,20 +62,8 @@ build_libretro_generic_makefile()
 	fi
 }
 
-build_libretro_vba_next() {
-	build_libretro_generic_makefile "vba_next" "libretro/jni"
-}
-
-build_libretro_vbam() {
-	build_libretro_generic_makefile "vbam" "src/libretro/jni"
-}
-
 build_libretro_ppsspp() {
 	build_libretro_generic_makefile "ppsspp" "libretro/jni"
-}
-
-build_libretro_yabause() {
-	build_libretro_generic_makefile "yabause" "libretro/jni"
 }
 
 build_libretro_fceumm() {
@@ -202,14 +190,16 @@ WANT_CORES=" \
 	handy \ 
    gambatte \
 	prboom \
-	tyrquake"
+	tyrquake \
+	vba_next \
+	vbam"
 build_libretro_bsnes
 build_libretro_bsnes_mercury
 fi
 
 for core in $WANT_CORES; do
 	path="jni"
-	if [ $core = "snes9x" ] || [ $core = "genesis_plus_gx" ] || [ $core = "meteor" ] || [ $core = "nestopia" ]; then
+	if [ $core = "snes9x" ] || [ $core = "genesis_plus_gx" ] || [ $core = "meteor" ] || [ $core = "nestopia" ] || [ $core = "yabause" ] || [ $core = "vbam" ] || [ $core = "vba_next" ]; then
 		path="libretro/jni"
 	fi
 	if [ $core = "gambatte" ]; then
