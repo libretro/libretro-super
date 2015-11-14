@@ -135,7 +135,8 @@ WANT_CORES=" \
 	desmume \
 	fb_alpha \
 	bsnes_mercury_performance \
-	bsnes_performance"
+	bsnes_performance \
+	pocketsnes"
 fi
 
 for core in $WANT_CORES; do
