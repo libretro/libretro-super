@@ -299,6 +299,7 @@ build_libretro_generic_makefile() {
 	echo === BUILDBOT VARS: $BUILDBOT_DBG2 === | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}.log
 
 	cp -v ${NAME}_libretro${FORMAT}${LIBSUFFIX}.${FORMAT_EXT} $RARCH_DIST_DIR/${DIST}/${NAME}_libretro${FORMAT}${LIBSUFFIX}.${FORMAT_EXT}
+	cp -v ${NAME}_libretro${FORMAT}${LIBSUFFIX}.${FORMAT_EXT} $RARCH_DIST_DIR/${DIST}/${NAME}_libretro${FORMAT}${LIBSUFFIX}.${FORMAT_EXT} | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}.log
 	if [ $? -eq 0 ]; then
 		MESSAGE="$1 build succeeded [$jobid]"
 		if [ "${PLATFORM}" == "windows" -o "${PLATFORM}" == "unix" ]; then
