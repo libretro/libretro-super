@@ -1,7 +1,4 @@
 mame2000 libretro-mame2000 https://github.com/libretro/mame2000-libretro.git PROJECT YES GENERIC Makefile . 
 mame2003 libretro-mame2003 https://github.com/libretro/mame2003-libretro.git PROJECT YES GENERIC Makefile . 
 mame2010 libretro-mame2010 https://github.com/libretro/mame2010-libretro.git PROJECT YES GENERIC Makefile . VRENDER=soft emulator 
-mame2014 libretro-mame2014 https://github.com/libretro/mame2014-libretro.git PROJECT YES GENERIC Makefile . TARGET=mame 
-mess2014 libretro-mame2014 https://github.com/libretro/mame2014-libretro.git PROJECT YES GENERIC Makefile . TARGET=mess 
-ume2014 libretro-mame2014 https://github.com/libretro/mame2014-libretro.git PROJECT YES GENERIC Makefile . TARGET=ume 
 scummvm libretro-scummvm  https://github.com/libretro/scummvm.git PROJECT YES GENERIC Makefile backends/platform/libretro/build 
