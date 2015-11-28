@@ -1554,12 +1554,18 @@ if [ "${PLATFORM}" = "android" ] && [ "${RA}" = "YES" ]; then
 		mkdir -p pkg/android/phoenix/assets/saves/
 		mkdir -p pkg/android/phoenix/assets/states/
 		mkdir -p pkg/android/phoenix/assets/system/
+		mkdir -p pkg/android/phoenix/assets/filters/video
+		mkdir -p pkg/android/phoenix/assets/filters/audio
+		
 
 		cp -rf media/assets/glui  pkg/android/phoenix/assets/assets/
 		cp -rf media/assets/xmb   pkg/android/phoenix/assets/assets/
 		cp -rf media/assets/zarch pkg/android/phoenix/assets/assets/
 		cp -rf media/autoconfig/* pkg/android/phoenix/assets/autoconfig/
 		cp -rf media/overlays/* pkg/android/phoenix/assets/overlays/
+		cp -rf audio/audio_filters/*.dsp pkg/android/phoenix/assets/filters/audio/
+		cp -rf gfx/video_filters/*.filt pkg/android/phoenix/assets/filters/video/
+
 		cp -rf media/shaders_glsl $TMPDIR/
 		touch  pkg/android/phoenix/assets/cheats/.empty-folder
 		touch  pkg/android/phoenix/assets/saves/.empty-folder
