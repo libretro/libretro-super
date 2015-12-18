@@ -31,6 +31,11 @@ libretro_snes9x_name="SNES9x"
 libretro_snes9x_git_url="https://github.com/libretro/snes9x.git"
 libretro_snes9x_build_subdir="libretro"
 
+register_module core "reicast"
+libretro_reicast_name="Reicast"
+libretro_reicast_git_url="https://github.com/libretro/reicast-emulator.git"
+libretro_reicast_build_makefile="Makefile"
+
 register_module core "snes9x_next" -ps3
 libretro_snes9x_next_name="SNES9x Next"
 libretro_snes9x_next_git_url="https://github.com/libretro/snes9x-next.git"
