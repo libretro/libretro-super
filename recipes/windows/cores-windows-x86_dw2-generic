@@ -3,13 +3,13 @@
 4do libretro-4do https://github.com/libretro/4do-libretro.git PROJECT YES GENERIC Makefile . 
 bluemsx libretro-bluemsx https://github.com/libretro/blueMSX-libretro.git PROJECT YES GENERIC Makefile.libretro . 
 bnes libretro-bnes https://github.com/libretro/bnes-libretro.git PROJECT YES BSNES Makefile . bnes 
-bsnes libretro-bsnes https://github.com/libretro/bsnes-libretro.git PROJECT YES BSNES Makefile . accuracy 
-bsnes libretro-bsnes https://github.com/libretro/bsnes-libretro.git PROJECT YES BSNES Makefile . balanced 
-bsnes libretro-bsnes https://github.com/libretro/bsnes-libretro.git PROJECT YES BSNES Makefile . performance 
+bsnes libretro-bsnes https://github.com/libretro/bsnes-libretro.git PROJECT YES BSNES GNUmakefile . accuracy 
+bsnes libretro-bsnes https://github.com/libretro/bsnes-libretro.git PROJECT YES BSNES GNUmakefile . balanced 
+bsnes libretro-bsnes https://github.com/libretro/bsnes-libretro.git PROJECT YES BSNES GNUmakefile . performance 
 bsnes_cplusplus98 libretro-bsnes_cplusplus98 https://github.com/libretro/bsnes-libretro-cplusplus98.git PROJECT YES BSNES Makefile . cpp98 
-bsnes_mercury libretro-bsnes_mercury https://github.com/libretro/bsnes-mercury.git PROJECT YES BSNES Makefile . accuracy 
-bsnes_mercury libretro-bsnes_mercury https://github.com/libretro/bsnes-mercury.git PROJECT YES BSNES Makefile . balanced 
-bsnes_mercury libretro-bsnes_mercury https://github.com/libretro/bsnes-mercury.git PROJECT YES BSNES Makefile . performance 
+bsnes_mercury libretro-bsnes_mercury https://github.com/libretro/bsnes-mercury.git PROJECT YES BSNES GNUmakefile . accuracy 
+bsnes_mercury libretro-bsnes_mercury https://github.com/libretro/bsnes-mercury.git PROJECT YES BSNES GNUmakefile . balanced 
+bsnes_mercury libretro-bsnes_mercury https://github.com/libretro/bsnes-mercury.git PROJECT YES BSNES GNUmakefile . performance 
 catsfc libretro-catsfc https://github.com/libretro/CATSFC-libretro.git PROJECT YES GENERIC Makefile . 
 dinothawr libretro-dinothawr https://github.com/libretro/Dinothawr.git PROJECT YES GENERIC_ALT Makefile . 
 fb_alpha libretro-fba https://github.com/libretro/fba-libretro.git PROJECT YES GENERIC makefile.libretro svn-current/trunk 
