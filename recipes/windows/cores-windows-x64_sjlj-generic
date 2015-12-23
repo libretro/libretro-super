@@ -4,4 +4,3 @@ mame2010 libretro-mame2010 https://github.com/libretro/mame2010-libretro.git PRO
 mame2014 libretro-mame2014 https://github.com/libretro/mame2014-libretro.git PROJECT YES GENERIC Makefile . TARGET=mame PTR64=1 PARTIAL=0 
 mess2014 libretro-mame2014 https://github.com/libretro/mame2014-libretro.git PROJECT YES GENERIC Makefile . TARGET=mess PTR64=1 PARTIAL=1 
 ume2014 libretro-mame2014 https://github.com/libretro/mame2014-libretro.git PROJECT YES GENERIC Makefile . TARGET=ume PTR64=1 PARTIAL=1 
-reicast libretro-reicast https://github.com/libretro/reicast-emulator.git PROJECT YES GENERIC Makefile . 
