@@ -1119,6 +1119,7 @@ if [ "${PLATFORM}" == "osx" ] && [ "${RA}" == "YES" ]; then
 		touch $TMPDIR/built-frontend
 		cd $RADIR
 		echo "BUILDBOT JOB: $jobid Building"
+      buildbot_log "retroarch build starting [$jobid]"
 		echo
 
 		cd pkg/apple
@@ -1259,6 +1260,7 @@ if [ "${PLATFORM}" == "ios" ] && [ "${RA}" == "YES" ]; then
 		touch $TMPDIR/built-frontend
 		cd $RADIR
 		echo "BUILDBOT JOB: $jobid Building"
+      buildbot_log "retroarch build starting [$jobid]"
 		echo
 
 
@@ -1385,6 +1387,7 @@ if [ "${PLATFORM}" == "ios9" ] && [ "${RA}" == "YES" ]; then
 		touch $TMPDIR/built-frontend
 		cd $RADIR
 		echo "BUILDBOT JOB: $jobid Building"
+      buildbot_log "retroarch build starting [$jobid]"
 		echo
 
 
@@ -1556,7 +1559,7 @@ if [ "${PLATFORM}" = "android" ] && [ "${RA}" = "YES" ]; then
 		mkdir -p pkg/android/phoenix/assets/system/
 		mkdir -p pkg/android/phoenix/assets/filters/video
 		mkdir -p pkg/android/phoenix/assets/filters/audio
-		
+
 
 		cp -rf media/assets/glui  pkg/android/phoenix/assets/assets/
 		cp -rf media/assets/xmb   pkg/android/phoenix/assets/assets/
@@ -1575,6 +1578,7 @@ if [ "${PLATFORM}" = "android" ] && [ "${RA}" = "YES" ]; then
 		cp -rf $RARCH_DIR/info/* pkg/android/phoenix/assets/info/
 
 		echo "BUILDBOT JOB: $jobid Building"
+      buildbot_log "retroarch build starting [$jobid]"
 		echo
 		cd pkg/android/phoenix
 		rm bin/*.apk
@@ -1679,6 +1683,7 @@ if [ "${PLATFORM}" = "MINGW64" ] || [ "${PLATFORM}" = "MINGW32" ] || [ "${PLATFO
 		touch $TMPDIR/built-frontend
 		cd $RADIR
 		echo "BUILDBOT JOB: $jobid Building"
+      buildbot_log "retroarch build starting [$jobid]"
 		echo
 
 		echo "compiling audio filters"
@@ -1918,6 +1923,7 @@ if [ "${PLATFORM}" = "psp1" ] && [ "${RA}" = "YES" ]; then
 		touch $TMPDIR/built-frontend
 		cd $RADIR
 		echo "BUILDBOT JOB: $jobid Building"
+      buildbot_log "retroarch build starting [$jobid]"
 		echo
 
 		cd dist-scripts
@@ -2045,6 +2051,7 @@ if [ "${PLATFORM}" == "wii" ] && [ "${RA}" == "YES" ]; then
 		touch $TMPDIR/built-frontend
 		cd $RADIR
 		echo "BUILDBOT JOB: $jobid Building"
+      buildbot_log "retroarch build starting [$jobid]"
 		echo
 
 		if [ "${BUILD}" == "YES" -o "${FORCE}" == "YES" ]; then
@@ -2187,6 +2194,7 @@ if [ "${PLATFORM}" == "ngc" ] && [ "${RA}" == "YES" ]; then
 		touch $TMPDIR/built-frontend
 		cd $RADIR
 		echo "BUILDBOT JOB: $jobid Building"
+      buildbot_log "retroarch build starting [$jobid]"
 		echo
 
 		cd dist-scripts
@@ -2317,6 +2325,7 @@ if [ "${PLATFORM}" == "ctr" ] && [ "${RA}" == "YES" ]; then
 	if [ "${BUILD}" == "YES" -o "${FORCE}" == "YES" -o "${FORCE_RETROARCH_BUILD}" == "YES" -o "${CORES_BUILT}" == "YES" ]; then
 		cd $RADIR
 		echo "BUILDBOT JOB: $jobid Building"
+      buildbot_log "retroarch build starting [$jobid]"
 		echo
 
 		cd dist-scripts
@@ -2449,6 +2458,7 @@ if [ "${PLATFORM}" == "vita" ] && [ "${RA}" == "YES" ]; then
 		touch $TMPDIR/built-frontend
 		cd $RADIR
 		echo "BUILDBOT JOB: $jobid Building"
+      buildbot_log "retroarch build starting [$jobid]"
 		echo
 
 		cd dist-scripts
