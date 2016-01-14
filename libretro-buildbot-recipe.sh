@@ -772,7 +772,6 @@ while read line; do
 				FORCE_ORIG=$FORCE
 				OLDBUILD=$BUILD
 
-				echo $OUT $FORCE $BUILD
 				if [ "${PREVCORE}" = "bsnes" -a "${PREVBUILD}" = "YES" -a "${COMMAND}" = "BSNES" ]; then
 					FORCE="YES"
 					BUILD="YES"
@@ -1011,7 +1010,6 @@ if [ "${PLATFORM}" == "osx" ] && [ "${RA}" == "YES" ]; then
 						BUILD="YES"
 					fi
 				fi
-				echo $OUT $BUILD $FORCE $FORCE_RETROARCH_BUILD
 
 				cd $WORK
 			else
@@ -1151,7 +1149,6 @@ if [ "${PLATFORM}" == "ios" ] && [ "${RA}" == "YES" ]; then
 						BUILD="YES"
 					fi
 				fi
-				echo $OUT $BUILD $FORCE $FORCE_RETROARCH_BUILD
 
 				cd $WORK
 			else
@@ -1277,7 +1274,6 @@ if [ "${PLATFORM}" == "ios9" ] && [ "${RA}" == "YES" ]; then
 						BUILD="YES"
 					fi
 				fi
-				echo $OUT $BUILD $FORCE $FORCE_RETROARCH_BUILD
 
 				cd $WORK
 			else
@@ -2217,7 +2213,6 @@ if [ "${PLATFORM}" == "ctr" ] && [ "${RA}" == "YES" ]; then
 						BUILD="YES"
 					fi
 				fi
-				echo $OUT $BUILD $FORCE $FORCE_RETROARCH_BUILD
 
 				cd $WORK
 			else
@@ -2348,7 +2343,6 @@ if [ "${PLATFORM}" == "vita" ] && [ "${RA}" == "YES" ]; then
 						BUILD="YES"
 					fi
 				fi
-				echo $OUT $BUILD $FORCE $FORCE_RETROARCH_BUILD
 
 				cd $WORK
 			else
