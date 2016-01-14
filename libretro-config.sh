@@ -421,7 +421,7 @@ case "$platform" in
 					BINARY_EXT=""
 					FORMAT_COMPILER_TARGET="osx"
 					case "$ARCH" in
-						x86_64|i386|ppc*)
+						x86_64|i386|Power*|ppc*)
 							DIST_DIR="osx-$ARCH"
 							;;
 						*)
@@ -650,7 +650,7 @@ if [[ "$FORMAT_COMPILER_TARGET" = "osx" && -z "$NOUNIVERSAL" ]]; then
 		i386|x86_64)
 			export ARCHFLAGS="-arch i386 -arch x86_64"
 			;;
-		ppc|ppc64)
+		Power*|ppc|ppc64)
 			export ARCHFLAGS="-arch ppc -arch ppc64"
 			;;
 		*)
