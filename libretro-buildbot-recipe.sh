@@ -878,7 +878,7 @@ while read line; do
 			if [ -d "${DIR}/.git" ]; then
 
 				cd $DIR
-				echo "pulling from repo... "
+				echo "pulling changes from repo... "
 				OUT=`git pull`
 
 				if [[ $OUT == *"Already up-to-date"* ]]; then
@@ -934,7 +934,8 @@ while read line; do
 done < $1
 
 
-echo "buildbot job: $jobid Building Retroarch" for $PLATFORM
+echo "buildbot job: $jobid Building Retroarch-$PLATFORM"
+echo --------------------------------------------------
 echo
 cd $WORK
 BUILD=""
@@ -950,13 +951,14 @@ if [ "${PLATFORM}" == "osx" ] && [ "${RA}" == "YES" ]; then
 
 		if [ "${ENABLED}" == "YES" ]; then
 			echo "buildbot job: $jobid Processing $NAME"
-			echo
 			echo NAME: $NAME
 			echo DIR: $DIR
 			echo PARENT: $PARENTDIR
 			echo URL: $URL
 			echo REPO TYPE: $TYPE
 			echo ENABLED: $ENABLED
+         echo
+         echo
 
 			ARGS=""
 
@@ -992,16 +994,12 @@ if [ "${PLATFORM}" == "osx" ] && [ "${RA}" == "YES" ]; then
 
 			ARGS="${ARGS%"${ARGS##*[![:space:]]}"}"
 
-			echo ARGS: $ARGS
-
 			if [ -d "${PARENTDIR}/${DIR}/.git" ]; then
 				cd $PARENTDIR
 				cd $DIR
-				echo "pulling from repo... "
-
+				echo "pulling changes from repo... "
 				OUT=`git pull`
 
-				echo $OUT
 				if [ "${TYPE}" == "PROJECT" ]; then
 					RADIR=$DIR
 					if [[ $OUT == *"Already up-to-date"* ]]; then
@@ -1131,12 +1129,10 @@ if [ "${PLATFORM}" == "ios" ] && [ "${RA}" == "YES" ]; then
 
 			ARGS="${ARGS%"${ARGS##*[![:space:]]}"}"
 
-			echo ARGS: $ARGS
-
 			if [ -d "${PARENTDIR}/${DIR}/.git" ]; then
 				cd $PARENTDIR
 				cd $DIR
-				echo "pulling from repo... "
+				echo "pulling changes from repo... "
 
 				OUT=`git pull`
 
@@ -1177,7 +1173,6 @@ if [ "${PLATFORM}" == "ios" ] && [ "${RA}" == "YES" ]; then
       buildbot_log "retroarch build starting [$jobid]"
 		echo
 
-
 		cd pkg/apple
 		xcodebuild clean build CODE_SIGN_IDENTITY="" CODE_SIGNING_REQUIRED=NO -project RetroArch_iOS.xcodeproj -configuration Release &> $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_${PLATFORM}.log
 
@@ -1195,7 +1190,6 @@ if [ "${PLATFORM}" == "ios" ] && [ "${RA}" == "YES" ]; then
 		buildbot_log "$MESSAGE"
 		echo buildbot job: $MESSAGE | tee -a $TMPDIR/log/${BOT}/${LOGDATE}.log
 		cd $WORK/$RADIR
-
 
 		echo "Packaging"
 
@@ -1256,12 +1250,10 @@ if [ "${PLATFORM}" == "ios9" ] && [ "${RA}" == "YES" ]; then
 
 			ARGS="${ARGS%"${ARGS##*[![:space:]]}"}"
 
-			echo ARGS: $ARGS
-
 			if [ -d "${PARENTDIR}/${DIR}/.git" ]; then
 				cd $PARENTDIR
 				cd $DIR
-				echo "pulling from repo... "
+				echo "pulling changes from repo... "
 
 				OUT=`git pull`
 
@@ -1309,9 +1301,6 @@ if [ "${PLATFORM}" == "ios9" ] && [ "${RA}" == "YES" ]; then
 		if [ $? -eq 0 ]; then
 			MESSAGE="retroarch build succeeded [$jobid]"
 			cd build/Release-iphoneos
-         #plat=/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/
-		   #allocate=${plat}/Developer/usr/bin/codesign_allocate
-		   #export CODESIGN_ALLOCATE=${allocate}
 			security unlock-keychain -p buildbot /Users/buildbot/Library/Keychains/login.keychain
 			codesign -fs "buildbot" RetroArch.app
 
@@ -1327,7 +1316,6 @@ if [ "${PLATFORM}" == "ios9" ] && [ "${RA}" == "YES" ]; then
 		buildbot_log "$MESSAGE"
 		echo buildbot job: $MESSAGE | tee -a $TMPDIR/log/${BOT}/${LOGDATE}.log
 		cd $WORK/$RADIR
-
 
 		echo "Packaging"
 
@@ -1390,12 +1378,10 @@ if [ "${PLATFORM}" = "android" ] && [ "${RA}" = "YES" ]; then
 
 			ARGS="${ARGS%"${ARGS##*[![:space:]]}"}"
 
-			echo ARGS: $ARGS
-
 			if [ -d "${PARENTDIR}/${DIR}/.git" ]; then
 				cd $PARENTDIR
 				cd $DIR
-				echo "pulling from repo... "
+				echo "pulling changes from repo... "
 				git reset --hard
 				OUT=`git pull`
 
@@ -1429,14 +1415,14 @@ if [ "${PLATFORM}" = "android" ] && [ "${RA}" = "YES" ]; then
 
 	if [ "${BUILD}" = "YES" -o "${FORCE}" = "YES" -o "${FORCE_RETROARCH_BUILD}" == "YES" ]; then
 		touch $TMPDIR/built-frontend
-		echo "buildbot job: $jobid Compiling Shaders"
+		echo "buildbot job: $jobid compiling shaders"
 		echo
 
 		echo RADIR $RADIR
 		cd $RADIR
 		$MAKE -f Makefile.griffin shaders-convert-glsl PYTHON3=$PYTHON
 
-		echo "buildbot job: $jobid Processing Assets"
+		echo "buildbot job: $jobid processing assets"
 		echo
 
 		rm -rf pkg/android/phoenix/assets/assets
@@ -1559,13 +1545,13 @@ if [ "${PLATFORM}" = "MINGW64" ] || [ "${PLATFORM}" = "MINGW32" ] || [ "${PLATFO
 					ARGS="${ARGS} ${TEMP}"
 				fi
 				ARGS="${ARGS%"${ARGS##*[![:space:]]}"}"
-				echo ARGS: $ARGS
+				
 			fi
 
 			if [ -d "${PARENTDIR}/${DIR}/.git" ]; then
 				cd $PARENTDIR
 				cd $DIR
-				echo "pulling from repo... "
+				echo "pulling changes from repo... "
 				OUT=`git pull`
 
 				echo $OUT
@@ -1799,12 +1785,12 @@ if [ "${PLATFORM}" = "psp1" ] && [ "${RA}" = "YES" ]; then
 
 			ARGS="${ARGS%"${ARGS##*[![:space:]]}"}"
 
-			echo ARGS: $ARGS
+			
 
 			if [ -d "${PARENTDIR}/${DIR}/.git" ]; then
 			cd $PARENTDIR
 				cd $DIR
-				echo "pulling from repo... "
+				echo "pulling changes from repo... "
 				OUT=`git pull`
 
 				echo $OUT
@@ -1925,12 +1911,12 @@ if [ "${PLATFORM}" == "wii" ] && [ "${RA}" == "YES" ]; then
 
 			ARGS="${ARGS%"${ARGS##*[![:space:]]}"}"
 
-			echo ARGS: $ARGS
+			
 
 			if [ -d "${PARENTDIR}/${DIR}/.git" ]; then
 				cd $PARENTDIR
 				cd $DIR
-				echo "pulling from repo... "
+				echo "pulling changes from repo... "
 				OUT=`git pull`
 
 				echo $OUT
@@ -2064,13 +2050,13 @@ if [ "${PLATFORM}" == "ngc" ] && [ "${RA}" == "YES" ]; then
 
 		ARGS="${ARGS%"${ARGS##*[![:space:]]}"}"
 
-		echo ARGS: $ARGS
+		
 
 		if [ -d "${PARENTDIR}/${DIR}/.git" ];
 		then
 		cd $PARENTDIR
 			cd $DIR
-			echo "pulling from repo... "
+			echo "pulling changes from repo... "
 			OUT=`git pull`
 
 			echo $OUT
@@ -2196,12 +2182,12 @@ if [ "${PLATFORM}" == "ctr" ] && [ "${RA}" == "YES" ]; then
 
 			ARGS="${ARGS%"${ARGS##*[![:space:]]}"}"
 
-			echo ARGS: $ARGS
+			
 
 			if [ -d "${PARENTDIR}/${DIR}/.git" ]; then
 				cd $PARENTDIR
 				cd $DIR
-				echo "pulling from repo... "
+				echo "pulling changes from repo... "
 				OUT=`git pull`
 
 				echo $OUT
@@ -2325,12 +2311,12 @@ if [ "${PLATFORM}" == "vita" ] && [ "${RA}" == "YES" ]; then
 
 			ARGS="${ARGS%"${ARGS##*[![:space:]]}"}"
 
-			echo ARGS: $ARGS
+			
 
 			if [ -d "${PARENTDIR}/${DIR}/.git" ]; then
 				cd $PARENTDIR
 				cd $DIR
-				echo "pulling from repo... "
+				echo "pulling changes from repo... "
 
 				OUT=`git pull`
 
