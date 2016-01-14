@@ -1,39 +1,22 @@
 # vim: set ts=3 sw=3 noet ft=sh : bash
 
-####usage:
-# ./libretro-buildbot-recipe.sh configfile
-# if you want to force all enabled cores to rebuild prepend FORCE=YES
-# you may need to specify your make command by prepending it to the commandline, for instance MAKE=mingw32-make
-#
-# eg: FORCE=YES MAKE=mingw32-make ./libretro-fetch-and-build.sh buildbot
-
-
-
-# setup the environment with the variables from the recipe config
-echo "BUILDBOT JOB: Setting up Environment for $1"
-echo
+# ----- setup -----
 
 LOGDATE=`date +%Y-%m-%d`
-
 ORIGPATH=$PATH
 WORK=$PWD
 
-echo OLD PATH: $PATH
-
+# ----- read variables from recipe config -----
 while read line; do
 	KEY=`echo $line | cut -f 1 -d " "`
 	VALUE=`echo $line | cut -f 2 -d " "`
 
 	if [ "${KEY}" = "PATH" ]; then
 		export PATH=${VALUE}:${ORIGPATH}
-		echo NEW PATH: $PATH
 	else
 		export ${KEY}=${VALUE}
-		echo $KEY: $VALUE
 	fi
 done < $1.conf
-echo
-echo
 
 read_link()
 {
@@ -50,10 +33,9 @@ read_link()
 	echo $RESULT
 }
 
-if [ "${CORE_JOB}" == "YES" ]; then
-	echo === BUILDBOT VARS: $LOGDATE BOTNAME: $BOT FORCE: $FORCE JOBS: $JOBS ===
 
-	# set format_compiler_target
+if [ "${CORE_JOB}" == "YES" ]; then
+# ----- set target  -----	
 	[[ "${ARM_NEON}" ]] && echo 'ARM NEON opts enabled...' && export FORMAT_COMPILER_TARGET="${FORMAT_COMPILER_TARGET}-neon"
 	[[ "${CORTEX_A8}" ]] && echo 'Cortex A8 opts enabled...' && export FORMAT_COMPILER_TARGET="${FORMAT_COMPILER_TARGET}-cortexa8"
 	[[ "${CORTEX_A9}" ]] && echo 'Cortex A9 opts enabled...' && export FORMAT_COMPILER_TARGET="${FORMAT_COMPILER_TARGET}-cortexa9"
@@ -61,12 +43,9 @@ if [ "${CORE_JOB}" == "YES" ]; then
 	[[ "${ARM_SOFTFLOAT}" ]] && echo 'ARM softfloat ABI enabled...' && export FORMAT_COMPILER_TARGET="${FORMAT_COMPILER_TARGET}-softfloat"
 	[[ "${IOS}" ]] && echo 'iOS detected...'
 
-
-   echo === BUILDBOT VARS: CC: $CC CXX:: $CXX STRIP: $STRIP COMPILER: $COMPILER ===
-	# set a few extra variables with libretro-config.sh
 	. $WORK/libretro-config.sh
 
-	# create the folder that will hold compiled cores
+# ----- create dirs -----
 	SCRIPT=$(read_link "$0")
 	echo "SCRIPT: $SCRIPT"
 	BASE_DIR=$(dirname "$SCRIPT")
@@ -76,7 +55,6 @@ if [ "${CORE_JOB}" == "YES" ]; then
 	fi
 	mkdir -v -p "$RARCH_DIST_DIR"
 
-	# create the folder for each androi abi
 	if [ "${PLATFORM}" = "android" ]; then
 		IFS=' ' read -ra ABIS <<< "$TARGET_ABIS"
 		for a in "${ABIS[@]}"; do
@@ -89,16 +67,13 @@ if [ "${CORE_JOB}" == "YES" ]; then
 		done
 	fi
 
-	echo === BUILDBOT VARS: CC: $CC CXX:: $CXX STRIP: $STRIP COMPILER: $COMPILER ===
-	# define the compilers
+# ----- set compilers  -----	
 	if [ "$HOST_CC" ]; then
 		CC="${HOST_CC}-gcc"
 		CXX="${HOST_CC}-g++"
 		CXX11="${HOST_CC}-g++"
 		STRIP="${HOST_CC}-strip"
 	fi
-
-	echo === BUILDBOT VARS: CC: $CC CXX:: $CXX STRIP: $STRIP COMPILER: $COMPILER ===
 
 	if [ -z "$MAKE" ]; then
 		if uname -s | grep -i MINGW32 > /dev/null 2>&1; then
@@ -141,8 +116,6 @@ if [ "${CORE_JOB}" == "YES" ]; then
 		COMPILER=""
 	fi
 
-	echo === BUILDBOT VARS: CC: $CC CXX:: $CXX STRIP: $STRIP COMPILER: $COMPILER ===
-
 	RESET_FORMAT_COMPILER_TARGET=$FORMAT_COMPILER_TARGET
 	RESET_FORMAT_COMPILER_TARGET_ALT=$FORMAT_COMPILER_TARGET_ALT
 
@@ -167,32 +140,30 @@ if [ "${CORE_JOB}" == "YES" ]; then
 		export FORMAT_COMPILER_TARGET_ALT=$RESET_FORMAT_COMPILER_TARGET_ALT
 	}
 else
-	SCRIPT=$(read_link "$0")
+   SCRIPT=$(read_link "$0")
 	echo "SCRIPT: $SCRIPT"
 	BASE_DIR=$(dirname "$SCRIPT")
 	if [ -z "$RARCH_DIST_DIR" ]; then
 		RARCH_DIR="$BASE_DIR/dist"
 		RARCH_DIST_DIR="$RARCH_DIR/$PLATFORM"
 	fi
-
 fi
 
-echo DISTDIR: $RARCH_DIST_DIR
-
-# set jobs to 2 if not specified
+# ----- set jobs  -----	
 if [ -z "$JOBS" ]; then
 	JOBS=2
 fi
 
-# set force to NO if not specified
-# this is useful if running manually
+# ----- set forceful rebuild on/off  -----	
 if [ -z "$FORCE" ]; then
 	FORCE=NO
 fi
+if [ -z "$FORCE_RETROARCH_BUILD" ]; then
+	FORCE_RETROARCH_BUILD=NO
+fi
 
-# set cleanup to NO by default
+# ----- set cleanup rules -----	
 CLEANUP=NO
-
 DAY=`date '+%d'`
 HOUR=`date '+%H'`
 if [ $DAY == 01 -a $HOUR == 06 ]; then
@@ -200,25 +171,14 @@ if [ $DAY == 01 -a $HOUR == 06 ]; then
 	CLEANUP=NO
 fi
 
-# set force_retroarch_build to NO if not specified
-# this is useful if running manually
-if [ -z "$FORCE_RETROARCH_BUILD" ]; then
-	FORCE_RETROARCH_BUILD=NO
-fi
-
-# keep track if cores have been built to force building RetroArch
-# for statically linked platforms
+# ----- use to keep track of built cores -----	
 CORES_BUILT=NO
 
-# original values of some variables that might change for a particular job
-OLDFORCE=$FORCE
-OLDJ=$JOBS
+FORCE_ORIG=$FORCE
+JOBS_ORIG=$JOBS
 
 cd "${BASE_DIR}"
 
-# build commands
-
-# logs to alcarobot
 buildbot_log() {
 
 	echo === BUILDBOT MSG: $MESSAGE ===
@@ -228,8 +188,6 @@ buildbot_log() {
 	curl --max-time 30 --data "message=$MESSAGE&sign=$HASH" $LOGURL
 }
 
-# generic makefile job
-# it includes a few workarounds for a few problematic cores, I plan to move these to a different command later
 build_libretro_generic_makefile() {
 
 	NAME=$1
@@ -248,7 +206,7 @@ build_libretro_generic_makefile() {
 
 	cd $DIR
 	cd $SUBDIR
-	OLDJ=$JOBS
+	JOBS_ORIG=$JOBS
 
 	echo BUILDBOT THREADS: $JOBS
 
@@ -276,7 +234,7 @@ build_libretro_generic_makefile() {
 		echo "build command: ${MAKE} -f ${MAKEFILE} "VRENDER=soft" "NATIVE=1" buildtools -j${JOBS}"
 		BUILDBOT_DBG3="build command: PLATFORM="" platform="" ${MAKE} -f ${MAKEFILE} "VRENDER=soft" "NATIVE=1" buildtools -j${JOBS}"
 		PLATFORM="" platform="" ${MAKE} -f ${MAKEFILE} "VRENDER=soft" "NATIVE=1" buildtools -j${JOBS} | tee $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}.log
-		JOBS=$OLDJ
+		JOBS=$JOBS_ORIG
 	fi
 
 	if [ -z "${ARGS}" ]; then
@@ -315,7 +273,7 @@ build_libretro_generic_makefile() {
 	echo BUILDBOT JOB: $MESSAGE
 	echo BUILDBOT JOB: $MESSAGE | tee -a $TMPDIR/log/${BOT}/${LOGDATE}.log
 	buildbot_log "$MESSAGE"
-	JOBS=$OLDJ
+	JOBS=$JOBS_ORIG
 
 	if [ -z "${NOCLEAN}" ]; then
 		echo "cleaning up..."
@@ -329,7 +287,6 @@ build_libretro_generic_makefile() {
 	fi
 }
 
-# command fo leiradel's cross makefiles
 build_libretro_leiradel_makefile() {
 
 	NAME=$1
@@ -345,7 +302,7 @@ build_libretro_leiradel_makefile() {
 
 	cd $DIR
 	cd $SUBDIR
-	OLDJ=$JOBS
+	JOBS_ORIG=$JOBS
 
 	if [ -z "${NOCLEAN}" ]; then
 		echo "cleaning up..."
@@ -374,7 +331,7 @@ build_libretro_leiradel_makefile() {
 	echo BUILDBOT JOB: $MESSAGE
 	echo BUILDBOT JOB: $MESSAGE | tee -a $TMPDIR/log/${BOT}/${LOGDATE}.log
 	buildbot_log "$MESSAGE"
-	JOBS=$OLDJ
+	JOBS=$JOBS_ORIG
 
 	if [ -z "${NOCLEAN}" ]; then
 		echo "cleaning up..."
@@ -388,7 +345,6 @@ build_libretro_leiradel_makefile() {
 	fi
 }
 
-# command for jni makefiles
 build_libretro_generic_jni() {
 	echo PARAMETERS: DIR $2, SUBDIR: $3
 
@@ -463,7 +419,6 @@ build_libretro_generic_jni() {
 	done
 }
 
-# command for bsnes jni makefiles
 build_libretro_bsnes_jni() {
 	echo PARAMETERS: DIR $2, SUBDIR: $3
 
@@ -527,7 +482,6 @@ build_libretro_bsnes_jni() {
 	done
 }
 
-# command for gl cores, not sure if this is still needed but it uses an alternate format_compiler_target
 build_libretro_generic_gl_makefile() {
 
 	NAME=$1
@@ -589,7 +543,6 @@ build_libretro_generic_gl_makefile() {
 	fi
 }
 
-# command for bsnes
 build_libretro_bsnes() {
 
 	NAME=$1
@@ -677,12 +630,21 @@ build_libretro_bsnes() {
 	fi
 }
 
+# ----- buildbot -----
 
-# main part of the script
+echo buildbot starting
+echo --------------------------------------------------
+echo Variables:
+echo CC      $CC
+echo CXX     $CXX
+echo STRIP   $STRIP
+echo DISTDIR $RARCH_DIST_DIR
+echo
+echo
 
 export jobid=$1
 
-# fetch a project and mark it for building if there have been any changes
+# ----- fetch a project -----
 echo
 echo
 while read line; do
@@ -696,15 +658,18 @@ while read line; do
 	SUBDIR=`echo $line | cut -f 8 -d " "`
 
 	if [ "${ENABLED}" = "YES" ]; then
-		echo "BUILDBOT JOB: $jobid Processing $NAME"
-		echo
-		echo URL: $URL
-		echo REPO TYPE: $TYPE
-		echo ENABLED: $ENABLED
-		echo COMMAND: $COMMAND
-		echo MAKEFILE: $MAKEFILE
-		echo DIR: $DIR
-		echo SUBDIR: $SUBDIR
+		echo "buildbot job: $jobid processing $NAME"
+      echo --------------------------------------------------
+		echo Variables:
+		echo URL        $URL
+		echo REPO TYPE  $TYPE
+		echo ENABLED    $ENABLED
+		echo COMMAND    $COMMAND
+		echo MAKEFILE   $MAKEFILE
+		echo DIR        $DIR
+		echo SUBDIR     $SUBDIR
+      echo
+      echo
 
 		ARGS=""
 
@@ -815,10 +780,6 @@ while read line; do
 
 		ARGS="${ARGS%"${ARGS##*[![:space:]]}"}"
 
-		echo ARGS: $ARGS
-		echo
-		echo
-		# repo is a regular repository
 		if [ "${TYPE}" = "PROJECT" ]; then
 			if [ -d "${DIR}/.git" ]; then
 				if [ "${CLEANUP}" == "YES" ]; then
@@ -828,7 +789,7 @@ while read line; do
 					BUILD="YES"
 				else
 					cd $DIR
-					echo "pulling from repo... "
+					echo "pulling changes from repo... "
 					OUT=`git pull`
 
 					if [[ $OUT == *"Already up-to-date"* ]]; then
@@ -839,11 +800,10 @@ while read line; do
 
 				fi
 
-				OLDFORCE=$FORCE
+				FORCE_ORIG=$FORCE
 				OLDBUILD=$BUILD
 
 				echo $OUT $FORCE $BUILD
-				# workarounds for a few cores that might be built from the same source tree (it will be already up-to-date so it would be skipped otherwise)
 				if [ "${PREVCORE}" = "bsnes" -a "${PREVBUILD}" = "YES" -a "${COMMAND}" = "BSNES" ]; then
 					FORCE="YES"
 					BUILD="YES"
@@ -863,7 +823,6 @@ while read line; do
 					FORCE="YES"
 					BUILD="YES"
 				fi
-
 
 				if [ "${PREVCORE}" = "snes9x-next" -a "${PREVBUILD}" = "YES" -a "${NAME}" = "snes9x-next" ]; then
 					FORCE="YES"
@@ -895,7 +854,6 @@ while read line; do
 					BUILD="YES"
 				fi
 
-
 				if [ "${PREVCORE}" = "bsnes_mercury" -a "${PREVBUILD}" = "YES" -a "${COMMAND}" = "BSNES" ]; then
 					FORCE="YES"
 					BUILD="YES"
@@ -920,21 +878,17 @@ while read line; do
 					FORCE="YES"
 					BUILD="YES"
 				fi
-
-
 				cd $WORK
 			else
 				echo "cloning repo..."
 				git clone --depth=1 "$URL" "$DIR"
 				BUILD="YES"
 			fi
-
-			# repo is a branch, need to make this more generic, currently only used for psp mednafen_pce
 		elif [ "${TYPE}" = "psp_hw_render" ]; then
 			if [ -d "${DIR}/.git" ]; then
 
 				cd $DIR
-				echo "pulling from repo... "
+				echo "pulling changes from repo... "
 				OUT=`git pull`
 
 				if [[ $OUT == *"Already up-to-date"* ]]; then
@@ -945,15 +899,13 @@ while read line; do
 				cd $WORK
 
 			else
-				echo "cloning repo..."
+				echo "pulling changes from repo... "
 				git clone "$URL" "$DIR"
 				cd $DIR
 				git checkout $TYPE
 				cd $WORK
 				BUILD="YES"
 			fi
-
-			# repo has submodules
 		elif [ "${TYPE}" == "SUBMODULE" ]; then
 			if [ -d "${DIR}/.git" ]; then
 
@@ -981,7 +933,7 @@ while read line; do
 		if [ "${BUILD}" = "YES" -o "${FORCE}" = "YES" ]; then
 			touch $TMPDIR/built-cores
 			CORES_BUILT=YES
-			echo building core...
+			echo "buildbot job: building $NAME"
 			if [ "${COMMAND}" = "GENERIC" ]; then
 				build_libretro_generic_makefile $NAME $DIR $SUBDIR $MAKEFILE ${FORMAT_COMPILER_TARGET} "${ARGS}"
 			elif [ "${COMMAND}" = "LEIRADEL" ]; then
@@ -1000,7 +952,7 @@ while read line; do
 				build_libretro_bsnes $NAME $DIR "${ARGS}" $MAKEFILE ${FORMAT_COMPILER_TARGET} ${CXX11}
 			fi
 		else
-			echo BUILDBOT JOB: $jobid $NAME already up-to-date...
+			echo "buildbot job: building $NAME up-to-date"
 		fi
 		echo
 	fi
@@ -1010,13 +962,10 @@ while read line; do
 	PREVBUILD=$BUILD
 
 	BUILD=$OLDBUILD
-	FORCE=$OLDFORCE
-
+	FORCE=$FORCE_ORIG
 done < $1
 
 
-# retroarch area of the script, a lot of code duplication could be removed but it's quite easy
-# to copy this for any other case and customize for the particular platform
 echo "BUILDBOT JOB: $jobid Building Retroarch" for $PLATFORM
 echo
 cd $WORK
