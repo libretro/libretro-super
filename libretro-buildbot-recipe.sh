@@ -185,7 +185,6 @@ buildbot_log() {
 }
 
 build_libretro_generic_makefile() {
-
 	NAME=$1
 	DIR=$2
 	SUBDIR=$3
@@ -218,7 +217,7 @@ build_libretro_generic_makefile() {
 	fi
 
 	echo "compiling..."
-
+   echo --------------------------------------------------
 	if [ "${NAME}" == "mame2010" ]; then
 		echo "build command: ${MAKE} -f ${MAKEFILE} "VRENDER=soft" "NATIVE=1" buildtools -j${JOBS}"
 		PLATFORM="" platform="" ${MAKE} -f ${MAKEFILE} "VRENDER=soft" "NATIVE=1" buildtools -j${JOBS} | tee $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}.log
@@ -270,7 +269,6 @@ build_libretro_generic_makefile() {
 }
 
 build_libretro_leiradel_makefile() {
-
 	NAME=$1
 	DIR=$2
 	SUBDIR=$3
@@ -298,6 +296,7 @@ build_libretro_leiradel_makefile() {
 	fi
 
 	echo "compiling..."
+   echo --------------------------------------------------
 		echo "build command: ${MAKE} -f ${MAKEFILE}.${PLATFORM}_${ARGS} platform=${PLATFORM}_${ARGS} -j${JOBS}"
 		${MAKE} -f ${MAKEFILE}.${PLATFORM}_${ARGS} platform=${PLATFORM}_${ARGS} -j${JOBS} 2>&1 | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}.log
 
@@ -328,8 +327,6 @@ build_libretro_leiradel_makefile() {
 }
 
 build_libretro_generic_jni() {
-	echo PARAMETERS: DIR $2, SUBDIR: $3
-
 	NAME=$1
 	DIR=$2
 	SUBDIR=$3
@@ -353,6 +350,7 @@ build_libretro_generic_jni() {
 		fi
 
 		echo "compiling for ${a}..."
+      echo --------------------------------------------------
 		if [ -z "${ARGS}" ]; then
 			echo "build command: ${NDK} -j${JOBS} APP_ABI=${a}"
 			${NDK} -j${JOBS} APP_ABI=${a} 2>&1 | tee $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}_${a}.log
@@ -402,8 +400,6 @@ build_libretro_generic_jni() {
 }
 
 build_libretro_bsnes_jni() {
-	echo PARAMETERS: DIR $2, SUBDIR: $3
-
 	NAME=$1
 	DIR=$2
 	SUBDIR=$3
@@ -429,6 +425,7 @@ build_libretro_bsnes_jni() {
 		fi
 
 		echo "compiling for ${a}..."
+      echo --------------------------------------------------
 		if [ -z "${ARGS}" ]; then
 			echo "build command: ${NDK} -j${JOBS} APP_ABI=${a}"
 			${NDK} -j${JOBS} APP_ABI=${a}
@@ -465,7 +462,6 @@ build_libretro_bsnes_jni() {
 }
 
 build_libretro_generic_gl_makefile() {
-
 	NAME=$1
 	DIR=$2
 	SUBDIR=$3
@@ -491,6 +487,7 @@ build_libretro_generic_gl_makefile() {
 	fi
 
 	echo "compiling..."
+   echo --------------------------------------------------
 	if [ -z "${ARGS}" ]; then
 		echo "build command: ${MAKE} -f ${MAKEFILE} platform=${PLATFORM} -j${JOBS}"
 		${MAKE} -f ${MAKEFILE} platform=${PLATFORM} -j${JOBS} 2>&1 | tee $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}.log
@@ -526,7 +523,6 @@ build_libretro_generic_gl_makefile() {
 }
 
 build_libretro_bsnes() {
-
 	NAME=$1
 	DIR=$2
 	PROFILE=$3
@@ -555,6 +551,7 @@ build_libretro_bsnes() {
 	fi
 	
 	echo "compiling..."
+   echo --------------------------------------------------
 
 	if [ "${PROFILE}" = "cpp98" ]; then
 		${MAKE} platform="${PLATFORM}" "${COMPILER}" "-j${JOBS}" 2>&1 | tee $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}.log
