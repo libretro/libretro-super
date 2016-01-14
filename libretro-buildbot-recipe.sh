@@ -122,16 +122,12 @@ if [ "${CORE_JOB}" == "YES" ]; then
 	check_opengl() {
 		if [ "${BUILD_LIBRETRO_GL}" ]; then
 			if [ "${ENABLE_GLES}" ]; then
-				echo '=== OpenGL ES enabled ==='
 				export FORMAT_COMPILER_TARGET="${FORMAT_COMPILER_TARGET}-gles"
 				export FORMAT_COMPILER_TARGET_ALT="${FORMAT_COMPILER_TARGET}"
 			else
-				echo '=== OpenGL enabled ==='
 				export FORMAT_COMPILER_TARGET="${FORMAT_COMPILER_TARGET}-opengl"
 				export FORMAT_COMPILER_TARGET_ALT="${FORMAT_COMPILER_TARGET}"
 			fi
-		else
-			echo '=== OpenGL disabled in build ==='
 		fi
 	}
 
@@ -181,7 +177,7 @@ cd "${BASE_DIR}"
 
 buildbot_log() {
 
-	echo === BUILDBOT MSG: $MESSAGE ===
+	echo buildbot message: $MESSAGE
 	MESSAGE=`echo -e $1`
 
 	HASH=`echo -n "$MESSAGE" | openssl sha1 -hmac $SIG | cut -f 2 -d " "`
@@ -198,17 +194,10 @@ build_libretro_generic_makefile() {
 	ARGS=$6
 	JOBS=$JOBS
 	buildbot_log "$1 build starting [$jobid]"
-   BUILDBOT_DBG1=""
-   BUILDBOT_DBG2=""
-   BUILDBOT_DBG3=""
-
-	BUILDBOT_DBG1="NAME: $NAME DIR: $DIR SUBDIR: $SUBDIR MAKEFILE: $MAKEFILE PLATFORM: $PLATFORM ARGS: $ARGS CC: $CC CXX: $CXX"
 
 	cd $DIR
 	cd $SUBDIR
 	JOBS_ORIG=$JOBS
-
-	echo BUILDBOT THREADS: $JOBS
 
 	if [ "${NAME}" == "mame2003" ]; then
 		JOBS=1
@@ -222,9 +211,9 @@ build_libretro_generic_makefile() {
 		echo "cleanup command: ${MAKE} -f ${MAKEFILE} platform=${PLATFORM} -j${JOBS} clean"
 		${MAKE} -f ${MAKEFILE} platform=${PLATFORM} -j${JOBS} clean
 		if [ $? -eq 0 ]; then
-			echo BUILDBOT JOB: $jobid $1 cleanup success!
+			echo buildbot job: $jobid $1 cleanup success!
 		else
-			echo BUILDBOT JOB: $jobid $1 cleanup failed!
+			echo buildbot job: $jobid $1 cleanup failed!
 		fi
 	fi
 
@@ -232,17 +221,14 @@ build_libretro_generic_makefile() {
 
 	if [ "${NAME}" == "mame2010" ]; then
 		echo "build command: ${MAKE} -f ${MAKEFILE} "VRENDER=soft" "NATIVE=1" buildtools -j${JOBS}"
-		BUILDBOT_DBG3="build command: PLATFORM="" platform="" ${MAKE} -f ${MAKEFILE} "VRENDER=soft" "NATIVE=1" buildtools -j${JOBS}"
 		PLATFORM="" platform="" ${MAKE} -f ${MAKEFILE} "VRENDER=soft" "NATIVE=1" buildtools -j${JOBS} | tee $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}.log
 		JOBS=$JOBS_ORIG
 	fi
 
 	if [ -z "${ARGS}" ]; then
-		BUILDBOT_DBG2="build command: ${MAKE} -f ${MAKEFILE} platform=${PLATFORM} -j${JOBS}"
 		echo "build command: ${MAKE} -f ${MAKEFILE} platform=${PLATFORM} -j${JOBS}"
 		${MAKE} -f ${MAKEFILE} platform=${PLATFORM} -j${JOBS} 2>&1 | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}.log
 	else
-		BUILDBOT_DBG2="build command: ${MAKE} -f ${MAKEFILE} platform=${PLATFORM} -j${JOBS} ${ARGS}"
 		echo "build command: ${MAKE} -f ${MAKEFILE} platform=${PLATFORM} -j${JOBS} ${ARGS}"
 		${MAKE} -f ${MAKEFILE} platform=${PLATFORM} -j${JOBS} ${ARGS} 2>&1 | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}.log
 	fi
@@ -251,10 +237,6 @@ build_libretro_generic_makefile() {
 		echo "$1 running retrolink [$jobid]"
 		$WORK/retrolink.sh ${NAME}_libretro${FORMAT}${LIBSUFFIX}.${FORMAT_EXT}
 	fi
-
-	echo === BUILDBOT VARS: $BUILDBOT_DBG1 === | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}.log
-	echo === BUILDBOT VARS: $BUILDBOT_DBG3 === | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}.log
-	echo === BUILDBOT VARS: $BUILDBOT_DBG2 === | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}.log
 
 	cp -v ${NAME}_libretro${FORMAT}${LIBSUFFIX}.${FORMAT_EXT} $RARCH_DIST_DIR/${DIST}/${NAME}_libretro${FORMAT}${LIBSUFFIX}.${FORMAT_EXT} | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}.log
 	cp -v ${NAME}_libretro${FORMAT}${LIBSUFFIX}.${FORMAT_EXT} $RARCH_DIST_DIR/${DIST}/${NAME}_libretro${FORMAT}${LIBSUFFIX}.${FORMAT_EXT}
@@ -270,8 +252,8 @@ build_libretro_generic_makefile() {
 		MESSAGE="$1 build failed [$jobid] LOG: http://hastebin.com/$HASTE"
 	fi
 
-	echo BUILDBOT JOB: $MESSAGE
-	echo BUILDBOT JOB: $MESSAGE | tee -a $TMPDIR/log/${BOT}/${LOGDATE}.log
+	echo buildbot job: $MESSAGE
+	echo buildbot job: $MESSAGE | tee -a $TMPDIR/log/${BOT}/${LOGDATE}.log
 	buildbot_log "$MESSAGE"
 	JOBS=$JOBS_ORIG
 
@@ -280,9 +262,9 @@ build_libretro_generic_makefile() {
 		echo "cleanup command: ${MAKE} -f ${MAKEFILE} platform=${PLATFORM} -j${JOBS} clean"
 		${MAKE} -f ${MAKEFILE} platform=${PLATFORM} -j${JOBS} clean
 		if [ $? -eq 0 ]; then
-			echo BUILDBOT JOB: $jobid $1 cleanup success!
+			echo buildbot job: $jobid $1 cleanup success!
 		else
-			echo BUILDBOT JOB: $jobid $1 cleanup failed!
+			echo buildbot job: $jobid $1 cleanup failed!
 		fi
 	fi
 }
@@ -309,9 +291,9 @@ build_libretro_leiradel_makefile() {
 		echo "cleanup command: ${MAKE} -f ${MAKEFILE}.${PLATFORM}_${ARGS} platform=${PLATFORM}_${ARGS} -j${JOBS} clean"
 		${MAKE} -f ${MAKEFILE}.${PLATFORM}_${ARGS} platform=${PLATFORM}_${ARGS} -j${JOBS} clean
 		if [ $? -eq 0 ]; then
-			echo BUILDBOT JOB: $jobid $1 cleanup success!
+			echo buildbot job: $jobid $1 cleanup success!
 		else
-			echo BUILDBOT JOB: $jobid $1 cleanup failed!
+			echo buildbot job: $jobid $1 cleanup failed!
 		fi
 	fi
 
@@ -328,8 +310,8 @@ build_libretro_leiradel_makefile() {
 		HASTE=`echo $HASTE | cut -d"\"" -f4`
 		MESSAGE="$1 build failed [$jobid] LOG: http://hastebin.com/$HASTE"
 	fi
-	echo BUILDBOT JOB: $MESSAGE
-	echo BUILDBOT JOB: $MESSAGE | tee -a $TMPDIR/log/${BOT}/${LOGDATE}.log
+	echo buildbot job: $MESSAGE
+	echo buildbot job: $MESSAGE | tee -a $TMPDIR/log/${BOT}/${LOGDATE}.log
 	buildbot_log "$MESSAGE"
 	JOBS=$JOBS_ORIG
 
@@ -338,9 +320,9 @@ build_libretro_leiradel_makefile() {
 		echo "cleanup command: ${MAKE} -f ${MAKEFILE}.${PLATFORM}_${ARGS} platform=${PLATFORM}_${ARGS} -j${JOBS} clean"
 		${MAKE} -f ${MAKEFILE}.${PLATFORM}_${ARGS} platform=${PLATFORM}_${ARGS} -j${JOBS} clean
 		if [ $? -eq 0 ]; then
-			echo BUILDBOT JOB: $jobid $1 cleanup success!
+			echo buildbot job: $jobid $1 cleanup success!
 		else
-			echo BUILDBOT JOB: $jobid $1 cleanup failed!
+			echo buildbot job: $jobid $1 cleanup failed!
 		fi
 	fi
 }
@@ -364,9 +346,9 @@ build_libretro_generic_jni() {
 			echo "cleanup command: ${NDK} -j${JOBS} ${ARGS} APP_ABI=${a} clean"
 			${NDK} -j${JOBS} ${ARGS} APP_ABI=${a} clean
 			if [ $? -eq 0 ]; then
-				echo BUILDBOT JOB: $jobid $a $1 cleanup success!
+				echo buildbot job: $jobid $a $1 cleanup success!
 			else
-				echo BUILDBOT JOB: $jobid $a $1 cleanup failed!
+				echo buildbot job: $jobid $a $1 cleanup failed!
 			fi
 		fi
 
@@ -382,15 +364,15 @@ build_libretro_generic_jni() {
 		cp -v ../libs/${a}/libretro.${FORMAT_EXT} $RARCH_DIST_DIR/${a}/${1}_libretro${FORMAT}${LIBSUFFIX}.${FORMAT_EXT}
 		if [ $? -eq 0 ]; then
 			MESSAGE="$1-$a build succeeded [$jobid]"
-			echo BUILDBOT JOB: $MESSAGE
+			echo buildbot job: $MESSAGE
 			buildbot_log "$MESSAGE"
 		else
 			ERROR=`cat $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}_${a}.log | tail -n 100`
 			HASTE=`curl -XPOST http://hastebin.com/documents -d"$ERROR"`
 			HASTE=`echo $HASTE | cut -d"\"" -f4`
 			MESSAGE="$1-$a build failed [$jobid] LOG: http://hastebin.com/$HASTE"
-			echo BUILDBOT JOB: $MESSAGE
-			echo BUILDBOT JOB: $MESSAGE | tee -a $TMPDIR/log/${BOT}/${LOGDATE}.log
+			echo buildbot job: $MESSAGE
+			echo buildbot job: $MESSAGE | tee -a $TMPDIR/log/${BOT}/${LOGDATE}.log
 			buildbot_log "$MESSAGE"
 		fi
 
@@ -399,9 +381,9 @@ build_libretro_generic_jni() {
 			echo "cleanup command: ${NDK} -j${JOBS} ${ARGS} APP_ABI=${a} clean"
 			${NDK} -j${JOBS} ${ARGS} APP_ABI=${a} clean
 			if [ $? -eq 0 ]; then
-				echo BUILDBOT JOB: $jobid $a $1 cleanup success!
+				echo buildbot job: $jobid $a $1 cleanup success!
 			else
-				echo BUILDBOT JOB: $jobid $a $1 cleanup failed!
+				echo buildbot job: $jobid $a $1 cleanup failed!
 			fi
 		fi
 	done
@@ -411,9 +393,9 @@ build_libretro_generic_jni() {
 			echo "cleanup command: ${NDK} -j${JOBS} ${ARGS} APP_ABI=${a} clean"
 			${NDK} -j${JOBS} ${ARGS} APP_ABI=${a} clean
 			if [ $? -eq 0 ]; then
-				echo BUILDBOT JOB: $jobid $a $1 cleanup success!
+				echo buildbot job: $jobid $a $1 cleanup success!
 			else
-				echo BUILDBOT JOB: $jobid $a $1 cleanup failed!
+				echo buildbot job: $jobid $a $1 cleanup failed!
 			fi
 		fi
 	done
@@ -440,9 +422,9 @@ build_libretro_bsnes_jni() {
 			echo "cleanup command: ${NDK} -j${JOBS} APP_ABI=${a} clean"
 			${NDK} -j${JOBS} APP_ABI=${a} clean
 			if [ $? -eq 0 ]; then
-				echo BUILDBOT JOB: $jobid $1 cleanup success!
+				echo buildbot job: $jobid $1 cleanup success!
 			else
-				echo BUILDBOT JOB: $jobid $1 cleanup failed!
+				echo buildbot job: $jobid $1 cleanup failed!
 			fi
 		fi
 
@@ -464,8 +446,8 @@ build_libretro_bsnes_jni() {
 			HASTE=`echo $HASTE | cut -d"\"" -f4`
 			MESSAGE="$1 build failed [$jobid] LOG: http://hastebin.com/$HASTE"
 		fi
-		echo BUILDBOT JOB: $MESSAGE
-		echo BUILDBOT JOB: $MESSAGE | tee -a $TMPDIR/log/${BOT}/${LOGDATE}.log
+		echo buildbot job: $MESSAGE
+		echo buildbot job: $MESSAGE | tee -a $TMPDIR/log/${BOT}/${LOGDATE}.log
 		buildbot_log "$MESSAGE"
 	done
 	for a in "${ABIS[@]}"; do
@@ -474,9 +456,9 @@ build_libretro_bsnes_jni() {
 			echo "cleanup command: ${NDK} -j${JOBS} APP_ABI=${a} clean"
 			${NDK} -j${JOBS} APP_ABI=${a} clean
 			if [ $? -eq 0 ]; then
-				echo BUILDBOT JOB: $jobid $1 cleanup success!
+				echo buildbot job: $jobid $1 cleanup success!
 			else
-				echo BUILDBOT JOB: $jobid $1 cleanup failed!
+				echo buildbot job: $jobid $1 cleanup failed!
 			fi
 		fi
 	done
@@ -502,9 +484,9 @@ build_libretro_generic_gl_makefile() {
 		echo "cleanup command: ${MAKE} -f ${MAKEFILE} platform=${PLATFORM} -j${JOBS} clean"
 		${MAKE} -f ${MAKEFILE} platform=${PLATFORM} -j${JOBS} clean
 		if [ $? -eq 0 ]; then
-			echo BUILDBOT JOB: $jobid $1 cleanup success!
+			echo buildbot job: $jobid $1 cleanup success!
 		else
-			echo BUILDBOT JOB: $jobid $1 cleanup failed!
+			echo buildbot job: $jobid $1 cleanup failed!
 		fi
 	fi
 
@@ -526,8 +508,8 @@ build_libretro_generic_gl_makefile() {
 		HASTE=`echo $HASTE | cut -d"\"" -f4`
 		MESSAGE="$1 build failed [$jobid] LOG: http://hastebin.com/$HASTE"
 	fi
-	echo BUILDBOT JOB: $MESSAGE
-	echo BUILDBOT JOB: $MESSAGE | tee -a $TMPDIR/log/${BOT}/${LOGDATE}.log
+	echo buildbot job: $MESSAGE
+	echo buildbot job: $MESSAGE | tee -a $TMPDIR/log/${BOT}/${LOGDATE}.log
 	buildbot_log "$MESSAGE"
 
 	reset_compiler_targets
@@ -536,9 +518,9 @@ build_libretro_generic_gl_makefile() {
 		echo "cleanup command: ${MAKE} -f ${MAKEFILE} platform=${PLATFORM} -j${JOBS} clean"
 		${MAKE} -f ${MAKEFILE} platform=${PLATFORM} -j${JOBS} clean
 		if [ $? -eq 0 ]; then
-			echo BUILDBOT JOB: $jobid $1 cleanup success!
+			echo buildbot job: $jobid $1 cleanup success!
 		else
-			echo BUILDBOT JOB: $jobid $1 cleanup failed!
+			echo buildbot job: $jobid $1 cleanup failed!
 		fi
 	fi
 }
@@ -553,10 +535,6 @@ build_libretro_bsnes() {
 	BSNESCOMPILER=$6
 	buildbot_log "$1 build starting [$jobid]"
 
-   BUILDBOT_DBG1=""
-   BUILDBOT_DBG2=""
-   BUILDBOT_DBG3=""
-
    cd $DIR
 
 	if [ -z "${NOCLEAN}" ]; then
@@ -570,25 +548,21 @@ build_libretro_bsnes() {
 		fi
 
 		if [ $? -eq 0 ]; then
-			echo BUILDBOT JOB: $jobid $1 cleanup success!
+			echo buildbot job: $jobid $1 cleanup success!
 		else
-			echo BUILDBOT JOB: $jobid $1 cleanup failed!
+			echo buildbot job: $jobid $1 cleanup failed!
 		fi
 	fi
-	BUILDBOT_DBG1="NAME: $NAME DIR: $DIR SUBDIR: $SUBDIR MAKEFILE: $MAKEFILE PLATFORM: $PLATFORM ARGS: $ARGS CC: $CC CXX: $CXX"
-
+	
 	echo "compiling..."
 
 	if [ "${PROFILE}" = "cpp98" ]; then
-		BUILDBOT_DBG2="build command: ${MAKE} platform="${PLATFORM}" "${COMPILER}" "-j${JOBS}""
 		${MAKE} platform="${PLATFORM}" "${COMPILER}" "-j${JOBS}" 2>&1 | tee $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}.log
 	elif [ "${PROFILE}" = "bnes" ]; then
 		echo "build command: ${MAKE} -f Makefile ${COMPILER} "-j${JOBS}" compiler=${BSNESCOMPILER}" platform=${FORMAT_COMPILER_TARGET}
-		BUILDBOT_DBG2="build command: ${MAKE} -f Makefile ${COMPILER} "-j${JOBS}" compiler="${BSNESCOMPILER}" platform=${FORMAT_COMPILER_TARGET}"
 		${MAKE} -f Makefile ${COMPILER} "-j${JOBS}" compiler="${BSNESCOMPILER}" platform=${FORMAT_COMPILER_TARGET} 2>&1 | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}.log
 	else
 		echo "build command: ${MAKE} -f ${MAKEFILE} platform=${PLATFORM} compiler=${BSNESCOMPILER} ui='target-libretro' profile=${PROFILE} -j${JOBS}"
-		BUILDBOT_DBG2="build command: ${MAKE} -f ${MAKEFILE} platform=${PLATFORM} compiler=${BSNESCOMPILER} ui='target-libretro' profile=${PROFILE} -j${JOBS}"
 		${MAKE} -f ${MAKEFILE} platform=${PLATFORM} compiler=${BSNESCOMPILER} ui='target-libretro' profile=${PROFILE} -j${JOBS} 2>&1 | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}.log
 	fi
 
@@ -602,15 +576,13 @@ build_libretro_bsnes() {
 	if [ $? -eq 0 ]; then
 		MESSAGE="$1 build succeeded [$jobid]"
 	else
-		echo === BUILDBOT VARS: $BUILDBOT_DBG1 === | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}.log
-		echo === BUILDBOT VARS: $BUILDBOT_DBG2 === | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}.log
 		ERROR=`cat $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}.log | tail -n 100`
 		HASTE=`curl -XPOST http://hastebin.com/documents -d"$ERROR"`
 		HASTE=`echo $HASTE | cut -d"\"" -f4`
 		MESSAGE="$1 build failed [$jobid] LOG: http://hastebin.com/$HASTE"
 	fi
-	echo BUILDBOT JOB: $MESSAGE
-	echo BUILDBOT JOB: $MESSAGE | tee -a $TMPDIR/log/${BOT}/${LOGDATE}.log
+	echo buildbot job: $MESSAGE
+	echo buildbot job: $MESSAGE | tee -a $TMPDIR/log/${BOT}/${LOGDATE}.log
 	buildbot_log "$MESSAGE"
 	if [ -z "${NOCLEAN}" ]; then
 		echo "cleaning up..."
@@ -623,9 +595,9 @@ build_libretro_bsnes() {
 		fi
 
 		if [ $? -eq 0 ]; then
-			echo BUILDBOT JOB: $jobid $1 cleanup success!
+			echo buildbot job: $jobid $1 cleanup success!
 		else
-			echo BUILDBOT JOB: $jobid $1 cleanup failed!
+			echo buildbot job: $jobid $1 cleanup failed!
 		fi
 	fi
 }
@@ -966,7 +938,7 @@ while read line; do
 done < $1
 
 
-echo "BUILDBOT JOB: $jobid Building Retroarch" for $PLATFORM
+echo "buildbot job: $jobid Building Retroarch" for $PLATFORM
 echo
 cd $WORK
 BUILD=""
@@ -981,7 +953,7 @@ if [ "${PLATFORM}" == "osx" ] && [ "${RA}" == "YES" ]; then
 		PARENTDIR=`echo $line | cut -f 6 -d " "`
 
 		if [ "${ENABLED}" == "YES" ]; then
-			echo "BUILDBOT JOB: $jobid Processing $NAME"
+			echo "buildbot job: $jobid Processing $NAME"
 			echo
 			echo NAME: $NAME
 			echo DIR: $DIR
@@ -1067,7 +1039,7 @@ if [ "${PLATFORM}" == "osx" ] && [ "${RA}" == "YES" ]; then
 	if [ "${BUILD}" == "YES" -o "${FORCE}" == "YES" -o "${FORCE_RETROARCH_BUILD}" == "YES" -o "${CORES_BUILT}" == "YES" ]; then
 		touch $TMPDIR/built-frontend
 		cd $RADIR
-		echo "BUILDBOT JOB: $jobid Building"
+		echo "buildbot job: $jobid Building"
       buildbot_log "retroarch build starting [$jobid]"
 		echo
 
@@ -1086,7 +1058,7 @@ if [ "${PLATFORM}" == "osx" ] && [ "${RA}" == "YES" ]; then
 		fi
 
       buildbot_log "$MESSAGE"
-      echo BUILDBOT JOB: $MESSAGE | tee -a $TMPDIR/log/${BOT}/${LOGDATE}.log
+      echo buildbot job: $MESSAGE | tee -a $TMPDIR/log/${BOT}/${LOGDATE}.log
 
       cd pkg/apple
       xcodebuild -project RetroArch.xcodeproj -target "RetroArch Cg" -configuration Release &> $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_CG_${PLATFORM}.log
@@ -1103,12 +1075,11 @@ if [ "${PLATFORM}" == "osx" ] && [ "${RA}" == "YES" ]; then
 		fi
 
 		buildbot_log "$MESSAGE"
-		echo BUILDBOT JOB: $MESSAGE | tee -a $TMPDIR/log/${BOT}/${LOGDATE}.log
+		echo buildbot job: $MESSAGE | tee -a $TMPDIR/log/${BOT}/${LOGDATE}.log
 		cd $WORK/$RADIR
 
 
 		echo "Packaging"
-		echo ============================================
 
 	fi
 fi
@@ -1122,7 +1093,7 @@ if [ "${PLATFORM}" == "ios" ] && [ "${RA}" == "YES" ]; then
 		PARENTDIR=`echo $line | cut -f 6 -d " "`
 
 		if [ "${ENABLED}" == "YES" ]; then
-			echo "BUILDBOT JOB: $jobid Processing $NAME"
+			echo "buildbot job: $jobid Processing $NAME"
 			echo
 			echo NAME: $NAME
 			echo DIR: $DIR
@@ -1208,7 +1179,7 @@ if [ "${PLATFORM}" == "ios" ] && [ "${RA}" == "YES" ]; then
 	if [ "${BUILD}" == "YES" -o "${FORCE}" == "YES" -o "${FORCE_RETROARCH_BUILD}" == "YES" -o "${CORES_BUILT}" == "YES" ]; then
 		touch $TMPDIR/built-frontend
 		cd $RADIR
-		echo "BUILDBOT JOB: $jobid Building"
+		echo "buildbot job: $jobid Building"
       buildbot_log "retroarch build starting [$jobid]"
 		echo
 
@@ -1228,12 +1199,11 @@ if [ "${PLATFORM}" == "ios" ] && [ "${RA}" == "YES" ]; then
 		fi
 
 		buildbot_log "$MESSAGE"
-		echo BUILDBOT JOB: $MESSAGE | tee -a $TMPDIR/log/${BOT}/${LOGDATE}.log
+		echo buildbot job: $MESSAGE | tee -a $TMPDIR/log/${BOT}/${LOGDATE}.log
 		cd $WORK/$RADIR
 
 
 		echo "Packaging"
-		echo ============================================
 
 	fi
 fi
@@ -1249,7 +1219,7 @@ if [ "${PLATFORM}" == "ios9" ] && [ "${RA}" == "YES" ]; then
 		PARENTDIR=`echo $line | cut -f 6 -d " "`
 
 		if [ "${ENABLED}" == "YES" ]; then
-			echo "BUILDBOT JOB: $jobid Processing $NAME"
+			echo "buildbot job: $jobid Processing $NAME"
 			echo
 			echo NAME: $NAME
 			echo DIR: $DIR
@@ -1335,7 +1305,7 @@ if [ "${PLATFORM}" == "ios9" ] && [ "${RA}" == "YES" ]; then
 	if [ "${BUILD}" == "YES" -o "${FORCE}" == "YES" -o "${FORCE_RETROARCH_BUILD}" == "YES" -o "${CORES_BUILT}" == "YES" ]; then
 		touch $TMPDIR/built-frontend
 		cd $RADIR
-		echo "BUILDBOT JOB: $jobid Building"
+		echo "buildbot job: $jobid Building"
       buildbot_log "retroarch build starting [$jobid]"
 		echo
 
@@ -1362,12 +1332,11 @@ if [ "${PLATFORM}" == "ios9" ] && [ "${RA}" == "YES" ]; then
 		fi
 
 		buildbot_log "$MESSAGE"
-		echo BUILDBOT JOB: $MESSAGE | tee -a $TMPDIR/log/${BOT}/${LOGDATE}.log
+		echo buildbot job: $MESSAGE | tee -a $TMPDIR/log/${BOT}/${LOGDATE}.log
 		cd $WORK/$RADIR
 
 
 		echo "Packaging"
-		echo ============================================
 
 	fi
 fi
@@ -1385,7 +1354,7 @@ if [ "${PLATFORM}" = "android" ] && [ "${RA}" = "YES" ]; then
 		PARENTDIR=`echo $line | cut -f 6 -d " "`
 
 		if [ "${ENABLED}" = "YES" ]; then
-			echo "BUILDBOT JOB: $jobid Processing $NAME"
+			echo "buildbot job: $jobid Processing $NAME"
 			echo
 			echo NAME: $NAME
 			echo DIR: $DIR
@@ -1467,14 +1436,14 @@ if [ "${PLATFORM}" = "android" ] && [ "${RA}" = "YES" ]; then
 
 	if [ "${BUILD}" = "YES" -o "${FORCE}" = "YES" -o "${FORCE_RETROARCH_BUILD}" == "YES" ]; then
 		touch $TMPDIR/built-frontend
-		echo "BUILDBOT JOB: $jobid Compiling Shaders"
+		echo "buildbot job: $jobid Compiling Shaders"
 		echo
 
 		echo RADIR $RADIR
 		cd $RADIR
 		$MAKE -f Makefile.griffin shaders-convert-glsl PYTHON3=$PYTHON
 
-		echo "BUILDBOT JOB: $jobid Processing Assets"
+		echo "buildbot job: $jobid Processing Assets"
 		echo
 
 		rm -rf pkg/android/phoenix/assets/assets
@@ -1531,7 +1500,7 @@ if [ "${PLATFORM}" = "android" ] && [ "${RA}" = "YES" ]; then
 
 		cp -rf $RARCH_DIR/info/* pkg/android/phoenix/assets/info/
 
-		echo "BUILDBOT JOB: $jobid Building"
+		echo "buildbot job: $jobid Building"
       buildbot_log "retroarch build starting [$jobid]"
 		echo
 		cd pkg/android/phoenix
@@ -1556,7 +1525,7 @@ if [ "${PLATFORM}" = "android" ] && [ "${RA}" = "YES" ]; then
 			MESSAGE="retroarch build failed [$jobid] LOG: http://hastebin.com/$HASTE"
 			echo $MESSAGE
 		fi
-			echo BUILDBOT JOB: $MESSAGE | tee -a $TMPDIR/log/${BOT}/${LOGDATE}.log
+			echo buildbot job: $MESSAGE | tee -a $TMPDIR/log/${BOT}/${LOGDATE}.log
 		buildbot_log "$MESSAGE"
 	fi
 fi
@@ -1571,7 +1540,7 @@ if [ "${PLATFORM}" = "MINGW64" ] || [ "${PLATFORM}" = "MINGW32" ] || [ "${PLATFO
 		PARENTDIR=`echo $line | cut -f 6 -d " "`
 
 		if [ "${ENABLED}" = "YES" ]; then
-			echo "BUILDBOT JOB: $jobid Processing $NAME"
+			echo "buildbot job: $jobid Processing $NAME"
 			echo
 			echo NAME: $NAME
 			echo DIR: $DIR
@@ -1636,7 +1605,7 @@ if [ "${PLATFORM}" = "MINGW64" ] || [ "${PLATFORM}" = "MINGW32" ] || [ "${PLATFO
 	if [ "${BUILD}" = "YES" -o "${FORCE}" = "YES" -o "${FORCE_RETROARCH_BUILD}" == "YES" ]; then
 		touch $TMPDIR/built-frontend
 		cd $RADIR
-		echo "BUILDBOT JOB: $jobid Building"
+		echo "buildbot job: $jobid Building"
       buildbot_log "retroarch build starting [$jobid]"
 		echo
 
@@ -1645,9 +1614,9 @@ if [ "${PLATFORM}" = "MINGW64" ] || [ "${PLATFORM}" = "MINGW32" ] || [ "${PLATFO
 		echo "audio filter build command: ${MAKE}"
 		$MAKE
 		if [ $? -eq 0 ]; then
-			echo BUILDBOT JOB: $jobid audio filter build success!
+			echo buildbot job: $jobid audio filter build success!
 		else
-			echo BUILDBOT JOB: $jobid audio filter build failed!
+			echo buildbot job: $jobid audio filter build failed!
 		fi
 
 		cd ..
@@ -1658,9 +1627,9 @@ if [ "${PLATFORM}" = "MINGW64" ] || [ "${PLATFORM}" = "MINGW32" ] || [ "${PLATFO
 		echo "audio filter build command: ${MAKE}"
 		$MAKE
 		if [ $? -eq 0 ]; then
-			echo BUILDBOT JOB: $jobid video filter build success!
+			echo buildbot job: $jobid video filter build success!
 		else
-			echo BUILDBOT JOB: $jobid video filter build failed!
+			echo buildbot job: $jobid video filter build failed!
 		fi
 
 		cd ..
@@ -1676,17 +1645,17 @@ if [ "${PLATFORM}" = "MINGW64" ] || [ "${PLATFORM}" = "MINGW32" ] || [ "${PLATFO
 		$MAKE clean
 
 		if [ $? -eq 0 ]; then
-			echo BUILDBOT JOB: $jobid retroarch cleanup success!
+			echo buildbot job: $jobid retroarch cleanup success!
 		else
-			echo BUILDBOT JOB: $jobid retroarch cleanup failed!
+			echo buildbot job: $jobid retroarch cleanup failed!
 		fi
 
 
 
 		if [ $? -eq 0 ]; then
-			echo BUILDBOT JOB: $jobid retroarch configure success!
+			echo buildbot job: $jobid retroarch configure success!
 		else
-			echo BUILDBOT JOB: $jobid retroarch configure failed!
+			echo buildbot job: $jobid retroarch configure failed!
 		fi
 
 		echo "building..."
@@ -1697,11 +1666,11 @@ if [ "${PLATFORM}" = "MINGW64" ] || [ "${PLATFORM}" = "MINGW32" ] || [ "${PLATFO
 		if [ $? -eq 0 ]; then
 			MESSAGE="retroarch build succeeded [$jobid]"
 			echo $MESSAGE
-			echo BUILDBOT JOB: $MESSAGE | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_${PLATFORM}.log
+			echo buildbot job: $MESSAGE | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_${PLATFORM}.log
 			buildbot_log "$MESSAGE"
 
 			echo "Packaging"
-			echo ============================================
+
 			cp retroarch.cfg retroarch.default.cfg
 
 			rm -rf windows
@@ -1778,7 +1747,7 @@ EOF
 			HASTE=`echo $HASTE | cut -d"\"" -f4`
 			MESSAGE="retroarch build failed [$jobid] LOG: http://hastebin.com/$HASTE"
 			echo $MESSAGE
-			echo BUILDBOT JOB: $MESSAGE | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_${PLATFORM}.log
+			echo buildbot job: $MESSAGE | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_${PLATFORM}.log
 			buildbot_log "$MESSAGE"
 		fi
 	fi
@@ -1794,7 +1763,7 @@ if [ "${PLATFORM}" = "psp1" ] && [ "${RA}" = "YES" ]; then
 		PARENTDIR=`echo $line | cut -f 6 -d " "`
 
 		if [ "${ENABLED}" = "YES" ]; then
-			echo "BUILDBOT JOB: $jobid Processing $NAME"
+			echo "buildbot job: $jobid Processing $NAME"
 			echo
 			echo NAME: $NAME
 			echo DIR: $DIR
@@ -1876,14 +1845,13 @@ if [ "${PLATFORM}" = "psp1" ] && [ "${RA}" = "YES" ]; then
 	if [ "${BUILD}" == "YES" -o "${FORCE}" == "YES" -o "${FORCE_RETROARCH_BUILD}" == "YES" -o "${CORES_BUILT}" == "YES" ]; then
 		touch $TMPDIR/built-frontend
 		cd $RADIR
-		echo "BUILDBOT JOB: $jobid Building"
+		echo "buildbot job: $jobid Building"
       buildbot_log "retroarch build starting [$jobid]"
 		echo
 
 		cd dist-scripts
 		rm *.a
 		cp -v $RARCH_DIST_DIR/*.a .
-		#ls -1 *.a  | awk -F "." ' { print "cp " $0 " " $1 "_psp1." $2 }' |sh
 
 		./dist-cores.sh psp1 &> $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_${PLATFORM}.log
 		if [ $? -eq 0 ]; then
@@ -1897,10 +1865,10 @@ if [ "${PLATFORM}" = "psp1" ] && [ "${RA}" = "YES" ]; then
 			echo $MESSAGE
 		fi
 		buildbot_log "$MESSAGE"
-		echo BUILDBOT JOB: $MESSAGE | tee -a $TMPDIR/log/${BOT}/${LOGDATE}.log
+		echo buildbot job: $MESSAGE | tee -a $TMPDIR/log/${BOT}/${LOGDATE}.log
 
 		echo "Packaging"
-		echo ============================================
+
 		cd $WORK/$RADIR
 		cp retroarch.cfg retroarch.default.cfg
 
@@ -1921,7 +1889,7 @@ if [ "${PLATFORM}" == "wii" ] && [ "${RA}" == "YES" ]; then
 		PARENTDIR=`echo $line | cut -f 6 -d " "`
 
 		if [ "${ENABLED}" == "YES" ]; then
-			echo "BUILDBOT JOB: $jobid Processing $NAME"
+			echo "buildbot job: $jobid Processing $NAME"
 			echo
 			echo NAME: $NAME
 			echo DIR: $DIR
@@ -2004,7 +1972,7 @@ if [ "${PLATFORM}" == "wii" ] && [ "${RA}" == "YES" ]; then
 	if [ "${BUILD}" == "YES" -o "${FORCE}" == "YES" -o "${FORCE_RETROARCH_BUILD}" == "YES" -o "${CORES_BUILT}" == "YES" ]; then
 		touch $TMPDIR/built-frontend
 		cd $RADIR
-		echo "BUILDBOT JOB: $jobid Building"
+		echo "buildbot job: $jobid Building"
       buildbot_log "retroarch build starting [$jobid]"
 		echo
 
@@ -2013,7 +1981,6 @@ if [ "${PLATFORM}" == "wii" ] && [ "${RA}" == "YES" ]; then
 			rm *.a
 			cp -v $RARCH_DIST_DIR/*.a .
 
-			#ls -1 *.a  | awk -F "." ' { print "cp " $0 " " $1 "_wii." $2 }' |sh
 			sh ./dist-cores.sh wii &> $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_${PLATFORM}.log
 			if [ $? -eq 0 ]; then
 				MESSAGE="retroarch build succeeded [$jobid]"
@@ -2026,12 +1993,12 @@ if [ "${PLATFORM}" == "wii" ] && [ "${RA}" == "YES" ]; then
 				echo $MESSAGE
 			fi
 			buildbot_log "$MESSAGE"
-			echo BUILDBOT JOB: $MESSAGE | tee -a $TMPDIR/log/${BOT}/${LOGDATE}.log
+			echo buildbot job: $MESSAGE | tee -a $TMPDIR/log/${BOT}/${LOGDATE}.log
 			cd $WORK/$RADIR
 		fi
 
 		echo "Packaging"
-		echo ============================================
+
 		cp retroarch.cfg retroarch.default.cfg
 
 		mkdir -p pkg/wii
@@ -2055,7 +2022,7 @@ if [ "${PLATFORM}" == "ngc" ] && [ "${RA}" == "YES" ]; then
 
 		if [ "${ENABLED}" == "YES" ];
 		then
-			echo "BUILDBOT JOB: $jobid Processing $NAME"
+			echo "buildbot job: $jobid Processing $NAME"
 			echo
 			echo NAME: $NAME
 			echo DIR: $DIR
@@ -2147,7 +2114,7 @@ if [ "${PLATFORM}" == "ngc" ] && [ "${RA}" == "YES" ]; then
 	if [ "${BUILD}" == "YES" -o "${FORCE}" == "YES" -o "${FORCE_RETROARCH_BUILD}" == "YES" -o "${CORES_BUILT}" == "YES" ]; then
 		touch $TMPDIR/built-frontend
 		cd $RADIR
-		echo "BUILDBOT JOB: $jobid Building"
+		echo "buildbot job: $jobid Building"
       buildbot_log "retroarch build starting [$jobid]"
 		echo
 
@@ -2155,7 +2122,6 @@ if [ "${PLATFORM}" == "ngc" ] && [ "${RA}" == "YES" ]; then
 		rm *.a
 		cp -v $RARCH_DIST_DIR/*.a .
 
-		#ls -1 *.a  | awk -F "." ' { print "cp " $0 " " $1 "_ngc." $2 }' |sh
 		sh ./dist-cores.sh ngc &> $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_${PLATFORM}.log
 		if [ $? -eq 0 ];
 		then
@@ -2169,11 +2135,11 @@ if [ "${PLATFORM}" == "ngc" ] && [ "${RA}" == "YES" ]; then
 			echo $MESSAGE
 		fi
 		buildbot_log "$MESSAGE"
-		echo BUILDBOT JOB: $MESSAGE | tee -a $TMPDIR/log/${BOT}/${LOGDATE}.log
+		echo buildbot job: $MESSAGE | tee -a $TMPDIR/log/${BOT}/${LOGDATE}.log
 		cd ..
 
 		echo "Packaging"
-		echo ============================================
+
 		cp retroarch.cfg retroarch.default.cfg
 		mkdir -p pkg/ngc/
 		mkdir -p pkg/ngc/cheats
@@ -2194,7 +2160,7 @@ if [ "${PLATFORM}" == "ctr" ] && [ "${RA}" == "YES" ]; then
 		PARENTDIR=`echo $line | cut -f 6 -d " "`
 
 		if [ "${ENABLED}" == "YES" ]; then
-			echo "BUILDBOT JOB: $jobid Processing $NAME"
+			echo "buildbot job: $jobid Processing $NAME"
 			echo
 			echo NAME: $NAME
 			echo DIR: $DIR
@@ -2278,7 +2244,7 @@ if [ "${PLATFORM}" == "ctr" ] && [ "${RA}" == "YES" ]; then
 
 	if [ "${BUILD}" == "YES" -o "${FORCE}" == "YES" -o "${FORCE_RETROARCH_BUILD}" == "YES" -o "${CORES_BUILT}" == "YES" ]; then
 		cd $RADIR
-		echo "BUILDBOT JOB: $jobid Building"
+		echo "buildbot job: $jobid Building"
       buildbot_log "retroarch build starting [$jobid]"
 		echo
 
@@ -2286,7 +2252,6 @@ if [ "${PLATFORM}" == "ctr" ] && [ "${RA}" == "YES" ]; then
 		rm *.a
 		cp -v $RARCH_DIST_DIR/*.a .
 
-		#ls -1 *.a  | awk -F "." ' { print "cp " $0 " " $1 "_ctr." $2 }' |sh
 		JOBS=1 sh ./dist-cores.sh ctr &> $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_${PLATFORM}.log
 		if [ $? -eq 0 ]; then
 			MESSAGE="retroarch build succeeded [$jobid]"
@@ -2300,12 +2265,12 @@ if [ "${PLATFORM}" == "ctr" ] && [ "${RA}" == "YES" ]; then
 			echo $MESSAGE
 		fi
 		buildbot_log "$MESSAGE"
-		echo BUILDBOT JOB: $MESSAGE | tee -a $TMPDIR/log/${BOT}/${LOGDATE}.log
+		echo buildbot job: $MESSAGE | tee -a $TMPDIR/log/${BOT}/${LOGDATE}.log
 		cd $WORK/$RADIR
 
 
 		echo "Packaging"
-		echo ============================================
+
 		cp retroarch.cfg retroarch.default.cfg
 
 		mkdir -p pkg/3ds
@@ -2325,7 +2290,7 @@ if [ "${PLATFORM}" == "vita" ] && [ "${RA}" == "YES" ]; then
 		PARENTDIR=`echo $line | cut -f 6 -d " "`
 
 		if [ "${ENABLED}" == "YES" ]; then
-			echo "BUILDBOT JOB: $jobid Processing $NAME"
+			echo "buildbot job: $jobid Processing $NAME"
 			echo
 			echo NAME: $NAME
 			echo DIR: $DIR
@@ -2411,7 +2376,7 @@ if [ "${PLATFORM}" == "vita" ] && [ "${RA}" == "YES" ]; then
 	if [ "${BUILD}" == "YES" -o "${FORCE}" == "YES" -o "${FORCE_RETROARCH_BUILD}" == "YES" -o "${CORES_BUILT}" == "YES" ]; then
 		touch $TMPDIR/built-frontend
 		cd $RADIR
-		echo "BUILDBOT JOB: $jobid Building"
+		echo "buildbot job: $jobid Building"
       buildbot_log "retroarch build starting [$jobid]"
 		echo
 
@@ -2419,7 +2384,6 @@ if [ "${PLATFORM}" == "vita" ] && [ "${RA}" == "YES" ]; then
 		rm *.a
 		cp -v $RARCH_DIST_DIR/*.a .
 
-		#ls -1 *.a  | awk -F "." ' { print "cp " $0 " " $1 "_vita." $2 }' |sh
 		JOBS=1 sh ./dist-cores.sh vita &> $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_${PLATFORM}.log
 		if [ $? -eq 0 ]; then
 			MESSAGE="retroarch build succeeded [$jobid]"
@@ -2432,12 +2396,12 @@ if [ "${PLATFORM}" == "vita" ] && [ "${RA}" == "YES" ]; then
 			echo $MESSAGE
 		fi
 		buildbot_log "$MESSAGE"
-		echo BUILDBOT JOB: $MESSAGE | tee -a $TMPDIR/log/${BOT}/${LOGDATE}.log
+		echo buildbot job: $MESSAGE | tee -a $TMPDIR/log/${BOT}/${LOGDATE}.log
 		cd $WORK/$RADIR
 
 
 		echo "Packaging"
-		echo ============================================
+
 		cp retroarch.cfg retroarch.default.cfg
 
 		mkdir -p pkg/vita
