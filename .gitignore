@@ -45,10 +45,7 @@
 /libretro-lutro_sienna/
 /libretro-lutro_snake/
 /libretro-lutro_tetris/
-/libretro-mame/
-/libretro-mame078/
-/libretro-mame139/
-/libretro-mame159/
+/libretro-mame*/
 /libretro-mednafen_gba/
 /libretro-mednafen_lynx/
 /libretro-mednafen_ngp/
@@ -68,12 +65,14 @@
 /libretro-pcsx1/
 /libretro-pcsx_rearmed/
 /libretro-picodrive/
+/libretro-pocketsnes/
 /libretro-ppsspp/
 /libretro-prboom/
 /libretro-prosystem/
 /libretro-psp1/
 /libretro-puae/
 /libretro-quicknes/
+/libretro-reicast/
 /libretro-remotejoy/
 /libretro-scummvm/
 /libretro-snes9x/
