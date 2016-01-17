@@ -196,7 +196,7 @@ build_libretro_databases() {
 	build_libretro_database "Microsoft - MSX" "rom.crc"
 	build_libretro_database "Microsoft - MSX 2" "rom.crc"
 	build_libretro_database "NEC - PC Engine - TurboGrafx 16" "rom.crc"
-	build_libretro_database "NEC - Super Grafx" "rom.crc"
+	build_libretro_database "NEC - PC Engine SuperGrafx" "rom.crc"
 	build_libretro_database "Nintendo - Famicom Disk System" "rom.crc"
 	build_libretro_database "Nintendo - Game Boy" "rom.crc"
 	build_libretro_database "Nintendo - Game Boy Advance" "rom.crc"
