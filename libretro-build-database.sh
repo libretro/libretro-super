@@ -194,7 +194,7 @@ build_libretro_databases() {
 	build_libretro_database "LeapFrog - Leapster Learning Game System" "rom.crc"
 	build_libretro_database "Magnavox - Odyssey2" "rom.crc"
 	build_libretro_database "Microsoft - MSX" "rom.crc"
-	build_libretro_database "Microsoft - MSX 2" "rom.crc"
+	build_libretro_database "Microsoft - MSX2" "rom.crc"
 	build_libretro_database "NEC - PC Engine - TurboGrafx 16" "rom.crc"
 	build_libretro_database "NEC - PC Engine SuperGrafx" "rom.crc"
 	build_libretro_database "Nintendo - Famicom Disk System" "rom.crc"
