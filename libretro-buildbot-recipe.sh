@@ -35,7 +35,7 @@ read_link()
 
 
 if [ "${CORE_JOB}" == "YES" ]; then
-# ----- set target  -----	
+# ----- set target  -----
 	[[ "${ARM_NEON}" ]] && echo 'ARM NEON opts enabled...' && export FORMAT_COMPILER_TARGET="${FORMAT_COMPILER_TARGET}-neon"
 	[[ "${CORTEX_A8}" ]] && echo 'Cortex A8 opts enabled...' && export FORMAT_COMPILER_TARGET="${FORMAT_COMPILER_TARGET}-cortexa8"
 	[[ "${CORTEX_A9}" ]] && echo 'Cortex A9 opts enabled...' && export FORMAT_COMPILER_TARGET="${FORMAT_COMPILER_TARGET}-cortexa9"
@@ -67,7 +67,7 @@ if [ "${CORE_JOB}" == "YES" ]; then
 		done
 	fi
 
-# ----- set compilers  -----	
+# ----- set compilers  -----
 	if [ "$HOST_CC" ]; then
 		CC="${HOST_CC}-gcc"
 		CXX="${HOST_CC}-g++"
@@ -145,12 +145,12 @@ else
 	fi
 fi
 
-# ----- set jobs  -----	
+# ----- set jobs  -----
 if [ -z "$JOBS" ]; then
 	JOBS=2
 fi
 
-# ----- set forceful rebuild on/off  -----	
+# ----- set forceful rebuild on/off  -----
 if [ -z "$FORCE" ]; then
 	FORCE=NO
 fi
@@ -158,7 +158,7 @@ if [ -z "$FORCE_RETROARCH_BUILD" ]; then
 	FORCE_RETROARCH_BUILD=NO
 fi
 
-# ----- set cleanup rules -----	
+# ----- set cleanup rules -----
 CLEANUP=NO
 DAY=`date '+%d'`
 HOUR=`date '+%H'`
@@ -167,7 +167,7 @@ if [ $DAY == 01 -a $HOUR == 06 ]; then
 	CLEANUP=NO
 fi
 
-# ----- use to keep track of built cores -----	
+# ----- use to keep track of built cores -----
 CORES_BUILT=NO
 
 FORCE_ORIG=$FORCE
@@ -549,7 +549,7 @@ build_libretro_bsnes() {
 			echo buildbot job: $jobid $1 cleanup failed!
 		fi
 	fi
-	
+
 	echo "compiling..."
    echo --------------------------------------------------
 
@@ -1544,7 +1544,7 @@ if [ "${PLATFORM}" = "MINGW64" ] || [ "${PLATFORM}" = "MINGW32" ] || [ "${PLATFO
 					ARGS="${ARGS} ${TEMP}"
 				fi
 				ARGS="${ARGS%"${ARGS##*[![:space:]]}"}"
-				
+
 			fi
 
 			if [ -d "${PARENTDIR}/${DIR}/.git" ]; then
@@ -1706,14 +1706,15 @@ EOF
 
 			cp -v retroarch.default.cfg windows/
 			cp -v *.exe tools/*.exe windows/
-			cp -rf media/overlays/* windows/overlays
-			cp -rf media/autoconfig/* windows/autoconfig
-			cp -rf media/assets/* windows/assets
-			cp -rf $RARCH_DIR/info/* windows/info
 			cp -rf audio/audio_filters/*.dll windows/filters/audio
 			cp -rf audio/audio_filters/*.dsp windows/filters/audio
 			cp -rf gfx/video_filters/*.dll windows/filters/video
 			cp -rf gfx/video_filters/*.filt windows/filters/video
+			cd windows
+			wget http://bot.libretro.com/assets/frontend/bundle.zip
+			unzip bundle.zip
+			rm bundle.zip
+			cd ..
 
 			$MAKE clean
 			V=1 $MAKE -j${JOBS} DEBUG=1 | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_DEBUG_${PLATFORM}.log
@@ -1784,7 +1785,7 @@ if [ "${PLATFORM}" = "psp1" ] && [ "${RA}" = "YES" ]; then
 
 			ARGS="${ARGS%"${ARGS##*[![:space:]]}"}"
 
-			
+
 
 			if [ -d "${PARENTDIR}/${DIR}/.git" ]; then
 			cd $PARENTDIR
@@ -1910,7 +1911,7 @@ if [ "${PLATFORM}" == "wii" ] && [ "${RA}" == "YES" ]; then
 
 			ARGS="${ARGS%"${ARGS##*[![:space:]]}"}"
 
-			
+
 
 			if [ -d "${PARENTDIR}/${DIR}/.git" ]; then
 				cd $PARENTDIR
@@ -2049,7 +2050,7 @@ if [ "${PLATFORM}" == "ngc" ] && [ "${RA}" == "YES" ]; then
 
 		ARGS="${ARGS%"${ARGS##*[![:space:]]}"}"
 
-		
+
 
 		if [ -d "${PARENTDIR}/${DIR}/.git" ];
 		then
@@ -2181,7 +2182,7 @@ if [ "${PLATFORM}" == "ctr" ] && [ "${RA}" == "YES" ]; then
 
 			ARGS="${ARGS%"${ARGS##*[![:space:]]}"}"
 
-			
+
 
 			if [ -d "${PARENTDIR}/${DIR}/.git" ]; then
 				cd $PARENTDIR
@@ -2310,7 +2311,7 @@ if [ "${PLATFORM}" == "vita" ] && [ "${RA}" == "YES" ]; then
 
 			ARGS="${ARGS%"${ARGS##*[![:space:]]}"}"
 
-			
+
 
 			if [ -d "${PARENTDIR}/${DIR}/.git" ]; then
 				cd $PARENTDIR
