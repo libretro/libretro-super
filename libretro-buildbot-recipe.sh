@@ -1710,11 +1710,6 @@ EOF
 			cp -rf audio/audio_filters/*.dsp windows/filters/audio
 			cp -rf gfx/video_filters/*.dll windows/filters/video
 			cp -rf gfx/video_filters/*.filt windows/filters/video
-			cd windows
-			wget http://bot.libretro.com/assets/frontend/bundle.zip
-			unzip bundle.zip
-			rm bundle.zip
-			cd ..
 
 			$MAKE clean
 			V=1 $MAKE -j${JOBS} DEBUG=1 | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_DEBUG_${PLATFORM}.log
