@@ -1,6 +1,6 @@
 # vim: set ts=3 sw=3 noet ft=sh : bash
 
-# ----- setup -----
+# ----- setups -----
 
 LOGDATE=`date +%Y-%m-%d`
 ORIGPATH=$PATH
