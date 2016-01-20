@@ -10,3 +10,8 @@ license = "GPLv2"
 permissions = ""
 display_version = "Git"
 supports_no_game = "false"
+firmware_count = 1
+firmware0_desc = "bios.sms (Sega Master System BIOS)"
+firmware0_path = "bios.sms"
+firmware0_opt = "false"
+
