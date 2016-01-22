@@ -158,6 +158,11 @@ if [ -z "$FORCE_RETROARCH_BUILD" ]; then
 	FORCE_RETROARCH_BUILD=NO
 fi
 
+# ----- set release on/off  -----
+if [ -z "$RELEASE" ]; then
+	RELEASE=NO
+fi
+
 # ----- set cleanup rules -----
 CLEANUP=NO
 DAY=`date '+%d'`
@@ -1491,7 +1496,12 @@ if [ "${PLATFORM}" = "android" ] && [ "${RA}" = "YES" ]; then
 		android update project --path . --target android-22 &>>  $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_${PLATFORM}.log
 		android update project --path libs/googleplay --target android-21 &>>  $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_${PLATFORM}.log
 		android update project --path libs/appcompat --target android-21 &>>  $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_${PLATFORM}.log
-		ant release &>> $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_${PLATFORM}.log
+		RELEASE BUILD: $RELEASE
+		if [ "${RELEASE}" = "YES" ]; then
+		   ant release &>> $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_${PLATFORM}.log
+		else
+         ant debug &>> $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_${PLATFORM}.log
+		fi
 
 		if [ $? -eq 0 ]; then
 			MESSAGE="retroarch build succeeded [$jobid]"
