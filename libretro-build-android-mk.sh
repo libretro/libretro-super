@@ -136,6 +136,7 @@ WANT_CORES=" \
 	fb_alpha \
 	bsnes_mercury_performance \
 	bsnes_performance \
+	mame2003 \
 	pocketsnes"
 fi
 
