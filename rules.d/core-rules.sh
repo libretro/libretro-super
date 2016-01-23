@@ -206,6 +206,10 @@ register_module core "mednafen_supergrafx" -theos_ios
 libretro_mednafen_supergrafx_name="Mednafen/Beetle SuperGrafx"
 libretro_mednafen_supergrafx_git_url="https://github.com/libretro/beetle-supergrafx-libretro.git"
 
+register_module core "rustation" -theos_ios -ngc -psp1
+libretro_rustation_name="Rustation"
+libretro_rustation_git_url="https://github.com/libretro/rustation-libretro.git"
+
 register_module core "mednafen_psx" -theos_ios -ngc -psp1
 libretro_mednafen_psx_name="Mednafen/Beetle PSX"
 libretro_mednafen_psx_git_url="https://github.com/libretro/beetle-psx-libretro.git"
