@@ -58,7 +58,7 @@ build_libretro_database() {
 		DBFILE=${BASE_DIR}/${LIBRETRODB_BASE_DIR}/db.rdb
 		cd ${LIBRETRODB_BASE_DIR}/
 		echo "=== Building ${1} ==="
-		COMMAND='${BASE_DIR}/${LIBRETRODB_BASE_DIR}/c_converter ${DBFILE} "${2}"'
+		COMMAND='${BASE_DIR}/${LIBRETRODB_BASE_DIR}/dat_converter ${DBFILE} "${2}"'
 
 		#Check if main DAT is there
 		if [ -f "${LIBRETRODATABASE_DAT_DIR}/${1}.dat" ]; then
