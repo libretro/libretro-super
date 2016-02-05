@@ -6,6 +6,181 @@
 # case block below.  This is a band-aid fix that we will address after 1.1 is
 # released.
 
+#if uncommented, will build experimental cores as well which are not yet fit for release.
+#export BUILD_EXPERIMENTAL=1
+
+#ARM DEFINES
+#===========
+
+#if uncommented, will build cores with Cortex A8 compiler optimizations
+#export CORTEX_A8=1
+
+#if uncommented, will build cores with Cortex A9 compiler optimizations
+#export CORTEX_A9=1
+
+#if uncommented, will build cores with ARM hardfloat ABI
+#export ARM_HARDFLOAT=1
+
+#if uncommented, will build cores with ARM softfloat ABI
+#export ARM_SOFTFLOAT=1
+
+#if uncommented, will build cores with ARM NEON support (ARMv7+ only)
+#export ARM_NEON=1
+
+#OPENGL DEFINES
+#==============
+
+#if uncommented, will build libretro GL cores. Ignored for mobile platforms - GL cores will always be built there.
+export BUILD_LIBRETRO_GL=1
+
+#if uncommented, will build cores with OpenGL ES 2 support. Not needed
+#for platform-specific cores - only for generic core builds (ie. libretro-build.sh)
+#export ENABLE_GLES=1
+
+#Statically link cores
+#export STATIC_LINKING=1
+
+#ANDROID DEFINES
+#================
+
+export TARGET_ABIS="armeabi armeabi-v7a x86"
+
+#uncomment to define NDK standalone toolchain for ARM
+#export NDK_ROOT_DIR_ARM = 
+
+#uncomment to define NDK standalone toolchain for MIPS
+#export NDK_ROOT_DIR_MIPS = 
+
+#uncomment to define NDK standalone toolchain for x86
+#export NDK_ROOT_DIR_X86 =
+
+# android version target if GLES is in use
+export NDK_GL_HEADER_VER=android-18
+
+# android version target if GLES is not in use
+export NDK_NO_GL_HEADER_VER=android-9
+
+# Retroarch target android API level
+export RA_ANDROID_API=android-18
+
+# Retroarch minimum API level (defines low end android version compatability)
+export RA_ANDROID_MIN_API=android-9
+
+
+#OSX DEFINES
+#===========
+
+# Define this to skip the universal build
+# export NOUNIVERSAL=1
+
+# ARCHFLAGS is a very convenient way of doing this for simple/obvious cores
+# that don't need anything defined on the command line for 32 vs 64 bit
+# systems, however it won't work for anything that does.  For that, you need
+# to do two separate builds, one for each arch, and then do something like:
+#  lipo -create core_i386.dylib core_x86_64.dylib -output core_ub.dylib
+#
+# If building on 10.5/10.6, it's possible that you could actually build a UB
+# for Intel/PowerPC, but please don't. ;) Consider this a proof of concept
+# for now just to test a few cores.
+
+if [[ "$FORMAT_COMPILER_TARGET" = "osx" && -z "$NOUNIVERSAL" ]]; then
+	case "$ARCH" in
+		i386|x86_64)
+			export ARCHFLAGS="-arch i386 -arch x86_64"
+			;;
+		Power*|ppc|ppc64)
+			export ARCHFLAGS="-arch ppc -arch ppc64"
+			;;
+		*)
+			echo "Will not build universal binaries for unknown ARCH=\"$ARCH\""
+			;;
+	esac
+fi
+
+# OUTPUT AND LOGGING
+# ==================
+#
+# This is kind of an inline design document that'll be changed for basic user
+# instructions when the logging system is finished and tested.
+#
+# libretro-super has two kinds of output, the basic kind showing what the
+# script is doing in a big-picture sense, and the commands and output from
+# individual commands.  End-users don't necessarily need to see this more
+# detailed output, except when we're talking about huge cores like mame.
+#
+# If each can be directed to null, to the screen, to a log file, or to both
+# the screen and a log file, you end up with a matrix os 16 possibilities.  Of
+# those, only a few are truly useful:
+#
+# 	Basic		Detailed		Useful to
+#	screen	screen		developer/end-user w/ space issues
+#	screen	both			developer
+#	both		both			developer
+#	screen	log			end-user
+#	log		log			buildbot
+#
+# What this tells me is that we need to log by default, as long as we kill
+# old logfiles to avoid filling your HD with gigabytes of mame build logs.
+# Output should go to both screen and log for developers, but users don't need
+# to see the make commands, etc.  Being able to disable both would be useful,
+# but that a near-term TODO item.  That just leaves being able to squelch the
+# screen output for buildbot usage, and that's just > /dev/null on the command
+# line, so not our problem here.
+#
+# Again, the ability to turn OFF these logs will be wanted very soon.
+
+# Uncomment this to avoid clobbering logs
+#LIBRETRO_LOG_APPEND=1
+
+# Change this to adjust where logs are written
+#LIBRETRO_LOG_DIR="$WORKDIR/log"
+
+# Change this to rename the libretro-super main log file
+#LIBRETRO_LOG_SUPER="libretro-super.log"
+
+# Change this to rename core log files (%s for core's "safe" name)
+#LIBRETRO_LOG_CORE="%s.log"
+
+# Comment this if you don't need to see developer output
+LIBRETRO_DEVELOPER=1
+
+
+# BUILD_REVISIONS
+# ===============
+#
+# libretro-super can save a revision string (e.g., the git sha hash) for any
+# core it has compiled.  If this feature is enabled, it will check if the
+# revison string has changed before it compiles the core.  This can speed up
+# the build process for end-users and buildbots, and it also results in nightly
+# build directories being smaller.  It is not enabled by default because it
+# cannot know about uncommitted changes in a working directory.
+
+# Set this to enable the feature
+#SKIP_UNCHANGED=1
+
+# Set this if you don't like the default
+#BUILD_REVISIONS_DIR="$WORKDIR/build-revisions"
+
+
+# COLOR IN OUTPUT
+# ===============
+#
+# If you don't like ANSI-style color in your output, uncomment this line.
+#NO_COLOR=1
+
+# If you want to force it even in log files, uncomment this line.
+#FORCE_COLOR=1
+
+#USER DEFINES
+#------------
+#These options should be defined inside your own
+#local libretro-config-user.sh file rather than here.
+#The following below is just a sample.
+
+if [ -f "$WORKDIR/libretro-config-user.sh" ]; then
+	. "$WORKDIR/libretro-config-user.sh"
+fi
+
 case "$platform" in
 	##
 	## Configs that did not use libretro-config originally
@@ -530,10 +705,15 @@ case "$platform" in
 					DIST_DIR="android/armeabi-v7a"
 					;;
 				*)
-					FORMAT_EXT="so"
 					BINARY_EXT=""
 					FORMAT_COMPILER_TARGET="unix"
-					DIST_DIR="unix"
+					if [ -n "$STATIC_LINKING" ]; then
+						FORMAT_EXT="a"
+						DIST_DIR="unix-static"
+					else
+						FORMAT_EXT="so"
+						DIST_DIR="unix"
+					fi
 					;;
 			esac
 			export FORMAT_COMPILER_TARGET_ALT="$FORMAT_COMPILER_TARGET"
@@ -553,7 +733,7 @@ case "$platform" in
 			# nproc is generally Linux-specific.
 			if command -v nproc >/dev/null; then
 				JOBS="$(nproc)"
-			elif [ "$pltaform" = "osx" ] && command -v sysctl >/dev/null; then
+			elif [ "$platform" = "osx" ] && command -v sysctl >/dev/null; then
 				JOBS="$(sysctl -n hw.physicalcpu)"
 			else
 				JOBS=1
@@ -562,178 +742,3 @@ case "$platform" in
 		;;
 esac
 
-
-#if uncommented, will build experimental cores as well which are not yet fit for release.
-#export BUILD_EXPERIMENTAL=1
-
-#ARM DEFINES
-#===========
-
-#if uncommented, will build cores with Cortex A8 compiler optimizations
-#export CORTEX_A8=1
-
-#if uncommented, will build cores with Cortex A9 compiler optimizations
-#export CORTEX_A9=1
-
-#if uncommented, will build cores with ARM hardfloat ABI
-#export ARM_HARDFLOAT=1
-
-#if uncommented, will build cores with ARM softfloat ABI
-#export ARM_SOFTFLOAT=1
-
-#if uncommented, will build cores with ARM NEON support (ARMv7+ only)
-#export ARM_NEON=1
-
-#OPENGL DEFINES
-#==============
-
-#if uncommented, will build libretro GL cores. Ignored for mobile platforms - GL cores will always be built there.
-export BUILD_LIBRETRO_GL=1
-
-#if uncommented, will build cores with OpenGL ES 2 support. Not needed
-#for platform-specific cores - only for generic core builds (ie. libretro-build.sh)
-#export ENABLE_GLES=1
-
-#Statically link cores
-#export STATIC_LINKING=1
-
-#ANDROID DEFINES
-#================
-
-export TARGET_ABIS="armeabi armeabi-v7a x86"
-
-#uncomment to define NDK standalone toolchain for ARM
-#export NDK_ROOT_DIR_ARM = 
-
-#uncomment to define NDK standalone toolchain for MIPS
-#export NDK_ROOT_DIR_MIPS = 
-
-#uncomment to define NDK standalone toolchain for x86
-#export NDK_ROOT_DIR_X86 =
-
-# android version target if GLES is in use
-export NDK_GL_HEADER_VER=android-18
-
-# android version target if GLES is not in use
-export NDK_NO_GL_HEADER_VER=android-9
-
-# Retroarch target android API level
-export RA_ANDROID_API=android-18
-
-# Retroarch minimum API level (defines low end android version compatability)
-export RA_ANDROID_MIN_API=android-9
-
-
-#OSX DEFINES
-#===========
-
-# Define this to skip the universal build
-# export NOUNIVERSAL=1
-
-# ARCHFLAGS is a very convenient way of doing this for simple/obvious cores
-# that don't need anything defined on the command line for 32 vs 64 bit
-# systems, however it won't work for anything that does.  For that, you need
-# to do two separate builds, one for each arch, and then do something like:
-#  lipo -create core_i386.dylib core_x86_64.dylib -output core_ub.dylib
-#
-# If building on 10.5/10.6, it's possible that you could actually build a UB
-# for Intel/PowerPC, but please don't. ;) Consider this a proof of concept
-# for now just to test a few cores.
-
-if [[ "$FORMAT_COMPILER_TARGET" = "osx" && -z "$NOUNIVERSAL" ]]; then
-	case "$ARCH" in
-		i386|x86_64)
-			export ARCHFLAGS="-arch i386 -arch x86_64"
-			;;
-		Power*|ppc|ppc64)
-			export ARCHFLAGS="-arch ppc -arch ppc64"
-			;;
-		*)
-			echo "Will not build universal binaries for unknown ARCH=\"$ARCH\""
-			;;
-	esac
-fi
-
-# OUTPUT AND LOGGING
-# ==================
-#
-# This is kind of an inline design document that'll be changed for basic user
-# instructions when the logging system is finished and tested.
-#
-# libretro-super has two kinds of output, the basic kind showing what the
-# script is doing in a big-picture sense, and the commands and output from
-# individual commands.  End-users don't necessarily need to see this more
-# detailed output, except when we're talking about huge cores like mame.
-#
-# If each can be directed to null, to the screen, to a log file, or to both
-# the screen and a log file, you end up with a matrix os 16 possibilities.  Of
-# those, only a few are truly useful:
-#
-# 	Basic		Detailed		Useful to
-#	screen	screen		developer/end-user w/ space issues
-#	screen	both			developer
-#	both		both			developer
-#	screen	log			end-user
-#	log		log			buildbot
-#
-# What this tells me is that we need to log by default, as long as we kill
-# old logfiles to avoid filling your HD with gigabytes of mame build logs.
-# Output should go to both screen and log for developers, but users don't need
-# to see the make commands, etc.  Being able to disable both would be useful,
-# but that a near-term TODO item.  That just leaves being able to squelch the
-# screen output for buildbot usage, and that's just > /dev/null on the command
-# line, so not our problem here.
-#
-# Again, the ability to turn OFF these logs will be wanted very soon.
-
-# Uncomment this to avoid clobbering logs
-#LIBRETRO_LOG_APPEND=1
-
-# Change this to adjust where logs are written
-#LIBRETRO_LOG_DIR="$WORKDIR/log"
-
-# Change this to rename the libretro-super main log file
-#LIBRETRO_LOG_SUPER="libretro-super.log"
-
-# Change this to rename core log files (%s for core's "safe" name)
-#LIBRETRO_LOG_CORE="%s.log"
-
-# Comment this if you don't need to see developer output
-LIBRETRO_DEVELOPER=1
-
-
-# BUILD_REVISIONS
-# ===============
-#
-# libretro-super can save a revision string (e.g., the git sha hash) for any
-# core it has compiled.  If this feature is enabled, it will check if the
-# revison string has changed before it compiles the core.  This can speed up
-# the build process for end-users and buildbots, and it also results in nightly
-# build directories being smaller.  It is not enabled by default because it
-# cannot know about uncommitted changes in a working directory.
-
-# Set this to enable the feature
-#SKIP_UNCHANGED=1
-
-# Set this if you don't like the default
-#BUILD_REVISIONS_DIR="$WORKDIR/build-revisions"
-
-
-# COLOR IN OUTPUT
-# ===============
-#
-# If you don't like ANSI-style color in your output, uncomment this line.
-#NO_COLOR=1
-
-# If you want to force it even in log files, uncomment this line.
-#FORCE_COLOR=1
-
-#USER DEFINES
-#------------
-#These options should be defined inside your own
-#local libretro-config-user.sh file rather than here.
-#The following below is just a sample.
-
-if [ -f "$WORKDIR/libretro-config-user.sh" ]; then
-	. "$WORKDIR/libretro-config-user.sh"
-fi
