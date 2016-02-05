@@ -284,15 +284,6 @@ case "$platform" in
 		FORMAT_COMPILER_TARGET=ctr
 		FORMAT_COMPILER_TARGET_ALT=ctr
 
-		;;
-
-	ctr)
-		DIST_DIR="ctr"
-		FORMAT_EXT=a
-		FORMAT=_ctr
-		FORMAT_COMPILER_TARGET=ctr
-		FORMAT_COMPILER_TARGET_ALT=ctr
-
 		CC="$DEVKITARM/bin/arm-none-eabi-gcc$BINARY_EXT"
 		CXX="$DEVKITARM/bin/arm-none-eabi-g++$BINARY_EXT"
 		AR="$DEVKITARM/bin/arm-none-eabi-ar$BINARY_EXT"
