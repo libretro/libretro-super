@@ -708,6 +708,7 @@ case "$platform" in
 					BINARY_EXT=""
 					FORMAT_COMPILER_TARGET="unix"
 					if [ -n "$STATIC_LINKING" ]; then
+						FORMAT=_unix
 						FORMAT_EXT="a"
 						DIST_DIR="unix-static"
 					else
