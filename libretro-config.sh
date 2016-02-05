@@ -603,6 +603,9 @@ export BUILD_LIBRETRO_GL=1
 #for platform-specific cores - only for generic core builds (ie. libretro-build.sh)
 #export ENABLE_GLES=1
 
+#Statically link cores
+#export STATIC_LINKING=1
+
 #ANDROID DEFINES
 #================
 
@@ -628,6 +631,7 @@ export RA_ANDROID_API=android-18
 
 # Retroarch minimum API level (defines low end android version compatability)
 export RA_ANDROID_MIN_API=android-9
+
 
 #OSX DEFINES
 #===========

@@ -199,6 +199,8 @@ build_makefile() {
 	# TODO: Do $platform type stuff better (requires modding each core)
 	make_cmdline="$make_cmdline platform=\"$core_build_platform\""
 
+	[ -n "$STATIC_LINKING" ] && make_cmdline="$make_cmdline STATIC_LINKING=1"
+	
 	[ -n "$JOBS" ] && make_cmdline="$make_cmdline -j$JOBS"
 	[ -n "$DEBUG" ] && make_cmdline="$make_cmdline DEBUG=$DEBUG"
 
