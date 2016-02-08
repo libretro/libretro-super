@@ -613,6 +613,7 @@ echo CC      $CC
 echo CXX     $CXX
 echo STRIP   $STRIP
 echo DISTDIR $RARCH_DIST_DIR
+echo JOBS    $JOBS
 echo
 echo
 
