@@ -147,7 +147,7 @@ fi
 
 # ----- set jobs  -----
 if [ -z "$JOBS" ]; then
-	JOBS=2
+	JOBS=6
 fi
 
 # ----- set forceful rebuild on/off  -----
