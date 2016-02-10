@@ -1499,7 +1499,7 @@ if [ "${PLATFORM}" = "android" ] && [ "${RA}" = "YES" ]; then
 		android update project --path libs/appcompat --target android-21 &>>  $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_${PLATFORM}.log
 		echo RELEASE BUILD: $RELEASE
 		ant release &>> $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_${PLATFORM}.log
-		cp bin/retroarch-release.apk $RARCH_DIR/retroarch-release.apk
+		cp -rv bin/retroarch-release.apk $RARCH_DIR/retroarch-release.apk
 
 
 
