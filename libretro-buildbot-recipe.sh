@@ -1499,13 +1499,34 @@ if [ "${PLATFORM}" = "android" ] && [ "${RA}" = "YES" ]; then
 		android update project --path libs/appcompat --target android-21 &>>  $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_${PLATFORM}.log
 		echo RELEASE BUILD: $RELEASE
 		ant release &>> $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_${PLATFORM}.log
-		cp -rv bin/retroarch-release.apk $RARCH_DIR/retroarch-release.apk
-
-
-
 
 		if [ $? -eq 0 ]; then
 			MESSAGE="retroarch build succeeded [$jobid]"
+			cp -rv bin/retroarch-release.apk $RARCH_DIR/retroarch-release.apk
+			echo $MESSAGE
+		else
+			ERROR=`cat $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_${PLATFORM}.log | tail -n 100`
+			HASTE=`curl -XPOST http://hastebin.com/documents -d"$ERROR"`
+			HASTE=`echo $HASTE | cut -d"\"" -f4`
+			MESSAGE="retroarch build failed [$jobid] LOG: http://hastebin.com/$HASTE"
+			echo $MESSAGE
+		fi
+			echo buildbot job: $MESSAGE | tee -a $TMPDIR/log/${BOT}/${LOGDATE}.log
+		buildbot_log "$MESSAGE"
+
+      $NDK clean &>  $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_${PLATFORM}.log
+		$NDK -j${JOBS} DEBUG=1 &>>  $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_${PLATFORM}.log
+		python ./version_increment.py
+		ant clean &>>  $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_${PLATFORM}.log
+		android update project --path . --target android-22 &>>  $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_${PLATFORM}.log
+		android update project --path libs/googleplay --target android-21 &>>  $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_${PLATFORM}.log
+		android update project --path libs/appcompat --target android-21 &>>  $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_${PLATFORM}.log
+		echo RELEASE BUILD: $RELEASE
+		ant debug &>> $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_${PLATFORM}.log
+
+		if [ $? -eq 0 ]; then
+			MESSAGE="retroarch debug build succeeded [$jobid]"
+			cp -rv bin/retroarch-debug.apk $RARCH_DIR/retroarch-debug.apk
 			echo $MESSAGE
 		else
 			ERROR=`cat $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_${PLATFORM}.log | tail -n 100`
