@@ -1299,7 +1299,6 @@ if [ "${PLATFORM}" == "ios9" ] && [ "${RA}" == "YES" ]; then
       buildbot_log "retroarch build starting [$jobid]"
 		echo
 
-
 		cd pkg/apple
 		xcodebuild clean build CODE_SIGN_IDENTITY="" CODE_SIGNING_REQUIRED=NO -project RetroArch_iOS.xcodeproj -configuration Release -target "RetroArch iOS9" &> $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_${PLATFORM}.log
 

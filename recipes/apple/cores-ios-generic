@@ -28,7 +28,7 @@ gpsp libretro-gpsp https://github.com/libretro/gpsp.git PROJECT YES GENERIC Make
 handy libretro-handy https://github.com/libretro/libretro-handy.git PROJECT YES GENERIC Makefile . 
 hatari libretro-hatari https://github.com/libretro/libretro-hatari.git PROJECT YES GENERIC Makefile.libretro . 
 imageviewer libretro-imageviewer https://github.com/libretro/imageviewer-libretro.git PROJECT YES GENERIC Makefile.libretro . 
-mame libretro-mame https://github.com/libretro/mame.git PROJECT YES GENERIC Makefile.libretro . 
+mame libretro-mame https://github.com/libretro/mame.git PROJECT YES GENERIC makefile . OSD=retro RETRO=1 NOWERROR=1 NOASM=1 TARGETOS=ios-arm CONFIG=libretro USE_BGFX=0 NO_USE_MIDI=1 VERBOSE=1 verbose=1 
 mame2000 libretro-mame2000 https://github.com/libretro/mame2000-libretro.git PROJECT YES GENERIC Makefile . 
 mame2003 libretro-mame2003 https://github.com/libretro/mame2003-libretro.git PROJECT YES GENERIC Makefile . 
 mame2010 libretro-mame2010 https://github.com/libretro/mame2010-libretro.git PROJECT YES GENERIC Makefile . VRENDER=soft 
