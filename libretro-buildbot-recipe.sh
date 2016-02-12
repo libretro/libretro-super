@@ -1525,7 +1525,7 @@ if [ "${PLATFORM}" = "android" ] && [ "${RA}" = "YES" ]; then
 
 		if [ $? -eq 0 ]; then
 			MESSAGE="retroarch debug build succeeded [$jobid]"
-			cp -rv bin/retroarch-debug.apk $RARCH_DIR/retroarch-debug.apk
+			cp -rv bin/retroarch-release.apk $RARCH_DIR/retroarch-debug.apk
 			echo $MESSAGE
 		else
 			ERROR=`cat $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_${PLATFORM}.log | tail -n 100`
