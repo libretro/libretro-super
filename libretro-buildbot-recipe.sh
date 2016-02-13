@@ -1731,7 +1731,7 @@ video_driver = "gl"
 video_filter_dir = ":\filters\video"
 video_shader_dir = ":\shaders"
 core_assets_directory = ":\downloads"
-libretro_info_path = ":\info"
+system_directory = ":\system"
 
 EOF
 
