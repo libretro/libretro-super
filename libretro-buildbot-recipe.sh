@@ -1488,6 +1488,14 @@ if [ "${PLATFORM}" = "android" ] && [ "${RA}" = "YES" ]; then
 		echo
 		cd pkg/android/phoenix
 		rm bin/*.apk
+		
+cat << EOF > windows/retroarch.cfg
+sdk.dir=/home/buildbot/tools/android/android-sdk-linux
+key.store=/home/buildbot/.android/release.keystore
+key.alias=buildbot
+key.store.password=buildbot
+key.alias.password=buildbot
+EOF
 
 		$NDK clean &>  $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_${PLATFORM}.log
 		$NDK -j${JOBS} &>>  $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_${PLATFORM}.log
