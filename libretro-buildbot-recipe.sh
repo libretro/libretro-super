@@ -1488,8 +1488,8 @@ if [ "${PLATFORM}" = "android" ] && [ "${RA}" = "YES" ]; then
 		echo
 		cd pkg/android/phoenix
 		rm bin/*.apk
-		
-cat << EOF > windows/retroarch.cfg
+
+cat << EOF > local.properties
 sdk.dir=/home/buildbot/tools/android/android-sdk-linux
 key.store=/home/buildbot/.android/release.keystore
 key.alias=buildbot
@@ -1521,7 +1521,7 @@ EOF
 		echo buildbot job: $MESSAGE | tee -a $TMPDIR/log/${BOT}/${LOGDATE}.log
 		buildbot_log "$MESSAGE"
 
-      $NDK clean &>  $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_${PLATFORM}.log
+                $NDK clean &>  $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_${PLATFORM}.log
 		$NDK -j${JOBS} DEBUG=1 &>>  $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_${PLATFORM}.log
 		python ./version_increment.py
 		ant clean &>>  $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_${PLATFORM}.log
