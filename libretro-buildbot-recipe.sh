@@ -1504,12 +1504,14 @@ EOF
 		android update project --path . --target android-22 &>>  $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_${PLATFORM}.log
 		android update project --path libs/googleplay --target android-21 &>>  $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_${PLATFORM}.log
 		android update project --path libs/appcompat --target android-21 &>>  $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_${PLATFORM}.log
-		echo RELEASE BUILD: $RELEASE
+		echo RELEASE BUILD: $RELEASE $RARCH_DIR
 		ant release &>> $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_${PLATFORM}.log
+                cp -rv bin/retroarch-release.apk $RARCH_DIR/retroarch-release.apk &>> $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_${PLATFORM}.log
+                cp -rv bin/retroarch-release.apk $RARCH_DIR/retroarch-release.apk
+
 
 		if [ $? -eq 0 ]; then
 			MESSAGE="retroarch build succeeded [$jobid]"
-			cp -rv bin/retroarch-release.apk $RARCH_DIR/retroarch-release.apk
 			echo $MESSAGE
 		else
 			ERROR=`cat $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_${PLATFORM}.log | tail -n 100`
@@ -1530,11 +1532,13 @@ EOF
 		android update project --path libs/appcompat --target android-21 &>>  $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_${PLATFORM}.log
 		echo RELEASE BUILD: $RELEASE
 		ant set-debuggable release &>> $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_${PLATFORM}.log
+		cp -rv bin/retroarch-release.apk $RARCH_DIR/retroarch-debug.apk &>> $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_${PLATFORM}.log
+		cp -rv bin/retroarch-release.apk $RARCH_DIR/retroarch-debug.apk
+
 
 		if [ $? -eq 0 ]; then
 			MESSAGE="retroarch debug build succeeded [$jobid]"
-			cp -rv bin/retroarch-release.apk $RARCH_DIR/retroarch-debug.apk
-			echo $MESSAGE
+			echo $MESSAGE $RARCH_DIR
 		else
 			ERROR=`cat $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_${PLATFORM}.log | tail -n 100`
 			HASTE=`curl -XPOST http://hastebin.com/documents -d"$ERROR"`
