@@ -1,6 +1,7 @@
 2048 libretro-2048  https://github.com/libretro/libretro-2048.git PROJECT YES GENERIC Makefile.libretro . 
 catsfc libretro-catsfc https://github.com/libretro/CATSFC-libretro.git PROJECT YES GENERIC Makefile . 
 catsfc_plus libretro-catsfc_plus https://github.com/libretro/CATSFC-libretro.git PROJECT YES GENERIC Makefile . USE_BLARGG_APU=1 
+dosbox libretro-dosbox https://github.com/libretro/dosbox-libretro.git PROJECT YES GENERIC Makefile.libretro . 
 fb_alpha libretro-fba https://github.com/libretro/fba-libretro.git PROJECT NO GENERIC makefile.libretro svn-current/trunk 
 fb_alpha libretro-fba https://github.com/libretro/fba-libretro.git PROJECT YES GENERIC makefile.libretro svn-current/trunk 
 fb_alpha_cps1 libretro-fba_cps1 https://github.com/libretro/fba_cores_cps1.git PROJECT YES GENERIC makefile.libretro . 
