@@ -413,8 +413,6 @@ build_libretro_bsnes_jni() {
 	PROFILE=$6
 	buildbot_log "$1 build starting [$jobid]"
 
-	CORENAME=bsnes
-
 	cd ${DIR}/${SUBDIR}
 
 	for a in "${ABIS[@]}"; do
@@ -436,17 +434,17 @@ build_libretro_bsnes_jni() {
 			${NDK} -j${JOBS} APP_ABI=${a}
 		else
 			echo "build command: ${NDK} -j${JOBS} APP_ABI=${a}"
-			${NDK} -j${JOBS} APP_ABI=${a}
+			${NDK} -j${JOBS} APP_ABI=${a} 2>&1 | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}_${a}.log
 		fi
 
-		cp -v ../libs/${a}/libretro_${CORENAME}_${PROFILE}.${FORMAT_EXT} $RARCH_DIST_DIR/${a}/${NAME}_${PROFILE}_libretro${FORMAT}${LIBSUFFIX}.${FORMAT_EXT}
+		cp -v ../libs/${a}/libretro_${NAME}_${PROFILE}.${FORMAT_EXT} $RARCH_DIST_DIR/${a}/${NAME}_${PROFILE}_libretro${FORMAT}${LIBSUFFIX}.${FORMAT_EXT}
 		if [ $? -eq 0 ]; then
-			MESSAGE="$1 build succeeded [$jobid]"
+			MESSAGE="$1-$a build succeeded [$jobid]"
 		else
-			ERROR=`cat $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}.log | tail -n 100`
+			ERROR=`cat $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}_${a}.log | tail -n 100`
 			HASTE=`curl -XPOST http://hastebin.com/documents -d"$ERROR"`
 			HASTE=`echo $HASTE | cut -d"\"" -f4`
-			MESSAGE="$1 build failed [$jobid] LOG: http://hastebin.com/$HASTE"
+			MESSAGE="$1-$a build failed [$jobid] LOG: http://hastebin.com/$HASTE"
 		fi
 		echo buildbot job: $MESSAGE
 		echo buildbot job: $MESSAGE | tee -a $TMPDIR/log/${BOT}/${LOGDATE}.log
@@ -458,9 +456,9 @@ build_libretro_bsnes_jni() {
 			echo "cleanup command: ${NDK} -j${JOBS} APP_ABI=${a} clean"
 			${NDK} -j${JOBS} APP_ABI=${a} clean
 			if [ $? -eq 0 ]; then
-				echo buildbot job: $jobid $1 cleanup success!
+				echo buildbot job: $jobid $1 $a cleanup success!
 			else
-				echo buildbot job: $jobid $1 cleanup failed!
+				echo buildbot job: $jobid $1 $a cleanup failed!
 			fi
 		fi
 	done
