@@ -783,12 +783,12 @@ while read line; do
 					BUILD="YES"
 				fi
 				
-				if [ "${PREVCORE}" = "gw" -a "${PREVBUILD}" = "YES" -a "${NAME}" = "bsnes" ]; then
+				if [ "${PREVCORE}" = "bsnes" -a "${PREVBUILD}" = "YES" -a "${NAME}" = "bsnes" ]; then
 					FORCE="YES"
 					BUILD="YES"
 				fi
 				
-				if [ "${PREVCORE}" = "gw" -a "${PREVBUILD}" = "YES" -a "${NAME}" = "bsnes-mercury" ]; then
+				if [ "${PREVCORE}" = "bsnes" -a "${PREVBUILD}" = "YES" -a "${NAME}" = "bsnes-mercury" ]; then
 					FORCE="YES"
 					BUILD="YES"
 				fi
