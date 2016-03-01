@@ -431,8 +431,8 @@ build_libretro_bsnes_jni() {
 		echo "compiling for ${a}..."
       		echo --------------------------------------------------
 		if [ -z "${ARGS}" ]; then
-			echo "build command: ${NDK} -j${JOBS} APP_ABI=${a}"
-			${NDK} -j${JOBS} APP_ABI=${a}
+			echo "build command: ${NDK} -j${JOBS} APP_ABI=${a} ${ARGS}"
+			${NDK} -j${JOBS} APP_ABI=${a} 2>&1 | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}_${a}.log
 		else
 			echo "build command: ${NDK} -j${JOBS} APP_ABI=${a}"
 			${NDK} -j${JOBS} APP_ABI=${a} ${ARGS} 2>&1 | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}_${a}.log
