@@ -411,7 +411,7 @@ build_libretro_bsnes_jni() {
 	MAKEFILE=$4
 	PLATFORM=$5
 	PROFILE=$6
-	ARGS=$7
+
 	buildbot_log "$1 build starting [$jobid]"
 
 	cd ${DIR}/${SUBDIR}
@@ -431,11 +431,11 @@ build_libretro_bsnes_jni() {
 		echo "compiling for ${a}..."
       		echo --------------------------------------------------
 		if [ -z "${ARGS}" ]; then
-			echo "build command: ${NDK} -j${JOBS} APP_ABI=${a} ${ARGS}"
+			echo "build command: ${NDK} -j${JOBS} APP_ABI=${a}"
 			${NDK} -j${JOBS} APP_ABI=${a} 2>&1 | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}_${a}.log
 		else
-			echo "build command: ${NDK} -j${JOBS} APP_ABI=${a}"
-			${NDK} -j${JOBS} APP_ABI=${a} ${ARGS} 2>&1 | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}_${a}.log
+			echo "build command: ${NDK} -j${JOBS} APP_ABI=${a}" ${PROFILE}
+			${NDK} -j${JOBS} APP_ABI=${a} ${PROFILE} 2>&1 | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}_${a}.log
 		fi
 		echo $PWD
 		cp -v ../libs/${a}/libretro_${NAME}_${PROFILE}.${FORMAT_EXT} $RARCH_DIST_DIR/${a}/${NAME}_${PROFILE}_libretro${FORMAT}${LIBSUFFIX}.${FORMAT_EXT} 2>&1 | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}_${a}.log
