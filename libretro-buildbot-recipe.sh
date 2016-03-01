@@ -430,7 +430,7 @@ build_libretro_bsnes_jni() {
 
 		echo "compiling for ${a}..."
       		echo --------------------------------------------------
-		if [ -z "${ARGS}" ]; then
+		if [ -z "${PROFILE}" ]; then
 			echo "build command: ${NDK} -j${JOBS} APP_ABI=${a}"
 			${NDK} -j${JOBS} APP_ABI=${a} 2>&1 | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}_${a}.log
 		else
