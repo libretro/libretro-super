@@ -1505,6 +1505,7 @@ key.store=/home/buildbot/.android/release.keystore
 key.alias=buildbot
 key.store.password=buildbot
 key.alias.password=buildbot
+
 EOF
 
 		$NDK clean &> $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_${PLATFORM}.log
