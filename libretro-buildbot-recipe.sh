@@ -1396,7 +1396,9 @@ if [ "${PLATFORM}" = "android" ] && [ "${RA}" = "YES" ]; then
 				echo "pulling changes from repo... "
 				git reset --hard
 				OUT=`git pull`
-				git submodule foreach git pull origin master
+				if [ "${TYPE}" == "SUBMODULE" ]; then
+					git submodule foreach git pull origin master
+				fi
 
 				echo $OUT
 				if [ "${TYPE}" = "PROJECT" ]; then
@@ -1413,7 +1415,9 @@ if [ "${PLATFORM}" = "android" ] && [ "${RA}" = "YES" ]; then
 				echo "cloning repo..."
 				cd $PARENTDIR
 				git clone "$URL" "$DIR" --depth=1
-				git submodule update --init
+            if [ "${TYPE}" == "SUBMODULE" ]; then
+					git submodule update --init
+				fi
 				cd $DIR
 				if [ "${TYPE}" = "PROJECT" ]; then
 					BUILD="YES"
