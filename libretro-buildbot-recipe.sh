@@ -1417,16 +1417,18 @@ if [ "${PLATFORM}" = "android" ] && [ "${RA}" = "YES" ]; then
 			else
 				echo "cloning repo..."
 				cd $PARENTDIR
-            echo REPO TYPE: $TYPE
 				git clone "$URL" "$DIR" --depth=1
-            if [ "${TYPE}" == "SUBMODULE" ]; then
+			
+				if [ "${TYPE}" = "PROJECT" ]; then
+					BUILD="YES"
+					RADIR=$DIR
+            elif [ "${TYPE}" == "SUBMODULE" ]; then
+               cd $PARENTDIR
+   				cd $DIR
                echo "updating submodules..."
 					git submodule update --init
                git submodule foreach git pull origin master
-				fi
-				cd $DIR
-				if [ "${TYPE}" = "PROJECT" ]; then
-					BUILD="YES"
+               BUILD="YES"
 					RADIR=$DIR
 				fi
 				cd $WORK
