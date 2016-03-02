@@ -1486,10 +1486,10 @@ if [ "${PLATFORM}" = "android" ] && [ "${RA}" = "YES" ]; then
 
 
 		cp -rf media/shaders_glsl $TMPDIR/
-		touch  pkg/android/phoenix/assets/cheats/.empty-folder
-		touch  pkg/android/phoenix/assets/saves/.empty-folder
-		touch  pkg/android/phoenix/assets/states/.empty-folder
-		touch  pkg/android/phoenix/assets/system/.empty-folder
+		touch pkg/android/phoenix/assets/cheats/.empty-folder
+		touch pkg/android/phoenix/assets/saves/.empty-folder
+		touch pkg/android/phoenix/assets/states/.empty-folder
+		touch pkg/android/phoenix/assets/system/.empty-folder
 
 		cp -rf $RARCH_DIR/info/* pkg/android/phoenix/assets/info/
 
@@ -1507,13 +1507,13 @@ key.store.password=buildbot
 key.alias.password=buildbot
 EOF
 
-		$NDK clean &>  $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_${PLATFORM}.log
-		$NDK -j${JOBS} &>>  $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_${PLATFORM}.log
+		$NDK clean &> $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_${PLATFORM}.log
+		$NDK -j${JOBS} &>> $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_${PLATFORM}.log
 		python ./version_increment.py
-		ant clean &>>  $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_${PLATFORM}.log
-		android update project --path . --target android-22 &>>  $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_${PLATFORM}.log
-		android update project --path libs/googleplay --target android-21 &>>  $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_${PLATFORM}.log
-		android update project --path libs/appcompat --target android-21 &>>  $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_${PLATFORM}.log
+		ant clean &>> $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_${PLATFORM}.log
+		android update project --path . --target android-22 &>> $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_${PLATFORM}.log
+		android update project --path libs/googleplay --target android-21 &>> $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_${PLATFORM}.log
+		android update project --path libs/appcompat --target android-21 &>> $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_${PLATFORM}.log
 		echo RELEASE BUILD: $RELEASE $RARCH_DIR
 		ant release &>> $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_${PLATFORM}.log
 		cp -rv bin/retroarch-release.apk $RARCH_DIR/retroarch-release.apk &>> $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_${PLATFORM}.log
@@ -1533,13 +1533,13 @@ EOF
 		echo buildbot job: $MESSAGE | tee -a $TMPDIR/log/${BOT}/${LOGDATE}.log
 		buildbot_log "$MESSAGE"
 
-		$NDK clean &>  $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_${PLATFORM}.log
-		$NDK -j${JOBS} DEBUG=1 &>>  $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_${PLATFORM}.log
+		$NDK clean &> $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_${PLATFORM}.log
+		$NDK -j${JOBS} DEBUG=1 &>> $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_${PLATFORM}.log
 		python ./version_increment.py
-		ant clean &>>  $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_${PLATFORM}.log
-		android update project --path . --target android-22 &>>  $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_${PLATFORM}.log
-		android update project --path libs/googleplay --target android-21 &>>  $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_${PLATFORM}.log
-		android update project --path libs/appcompat --target android-21 &>>  $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_${PLATFORM}.log
+		ant clean &>> $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_${PLATFORM}.log
+		android update project --path . --target android-22 &>> $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_${PLATFORM}.log
+		android update project --path libs/googleplay --target android-21 &>> $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_${PLATFORM}.log
+		android update project --path libs/appcompat --target android-21 &>> $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_${PLATFORM}.log
 		echo RELEASE BUILD: $RELEASE
 		ant set-debuggable release &>> $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_${PLATFORM}.log
 		cp -rv bin/retroarch-release.apk $RARCH_DIR/retroarch-debug.apk &>> $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_${PLATFORM}.log
