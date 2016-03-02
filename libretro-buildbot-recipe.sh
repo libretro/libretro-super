@@ -136,7 +136,7 @@ if [ "${CORE_JOB}" == "YES" ]; then
 		export FORMAT_COMPILER_TARGET_ALT=$RESET_FORMAT_COMPILER_TARGET_ALT
 	}
 else
-   SCRIPT=$(read_link "$0")
+	SCRIPT=$(read_link "$0")
 	echo "SCRIPT: $SCRIPT"
 	BASE_DIR=$(dirname "$SCRIPT")
 	if [ -z "$RARCH_DIST_DIR" ]; then
@@ -301,7 +301,7 @@ build_libretro_leiradel_makefile() {
 	fi
 
 	echo "compiling..."
-   echo --------------------------------------------------
+	echo --------------------------------------------------
 		echo "build command: ${MAKE} -f ${MAKEFILE}.${PLATFORM}_${ARGS} platform=${PLATFORM}_${ARGS} -j${JOBS}"
 		${MAKE} -f ${MAKEFILE}.${PLATFORM}_${ARGS} platform=${PLATFORM}_${ARGS} -j${JOBS} 2>&1 | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}.log
 
@@ -355,7 +355,7 @@ build_libretro_generic_jni() {
 		fi
 
 		echo "compiling for ${a}..."
-      echo --------------------------------------------------
+		echo --------------------------------------------------
 		if [ -z "${ARGS}" ]; then
 			echo "build command: ${NDK} -j${JOBS} APP_ABI=${a}"
 			${NDK} -j${JOBS} APP_ABI=${a} 2>&1 | tee $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}_${a}.log
@@ -428,7 +428,7 @@ build_libretro_bsnes_jni() {
 		fi
 
 		echo "compiling for ${a}..."
-      echo --------------------------------------------------
+		echo --------------------------------------------------
 		if [ -z "${ARGS}" ]; then
 			echo "build command: ${NDK} -j${JOBS} APP_ABI=${a}"
 			${NDK} -j${JOBS} APP_ABI=${a}
@@ -490,7 +490,7 @@ build_libretro_generic_gl_makefile() {
 	fi
 
 	echo "compiling..."
-   echo --------------------------------------------------
+	echo --------------------------------------------------
 	if [ -z "${ARGS}" ]; then
 		echo "build command: ${MAKE} -f ${MAKEFILE} platform=${PLATFORM} -j${JOBS}"
 		${MAKE} -f ${MAKEFILE} platform=${PLATFORM} -j${JOBS} 2>&1 | tee $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}.log
@@ -534,7 +534,7 @@ build_libretro_bsnes() {
 	BSNESCOMPILER=$6
 	buildbot_log "$1 build starting [$jobid]"
 
-   cd $DIR
+	cd $DIR
 
 	if [ -z "${NOCLEAN}" ]; then
 		echo "cleaning up..."
@@ -554,7 +554,7 @@ build_libretro_bsnes() {
 	fi
 
 	echo "compiling..."
-   echo --------------------------------------------------
+	echo --------------------------------------------------
 
 	if [ "${PROFILE}" = "cpp98" ]; then
 		${MAKE} platform="${PLATFORM}" "${COMPILER}" "-j${JOBS}" 2>&1 | tee $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}.log
@@ -607,11 +607,11 @@ build_libretro_bsnes() {
 echo buildbot starting
 echo --------------------------------------------------
 echo Variables:
-echo CC      $CC
-echo CXX     $CXX
-echo STRIP   $STRIP
+echo CC		$CC
+echo CXX	  $CXX
+echo STRIP	$STRIP
 echo DISTDIR $RARCH_DIST_DIR
-echo JOBS    $JOBS
+echo JOBS	 $JOBS
 echo
 echo
 
@@ -632,17 +632,17 @@ while read line; do
 
 	if [ "${ENABLED}" = "YES" ]; then
 		echo "buildbot job: $jobid processing $NAME"
-      echo --------------------------------------------------
+		echo --------------------------------------------------
 		echo Variables:
-		echo URL        $URL
+		echo URL		  $URL
 		echo REPO TYPE  $TYPE
-		echo ENABLED    $ENABLED
-		echo COMMAND    $COMMAND
-		echo MAKEFILE   $MAKEFILE
-		echo DIR        $DIR
-		echo SUBDIR     $SUBDIR
-      echo
-      echo
+		echo ENABLED	 $ENABLED
+		echo COMMAND	 $COMMAND
+		echo MAKEFILE	$MAKEFILE
+		echo DIR		  $DIR
+		echo SUBDIR	  $SUBDIR
+		echo
+		echo
 
 		ARGS=""
 
@@ -971,8 +971,8 @@ if [ "${PLATFORM}" == "osx" ] && [ "${RA}" == "YES" ]; then
 			echo URL: $URL
 			echo REPO TYPE: $TYPE
 			echo ENABLED: $ENABLED
-         echo
-         echo
+			echo
+			echo
 
 			ARGS=""
 
@@ -1047,12 +1047,12 @@ if [ "${PLATFORM}" == "osx" ] && [ "${RA}" == "YES" ]; then
 		touch $TMPDIR/built-frontend
 		cd $RADIR
 		echo "buildbot job: $jobid Building"
-      buildbot_log "retroarch build starting [$jobid]"
+		buildbot_log "retroarch build starting [$jobid]"
 		echo
 
 		cd pkg/apple
 
-      xcodebuild -project RetroArch.xcodeproj -target RetroArch -configuration Release &> $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_${PLATFORM}.log
+		xcodebuild -project RetroArch.xcodeproj -target RetroArch -configuration Release &> $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_${PLATFORM}.log
 
 		if [ $? -eq 0 ]; then
 			MESSAGE="retroarch build succeeded [$jobid]"
@@ -1065,10 +1065,10 @@ if [ "${PLATFORM}" == "osx" ] && [ "${RA}" == "YES" ]; then
 			echo $MESSAGE
 		fi
 
-      buildbot_log "$MESSAGE"
-      echo buildbot job: $MESSAGE | tee -a $TMPDIR/log/${BOT}/${LOGDATE}.log
+		buildbot_log "$MESSAGE"
+		echo buildbot job: $MESSAGE | tee -a $TMPDIR/log/${BOT}/${LOGDATE}.log
 
-      xcodebuild -project RetroArch.xcodeproj -target "RetroArch Cg" -configuration Release &> $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_CG_${PLATFORM}.log
+		xcodebuild -project RetroArch.xcodeproj -target "RetroArch Cg" -configuration Release &> $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_CG_${PLATFORM}.log
 
 		if [ $? -eq 0 ]; then
 			MESSAGE="retroarch build succeeded [$jobid]"
@@ -1183,7 +1183,7 @@ if [ "${PLATFORM}" == "ios" ] && [ "${RA}" == "YES" ]; then
 		touch $TMPDIR/built-frontend
 		cd $RADIR
 		echo "buildbot job: $jobid Building"
-      buildbot_log "retroarch build starting [$jobid]"
+		buildbot_log "retroarch build starting [$jobid]"
 		echo
 
 		cd pkg/apple
@@ -1304,7 +1304,7 @@ if [ "${PLATFORM}" == "ios9" ] && [ "${RA}" == "YES" ]; then
 		touch $TMPDIR/built-frontend
 		cd $RADIR
 		echo "buildbot job: $jobid Building"
-      buildbot_log "retroarch build starting [$jobid]"
+		buildbot_log "retroarch build starting [$jobid]"
 		echo
 
 		cd pkg/apple
@@ -1396,7 +1396,7 @@ if [ "${PLATFORM}" = "android" ] && [ "${RA}" = "YES" ]; then
 				echo "pulling changes from repo... "
 				git reset --hard
 				OUT=`git pull`
-            git submodule foreach git pull origin master
+				git submodule foreach git pull origin master
 
 				echo $OUT
 				if [ "${TYPE}" = "PROJECT" ]; then
@@ -1413,7 +1413,7 @@ if [ "${PLATFORM}" = "android" ] && [ "${RA}" = "YES" ]; then
 				echo "cloning repo..."
 				cd $PARENTDIR
 				git clone "$URL" "$DIR" --depth=1
-            git submodule update --init
+				git submodule update --init
 				cd $DIR
 				if [ "${TYPE}" = "PROJECT" ]; then
 					BUILD="YES"
@@ -1473,8 +1473,8 @@ if [ "${PLATFORM}" = "android" ] && [ "${RA}" = "YES" ]; then
 		mkdir -p pkg/android/phoenix/assets/filters/audio
 
 
-		cp -rf media/assets/glui  pkg/android/phoenix/assets/assets/
-		cp -rf media/assets/xmb   pkg/android/phoenix/assets/assets/
+		cp -rf media/assets/glui pkg/android/phoenix/assets/assets/
+		cp -rf media/assets/xmb	pkg/android/phoenix/assets/assets/
 		cp -rf media/assets/zarch pkg/android/phoenix/assets/assets/
 		cp -rf media/autoconfig/* pkg/android/phoenix/assets/autoconfig/
 		cp -rf media/overlays/* pkg/android/phoenix/assets/overlays/
@@ -1516,8 +1516,8 @@ EOF
 		android update project --path libs/appcompat --target android-21 &>>  $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_${PLATFORM}.log
 		echo RELEASE BUILD: $RELEASE $RARCH_DIR
 		ant release &>> $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_${PLATFORM}.log
-                cp -rv bin/retroarch-release.apk $RARCH_DIR/retroarch-release.apk &>> $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_${PLATFORM}.log
-                cp -rv bin/retroarch-release.apk $RARCH_DIR/retroarch-release.apk
+		cp -rv bin/retroarch-release.apk $RARCH_DIR/retroarch-release.apk &>> $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_${PLATFORM}.log
+		cp -rv bin/retroarch-release.apk $RARCH_DIR/retroarch-release.apk
 
 
 		if [ $? -eq 0 ]; then
@@ -1533,7 +1533,7 @@ EOF
 		echo buildbot job: $MESSAGE | tee -a $TMPDIR/log/${BOT}/${LOGDATE}.log
 		buildbot_log "$MESSAGE"
 
-                $NDK clean &>  $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_${PLATFORM}.log
+		$NDK clean &>  $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_${PLATFORM}.log
 		$NDK -j${JOBS} DEBUG=1 &>>  $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_${PLATFORM}.log
 		python ./version_increment.py
 		ant clean &>>  $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_${PLATFORM}.log
@@ -1637,7 +1637,7 @@ if [ "${PLATFORM}" = "MINGW64" ] || [ "${PLATFORM}" = "MINGW32" ] || [ "${PLATFO
 		touch $TMPDIR/built-frontend
 		cd $RADIR
 		echo "buildbot job: $jobid Building"
-      buildbot_log "retroarch build starting [$jobid]"
+		buildbot_log "retroarch build starting [$jobid]"
 		echo
 
 		echo "compiling audio filters"
@@ -1873,7 +1873,7 @@ if [ "${PLATFORM}" = "psp1" ] && [ "${RA}" = "YES" ]; then
 		touch $TMPDIR/built-frontend
 		cd $RADIR
 		echo "buildbot job: $jobid Building"
-      buildbot_log "retroarch build starting [$jobid]"
+		buildbot_log "retroarch build starting [$jobid]"
 		echo
 
 		cd dist-scripts
@@ -2000,7 +2000,7 @@ if [ "${PLATFORM}" == "wii" ] && [ "${RA}" == "YES" ]; then
 		touch $TMPDIR/built-frontend
 		cd $RADIR
 		echo "buildbot job: $jobid Building"
-      buildbot_log "retroarch build starting [$jobid]"
+		buildbot_log "retroarch build starting [$jobid]"
 		echo
 
 		if [ "${BUILD}" == "YES" -o "${FORCE}" == "YES" ]; then
@@ -2142,7 +2142,7 @@ if [ "${PLATFORM}" == "ngc" ] && [ "${RA}" == "YES" ]; then
 		touch $TMPDIR/built-frontend
 		cd $RADIR
 		echo "buildbot job: $jobid Building"
-      buildbot_log "retroarch build starting [$jobid]"
+		buildbot_log "retroarch build starting [$jobid]"
 		echo
 
 		cd dist-scripts
@@ -2271,7 +2271,7 @@ if [ "${PLATFORM}" == "ctr" ] && [ "${RA}" == "YES" ]; then
 	if [ "${BUILD}" == "YES" -o "${FORCE}" == "YES" -o "${FORCE_RETROARCH_BUILD}" == "YES" -o "${CORES_BUILT}" == "YES" ]; then
 		cd $RADIR
 		echo "buildbot job: $jobid Building"
-      buildbot_log "retroarch build starting [$jobid]"
+		buildbot_log "retroarch build starting [$jobid]"
 		echo
 
 		cd dist-scripts
@@ -2402,7 +2402,7 @@ if [ "${PLATFORM}" == "vita" ] && [ "${RA}" == "YES" ]; then
 		touch $TMPDIR/built-frontend
 		cd $RADIR
 		echo "buildbot job: $jobid Building"
-      buildbot_log "retroarch build starting [$jobid]"
+		buildbot_log "retroarch build starting [$jobid]"
 		echo
 
 		cd dist-scripts
