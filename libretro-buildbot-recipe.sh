@@ -429,7 +429,7 @@ build_libretro_bsnes_jni() {
 		fi
 
 		echo "compiling for ${a}..."
-      		echo --------------------------------------------------
+   			echo --------------------------------------------------
 		if [ -z "${PROFILE}" ]; then
 			echo "build command: ${NDK} -j${JOBS} APP_ABI=${a}"
 			${NDK} -j${JOBS} APP_ABI=${a} 2>&1 | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}_${a}.log
@@ -772,7 +772,6 @@ while read line; do
 					else
 						BUILD="YES"
 					fi
-
 				fi
 
 				FORCE_ORIG=$FORCE
@@ -904,14 +903,14 @@ while read line; do
 				fi
 				OUT=`git submodule foreach git pull origin master`
 				cd $WORK
-		else
+			else
 				echo "cloning repo..."
 				git clone --depth=1 "$URL" "$DIR"
 				cd $DIR
 				git submodule update --init
 				BUILD="YES"
 			fi
-		cd $WORK
+			cd $WORK
 		fi
 
 		if [ "${BUILD}" = "YES" -o "${FORCE}" = "YES" ]; then
@@ -973,8 +972,8 @@ if [ "${PLATFORM}" == "osx" ] && [ "${RA}" == "YES" ]; then
 			echo URL: $URL
 			echo REPO TYPE: $TYPE
 			echo ENABLED: $ENABLED
-         echo
-         echo
+			echo
+			echo
 
 			ARGS=""
 
@@ -1392,34 +1391,58 @@ if [ "${PLATFORM}" = "android" ] && [ "${RA}" = "YES" ]; then
 
 			ARGS="${ARGS%"${ARGS##*[![:space:]]}"}"
 
-			if [ -d "${PARENTDIR}/${DIR}/.git" ]; then
-				cd $PARENTDIR
-				cd $DIR
-				echo "pulling changes from repo... "
-				git reset --hard
-				OUT=`git pull`
+			if [ "${TYPE}" = "PROJECT" ]; then
+				if [ -d "${PARENTDIR}/${DIR}/.git" ]; then
+					cd $PARENTDIR
+					cd $DIR
+					echo "pulling changes from repo... "
+					git reset --hard
+					OUT=`git pull`
 
-				echo $OUT
-				if [ "${TYPE}" = "PROJECT" ]; then
-					RADIR=$DIR
+					echo $OUT
+					if [ "${TYPE}" = "PROJECT" ]; then
+						RADIR=$DIR
+						if [[ $OUT == *"Already up-to-date"* ]]; then
+							BUILD="NO"
+						else
+							BUILD="YES"
+						fi
+					fi
+					cd $WORK
+				else
+					echo "cloning repo..."
+					cd $PARENTDIR
+					git clone "$URL" "$DIR" --depth=1
+					cd $PARENTDIR
+					cd $DIR
+					if [ "${TYPE}" = "PROJECT" ]; then
+						BUILD="YES"
+						RADIR=$DIR
+					fi
+					cd $WORK
+				fi
+			elif [ "${TYPE}" == "SUBMODULE" ]; then
+				if [ -d "${DIR}/.git" ]; then
+					cd $PARENTDIR
+					cd $DIR
+					echo "pulling changes from repo... "
+					OUT=`git pull`
+
 					if [[ $OUT == *"Already up-to-date"* ]]; then
 						BUILD="NO"
 					else
 						BUILD="YES"
 					fi
-				fi
-				cd $WORK
-
-			else
-				echo "cloning repo..."
-				cd $PARENTDIR
-				git clone "$URL" "$DIR" --depth=1
-				cd $DIR
-				if [ "${TYPE}" = "PROJECT" ]; then
+					OUT=`git submodule foreach git pull origin master`
+					cd $WORK
+				else
+					echo "cloning repo..."
+					git clone --depth=1 "$URL" "$DIR"
+					cd $DIR
+					git submodule update --init
 					BUILD="YES"
-					RADIR=$DIR
+					cd $WORK
 				fi
-				cd $WORK
 			fi
 		fi
 
@@ -1516,8 +1539,8 @@ EOF
 		android update project --path libs/appcompat --target android-21 &>>  $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_${PLATFORM}.log
 		echo RELEASE BUILD: $RELEASE $RARCH_DIR
 		ant release &>> $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_${PLATFORM}.log
-                cp -rv bin/retroarch-release.apk $RARCH_DIR/retroarch-release.apk &>> $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_${PLATFORM}.log
-                cp -rv bin/retroarch-release.apk $RARCH_DIR/retroarch-release.apk
+			       cp -rv bin/retroarch-release.apk $RARCH_DIR/retroarch-release.apk &>> $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_${PLATFORM}.log
+			       cp -rv bin/retroarch-release.apk $RARCH_DIR/retroarch-release.apk
 
 
 		if [ $? -eq 0 ]; then
@@ -1533,7 +1556,7 @@ EOF
 		echo buildbot job: $MESSAGE | tee -a $TMPDIR/log/${BOT}/${LOGDATE}.log
 		buildbot_log "$MESSAGE"
 
-                $NDK clean &>  $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_${PLATFORM}.log
+			       $NDK clean &>  $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_${PLATFORM}.log
 		$NDK -j${JOBS} DEBUG=1 &>>  $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_${PLATFORM}.log
 		python ./version_increment.py
 		ant clean &>>  $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_${PLATFORM}.log
