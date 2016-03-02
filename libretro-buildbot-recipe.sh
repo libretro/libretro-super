@@ -1404,14 +1404,16 @@ if [ "${PLATFORM}" = "android" ] && [ "${RA}" = "YES" ]; then
 					else
 						BUILD="YES"
 					fi
-            elif [ "${TYPE}" = "SUBMODULE" ]; then
-               if [[ $OUT == *"Already up-to-date"* ]]; then
+				elif [ "${TYPE}" = "SUBMODULE" ]; then
+					if [[ $OUT == *"Already up-to-date"* ]]; then
 						BUILD="NO"
 					else
 						BUILD="YES"
-                  git submodule foreach git pull origin master
+                  RADIR=$DIR
+						git submodule foreach git pull origin master
 					fi
 				fi
+
 				cd $WORK
 
 			else
@@ -1422,13 +1424,13 @@ if [ "${PLATFORM}" = "android" ] && [ "${RA}" = "YES" ]; then
 				if [ "${TYPE}" = "PROJECT" ]; then
 					BUILD="YES"
 					RADIR=$DIR
-            elif [ "${TYPE}" == "SUBMODULE" ]; then
-               cd $PARENTDIR
-   				cd $DIR
-               echo "updating submodules..."
+				elif [ "${TYPE}" == "SUBMODULE" ]; then
+					cd $PARENTDIR
+					cd $DIR
+					echo "updating submodules..."
 					git submodule update --init
-               git submodule foreach git pull origin master
-               BUILD="YES"
+					git submodule foreach git pull origin master
+					BUILD="YES"
 					RADIR=$DIR
 				fi
 				cd $WORK
