@@ -1432,6 +1432,7 @@ if [ "${PLATFORM}" = "android" ] && [ "${RA}" = "YES" ]; then
 						BUILD="NO"
 					else
 						BUILD="YES"
+                  RADIR=$DIR
 					fi
 					OUT=`git submodule foreach git pull origin master`
 					cd $WORK
@@ -1441,6 +1442,7 @@ if [ "${PLATFORM}" = "android" ] && [ "${RA}" = "YES" ]; then
 					cd $DIR
 					git submodule update --init
 					BUILD="YES"
+               RADIR=$DIR
 					cd $WORK
 				fi
 			fi
