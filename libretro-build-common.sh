@@ -55,7 +55,7 @@ post_error_log() {
 	error=`cat $WORKDIR/log/$1.log | tail -n 100`
 	haste=`curl -s -XPOST http://hastebin.com/documents -d"$error"`
 	haste=`echo $haste | cut -d"\"" -f4`
-	echo "$1 build failed (platform: $FORMAT_COMPILER_TARGET) LOG: http://hastebin.com/$haste"
+	echo "$1 [status: fail] (platform: $FORMAT_COMPILER_TARGET) LOG: http://hastebin.com/$haste"
 }
 
 build_summary_log() {
