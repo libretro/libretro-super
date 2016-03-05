@@ -1408,7 +1408,7 @@ if [ "${PLATFORM}" = "android" ] && [ "${RA}" = "YES" ]; then
 						BUILD="YES"
 					fi
 				elif [ "${TYPE}" = "SUBMODULE" ]; then
-               RADIR=$DIR
+					RADIR=$DIR
 					if [[ $OUT == *"Already up-to-date"* ]]; then
 						BUILD="NO"
 					else
@@ -1416,17 +1416,14 @@ if [ "${PLATFORM}" = "android" ] && [ "${RA}" = "YES" ]; then
 						git submodule foreach git pull origin master
 					fi
 				fi
-
 				cd $WORK
-
 			else
 				echo "cloning repo..."
 				cd $PARENTDIR
+				RADIR=$DIR
 				git clone "$URL" "$DIR" --depth=1
-
 				if [ "${TYPE}" = "PROJECT" ]; then
 					BUILD="YES"
-					RADIR=$DIR
 				elif [ "${TYPE}" == "SUBMODULE" ]; then
 					cd $PARENTDIR
 					cd $DIR
@@ -1434,7 +1431,6 @@ if [ "${PLATFORM}" = "android" ] && [ "${RA}" = "YES" ]; then
 					git submodule update --init
 					git submodule foreach git pull origin master
 					BUILD="YES"
-					RADIR=$DIR
 				fi
 				cd $WORK
 			fi
