@@ -1337,6 +1337,9 @@ fi
 
 if [ "${PLATFORM}" = "android" ] && [ "${RA}" = "YES" ]; then
 
+   echo $PWD
+   echo $RELEASE
+   echo $FORCE_RETROARCH_BUILD
 
 	while read line; do
 		NAME=`echo $line | cut -f 1 -d " "`
