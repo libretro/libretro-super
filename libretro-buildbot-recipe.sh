@@ -1408,11 +1408,11 @@ if [ "${PLATFORM}" = "android" ] && [ "${RA}" = "YES" ]; then
 						BUILD="YES"
 					fi
 				elif [ "${TYPE}" = "SUBMODULE" ]; then
+               RADIR=$DIR
 					if [[ $OUT == *"Already up-to-date"* ]]; then
 						BUILD="NO"
 					else
 						BUILD="YES"
-                  RADIR=$DIR
 						git submodule foreach git pull origin master
 					fi
 				fi
@@ -1488,7 +1488,6 @@ if [ "${PLATFORM}" = "android" ] && [ "${RA}" = "YES" ]; then
 		mkdir -p pkg/android/phoenix/assets/system/
 		mkdir -p pkg/android/phoenix/assets/filters/video
 		mkdir -p pkg/android/phoenix/assets/filters/audio
-
 
 		cp -rf media/assets/glui pkg/android/phoenix/assets/assets/
 		cp -rf media/assets/xmb	pkg/android/phoenix/assets/assets/
