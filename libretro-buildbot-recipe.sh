@@ -1526,6 +1526,8 @@ EOF
 		$NDK -j${JOBS} &>> $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_${PLATFORM}.log
 		if [ "${RELEASE}" == "NO" ]; then
 			python ./version_increment.py
+      else
+         git reset --hard
 		fi
 		ant clean &>> $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_${PLATFORM}.log
 		android update project --path . --target android-22 &>> $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_${PLATFORM}.log
