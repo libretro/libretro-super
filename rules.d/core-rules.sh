@@ -161,6 +161,11 @@ libretro_nestopia_name="Nestopia"
 libretro_nestopia_git_url="https://github.com/libretro/nestopia.git"
 libretro_nestopia_build_subdir="libretro"
 
+register_module_core "craft"
+libretro_craft_name="Craft"
+libretro_craft_git_url="https://github.com/libretro/Craft.git"
+libretro_craft_build_makefile="Makefile.libretro"
+
 register_module core "tyrquake"
 libretro_tyrquake_name="TyrQuake"
 libretro_tyrquake_git_url="https://github.com/libretro/tyrquake.git"
