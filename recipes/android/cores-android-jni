@@ -8,6 +8,7 @@ bsnes_mercury libretro-bsnes_mercury https://github.com/libretro/bsnes-mercury.g
 bsnes_mercury libretro-bsnes_mercury https://github.com/libretro/bsnes-mercury.git PROJECT YES BSNES_JNI Makefile target-libretro/jni balanced 
 bsnes_mercury libretro-bsnes_mercury https://github.com/libretro/bsnes-mercury.git PROJECT YES BSNES_JNI Makefile target-libretro/jni accuracy 
 catsfc libretro-catsfc https://github.com/libretro/CATSFC-libretro.git PROJECT YES GENERIC_JNI Makefile jni 
+craft libretro-craft https://github.com/libretro/craft PROJECT YES GENERIC_JNI Makefile.libretro jni 
 desmume libretro-desmume https://github.com/libretro/desmume.git PROJECT YES GENERIC_JNI Makefile.libretro desmume/src/libretro/jni 
 dinothawr libretro-dinothawr https://github.com/libretro/Dinothawr.git PROJECT YES GENERIC_JNI Makefile jni
 dosbox libretro-dosbox https://github.com/libretro/dosbox-libretro.git PROJECT YES GENERIC_JNI Makefile.libretro jni 
