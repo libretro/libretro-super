@@ -166,6 +166,12 @@ libretro_craft_name="Craft"
 libretro_craft_git_url="https://github.com/libretro/Craft.git"
 libretro_craft_build_makefile="Makefile.libretro"
 
+register_module core "pcem"
+libretro_pcem_name="PCem"
+libretro_pcem_git_url="https://github.com/libretro/libretro-pcem.git"
+libretro_pcem_build_makefile="Makefile.libretro"
+libretro_pcem_build_subdir="src"
+
 register_module core "tyrquake"
 libretro_tyrquake_name="TyrQuake"
 libretro_tyrquake_git_url="https://github.com/libretro/tyrquake.git"
