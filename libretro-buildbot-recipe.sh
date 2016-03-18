@@ -1130,7 +1130,8 @@ if [ "${PLATFORM}" == "ios" ] && [ "${RA}" == "YES" ]; then
 
 	if [ "${BUILD}" == "YES" -o "${FORCE}" == "YES" -o "${FORCE_RETROARCH_BUILD}" == "YES" -o "${CORES_BUILT}" == "YES" ]; then
 		touch $TMPDIR/built-frontend
-		cd $RADIR
+      cd $RADIR
+		git clean -xdf
 		echo "buildbot job: $jobid Building"
 		buildbot_log "retroarch:	[status: build] [$jobid]"
 		echo
@@ -1170,7 +1171,8 @@ if [ "${PLATFORM}" == "ios9" ] && [ "${RA}" == "YES" ]; then
 
 	if [ "${BUILD}" == "YES" -o "${FORCE}" == "YES" -o "${FORCE_RETROARCH_BUILD}" == "YES" -o "${CORES_BUILT}" == "YES" ]; then
 		touch $TMPDIR/built-frontend
-		cd $RADIR
+      cd $RADIR
+		git clean -xdf
 		echo "buildbot job: $jobid Building"
 		buildbot_log "retroarch:	[status: build] [$jobid]"
 		echo
@@ -1363,7 +1365,8 @@ if [ "${PLATFORM}" = "MINGW64" ] || [ "${PLATFORM}" = "MINGW32" ] || [ "${PLATFO
 
 	if [ "${BUILD}" = "YES" -o "${FORCE}" = "YES" -o "${FORCE_RETROARCH_BUILD}" == "YES" ]; then
 		touch $TMPDIR/built-frontend
-		cd $RADIR
+      cd $RADIR
+		git clean -xdf
 		echo "buildbot job: $jobid Building"
 		buildbot_log "retroarch:	[status: build] [$jobid]"
 		echo
@@ -1518,7 +1521,8 @@ if [ "${PLATFORM}" = "psp1" ] && [ "${RA}" = "YES" ]; then
 
 	if [ "${BUILD}" == "YES" -o "${FORCE}" == "YES" -o "${FORCE_RETROARCH_BUILD}" == "YES" -o "${CORES_BUILT}" == "YES" ]; then
 		touch $TMPDIR/built-frontend
-		cd $RADIR
+      cd $RADIR
+		git clean -xdf
 		echo "buildbot job: $jobid Building"
 		buildbot_log "retroarch:	[status: build] [$jobid]"
 		echo
@@ -1562,7 +1566,8 @@ if [ "${PLATFORM}" == "wii" ] && [ "${RA}" == "YES" ]; then
    buildbot_pull
 	if [ "${BUILD}" == "YES" -o "${FORCE}" == "YES" -o "${FORCE_RETROARCH_BUILD}" == "YES" -o "${CORES_BUILT}" == "YES" ]; then
 		touch $TMPDIR/built-frontend
-		cd $RADIR
+      cd $RADIR
+		git clean -xdf
 		echo "buildbot job: $jobid Building"
 		buildbot_log "retroarch:	[status: build] [$jobid]"
 		echo
@@ -1609,7 +1614,8 @@ if [ "${PLATFORM}" == "ngc" ] && [ "${RA}" == "YES" ]; then
    buildbot_pull
 	if [ "${BUILD}" == "YES" -o "${FORCE}" == "YES" -o "${FORCE_RETROARCH_BUILD}" == "YES" -o "${CORES_BUILT}" == "YES" ]; then
 		touch $TMPDIR/built-frontend
-		cd $RADIR
+      cd $RADIR
+		git clean -xdf
 		echo "buildbot job: $jobid Building"
 		buildbot_log "retroarch:	[status: build] [$jobid]"
 		echo
@@ -1655,7 +1661,8 @@ if [ "${PLATFORM}" == "ctr" ] && [ "${RA}" == "YES" ]; then
    buildbot_pull
 
 	if [ "${BUILD}" == "YES" -o "${FORCE}" == "YES" -o "${FORCE_RETROARCH_BUILD}" == "YES" -o "${CORES_BUILT}" == "YES" ]; then
-		cd $RADIR
+      cd $RADIR
+		git clean -xdf
 		echo "buildbot job: $jobid Building"
 		buildbot_log "retroarch:	[status: build] [$jobid]"
 		echo
@@ -1702,7 +1709,8 @@ if [ "${PLATFORM}" == "vita" ] && [ "${RA}" == "YES" ]; then
 
 	if [ "${BUILD}" == "YES" -o "${FORCE}" == "YES" -o "${FORCE_RETROARCH_BUILD}" == "YES" -o "${CORES_BUILT}" == "YES" ]; then
 		touch $TMPDIR/built-frontend
-		cd $RADIR
+      cd $RADIR
+		git clean -xdf
 		echo "buildbot job: $jobid Building"
 		buildbot_log "retroarch:	[status: build] [$jobid]"
 		echo
