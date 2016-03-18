@@ -955,6 +955,11 @@ cd $WORK
 BUILD=""
 
 if [ "${PLATFORM}" == "osx" ] && [ "${RA}" == "YES" ]; then
+
+   echo $PWD
+   echo $RELEASE
+   echo $FORCE_RETROARCH_BUILD
+
 	while read line; do
 		NAME=`echo $line | cut -f 1 -d " "`
 		DIR=`echo $line | cut -f 2 -d " "`
@@ -1008,32 +1013,45 @@ if [ "${PLATFORM}" == "osx" ] && [ "${RA}" == "YES" ]; then
 
 			ARGS="${ARGS%"${ARGS##*[![:space:]]}"}"
 
-			if [ -d "${PARENTDIR}/${DIR}/.git" ]; then
+         if [ -d "${PARENTDIR}/${DIR}/.git" ]; then
 				cd $PARENTDIR
 				cd $DIR
 				echo "pulling changes from repo... "
+				git reset --hard
 				OUT=`git pull`
-
-				if [ "${TYPE}" == "PROJECT" ]; then
+				echo $OUT
+				if [ "${TYPE}" = "PROJECT" ]; then
 					RADIR=$DIR
 					if [[ $OUT == *"Already up-to-date"* ]]; then
 						BUILD="NO"
 					else
 						BUILD="YES"
 					fi
+				elif [ "${TYPE}" = "SUBMODULE" ]; then
+					RADIR=$DIR
+					if [[ $OUT == *"Already up-to-date"* ]]; then
+						BUILD="NO"
+					else
+						BUILD="YES"
+						git submodule foreach git pull origin master
+					fi
 				fi
-
 				cd $WORK
 			else
 				echo "cloning repo..."
 				cd $PARENTDIR
 				git clone "$URL" "$DIR" --depth=1
-				cd $DIR
-
-				if [ "${TYPE}" == "PROJECT" ]; then
+				if [ "${TYPE}" = "PROJECT" ]; then
 					BUILD="YES"
 					RADIR=$DIR
-
+				elif [ "${TYPE}" == "SUBMODULE" ]; then
+					cd $PARENTDIR
+					cd $DIR
+					RADIR=$DIR
+					echo "updating submodules..."
+					git submodule update --init
+					git submodule foreach git pull origin master
+					BUILD="YES"
 				fi
 				cd $WORK
 			fi
