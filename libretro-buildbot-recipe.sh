@@ -956,9 +956,10 @@ BUILD=""
 
 if [ "${PLATFORM}" == "osx" ] && [ "${RA}" == "YES" ]; then
 
-   echo $PWD
-   echo $RELEASE
-   echo $FORCE_RETROARCH_BUILD
+   echo WORKINGDIR=$PWD
+   echo RELEASE=$RELEASE
+   echo FORCE=$FORCE_RETROARCH_BUILD
+   echo RADIR=$RADIR
 
 	while read line; do
 		NAME=`echo $line | cut -f 1 -d " "`
@@ -1063,6 +1064,10 @@ if [ "${PLATFORM}" == "osx" ] && [ "${RA}" == "YES" ]; then
 
 	if [ "${BUILD}" == "YES" -o "${FORCE}" == "YES" -o "${FORCE_RETROARCH_BUILD}" == "YES" -o "${CORES_BUILT}" == "YES" ]; then
 		touch $TMPDIR/built-frontend
+      echo WORKINGDIR=$PWD
+      echo RELEASE=$RELEASE
+      echo FORCE=$FORCE_RETROARCH_BUILD
+      echo RADIR=$RADIR
 		cd $RADIR
 		echo "buildbot job: $jobid Building"
 		buildbot_log "retroarch:	[status: build] [$jobid]"
