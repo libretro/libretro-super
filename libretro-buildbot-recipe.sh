@@ -1359,7 +1359,7 @@ if [ "${PLATFORM}" = "MINGW64" ] || [ "${PLATFORM}" = "MINGW32" ] || [ "${PLATFO
 
 	echo
 	echo
-	done < $1.ra
+
 	if [ "${BUILD}" = "YES" -o "${FORCE}" = "YES" -o "${FORCE_RETROARCH_BUILD}" == "YES" ]; then
 		touch $TMPDIR/built-frontend
 		cd $RADIR
