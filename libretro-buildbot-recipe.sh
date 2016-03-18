@@ -947,427 +947,8 @@ while read line; do
 	FORCE=$FORCE_ORIG
 done < $1
 
-
-echo "buildbot job: $jobid Building Retroarch-$PLATFORM"
-echo --------------------------------------------------
-echo
-cd $WORK
-BUILD=""
-
-if [ "${PLATFORM}" == "osx" ] && [ "${RA}" == "YES" ]; then
-
-   echo WORKINGDIR=$PWD
-   echo RELEASE=$RELEASE
-   echo FORCE=$FORCE_RETROARCH_BUILD
-   echo RADIR=$RADIR
-
-	while read line; do
-		NAME=`echo $line | cut -f 1 -d " "`
-		DIR=`echo $line | cut -f 2 -d " "`
-		URL=`echo $line | cut -f 3 -d " "`
-		TYPE=`echo $line | cut -f 4 -d " "`
-		ENABLED=`echo $line | cut -f 5 -d " "`
-		PARENTDIR=`echo $line | cut -f 6 -d " "`
-
-		if [ "${ENABLED}" == "YES" ]; then
-			echo "buildbot job: $jobid Processing $NAME"
-			echo NAME: $NAME
-			echo DIR: $DIR
-			echo PARENT: $PARENTDIR
-			echo URL: $URL
-			echo REPO TYPE: $TYPE
-			echo ENABLED: $ENABLED
-			echo
-			echo
-
-			ARGS=""
-
-			TEMP=`echo $line | cut -f 9 -d " "`
-			if [ -n ${TEMP} ]; then
-				ARGS="${TEMP}"
-			fi
-			TEMP=""
-			TEMP=`echo $line | cut -f 10 -d " "`
-			if [ -n ${TEMP} ]; then
-				ARGS="${ARGS} ${TEMP}"
-			fi
-			TEMP=""
-			TEMP=`echo $line | cut -f 11 -d " "`
-			if [ -n ${TEMP} ]; then
-				ARGS="${ARGS} ${TEMP}"
-			fi
-			TEMP=""
-			TEMP=`echo $line | cut -f 12 -d " "`
-			if [ -n ${TEMP} ]; then
-				ARGS="${ARGS} ${TEMP}"
-			fi
-			TEMP=""
-			TEMP=`echo $line | cut -f 13 -d " "`
-			if [ -n ${TEMP} ]; then
-				ARGS="${ARGS} ${TEMP}"
-			fi
-			TEMP=""
-			TEMP=`echo $line | cut -f 14 -d " "`
-			if [ -n ${TEMP} ]; then
-				ARGS="${ARGS} ${TEMP}"
-			fi
-
-			ARGS="${ARGS%"${ARGS##*[![:space:]]}"}"
-
-		   if [ -d "${PARENTDIR}/${DIR}/.git" ]; then
-				cd $PARENTDIR
-				cd $DIR
-				echo "pulling changes from repo... "
-				git reset --hard
-				OUT=`git pull`
-				echo $OUT
-				if [ "${TYPE}" = "PROJECT" ]; then
-					RADIR=$DIR
-					if [[ $OUT == *"Already up-to-date"* ]]; then
-						BUILD="NO"
-					else
-						BUILD="YES"
-					fi
-				elif [ "${TYPE}" = "SUBMODULE" ]; then
-					RADIR=$DIR
-					if [[ $OUT == *"Already up-to-date"* ]]; then
-						BUILD="NO"
-					else
-						BUILD="YES"
-						git submodule foreach git pull origin master
-					fi
-				fi
-				cd $WORK
-			else
-				echo "cloning repo..."
-				cd $PARENTDIR
-				git clone "$URL" "$DIR" --depth=1
-				if [ "${TYPE}" = "PROJECT" ]; then
-					BUILD="YES"
-					RADIR=$DIR
-				elif [ "${TYPE}" == "SUBMODULE" ]; then
-					cd $PARENTDIR
-					cd $DIR
-					RADIR=$DIR
-					echo "updating submodules..."
-					git submodule update --init
-					git submodule foreach git pull origin master
-					BUILD="YES"
-				fi
-				cd $WORK
-			fi
-		fi
-
-		echo
-		echo
-	done  < $1.ra
-
-	if [ "${BUILD}" == "YES" -o "${FORCE}" == "YES" -o "${FORCE_RETROARCH_BUILD}" == "YES" -o "${CORES_BUILT}" == "YES" ]; then
-		touch $TMPDIR/built-frontend
-		cd $RADIR
-		git clean -xdf
-		echo WORKINGDIR=$PWD
-		echo RELEASE=$RELEASE
-		echo FORCE=$FORCE_RETROARCH_BUILD
-		echo RADIR=$RADIR
-
-		echo "buildbot job: $jobid Building"
-		buildbot_log "retroarch:	[status: build] [$jobid]"
-		echo
-
-		cd pkg/apple
-
-		xcodebuild -project RetroArch.xcodeproj -target RetroArch -configuration Release | tee $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_${PLATFORM}.log
-
-		if [ $? -eq 0 ]; then
-			MESSAGE="retroarch:	[status:   ok ] [$jobid]"
-			echo $MESSAGE
-		else
-			ERROR=`cat $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_${PLATFORM}.log | tail -n 100`
-			HASTE=`curl -XPOST http://hastebin.com/documents -d"$ERROR"`
-			HASTE=`echo $HASTE | cut -d"\"" -f4`
-			MESSAGE="retroarch:	[status: fail ] [$jobid] LOG: http://hastebin.com/$HASTE"
-			echo $MESSAGE
-		fi
-
-		buildbot_log "$MESSAGE"
-		echo buildbot job: $MESSAGE | tee -a $TMPDIR/log/${BOT}/${LOGDATE}.log
-
-		xcodebuild -project RetroArch.xcodeproj -target "RetroArch Cg" -configuration Release | tee $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_CG_${PLATFORM}.log
-
-		if [ $? -eq 0 ]; then
-			MESSAGE="retroarch:	[status:   ok ] [$jobid]"
-			echo $MESSAGE
-		else
-			ERROR=`cat $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_CG_${PLATFORM}.log | tail -n 100`
-			HASTE=`curl -XPOST http://hastebin.com/documents -d"$ERROR"`
-			HASTE=`echo $HASTE | cut -d"\"" -f4`
-			MESSAGE="retroarch:	[status: fail ] [$jobid] LOG: http://hastebin.com/$HASTE"
-			echo $MESSAGE
-		fi
-
-		buildbot_log "$MESSAGE"
-		echo buildbot job: $MESSAGE | tee -a $TMPDIR/log/${BOT}/${LOGDATE}.log
-		cd $WORK/$RADIR
-
-		echo "Packaging"
-
-	fi
-fi
-if [ "${PLATFORM}" == "ios" ] && [ "${RA}" == "YES" ]; then
-	while read line; do
-		NAME=`echo $line | cut -f 1 -d " "`
-		DIR=`echo $line | cut -f 2 -d " "`
-		URL=`echo $line | cut -f 3 -d " "`
-		TYPE=`echo $line | cut -f 4 -d " "`
-		ENABLED=`echo $line | cut -f 5 -d " "`
-		PARENTDIR=`echo $line | cut -f 6 -d " "`
-
-		if [ "${ENABLED}" == "YES" ]; then
-			echo "buildbot job: $jobid Processing $NAME"
-			echo
-			echo NAME: $NAME
-			echo DIR: $DIR
-			echo PARENT: $PARENTDIR
-			echo URL: $URL
-			echo REPO TYPE: $TYPE
-			echo ENABLED: $ENABLED
-
-			ARGS=""
-
-			TEMP=`echo $line | cut -f 9 -d " "`
-			if [ -n ${TEMP} ]; then
-				ARGS="${TEMP}"
-			fi
-			TEMP=""
-			TEMP=`echo $line | cut -f 10 -d " "`
-			if [ -n ${TEMP} ]; then
-				ARGS="${ARGS} ${TEMP}"
-			fi
-			TEMP=""
-			TEMP=`echo $line | cut -f 11 -d " "`
-			if [ -n ${TEMP} ]; then
-				ARGS="${ARGS} ${TEMP}"
-			fi
-			TEMP=""
-			TEMP=`echo $line | cut -f 12 -d " "`
-			if [ -n ${TEMP} ]; then
-				ARGS="${ARGS} ${TEMP}"
-			fi
-			TEMP=""
-			TEMP=`echo $line | cut -f 13 -d " "`
-			if [ -n ${TEMP} ]; then
-				ARGS="${ARGS} ${TEMP}"
-			fi
-			TEMP=""
-			TEMP=`echo $line | cut -f 14 -d " "`
-			if [ -n ${TEMP} ]; then
-				ARGS="${ARGS} ${TEMP}"
-			fi
-
-			ARGS="${ARGS%"${ARGS##*[![:space:]]}"}"
-
-			if [ -d "${PARENTDIR}/${DIR}/.git" ]; then
-				cd $PARENTDIR
-				cd $DIR
-				echo "pulling changes from repo... "
-
-				OUT=`git pull`
-
-				echo $OUT
-				if [ "${TYPE}" == "PROJECT" ]; then
-					RADIR=$DIR
-					if [[ $OUT == *"Already up-to-date"* ]]; then
-						BUILD="NO"
-					else
-						BUILD="YES"
-					fi
-				fi
-
-				cd $WORK
-			else
-				echo "cloning repo..."
-				cd $PARENTDIR
-				git clone "$URL" "$DIR" --depth=1
-				cd $DIR
-
-				if [ "${TYPE}" == "PROJECT" ]; then
-					BUILD="YES"
-					RADIR=$DIR
-
-				fi
-				cd $WORK
-			fi
-		fi
-
-		echo
-		echo
-	done  < $1.ra
-
-	if [ "${BUILD}" == "YES" -o "${FORCE}" == "YES" -o "${FORCE_RETROARCH_BUILD}" == "YES" -o "${CORES_BUILT}" == "YES" ]; then
-		touch $TMPDIR/built-frontend
-		cd $RADIR
-		echo "buildbot job: $jobid Building"
-		buildbot_log "retroarch:	[status: build] [$jobid]"
-		echo
-
-		cd pkg/apple
-		xcodebuild clean build CODE_SIGN_IDENTITY="" CODE_SIGNING_REQUIRED=NO -project RetroArch_iOS.xcodeproj -configuration Release &> $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_${PLATFORM}.log
-
-		if [ $? -eq 0 ]; then
-			MESSAGE="retroarch:	[status:   ok ] [$jobid]"
-			echo $MESSAGE
-		else
-			ERROR=`cat $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_${PLATFORM}.log | tail -n 100`
-			HASTE=`curl -XPOST http://hastebin.com/documents -d"$ERROR"`
-			HASTE=`echo $HASTE | cut -d"\"" -f4`
-			MESSAGE="retroarch:	[status: fail ] [$jobid] LOG: http://hastebin.com/$HASTE"
-			echo $MESSAGE
-		fi
-
-		buildbot_log "$MESSAGE"
-		echo buildbot job: $MESSAGE | tee -a $TMPDIR/log/${BOT}/${LOGDATE}.log
-		cd $WORK/$RADIR
-
-		echo "Packaging"
-
-	fi
-fi
-
-
-if [ "${PLATFORM}" == "ios9" ] && [ "${RA}" == "YES" ]; then
-	while read line; do
-		NAME=`echo $line | cut -f 1 -d " "`
-		DIR=`echo $line | cut -f 2 -d " "`
-		URL=`echo $line | cut -f 3 -d " "`
-		TYPE=`echo $line | cut -f 4 -d " "`
-		ENABLED=`echo $line | cut -f 5 -d " "`
-		PARENTDIR=`echo $line | cut -f 6 -d " "`
-
-		if [ "${ENABLED}" == "YES" ]; then
-			echo "buildbot job: $jobid Processing $NAME"
-			echo
-			echo NAME: $NAME
-			echo DIR: $DIR
-			echo PARENT: $PARENTDIR
-			echo URL: $URL
-			echo REPO TYPE: $TYPE
-			echo ENABLED: $ENABLED
-
-			ARGS=""
-
-			TEMP=`echo $line | cut -f 9 -d " "`
-			if [ -n ${TEMP} ]; then
-				ARGS="${TEMP}"
-			fi
-			TEMP=""
-			TEMP=`echo $line | cut -f 10 -d " "`
-			if [ -n ${TEMP} ]; then
-				ARGS="${ARGS} ${TEMP}"
-			fi
-			TEMP=""
-			TEMP=`echo $line | cut -f 11 -d " "`
-			if [ -n ${TEMP} ]; then
-				ARGS="${ARGS} ${TEMP}"
-			fi
-			TEMP=""
-			TEMP=`echo $line | cut -f 12 -d " "`
-			if [ -n ${TEMP} ]; then
-				ARGS="${ARGS} ${TEMP}"
-			fi
-			TEMP=""
-			TEMP=`echo $line | cut -f 13 -d " "`
-			if [ -n ${TEMP} ]; then
-				ARGS="${ARGS} ${TEMP}"
-			fi
-			TEMP=""
-			TEMP=`echo $line | cut -f 14 -d " "`
-			if [ -n ${TEMP} ]; then
-				ARGS="${ARGS} ${TEMP}"
-			fi
-
-			ARGS="${ARGS%"${ARGS##*[![:space:]]}"}"
-
-			if [ -d "${PARENTDIR}/${DIR}/.git" ]; then
-				cd $PARENTDIR
-				cd $DIR
-				echo "pulling changes from repo... "
-
-				OUT=`git pull`
-
-				echo $OUT
-				if [ "${TYPE}" == "PROJECT" ]; then
-					RADIR=$DIR
-					if [[ $OUT == *"Already up-to-date"* ]]; then
-						BUILD="NO"
-					else
-						BUILD="YES"
-					fi
-				fi
-
-				cd $WORK
-			else
-				echo "cloning repo..."
-				cd $PARENTDIR
-				git clone "$URL" "$DIR" --depth=1
-				cd $DIR
-
-				if [ "${TYPE}" == "PROJECT" ]; then
-					BUILD="YES"
-					RADIR=$DIR
-
-				fi
-				cd $WORK
-			fi
-		fi
-
-		echo
-		echo
-	done  < $1.ra
-
-	if [ "${BUILD}" == "YES" -o "${FORCE}" == "YES" -o "${FORCE_RETROARCH_BUILD}" == "YES" -o "${CORES_BUILT}" == "YES" ]; then
-		touch $TMPDIR/built-frontend
-		cd $RADIR
-		echo "buildbot job: $jobid Building"
-		buildbot_log "retroarch:	[status: build] [$jobid]"
-		echo
-
-		cd pkg/apple
-		xcodebuild clean build CODE_SIGN_IDENTITY="" CODE_SIGNING_REQUIRED=NO -project RetroArch_iOS.xcodeproj -configuration Release -target "RetroArch iOS9" &> $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_${PLATFORM}.log
-
-		if [ $? -eq 0 ]; then
-			MESSAGE="retroarch:	[status:   ok ] [$jobid]"
-			cd build/Release-iphoneos
-			security unlock-keychain -p buildbot /Users/buildbot/Library/Keychains/login.keychain
-			codesign -fs "buildbot" RetroArch.app
-
-			echo $MESSAGE
-		else
-			ERROR=`cat $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_${PLATFORM}.log | tail -n 100`
-			HASTE=`curl -XPOST http://hastebin.com/documents -d"$ERROR"`
-			HASTE=`echo $HASTE | cut -d"\"" -f4`
-			MESSAGE="retroarch:	[status: fail ] [$jobid] LOG: http://hastebin.com/$HASTE"
-			echo $MESSAGE
-		fi
-
-		buildbot_log "$MESSAGE"
-		echo buildbot job: $MESSAGE | tee -a $TMPDIR/log/${BOT}/${LOGDATE}.log
-		cd $WORK/$RADIR
-
-		echo "Packaging"
-
-	fi
-fi
-
-
-if [ "${PLATFORM}" = "android" ] && [ "${RA}" = "YES" ]; then
-
-   echo WORKINGDIR=$PWD
-   echo RELEASE=$RELEASE
-   echo FORCE=$FORCE_RETROARCH_BUILD
-   echo RADIR=$RADIR
-
-	while read line; do
+buildbot_pull(){
+   while read line; do
 		NAME=`echo $line | cut -f 1 -d " "`
 		DIR=`echo $line | cut -f 2 -d " "`
 		URL=`echo $line | cut -f 3 -d " "`
@@ -1466,6 +1047,169 @@ if [ "${PLATFORM}" = "android" ] && [ "${RA}" = "YES" ]; then
 		echo
 		echo
 	done < $1.ra
+}
+
+
+
+echo "buildbot job: $jobid Building Retroarch-$PLATFORM"
+echo --------------------------------------------------
+echo
+cd $WORK
+BUILD=""
+
+if [ "${PLATFORM}" == "osx" ] && [ "${RA}" == "YES" ]; then
+
+   echo WORKINGDIR=$PWD
+   echo RELEASE=$RELEASE
+   echo FORCE=$FORCE_RETROARCH_BUILD
+   echo RADIR=$RADIR
+   
+   buildbot_pull
+
+	if [ "${BUILD}" == "YES" -o "${FORCE}" == "YES" -o "${FORCE_RETROARCH_BUILD}" == "YES" -o "${CORES_BUILT}" == "YES" ]; then
+		touch $TMPDIR/built-frontend
+		cd $RADIR
+		git clean -xdf
+		echo WORKINGDIR=$PWD
+		echo RELEASE=$RELEASE
+		echo FORCE=$FORCE_RETROARCH_BUILD
+		echo RADIR=$RADIR
+
+		echo "buildbot job: $jobid Building"
+		buildbot_log "retroarch:	[status: build] [$jobid]"
+		echo
+
+		cd pkg/apple
+
+		xcodebuild -project RetroArch.xcodeproj -target RetroArch -configuration Release | tee $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_${PLATFORM}.log
+
+		if [ $? -eq 0 ]; then
+			MESSAGE="retroarch:	[status:   ok ] [$jobid]"
+			echo $MESSAGE
+		else
+			ERROR=`cat $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_${PLATFORM}.log | tail -n 100`
+			HASTE=`curl -XPOST http://hastebin.com/documents -d"$ERROR"`
+			HASTE=`echo $HASTE | cut -d"\"" -f4`
+			MESSAGE="retroarch:	[status: fail ] [$jobid] LOG: http://hastebin.com/$HASTE"
+			echo $MESSAGE
+		fi
+
+		buildbot_log "$MESSAGE"
+		echo buildbot job: $MESSAGE | tee -a $TMPDIR/log/${BOT}/${LOGDATE}.log
+
+		xcodebuild -project RetroArch.xcodeproj -target "RetroArch Cg" -configuration Release | tee $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_CG_${PLATFORM}.log
+
+		if [ $? -eq 0 ]; then
+			MESSAGE="retroarch:	[status:   ok ] [$jobid]"
+			echo $MESSAGE
+		else
+			ERROR=`cat $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_CG_${PLATFORM}.log | tail -n 100`
+			HASTE=`curl -XPOST http://hastebin.com/documents -d"$ERROR"`
+			HASTE=`echo $HASTE | cut -d"\"" -f4`
+			MESSAGE="retroarch:	[status: fail ] [$jobid] LOG: http://hastebin.com/$HASTE"
+			echo $MESSAGE
+		fi
+
+		buildbot_log "$MESSAGE"
+		echo buildbot job: $MESSAGE | tee -a $TMPDIR/log/${BOT}/${LOGDATE}.log
+		cd $WORK/$RADIR
+
+		echo "Packaging"
+
+	fi
+fi
+if [ "${PLATFORM}" == "ios" ] && [ "${RA}" == "YES" ]; then
+
+   echo WORKINGDIR=$PWD
+   echo RELEASE=$RELEASE
+   echo FORCE=$FORCE_RETROARCH_BUILD
+   echo RADIR=$RADIR
+   
+   buildbot_pull
+
+	if [ "${BUILD}" == "YES" -o "${FORCE}" == "YES" -o "${FORCE_RETROARCH_BUILD}" == "YES" -o "${CORES_BUILT}" == "YES" ]; then
+		touch $TMPDIR/built-frontend
+		cd $RADIR
+		echo "buildbot job: $jobid Building"
+		buildbot_log "retroarch:	[status: build] [$jobid]"
+		echo
+
+		cd pkg/apple
+		xcodebuild clean build CODE_SIGN_IDENTITY="" CODE_SIGNING_REQUIRED=NO -project RetroArch_iOS.xcodeproj -configuration Release &> $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_${PLATFORM}.log
+
+		if [ $? -eq 0 ]; then
+			MESSAGE="retroarch:	[status:   ok ] [$jobid]"
+			echo $MESSAGE
+		else
+			ERROR=`cat $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_${PLATFORM}.log | tail -n 100`
+			HASTE=`curl -XPOST http://hastebin.com/documents -d"$ERROR"`
+			HASTE=`echo $HASTE | cut -d"\"" -f4`
+			MESSAGE="retroarch:	[status: fail ] [$jobid] LOG: http://hastebin.com/$HASTE"
+			echo $MESSAGE
+		fi
+
+		buildbot_log "$MESSAGE"
+		echo buildbot job: $MESSAGE | tee -a $TMPDIR/log/${BOT}/${LOGDATE}.log
+		cd $WORK/$RADIR
+
+		echo "Packaging"
+
+	fi
+fi
+
+
+if [ "${PLATFORM}" == "ios9" ] && [ "${RA}" == "YES" ]; then
+
+   echo WORKINGDIR=$PWD
+   echo RELEASE=$RELEASE
+   echo FORCE=$FORCE_RETROARCH_BUILD
+   echo RADIR=$RADIR
+   
+   buildbot_pull
+
+	if [ "${BUILD}" == "YES" -o "${FORCE}" == "YES" -o "${FORCE_RETROARCH_BUILD}" == "YES" -o "${CORES_BUILT}" == "YES" ]; then
+		touch $TMPDIR/built-frontend
+		cd $RADIR
+		echo "buildbot job: $jobid Building"
+		buildbot_log "retroarch:	[status: build] [$jobid]"
+		echo
+
+		cd pkg/apple
+		xcodebuild clean build CODE_SIGN_IDENTITY="" CODE_SIGNING_REQUIRED=NO -project RetroArch_iOS.xcodeproj -configuration Release -target "RetroArch iOS9" &> $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_${PLATFORM}.log
+
+		if [ $? -eq 0 ]; then
+			MESSAGE="retroarch:	[status:   ok ] [$jobid]"
+			cd build/Release-iphoneos
+			security unlock-keychain -p buildbot /Users/buildbot/Library/Keychains/login.keychain
+			codesign -fs "buildbot" RetroArch.app
+
+			echo $MESSAGE
+		else
+			ERROR=`cat $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_${PLATFORM}.log | tail -n 100`
+			HASTE=`curl -XPOST http://hastebin.com/documents -d"$ERROR"`
+			HASTE=`echo $HASTE | cut -d"\"" -f4`
+			MESSAGE="retroarch:	[status: fail ] [$jobid] LOG: http://hastebin.com/$HASTE"
+			echo $MESSAGE
+		fi
+
+		buildbot_log "$MESSAGE"
+		echo buildbot job: $MESSAGE | tee -a $TMPDIR/log/${BOT}/${LOGDATE}.log
+		cd $WORK/$RADIR
+
+		echo "Packaging"
+
+	fi
+fi
+
+
+if [ "${PLATFORM}" = "android" ] && [ "${RA}" = "YES" ]; then
+
+   echo WORKINGDIR=$PWD
+   echo RELEASE=$RELEASE
+   echo FORCE=$FORCE_RETROARCH_BUILD
+   echo RADIR=$RADIR
+   
+   buildbot_pull
 
 	if [ "${BUILD}" = "YES" -o "${FORCE}" = "YES" -o "${FORCE_RETROARCH_BUILD}" == "YES" ]; then
 		touch $TMPDIR/built-frontend
@@ -1606,73 +1350,12 @@ EOF
 fi
 
 if [ "${PLATFORM}" = "MINGW64" ] || [ "${PLATFORM}" = "MINGW32" ] || [ "${PLATFORM}" = "windows" ] && [ "${RA}" = "YES" ]; then
-	while read line; do
-		NAME=`echo $line | cut -f 1 -d " "`
-		DIR=`echo $line | cut -f 2 -d " "`
-		URL=`echo $line | cut -f 3 -d " "`
-		TYPE=`echo $line | cut -f 4 -d " "`
-		ENABLED=`echo $line | cut -f 5 -d " "`
-		PARENTDIR=`echo $line | cut -f 6 -d " "`
-
-		if [ "${ENABLED}" = "YES" ]; then
-			echo "buildbot job: $jobid Processing $NAME"
-			echo
-			echo NAME: $NAME
-			echo DIR: $DIR
-			echo PARENT: $PARENTDIR
-			echo URL: $URL
-			echo REPO TYPE: $TYPE
-			echo ENABLED: $ENABLED
-			if [ "${NAME}" = "retroarch" ]; then
-				ARGS=""
-				TEMP=`echo $line | cut -f 7 -d " "`
-				if [ -n ${TEMP} ];
-				then
-					ARGS="${TEMP}"
-				fi
-				TEMP=""
-				TEMP=`echo $line | cut -f 8 -d " "`
-				if [ -n ${TEMP} ]; then
-					ARGS="${ARGS} ${TEMP}"
-				fi
-				TEMP=""
-				TEMP=`echo $line | cut -f 9 -d " "`
-				if [ -n ${TEMP} ]; then
-					ARGS="${ARGS} ${TEMP}"
-				fi
-				ARGS="${ARGS%"${ARGS##*[![:space:]]}"}"
-
-			fi
-
-			if [ -d "${PARENTDIR}/${DIR}/.git" ]; then
-				cd $PARENTDIR
-				cd $DIR
-				echo "pulling changes from repo... "
-				OUT=`git pull`
-
-				echo $OUT
-				if [ "${TYPE}" = "PROJECT" ]; then
-					RADIR=$DIR
-					if [[ $OUT == *"Already up-to-date"* ]]; then
-						BUILD="NO"
-					else
-						BUILD="YES"
-					fi
-				fi
-				cd $WORK
-			else
-				echo "cloning repo..."
-				cd $PARENTDIR
-				git clone "$URL" "$DIR" --depth=1
-				cd $DIR
-
-				if [ "${TYPE}" = "PROJECT" ]; then
-					BUILD="YES"
-					RADIR=$DIR
-				fi
-				cd $WORK
-			fi
-		fi
+   echo WORKINGDIR=$PWD
+   echo RELEASE=$RELEASE
+   echo FORCE=$FORCE_RETROARCH_BUILD
+   echo RADIR=$RADIR
+   
+   buildbot_pull
 
 	echo
 	echo
@@ -1825,93 +1508,12 @@ EOF
 fi
 
 if [ "${PLATFORM}" = "psp1" ] && [ "${RA}" = "YES" ]; then
-	while read line; do
-		NAME=`echo $line | cut -f 1 -d " "`
-		DIR=`echo $line | cut -f 2 -d " "`
-		URL=`echo $line | cut -f 3 -d " "`
-		TYPE=`echo $line | cut -f 4 -d " "`
-		ENABLED=`echo $line | cut -f 5 -d " "`
-		PARENTDIR=`echo $line | cut -f 6 -d " "`
-
-		if [ "${ENABLED}" = "YES" ]; then
-			echo "buildbot job: $jobid Processing $NAME"
-			echo
-			echo NAME: $NAME
-			echo DIR: $DIR
-			echo PARENT: $PARENTDIR
-			echo URL: $URL
-			echo REPO TYPE: $TYPE
-			echo ENABLED: $ENABLED
-
-			ARGS=""
-
-			TEMP=`echo $line | cut -f 9 -d " "`
-			if [ -n ${TEMP} ]; then
-				ARGS="${TEMP}"
-			fi
-			TEMP=""
-			TEMP=`echo $line | cut -f 10 -d " "`
-			if [ -n ${TEMP} ]; then
-				ARGS="${ARGS} ${TEMP}"
-			fi
-			TEMP=""
-			TEMP=`echo $line | cut -f 11 -d " "`
-			if [ -n ${TEMP} ]; then
-				ARGS="${ARGS} ${TEMP}"
-			fi
-			TEMP=""
-			TEMP=`echo $line | cut -f 12 -d " "`
-			if [ -n ${TEMP} ]; then
-				ARGS="${ARGS} ${TEMP}"
-			fi
-			TEMP=""
-			TEMP=`echo $line | cut -f 13 -d " "`
-			if [ -n ${TEMP} ]; then
-				ARGS="${ARGS} ${TEMP}"
-			fi
-			TEMP=""
-			TEMP=`echo $line | cut -f 14 -d " "`
-			if [ -n ${TEMP} ]; then
-				ARGS="${ARGS} ${TEMP}"
-			fi
-
-			ARGS="${ARGS%"${ARGS##*[![:space:]]}"}"
-
-
-
-			if [ -d "${PARENTDIR}/${DIR}/.git" ]; then
-			cd $PARENTDIR
-				cd $DIR
-				echo "pulling changes from repo... "
-				OUT=`git pull`
-
-				echo $OUT
-				if [ "${TYPE}" = "PROJECT" ]; then
-					RADIR=$DIR
-					if [[ $OUT == *"Already up-to-date"* ]]; then
-						BUILD="NO"
-					else
-						BUILD="YES"
-					fi
-				fi
-				cd $WORK
-			else
-				echo "cloning repo..."
-				cd $PARENTDIR
-				git clone "$URL" "$DIR" --depth=1
-				cd $DIR
-
-				if [ "${TYPE}" = "PROJECT" ]; then
-					BUILD="YES"
-					RADIR=$DIR
-				fi
-				cd $WORK
-			fi
-		fi
-
-		echo
-		echo
-	done < $1.ra
+   echo WORKINGDIR=$PWD
+   echo RELEASE=$RELEASE
+   echo FORCE=$FORCE_RETROARCH_BUILD
+   echo RADIR=$RADIR
+   
+   buildbot_pull
 
 	if [ "${BUILD}" == "YES" -o "${FORCE}" == "YES" -o "${FORCE_RETROARCH_BUILD}" == "YES" -o "${CORES_BUILT}" == "YES" ]; then
 		touch $TMPDIR/built-frontend
@@ -1951,95 +1553,12 @@ if [ "${PLATFORM}" = "psp1" ] && [ "${RA}" = "YES" ]; then
 fi
 
 if [ "${PLATFORM}" == "wii" ] && [ "${RA}" == "YES" ]; then
-	while read line; do
-		NAME=`echo $line | cut -f 1 -d " "`
-		DIR=`echo $line | cut -f 2 -d " "`
-		URL=`echo $line | cut -f 3 -d " "`
-		TYPE=`echo $line | cut -f 4 -d " "`
-		ENABLED=`echo $line | cut -f 5 -d " "`
-		PARENTDIR=`echo $line | cut -f 6 -d " "`
-
-		if [ "${ENABLED}" == "YES" ]; then
-			echo "buildbot job: $jobid Processing $NAME"
-			echo
-			echo NAME: $NAME
-			echo DIR: $DIR
-			echo PARENT: $PARENTDIR
-			echo URL: $URL
-			echo REPO TYPE: $TYPE
-			echo ENABLED: $ENABLED
-
-			ARGS=""
-
-			TEMP=`echo $line | cut -f 9 -d " "`
-			if [ -n ${TEMP} ]; then
-				ARGS="${TEMP}"
-			fi
-			TEMP=""
-			TEMP=`echo $line | cut -f 10 -d " "`
-			if [ -n ${TEMP} ]; then
-				ARGS="${ARGS} ${TEMP}"
-			fi
-			TEMP=""
-			TEMP=`echo $line | cut -f 11 -d " "`
-			if [ -n ${TEMP} ]; then
-				ARGS="${ARGS} ${TEMP}"
-			fi
-			TEMP=""
-			TEMP=`echo $line | cut -f 12 -d " "`
-			if [ -n ${TEMP} ]; then
-				ARGS="${ARGS} ${TEMP}"
-			fi
-			TEMP=""
-			TEMP=`echo $line | cut -f 13 -d " "`
-			if [ -n ${TEMP} ]; then
-				ARGS="${ARGS} ${TEMP}"
-			fi
-			TEMP=""
-			TEMP=`echo $line | cut -f 14 -d " "`
-			if [ -n ${TEMP} ]; then
-				ARGS="${ARGS} ${TEMP}"
-			fi
-
-			ARGS="${ARGS%"${ARGS##*[![:space:]]}"}"
-
-
-
-			if [ -d "${PARENTDIR}/${DIR}/.git" ]; then
-				cd $PARENTDIR
-				cd $DIR
-				echo "pulling changes from repo... "
-				OUT=`git pull`
-
-				echo $OUT
-				if [ "${TYPE}" == "PROJECT" ]; then
-					RADIR=$DIR
-					if [[ $OUT == *"Already up-to-date"* ]]; then
-						BUILD="NO"
-					else
-						BUILD="YES"
-					fi
-				fi
-				cd $WORK
-			else
-				echo "cloning repo..."
-				cd $PARENTDIR
-				git clone "$URL" "$DIR" --depth=1
-				cd $DIR
-
-				if [ "${TYPE}" == "PROJECT" ]; then
-					BUILD="YES"
-					RADIR=$DIR
-
-				fi
-				cd $WORK
-			fi
-		fi
-
-		echo
-		echo
-	done  < $1.ra
-
+   echo WORKINGDIR=$PWD
+   echo RELEASE=$RELEASE
+   echo FORCE=$FORCE_RETROARCH_BUILD
+   echo RADIR=$RADIR
+   
+   buildbot_pull
 	if [ "${BUILD}" == "YES" -o "${FORCE}" == "YES" -o "${FORCE_RETROARCH_BUILD}" == "YES" -o "${CORES_BUILT}" == "YES" ]; then
 		touch $TMPDIR/built-frontend
 		cd $RADIR
@@ -2081,107 +1600,12 @@ if [ "${PLATFORM}" == "wii" ] && [ "${RA}" == "YES" ]; then
 fi
 
 if [ "${PLATFORM}" == "ngc" ] && [ "${RA}" == "YES" ]; then
-
-	while read line; do
-
-		NAME=`echo $line | cut --fields=1 --delimiter=" "`
-		DIR=`echo $line | cut --fields=2 --delimiter=" "`
-		URL=`echo $line | cut --fields=3 --delimiter=" "`
-		TYPE=`echo $line | cut --fields=4 --delimiter=" "`
-		ENABLED=`echo $line | cut --fields=5 --delimiter=" "`
-		PARENTDIR=`echo $line | cut --fields=6 --delimiter=" "`
-
-		if [ "${ENABLED}" == "YES" ];
-		then
-			echo "buildbot job: $jobid Processing $NAME"
-			echo
-			echo NAME: $NAME
-			echo DIR: $DIR
-			echo PARENT: $PARENTDIR
-			echo URL: $URL
-			echo REPO TYPE: $TYPE
-			echo ENABLED: $ENABLED
-
-			ARGS=""
-
-			TEMP=`echo $line | cut --fields=9 --delimiter=" "`
-			if [ -n ${TEMP} ];
-			then
-				ARGS="${TEMP}"
-		fi
-		TEMP=""
-		TEMP=`echo $line | cut --fields=10 --delimiter=" "`
-		if [ -n ${TEMP} ];
-		then
-			ARGS="${ARGS} ${TEMP}"
-		fi
-		TEMP=""
-		TEMP=`echo $line | cut --fields=11 --delimiter=" "`
-		if [ -n ${TEMP} ];
-		then
-			ARGS="${ARGS} ${TEMP}"
-		fi
-		TEMP=""
-		TEMP=`echo $line | cut --fields=12 --delimiter=" "`
-		if [ -n ${TEMP} ];
-		then
-			ARGS="${ARGS} ${TEMP}"
-		fi
-		TEMP=""
-		TEMP=`echo $line | cut --fields=13 --delimiter=" "`
-		if [ -n ${TEMP} ];
-		then
-			ARGS="${ARGS} ${TEMP}"
-		fi
-		TEMP=""
-		TEMP=`echo $line | cut --fields=14 --delimiter=" "`
-		if [ -n ${TEMP} ];
-		then
-			ARGS="${ARGS} ${TEMP}"
-		fi
-
-		ARGS="${ARGS%"${ARGS##*[![:space:]]}"}"
-
-
-
-		if [ -d "${PARENTDIR}/${DIR}/.git" ];
-		then
-		cd $PARENTDIR
-			cd $DIR
-			echo "pulling changes from repo... "
-			OUT=`git pull`
-
-			echo $OUT
-			if [ "${TYPE}" == "PROJECT" ];
-			then
-				RADIR=$DIR
-				if [[ $OUT == *"Already up-to-date"* ]]
-				then
-					BUILD="NO"
-				else
-					BUILD="YES"
-				fi
-			fi
-			cd $WORK
-		else
-			echo "cloning repo..."
-			cd $PARENTDIR
-			git clone "$URL" "$DIR" --depth=1
-			cd $DIR
-
-			if [ "${TYPE}" == "PROJECT" ];
-			then
-				BUILD="YES"
-				RADIR=$DIR
-
-			fi
-			cd $WORK
-		fi
-	fi
-
-	echo
-	echo
-	done  < $1.ra
+   echo WORKINGDIR=$PWD
+   echo RELEASE=$RELEASE
+   echo FORCE=$FORCE_RETROARCH_BUILD
+   echo RADIR=$RADIR
+   
+   buildbot_pull
 	if [ "${BUILD}" == "YES" -o "${FORCE}" == "YES" -o "${FORCE_RETROARCH_BUILD}" == "YES" -o "${CORES_BUILT}" == "YES" ]; then
 		touch $TMPDIR/built-frontend
 		cd $RADIR
@@ -2222,95 +1646,12 @@ if [ "${PLATFORM}" == "ngc" ] && [ "${RA}" == "YES" ]; then
 fi
 
 if [ "${PLATFORM}" == "ctr" ] && [ "${RA}" == "YES" ]; then
-	while read line; do
-		NAME=`echo $line | cut -f 1 -d " "`
-		DIR=`echo $line | cut -f 2 -d " "`
-		URL=`echo $line | cut -f 3 -d " "`
-		TYPE=`echo $line | cut -f 4 -d " "`
-		ENABLED=`echo $line | cut -f 5 -d " "`
-		PARENTDIR=`echo $line | cut -f 6 -d " "`
-
-		if [ "${ENABLED}" == "YES" ]; then
-			echo "buildbot job: $jobid Processing $NAME"
-			echo
-			echo NAME: $NAME
-			echo DIR: $DIR
-			echo PARENT: $PARENTDIR
-			echo URL: $URL
-			echo REPO TYPE: $TYPE
-			echo ENABLED: $ENABLED
-
-			ARGS=""
-
-			TEMP=`echo $line | cut -f 9 -d " "`
-			if [ -n ${TEMP} ]; then
-				ARGS="${TEMP}"
-			fi
-			TEMP=""
-			TEMP=`echo $line | cut -f 10 -d " "`
-			if [ -n ${TEMP} ]; then
-				ARGS="${ARGS} ${TEMP}"
-			fi
-			TEMP=""
-			TEMP=`echo $line | cut -f 11 -d " "`
-			if [ -n ${TEMP} ]; then
-				ARGS="${ARGS} ${TEMP}"
-			fi
-			TEMP=""
-			TEMP=`echo $line | cut -f 12 -d " "`
-			if [ -n ${TEMP} ]; then
-				ARGS="${ARGS} ${TEMP}"
-			fi
-			TEMP=""
-			TEMP=`echo $line | cut -f 13 -d " "`
-			if [ -n ${TEMP} ]; then
-				ARGS="${ARGS} ${TEMP}"
-			fi
-			TEMP=""
-			TEMP=`echo $line | cut -f 14 -d " "`
-			if [ -n ${TEMP} ]; then
-				ARGS="${ARGS} ${TEMP}"
-			fi
-
-			ARGS="${ARGS%"${ARGS##*[![:space:]]}"}"
-
-
-
-			if [ -d "${PARENTDIR}/${DIR}/.git" ]; then
-				cd $PARENTDIR
-				cd $DIR
-				echo "pulling changes from repo... "
-				OUT=`git pull`
-
-				echo $OUT
-				if [ "${TYPE}" == "PROJECT" ]; then
-					RADIR=$DIR
-					if [[ $OUT == *"Already up-to-date"* ]]; then
-						BUILD="NO"
-					else
-						BUILD="YES"
-					fi
-				fi
-
-				cd $WORK
-			else
-				echo "cloning repo..."
-				cd $PARENTDIR
-				git clone "$URL" "$DIR" --depth=1
-				cd $DIR
-
-				if [ "${TYPE}" == "PROJECT" ]; then
-					BUILD="YES"
-					RADIR=$DIR
-
-				fi
-				cd $WORK
-			fi
-		fi
-
-		echo
-		echo
-	done  < $1.ra
+   echo WORKINGDIR=$PWD
+   echo RELEASE=$RELEASE
+   echo FORCE=$FORCE_RETROARCH_BUILD
+   echo RADIR=$RADIR
+   
+   buildbot_pull
 
 	if [ "${BUILD}" == "YES" -o "${FORCE}" == "YES" -o "${FORCE_RETROARCH_BUILD}" == "YES" -o "${CORES_BUILT}" == "YES" ]; then
 		cd $RADIR
@@ -2351,96 +1692,12 @@ if [ "${PLATFORM}" == "ctr" ] && [ "${RA}" == "YES" ]; then
 fi
 
 if [ "${PLATFORM}" == "vita" ] && [ "${RA}" == "YES" ]; then
-	while read line; do
-		NAME=`echo $line | cut -f 1 -d " "`
-		DIR=`echo $line | cut -f 2 -d " "`
-		URL=`echo $line | cut -f 3 -d " "`
-		TYPE=`echo $line | cut -f 4 -d " "`
-		ENABLED=`echo $line | cut -f 5 -d " "`
-		PARENTDIR=`echo $line | cut -f 6 -d " "`
-
-		if [ "${ENABLED}" == "YES" ]; then
-			echo "buildbot job: $jobid Processing $NAME"
-			echo
-			echo NAME: $NAME
-			echo DIR: $DIR
-			echo PARENT: $PARENTDIR
-			echo URL: $URL
-			echo REPO TYPE: $TYPE
-			echo ENABLED: $ENABLED
-
-			ARGS=""
-
-			TEMP=`echo $line | cut -f 9 -d " "`
-			if [ -n ${TEMP} ]; then
-				ARGS="${TEMP}"
-			fi
-			TEMP=""
-			TEMP=`echo $line | cut -f 10 -d " "`
-			if [ -n ${TEMP} ]; then
-				ARGS="${ARGS} ${TEMP}"
-			fi
-			TEMP=""
-			TEMP=`echo $line | cut -f 11 -d " "`
-			if [ -n ${TEMP} ]; then
-				ARGS="${ARGS} ${TEMP}"
-			fi
-			TEMP=""
-			TEMP=`echo $line | cut -f 12 -d " "`
-			if [ -n ${TEMP} ]; then
-				ARGS="${ARGS} ${TEMP}"
-			fi
-			TEMP=""
-			TEMP=`echo $line | cut -f 13 -d " "`
-			if [ -n ${TEMP} ]; then
-				ARGS="${ARGS} ${TEMP}"
-			fi
-			TEMP=""
-			TEMP=`echo $line | cut -f 14 -d " "`
-			if [ -n ${TEMP} ]; then
-				ARGS="${ARGS} ${TEMP}"
-			fi
-
-			ARGS="${ARGS%"${ARGS##*[![:space:]]}"}"
-
-
-
-			if [ -d "${PARENTDIR}/${DIR}/.git" ]; then
-				cd $PARENTDIR
-				cd $DIR
-				echo "pulling changes from repo... "
-
-				OUT=`git pull`
-
-				echo $OUT
-				if [ "${TYPE}" == "PROJECT" ]; then
-					RADIR=$DIR
-					if [[ $OUT == *"Already up-to-date"* ]]; then
-						BUILD="NO"
-					else
-						BUILD="YES"
-					fi
-				fi
-
-				cd $WORK
-			else
-				echo "cloning repo..."
-				cd $PARENTDIR
-				git clone "$URL" "$DIR" --depth=1
-				cd $DIR
-
-				if [ "${TYPE}" == "PROJECT" ]; then
-					BUILD="YES"
-					RADIR=$DIR
-
-				fi
-				cd $WORK
-			fi
-		fi
-
-		echo
-		echo
-	done  < $1.ra
+   echo WORKINGDIR=$PWD
+   echo RELEASE=$RELEASE
+   echo FORCE=$FORCE_RETROARCH_BUILD
+   echo RADIR=$RADIR
+   
+   buildbot_pull
 
 	if [ "${BUILD}" == "YES" -o "${FORCE}" == "YES" -o "${FORCE_RETROARCH_BUILD}" == "YES" -o "${CORES_BUILT}" == "YES" ]; then
 		touch $TMPDIR/built-frontend
