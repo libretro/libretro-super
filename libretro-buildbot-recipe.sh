@@ -5,6 +5,7 @@
 LOGDATE=`date +%Y-%m-%d`
 ORIGPATH=$PATH
 WORK=$PWD
+RECIPE=$1
 
 # ----- read variables from recipe config -----
 while read line; do
@@ -1046,7 +1047,7 @@ buildbot_pull(){
 
 		echo
 		echo
-	done < $1.ra
+	done < $RECIPE.ra
 }
 
 
