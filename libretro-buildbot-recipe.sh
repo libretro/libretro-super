@@ -1014,7 +1014,7 @@ if [ "${PLATFORM}" == "osx" ] && [ "${RA}" == "YES" ]; then
 
 			ARGS="${ARGS%"${ARGS##*[![:space:]]}"}"
 
-         if [ -d "${PARENTDIR}/${DIR}/.git" ]; then
+		   if [ -d "${PARENTDIR}/${DIR}/.git" ]; then
 				cd $PARENTDIR
 				cd $DIR
 				echo "pulling changes from repo... "
@@ -1064,11 +1064,13 @@ if [ "${PLATFORM}" == "osx" ] && [ "${RA}" == "YES" ]; then
 
 	if [ "${BUILD}" == "YES" -o "${FORCE}" == "YES" -o "${FORCE_RETROARCH_BUILD}" == "YES" -o "${CORES_BUILT}" == "YES" ]; then
 		touch $TMPDIR/built-frontend
-      echo WORKINGDIR=$PWD
-      echo RELEASE=$RELEASE
-      echo FORCE=$FORCE_RETROARCH_BUILD
-      echo RADIR=$RADIR
 		cd $RADIR
+		git clean -xdf
+		echo WORKINGDIR=$PWD
+		echo RELEASE=$RELEASE
+		echo FORCE=$FORCE_RETROARCH_BUILD
+		echo RADIR=$RADIR
+
 		echo "buildbot job: $jobid Building"
 		buildbot_log "retroarch:	[status: build] [$jobid]"
 		echo
@@ -1544,12 +1546,12 @@ key.alias.password=buildbot
 
 EOF
 
-		$NDK clean &> $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_${PLATFORM}.log
-		$NDK -j${JOBS} &>> $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_${PLATFORM}.log
+		$NDK clean
+		$NDK -j${JOBS}
 		if [ "${RELEASE}" == "NO" ]; then
 			python ./version_increment.py
-      else
-         git reset --hard
+		else
+		   git reset --hard
 		fi
 		ant clean &>> $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_${PLATFORM}.log
 		android update project --path . --target android-22 &>> $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_${PLATFORM}.log
