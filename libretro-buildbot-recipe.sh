@@ -1362,9 +1362,10 @@ fi
 
 if [ "${PLATFORM}" = "android" ] && [ "${RA}" = "YES" ]; then
 
-   echo $PWD
-   echo $RELEASE
-   echo $FORCE_RETROARCH_BUILD
+   echo WORKINGDIR=$PWD
+   echo RELEASE=$RELEASE
+   echo FORCE=$FORCE_RETROARCH_BUILD
+   echo RADIR=$RADIR
 
 	while read line; do
 		NAME=`echo $line | cut -f 1 -d " "`
@@ -1470,9 +1471,12 @@ if [ "${PLATFORM}" = "android" ] && [ "${RA}" = "YES" ]; then
 		touch $TMPDIR/built-frontend
 		echo "buildbot job: $jobid compiling shaders"
 		echo
-
-		echo RADIR $RADIR
-		cd $RADIR
+      cd $RADIR
+		git clean -xdf
+		echo WORKINGDIR=$PWD
+		echo RELEASE=$RELEASE
+		echo FORCE=$FORCE_RETROARCH_BUILD
+		echo RADIR=$RADIR
 		$MAKE -f Makefile.griffin shaders-convert-glsl PYTHON3=$PYTHON
 
 		echo "buildbot job: $jobid processing assets"
@@ -1546,21 +1550,20 @@ key.alias.password=buildbot
 
 EOF
 
-		$NDK clean
-		$NDK -j${JOBS}
+		$NDK clean | tee $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_${PLATFORM}.log
+		$NDK -j${JOBS} | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_${PLATFORM}.log
 		if [ "${RELEASE}" == "NO" ]; then
 			python ./version_increment.py
 		else
 		   git reset --hard
 		fi
-		ant clean &>> $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_${PLATFORM}.log
-		android update project --path . --target android-22 &>> $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_${PLATFORM}.log
-		android update project --path libs/googleplay --target android-21 &>> $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_${PLATFORM}.log
-		android update project --path libs/appcompat --target android-21 &>> $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_${PLATFORM}.log
-		ant release &>> $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_${PLATFORM}.log
-		cp -rv bin/retroarch-release.apk $RARCH_DIR/retroarch-release.apk &>> $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_${PLATFORM}.log
+		ant clean | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_${PLATFORM}.log
+		android update project --path . --target android-22 | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_${PLATFORM}.log
+		android update project --path libs/googleplay --target android-21 | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_${PLATFORM}.log
+		android update project --path libs/appcompat --target android-21 | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_${PLATFORM}.log
+		ant release | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_${PLATFORM}.log
+		cp -rv bin/retroarch-release.apk $RARCH_DIR/retroarch-release.apk | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_${PLATFORM}.log
 		cp -rv bin/retroarch-release.apk $RARCH_DIR/retroarch-release.apk
-
 
 		if [ $? -eq 0 ]; then
 			MESSAGE="retroarch:	[status:   ok ] [$jobid]"
@@ -1575,15 +1578,15 @@ EOF
 		echo buildbot job: $MESSAGE | tee -a $TMPDIR/log/${BOT}/${LOGDATE}.log
 		buildbot_log "$MESSAGE"
 
-		$NDK clean &> $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_${PLATFORM}.log
-		$NDK -j${JOBS} DEBUG=1 &>> $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_${PLATFORM}.log
+		$NDK clean | tee $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_DEBUG_${PLATFORM}.log
+		$NDK -j${JOBS} DEBUG=1 | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_DEBUG_${PLATFORM}.log
 		python ./version_increment.py
-		ant clean &>> $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_${PLATFORM}.log
-		android update project --path . --target android-22 &>> $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_${PLATFORM}.log
-		android update project --path libs/googleplay --target android-21 &>> $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_${PLATFORM}.log
-		android update project --path libs/appcompat --target android-21 &>> $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_${PLATFORM}.log
-		ant set-debuggable release &>> $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_${PLATFORM}.log
-		cp -rv bin/retroarch-release.apk $RARCH_DIR/retroarch-debug.apk &>> $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_${PLATFORM}.log
+		ant clean | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_DEBUG_${PLATFORM}.log
+		android update project --path . --target android-22 | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_DEBUG_${PLATFORM}.log
+		android update project --path libs/googleplay --target android-21 | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_DEBUG_${PLATFORM}.log
+		android update project --path libs/appcompat --target android-21 | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_DEBUG_${PLATFORM}.log
+		ant set-debuggable release | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_DEBUG_${PLATFORM}.log
+		cp -rv bin/retroarch-release.apk $RARCH_DIR/retroarch-debug.apk | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_DEBUG_${PLATFORM}.log
 		cp -rv bin/retroarch-release.apk $RARCH_DIR/retroarch-debug.apk
 
 
