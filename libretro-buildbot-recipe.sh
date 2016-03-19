@@ -1551,6 +1551,7 @@ if [ "${PLATFORM}" = "psp1" ] && [ "${RA}" = "YES" ]; then
 
 		mkdir -p pkg/psp1/
 		mkdir -p pkg/psp1/cheats
+		mkdir -p pkg/psp1/remaps
 		cp -p $RARCH_DIST_DIR/../info/*.info pkg/psp1/cores/
 
 	fi
@@ -1571,35 +1572,34 @@ if [ "${PLATFORM}" == "wii" ] && [ "${RA}" == "YES" ]; then
 		buildbot_log "retroarch:	[status: none] [$jobid]"
 		echo
 
-		if [ "${BUILD}" == "YES" -o "${FORCE}" == "YES" ]; then
-			cd dist-scripts
-			rm *.a
-			cp -v $RARCH_DIST_DIR/*.a .
+		cd dist-scripts
+		rm *.a
+		cp -v $RARCH_DIST_DIR/*.a .
 
-			sh ./dist-cores.sh wii &> $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_${PLATFORM}.log
-			if [ $? -eq 0 ]; then
-				MESSAGE="retroarch:	[status: done] [$jobid]"
-				echo $MESSAGE
-			else
-				ERROR=`cat $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_${PLATFORM}.log | tail -n 100`
-				HASTE=`curl -XPOST http://hastebin.com/documents -d"$ERROR"`
-				HASTE=`echo $HASTE | cut -d"\"" -f4`
-				MESSAGE="retroarch:	[status: fail] [$jobid] LOG: http://hastebin.com/$HASTE"
-				echo $MESSAGE
-			fi
-			buildbot_log "$MESSAGE"
-			echo buildbot job: $MESSAGE | tee -a $TMPDIR/log/${BOT}/${LOGDATE}.log
-			cd $WORK/$RADIR
+		sh ./dist-cores.sh wii &> $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_${PLATFORM}.log
+		if [ $? -eq 0 ];
+		then
+			MESSAGE="retroarch:	[status: done] [$jobid]"
+			echo $MESSAGE
+		else
+			ERROR=`cat $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_${PLATFORM}.log | tail -n 100`
+			HASTE=`curl -XPOST http://hastebin.com/documents -d"$ERROR"`
+			HASTE=`echo $HASTE | cut -d"\"" -f4`
+			MESSAGE="retroarch:	[status: fail] [$jobid] LOG: http://hastebin.com/$HASTE"
+			echo $MESSAGE
 		fi
+		buildbot_log "$MESSAGE"
+		echo buildbot job: $MESSAGE | tee -a $TMPDIR/log/${BOT}/${LOGDATE}.log
 
 		echo "Packaging"
 
+		cd $WORK/$RADIR
 		cp retroarch.cfg retroarch.default.cfg
-
-		mkdir -p pkg/wii
-		mkdir -p pkg/wii/overlays
+		mkdir -p pkg/wii/
 		mkdir -p pkg/wii/cheats
 		mkdir -p pkg/wii/remaps
+		mkdir -p pkg/wii/overlays
+		cp -p $RARCH_DIST_DIR/../info/*.info pkg/
 		cp -rf media/overlays/wii/* pkg/wii/overlays
 	fi
 fi
@@ -1637,18 +1637,18 @@ if [ "${PLATFORM}" == "ngc" ] && [ "${RA}" == "YES" ]; then
 		fi
 		buildbot_log "$MESSAGE"
 		echo buildbot job: $MESSAGE | tee -a $TMPDIR/log/${BOT}/${LOGDATE}.log
-		cd ..
 
 		echo "Packaging"
 
+		cd $WORK/$RADIR
 		cp retroarch.cfg retroarch.default.cfg
 		mkdir -p pkg/ngc/
 		mkdir -p pkg/ngc/cheats
 		mkdir -p pkg/ngc/remaps
 		mkdir -p pkg/ngc/overlays
+		cp -p $RARCH_DIST_DIR/../info/*.info pkg/
 		cp -rf media/overlays/wii/* pkg/ngc/overlays
 	fi
-
 fi
 
 if [ "${PLATFORM}" == "ctr" ] && [ "${RA}" == "YES" ]; then
@@ -1686,7 +1686,6 @@ if [ "${PLATFORM}" == "ctr" ] && [ "${RA}" == "YES" ]; then
 		echo buildbot job: $MESSAGE | tee -a $TMPDIR/log/${BOT}/${LOGDATE}.log
 		cd $WORK/$RADIR
 
-
 		echo "Packaging"
 
 		cp retroarch.cfg retroarch.default.cfg
@@ -1694,6 +1693,7 @@ if [ "${PLATFORM}" == "ctr" ] && [ "${RA}" == "YES" ]; then
 		mkdir -p pkg/3ds
 		mkdir -p pkg/3ds/remaps
 		mkdir -p pkg/3ds/cheats
+		cp -p $RARCH_DIST_DIR/../info/*.info pkg/
 		cp -rf media/overlays/* pkg/3ds/overlays/
 	fi
 fi
@@ -1731,11 +1731,9 @@ if [ "${PLATFORM}" == "vita" ] && [ "${RA}" == "YES" ]; then
 		fi
 		buildbot_log "$MESSAGE"
 		echo buildbot job: $MESSAGE | tee -a $TMPDIR/log/${BOT}/${LOGDATE}.log
-		cd $WORK/$RADIR
-
-
 		echo "Packaging"
 
+		cd $WORK/$RADIR
 		cp retroarch.cfg retroarch.default.cfg
 
 		mkdir -p pkg/vita
