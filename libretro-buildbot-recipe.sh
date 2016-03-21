@@ -1020,6 +1020,7 @@ buildbot_pull(){
 						BUILD="NO"
 					else
 						BUILD="YES"
+						git submodule update --init --recursive
 						git submodule foreach git pull origin master
 					fi
 				fi
