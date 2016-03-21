@@ -1037,7 +1037,7 @@ buildbot_pull(){
 					cd $DIR
 					RADIR=$DIR
 					echo "updating submodules..."
-					git submodule update --init
+					git submodule update --init --recursive
 					git submodule foreach git pull origin master
 					BUILD="YES"
 				fi
