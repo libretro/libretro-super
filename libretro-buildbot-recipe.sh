@@ -5,6 +5,7 @@ LOGDATE=`date +%Y-%m-%d`
 ORIGPATH=$PATH
 WORK=$PWD
 RECIPE=$1
+BRANCH=""
 
 # ----- read variables from recipe config -----
 while read line; do
@@ -1003,6 +1004,9 @@ buildbot_pull(){
 			if [ -d "${PARENTDIR}/${DIR}/.git" ]; then
 				cd $PARENTDIR
 				cd $DIR
+				if [ -z "$BRANCH" ]; then
+					git checkout $BRANCH
+				fi
 				echo "pulling changes from repo... "
 				git reset --hard
 				OUT=`git pull`
@@ -1029,6 +1033,12 @@ buildbot_pull(){
 				echo "cloning repo..."
 				cd $PARENTDIR
 				git clone "$URL" "$DIR" --depth=1
+				if [ -z "$BRANCH" ]; then
+					cd $PARENTDIR
+					cd $DIR
+					git checkout $BRANCH
+				fi
+				cd $WORK
 				if [ "${TYPE}" = "PROJECT" ]; then
 					BUILD="YES"
 					RADIR=$DIR
@@ -1211,6 +1221,7 @@ if [ "${PLATFORM}" = "android" ] && [ "${RA}" = "YES" ]; then
 	echo RELEASE=$RELEASE
 	echo FORCE=$FORCE_RETROARCH_BUILD
 	echo RADIR=$RADIR
+	echo BRANCH=$BRANCH
 
 	buildbot_pull
 
@@ -1283,7 +1294,7 @@ if [ "${PLATFORM}" = "android" ] && [ "${RA}" = "YES" ]; then
 		cp -rf $RARCH_DIR/info/* pkg/android/phoenix/assets/info/
 
 		echo "buildbot job: $jobid Building"
-		buildbot_log "retroarch:	[status: none] [$jobid]"
+		buildbot_log "retroarch:	[status: none] [$jobid] [branch: [branch: $BRANCH]]"
 		echo
 		cd pkg/android/phoenix
 		rm bin/*.apk
