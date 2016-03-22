@@ -1320,8 +1320,14 @@ EOF
 		android update project --path libs/googleplay --target android-21 | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_${PLATFORM}.log
 		android update project --path libs/appcompat --target android-21 | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_${PLATFORM}.log
 		ant release | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_${PLATFORM}.log
-		cp -rv bin/retroarch-release.apk $RARCH_DIR/retroarch-release.apk | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_${PLATFORM}.log
-		cp -rv bin/retroarch-release.apk $RARCH_DIR/retroarch-release.apk
+		if [ -z "$BRANCH" ]; then
+			cp -rv bin/retroarch-release.apk $RARCH_DIR/retroarch-dev-release.apk | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_${PLATFORM}.log
+			cp -rv bin/retroarch-release.apk $RARCH_DIR/retroarch-dev-release.apk
+		else
+			cp -rv bin/retroarch-release.apk $RARCH_DIR/retroarch-release.apk | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_${PLATFORM}.log
+			cp -rv bin/retroarch-release.apk $RARCH_DIR/retroarch-release.apk
+		fi
+
 
 		if [ $? -eq 0 ]; then
 			MESSAGE="retroarch:	[status: done] [$jobid]"
@@ -1344,9 +1350,13 @@ EOF
 		android update project --path libs/googleplay --target android-21 | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_DEBUG_${PLATFORM}.log
 		android update project --path libs/appcompat --target android-21 | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_DEBUG_${PLATFORM}.log
 		ant set-debuggable release | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_DEBUG_${PLATFORM}.log
-		cp -rv bin/retroarch-release.apk $RARCH_DIR/retroarch-debug.apk | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_DEBUG_${PLATFORM}.log
-		cp -rv bin/retroarch-release.apk $RARCH_DIR/retroarch-debug.apk
-
+		if [ -z "$BRANCH" ]; then
+			cp -rv bin/retroarch-release.apk $RARCH_DIR/retroarch-dev-debug.apk | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_DEBUG_${PLATFORM}.log
+			cp -rv bin/retroarch-release.apk $RARCH_DIR/retroarch-dev-debug.apk
+		else
+			cp -rv bin/retroarch-release.apk $RARCH_DIR/retroarch-debug.apk | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_DEBUG_${PLATFORM}.log
+			cp -rv bin/retroarch-release.apk $RARCH_DIR/retroarch-debug.apk
+		fi
 
 		if [ $? -eq 0 ]; then
 			MESSAGE="retroarch debug:	[status: done] [$jobid]"
