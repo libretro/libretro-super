@@ -1004,7 +1004,8 @@ buildbot_pull(){
 			if [ -d "${PARENTDIR}/${DIR}/.git" ]; then
 				cd $PARENTDIR
 				cd $DIR
-				if [ -z "$BRANCH" ]; then
+				if [ ! -z "$BRANCH" ]; then
+				   echo "checkout out branch... "
 					git checkout $BRANCH
 				fi
 				echo "pulling changes from repo... "
@@ -1033,7 +1034,7 @@ buildbot_pull(){
 				echo "cloning repo..."
 				cd $PARENTDIR
 				git clone "$URL" "$DIR" --depth=1
-				if [ -z "$BRANCH" ]; then
+				if [ ! -z "$BRANCH" ]; then
 					cd $PARENTDIR
 					cd $DIR
 					git checkout $BRANCH
