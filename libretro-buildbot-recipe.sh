@@ -1719,7 +1719,11 @@ if [ "${PLATFORM}" == "ctr" ] && [ "${RA}" == "YES" ]; then
 		mkdir -p $WORK/$RADIR/pkg/3ds/retroarch/remaps
 		mkdir -p $WORK/$RADIR/pkg/3ds/retroarch/cheats
 		mkdir -p $WORK/$RADIR/pkg/3ds/retroarch/filters
-		cp -p $RARCH_DIST_DIR/../info/*.info $WORK/$RADIR/pkg/3ds/retroarch/info/
+		mkdir -p $WORK/$RADIR/pkg/3ds/retroarch/filters/audio
+		mkdir -p $WORK/$RADIR/pkg/3ds/retroarch/filters/video
+		cp -v $WORK/$RADIR/gfx/video/video_filters/*.filt $WORK/$RADIR/pkg/3ds/retroarch/filters/video/
+		cp -v $WORK/$RADIR/gfx/audio/audio_filters/*.dsp $WORK/$RADIR/pkg/3ds/retroarch/filters/audio/
+		cp -v $RARCH_DIST_DIR/../info/*.info $WORK/$RADIR/pkg/3ds/retroarch/info/
 	fi
 fi
 
