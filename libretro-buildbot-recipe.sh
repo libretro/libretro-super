@@ -1006,6 +1006,7 @@ buildbot_pull(){
 				cd $DIR
 				if [ ! -z "$BRANCH" ]; then
 				   echo "checkout out branch... "
+               git fetch
 					git checkout $BRANCH
 				fi
 				echo "pulling changes from repo... "
@@ -1039,7 +1040,7 @@ buildbot_pull(){
 					cd $DIR
 					git checkout $BRANCH
 				fi
-				cd $WORK
+				cd $PARENTDIR
 				if [ "${TYPE}" = "PROJECT" ]; then
 					BUILD="YES"
 					RADIR=$DIR
@@ -1057,7 +1058,7 @@ buildbot_pull(){
 		fi
 
 		echo
-		echo
+		echo RADIR=$RADIRcd built-frontend
 	done < $RECIPE.ra
 }
 
@@ -1676,12 +1677,12 @@ if [ "${PLATFORM}" == "ngc" ] && [ "${RA}" == "YES" ]; then
 fi
 
 if [ "${PLATFORM}" == "ctr" ] && [ "${RA}" == "YES" ]; then
-	echo WORKINGDIR=$PWD
-	echo RELEASE=$RELEASE
-	echo FORCE=$FORCE_RETROARCH_BUILD
-	echo RADIR=$RADIR
-	
 	buildbot_pull
+
+   echo WORKINGDIR=$PWD
+   echo RELEASE=$RELEASE
+   echo FORCE=$FORCE_RETROARCH_BUILD
+   echo RADIR=$RADIR
 
 	if [ "${BUILD}" == "YES" -o "${FORCE}" == "YES" -o "${FORCE_RETROARCH_BUILD}" == "YES" -o "${CORES_BUILT}" == "YES" ]; then
 		cd $RADIR
@@ -1715,6 +1716,7 @@ if [ "${PLATFORM}" == "ctr" ] && [ "${RA}" == "YES" ]; then
 		cp retroarch.cfg retroarch.default.cfg
 
 		mkdir -p pkg/3ds
+      mkdir -p pkg/3ds/filters
 		mkdir -p pkg/3ds/remaps
 		mkdir -p pkg/3ds/cheats
 		cp -p $RARCH_DIST_DIR/../info/*.info pkg/
