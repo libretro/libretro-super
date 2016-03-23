@@ -1677,7 +1677,7 @@ fi
 
 if [ "${PLATFORM}" == "ctr" ] && [ "${RA}" == "YES" ]; then
 	buildbot_pull
-	echo WORKINGDIR=$PWD
+	echo WORKINGDIR=$PWD $WORK
 	echo RELEASE=$RELEASE
 	echo FORCE=$FORCE_RETROARCH_BUILD
 	echo RADIR=$RADIR
@@ -1708,6 +1708,7 @@ if [ "${PLATFORM}" == "ctr" ] && [ "${RA}" == "YES" ]; then
 		buildbot_log "$MESSAGE"
 		echo buildbot job: $MESSAGE | tee -a $TMPDIR/log/${BOT}/${LOGDATE}.log
 		cd $WORK/$RADIR
+		echo $PWD
 
 		echo "Packaging"
 
