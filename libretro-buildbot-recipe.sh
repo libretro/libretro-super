@@ -1676,12 +1676,11 @@ if [ "${PLATFORM}" == "ngc" ] && [ "${RA}" == "YES" ]; then
 fi
 
 if [ "${PLATFORM}" == "ctr" ] && [ "${RA}" == "YES" ]; then
-	echo WORKINGDIR=$PWD
-	echo RELEASE=$RELEASE
-	echo FORCE=$FORCE_RETROARCH_BUILD
-	echo RADIR=$RADIR
-	
 	buildbot_pull
+   echo WORKINGDIR=$PWD
+   echo RELEASE=$RELEASE
+   echo FORCE=$FORCE_RETROARCH_BUILD
+   echo RADIR=$RADIR
 
 	if [ "${BUILD}" == "YES" -o "${FORCE}" == "YES" -o "${FORCE_RETROARCH_BUILD}" == "YES" -o "${CORES_BUILT}" == "YES" ]; then
 		cd $RADIR
