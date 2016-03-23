@@ -1005,7 +1005,7 @@ buildbot_pull(){
 				cd $PARENTDIR
 				cd $DIR
 				if [ ! -z "$BRANCH" ]; then
-				   echo "checkout out branch... "
+					echo "checkout out branch... "
 					git checkout $BRANCH
 				fi
 				echo "pulling changes from repo... "
@@ -1677,10 +1677,10 @@ fi
 
 if [ "${PLATFORM}" == "ctr" ] && [ "${RA}" == "YES" ]; then
 	buildbot_pull
-   echo WORKINGDIR=$PWD
-   echo RELEASE=$RELEASE
-   echo FORCE=$FORCE_RETROARCH_BUILD
-   echo RADIR=$RADIR
+	echo WORKINGDIR=$PWD
+	echo RELEASE=$RELEASE
+	echo FORCE=$FORCE_RETROARCH_BUILD
+	echo RADIR=$RADIR
 
 	if [ "${BUILD}" == "YES" -o "${FORCE}" == "YES" -o "${FORCE_RETROARCH_BUILD}" == "YES" -o "${CORES_BUILT}" == "YES" ]; then
 		cd $RADIR
@@ -1713,11 +1713,12 @@ if [ "${PLATFORM}" == "ctr" ] && [ "${RA}" == "YES" ]; then
 
 		cp retroarch.cfg retroarch.default.cfg
 
-		mkdir -p pkg/3ds
-		mkdir -p pkg/3ds/remaps
-		mkdir -p pkg/3ds/cheats
-		cp -p $RARCH_DIST_DIR/../info/*.info pkg/
-		cp -rf media/overlays/* pkg/3ds/overlays/
+		mkdir -p $WORK/$RADIR/pkg/3ds/retroarch
+		mkdir -p $WORK/$RADIR/pkg/3ds/retroarch/info
+		mkdir -p $WORK/$RADIR/pkg/3ds/retroarch/remaps
+		mkdir -p $WORK/$RADIR/pkg/3ds/retroarch/cheats
+		mkdir -p $WORK/$RADIR/pkg/3ds/retroarch/filters
+		cp -p $RARCH_DIST_DIR/../info/*.info $WORK/$RADIR/pkg/3ds/retroarch/info/
 	fi
 fi
 
