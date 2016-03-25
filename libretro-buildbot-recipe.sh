@@ -1056,6 +1056,7 @@ buildbot_pull(){
 		echo
 		echo RADIR=$RADIR
 	done < $RECIPE.ra
+   cd $WORK
 }
 
 
