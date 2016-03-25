@@ -1002,10 +1002,6 @@ buildbot_pull(){
 			if [ -d "${PARENTDIR}/${DIR}/.git" ]; then
 				cd $PARENTDIR
 				cd $DIR
-				if [ ! -z "$BRANCH" ]; then
-					echo "checkout out branch... "
-					git checkout $BRANCH
-				fi
 				echo "pulling changes from repo... "
 				git reset --hard
 				OUT=`git pull`
@@ -1031,7 +1027,7 @@ buildbot_pull(){
 			else
 				echo "cloning repo..."
 				cd $PARENTDIR
-				if [ ! -z "$BRANCH" ]; then
+				if [ ! -z "$BRANCH" -a "${NAME}" == "retroarch" ]; then
 					git clone -b "$BRANCH" "$URL" "$DIR"
 				else
 					git clone "$URL" "$DIR" --depth=1
@@ -1056,7 +1052,7 @@ buildbot_pull(){
 		echo
 		echo RADIR=$RADIR
 	done < $RECIPE.ra
-   cd $WORK
+	cd $WORK
 }
 
 
