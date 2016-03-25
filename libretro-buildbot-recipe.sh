@@ -1031,11 +1031,10 @@ buildbot_pull(){
 			else
 				echo "cloning repo..."
 				cd $PARENTDIR
-				git clone "$URL" "$DIR" --depth=1
 				if [ ! -z "$BRANCH" ]; then
-					cd $PARENTDIR
-					cd $DIR
-					git checkout $BRANCH
+					git clone "$URL" "$DIR" --depth=1
+				else
+					git clone -b "$BRANCH" "$URL" "$DIR"
 				fi
 				cd $WORK
 				if [ "${TYPE}" = "PROJECT" ]; then
