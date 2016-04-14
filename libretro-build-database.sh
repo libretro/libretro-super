@@ -178,6 +178,7 @@ build_libretro_databases() {
 	build_libretro_database "Sony - PlayStation" "rom.serial"
 	build_libretro_database "Atari - Jaguar" "rom.crc"
 	build_libretro_database "Nintendo - Nintendo 64" "rom.crc"
+	build_libretro_database "Nintendo - Nintendo 64DD" "rom.crc"
 	build_libretro_database "Nintendo - Virtual Boy" "rom.crc"
 	build_libretro_database "Atari - 5200" "rom.crc"
 	build_libretro_database "Atari - 7800" "rom.crc"
