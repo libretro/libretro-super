@@ -1,3 +1,4 @@
+81 libretro-80 https://github.com/libretro/81-libretro.git PROJECT YES LEIRADEL Makefile libretro x86_64 
 emux_chip8 libretro-emux_chip8 https://github.com/libretro/emux PROJECT YES LEIRADEL Makefile libretro x86_64 MACHINE=chip8 
 emux_gb libretro-emux_gb https://github.com/libretro/emux PROJECT YES LEIRADEL Makefile libretro x86_64 MACHINE=gb 
 emux_nes libretro-emux_nes https://github.com/libretro/emux PROJECT YES LEIRADEL Makefile libretro x86_64 MACHINE=nes 
