@@ -228,6 +228,7 @@ build_libretro_databases() {
 	build_libretro_database "Sega - PICO" "rom.crc"
 	build_libretro_database "Sega - SG-1000" "rom.crc"
 	build_libretro_database "Sinclair - ZX Spectrum +3" "rom.crc"
+	build_libretro_database "Sinclair - ZX 81" "rom.crc"
 	build_libretro_database "SNK - Neo Geo Pocket" "rom.crc"
 	build_libretro_database "SNK - Neo Geo Pocket Color" "rom.crc"
 	build_libretro_database "Sony - PlayStation 3 (DLC)" "rom.crc"
