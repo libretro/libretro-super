@@ -68,6 +68,12 @@ libretro_fb_alpha_git_url="https://github.com/libretro/fba-libretro.git"
 libretro_fb_alpha_build_subdir="svn-current/trunk"
 libretro_fb_alpha_build_makefile="makefile.libretro"
 
+register_module core "blastem" -psp1
+libretro_blastem_name="BlastEm"
+libretro_blastem_git_url="https://github.com/libretro/blastem-libretro.git"
+libretro_blastem_build_subdir="libretro"
+libretro_blastem_build_makefile="Makefile"
+
 register_module core "fb_alpha_cps1" -psp1
 libretro_fb_alpha_cps1_name="Final Burn Alpha CPS1"
 libretro_fb_alpha_cps1_git_url="https://github.com/libretro/fba_cores_cps1.git"
