@@ -1447,27 +1447,28 @@ if [ "${PLATFORM}" = "MINGW64" ] || [ "${PLATFORM}" = "MINGW32" ] || [ "${PLATFO
 			echo $MESSAGE
 			echo buildbot job: $MESSAGE | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_${PLATFORM}.log
 			buildbot_log "$MESSAGE"
-
 			echo "Packaging"
-
 			cp retroarch.cfg retroarch.default.cfg
-
 			rm -rf windows
 			mkdir -p windows
 			mkdir -p windows/filters
 			mkdir -p windows/filters/video
 			mkdir -p windows/filters/audio
+			mkdir -p windows/saves
+			mkdir -p windows/states
+			mkdir -p windows/system
 
 
 cat << EOF > windows/retroarch.cfg
 dpi_override_value = "160"
-menu_driver = "xmb"
 input_joypad_driver = "winxinput"
 input_osk_overlay_enable = "false"
 load_dummy_on_core_shutdown = "false"
 menu_collapse_subgroups_enable = "true"
 video_driver = "gl"
-
+system_directory = ":\system"
+savefile_directory = ":\saves"
+savestate_directory = ":\states"
 EOF
 
 			cp -v retroarch.default.cfg windows/
