@@ -1454,26 +1454,10 @@ if [ "${PLATFORM}" = "MINGW64" ] || [ "${PLATFORM}" = "MINGW32" ] || [ "${PLATFO
 
 			rm -rf windows
 			mkdir -p windows
-			mkdir -p windows/overlays
-			mkdir -p windows/shaders/shaders_cg
-			mkdir -p windows/autoconfig
 			mkdir -p windows/filters
 			mkdir -p windows/filters/video
 			mkdir -p windows/filters/audio
-			mkdir -p windows/assets
-			mkdir -p windows/cheats
-			mkdir -p windows/database
-			mkdir -p windows/database/cursors
-			mkdir -p windows/database/rdb
-			mkdir -p windows/playlists
-			mkdir -p windows/content
-			mkdir -p windows/downloads
-			mkdir -p windows/info
-			mkdir -p windows/cores
-			mkdir -p windows/config/remap
-			mkdir -p windows/system
-			mkdir -p windows/saves
-			mkdir -p windows/states
+
 
 cat << EOF > windows/retroarch.cfg
 dpi_override_value = "160"
