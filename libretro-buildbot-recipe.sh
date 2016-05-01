@@ -1457,6 +1457,7 @@ if [ "${PLATFORM}" = "MINGW64" ] || [ "${PLATFORM}" = "MINGW32" ] || [ "${PLATFO
 			mkdir -p windows/saves
 			mkdir -p windows/states
 			mkdir -p windows/system
+			mkdir -p windows/screenshots
 
 
 cat << EOF > windows/retroarch.cfg
