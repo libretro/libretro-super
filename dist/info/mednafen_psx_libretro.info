@@ -1,6 +1,6 @@
 display_name = "PlayStation (Mednafen PSX)"
 authors = "Ryphecha"
-supported_extensions = "cue|toc|m3u|ccd|exe"
+supported_extensions = "cue|toc|m3u|ccd|exe|pbp"
 corename = "Mednafen PSX"
 manufacturer = "Sony"
 categories = "Emulator"
