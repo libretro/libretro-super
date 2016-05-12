@@ -1480,7 +1480,7 @@ EOF
 			cp -rf gfx/video_filters/*.filt windows/filters/video
 
 			$MAKE clean
-			V=1 $MAKE -j${JOBS} DEBUG=1 | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_DEBUG_${PLATFORM}.log
+			V=1 $MAKE -j${JOBS} DEBUG=1 GL_DEBUG=1 | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_DEBUG_${PLATFORM}.log
 			cp -v retroarch.exe windows/retroarch_debug.exe
 
 		else
