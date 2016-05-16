@@ -103,7 +103,7 @@ if [ "${CORE_JOB}" == "YES" ]; then
 			CXX=c++
 			CXX11="clang++ -std=c++11 -stdlib=libc++"
 		elif uname -s | grep -i MINGW32 > /dev/null 2>&1; then
-			CXX=mingw32-g++
+			CXX=mingw32-g++f
 			CXX11=mingw32-g++
 		else
 			CXX=g++
@@ -899,7 +899,7 @@ while read line; do
 				else
 					BUILD="YES"
 				fi
-				OUT=`git submodule foreach git pull origin master`
+				OUT=`git submodule update --init --recursive`
 				cd $WORK
 		else
 				echo "cloning repo..."
@@ -1020,7 +1020,7 @@ buildbot_pull(){
 					else
 						BUILD="YES"
 						git submodule update --init --recursive
-						git submodule foreach git pull origin master
+						#git submodule foreach git pull origin master
 					fi
 				fi
 				cd $WORK
@@ -1042,7 +1042,7 @@ buildbot_pull(){
 					RADIR=$DIR
 					echo "updating submodules..."
 					git submodule update --init --recursive
-					git submodule foreach git pull origin master
+					#git submodule foreach git pull origin master
 					BUILD="YES"
 				fi
 				cd $WORK
