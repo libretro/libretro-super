@@ -134,6 +134,7 @@ WANT_CORES=" \
 	dinothawr \
 	desmume \
 	fb_alpha \
+	fb_alpha_new \
 	bsnes_mercury_performance \
 	bsnes_performance \
 	mame2000 \
