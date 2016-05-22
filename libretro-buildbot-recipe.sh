@@ -1462,7 +1462,7 @@ if [ "${PLATFORM}" = "MINGW64" ] || [ "${PLATFORM}" = "MINGW32" ] || [ "${PLATFO
 
 cat << EOF > windows/retroarch.cfg
 dpi_override_value = "160"
-input_joypad_driver = "winxinput"
+input_joypad_driver = "xinput"
 input_osk_overlay_enable = "false"
 load_dummy_on_core_shutdown = "false"
 menu_collapse_subgroups_enable = "true"
