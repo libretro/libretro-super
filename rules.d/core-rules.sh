@@ -294,12 +294,6 @@ libretro_mame_build_makefile=Makefile.libretro
 libretro_mame_build_compiler="REALCC=\"${CC:-cc}\" CC=\"${CXX:-c++}\""
 libretro_mame_build_makefile_targets="TARGET=\"mame\""
 libretro_mame_build_cores="mame"
-libretro_mame_configure() {
-	if [ "$platform" = "ios" ]; then
-		# We don't have the means to do this "properly" yet...
-		echo_cmd "$MAKE -C \"$module_build_dir\" -f Makefile.libretro platform=\"\" buildtools"
-	fi
-}
 
 register_module core "ffmpeg" -ios -theos_ios -osx -ngc -ps3 -psp1 -qnx -wii
 libretro_ffmpeg_name="FFmpeg"
