@@ -292,8 +292,8 @@ libretro_mame_name="MAME (git)"
 libretro_mame_git_url="https://github.com/libretro/mame.git"
 libretro_mame_build_makefile=Makefile.libretro
 libretro_mame_build_compiler="REALCC=\"${CC:-cc}\" CC=\"${CXX:-c++}\""
-libretro_mame_build_makefile_targets="TARGET=\"mame\" TARGET=\"mess\" TARGET=\"ume\""
-libretro_mame_build_cores="mame mess ume"
+libretro_mame_build_makefile_targets="TARGET=\"mame\""
+libretro_mame_build_cores="mame"
 libretro_mame_configure() {
 	if [ "$platform" = "ios" ]; then
 		# We don't have the means to do this "properly" yet...
