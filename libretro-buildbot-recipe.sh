@@ -213,8 +213,13 @@ build_libretro_generic_makefile() {
 
 	if [ -z "${NOCLEAN}" ]; then
 		echo "cleaning up..."
-		echo "cleanup command: ${MAKE} -f ${MAKEFILE} platform=${PLATFORM} -j${JOBS} clean"
-		${MAKE} -f ${MAKEFILE} platform=${PLATFORM} -j${JOBS} clean
+		if [ -z "${ARGS}" ]; then
+			echo "cleanup command: ${MAKE} -f ${MAKEFILE} platform=${PLATFORM} -j${JOBS} clean"
+			${MAKE} -f ${MAKEFILE} platform=${PLATFORM} -j${JOBS} clean
+		else
+			echo "cleanup command: ${MAKE} -f ${MAKEFILE} platform=${PLATFORM} -j${JOBS} ${ARGS} clean"
+			${MAKE} -f ${MAKEFILE} platform=${PLATFORM} -j${JOBS} ${ARGS} clean
+		fi
 		if [ $? -eq 0 ]; then
 			echo buildbot job: $jobid $1 cleanup success!
 		else
