@@ -1446,12 +1446,25 @@ if [ "${PLATFORM}" = "MINGW64" ] || [ "${PLATFORM}" = "MINGW32" ] || [ "${PLATFO
 		echo "build command: $MAKE -j${JOBS}"
 		$MAKE -j${JOBS} 2>&1 | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_${PLATFORM}.log
 		strip -s retroarch.exe
+		cp -v retroarch.exe windows/retroarch.exe
 
 		if [ $? -eq 0 ]; then
 			MESSAGE="retroarch:	[status: done] [$jobid]"
 			echo $MESSAGE
 			echo buildbot job: $MESSAGE | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_${PLATFORM}.log
 			buildbot_log "$MESSAGE"
+
+			$MAKE clean
+			$MAKE -j${JOBS} DEBUG=1 GL_DEBUG=1 2>&1 | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_DEBUG_${PLATFORM}.log
+			cp -v retroarch.exe windows/retroarch_debug.exe			
+
+			if [ $? -eq 0 ]; then	
+				MESSAGE="retroarch debug:	[status: done] [$jobid]"
+				echo $MESSAGE
+				echo buildbot job: $MESSAGE | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_${PLATFORM}.log
+				buildbot_log "$MESSAGE"
+			fi
+
 			echo "Packaging"
 			cp retroarch.cfg retroarch.default.cfg
 			rm -rf windows
@@ -1478,15 +1491,11 @@ savestate_directory = ":\states"
 EOF
 
 			cp -v retroarch.default.cfg windows/
-			cp -v *.exe tools/*.exe windows/
+			cp -v tools/*.exe windows/
 			cp -rf audio/audio_filters/*.dll windows/filters/audio
 			cp -rf audio/audio_filters/*.dsp windows/filters/audio
 			cp -rf gfx/video_filters/*.dll windows/filters/video
 			cp -rf gfx/video_filters/*.filt windows/filters/video
-
-			$MAKE clean
-			V=1 $MAKE -j${JOBS} DEBUG=1 GL_DEBUG=1 | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_DEBUG_${PLATFORM}.log
-			cp -v retroarch.exe windows/retroarch_debug.exe
 
 		else
 			ERROR=`cat $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_${PLATFORM}.log | tail -n 100`
