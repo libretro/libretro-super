@@ -1448,8 +1448,11 @@ if [ "${PLATFORM}" = "MINGW64" ] || [ "${PLATFORM}" = "MINGW32" ] || [ "${PLATFO
 		strip -s retroarch.exe
 		cp -v retroarch.exe windows/retroarch.exe | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_${PLATFORM}.log
 		cp -v retroarch.exe windows/retroarch.exe
+		
+		status=$q
+		echo $status
 
-		if [ $? -eq 0 ]; then
+		if [ $status -eq 0 ]; then
 			MESSAGE="retroarch:	[status: done] [$jobid]"
 			echo $MESSAGE
 			echo buildbot job: $MESSAGE | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_${PLATFORM}.log
