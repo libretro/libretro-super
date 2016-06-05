@@ -1427,6 +1427,9 @@ if [ "${PLATFORM}" = "MINGW64" ] || [ "${PLATFORM}" = "MINGW32" ] || [ "${PLATFO
 		echo "cleaning up..."
 		echo "cleanup command: $MAKE clean"
 		$MAKE clean
+		
+		rm -rf windows
+		mkdir -p windows
 
 		if [ $? -eq 0 ]; then
 			echo buildbot job: $jobid retroarch cleanup success!
@@ -1472,8 +1475,6 @@ if [ "${PLATFORM}" = "MINGW64" ] || [ "${PLATFORM}" = "MINGW32" ] || [ "${PLATFO
 
 			echo "Packaging"
 			cp retroarch.cfg retroarch.default.cfg
-			rm -rf windows
-			mkdir -p windows
 			mkdir -p windows/filters
 			mkdir -p windows/filters/video
 			mkdir -p windows/filters/audio
