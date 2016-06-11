@@ -70,6 +70,11 @@ build_libretro_database() {
 			COMMAND+=' "${LIBRETRODATABASE_META_DAT_DIR}/${1}.dat"'
 		fi
 
+		#Check if meta goodtools is there
+		if [ -f "${LIBRETRODATABASE_META_DAT_DIR}/goodtools/${1}.dat" ]; then
+			COMMAND+=' "${LIBRETRODATABASE_META_DAT_DIR}/goodtools/${1}.dat"'
+		fi
+
 		#Check if meta analog DAT is there
 		if [ -f "${LIBRETRODATABASE_META_DAT_DIR}/analog/${1}.dat" ]; then
 			COMMAND+=' "${LIBRETRODATABASE_META_DAT_DIR}/analog/${1}.dat"'
