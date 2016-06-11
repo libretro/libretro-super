@@ -253,6 +253,7 @@ build_libretro_databases() {
 	build_libretro_database "MAME2003" "rom.name"
 	build_libretro_database "FB Alpha - Arcade Games" "rom.name"
 	build_libretro_database "DOOM" "rom.crc"
+	build_libretro_database "Cave Story" "rom.crc"
 	build_libretro_database "Quake1" "rom.crc"
 }
 
