@@ -250,6 +250,7 @@ build_libretro_databases() {
 	build_libretro_database "VTech - V.Smile" "rom.crc"
 	build_libretro_database "Watara - Supervision" "rom.crc"
 	build_libretro_database "MAME" "rom.name"
+	build_libretro_database "MAME2003" "rom.name"
 	build_libretro_database "FB Alpha - Arcade Games" "rom.name"
 	build_libretro_database "DOOM" "rom.crc"
 	build_libretro_database "Quake1" "rom.crc"
