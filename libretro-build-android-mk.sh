@@ -61,6 +61,25 @@ build_libretro_generic_makefile()
 	fi
 }
 
+#same as above for armv7 with neon since android ndk does not see it as as its own architecture
+build_libretro_generic_makefile_armv7neon()
+{
+	cd $BASE_DIR
+	if [ -d "libretro-${1}" ]; then
+		echo "=== Attempting armv7-neon Build ==="
+		cd libretro-${1}
+		cd ${2}
+      if [ -z "${NOCLEAN}" ]; then
+         ndk-build clean APP_ABI="armeabi-v7a" NDK_OUT="../obj/local/armeabi-v7a-neon" NDK_LIBS_OUT="../libs/armeabi-v7a-neon" V7NEONOPTIMIZATION="1" || die "Failed to clean armeabi_v7a_neon ${1}"
+      fi
+      ndk-build -j$JOBS APP_ABI="armeabi-v7a" NDK_OUT="../obj/local/armeabi-v7a-neon" NDK_LIBS_OUT="../libs/armeabi-v7a-neon" V7NEONOPTIMIZATION="1" || die "Failed to build armeabi_v7a_neon ${1}"
+      mkdir -p $RARCH_DIST_DIR/armeabi-v7a-neon
+      cp ../libs/armeabi-v7a-neon/armeabi-v7a/libretro${3}.${FORMAT_EXT} $RARCH_DIST_DIR/armeabi-v7a-neon/${1}_libretro${FORMAT}.${FORMAT_EXT}
+	else
+		echo "${1} not fetched, skipping ..."
+	fi
+}
+
 create_dist_dir()
 {
 	if [ -d $RARCH_DIR ]; then
@@ -163,5 +182,6 @@ for core in $WANT_CORES; do
 		append="_$core"
 	fi
 	build_libretro_generic_makefile $core $path $append
+   build_libretro_generic_makefile_armv7neon $core $path $append
 done
 
