@@ -1,6 +1,6 @@
 display_name = "PC Engine SuperGrafx (Mednafen SGX)"
 authors = "Ryphecha"
-supported_extensions = "pce|sgx"
+supported_extensions = "pce|sgx|cue|ccd"
 corename = "Mednafen/Beetle SGX"
 manufacturer = "NEC"
 categories = "Emulator"
