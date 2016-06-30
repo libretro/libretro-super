@@ -13,3 +13,4 @@ firmware_count = 1
 firmware0_desc = "panafz10.bin (Panasonic FZ-10 BIOS)"
 firmware0_path = "panafz10.bin"
 firmware0_opt = "false"
+notes = "Suggested md5sum:|51f2f43ae2f3508a14d9f56597e2d3ce = panafz10.bin"
