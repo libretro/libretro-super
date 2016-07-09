@@ -247,6 +247,7 @@ build_libretro_databases() {
 	build_libretro_database "Sony - PlayStation Portable (UMD Music)" "rom.crc"
 	build_libretro_database "Sony - PlayStation Portable (UMD Video)" "rom.crc"
 	build_libretro_database "Tiger - Game.com" "rom.crc"
+	build_libretro_database "Uzebox" "rom.crc"
 	build_libretro_database "VTech - CreatiVision" "rom.crc"
 	build_libretro_database "VTech - V.Smile" "rom.crc"
 	build_libretro_database "Watara - Supervision" "rom.crc"
