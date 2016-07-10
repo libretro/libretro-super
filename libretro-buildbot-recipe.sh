@@ -442,11 +442,11 @@ build_libretro_bsnes_jni() {
 	buildbot_log "$1:	[status: none] [$jobid]"
 
 	cd ${DIR}/${SUBDIR}
-	echo -------------------------------------------------- 2>&1 | tee $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}_${a}.log
+	echo -------------------------------------------------- 2>&1 | tee $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PROFILE}_${PLATFORM}_${a}.log
 	for a in "${ABIS[@]}"; do
 		if [ -z "${NOCLEAN}" ]; then
-			echo "CLEANUP CMD: ${NDK} -j${JOBS} APP_ABI=${a} clean" 2>&1 | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}_${a}.log
-			${NDK} -j${JOBS} APP_ABI=${a} clean 2>&1 | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}_${a}.log
+			echo "CLEANUP CMD: ${NDK} -j${JOBS} APP_ABI=${a} clean" 2>&1 | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PROFILE}_${PLATFORM}_${a}.log
+			${NDK} -j${JOBS} APP_ABI=${a} clean 2>&1 | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PROFILE}_${PLATFORM}_${a}.log
 			if [ $? -eq 0 ]; then
 				echo buildbot job: $jobid $1 cleanup success!
 			else
@@ -454,40 +454,29 @@ build_libretro_bsnes_jni() {
 			fi
 		fi
 
-		echo -------------------------------------------------- 2>&1 | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}_${a}.log
+		echo -------------------------------------------------- 2>&1 | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PROFILE}_${PLATFORM}_${a}.log
 		if [ -z "${ARGS}" ]; then
-			echo "BUILD CMD: ${NDK} -j${JOBS} APP_ABI=${a}" 2>&1 | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}_${a}.log
-			${NDK} -j${JOBS} APP_ABI=${a} 2>&1 | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}_${a}.log
+			echo "BUILD CMD: ${NDK} -j${JOBS} APP_ABI=${a} profile=${PROFILE}" 2>&1 | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PROFILE}_${PLATFORM}_${a}.log
+			${NDK} -j${JOBS} APP_ABI=${a} profile=${PROFILE} 2>&1 | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PROFILE}_${PLATFORM}_${a}.log
 		else
-			echo "BUILD CMD: ${NDK} -j${JOBS} APP_ABI=${a}" 2>&1 | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}_${a}.log
-			${NDK} -j${JOBS} APP_ABI=${a} 2>&1 | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}_${a}.log
+			echo "BUILD CMD: ${NDK} -j${JOBS} APP_ABI=${a} profile=${PROFILE}" 2>&1 | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PROFILE}_${PLATFORM}_${a}.log
+			${NDK} -j${JOBS} APP_ABI=${a} profile=${PROFILE} 2>&1 | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PROFILE}_${PLATFORM}_${a}.log
 		fi
 
-      echo "COPY CMD: cp -v ../libs/${a}/libretro_${NAME}_${PROFILE}.${FORMAT_EXT} $RARCH_DIST_DIR/${a}/${NAME}_${PROFILE}_libretro${FORMAT}${LIBSUFFIX}.${FORMAT_EXT}" 2>&1 | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}_${a}.log
-		cp -v ../libs/${a}/libretro_${NAME}_${PROFILE}.${FORMAT_EXT} $RARCH_DIST_DIR/${a}/${NAME}_${PROFILE}_libretro${FORMAT}${LIBSUFFIX}.${FORMAT_EXT} | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}_${a}.log
+		echo "COPY CMD: cp -v ../libs/${a}/libretro_${NAME}_${PROFILE}.${FORMAT_EXT} $RARCH_DIST_DIR/${a}/${NAME}_${PROFILE}_libretro${FORMAT}${LIBSUFFIX}.${FORMAT_EXT}" 2>&1 | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PROFILE}_${PLATFORM}_${a}.log
+		cp -v ../libs/${a}/libretro_${NAME}_${PROFILE}.${FORMAT_EXT} $RARCH_DIST_DIR/${a}/${NAME}_${PROFILE}_libretro${FORMAT}${LIBSUFFIX}.${FORMAT_EXT} | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PROFILE}_${PLATFORM}_${a}.log
 		cp -v ../libs/${a}/libretro_${NAME}_${PROFILE}.${FORMAT_EXT} $RARCH_DIST_DIR/${a}/${NAME}_${PROFILE}_libretro${FORMAT}${LIBSUFFIX}.${FORMAT_EXT}
 		if [ $? -eq 0 ]; then
-			MESSAGE="$1-$a:	[status: done] [$jobid]"
+			MESSAGE="$1-$a-${PROFILE}:	[status: done] [$jobid]"
 		else
-			ERROR=`cat $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}_${a}.log | tail -n 100`
+			ERROR=`cat $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PROFILE}_${PLATFORM}_${a}.log | tail -n 100`
 			HASTE=`curl -XPOST http://hastebin.com/documents -d"$ERROR"`
 			HASTE=`echo $HASTE | cut -d"\"" -f4`
-			MESSAGE="$1-$a:	[status: fail] [$jobid] LOG: http://hastebin.com/$HASTE"
+			MESSAGE="$1-$a-${PROFILE}:	[status: fail] [$jobid] LOG: http://hastebin.com/$HASTE"
 		fi
 		echo buildbot job: $MESSAGE
 
 		buildbot_log "$MESSAGE"
-	done
-	for a in "${ABIS[@]}"; do
-		if [ -z "${NOCLEAN}" ]; then
-			echo "CLEANUP CMD: ${NDK} -j${JOBS} APP_ABI=${a} clean" 2>&1 | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}_${a}.log
-			${NDK} -j${JOBS} APP_ABI=${a} clean 2>&1 | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}_${a}.log
-			if [ $? -eq 0 ]; then
-				echo buildbot job: $jobid $1 $a cleanup success!
-			else
-				echo buildbot job: $jobid $1 $a cleanup failed!
-			fi
-		fi
 	done
 }
 
@@ -501,14 +490,14 @@ build_libretro_bsnes() {
 	buildbot_log "$1:	[status: none] [$jobid]"
 
 	cd $DIR
-	echo -------------------------------------------------- 2>&1 | tee $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}.log
+	echo -------------------------------------------------- 2>&1 | tee $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PROFILE}_${PLATFORM}.log
 	if [ -z "${NOCLEAN}" ]; then
 
-		rm -f obj/*.{o,"${FORMAT_EXT}"} 2>&1 | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}.log
-		rm -f out/*.{o,"${FORMAT_EXT}"} 2>&1 | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}.log
+		rm -f obj/*.{o,"${FORMAT_EXT}"} 2>&1 | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PROFILE}_${PLATFORM}.log
+		rm -f out/*.{o,"${FORMAT_EXT}"} 2>&1 | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PROFILE}_${PLATFORM}.log
 
 		if [ "${PROFILE}" = "cpp98" -o "${PROFILE}" = "bnes" ]; then
-			${MAKE} clean 2>&1 | tee $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}.log
+			${MAKE} clean 2>&1 | tee $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PROFILE}_${PLATFORM}.log
 		fi
 
 		if [ $? -eq 0 ]; then
@@ -518,37 +507,37 @@ build_libretro_bsnes() {
 		fi
 	fi
 
-	echo -------------------------------------------------- 2>&1 | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}.log
+	echo -------------------------------------------------- 2>&1 | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PROFILE}_${PLATFORM}.log
 	if [ "${PROFILE}" = "cpp98" ]; then
-		${MAKE} platform="${PLATFORM}" "${COMPILER}" "-j${JOBS}" 2>&1 | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}.log
+		${MAKE} platform="${PLATFORM}" "${COMPILER}" "-j${JOBS}" 2>&1 | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PROFILE}_${PLATFORM}.log
 	elif [ "${PROFILE}" = "bnes" ]; then
-		echo "BUILD CMD: ${MAKE} -f Makefile ${COMPILER} "-j${JOBS}" compiler=${BSNESCOMPILER}" platform=${FORMAT_COMPILER_TARGET} 2>&1 | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}.log
-		${MAKE} -f Makefile ${COMPILER} "-j${JOBS}" compiler="${BSNESCOMPILER}" platform=${FORMAT_COMPILER_TARGET} 2>&1 | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}.log
+		echo "BUILD CMD: ${MAKE} -f Makefile ${COMPILER} "-j${JOBS}" compiler=${BSNESCOMPILER}" platform=${FORMAT_COMPILER_TARGET} 2>&1 | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PROFILE}_${PLATFORM}.log
+		${MAKE} -f Makefile ${COMPILER} "-j${JOBS}" compiler="${BSNESCOMPILER}" platform=${FORMAT_COMPILER_TARGET} 2>&1 | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PROFILE}_${PLATFORM}.log
 	else
-		echo "BUILD CMD: ${MAKE} -f ${MAKEFILE} platform=${PLATFORM} compiler=${BSNESCOMPILER} ui='target-libretro' profile=${PROFILE} -j${JOBS}" 2>&1 | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}.log
-		${MAKE} -f ${MAKEFILE} platform=${PLATFORM} compiler=${BSNESCOMPILER} ui='target-libretro' profile=${PROFILE} -j${JOBS} 2>&1 | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}.log
+		echo "BUILD CMD: ${MAKE} -f ${MAKEFILE} platform=${PLATFORM} compiler=${BSNESCOMPILER} ui='target-libretro' profile=${PROFILE} -j${JOBS}" 2>&1 | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PROFILE}_${PLATFORM}.log
+		${MAKE} -f ${MAKEFILE} platform=${PLATFORM} compiler=${BSNESCOMPILER} ui='target-libretro' profile=${PROFILE} -j${JOBS} 2>&1 | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PROFILE}_${PLATFORM}.log
 	fi
 
 	if [ "${PROFILE}" = "cpp98" ]; then
-		echo "COPY CMD: cp -fv out/${NAME}_libretro${FORMAT}${LIBSUFFIX}.${FORMAT_EXT}" "${RARCH_DIST_DIR}/${NAME}_libretro${FORMAT}${LIBSUFFIX}.${FORMAT_EXT}" 2>&1 | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}.log
-      cp -fv "out/${NAME}_libretro${FORMAT}${LIBSUFFIX}.${FORMAT_EXT}" "${RARCH_DIST_DIR}/${NAME}_libretro${FORMAT}${LIBSUFFIX}.${FORMAT_EXT}" 2>&1 | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}.log
+		echo "COPY CMD: cp -fv out/${NAME}_libretro${FORMAT}${LIBSUFFIX}.${FORMAT_EXT}" "${RARCH_DIST_DIR}/${NAME}_libretro${FORMAT}${LIBSUFFIX}.${FORMAT_EXT}" 2>&1 | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PROFILE}_${PLATFORM}.log
+      cp -fv "out/${NAME}_libretro${FORMAT}${LIBSUFFIX}.${FORMAT_EXT}" "${RARCH_DIST_DIR}/${NAME}_libretro${FORMAT}${LIBSUFFIX}.${FORMAT_EXT}" 2>&1 | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PROFILE}_${PLATFORM}.log
       cp -fv "out/${NAME}_libretro${FORMAT}${LIBSUFFIX}.${FORMAT_EXT}" "${RARCH_DIST_DIR}/${NAME}_libretro${FORMAT}${LIBSUFFIX}.${FORMAT_EXT}" 2>&1
 	elif [ "${PROFILE}" = "bnes" ]; then
-      echo "COPY CMD cp -fv ${NAME}_libretro${FORMAT}${LIBSUFFIX}.${FORMAT_EXT}" "${RARCH_DIST_DIR}/${NAME}_libretro${FORMAT}${LIBSUFFIX}.${FORMAT_EXT}" 2>&1 | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}.log
-		cp -fv "${NAME}_libretro${FORMAT}${LIBSUFFIX}.${FORMAT_EXT}" "${RARCH_DIST_DIR}/${NAME}_libretro${FORMAT}${LIBSUFFIX}.${FORMAT_EXT}" 2>&1 | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}.log
+      echo "COPY CMD cp -fv ${NAME}_libretro${FORMAT}${LIBSUFFIX}.${FORMAT_EXT}" "${RARCH_DIST_DIR}/${NAME}_libretro${FORMAT}${LIBSUFFIX}.${FORMAT_EXT}" 2>&1 | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PROFILE}_${PLATFORM}.log
+		cp -fv "${NAME}_libretro${FORMAT}${LIBSUFFIX}.${FORMAT_EXT}" "${RARCH_DIST_DIR}/${NAME}_libretro${FORMAT}${LIBSUFFIX}.${FORMAT_EXT}" 2>&1 | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PROFILE}_${PLATFORM}.log
       cp -fv "${NAME}_libretro${FORMAT}${LIBSUFFIX}.${FORMAT_EXT}" "${RARCH_DIST_DIR}/${NAME}_libretro${FORMAT}${LIBSUFFIX}.${FORMAT_EXT}"
 	else
-		echo "COPY CMD cp -fv "out/${NAME}_${PROFILE}_libretro${FORMAT}.${FORMAT_EXT}" $RARCH_DIST_DIR/${NAME}_${PROFILE}_libretro${FORMAT}${LIBSUFFIX}.${FORMAT_EXT}" 2>&1 | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}.log
-      cp -fv "out/${NAME}_${PROFILE}_libretro${FORMAT}.${FORMAT_EXT}" $RARCH_DIST_DIR/${NAME}_${PROFILE}_libretro${FORMAT}${LIBSUFFIX}.${FORMAT_EXT} 2>&1 | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}.log
+		echo "COPY CMD cp -fv "out/${NAME}_${PROFILE}_libretro${FORMAT}.${FORMAT_EXT}" $RARCH_DIST_DIR/${NAME}_${PROFILE}_libretro${FORMAT}${LIBSUFFIX}.${FORMAT_EXT}" 2>&1 | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PROFILE}_${PLATFORM}.log
+      cp -fv "out/${NAME}_${PROFILE}_libretro${FORMAT}.${FORMAT_EXT}" $RARCH_DIST_DIR/${NAME}_${PROFILE}_libretro${FORMAT}${LIBSUFFIX}.${FORMAT_EXT} 2>&1 | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PROFILE}_${PLATFORM}.log
       cp -fv "out/${NAME}_${PROFILE}_libretro${FORMAT}.${FORMAT_EXT}" $RARCH_DIST_DIR/${NAME}_${PROFILE}_libretro${FORMAT}${LIBSUFFIX}.${FORMAT_EXT}
 	fi
 	if [ $? -eq 0 ]; then
-		MESSAGE="$1:	[status: done] [$jobid]"
+		MESSAGE="$1-${PROFILE}:	[status: done] [$jobid]"
 	else
-		ERROR=`cat $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}.log | tail -n 100`
+		ERROR=`cat $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PROFILE}_${PLATFORM}.log | tail -n 100`
 		HASTE=`curl -XPOST http://hastebin.com/documents -d"$ERROR"`
 		HASTE=`echo $HASTE | cut -d"\"" -f4`
-		MESSAGE="$1:	[status: fail] [$jobid] LOG: http://hastebin.com/$HASTE"
+		MESSAGE="$1-${PROFILE}:	[status: fail] [$jobid] LOG: http://hastebin.com/$HASTE"
 	fi
 	echo buildbot job: $MESSAGE
 
