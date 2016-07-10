@@ -211,6 +211,7 @@ build_libretro_generic_makefile() {
 		JOBS=1
 	fi
 
+	echo -------------------------------------------------- 2>&1 | tee $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}.log
 	if [ -z "${NOCLEAN}" ]; then
 		if [ -z "${ARGS}" ]; then
 			echo "CLEANUP CMD: ${MAKE} -f ${MAKEFILE} platform=${PLATFORM} -j${JOBS} clean" 2>&1 | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}.log
@@ -226,9 +227,7 @@ build_libretro_generic_makefile() {
 		fi
 	fi
 
-	echo
-	echo
-	echo --------------------------------------------------
+	echo -------------------------------------------------- 2>&1 | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}.log
 	if [ "${NAME}" == "mame2010" ]; then
 		echo "BUILD CMD: PLATFORM="" platform="" ${MAKE} -f ${MAKEFILE} "VRENDER=soft" "NATIVE=1" buildtools -j${JOBS}" 2>&1 | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}.log
 		PLATFORM="" platform="" ${MAKE} -f ${MAKEFILE} "VRENDER=soft" "NATIVE=1" buildtools -j${JOBS} 2>&1 | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}.log
@@ -268,15 +267,6 @@ build_libretro_generic_makefile() {
 	buildbot_log "$MESSAGE"
 	JOBS=$JOBS_ORIG
 
-	if [ -z "${NOCLEAN}" ]; then
-		echo "CLEANUP CMD: ${MAKE} -f ${MAKEFILE} platform=${PLATFORM} -j${JOBS} clean" 2>&1 | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}.log
-		${MAKE} -f ${MAKEFILE} platform=${PLATFORM} -j${JOBS} clean
-		if [ $? -eq 0 ]; then
-			echo buildbot job: $jobid $1 cleanup success!
-		else
-			echo buildbot job: $jobid $1 cleanup failed!
-		fi
-	fi
 }
 
 build_libretro_leiradel_makefile() {
@@ -295,6 +285,7 @@ build_libretro_leiradel_makefile() {
 	cd $SUBDIR
 	JOBS_ORIG=$JOBS
 
+	echo -------------------------------------------------- 2>&1 | tee $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}.log
 	if [ -z "${NOCLEAN}" ]; then
 		echo "CLEANUP CMD: ${MAKE} -f ${MAKEFILE}.${PLATFORM}_${ARGS} platform=${PLATFORM}_${ARGS} -j${JOBS} clean" 2>&1 | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}.log
 		${MAKE} -f ${MAKEFILE}.${PLATFORM}_${ARGS} platform=${PLATFORM}_${ARGS} -j${JOBS} clean 2>&1 | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}.log
@@ -305,9 +296,7 @@ build_libretro_leiradel_makefile() {
 		fi
 	fi
 
-   echo
-	echo
-	echo --------------------------------------------------
+	echo -------------------------------------------------- 2>&1 | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}.log
 		echo "BUILD CMD: ${MAKE} -f ${MAKEFILE}.${PLATFORM}_${ARGS} platform=${PLATFORM}_${ARGS} -j${JOBS}" 2>&1 | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}.log
 		${MAKE} -f ${MAKEFILE}.${PLATFORM}_${ARGS} platform=${PLATFORM}_${ARGS} -j${JOBS} 2>&1 | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}.log
 
@@ -327,15 +316,58 @@ build_libretro_leiradel_makefile() {
 	buildbot_log "$MESSAGE"
 	JOBS=$JOBS_ORIG
 
+}
+
+build_libretro_generic_gl_makefile() {
+	NAME=$1
+	DIR=$2
+	SUBDIR=$3
+	MAKEFILE=$4
+	PLATFORM=$5
+	ARGS=$6
+	buildbot_log "$1:	[status: none] [$jobid]"
+
+	check_opengl
+
+	cd $DIR
+	cd $SUBDIR
+
+	echo -------------------------------------------------- 2>&1 | tee $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}.log
 	if [ -z "${NOCLEAN}" ]; then
-		echo "CLEANUP CMD: ${MAKE} -f ${MAKEFILE}.${PLATFORM}_${ARGS} platform=${PLATFORM}_${ARGS} -j${JOBS} clean" 2>&1 | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}.log
-		${MAKE} -f ${MAKEFILE}.${PLATFORM}_${ARGS} platform=${PLATFORM}_${ARGS} -j${JOBS} clean 2>&1 | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}.log
+		echo "CLEANUP CMD: ${MAKE} -f ${MAKEFILE} platform=${PLATFORM} -j${JOBS} clean" 2>&1 | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}.log
+		${MAKE} -f ${MAKEFILE} platform=${PLATFORM} -j${JOBS} clean 2>&1 | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}.log
 		if [ $? -eq 0 ]; then
 			echo buildbot job: $jobid $1 cleanup success!
 		else
 			echo buildbot job: $jobid $1 cleanup failed!
 		fi
 	fi
+
+	echo -------------------------------------------------- 2>&1 | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}.log
+	if [ -z "${ARGS}" ]; then
+		echo "BUILD CMD: ${MAKE} -f ${MAKEFILE} platform=${PLATFORM} -j${JOBS}" 2>&1 | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}.log
+		${MAKE} -f ${MAKEFILE} platform=${PLATFORM} -j${JOBS} 2>&1 | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}.log
+	else
+		echo "BUILD CMD: ${MAKE} -f ${MAKEFILE} platform=${PLATFORM} ${COMPILER} -j${JOBS} ${ARGS}" 2>&1 | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}.log
+		${MAKE} -f ${MAKEFILE} platform=${PLATFORM} -j${JOBS} ${ARGS} 2>&1 | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}.log
+	fi
+
+   echo "COPY CMD: cp -v ${NAME}_libretro${FORMAT}${LIBSUFFIX}.${FORMAT_EXT} $RARCH_DIST_DIR/${NAME}_libretro${FORMAT}${LIBSUFFIX}.${FORMAT_EXT}" 2>&1 | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}.log
+	cp -v ${NAME}_libretro${FORMAT}${LIBSUFFIX}.${FORMAT_EXT} $RARCH_DIST_DIR/${NAME}_libretro${FORMAT}${LIBSUFFIX}.${FORMAT_EXT} 2>&1 | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}.log
+	cp -v ${NAME}_libretro${FORMAT}${LIBSUFFIX}.${FORMAT_EXT} $RARCH_DIST_DIR/${NAME}_libretro${FORMAT}${LIBSUFFIX}.${FORMAT_EXT}
+
+	if [ $? -eq 0 ]; then
+		MESSAGE="$1:	[status: done] [$jobid]"
+	else
+		ERROR=`cat $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}.log | tail -n 100`
+		HASTE=`curl -XPOST http://hastebin.com/documents -d"$ERROR"`
+		HASTE=`echo $HASTE | cut -d"\"" -f4`
+		MESSAGE="$1:	[status: fail] [$jobid] LOG: http://hastebin.com/$HASTE"
+	fi
+	echo buildbot job: $MESSAGE
+	buildbot_log "$MESSAGE"
+
+	reset_compiler_targets
 }
 
 build_libretro_generic_jni() {
@@ -348,7 +380,7 @@ build_libretro_generic_jni() {
 	buildbot_log "$1:	[status: none] [$jobid]"
 
 	cd ${DIR}/${SUBDIR}
-
+	echo -------------------------------------------------- 2>&1 | tee $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}_${a}.log
 	for a in "${ABIS[@]}"; do
 		if [ -z "${NOCLEAN}" ]; then
 			echo "CLEANUP CMD: ${NDK} -j${JOBS} ${ARGS} APP_ABI=${a} clean" 2>&1 | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}_${a}.log
@@ -360,9 +392,7 @@ build_libretro_generic_jni() {
 			fi
 		fi
 
-		echo
-		echo
-		echo --------------------------------------------------
+		echo -------------------------------------------------- 2>&1 | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}_${a}.log
 		if [ -z "${ARGS}" ]; then
 			echo "BUILD CMD: ${NDK} -j${JOBS} APP_ABI=${a}" 2>&1 | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}_${a}.log
 			${NDK} -j${JOBS} APP_ABI=${a} 2>&1 | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}_${a}.log
@@ -390,18 +420,6 @@ build_libretro_generic_jni() {
 		echo buildbot job: $MESSAGE
 
 		if [ -z "${NOCLEAN}" ]; then
-			echo "cleaning up..."
-			echo "CLEANUP CMD: ${NDK} -j${JOBS} ${ARGS} APP_ABI=${a} clean"
-			${NDK} -j${JOBS} ${ARGS} APP_ABI=${a} clean
-			if [ $? -eq 0 ]; then
-				echo buildbot job: $jobid $a $1 cleanup success!
-			else
-				echo buildbot job: $jobid $a $1 cleanup failed!
-			fi
-		fi
-	done
-	for a in "${ABIS[@]}"; do
-		if [ -z "${NOCLEAN}" ]; then
 			echo "CLEANUP CMD: ${NDK} -j${JOBS} ${ARGS} APP_ABI=${a} clean" 2>&1 | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}_${a}.log
 			${NDK} -j${JOBS} ${ARGS} APP_ABI=${a} clean 2>&1 | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}_${a}.log
 			if [ $? -eq 0 ]; then
@@ -411,6 +429,7 @@ build_libretro_generic_jni() {
 			fi
 		fi
 	done
+
 }
 
 build_libretro_bsnes_jni() {
@@ -423,7 +442,7 @@ build_libretro_bsnes_jni() {
 	buildbot_log "$1:	[status: none] [$jobid]"
 
 	cd ${DIR}/${SUBDIR}
-
+	echo -------------------------------------------------- 2>&1 | tee $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}_${a}.log
 	for a in "${ABIS[@]}"; do
 		if [ -z "${NOCLEAN}" ]; then
 			echo "CLEANUP CMD: ${NDK} -j${JOBS} APP_ABI=${a} clean" 2>&1 | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}_${a}.log
@@ -435,8 +454,7 @@ build_libretro_bsnes_jni() {
 			fi
 		fi
 
-		echo "compiling for ${a}..."
-		echo --------------------------------------------------
+		echo -------------------------------------------------- 2>&1 | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}_${a}.log
 		if [ -z "${ARGS}" ]; then
 			echo "BUILD CMD: ${NDK} -j${JOBS} APP_ABI=${a}" 2>&1 | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}_${a}.log
 			${NDK} -j${JOBS} APP_ABI=${a} 2>&1 | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}_${a}.log
@@ -473,66 +491,6 @@ build_libretro_bsnes_jni() {
 	done
 }
 
-build_libretro_generic_gl_makefile() {
-	NAME=$1
-	DIR=$2
-	SUBDIR=$3
-	MAKEFILE=$4
-	PLATFORM=$5
-	ARGS=$6
-	buildbot_log "$1:	[status: none] [$jobid]"
-
-	check_opengl
-
-	cd $DIR
-	cd $SUBDIR
-
-	if [ -z "${NOCLEAN}" ]; then
-		echo "cleaning up..."
-		echo "CLEANUP CMD: ${MAKE} -f ${MAKEFILE} platform=${PLATFORM} -j${JOBS} clean"
-		${MAKE} -f ${MAKEFILE} platform=${PLATFORM} -j${JOBS} clean
-		if [ $? -eq 0 ]; then
-			echo buildbot job: $jobid $1 cleanup success!
-		else
-			echo buildbot job: $jobid $1 cleanup failed!
-		fi
-	fi
-
-	echo "compiling..."
-	echo --------------------------------------------------
-	if [ -z "${ARGS}" ]; then
-		echo "BUILD CMD: ${MAKE} -f ${MAKEFILE} platform=${PLATFORM} -j${JOBS}"
-		${MAKE} -f ${MAKEFILE} platform=${PLATFORM} -j${JOBS} 2>&1 | tee $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}.log
-	else
-		echo "BUILD CMD: ${MAKE} -f ${MAKEFILE} platform=${PLATFORM} ${COMPILER} -j${JOBS} ${ARGS}"
-		${MAKE} -f ${MAKEFILE} platform=${PLATFORM} -j${JOBS} ${ARGS} 2>&1 | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}.log
-	fi
-
-	cp -v ${NAME}_libretro${FORMAT}${LIBSUFFIX}.${FORMAT_EXT} $RARCH_DIST_DIR/${NAME}_libretro${FORMAT}${LIBSUFFIX}.${FORMAT_EXT}
-	if [ $? -eq 0 ]; then
-		MESSAGE="$1:	[status: done] [$jobid]"
-	else
-		ERROR=`cat $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}.log | tail -n 100`
-		HASTE=`curl -XPOST http://hastebin.com/documents -d"$ERROR"`
-		HASTE=`echo $HASTE | cut -d"\"" -f4`
-		MESSAGE="$1:	[status: fail] [$jobid] LOG: http://hastebin.com/$HASTE"
-	fi
-	echo buildbot job: $MESSAGE
-	buildbot_log "$MESSAGE"
-
-	reset_compiler_targets
-	if [ -z "${NOCLEAN}" ]; then
-		echo "cleaning up..."
-		echo "CLEANUP CMD: ${MAKE} -f ${MAKEFILE} platform=${PLATFORM} -j${JOBS} clean"
-		${MAKE} -f ${MAKEFILE} platform=${PLATFORM} -j${JOBS} clean
-		if [ $? -eq 0 ]; then
-			echo buildbot job: $jobid $1 cleanup success!
-		else
-			echo buildbot job: $jobid $1 cleanup failed!
-		fi
-	fi
-}
-
 build_libretro_bsnes() {
 	NAME=$1
 	DIR=$2
@@ -543,15 +501,14 @@ build_libretro_bsnes() {
 	buildbot_log "$1:	[status: none] [$jobid]"
 
 	cd $DIR
-
+	echo -------------------------------------------------- 2>&1 | tee $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}.log
 	if [ -z "${NOCLEAN}" ]; then
-		echo "cleaning up..."
 
-		rm -f obj/*.{o,"${FORMAT_EXT}"}
-		rm -f out/*.{o,"${FORMAT_EXT}"}
+		rm -f obj/*.{o,"${FORMAT_EXT}"} 2>&1 | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}.log
+		rm -f out/*.{o,"${FORMAT_EXT}"} 2>&1 | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}.log
 
 		if [ "${PROFILE}" = "cpp98" -o "${PROFILE}" = "bnes" ]; then
-			${MAKE} clean
+			${MAKE} clean 2>&1 | tee $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}.log
 		fi
 
 		if [ $? -eq 0 ]; then
@@ -561,25 +518,29 @@ build_libretro_bsnes() {
 		fi
 	fi
 
-	echo "compiling..."
-	echo --------------------------------------------------
-
+	echo -------------------------------------------------- 2>&1 | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}.log
 	if [ "${PROFILE}" = "cpp98" ]; then
-		${MAKE} platform="${PLATFORM}" "${COMPILER}" "-j${JOBS}" 2>&1 | tee $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}.log
+		${MAKE} platform="${PLATFORM}" "${COMPILER}" "-j${JOBS}" 2>&1 | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}.log
 	elif [ "${PROFILE}" = "bnes" ]; then
-		echo "BUILD CMD: ${MAKE} -f Makefile ${COMPILER} "-j${JOBS}" compiler=${BSNESCOMPILER}" platform=${FORMAT_COMPILER_TARGET}
+		echo "BUILD CMD: ${MAKE} -f Makefile ${COMPILER} "-j${JOBS}" compiler=${BSNESCOMPILER}" platform=${FORMAT_COMPILER_TARGET} 2>&1 | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}.log
 		${MAKE} -f Makefile ${COMPILER} "-j${JOBS}" compiler="${BSNESCOMPILER}" platform=${FORMAT_COMPILER_TARGET} 2>&1 | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}.log
 	else
-		echo "BUILD CMD: ${MAKE} -f ${MAKEFILE} platform=${PLATFORM} compiler=${BSNESCOMPILER} ui='target-libretro' profile=${PROFILE} -j${JOBS}"
+		echo "BUILD CMD: ${MAKE} -f ${MAKEFILE} platform=${PLATFORM} compiler=${BSNESCOMPILER} ui='target-libretro' profile=${PROFILE} -j${JOBS}" 2>&1 | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}.log
 		${MAKE} -f ${MAKEFILE} platform=${PLATFORM} compiler=${BSNESCOMPILER} ui='target-libretro' profile=${PROFILE} -j${JOBS} 2>&1 | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}.log
 	fi
 
 	if [ "${PROFILE}" = "cpp98" ]; then
-		cp -fv "out/${NAME}_libretro${FORMAT}${LIBSUFFIX}.${FORMAT_EXT}" "${RARCH_DIST_DIR}/${NAME}_libretro${FORMAT}${LIBSUFFIX}.${FORMAT_EXT}"
+		echo "COPY CMD: cp -fv out/${NAME}_libretro${FORMAT}${LIBSUFFIX}.${FORMAT_EXT}" "${RARCH_DIST_DIR}/${NAME}_libretro${FORMAT}${LIBSUFFIX}.${FORMAT_EXT}" 2>&1 | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}.log
+      cp -fv "out/${NAME}_libretro${FORMAT}${LIBSUFFIX}.${FORMAT_EXT}" "${RARCH_DIST_DIR}/${NAME}_libretro${FORMAT}${LIBSUFFIX}.${FORMAT_EXT}" 2>&1 | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}.log
+      cp -fv "out/${NAME}_libretro${FORMAT}${LIBSUFFIX}.${FORMAT_EXT}" "${RARCH_DIST_DIR}/${NAME}_libretro${FORMAT}${LIBSUFFIX}.${FORMAT_EXT}" 2>&1
 	elif [ "${PROFILE}" = "bnes" ]; then
-		cp -fv "${NAME}_libretro${FORMAT}${LIBSUFFIX}.${FORMAT_EXT}" "${RARCH_DIST_DIR}/${NAME}_libretro${FORMAT}${LIBSUFFIX}.${FORMAT_EXT}"
+      echo "COPY CMD cp -fv ${NAME}_libretro${FORMAT}${LIBSUFFIX}.${FORMAT_EXT}" "${RARCH_DIST_DIR}/${NAME}_libretro${FORMAT}${LIBSUFFIX}.${FORMAT_EXT}" 2>&1 | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}.log
+		cp -fv "${NAME}_libretro${FORMAT}${LIBSUFFIX}.${FORMAT_EXT}" "${RARCH_DIST_DIR}/${NAME}_libretro${FORMAT}${LIBSUFFIX}.${FORMAT_EXT}" 2>&1 | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}.log
+      cp -fv "${NAME}_libretro${FORMAT}${LIBSUFFIX}.${FORMAT_EXT}" "${RARCH_DIST_DIR}/${NAME}_libretro${FORMAT}${LIBSUFFIX}.${FORMAT_EXT}"
 	else
-		cp -fv "out/${NAME}_${PROFILE}_libretro${FORMAT}.${FORMAT_EXT}" $RARCH_DIST_DIR/${NAME}_${PROFILE}_libretro${FORMAT}${LIBSUFFIX}.${FORMAT_EXT}
+		echo "COPY CMD cp -fv "out/${NAME}_${PROFILE}_libretro${FORMAT}.${FORMAT_EXT}" $RARCH_DIST_DIR/${NAME}_${PROFILE}_libretro${FORMAT}${LIBSUFFIX}.${FORMAT_EXT}" 2>&1 | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}.log
+      cp -fv "out/${NAME}_${PROFILE}_libretro${FORMAT}.${FORMAT_EXT}" $RARCH_DIST_DIR/${NAME}_${PROFILE}_libretro${FORMAT}${LIBSUFFIX}.${FORMAT_EXT} 2>&1 | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}.log
+      cp -fv "out/${NAME}_${PROFILE}_libretro${FORMAT}.${FORMAT_EXT}" $RARCH_DIST_DIR/${NAME}_${PROFILE}_libretro${FORMAT}${LIBSUFFIX}.${FORMAT_EXT}
 	fi
 	if [ $? -eq 0 ]; then
 		MESSAGE="$1:	[status: done] [$jobid]"
@@ -592,22 +553,6 @@ build_libretro_bsnes() {
 	echo buildbot job: $MESSAGE
 
 	buildbot_log "$MESSAGE"
-	if [ -z "${NOCLEAN}" ]; then
-		echo "cleaning up..."
-
-		rm -f obj/*.{o,"${FORMAT_EXT}"}
-		rm -f out/*.{o,"${FORMAT_EXT}"}
-
-		if [ "${PROFILE}" = "cpp98" -o "${PROFILE}" = "bnes" ]; then
-			${MAKE} clean
-		fi
-
-		if [ $? -eq 0 ]; then
-			echo buildbot job: $jobid $1 cleanup success!
-		else
-			echo buildbot job: $jobid $1 cleanup failed!
-		fi
-	fi
 }
 
 # ----- buildbot -----
