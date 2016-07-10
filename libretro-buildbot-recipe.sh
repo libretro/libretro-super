@@ -198,7 +198,6 @@ build_libretro_generic_makefile() {
 	PLATFORM=$5
 	ARGS=$6
 	JOBS=$JOBS
-	buildbot_log "$1:	[status: none] [$jobid]"
 
 	cd $DIR
 	cd $SUBDIR
@@ -276,7 +275,6 @@ build_libretro_leiradel_makefile() {
 	MAKEFILE=$4
 	PLATFORM=$5
 	ARGS=$6
-	buildbot_log "$1:	[status: none] [$jobid]"
 
 	ARG1=`echo ${ARGS} | cut -f 1 -d " "`
 	mkdir -p $RARCH_DIST_DIR/${DIST}/${ARG1}
@@ -325,7 +323,6 @@ build_libretro_generic_gl_makefile() {
 	MAKEFILE=$4
 	PLATFORM=$5
 	ARGS=$6
-	buildbot_log "$1:	[status: none] [$jobid]"
 
 	check_opengl
 
@@ -377,7 +374,6 @@ build_libretro_generic_jni() {
 	MAKEFILE=$4
 	PLATFORM=$5
 	ARGS=$6
-	buildbot_log "$1:	[status: none] [$jobid]"
 
 	cd ${DIR}/${SUBDIR}
 	echo -------------------------------------------------- 2>&1 | tee $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}_${a}.log
@@ -439,7 +435,6 @@ build_libretro_bsnes_jni() {
 	MAKEFILE=$4
 	PLATFORM=$5
 	PROFILE=$6
-	buildbot_log "$1:	[status: none] [$jobid]"
 
 	cd ${DIR}/${SUBDIR}
 	echo -------------------------------------------------- 2>&1 | tee $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PROFILE}_${PLATFORM}_${a}.log
@@ -487,7 +482,6 @@ build_libretro_bsnes() {
 	MAKEFILE=$4
 	PLATFORM=$5
 	BSNESCOMPILER=$6
-	buildbot_log "$1:	[status: none] [$jobid]"
 
 	cd $DIR
 	echo -------------------------------------------------- 2>&1 | tee $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PROFILE}_${PLATFORM}.log
@@ -1025,7 +1019,6 @@ if [ "${PLATFORM}" == "osx" ] && [ "${RA}" == "YES" ]; then
 		echo RADIR=$RADIR
 
 		echo "buildbot job: $jobid Building"
-		buildbot_log "retroarch:	[status: none] [$jobid]"
 		echo
 
 		cd pkg/apple
@@ -1081,7 +1074,6 @@ if [ "${PLATFORM}" == "ios" ] && [ "${RA}" == "YES" ]; then
 		cd $RADIR
 		git clean -xdf
 		echo "buildbot job: $jobid Building"
-		buildbot_log "retroarch:	[status: none] [$jobid]"
 		echo
 
 		cd pkg/apple
@@ -1122,7 +1114,6 @@ if [ "${PLATFORM}" == "ios9" ] && [ "${RA}" == "YES" ]; then
 		cd $RADIR
 		git clean -xdf
 		echo "buildbot job: $jobid Building"
-		buildbot_log "retroarch:	[status: none] [$jobid]"
 		echo
 
 		cd pkg/apple
@@ -1232,7 +1223,6 @@ if [ "${PLATFORM}" = "android" ] && [ "${RA}" = "YES" ]; then
 		cp -rf $RARCH_DIR/info/* pkg/android/phoenix/assets/info/
 
 		echo "buildbot job: $jobid Building"
-		buildbot_log "retroarch:	[status: none] [$jobid] [branch: $BRANCH]"
 		echo
 		cd pkg/android/phoenix
 		rm bin/*.apk
@@ -1328,7 +1318,6 @@ if [ "${PLATFORM}" = "MINGW64" ] || [ "${PLATFORM}" = "MINGW32" ] || [ "${PLATFO
 		cd $RADIR
 		git clean -xdf
 		echo "buildbot job: $jobid Building"
-		buildbot_log "retroarch:	[status: none] [$jobid]"
 		echo
 
 		echo "compiling audio filters"
@@ -1466,7 +1455,6 @@ if [ "${PLATFORM}" = "psp1" ] && [ "${RA}" = "YES" ]; then
 		cd $RADIR
 		git clean -xdf
 		echo "buildbot job: $jobid Building"
-		buildbot_log "retroarch:	[status: none] [$jobid]"
 		echo
 
 		cd dist-scripts
@@ -1512,7 +1500,6 @@ if [ "${PLATFORM}" == "wii" ] && [ "${RA}" == "YES" ]; then
 		cd $RADIR
 		git clean -xdf
 		echo "buildbot job: $jobid Building"
-		buildbot_log "retroarch:	[status: none] [$jobid]"
 		echo
 
 		cd dist-scripts
@@ -1559,7 +1546,6 @@ if [ "${PLATFORM}" == "ngc" ] && [ "${RA}" == "YES" ]; then
 		cd $RADIR
 		git clean -xdf
 		echo "buildbot job: $jobid Building"
-		buildbot_log "retroarch:	[status: none] [$jobid]"
 		echo
 
 		cd dist-scripts
@@ -1605,7 +1591,6 @@ if [ "${PLATFORM}" == "ctr" ] && [ "${RA}" == "YES" ]; then
 		cd $RADIR
 		git clean -xdf
 		echo "buildbot job: $jobid Building"
-		buildbot_log "retroarch:	[status: none] [$jobid]"
 		echo
 
 		cd dist-scripts
@@ -1659,7 +1644,6 @@ if [ "${PLATFORM}" == "vita" ] && [ "${RA}" == "YES" ]; then
 		cd $RADIR
 		git clean -xdf
 		echo "buildbot job: $jobid Building"
-		buildbot_log "retroarch:	[status: none] [$jobid]"
 		echo
 
 		cd dist-scripts
