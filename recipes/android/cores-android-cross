@@ -27,7 +27,7 @@ snes9x_next libretro-snes9x-next https://github.com/libretro/snes9x-next.git PRO
 snes9x_next libretro-snes9x-next https://github.com/libretro/snes9x-next.git PROJECT YES LEIRADEL Makefile build x86 
 vba_next libretro-vba-next https://github.com/libretro/vba-next.git PROJECT YES LEIRADEL Makefile build armeabi 
 vba_next libretro-vba-next https://github.com/libretro/vba-next.git PROJECT YES LEIRADEL Makefile build armeabi-v7a 
-vba_next libretro-vba-next https://github.com/libretro/vba-next.git PROJECT YES LEIRADEL Makefile build armeabi 
+vba_next libretro-vba-next https://github.com/libretro/vba-next.git PROJECT YES LEIRADEL Makefile build x86 
 lutro libretro-lutro https://github.com/libretro/libretro-lutro.git PROJECT YES LEIRADEL Makefile build armeabi-v7a 
-lutro libretro-lutro https://github.com/libretro/libretro-lutro.git PROJECT YES LEIRADEL Makefile build x86 
+lutro libretro-lutro https://github.com/libretro/libretro-lutro.git PROJECT YES LEIRADEL Makefile build armeabi 
 lutro libretro-lutro https://github.com/libretro/libretro-lutro.git PROJECT YES LEIRADEL Makefile build x86 
