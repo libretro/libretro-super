@@ -1,6 +1,6 @@
 display_name = "ScummVM"
 authors = "SCUMMVMdev"
-supported_extensions = "exe|scum|scummvm"
+supported_extensions = "exe|scum|scummvm|ap|sou|map|sm0|sm1|rsc|ims|dat|lfl|lec|blk|out|gme|voc|000|001|002|003|004|005|006|007|008|009|010|011"
 corename = "ScummVM"
 manufacturer = "LucasArts"
 categories = "Game"
