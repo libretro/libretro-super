@@ -1483,7 +1483,7 @@ if [ "${PLATFORM}" = "psp1" ] && [ "${RA}" = "YES" ]; then
 		mkdir -p pkg/psp1/
 		mkdir -p pkg/psp1/cheats
 		mkdir -p pkg/psp1/remaps
-		cp -p $RARCH_DIST_DIR/../info/*.info pkg/psp1/cores/
+		cp -v $RARCH_DIST_DIR/../info/*.info pkg/psp1/cores/
 
 	fi
 fi
@@ -1529,7 +1529,7 @@ if [ "${PLATFORM}" == "wii" ] && [ "${RA}" == "YES" ]; then
 		mkdir -p pkg/wii/cheats
 		mkdir -p pkg/wii/remaps
 		mkdir -p pkg/wii/overlays
-		cp -p $RARCH_DIST_DIR/../info/*.info pkg/
+		cp -v $RARCH_DIST_DIR/../info/*.info pkg/
 		cp -rf media/overlays/wii/* pkg/wii/overlays
 	fi
 fi
@@ -1575,8 +1575,8 @@ if [ "${PLATFORM}" == "ngc" ] && [ "${RA}" == "YES" ]; then
 		mkdir -p pkg/ngc/cheats
 		mkdir -p pkg/ngc/remaps
 		mkdir -p pkg/ngc/overlays
-		cp -p $RARCH_DIST_DIR/../info/*.info pkg/
-		cp -rf media/overlays/wii/* pkg/ngc/overlays
+		cp -v $RARCH_DIST_DIR/../info/*.info pkg/
+		cp -rf media/overlays/ngc/* pkg/ngc/overlays
 	fi
 fi
 
