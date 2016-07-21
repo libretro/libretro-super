@@ -47,11 +47,6 @@ libretro_genesis_plus_gx_name="Genesis Plus GX"
 libretro_genesis_plus_gx_git_url="https://github.com/libretro/Genesis-Plus-GX.git"
 libretro_genesis_plus_gx_build_makefile="Makefile.libretro"
 
-register_module core "imageviewer"
-libretro_imageviewer_name="ImageViewer"
-libretro_imageviewer_git_url="https://github.com/libretro/imageviewer-libretro.git"
-libretro_imageviewer_build_makefile="Makefile.libretro"
-
 register_module core "mgba"
 libretro_mgba_name="mGBA"
 libretro_mgba_git_url="https://github.com/libretro/mgba.git"
