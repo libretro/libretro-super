@@ -398,7 +398,7 @@ build_libretro_generic_jni() {
 		fi
 
 		
-		if [ "${NAME}" == mupen64plus ]; then
+		if [ "${NAME}" == "mupen64plus" ]; then
 			echo "COPY CMD: cp -v ../libs/${a}/libparallel.${FORMAT_EXT} $RARCH_DIST_DIR/${a}/parallel_libretro${FORMAT}${LIBSUFFIX}.${FORMAT_EXT}" 2>&1 | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}_${a}.log
 			cp -v ../libs/${a}/libparallel.${FORMAT_EXT} $RARCH_DIST_DIR/${a}/parallel_libretro${FORMAT}${LIBSUFFIX}.${FORMAT_EXT} | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}_${a}.log
 			cp -v ../libs/${a}/libparallel.${FORMAT_EXT} $RARCH_DIST_DIR/${a}/parallel_libretro${FORMAT}${LIBSUFFIX}.${FORMAT_EXT}
