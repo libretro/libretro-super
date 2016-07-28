@@ -52,6 +52,11 @@ libretro_mgba_name="mGBA"
 libretro_mgba_git_url="https://github.com/libretro/mgba.git"
 libretro_mgba_build_makefile="Makefile.libretro"
 
+register_module core "video_processor"
+libretro_video_processor_name="Video processor"
+libretro_video_processor_git_url="https://github.com/libretro/libretro-video-processor.git"
+libretro_video_processor_build_makefile="Makefile"
+
 register_module core "fb_alpha_new" -psp1
 libretro_fb_alpha_new_name="Final Burn Alpha [New]"
 libretro_fb_alpha_new_git_url="https://github.com/libretro/libretro-fba.git"
