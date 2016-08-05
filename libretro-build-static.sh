@@ -20,7 +20,7 @@ WANT_CORES=" \
 	2048 \
 	prboom \
 	reicast \
-	snes9x_next"
+	snes9x2010"
 else
 WANT_CORES="$@"
 fi

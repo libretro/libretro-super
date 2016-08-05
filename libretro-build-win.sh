@@ -32,7 +32,7 @@ else
 	build_libretro_beetle_wswan
 	#build_libretro_beetle_bsnes
 	build_libretro_snes9x
-	build_libretro_snes9x_next
+	build_libretro_snes9x2010
 	build_libretro_genesis_plus_gx
 	#build_libretro_fb_alpha
 	build_libretro_vba_next

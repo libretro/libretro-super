@@ -33,7 +33,7 @@ WANT_CORES=" \
 	nxengine \
 	quicknes \
 	prosystem \
-	snes9x_next \
+	snes9x2010 \
 	prboom \
 	stella \
 	tyrquake \
