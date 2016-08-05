@@ -20,11 +20,11 @@ libretro_bsnes_performance_build_products="out"
 
 register_module core "snes9x2002" -ngc -ps3 -psp1 -wii
 libretro_snes9x2002_name="SNES9x 2002"
-libretro_snes9x2002_git_url="https://github.com/libretro/snes9x2002-libretro.git"
+libretro_snes9x2002_git_url="https://github.com/libretro/snes9x2002.git"
 
 register_module core "snes9x2005" -ngc -ps3 -psp1 -wii
 libretro_snes9x2005_name="SNES9x 2005"
-libretro_snes9x2005_git_url="https://github.com/libretro/snes9x2005-libretro.git"
+libretro_snes9x2005_git_url="https://github.com/libretro/snes9x2005.git"
 
 register_module core "snes9x2010" -ps3
 libretro_snes9x2010_name="SNES9x 2010"
