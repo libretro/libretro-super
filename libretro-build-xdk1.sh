@@ -19,26 +19,24 @@ die()
 build_libretro_fba_cps1()
 {
 	cd $BASE_DIR
-	if [ -d "libretro-fba" ]; then
+	if [ -d "libretro-fbalpha2012_cps1" ]; then
 		echo "=== Building Final Burn Alpha Cores (CPS1) ==="
-		cd libretro-fba/
-		cd svn-current/trunk
-		cd fbacores/cps1/projectfiles/visualstudio-2003-libretro-xbox1
+		cd libretro-fbalpha2012_cps1/
+		cd projectfiles/visualstudio-2003-libretro-xbox1
 		cmd.exe /k $MSVC_NAME.bat
-		cp $RELEASE_LTCG/fb_alpha_libretro$FORMAT.${FORMAT_EXT} $RARCH_DIST_DIR/fba_cores_cps1_libretro$FORMAT.${FORMAT_EXT}
+		cp $RELEASE_LTCG/fbalpha2012_libretro$FORMAT.${FORMAT_EXT} $RARCH_DIST_DIR/fbalpha2012_cps1_libretro$FORMAT.${FORMAT_EXT}
 	fi
 }
 
 build_libretro_fba_cps2()
 {
 	cd $BASE_DIR
-	if [ -d "libretro-fba" ]; then
+	if [ -d "libretro-fbalpha2012_cps2" ]; then
 		echo "=== Building Final Burn Alpha Cores (CPS2) ==="
-		cd libretro-fba/
-		cd svn-old/trunk
-		cd fbacores/cps2/projectfiles/visualstudio-2003-libretro-xbox1
+		cd libretro-fbalpha2012_cps2/
+		cd projectfiles/visualstudio-2003-libretro-xbox1
 		cmd.exe /k $MSVC_NAME.bat
-		cp $RELEASE_LTCG/libretro$FORMAT.${FORMAT_EXT} $RARCH_DIST_DIR/fba_cores_cps2_libretro$FORMAT.${FORMAT_EXT}
+		cp $RELEASE_LTCG/libretro$FORMAT.${FORMAT_EXT} $RARCH_DIST_DIR/fbalpha2012_cps2_libretro$FORMAT.${FORMAT_EXT}
 	fi
 }
 
@@ -46,26 +44,25 @@ build_libretro_fba_cps2()
 build_libretro_fba_neogeo()
 {
 	cd $BASE_DIR
-	if [ -d "libretro-fba" ]; then
+	if [ -d "libretro-fbalpha2012_neogeo" ]; then
 		echo "=== Building Final Burn Alpha Cores (NeoGeo) ==="
-		cd libretro-fba/
-		cd svn-current/trunk
-		cd fbacores/neogeo/projectfiles/visualstudio-2003-libretro-xbox1
+		cd libretro-fbalpha2012_neogeo/
+		cd projectfiles/visualstudio-2003-libretro-xbox1
 		cmd.exe /k $MSVC_NAME.bat
-		cp $RELEASE_LTCG/libretro$FORMAT.${FORMAT_EXT} $RARCH_DIST_DIR/fba_cores_neo_libretro$FORMAT.${FORMAT_EXT}
+		cp $RELEASE_LTCG/libretro$FORMAT.${FORMAT_EXT} $RARCH_DIST_DIR/fbalpha2012_neogeo_libretro$FORMAT.${FORMAT_EXT}
 	fi
 }
 
 build_libretro_fba()
 {
 	cd $BASE_DIR
-	if [ -d "libretro-fba" ]; then
+	if [ -d "libretro-fbalpha2012" ]; then
 		echo "=== Building Final Burn Alpha ==="
-		cd libretro-fba/
+		cd libretro-fbalpha2012/
 		cd svn-current/trunk
 		cd projectfiles/visualstudio-2003-libretro-xbox1
 		cmd.exe /k $MSVC_NAME.bat
-		cp $RELEASE_LTCG/fb_alpha_libretro$FORMAT.${FORMAT_EXT} $RARCH_DIST_DIR
+		cp $RELEASE_LTCG/fbalpha2012_libretro$FORMAT.${FORMAT_EXT} $RARCH_DIST_DIR
 
 		build_libretro_fba_cps1
 		build_libretro_fba_cps2

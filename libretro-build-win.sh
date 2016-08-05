@@ -34,7 +34,7 @@ else
 	build_libretro_snes9x
 	build_libretro_snes9x2010
 	build_libretro_genesis_plus_gx
-	#build_libretro_fb_alpha
+	#build_libretro_fbalpha
 	build_libretro_vba_next
 	build_libretro_fceumm
 	build_libretro_gambatte

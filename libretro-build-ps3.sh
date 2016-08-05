@@ -16,7 +16,7 @@ fi
 
 if [[ -z "$1" ]]; then
 WANT_CORES=" \
-	fb_alpha \
+	fbalpha2012 \
 	fceumm  \
 	genesis_plus_gx \
 	handy \
