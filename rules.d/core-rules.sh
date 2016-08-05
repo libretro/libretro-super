@@ -18,13 +18,19 @@ libretro_bsnes_performance_git_url="https://github.com/libretro/bsnes-libretro.g
 libretro_bsnes_performance_build_args="compiler=\"${CXX11}\" profile=\"performance\""
 libretro_bsnes_performance_build_products="out"
 
-register_module core "pocketsnes" -ngc -ps3 -psp1 -wii
-libretro_pocketsnes_name="PocketSNES"
-libretro_pocketsnes_git_url="https://github.com/libretro/pocketsnes-libretro.git"
+register_module core "snes9x2002" -ngc -ps3 -psp1 -wii
+libretro_snes9x2002_name="SNES9x 2002"
+libretro_snes9x2002_git_url="https://github.com/libretro/snes9x2002-libretro.git"
 
-register_module core "catsfc" -ngc -ps3 -psp1 -wii
-libretro_catsfc_name="CATSFC"
-libretro_catsfc_git_url="https://github.com/libretro/CATSFC-libretro.git"
+register_module core "snes9x2005" -ngc -ps3 -psp1 -wii
+libretro_snes9x2005_name="SNES9x 2005"
+libretro_snes9x2005_git_url="https://github.com/libretro/snes9x2005-libretro.git"
+
+register_module core "snes9x2010" -ps3
+libretro_snes9x2010_name="SNES9x 2010"
+libretro_snes9x2010_git_url="https://github.com/libretro/snes9x2010.git"
+libretro_snes9x2010_build_makefile="Makefile.libretro"
+libretro_snes9x2010_build_platform="$FORMAT_COMPILER_TARGET_ALT"
 
 register_module core "snes9x" -ngc -sncps3 -ps3 -psp1 -wii
 libretro_snes9x_name="SNES9x"
@@ -35,12 +41,6 @@ register_module core "reicast"
 libretro_reicast_name="Reicast"
 libretro_reicast_git_url="https://github.com/libretro/reicast-emulator.git"
 libretro_reicast_build_makefile="Makefile"
-
-register_module core "snes9x_next" -ps3
-libretro_snes9x_next_name="SNES9x Next"
-libretro_snes9x_next_git_url="https://github.com/libretro/snes9x-next.git"
-libretro_snes9x_next_build_makefile="Makefile.libretro"
-libretro_snes9x_next_build_platform="$FORMAT_COMPILER_TARGET_ALT"
 
 register_module core "genesis_plus_gx" -theos_ios
 libretro_genesis_plus_gx_name="Genesis Plus GX"

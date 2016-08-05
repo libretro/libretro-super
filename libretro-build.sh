@@ -158,7 +158,7 @@ build_default_cores() {
 	if [ $platform != "psp1" ] && [ $platform != "ngc" ] && [ $platform != "wii" ] && [ $platform != "ps3" ] && [ $platform != "sncps3" ] && [ $platform != "vita" ]; then
 		libretro_build_core dosbox
 	fi
-	libretro_build_core catsfc
+	libretro_build_core snes9x2005
 	if [ $platform != "psp1" ]; then
 		# Excluded for binary size reasons
 		libretro_build_core fb_alpha
@@ -172,7 +172,7 @@ build_default_cores() {
 	libretro_build_core nxengine
 	libretro_build_core prboom
 	libretro_build_core quicknes
-	libretro_build_core snes9x_next
+	libretro_build_core snes9x2010
 	libretro_build_core tyrquake
 	libretro_build_core vba_next
 	libretro_build_core vecx
