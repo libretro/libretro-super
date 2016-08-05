@@ -22,4 +22,5 @@ prboom libretro-prboom https://github.com/libretro/libretro-prboom.git PROJECT Y
 quicknes libretro-quicknes  https://github.com/libretro/QuickNES_Core.git PROJECT YES GENERIC Makefile . 
 snes9x_next libretro-snes9x_next https://github.com/libretro/snes9x-next.git PROJECT YES GENERIC Makefile.libretro . 
 tyrquake libretro-tyrquake https://github.com/libretro/tyrquake.git PROJECT YES GENERIC Makefile . 
+pocketsnes libretro-pocketsnes https://github.com/libretro/pocketsnes-libretro.git PROJECT YES GENERIC Makefile . 
 vecx libretro-vecx  https://github.com/libretro/libretro-vecx.git PROJECT YES GENERIC Makefile.libretro . 
