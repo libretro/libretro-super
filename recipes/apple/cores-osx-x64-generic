@@ -13,11 +13,11 @@ craft libretro-craft https://github.com/libretro/craft PROJECT YES GENERIC Makef
 desmume libretro-desmume https://github.com/libretro/desmume.git PROJECT YES GENERIC Makefile.libretro desmume 
 dinothawr libretro-dinothawr https://github.com/libretro/Dinothawr.git PROJECT YES GENERIC Makefile . 
 dosbox libretro-dosbox https://github.com/libretro/dosbox-libretro.git PROJECT YES GENERIC Makefile.libretro . 
-fb_alpha libretro-fb_alpha https://github.com/libretro/fba-libretro.git PROJECT YES GENERIC makefile.libretro svn-current/trunk 
-fb_alpha_cps1 libretro-fba_cps1 https://github.com/libretro/fba_cores_cps1.git PROJECT YES GENERIC makefile.libretro . 
-fb_alpha_cps2 libretro-fba_cps2 https://github.com/libretro/fba_cores_cps2.git PROJECT YES GENERIC makefile.libretro . 
-fb_alpha_neo libretro-fba_neo https://github.com/libretro/fba_cores_neo.git PROJECT YES GENERIC Makefile . 
-fba libretro-fba https://github.com/libretro/libretro-fba.git PROJECT YES GENERIC makefile.libretro . 
+fbalpha libretro-fbalpha https://github.com/libretro/fbalpha.git PROJECT YES GENERIC makefile.libretro svn-current/trunk 
+fbalpha2012 libretro-fbalpha2012 https://github.com/libretro/fbalpha2012.git PROJECT YES GENERIC makefile.libretro svn-current/trunk 
+fbalpha2012_cps1 libretro-fbalpha2012_cps1 https://github.com/libretro/fbalpha2012_cps1.git PROJECT YES GENERIC makefile.libretro . 
+fbalpha2012_cps2 libretro-fbalpha2012_cps2 https://github.com/libretro/fbalpha2012_cps2.git PROJECT YES GENERIC makefile.libretro . 
+fbalpha2012_neogeo libretro-fbalpha_neogeo https://github.com/libretro/fbalpha2012_neogeo.git PROJECT YES GENERIC Makefile . 
 fceumm libretro-fceuumm  https://github.com/libretro/libretro-fceumm.git PROJECT YES GENERIC Makefile.libretro . 
 ffmpeg libretro-ffmpeg  https://github.com/libretro/FFmpeg.git PROJECT YES GENERIC_GL Makefile libretro 
 fmsx libretro-fmsx https://github.com/libretro/fmsx-libretro.git PROJECT YES GENERIC Makefile . 
