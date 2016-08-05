@@ -57,16 +57,31 @@ libretro_video_processor_name="Video processor"
 libretro_video_processor_git_url="https://github.com/libretro/libretro-video-processor.git"
 libretro_video_processor_build_makefile="Makefile"
 
-register_module core "fb_alpha_new" -psp1
-libretro_fb_alpha_new_name="Final Burn Alpha [New]"
-libretro_fb_alpha_new_git_url="https://github.com/libretro/libretro-fba.git"
-libretro_fb_alpha_new_build_makefile="makefile.libretro"
+register_module core "fbalpha" -psp1
+libretro_fbalpha_name="Final Burn Alpha"
+libretro_fbalpha_git_url="https://github.com/libretro/fbalpha.git"
+libretro_fbalpha_build_makefile="makefile.libretro"
 
-register_module core "fb_alpha" -psp1
-libretro_fb_alpha_name="Final Burn Alpha"
-libretro_fb_alpha_git_url="https://github.com/libretro/fba-libretro.git"
-libretro_fb_alpha_build_subdir="svn-current/trunk"
-libretro_fb_alpha_build_makefile="makefile.libretro"
+register_module core "fbalpha2012" -psp1
+libretro_fbalpha2012_name="Final Burn Alpha 2012"
+libretro_fbalpha2012_git_url="https://github.com/libretro/fbalpha2012.git"
+libretro_fbalpha2012_build_subdir="svn-current/trunk"
+libretro_fbalpha2012_build_makefile="makefile.libretro"
+
+register_module core "fbalpha2012_cps1" -psp1
+libretro_fbalpha2012_cps1_name="Final Burn Alpha 2012 CPS1"
+libretro_fbalpha2012_cps1_git_url="https://github.com/libretro/fbalpha2012_cps1.git"
+libretro_fbalpha2012_cps1_build_makefile="makefile.libretro"
+
+register_module core "fbalpha2012_cps2" -psp1
+libretro_fbalpha2012_cps2_name="Final Burn Alpha 2012 CPS2"
+libretro_fbalpha2012_cps2_git_url="https://github.com/libretro/fbalpha2012_cps2.git"
+libretro_fbalpha2012_cps2_build_makefile="makefile.libretro"
+
+register_module core "fbalpha2012_neogeo" -psp1
+libretro_fbalpha2012_neogeo_name="Final Burn Alpha 2012 NeoGeo"
+libretro_fbalpha2012_neogeo_git_url="https://github.com/libretro/fbalpha2012_neogeo.git"
+libretro_fbalpha2012_neogeo_build_makefile="Makefile"
 
 register_module core "blastem" -psp1
 libretro_blastem_name="BlastEm"
@@ -74,20 +89,6 @@ libretro_blastem_git_url="https://github.com/libretro/blastem-libretro.git"
 libretro_blastem_build_subdir="libretro"
 libretro_blastem_build_makefile="Makefile"
 
-register_module core "fb_alpha_cps1" -psp1
-libretro_fb_alpha_cps1_name="Final Burn Alpha CPS1"
-libretro_fb_alpha_cps1_git_url="https://github.com/libretro/fba_cores_cps1.git"
-libretro_fb_alpha_cps1_build_makefile="makefile.libretro"
-
-register_module core "fb_alpha_cps2" -psp1
-libretro_fb_alpha_cps2_name="Final Burn Alpha CPS2"
-libretro_fb_alpha_cps2_git_url="https://github.com/libretro/fba_cores_cps2.git"
-libretro_fb_alpha_cps2_build_makefile="makefile.libretro"
-
-register_module core "fb_alpha_neo" -psp1
-libretro_fb_alpha_neo_name="Final Burn Alpha NeoGeo"
-libretro_fb_alpha_neo_git_url="https://github.com/libretro/fba_cores_neo.git"
-libretro_fb_alpha_neo_build_makefile="Makefile"
 
 register_module core "vba_next"
 libretro_vba_next_name="VBA Next"
