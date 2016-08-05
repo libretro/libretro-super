@@ -1,5 +1,3 @@
-catsfc libretro-catsfc https://github.com/libretro/CATSFC-libretro.git PROJECT YES GENERIC Makefile . 
-catsfc_plus libretro-catsfc_plus https://github.com/libretro/CATSFC-libretro.git PROJECT YES GENERIC Makefile . USE_BLARGG_APU=1 
 fb_alpha libretro-fba https://github.com/libretro/fba-libretro.git PROJECT YES GENERIC makefile.libretro svn-current/trunk 
 fb_alpha_cps1 libretro-fba_cps1 https://github.com/libretro/fba_cores_cps1.git PROJECT YES GENERIC makefile.libretro . 
 fb_alpha_cps2 libretro-fba_cps2 https://github.com/libretro/fba_cores_cps2.git PROJECT YES GENERIC makefile.libretro . 
@@ -18,7 +16,9 @@ nestopia libretro-nestopia https://github.com/libretro/nestopia.git PROJECT YES 
 nxengine libretro-nxengine https://github.com/libretro/nxengine-libretro.git PROJECT YES GENERIC Makefile . 
 prboom libretro-prboom  https://github.com/libretro/libretro-prboom.git PROJECT YES GENERIC Makefile . 
 quicknes libretro-quicknes  https://github.com/libretro/QuickNES_Core.git PROJECT YES GENERIC Makefile . 
+snes9x2005 libretro-snes9x2005 https://github.com/libretro/snes9x2005.git PROJECT YES GENERIC Makefile . 
+snes9x2005_plus libretro-snes9x2005_plus https://github.com/libretro/snes9x2005.git PROJECT YES GENERIC Makefile . USE_BLARGG_APU=1 
+snes9x2010 libretro-snes9x2010 https://github.com/libretro/snes9x2010.git PROJECT YES GENERIC Makefile.libretro . 
 snes9x libretro-snes9x https://github.com/libretro/snes9x.git PROJECT YES GENERIC Makefile libretro 
-snes9x_next libretro-snes9x_next https://github.com/libretro/snes9x-next.git PROJECT YES GENERIC Makefile.libretro . 
 tyrquake libretro-tyrquake https://github.com/libretro/tyrquake.git PROJECT YES GENERIC Makefile . 
 vba_next libretro-vba_next https://github.com/libretro/vba-next.git PROJECT YES GENERIC Makefile.libretro . 
