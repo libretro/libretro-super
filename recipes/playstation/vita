@@ -12,6 +12,7 @@ genesis_plus_gx libretro-genesis_plus_gx https://github.com/libretro/Genesis-Plu
 gpsp libretro-gpsp https://github.com/libretro/gpsp.git PROJECT YES GENERIC Makefile . 
 handy libretro-handy https://github.com/libretro/libretro-handy.git PROJECT YES GENERIC Makefile . 
 lutro libretro-lutro https://github.com/libretro/libretro-lutro PROJECT NO GENERIC Makefile . 
+mame2000 libretro-mame2000 https://github.com/libretro/mame2000-libretro.git PROJECT YES GENERIC Makefile . 
 mednafen_ngp libretro-beetle_ngp https://github.com/libretro/beetle-ngp-libretro.git PROJECT YES GENERIC Makefile . 
 mednafen_pce_fast libretro-beetle_pce_fast https://github.com/libretro/beetle-pce-fast-libretro.git PROJECT YES GENERIC Makefile . 
 mednafen_vb libretro-beetle_vb https://github.com/libretro/beetle-vb-libretro.git PROJECT YES GENERIC Makefile . 
