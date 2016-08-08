@@ -20,6 +20,7 @@ WANT_CORES=" \
 	fceumm  \
 	genesis_plus_gx \
 	handy \
+	mame2000 \
 	mame2003 \
 	mednafen_gba \
 	mednafen_lynx \
