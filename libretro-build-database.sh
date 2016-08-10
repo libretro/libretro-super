@@ -230,6 +230,7 @@ build_libretro_databases() {
 	build_libretro_database "Sega - 32X" "rom.crc"
 	build_libretro_database "Sega - Game Gear" "rom.crc"
 	build_libretro_database "Sega - Master System - Mark III" "rom.crc"
+	build_libretro_database "Sega - Mega-CD - Sega CD" "rom.crc"
 	build_libretro_database "Sega - Mega Drive - Genesis" "rom.crc"
 	build_libretro_database "Sega - PICO" "rom.crc"
 	build_libretro_database "Sega - Saturn" "rom.crc"
