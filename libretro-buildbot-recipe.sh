@@ -1701,12 +1701,34 @@ if [ "${PLATFORM}" == "ps3" ] && [ "${RA}" == "YES" ]; then
 		rm *.a
 		cp -v $RARCH_DIST_DIR/*.a .
 
-		JOBS=1 sh ./dist-cores.sh dex-ps3 &> $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_${PLATFORM}.log
+		JOBS=1 sh ./dist-cores.sh dex-ps3 &> $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_${PLATFORM}_dex.log
 		if [ $? -eq 0 ]; then
 			MESSAGE="retroarch:	[status: done] [$jobid]"
 			echo $MESSAGE
 		else
-			ERROR=`cat $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_${PLATFORM}.log | tail -n 100`
+			ERROR=`cat $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_${PLATFORM}_dex.log | tail -n 100`
+			HASTE=`curl -XPOST http://hastebin.com/documents -d"$ERROR"`
+			HASTE=`echo $HASTE | cut -d"\"" -f4`
+			MESSAGE="retroarch:	[status: fail] [$jobid] LOG: http://hastebin.com/$HASTE"
+			echo $MESSAGE
+		fi
+		JOBS=1 sh ./dist-cores.sh cex-ps3 &> $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_${PLATFORM}_cex.log
+		if [ $? -eq 0 ]; then
+			MESSAGE="retroarch:	[status: done] [$jobid]"
+			echo $MESSAGE
+		else
+			ERROR=`cat $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_${PLATFORM}_cex.log | tail -n 100`
+			HASTE=`curl -XPOST http://hastebin.com/documents -d"$ERROR"`
+			HASTE=`echo $HASTE | cut -d"\"" -f4`
+			MESSAGE="retroarch:	[status: fail] [$jobid] LOG: http://hastebin.com/$HASTE"
+			echo $MESSAGE
+		fi
+		JOBS=1 sh ./dist-cores.sh ode-ps3 &> $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_${PLATFORM}_ode.log
+		if [ $? -eq 0 ]; then
+			MESSAGE="retroarch:	[status: done] [$jobid]"
+			echo $MESSAGE
+		else
+			ERROR=`cat $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_${PLATFORM}_ode.log | tail -n 100`
 			HASTE=`curl -XPOST http://hastebin.com/documents -d"$ERROR"`
 			HASTE=`echo $HASTE | cut -d"\"" -f4`
 			MESSAGE="retroarch:	[status: fail] [$jobid] LOG: http://hastebin.com/$HASTE"
