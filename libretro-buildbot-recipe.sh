@@ -1712,6 +1712,8 @@ if [ "${PLATFORM}" == "ps3" ] && [ "${RA}" == "YES" ]; then
 			MESSAGE="retroarch:	[status: fail] [$jobid] LOG: http://hastebin.com/$HASTE"
 			echo $MESSAGE
 		fi
+		buildbot_log "$MESSAGE"
+		echo buildbot job: $MESSAGE
 		JOBS=1 sh ./dist-cores.sh cex-ps3 &> $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_${PLATFORM}_cex.log
 		if [ $? -eq 0 ]; then
 			MESSAGE="retroarch:	[status: done] [$jobid]"
@@ -1723,6 +1725,8 @@ if [ "${PLATFORM}" == "ps3" ] && [ "${RA}" == "YES" ]; then
 			MESSAGE="retroarch:	[status: fail] [$jobid] LOG: http://hastebin.com/$HASTE"
 			echo $MESSAGE
 		fi
+		buildbot_log "$MESSAGE"
+		echo buildbot job: $MESSAGE
 		JOBS=1 sh ./dist-cores.sh ode-ps3 &> $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_${PLATFORM}_ode.log
 		if [ $? -eq 0 ]; then
 			MESSAGE="retroarch:	[status: done] [$jobid]"
@@ -1736,10 +1740,7 @@ if [ "${PLATFORM}" == "ps3" ] && [ "${RA}" == "YES" ]; then
 		fi
 		buildbot_log "$MESSAGE"
 		echo buildbot job: $MESSAGE
-		echo "Packaging"
 
-		cd $WORK/$RADIR
-		cp retroarch.cfg retroarch.default.cfg
 	fi
 fi
 
