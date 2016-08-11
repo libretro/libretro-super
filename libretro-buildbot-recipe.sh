@@ -17,6 +17,7 @@ while read line; do
 	else
 		export ${KEY}=${VALUE}
 	fi
+	echo Setting: ${KEY} ${VALUE}
 done < $1.conf
 
 read_link()
