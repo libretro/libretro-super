@@ -232,6 +232,10 @@ register_module core "mednafen_psx" -theos_ios -ngc -psp1
 libretro_mednafen_psx_name="Mednafen/Beetle PSX"
 libretro_mednafen_psx_git_url="https://github.com/libretro/beetle-psx-libretro.git"
 
+register_module core "mednafen_saturn" -theos_ios -ngc -psp1
+libretro_mednafen_saturn_name="Mednafen/Beetle Saturn"
+libretro_mednafen_saturn_git_url="https://github.com/libretro/beetle-saturn-libretro.git"
+
 register_module core "mednafen_pcfx" -theos_ios
 libretro_mednafen_pcfx_name="Mednafen/Beetle PC-FX"
 libretro_mednafen_pcfx_git_url="https://github.com/libretro/beetle-pcfx-libretro.git"
