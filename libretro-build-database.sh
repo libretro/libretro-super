@@ -229,6 +229,7 @@ build_libretro_databases() {
 	build_libretro_database "Philips - Videopac+" "rom.crc"
 	build_libretro_database "RCA - Studio II" "rom.crc"
 	build_libretro_database "Sega - 32X" "rom.crc"
+	build_libretro_database "Sega - Dreamcast" "rom.crc"
 	build_libretro_database "Sega - Game Gear" "rom.crc"
 	build_libretro_database "Sega - Master System - Mark III" "rom.crc"
 	build_libretro_database "Sega - Mega-CD - Sega CD" "rom.crc"
