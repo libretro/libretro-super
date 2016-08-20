@@ -18,6 +18,11 @@ libretro_bsnes_performance_git_url="https://github.com/libretro/bsnes-libretro.g
 libretro_bsnes_performance_build_args="compiler=\"${CXX11}\" profile=\"performance\""
 libretro_bsnes_performance_build_products="out"
 
+register_module core "easyrpg" -ngc -ps3 -psp1 -wii
+libretro_easyrpg_name="EasyRPG"
+libretro_easyrpg_git_url="https://github.com/libretro/easyrpg-libretro.git"
+libretro_easyrpg_build_makefile="Makefile.libretro"
+
 register_module core "gme" -ngc -ps3 -psp1 -wii
 libretro_gme_name="Game Music Emu"
 libretro_gme_git_url="https://github.com/libretro/libretro-gme.git"
