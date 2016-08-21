@@ -60,11 +60,6 @@ build_libretro_database() {
 		echo "=== Building ${1} ==="
 		COMMAND='${BASE_DIR}/${LIBRETRODB_BASE_DIR}/c_converter ${DBFILE} "${2}"'
 
-		#Check if main DAT is there
-		if [ -f "${LIBRETRODATABASE_DAT_DIR}/${1}.dat" ]; then
-			COMMAND+=' "${LIBRETRODATABASE_DAT_DIR}/${1}.dat"'
-		fi
-
 		#Check if meta DAT is there
 		if [ -f "${LIBRETRODATABASE_META_DAT_DIR}/${1}.dat" ]; then
 			COMMAND+=' "${LIBRETRODATABASE_META_DAT_DIR}/${1}.dat"'
@@ -168,6 +163,11 @@ build_libretro_database() {
 		#Check if meta TGDB DAT is there
 		if [ -f "${LIBRETRODATABASE_META_DAT_DIR}/tgdb/${1}.dat" ]; then
 			COMMAND+=' "${LIBRETRODATABASE_META_DAT_DIR}/tgdb/${1}.dat"'
+		fi
+
+		#Check if main DAT is there
+		if [ -f "${LIBRETRODATABASE_DAT_DIR}/${1}.dat" ]; then
+			COMMAND+=' "${LIBRETRODATABASE_DAT_DIR}/${1}.dat"'
 		fi
 
 		eval ${COMMAND}
