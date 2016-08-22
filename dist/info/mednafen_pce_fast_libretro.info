@@ -1,6 +1,6 @@
 display_name = "PC Engine/PCE-CD (Mednafen PCE FAST)"
 authors = "Ryphecha"
-supported_extensions = "pce|cue|ccd"
+supported_extensions = "pce|cue|ccd|iso|img|bin"
 corename = "Mednafen/Beetle PCE FAST"
 manufacturer = "NEC"
 categories = "Emulator"
