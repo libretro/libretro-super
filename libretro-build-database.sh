@@ -227,7 +227,7 @@ build_libretro_databases() {
 	build_libretro_database "Nintendo - Pokemon Mini" "rom.crc"
 	build_libretro_database "Nintendo - Satellaview" "rom.crc"
 	build_libretro_database "Nintendo - Sufami Turbo" "rom.crc"
-	build_libretro_database "3DO - 3DO" "rom.crc"
+	build_libretro_database "The 3DO Company - 3DO" "rom.crc"
 	build_libretro_database "Philips - Videopac+" "rom.crc"
 	build_libretro_database "RCA - Studio II" "rom.crc"
 	build_libretro_database "Sega - 32X" "rom.crc"
