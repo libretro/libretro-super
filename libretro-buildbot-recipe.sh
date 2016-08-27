@@ -257,8 +257,8 @@ build_libretro_generic_makefile() {
 			strip -s ${NAME}_libretro${FORMAT}${LIBSUFFIX}.${FORMAT_EXT}
 		fi
 	else
-		ERROR=`cat $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}.log | tail -n 100`
-		HASTE=`curl -XPOST http://hastebin.com/documents -d"$ERROR"`
+		ERROR=$TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}.log
+		HASTE=`curl -X POST http://hastebin.com/documents --data-binary @$ERROR`
 		HASTE=`echo $HASTE | cut -d"\"" -f4`
 		MESSAGE="$1:	[status: fail] [$jobid] LOG: http://hastebin.com/$HASTE"
 	fi
@@ -305,8 +305,8 @@ build_libretro_leiradel_makefile() {
 		if [ $? -eq 0 ]; then
 			MESSAGE="$1:	[status: done] [$jobid]"
 		else
-		ERROR=`cat $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}.log | tail -n 100`
-		HASTE=`curl -XPOST http://hastebin.com/documents -d"$ERROR"`
+		ERROR=$TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}
+		HASTE=`curl -X POST http://hastebin.com/documents --data-binary @$ERROR`
 		HASTE=`echo $HASTE | cut -d"\"" -f4`
 		MESSAGE="$1:	[status: fail] [$jobid] LOG: http://hastebin.com/$HASTE"
 	fi
@@ -357,8 +357,8 @@ build_libretro_generic_gl_makefile() {
 	if [ $? -eq 0 ]; then
 		MESSAGE="$1:	[status: done] [$jobid]"
 	else
-		ERROR=`cat $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}.log | tail -n 100`
-		HASTE=`curl -XPOST http://hastebin.com/documents -d"$ERROR"`
+		ERROR=$TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}.log
+		HASTE=`curl -X POST http://hastebin.com/documents --data-binary @$ERROR`
 		HASTE=`echo $HASTE | cut -d"\"" -f4`
 		MESSAGE="$1:	[status: fail] [$jobid] LOG: http://hastebin.com/$HASTE"
 	fi
@@ -413,8 +413,8 @@ build_libretro_generic_jni() {
 			echo buildbot job: $MESSAGE
 			buildbot_log "$MESSAGE"
 		else
-			ERROR=`cat $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}_${a}.log | tail -n 100`
-			HASTE=`curl -XPOST http://hastebin.com/documents -d"$ERROR"`
+			ERROR=$TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}_${a}.log
+			HASTE=`curl -X POST http://hastebin.com/documents --data-binary @$ERROR`
 			HASTE=`echo $HASTE | cut -d"\"" -f4`
 			MESSAGE="$1-$a:	[status: fail] [$jobid] LOG: http://hastebin.com/$HASTE"
 			echo buildbot job: $MESSAGE
@@ -471,8 +471,8 @@ build_libretro_bsnes_jni() {
 		if [ $? -eq 0 ]; then
 			MESSAGE="$1-$a-${PROFILE}:	[status: done] [$jobid]"
 		else
-			ERROR=`cat $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PROFILE}_${PLATFORM}_${a}.log | tail -n 100`
-			HASTE=`curl -XPOST http://hastebin.com/documents -d"$ERROR"`
+			ERROR=$TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PROFILE}_${PLATFORM}_${a}.log
+			HASTE=`curl -X POST http://hastebin.com/documents --data-binary @$ERROR`
 			HASTE=`echo $HASTE | cut -d"\"" -f4`
 			MESSAGE="$1-$a-${PROFILE}:	[status: fail] [$jobid] LOG: http://hastebin.com/$HASTE"
 		fi
@@ -535,8 +535,8 @@ build_libretro_bsnes() {
 	if [ $? -eq 0 ]; then
 		MESSAGE="$1-${PROFILE}:	[status: done] [$jobid]"
 	else
-		ERROR=`cat $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PROFILE}_${PLATFORM}.log | tail -n 100`
-		HASTE=`curl -XPOST http://hastebin.com/documents -d"$ERROR"`
+		ERROR=$TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PROFILE}_${PLATFORM}.log
+		HASTE=`curl -X POST http://hastebin.com/documents --data-binary @$ERROR`
 		HASTE=`echo $HASTE | cut -d"\"" -f4`
 		MESSAGE="$1-${PROFILE}:	[status: fail] [$jobid] LOG: http://hastebin.com/$HASTE"
 	fi
@@ -1036,8 +1036,8 @@ if [ "${PLATFORM}" == "osx" ] && [ "${RA}" == "YES" ]; then
 			MESSAGE="retroarch:	[status: done] [$jobid]"
 			echo $MESSAGE
 		else
-			ERROR=`cat $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_${PLATFORM}.log | tail -n 100`
-			HASTE=`curl -XPOST http://hastebin.com/documents -d"$ERROR"`
+			ERROR=$TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_${PLATFORM}.log
+			HASTE=`curl -X POST http://hastebin.com/documents --data-binary @$ERROR`
 			HASTE=`echo $HASTE | cut -d"\"" -f4`
 			MESSAGE="retroarch:	[status: fail] [$jobid] LOG: http://hastebin.com/$HASTE"
 			echo $MESSAGE
@@ -1052,8 +1052,8 @@ if [ "${PLATFORM}" == "osx" ] && [ "${RA}" == "YES" ]; then
 			MESSAGE="retroarch:	[status: done] [$jobid]"
 			echo $MESSAGE
 		else
-			ERROR=`cat $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_CG_${PLATFORM}.log | tail -n 100`
-			HASTE=`curl -XPOST http://hastebin.com/documents -d"$ERROR"`
+			ERROR=$TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_CG_${PLATFORM}.log
+			HASTE=`curl -X POST http://hastebin.com/documents --data-binary @$ERROR`
 			HASTE=`echo $HASTE | cut -d"\"" -f4`
 			MESSAGE="retroarch:	[status: fail] [$jobid] LOG: http://hastebin.com/$HASTE"
 			echo $MESSAGE
@@ -1090,8 +1090,8 @@ if [ "${PLATFORM}" == "ios" ] && [ "${RA}" == "YES" ]; then
 			MESSAGE="retroarch:	[status: done] [$jobid]"
 			echo $MESSAGE
 		else
-			ERROR=`cat $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_${PLATFORM}.log | tail -n 100`
-			HASTE=`curl -XPOST http://hastebin.com/documents -d"$ERROR"`
+			ERROR=$TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_${PLATFORM}.log
+			HASTE=`curl -X POST http://hastebin.com/documents --data-binary @$ERROR`
 			HASTE=`echo $HASTE | cut -d"\"" -f4`
 			MESSAGE="retroarch:	[status: fail] [$jobid] LOG: http://hastebin.com/$HASTE"
 			echo $MESSAGE
@@ -1134,8 +1134,8 @@ if [ "${PLATFORM}" == "ios9" ] && [ "${RA}" == "YES" ]; then
 
 			echo $MESSAGE
 		else
-			ERROR=`cat $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_${PLATFORM}.log | tail -n 100`
-			HASTE=`curl -XPOST http://hastebin.com/documents -d"$ERROR"`
+			ERROR=$TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_${PLATFORM}.log
+			HASTE=`curl -X POST http://hastebin.com/documents --data-binary @$ERROR`
 			HASTE=`echo $HASTE | cut -d"\"" -f4`
 			MESSAGE="retroarch:	[status: fail] [$jobid] LOG: http://hastebin.com/$HASTE"
 			echo $MESSAGE
@@ -1269,8 +1269,8 @@ EOF
 			MESSAGE="retroarch:	[status: done] [$jobid]"
 			echo $MESSAGE
 		else
-			ERROR=`cat $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_${PLATFORM}.log | tail -n 100`
-			HASTE=`curl -XPOST http://hastebin.com/documents -d"$ERROR"`
+			ERROR=$TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_${PLATFORM}.log
+			HASTE=`curl -X POST http://hastebin.com/documents --data-binary @$ERROR`
 			HASTE=`echo $HASTE | cut -d"\"" -f4`
 			MESSAGE="retroarch:	[status: fail] [$jobid] LOG: http://hastebin.com/$HASTE"
 			echo $MESSAGE
@@ -1298,8 +1298,8 @@ EOF
 			MESSAGE="retroarch debug:	[status: done] [$jobid]"
 			echo $MESSAGE $RARCH_DIR
 		else
-			ERROR=`cat $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_${PLATFORM}.log | tail -n 100`
-			HASTE=`curl -XPOST http://hastebin.com/documents -d"$ERROR"`
+			ERROR=$TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_${PLATFORM}.log
+			HASTE=`curl -X POST http://hastebin.com/documents --data-binary @$ERROR`
 			HASTE=`echo $HASTE | cut -d"\"" -f4`
 			MESSAGE="retroarch:	[status: fail] [$jobid] LOG: http://hastebin.com/$HASTE"
 			echo $MESSAGE
@@ -1438,8 +1438,8 @@ EOF
 			cp -rf gfx/video_filters/*.filt windows/filters/video
 
 		else
-			ERROR=`cat $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_${PLATFORM}.log | tail -n 100`
-			HASTE=`curl -XPOST http://hastebin.com/documents -d"$ERROR"`
+			ERROR=$TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_${PLATFORM}.log
+			HASTE=`curl -X POST http://hastebin.com/documents --data-binary @$ERROR`
 			HASTE=`echo $HASTE | cut -d"\"" -f4`
 			MESSAGE="retroarch:	[status: fail] [$jobid] LOG: http://hastebin.com/$HASTE"
 			echo $MESSAGE
@@ -1473,8 +1473,8 @@ if [ "${PLATFORM}" = "psp1" ] && [ "${RA}" = "YES" ]; then
 			MESSAGE="retroarch:	[status: done] [$jobid]"
 			echo $MESSAGE
 		else
-			ERROR=`cat $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_${PLATFORM}.log | tail -n 100`
-			HASTE=`curl -XPOST http://hastebin.com/documents -d"$ERROR"`
+			ERROR=$TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_${PLATFORM}.log
+			HASTE=`curl -X POST http://hastebin.com/documents --data-binary @$ERROR`
 			HASTE=`echo $HASTE | cut -d"\"" -f4`
 			MESSAGE="retroarch:	[status: fail] [$jobid] LOG: http://hastebin.com/$HASTE"
 			echo $MESSAGE
@@ -1519,8 +1519,8 @@ if [ "${PLATFORM}" == "wii" ] && [ "${RA}" == "YES" ]; then
 			MESSAGE="retroarch:	[status: done] [$jobid]"
 			echo $MESSAGE
 		else
-			ERROR=`cat $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_${PLATFORM}.log | tail -n 100`
-			HASTE=`curl -XPOST http://hastebin.com/documents -d"$ERROR"`
+			ERROR=$TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_${PLATFORM}.log
+			HASTE=`curl -X POST http://hastebin.com/documents --data-binary @$ERROR`
 			HASTE=`echo $HASTE | cut -d"\"" -f4`
 			MESSAGE="retroarch:	[status: fail] [$jobid] LOG: http://hastebin.com/$HASTE"
 			echo $MESSAGE
@@ -1565,8 +1565,8 @@ if [ "${PLATFORM}" == "ngc" ] && [ "${RA}" == "YES" ]; then
 			MESSAGE="retroarch:	[status: done] [$jobid]"
 			echo $MESSAGE
 		else
-			ERROR=`cat $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_${PLATFORM}.log | tail -n 100`
-			HASTE=`curl -XPOST http://hastebin.com/documents -d"$ERROR"`
+			ERROR=$TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_${PLATFORM}.log
+			HASTE=`curl -X POST http://hastebin.com/documents --data-binary @$ERROR`
 			HASTE=`echo $HASTE | cut -d"\"" -f4`
 			MESSAGE="retroarch:	[status: fail] [$jobid] LOG: http://hastebin.com/$HASTE"
 			echo $MESSAGE
@@ -1610,8 +1610,8 @@ if [ "${PLATFORM}" == "ctr" ] && [ "${RA}" == "YES" ]; then
 			echo $MESSAGE
 			touch $TMPDIR/built-frontend
 		else
-			ERROR=`cat $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_${PLATFORM}.log | tail -n 100`
-			HASTE=`curl -XPOST http://hastebin.com/documents -d"$ERROR"`
+			ERROR=$TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_${PLATFORM}.log
+			HASTE=`curl -X POST http://hastebin.com/documents --data-binary @$ERROR`
 			HASTE=`echo $HASTE | cut -d"\"" -f4`
 			MESSAGE="retroarch:	[status: fail] [$jobid] LOG: http://hastebin.com/$HASTE"
 			echo $MESSAGE
@@ -1662,8 +1662,8 @@ if [ "${PLATFORM}" == "vita" ] && [ "${RA}" == "YES" ]; then
 			MESSAGE="retroarch:	[status: done] [$jobid]"
 			echo $MESSAGE
 		else
-			ERROR=`cat $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_${PLATFORM}.log | tail -n 100`
-			HASTE=`curl -XPOST http://hastebin.com/documents -d"$ERROR"`
+			ERROR=cat $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_${PLATFORM}.log
+			HASTE=`curl -X POST http://hastebin.com/documents --data-binary @$ERROR`
 			HASTE=`echo $HASTE | cut -d"\"" -f4`
 			MESSAGE="retroarch:	[status: fail] [$jobid] LOG: http://hastebin.com/$HASTE"
 			echo $MESSAGE
@@ -1706,8 +1706,8 @@ if [ "${PLATFORM}" == "ps3" ] && [ "${RA}" == "YES" ]; then
 			MESSAGE="retroarch:	[status: done] [$jobid]"
 			echo $MESSAGE
 		else
-			ERROR=`cat $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_${PLATFORM}_dex.log | tail -n 100`
-			HASTE=`curl -XPOST http://hastebin.com/documents -d"$ERROR"`
+			ERROR=$TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_${PLATFORM}_dex.log
+			HASTE=`curl -X POST http://hastebin.com/documents --data-binary @$ERROR`
 			HASTE=`echo $HASTE | cut -d"\"" -f4`
 			MESSAGE="retroarch:	[status: fail] [$jobid] LOG: http://hastebin.com/$HASTE"
 			echo $MESSAGE
@@ -1719,8 +1719,8 @@ if [ "${PLATFORM}" == "ps3" ] && [ "${RA}" == "YES" ]; then
 			MESSAGE="retroarch:	[status: done] [$jobid]"
 			echo $MESSAGE
 		else
-			ERROR=`cat $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_${PLATFORM}_cex.log | tail -n 100`
-			HASTE=`curl -XPOST http://hastebin.com/documents -d"$ERROR"`
+			ERROR=$TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_${PLATFORM}_cex.log
+			HASTE=`curl -X POST http://hastebin.com/documents --data-binary @$ERROR`
 			HASTE=`echo $HASTE | cut -d"\"" -f4`
 			MESSAGE="retroarch:	[status: fail] [$jobid] LOG: http://hastebin.com/$HASTE"
 			echo $MESSAGE
@@ -1732,8 +1732,8 @@ if [ "${PLATFORM}" == "ps3" ] && [ "${RA}" == "YES" ]; then
 			MESSAGE="retroarch:	[status: done] [$jobid]"
 			echo $MESSAGE
 		else
-			ERROR=`cat $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_${PLATFORM}_ode.log | tail -n 100`
-			HASTE=`curl -XPOST http://hastebin.com/documents -d"$ERROR"`
+			ERROR=$TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_${PLATFORM}_ode.log
+			HASTE=`curl -X POST http://hastebin.com/documents --data-binary @$ERROR`
 			HASTE=`echo $HASTE | cut -d"\"" -f4`
 			MESSAGE="retroarch:	[status: fail] [$jobid] LOG: http://hastebin.com/$HASTE"
 			echo $MESSAGE
