@@ -305,7 +305,7 @@ build_libretro_leiradel_makefile() {
 		if [ $? -eq 0 ]; then
 			MESSAGE="$1:	[status: done] [$jobid]"
 		else
-		ERROR=$TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}
+		ERROR=$TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}.log
 		HASTE=`curl -X POST http://hastebin.com/documents --data-binary @$ERROR`
 		HASTE=`echo $HASTE | cut -d"\"" -f4`
 		MESSAGE="$1:	[status: fail] [$jobid] LOG: http://hastebin.com/$HASTE"
