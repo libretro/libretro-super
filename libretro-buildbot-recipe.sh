@@ -1656,6 +1656,7 @@ if [ "${PLATFORM}" == "vita" ] && [ "${RA}" == "YES" ]; then
 		cd dist-scripts
 		rm *.a
 		cp -v $RARCH_DIST_DIR/*.a .
+      cp -v $RARCH_DIST_DIR/arm/*.a .
 
 		JOBS=1 sh ./dist-cores.sh vita &> $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_${PLATFORM}.log
 		if [ $? -eq 0 ]; then
