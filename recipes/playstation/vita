@@ -1,5 +1,5 @@
 2048 libretro-2048  https://github.com/libretro/libretro-2048.git PROJECT YES GENERIC Makefile.libretro . 
-81 libretro-81 https://github.com/libretro/81-libretro.git PROJECT YES LEIRADEL makefile build arm  
+81 libretro-81 https://github.com/libretro/81-libretro.git PROJECT YES LEIRADEL Makefile build arm  
 bluemsx libretro-bluemsx https://github.com/libretro/blueMSX-libretro.git PROJECT NO GENERIC Makefile.libretro . 
 desmume libretro-desmume https://github.com/libretro/desmume.git PROJECT YES GENERIC Makefile.libretro desmume 
 dosbox libretro-dosbox https://github.com/libretro/dosbox-libretro.git PROJECT YES GENERIC Makefile.libretro . 
@@ -10,7 +10,7 @@ fbalpha2012_cps2 libretro-fbalpha2012_cps2 https://github.com/libretro/fbalpha20
 fbalpha2012_neogeo libretro-fbalpha_neogeo https://github.com/libretro/fbalpha2012_neogeo.git PROJECT YES GENERIC Makefile . 
 fceumm libretro-fceuumm  https://github.com/libretro/libretro-fceumm.git PROJECT YES GENERIC Makefile.libretro . 
 fmsx libretro-fmsx https://github.com/libretro/fmsx-libretro.git PROJECT YES GENERIC Makefile . 
-fuse libretro-fuse https://github.com/libretro/fuse-libretro.git PROJECT YES LEIRADEL makefile build arm 
+fuse libretro-fuse https://github.com/libretro/fuse-libretro.git PROJECT YES LEIRADEL Makefile build arm 
 gambatte libretro-gambatte https://github.com/libretro/gambatte-libretro.git PROJECT YES GENERIC Makefile.libretro libgambatte 
 genesis_plus_gx libretro-genesis_plus_gx https://github.com/libretro/Genesis-Plus-GX.git PROJECT YES GENERIC Makefile.libretro . 
 gw libretro-gw https://github.com/libretro/gw-libretro.git PROJECT YES GENERIC Makefile .
