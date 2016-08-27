@@ -1663,7 +1663,7 @@ if [ "${PLATFORM}" == "vita" ] && [ "${RA}" == "YES" ]; then
 			MESSAGE="retroarch:	[status: done] [$jobid]"
 			echo $MESSAGE
 		else
-			ERROR=cat $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_${PLATFORM}.log
+			ERROR=$TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_${PLATFORM}.log
 			HASTE=`curl -X POST http://hastebin.com/documents --data-binary @$ERROR`
 			HASTE=`echo $HASTE | cut -d"\"" -f4`
 			MESSAGE="retroarch:	[status: fail] [$jobid] LOG: http://hastebin.com/$HASTE"
