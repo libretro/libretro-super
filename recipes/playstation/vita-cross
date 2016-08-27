@@ -1,0 +1,2 @@
+81 libretro-81 https://github.com/libretro/81-libretro.git PROJECT YES LEIRADEL Makefile build arm  
+fuse libretro-fuse https://github.com/libretro/fuse-libretro.git PROJECT YES LEIRADEL Makefile build arm 
