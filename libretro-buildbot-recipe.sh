@@ -1171,7 +1171,7 @@ if [ "${PLATFORM}" = "android" ] && [ "${RA}" = "YES" ]; then
 		echo RELEASE=$RELEASE
 		echo FORCE=$FORCE_RETROARCH_BUILD
 		echo RADIR=$RADIR
-		$MAKE -f Makefile.griffin shaders-convert-glsl PYTHON3=$PYTHON
+		${MAKE}-f Makefile.griffin shaders-convert-glsl PYTHON3=$PYTHON
 
 		echo "buildbot job: $jobid processing assets"
 		echo
@@ -1359,8 +1359,8 @@ if [ "${PLATFORM}" = "MINGW64" ] || [ "${PLATFORM}" = "MINGW32" ] || [ "${PLATFO
 
 
 		echo "cleaning up..."
-		echo "CLEANUP CMD: $MAKE clean"
-		$MAKE clean
+		echo "CLEANUP CMD: ${MAKE}clean"
+		${MAKE}clean
 		
 		rm -rf windows
 		mkdir -p windows
@@ -1380,8 +1380,8 @@ if [ "${PLATFORM}" = "MINGW64" ] || [ "${PLATFORM}" = "MINGW32" ] || [ "${PLATFO
 		fi
 
 		echo "building..."
-		echo "BUILD CMD: $MAKE -j${JOBS}"
-		$MAKE -j${JOBS} 2>&1 | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_${PLATFORM}.log
+		echo "BUILD CMD: ${MAKE}-j${JOBS}"
+		${MAKE}-j${JOBS} 2>&1 | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_${PLATFORM}.log
 		strip -s retroarch.exe
 		cp -v retroarch.exe windows/retroarch.exe | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_${PLATFORM}.log
 		cp -v retroarch.exe windows/retroarch.exe
@@ -1395,8 +1395,8 @@ if [ "${PLATFORM}" = "MINGW64" ] || [ "${PLATFORM}" = "MINGW32" ] || [ "${PLATFO
 			echo buildbot job: $MESSAGE | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_${PLATFORM}.log
 			buildbot_log "$MESSAGE"
 
-			$MAKE clean
-			$MAKE -j${JOBS} DEBUG=1 GL_DEBUG=1 2>&1 | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_DEBUG_${PLATFORM}.log
+			${MAKE}clean
+			${MAKE}-j${JOBS} DEBUG=1 GL_DEBUG=1 2>&1 | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_DEBUG_${PLATFORM}.log
 			cp -v retroarch.exe windows/retroarch_debug.exe	| tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_${PLATFORM}.log		
 			cp -v retroarch.exe windows/retroarch_debug.exe
 
