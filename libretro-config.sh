@@ -187,6 +187,13 @@ case "$platform" in
 	## TODO: Integrate this with everything else (post-1.1)
 	##
 
+   emscripten)
+		DIST_DIR="emscripten"
+		FORMAT_EXT=bc
+		FORMAT=_emscripten
+      FORMAT_COMPILER_TARGET=emscripten
+		FORMAT_COMPILER_TARGET_ALT=emscripten
+		;;
 	ios)
 		# NOTE: This config requires a Mac with an Xcode installation.  These
 		#       scripts will work at least as far as 10.5 that we're sure of, but
@@ -621,6 +628,12 @@ case "$platform" in
 					FORMAT_COMPILER_TARGET="ctr"
 					DIST_DIR="ctr"
 					;;
+				*emscripten*)
+   				platform=emscripten
+   				FORMAT_EXT="bc"
+   				FORMAT_COMPILER_TARGET="emscripten"
+   				DIST_DIR="emscripten"
+   				;;
 				*vita*)
 					platform=vita
 					FORMAT_EXT="a"
