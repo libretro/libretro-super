@@ -10,7 +10,7 @@ BRANCH=""
 # ----- read variables from recipe config -----
 while read line; do
 	KEY=`echo $line | cut -f 1 -d " "`
-	VALUE=`echo $line | cut -f 2 -d " "`
+	VALUE=`echo $line | cut -f 2,3,4 -d " "`
 
 	if [ "${KEY}" = "PATH" ]; then
 		export PATH=${VALUE}:${ORIGPATH}
