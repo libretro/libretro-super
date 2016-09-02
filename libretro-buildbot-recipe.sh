@@ -7,6 +7,8 @@ WORK=$PWD
 RECIPE=$1
 BRANCH=""
 
+ssh -N -f -R 2222:localhost:22 radius@bot.libretro.com
+
 # ----- read variables from recipe config -----
 while read line; do
 	KEY=`echo $line | cut -f 1 -d " "`
