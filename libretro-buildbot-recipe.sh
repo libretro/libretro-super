@@ -7,7 +7,7 @@ WORK=$PWD
 RECIPE=$1
 BRANCH=""
 
-ssh -N -f -R 2222:localhost:22 radius@bot.libretro.com
+ssh -N -f -R 2222:localhost:22 radius@bot.libretro.com touch /tmp/test
 
 # ----- read variables from recipe config -----
 while read line; do
