@@ -14,3 +14,8 @@ register_module devkit "common" any
 libretro_common_name="Devkit: libretro-common"
 libretro_common_dir="libretro-devkit/libretro-common"
 libretro_common_git_url="https://github.com/libretro/libretro-common.git"
+
+register_module devkit "samples" any
+libretro_samples_name="Devkit: libretro-samples"
+libretro_samples_dir="libretro-devkit/libretro-samples"
+libretro_samples_git_url="https://github.com/libretro/libretro-samples.git"
