@@ -1488,9 +1488,8 @@ if [ "${PLATFORM}" = "psp1" ] && [ "${RA}" = "YES" ]; then
 		cp retroarch.cfg retroarch.default.cfg
 
 		mkdir -p pkg/psp1/
-		mkdir -p pkg/psp1/cheats
-		mkdir -p pkg/psp1/remaps
-		cp -v $RARCH_DIST_DIR/../info/*.info pkg/psp1/cores/
+      mkdir -p pkg/psp1/info
+		cp -v $RARCH_DIST_DIR/../info/*.info pkg/psp1/info/
 
 	fi
 fi
