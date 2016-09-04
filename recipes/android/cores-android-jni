@@ -19,7 +19,7 @@ fbalpha libretro-fbalpha https://github.com/libretro/fbalpha.git PROJECT YES GEN
 fbalpha2012 libretro-fbalpha2012 https://github.com/libretro/fbalpha2012.git PROJECT YES GENERIC_JNI makefile.libretro svn-current/trunk/projectfiles/libretro-android/jni 
 fceumm libretro-fceuumm  https://github.com/libretro/libretro-fceumm.git PROJECT YES GENERIC_JNI Makefile.libretro jni 
 fmsx libretro-fmsx https://github.com/libretro/fmsx-libretro.git PROJECT YES GENERIC_JNI Makefile jni 
-gambatte libretro-gambatte https://github.com/libretro/gambatte-libretro.git PROJECT YES GENERIC_JNI Makefile.libretro libgambatte/libretro/jni 
+gambatte libretro-gambatte https://github.com/libretro/gambatte-libretro.git PROJECT YES GENERIC_JNI Makefile libgambatte/libretro/jni
 genesis_plus_gx libretro-genesis_plus_gx https://github.com/libretro/Genesis-Plus-GX.git PROJECT YES GENERIC_JNI Makefile.libretro libretro/jni 
 gpsp libretro-gpsp https://github.com/libretro/gpsp.git PROJECT YES GENERIC_JNI Makefile jni 
 handy libretro-handy https://github.com/libretro/libretro-handy.git PROJECT YES GENERIC_JNI Makefile jni 

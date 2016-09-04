@@ -140,8 +140,6 @@ libretro_fceumm_build_makefile="Makefile.libretro"
 register_module core "gambatte"
 libretro_gambatte_name="Gambatte"
 libretro_gambatte_git_url="https://github.com/libretro/gambatte-libretro.git"
-libretro_gambatte_build_subdir="libgambatte"
-libretro_gambatte_build_makefile="Makefile.libretro"
 libretro_gambatte_build_platform="$FORMAT_COMPILER_TARGET_ALT"
 
 register_module core "meteor" -ngc -ps3 -psp1 -qnx -wii

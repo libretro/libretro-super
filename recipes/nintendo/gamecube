@@ -3,7 +3,7 @@ fbalpha2012_cps1 libretro-fbalpha2012_cps1 https://github.com/libretro/fbalpha20
 fbalpha2012_cps2 libretro-fbalpha2012_cps2 https://github.com/libretro/fbalpha2012_cps2.git PROJECT YES GENERIC makefile.libretro . 
 fbalpha2012_neogeo libretro-fbalpha_neogeo https://github.com/libretro/fbalpha2012_neogeo.git PROJECT YES GENERIC Makefile . 
 fceumm libretro-fceuumm  https://github.com/libretro/libretro-fceumm.git PROJECT YES GENERIC Makefile.libretro . 
-gambatte libretro-gambatte https://github.com/libretro/gambatte-libretro.git PROJECT YES GENERIC Makefile.libretro libgambatte 
+gambatte libretro-gambatte https://github.com/libretro/gambatte-libretro.git PROJECT YES GENERIC Makefile
 genesis_plus_gx libretro-genesis_plus_gx https://github.com/libretro/Genesis-Plus-GX.git PROJECT YES GENERIC Makefile.libretro . 
 mednafen_ngp libretro-beetle_ngp https://github.com/libretro/beetle-ngp-libretro.git PROJECT YES GENERIC Makefile . 
 mednafen_pce_fast libretro-beetle_pce_fast https://github.com/libretro/beetle-pce-fast-libretro.git PROJECT YES GENERIC Makefile . 
