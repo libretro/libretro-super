@@ -11,7 +11,7 @@ mednafen_ngp libretro-beetle_ngp https://github.com/libretro/beetle-ngp-libretro
 mednafen_pce_fast libretro-beetle_pce_fast https://github.com/libretro/beetle-pce-fast-libretro.git PROJECT YES GENERIC Makefile . 
 mednafen_pcfx libretro-beetle_pcfx https://github.com/libretro/beetle-pcfx-libretro.git PROJECT YES GENERIC Makefile . 
 mednafen_psx libretro-beetle_psx https://github.com/libretro/beetle-psx-libretro.git PROJECT YES GENERIC Makefile . 
-mednafen_psx_hw libretro-beetle_psx_hw https://github.com/libretro/beetle-psx-libretro.git PROJECT YES GENERIC Makefile . HAVE_OPENGL=1 
+mednafen_saturn libretro-beetle_saturn https://github.com/libretro/beetle-saturn-libretro.git PROJECT YES GENERIC Makefile . 
 mednafen_vb libretro-beetle_vb https://github.com/libretro/beetle-vb-libretro.git PROJECT YES GENERIC Makefile . 
 mednafen_wswan libretro-beetle_wswan https://github.com/libretro/beetle-wswan-libretro.git PROJECT YES GENERIC Makefile . 
 nestopia libretro-nestopia https://github.com/libretro/nestopia.git PROJECT YES GENERIC Makefile libretro 
