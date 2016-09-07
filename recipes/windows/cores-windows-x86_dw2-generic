@@ -20,7 +20,7 @@ fceumm libretro-fceuumm  https://github.com/libretro/libretro-fceumm.git PROJECT
 ffmpeg libretro-ffmpeg  https://github.com/libretro/FFmpeg.git PROJECT YES GENERIC_GL Makefile libretro 
 fmsx libretro-fmsx https://github.com/libretro/fmsx-libretro.git PROJECT YES GENERIC Makefile . 
 fuse libretro-fuse https://github.com/libretro/fuse-libretro.git PROJECT YES GENERIC Makefile.libretro .  
-gambatte libretro-gambatte https://github.com/libretro/gambatte-libretro.git PROJECT YES GENERIC_ALT Makefile
+gambatte libretro-gambatte https://github.com/libretro/gambatte-libretro.git PROJECT YES GENERIC Makefile 
 genesis_plus_gx libretro-genesis_plus_gx https://github.com/libretro/Genesis-Plus-GX.git PROJECT YES GENERIC Makefile.libretro . 
 gme libretro-gme https://github.com/libretro/libretro-gme.git SUBMODULE YES GENERIC Makefile . 
 gpsp libretro-gpsp https://github.com/libretro/gpsp.git PROJECT YES GENERIC Makefile . 
