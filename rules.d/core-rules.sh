@@ -122,6 +122,11 @@ libretro_cap32_name="Caprice32"
 libretro_cap32_git_url="https://github.com/libretro/libretro-cap32.git"
 libretro_cap32_build_makefile="Makefile"
 
+register_module core "fsuae" -ngc -ps3 -psp1 -qnx -wii
+libretro_fsuae_name="FS-UAE"
+libretro_fsuae_git_url="https://github.com/libretro/libretro-fsuae.git"
+libretro_fsuae_build_makefile="Makefile.in"
+
 register_module core "puae" -ngc -ps3 -psp1 -qnx -wii
 libretro_puae_name="PUAE"
 libretro_puae_git_url="https://github.com/libretro/libretro-uae.git"
