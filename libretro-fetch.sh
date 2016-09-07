@@ -24,6 +24,7 @@ fi
 . "$BASE_DIR/rules.d/core-rules.sh"
 . "$BASE_DIR/rules.d/player-rules.sh"
 . "$BASE_DIR/rules.d/devkit-rules.sh"
+. "$BASE_DIR/rules.d/lutro-rules.sh"
 # TODO: Read these programmatically
 
 # libretro_fetch: Download the given core using its fetch rules
@@ -85,6 +86,7 @@ if [ -n "$1" ]; then
 				--) no_more_args=1 ;;
 				--cores) fetch_cores="$libretro_cores" ;;
 				--devkit) fetch_devkits="$libretro_devkits" ;;
+				--lutro) fetch_lutros="$libretro_lutros" ;;
 				--players) fetch_players="$libretro_players" ;;
 				--retroarch) fetch_players="retroarch" ;;
 				*) ;;
@@ -105,6 +107,10 @@ else
 fi
 
 for a in $fetch_players; do
+	libretro_fetch "${a%%:*}"
+done
+
+for a in $fetch_lutros; do
 	libretro_fetch "${a%%:*}"
 done
 

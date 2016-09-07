@@ -6,7 +6,7 @@ register_module() {
 	shift 2
 
 	case "$mod_type" in
-		core|devkit|player)
+		core|devkit|player|lutro)
 			if [ -n "$mod_name" ]; then
 				build_plats=""
 				skip_plats=""
