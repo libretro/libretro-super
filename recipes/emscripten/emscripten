@@ -14,6 +14,7 @@ mednafen_vb libretro-beetle_vb https://github.com/libretro/beetle-vb-libretro.gi
 mednafen_wswan libretro-beetle_wswan https://github.com/libretro/beetle-wswan-libretro.git PROJECT YES GENERIC Makefile . 
 nestopia libretro-nestopia https://github.com/libretro/nestopia.git PROJECT YES GENERIC Makefile libretro 
 nxengine libretro-nxengine https://github.com/libretro/nxengine-libretro.git PROJECT YES GENERIC Makefile . 
+o2em libretro-o2em https://github.com/libretro/libretro-o2em.git PROJECT YES GENERIC Makefile .
 prboom libretro-prboom  https://github.com/libretro/libretro-prboom.git PROJECT YES GENERIC_ALT Makefile . 
 quicknes libretro-quicknes  https://github.com/libretro/QuickNES_Core.git PROJECT YES GENERIC Makefile . 
 snes9x2002 libretro-snes9x2002 https://github.com/libretro/snes9x2002.git PROJECT YES GENERIC Makefile . 
