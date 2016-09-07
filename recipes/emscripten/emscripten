@@ -4,6 +4,7 @@ genesis_plus_gx libretro-genesis_plus_gx https://github.com/libretro/Genesis-Plu
 nestopia libretro-nestopia https://github.com/libretro/nestopia.git PROJECT YES GENERIC Makefile libretro 
 prboom libretro-prboom  https://github.com/libretro/libretro-prboom.git PROJECT YES GENERIC_ALT Makefile . 
 quicknes libretro-quicknes  https://github.com/libretro/QuickNES_Core.git PROJECT YES GENERIC Makefile . 
+snes9x2005 libretro-snes9x2005 https://github.com/libretro/snes9x2005.git PROJECT YES GENERIC Makefile . 
 snes9x2010 libretro-snes9x2010 https://github.com/libretro/snes9x2010.git PROJECT YES GENERIC Makefile.libretro . 
 stella libretro-stella  https://github.com/libretro/stella-libretro.git PROJECT YES GENERIC Makefile . 
 tgbdual libretro-tgbdual https://github.com/libretro/tgbdual-libretro.git PROJECT YES GENERIC Makefile . 
