@@ -353,6 +353,20 @@ register_module core "tgbdual" -ngc -ps3 -wii
 libretro_tgbdual_name="TGB Dual"
 libretro_tgbdual_git_url="https://github.com/libretro/tgbdual-libretro.git"
 
+register_module core "glupen64" -theos_ios -ngc -ps3 -psp1 -wii
+libretro_glupen64_name="GLupeN64"
+libretro_glupen64_git_url="https://github.com/loganmc10/GLupeN64.git"
+libretro_glupen64_build_platform="$FORMAT_COMPILER_TARGET_ALT"
+libretro_glupen64_configure() {
+	if iscpu_x86_64 $ARCH; then
+		core_build_args="WITH_DYNAREC=x86_64"
+	elif iscpu_x86 $ARCH; then
+		core_build_args="WITH_DYNAREC=x86"
+	elif [ "${CORTEX_A8}" ] || [ "${CORTEX_A9}" ] || [ "$platform" = "ios" ]; then
+		core_build_args="WITH_DYNAREC=arm"
+	fi
+}
+
 register_module core "mupen64plus" -theos_ios -ngc -ps3 -psp1 -wii
 libretro_mupen64plus_name="Mupen64Plus"
 libretro_mupen64plus_git_url="https://github.com/libretro/mupen64plus-libretro.git"
