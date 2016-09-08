@@ -84,6 +84,7 @@ if [ -n "$1" ]; then
 		if [[ "$1" = -* && -z "$no_more_args" ]]; then
 			case "$1" in
 				--) no_more_args=1 ;;
+				--shallow) export SHALLOW_CLONE=1;;
 				--cores) fetch_cores="$libretro_cores" ;;
 				--devkit) fetch_devkits="$libretro_devkits" ;;
 				--lutro) fetch_lutros="$libretro_lutros" ;;
