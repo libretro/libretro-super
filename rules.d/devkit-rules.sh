@@ -19,3 +19,8 @@ register_module devkit "samples" any
 libretro_samples_name="Devkit: libretro-samples"
 libretro_samples_dir="libretro-devkit/libretro-samples"
 libretro_samples_git_url="https://github.com/libretro/libretro-samples.git"
+
+register_module devkit "deps" any
+libretro_deps_name="Devkit: libretro-deps"
+libretro_deps_dir="libretro-devkit/libretro-deps"
+libretro_deps_git_url="https://github.com/libretro/libretro-deps.git"
