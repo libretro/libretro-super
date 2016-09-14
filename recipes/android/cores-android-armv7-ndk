@@ -1,3 +1,4 @@
 mame2010 libretro-mame2010 https://github.com/libretro/mame2010-libretro.git PROJECT YES GENERIC Makefile . VRENDER=soft emulator 
 scummvm libretro-scummvm  https://github.com/libretro/scummvm.git PROJECT YES GENERIC Makefile backends/platform/libretro/build 
 puae libretro-puae  https://github.com/libretro/libretro-uae.git PROJECT YES GENERIC Makefile . 
+glupen64 libretro-glupen64 https://github.com/loganmc10/GLupeN64.git PROJECT YES GENERIC Makefile . 
