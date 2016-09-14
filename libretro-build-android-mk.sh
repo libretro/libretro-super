@@ -39,6 +39,22 @@ die()
 	#exit 1
 }
 
+build_libretro_standalone()
+{
+	cd $BASE_DIR
+	if [ -d "libretro-${1}" ]; then
+		echo "=== Building ${1} ==="
+		cd libretro-${1}
+		if [ -z "${NOCLEAN}" ]; then
+			platform=android make clean
+		fi
+		platform=android make -j4
+		cp ./${1}_libretro${FORMAT}.${FORMAT_EXT} $RARCH_DIST_DIR/armeabi-v7a/${1}_libretro${FORMAT}.${FORMAT_EXT}
+	else
+		echo "${1} not fetched, skipping ..."
+	fi
+}
+
 # $1 is core name
 # $2 is subdir (if there's no subdir, put "." here)
 # $3 is appendage to core name for output JNI file
@@ -112,7 +128,7 @@ if [ $1 ]; then
 else
 WANT_CORES=" \
 	2048 \
-   4do \
+	4do \
 	bluemsx \
 	fmsx \
 	mednafen_lynx \
@@ -143,8 +159,8 @@ WANT_CORES=" \
 	nestopia \
 	tgbdual \
 	quicknes \
-	handy \ 
-   gambatte \
+	handy \
+	gambatte \
 	prboom \
 	tyrquake \
 	vba_next \
@@ -158,7 +174,8 @@ WANT_CORES=" \
 	bsnes_performance \
 	mame2000 \
 	mame2003 \
-	pocketsnes"
+	pocketsnes \
+	glupen64"
 fi
 
 for core in $WANT_CORES; do
@@ -181,7 +198,11 @@ for core in $WANT_CORES; do
 		path="target-libretro/jni"
 		append="_$core"
 	fi
-	build_libretro_generic_makefile $core $path $append
-   build_libretro_generic_makefile_armv7neon $core $path $append
+	if [ $core = "glupen64" ]; then
+		build_libretro_standalone $core $path $append
+	else
+		build_libretro_generic_makefile $core $path $append
+		build_libretro_generic_makefile_armv7neon $core $path $append
+	fi
 done
 
