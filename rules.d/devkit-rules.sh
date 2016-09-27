@@ -10,6 +10,11 @@ libretro_dat_pull_name="Devkit: libretro-dat-pull"
 libretro_dat_pull_dir="libretro-devkit/libretro-dat-pull"
 libretro_dat_pull_git_url="https://github.com/libretro/libretro-dat-pull.git"
 
+register_module devkit "ari64_dynarec" any
+libretro_ari64_dynarec_name="Devkit: Ari64-dynarec"
+libretro_ari64_dynarec_dir="libretro-devkit/libretro-ari64"
+libretro_ari64_dynarec_git_url="https://github.com/libretro/ari64.git"
+
 register_module devkit "common" any
 libretro_common_name="Devkit: libretro-common"
 libretro_common_dir="libretro-devkit/libretro-common"
