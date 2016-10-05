@@ -22,9 +22,6 @@ gw libretro-gw https://github.com/libretro/gw-libretro.git PROJECT YES LEIRADEL 
 mgba libretro-mgba https://github.com/libretro/mgba.git PROJECT YES LEIRADEL Makefile libretro-build armeabi
 mgba libretro-mgba https://github.com/libretro/mgba.git PROJECT YES LEIRADEL Makefile libretro-build armeabi-v7a
 mgba libretro-mgba https://github.com/libretro/mgba.git PROJECT YES LEIRADEL Makefile libretro-build x86
-snes9x2010 libretro-snes9x2010 https://github.com/libretro/snes9x2010.git PROJECT YES LEIRADEL Makefile build armeabi 
-snes9x2010 libretro-snes9x2010 https://github.com/libretro/snes9x2010.git PROJECT YES LEIRADEL Makefile build armeabi-v7a 
-snes9x2010 libretro-snes9x2010 https://github.com/libretro/snes9x2010.git PROJECT YES LEIRADEL Makefile build x86 
 vba_next libretro-vba-next https://github.com/libretro/vba-next.git PROJECT YES LEIRADEL Makefile build armeabi 
 vba_next libretro-vba-next https://github.com/libretro/vba-next.git PROJECT YES LEIRADEL Makefile build armeabi-v7a 
 vba_next libretro-vba-next https://github.com/libretro/vba-next.git PROJECT YES LEIRADEL Makefile build x86 
