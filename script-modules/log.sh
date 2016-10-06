@@ -56,7 +56,7 @@ log_module_start() {
 
 		# Output to screen and logfile in developer mode (if possible)
 		if [[ -n "$LIBRETRO_DEVELOPER" && -n "${log_tee:=$(find_tool "tee")}" ]]; then
-			exec > >($log_tee -a $log_module) 2>&1
+			exec >> $($log_tee -a $log_module) 2>&1
 		else
 			exec >> $log_module 2>&1
 			log_file_only=1
