@@ -14,18 +14,19 @@ else
 	fi
 fi
 
+# --- Utility functions ---
 . "$BASE_DIR/libretro-config.sh"
 . "$BASE_DIR/script-modules/log.sh"
 . "$BASE_DIR/script-modules/util.sh"
 . "$BASE_DIR/script-modules/fetch-rules.sh"
 . "$BASE_DIR/script-modules/module_base.sh"
 
-# Rules for fetching things are in these files:
+# --- Rules for fetching things are in these files ---
 . "$BASE_DIR/rules.d/core-rules.sh"
 . "$BASE_DIR/rules.d/player-rules.sh"
 . "$BASE_DIR/rules.d/devkit-rules.sh"
 . "$BASE_DIR/rules.d/lutro-rules.sh"
-# TODO: Read these programmatically
+. "$BASE_DIR/build-config.sh"
 
 # libretro_fetch: Download the given core using its fetch rules
 #
