@@ -1,6 +1,6 @@
 snes9x2005 libretro-snes9x2005 https://github.com/libretro/snes9x2005.git PROJECT YES GENERIC Makefile . 
 snes9x2005_plus libretro-snes9x2005_plus https://github.com/libretro/snes9x2005.git PROJECT YES GENERIC Makefile . USE_BLARGG_APU=1 
-fceumm libretro-fceuumm  https://github.com/libretro/libretro-fceumm.git PROJECT YES GENERIC Makefile.libretro . 
+fceumm libretro-fceumm https://github.com/libretro/libretro-fceumm.git PROJECT YES GENERIC Makefile.libretro . 
 fmsx libretro-fmsx https://github.com/libretro/fmsx-libretro.git PROJECT YES GENERIC Makefile . 
 gambatte libretro-gambatte https://github.com/libretro/gambatte-libretro.git PROJECT YES GENERIC Makefile . 
 lutro libretro-lutro https://github.com/libretro/libretro-lutro PROJECT YES GENERIC Makefile . 
