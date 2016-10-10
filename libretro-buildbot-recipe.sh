@@ -35,6 +35,50 @@ read_link()
 	echo $RESULT
 }
 
+convert_xmb_assets()
+{
+   local src_dir=$1
+   local dst_dir=$2
+   local scale_icon=$3
+   local scale_bg=$4
+   # dots per inch, a value of 90 seems to produce a 64x64 resolution for most icons
+   local density=$5
+
+   mkdir -p "$dst_dir"
+   IFS_old=$IFS
+   IFS=$(echo -en "\n\b")
+   for theme in `ls $src_dir`; do
+      if [ -d $src_dir/$theme ] ; then
+         theme=`basename "$theme"`
+         mkdir -p "$dst_dir/$theme/png"
+         for png in `ls $src_dir/$theme/png/*.png -d`; do
+            local name=`basename "$png" .png`
+            local src_file="$src_dir/$theme/src/$name.svg"
+            local is_svg=1
+            if [ ! -e $src_file ] ; then
+               src_file="$src_dir/$theme/png/$name.png"
+               is_svg=
+            fi
+            local dst_file="$dst_dir/$theme/png/$name.png"
+            if [ ! -e $src_file ] || [ $src_file -nt $dst_file ] ; then
+               local scale_factor=$scale_icon
+               if [ $name = "bg" ] ; then
+                  scale_factor=$scale_bg
+               fi
+               if [ $is_svg ] ; then
+               echo convert -background none -density $density "$src_file" -resize $scale_factor "$dst_file"
+               convert -background none -density $density "$src_file" -resize $scale_factor "$dst_file"
+               else
+               echo convert -background none "$src_file" -resize $scale_factor "$dst_file"
+               convert -background none "$src_file" -resize $scale_factor "$dst_file"
+               fi
+            fi
+         done
+      fi
+   done
+   IFS=$IFS_old
+}
+
 
 if [ "${CORE_JOB}" == "YES" ]; then
 # ----- set target  -----
@@ -1642,6 +1686,8 @@ if [ "${PLATFORM}" == "ctr" ] && [ "${RA}" == "YES" ]; then
 		cp -v $RARCH_DIST_DIR/../info/*.info $WORK/$RADIR/pkg/3ds/retroarch/cores/info/
 		cp -v $WORK/$RADIR/media/libretrodb/rdb/*.rdb $WORK/$RADIR/pkg/3ds/retroarch/database/rdb/
 		cp -v $WORK/$RADIR/media/libretrodb/cursors/*.dbc $WORK/$RADIR/pkg/3ds/retroarch/database/cursors/
+
+		convert_xmb_assets $WORK/$RADIR/media/assets/xmb $WORK/$RADIR/pkg/3ds/retroarch/media/xmb 64x32! 400x240! 90
 	fi
 fi
 
