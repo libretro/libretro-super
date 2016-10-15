@@ -1306,7 +1306,6 @@ EOF
 		else
 			cp -rv bin/retroarch-release.apk $RARCH_DIR/retroarch-staging-release.apk | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_${PLATFORM}.log
 			cp -rv bin/retroarch-release.apk $RARCH_DIR/retroarch-staging-release.apk
-
 		fi
 
 
@@ -1322,22 +1321,6 @@ EOF
 		fi
 		echo buildbot job: $MESSAGE
 		buildbot_log "$MESSAGE"
-
-		$NDK clean | tee $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_DEBUG_${PLATFORM}.log
-		$NDK -j${JOBS} DEBUG=1 | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_DEBUG_${PLATFORM}.log
-		python ./version_increment.py
-		ant clean | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_DEBUG_${PLATFORM}.log
-		android update project --path . --target android-22 | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_DEBUG_${PLATFORM}.log
-		android update project --path libs/googleplay --target android-21 | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_DEBUG_${PLATFORM}.log
-		android update project --path libs/appcompat --target android-21 | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_DEBUG_${PLATFORM}.log
-		ant set-debuggable release | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_DEBUG_${PLATFORM}.log
-		if [ -z "$BRANCH" ]; then
-			cp -rv bin/retroarch-debug.apk $RARCH_DIR/retroarch-debug.apk | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_DEBUG_${PLATFORM}.log
-			cp -rv bin/retroarch-debug.apk $RARCH_DIR/retroarch-debug.apk
-		else
-			cp -rv bin/retroarch-debug.apk $RARCH_DIR/retroarch-staging-debug.apk | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_DEBUG_${PLATFORM}.log
-			cp -rv bin/retroarch-debug.apk $RARCH_DIR/retroarch-staging-debug.apk
-		fi
 
 		if [ $? -eq 0 ]; then
 			MESSAGE="retroarch debug:	[status: done] [$jobid]"
