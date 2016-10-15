@@ -1332,11 +1332,11 @@ EOF
 		android update project --path libs/appcompat --target android-21 | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_DEBUG_${PLATFORM}.log
 		ant set-debuggable release | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_DEBUG_${PLATFORM}.log
 		if [ -z "$BRANCH" ]; then
-			cp -rv bin/retroarch-release.apk $RARCH_DIR/retroarch-debug.apk | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_DEBUG_${PLATFORM}.log
-			cp -rv bin/retroarch-release.apk $RARCH_DIR/retroarch-debug.apk
+			cp -rv bin/retroarch-debug.apk $RARCH_DIR/retroarch-debug.apk | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_DEBUG_${PLATFORM}.log
+			cp -rv bin/retroarch-debug.apk $RARCH_DIR/retroarch-debug.apk
 		else
-			cp -rv bin/retroarch-release.apk $RARCH_DIR/retroarch-staging-debug.apk | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_DEBUG_${PLATFORM}.log
-			cp -rv bin/retroarch-release.apk $RARCH_DIR/retroarch-staging-debug.apk
+			cp -rv bin/retroarch-debug.apk $RARCH_DIR/retroarch-staging-debug.apk | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_DEBUG_${PLATFORM}.log
+			cp -rv bin/retroarch-debug.apk $RARCH_DIR/retroarch-staging-debug.apk
 		fi
 
 		if [ $? -eq 0 ]; then
