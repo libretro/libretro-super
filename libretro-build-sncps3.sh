@@ -16,10 +16,9 @@ fi
 
 if [[ -z "$1" ]]; then
 WANT_CORES=" \
-	2048
+	2048 \
 	gambatte \
 	snes9x2010 \
-	vba_next \
 	vecx"
 else
 WANT_CORES="$@"
