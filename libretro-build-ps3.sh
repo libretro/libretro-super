@@ -37,6 +37,7 @@ WANT_CORES=" \
 	prboom \
 	stella \
 	tyrquake \
+	vba_next \
 	gw \
 	mgba"
 else
