@@ -41,3 +41,10 @@ include_devkit_deps () {
 libretro_deps_name="Devkit: libretro-deps"
 libretro_deps_dir="libretro-devkit/libretro-deps"
 libretro_deps_git_url="https://github.com/libretro/libretro-deps.git"
+
+include_devkit_retroluxury () {
+	register_module devkit "retroluxury" any
+}
+libretro_retroluxury_name="Devkit: retroluxury"
+libretro_retroluxury_dir="libretro-devkit/retroluxury"
+libretro_retroluxury_git_url="https://github.com/libretro/retroluxury.git"
