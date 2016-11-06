@@ -48,7 +48,7 @@ o2em libretro-o2em https://github.com/libretro/libretro-o2em.git PROJECT YES GEN
 pcsx_rearmed libretro-pcsx_rearmed https://github.com/libretro/pcsx_rearmed.git PROJECT YES GENERIC_JNI Makefile.libretro jni 
 pcsx_rearmed_interpreter libretro-pcsx_rearmed_interpreter https://github.com/libretro/pcsx_rearmed.git PROJECT YES GENERIC_JNI Makefile.libretro . USE_DYNAREC=0 
 picodrive libretro-picodrive https://github.com/libretro/picodrive.git SUBMODULE YES GENERIC_JNI Makefile.libretro jni 
-pokemini libretro-pokemini https://github.com/libretro/PokeMini.git YES GENERIC_JNI Makefile jni 
+pokemini libretro-pokemini https://github.com/libretro/PokeMini.git PROJECT YES GENERIC_JNI Makefile jni 
 ppsspp libretro-ppsspp https://github.com/libretro/ppsspp.git SUBMODULE YES GENERIC_JNI Makefile.libretro libretro/jni 
 prboom libretro-prboom  https://github.com/libretro/libretro-prboom.git PROJECT YES GENERIC_JNI Makefile jni 
 prosystem libretro-prosystem https://github.com/libretro/prosystem-libretro.git PROJECT YES GENERIC_JNI Makefile jni 
