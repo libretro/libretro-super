@@ -517,6 +517,18 @@ case "$platform" in
 		AR="$DEVKITPPC/bin/powerpc-eabi-ar$BINARY_EXT"
 		;;
 
+	wiiu)
+		DIST_DIR="wiiu"
+		FORMAT_EXT=a
+		FORMAT_COMPILER_TARGET=wiiu
+		FORMAT_COMPILER_TARGET_ALT=wiiu
+		FORMAT=_wiiu
+
+		CC="$DEVKITPPC/bin/powerpc-eabi-gcc$BINARY_EXT"
+		CXX="$DEVKITPPC/bin/powerpc-eabi-g++$BINARY_EXT"
+		AR="$DEVKITPPC/bin/powerpc-eabi-ar$BINARY_EXT"
+		;;
+
 	sncps3)
 		DIST_DIR="ps3"
 		FORMAT_EXT=a
