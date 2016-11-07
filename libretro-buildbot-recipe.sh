@@ -1586,7 +1586,7 @@ if [ "${PLATFORM}" == "wiiu" ] && [ "${RA}" == "YES" ]; then
 		rm *.a
 		cp -v $RARCH_DIST_DIR/*.a .
 		cp -v $RARCH_DIST_DIR/../info/*.info .
-		cp -v $RADIR/media/assets/pkg/wiiu/*.png .
+		cp -v ../media/assets/pkg/wiiu/*.png .
 
 		sh ./wiiu-cores.sh &> $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_${PLATFORM}.log
 		if [ $? -eq 0 ];
