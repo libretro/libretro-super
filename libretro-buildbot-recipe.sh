@@ -1568,6 +1568,48 @@ if [ "${PLATFORM}" == "wii" ] && [ "${RA}" == "YES" ]; then
 	fi
 fi
 
+if [ "${PLATFORM}" == "wiiu" ] && [ "${RA}" == "YES" ]; then
+	echo WORKINGDIR=$PWD
+	echo RELEASE=$RELEASE
+	echo FORCE=$FORCE_RETROARCH_BUILD
+	echo RADIR=$RADIR
+	
+	buildbot_pull
+	if [ "${BUILD}" == "YES" -o "${FORCE}" == "YES" -o "${FORCE_RETROARCH_BUILD}" == "YES" -o "${CORES_BUILT}" == "YES" ]; then
+		touch $TMPDIR/built-frontend
+		cd $RADIR
+		git clean -xdf
+		echo "buildbot job: $jobid Building"
+		echo
+
+		cd dist-scripts
+		rm *.a
+		cp -v $RARCH_DIST_DIR/*.a .
+
+		sh ./wiiu-cores.sh &> $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_${PLATFORM}.log
+		if [ $? -eq 0 ];
+		then
+			MESSAGE="retroarch:	[status: done] [$jobid]"
+			echo $MESSAGE
+		else
+			ERROR=$TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_${PLATFORM}.log
+			HASTE=`curl -X POST http://hastebin.com/documents --data-binary @$ERROR`
+			HASTE=`echo $HASTE | cut -d"\"" -f4`
+			MESSAGE="retroarch:	[status: fail] [$jobid] LOG: http://hastebin.com/$HASTE"
+			echo $MESSAGE
+		fi
+		buildbot_log "$MESSAGE"
+		echo buildbot job: $MESSAGE
+
+		echo "Packaging"
+
+		cd $WORK/$RADIR
+		cp retroarch.cfg retroarch.default.cfg
+		mkdir -p pkg/wiiu/
+		cp -v $RARCH_DIST_DIR/../info/*.info pkg/
+	fi
+fi
+
 if [ "${PLATFORM}" == "ngc" ] && [ "${RA}" == "YES" ]; then
 	echo WORKINGDIR=$PWD
 	echo RELEASE=$RELEASE
