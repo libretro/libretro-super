@@ -122,6 +122,14 @@ libretro_fbalpha2012_cps2_name="Final Burn Alpha 2012 CPS2"
 libretro_fbalpha2012_cps2_git_url="https://github.com/libretro/fbalpha2012_cps2.git"
 libretro_fbalpha2012_cps2_build_makefile="makefile.libretro"
 
+include_core_fbalpha2012_cps3() {
+	register_module core "fbalpha2012_cps3" -psp1
+}
+libretro_fbalpha2012_cps3_name="Final Burn Alpha 2012 CPS3"
+libretro_fbalpha2012_cps3_git_url="https://github.com/libretro/fbalpha2012_cps3.git"
+libretro_fbalpha2012_cps3_build_subdir="svn-current/trunk"
+libretro_fbalpha2012_cps3_build_makefile="makefile.libretro"
+
 include_core_fbalpha2012_neogeo() {
 	register_module core "fbalpha2012_neogeo" -psp1
 }
@@ -410,6 +418,13 @@ include_core_mame2003() {
 libretro_mame2003_name="MAME 2003 (0.78)"
 libretro_mame2003_git_url="https://github.com/libretro/mame2003-libretro.git"
 libretro_mame2003_makefile="Makefile"
+
+include_core_mame2003_midway() {
+	register_module core "mame2003_midway" -theos_ios -ngc -psp1 -wii
+}
+libretro_mame2003_midway_name="MAME 2003 Midway (0.78)"
+libretro_mame2003_midway_git_url="https://github.com/libretro/mame2003_midway.git"
+libretro_mame2003_midway_makefile="Makefile"
 
 include_core_mame2010() {
 	register_module core "mame2010"
