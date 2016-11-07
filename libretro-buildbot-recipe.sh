@@ -1585,6 +1585,8 @@ if [ "${PLATFORM}" == "wiiu" ] && [ "${RA}" == "YES" ]; then
 		cd dist-scripts
 		rm *.a
 		cp -v $RARCH_DIST_DIR/*.a .
+		cp -v $RARCH_DIST_DIR/../info/*.info
+		cp -v $RADIR/media/pkg/wiiu/*.png pkg/
 
 		sh ./wiiu-cores.sh &> $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_${PLATFORM}.log
 		if [ $? -eq 0 ];
@@ -1604,9 +1606,6 @@ if [ "${PLATFORM}" == "wiiu" ] && [ "${RA}" == "YES" ]; then
 		echo "Packaging"
 
 		cd $WORK/$RADIR
-		cp retroarch.cfg retroarch.default.cfg
-		mkdir -p pkg/wiiu/
-		cp -v $RARCH_DIST_DIR/../info/*.info pkg/
 	fi
 fi
 
