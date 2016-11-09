@@ -1,1 +1,2 @@
 nestopia libretro-nestopia https://github.com/libretro/nestopia.git PROJECT YES GENERIC_JNI Makefile libretro/jni 
+quicknes libretro-quicknes https://github.com/libretro/QuickNES_Core.git PROJECT YES GENERIC_JNI Makefile jni 
