@@ -59,4 +59,3 @@ vbam libretro-vbam https://github.com/libretro/vbam-libretro.git PROJECT YES GEN
 vecx libretro-vecx https://github.com/libretro/libretro-vecx.git PROJECT YES GENERIC_JNI Makefile.libretro jni 
 virtualjaguar libretro-virtualjaguar https://github.com/libretro/virtualjaguar-libretro.git PROJECT YES GENERIC_JNI Makefile jni 
 yabause libretro-yabause https://github.com/libretro/yabause.git PROJECT YES GENERIC_JNI Makefile libretro/jni 
-quicknes libretro-quicknes https://github.com/libretro/QuickNES_Core.git PROJECT YES GENERIC_JNI Makefile jni
