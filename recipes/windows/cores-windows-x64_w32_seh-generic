@@ -1,1 +1,0 @@
-glupen64 libretro-glupen64 https://github.com/loganmc10/GLupeN64.git PROJECT YES GENERIC_GL Makefile . WITH_DYNAREC=x86_64 
