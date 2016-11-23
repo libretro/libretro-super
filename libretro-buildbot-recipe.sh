@@ -750,6 +750,9 @@ while read line; do
 					BUILD="YES"
 				else
 					cd $DIR
+					echo "resetting repo state... "
+					git clean -xdf
+					git reset --hard
 					echo "pulling changes from repo... "
 					OUT=`git pull`
 
@@ -858,6 +861,9 @@ while read line; do
 			if [ -d "${DIR}/.git" ]; then
 
 				cd $DIR
+				echo "resetting repo state... "
+				git clean -xdf
+				git reset --hard
 				echo "pulling changes from repo... "
 				OUT=`git pull`
 
@@ -880,6 +886,9 @@ while read line; do
 			if [ -d "${DIR}/.git" ]; then
 
 				cd $DIR
+				echo "resetting repo state... "
+				git clean -xdf
+				git reset --hard
 				echo "pulling changes from repo... "
 				OUT=`git pull`
 
@@ -991,8 +1000,10 @@ buildbot_pull(){
 			if [ -d "${PARENTDIR}/${DIR}/.git" ]; then
 				cd $PARENTDIR
 				cd $DIR
-				echo "pulling changes from repo... "
+				echo "resetting repo state... "
+				git clean -xdf
 				git reset --hard
+				echo "pulling changes from repo... "
 				OUT=`git pull`
 				echo $OUT
 				if [ "${TYPE}" = "PROJECT" ]; then
