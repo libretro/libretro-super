@@ -13,6 +13,7 @@ mednafen_supergrafx libretro-beetle_supergrafx https://github.com/libretro/beetl
 mednafen_vb libretro-beetle_vb https://github.com/libretro/beetle-vb-libretro.git PROJECT YES GENERIC Makefile . 
 mednafen_wswan libretro-beetle_wswan https://github.com/libretro/beetle-wswan-libretro.git PROJECT YES GENERIC Makefile . 
 mednafen_lynx libretro-beetle_lynx https://github.com/libretro/beetle-lynx-libretro.git PROJECT YES GENERIC Makefile .
+mednafen_psx libretro-beetle_psx https://github.com/libretro/beetle-psx-libretro.git PROJECT YES GENERIC Makefile . 
 mgba libretro-mgba https://github.com/libretro/mgba.git PROJECT YES GENERIC Makefile.libretro . 
 nestopia libretro-nestopia https://github.com/libretro/nestopia.git PROJECT YES GENERIC Makefile libretro 
 nxengine libretro-nxengine https://github.com/libretro/nxengine-libretro.git PROJECT YES GENERIC Makefile . 
