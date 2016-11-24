@@ -1507,7 +1507,7 @@ if [ "${PLATFORM}" = "psp1" ] && [ "${RA}" = "YES" ]; then
 		rm *.a
 		cp -v $RARCH_DIST_DIR/*.a .
 
-		./dist-cores.sh psp1 &> $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_${PLATFORM}.log
+		time sh ./dist-cores.sh psp1 &> $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_${PLATFORM}.log
 		if [ $? -eq 0 ]; then
 			MESSAGE="retroarch:	[status: done] [$jobid]"
 			echo $MESSAGE
@@ -1551,7 +1551,7 @@ if [ "${PLATFORM}" == "wii" ] && [ "${RA}" == "YES" ]; then
 		rm *.a
 		cp -v $RARCH_DIST_DIR/*.a .
 
-		sh ./dist-cores.sh wii &> $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_${PLATFORM}.log
+		time sh ./dist-cores.sh wii &> $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_${PLATFORM}.log
 		if [ $? -eq 0 ];
 		then
 			MESSAGE="retroarch:	[status: done] [$jobid]"
@@ -1599,7 +1599,7 @@ if [ "${PLATFORM}" == "wiiu" ] && [ "${RA}" == "YES" ]; then
 		cp -v $RARCH_DIST_DIR/../info/*.info .
 		cp -v ../media/assets/pkg/wiiu/*.png .
 
-		sh ./wiiu-cores.sh &> $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_${PLATFORM}.log
+		time sh ./wiiu-cores.sh &> $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_${PLATFORM}.log
 		if [ $? -eq 0 ];
 		then
 			MESSAGE="retroarch:	[status: done] [$jobid]"
@@ -1638,7 +1638,7 @@ if [ "${PLATFORM}" == "ngc" ] && [ "${RA}" == "YES" ]; then
 		rm *.a
 		cp -v $RARCH_DIST_DIR/*.a .
 
-		sh ./dist-cores.sh ngc &> $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_${PLATFORM}.log
+		time sh ./dist-cores.sh ngc &> $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_${PLATFORM}.log
 		if [ $? -eq 0 ];
 		then
 			MESSAGE="retroarch:	[status: done] [$jobid]"
@@ -1683,7 +1683,7 @@ if [ "${PLATFORM}" == "ctr" ] && [ "${RA}" == "YES" ]; then
 		rm *.a
 		cp -v $RARCH_DIST_DIR/*.a .
 
-		JOBS=1 sh ./dist-cores.sh ctr &> $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_${PLATFORM}.log
+		time sh ./dist-cores.sh ctr &> $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_${PLATFORM}.log
 		if [ $? -eq 0 ]; then
 			MESSAGE="retroarch:	[status: done] [$jobid]"
 			echo $MESSAGE
@@ -1747,7 +1747,7 @@ if [ "${PLATFORM}" == "vita" ] && [ "${RA}" == "YES" ]; then
 		cp -v $RARCH_DIST_DIR/*.a .
 		cp -v $RARCH_DIST_DIR/arm/*.a .
 
-		JOBS=1 sh ./dist-cores.sh vita &> $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_${PLATFORM}.log
+		time sh ./dist-cores.sh vita &> $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_${PLATFORM}.log
 		if [ $? -eq 0 ]; then
 			MESSAGE="retroarch:	[status: done] [$jobid]"
 			echo $MESSAGE
@@ -1791,7 +1791,7 @@ if [ "${PLATFORM}" == "ps3" ] && [ "${RA}" == "YES" ]; then
 		rm *.a
 		cp -v $RARCH_DIST_DIR/*.a .
 
-		JOBS=1 sh ./dist-cores.sh dex-ps3 &> $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_${PLATFORM}_dex.log
+		time sh ./dist-cores.sh dex-ps3 &> $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_${PLATFORM}_dex.log
 		if [ $? -eq 0 ]; then
 			MESSAGE="retroarch:	[status: done] [$jobid]"
 			echo $MESSAGE
@@ -1804,7 +1804,7 @@ if [ "${PLATFORM}" == "ps3" ] && [ "${RA}" == "YES" ]; then
 		fi
 		buildbot_log "$MESSAGE"
 		echo buildbot job: $MESSAGE
-		JOBS=1 sh ./dist-cores.sh cex-ps3 &> $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_${PLATFORM}_cex.log
+		time sh ./dist-cores.sh cex-ps3 &> $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_${PLATFORM}_cex.log
 		if [ $? -eq 0 ]; then
 			MESSAGE="retroarch:	[status: done] [$jobid]"
 			echo $MESSAGE
@@ -1817,7 +1817,7 @@ if [ "${PLATFORM}" == "ps3" ] && [ "${RA}" == "YES" ]; then
 		fi
 		buildbot_log "$MESSAGE"
 		echo buildbot job: $MESSAGE
-		JOBS=1 sh ./dist-cores.sh ode-ps3 &> $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_${PLATFORM}_ode.log
+		time sh ./dist-cores.sh ode-ps3 &> $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_${PLATFORM}_ode.log
 		if [ $? -eq 0 ]; then
 			MESSAGE="retroarch:	[status: done] [$jobid]"
 			echo $MESSAGE
