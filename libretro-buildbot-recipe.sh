@@ -1874,5 +1874,96 @@ if [ "${PLATFORM}" = "emscripten" ] && [ "${RA}" = "YES" ]; then
 	fi
 fi
 
+if [ "${PLATFORM}" = "unix" ]; then
+	echo WORKINGDIR=$PWD
+	echo RELEASE=$RELEASE
+	echo FORCE=$FORCE_RETROARCH_BUILD
+	echo RADIR=$RADIR
+	
+	buildbot_pull
+
+	echo
+	echo
+
+	if [ "${BUILD}" = "YES" -o "${FORCE}" = "YES" -o "${FORCE_RETROARCH_BUILD}" == "YES" ]; then
+		touch $TMPDIR/built-frontend
+		cd $RADIR
+		git clean -xdf
+		echo "buildbot job: $jobid Building"
+		echo
+
+		echo "compiling audio filters"
+		cd audio/audio_filters
+		echo "audio filter BUILD CMD: ${HELPER} ${MAKE}"
+		${HELPER} ${MAKE}
+		if [ $? -eq 0 ]; then
+			echo buildbot job: $jobid audio filter build success!
+		else
+			echo buildbot job: $jobid audio filter:	[status: fail]!
+		fi
+
+		cd ..
+		cd ..
+
+		echo "compiling video filters"
+		cd gfx/video_filters
+		echo "audio filter BUILD CMD: ${HELPER} ${MAKE}"
+		${HELPER} ${MAKE}
+		if [ $? -eq 0 ]; then
+			echo buildbot job: $jobid video filter build success!
+		else
+			echo buildbot job: $jobid video filter:	[status: fail]!
+		fi
+
+		cd ..
+		cd ..
+
+		echo "configuring..."
+		echo "configure command: $CONFIGURE $ARGS"
+		${CONFIGURE} ${ARGS}
+
+
+		echo "cleaning up..."
+		echo "CLEANUP CMD: ${HELPER} ${MAKE} clean"
+		${HELPER} ${MAKE} clean
+		
+		if [ $? -eq 0 ]; then
+			echo buildbot job: $jobid retroarch cleanup success!
+		else
+			echo buildbot job: $jobid retroarch cleanup failed!
+		fi
+
+		if [ $? -eq 0 ]; then
+			echo buildbot job: $jobid retroarch configure success!
+		else
+			echo buildbot job: $jobid retroarch configure failed!
+		fi
+
+		echo "building..."
+		echo "BUILD CMD: ${HELPER} ${MAKE} -j${JOBS}"
+		${HELPER} ${MAKE} -j${JOBS} 2>&1 | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_${PLATFORM}.log
+		
+		status=$?
+		echo $status
+
+		if [ $status -eq 0 ]; then
+			MESSAGE="retroarch:	[status: done] [$jobid]"
+			echo $MESSAGE
+			echo buildbot job: $MESSAGE | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_${PLATFORM}.log
+			buildbot_log "$MESSAGE"
+
+			echo "Packaging"
+
+		else
+			ERROR=$TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_${PLATFORM}.log
+			HASTE=`curl -X POST http://hastebin.com/documents --data-binary @$ERROR`
+			HASTE=`echo $HASTE | cut -d"\"" -f4`
+			MESSAGE="retroarch:	[status: fail] [$jobid] LOG: http://hastebin.com/$HASTE"
+			echo $MESSAGE
+			echo buildbot job: $MESSAGE | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_${PLATFORM}.log
+			buildbot_log "$MESSAGE"
+		fi
+	fi
+fi
 
 PATH=$ORIGPATH
