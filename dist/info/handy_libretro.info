@@ -14,4 +14,4 @@ firmware_count = 1
 firmware0_desc = "lynxboot.img (Lynx Boot Image)"
 firmware0_path = "lynxboot.img"
 firmware0_opt = "true"
-notes = "Suggested md5sum:|FCD403DB69F54290B51035D82F835E7B = lynxboot.img"
+notes = "Suggested md5sum:|fcd403db69f54290b51035d82f835e7b = lynxboot.img"

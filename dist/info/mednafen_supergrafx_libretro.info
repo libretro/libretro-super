@@ -10,3 +10,8 @@ license = "GPLv2"
 permissions = ""
 display_version = "v0.9.38.7"
 supports_no_game = "false"
+firmware_count = 1
+firmware0_desc = "syscard3.pce (PCE-CD BIOS)"
+firmware0_path = "syscard3.pce"
+firmware0_opt = "false"
+notes = "Suggested md5sum:|ff1a674273fe3540ccef576376407d1d = syscard3.pce"
