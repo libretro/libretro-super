@@ -1,5 +1,5 @@
+glupen64 libretro-glupen64 https://github.com/loganmc10/GLupeN64.git PROJECT YES GENERIC Makefile . 
+glupen64_gles3 libretro-glupen64-gles3 https://github.com/loganmc10/GLupeN64.git PROJECT YES GENERIC Makefile . platform=android-armv7-gles3 
 mame2010 libretro-mame2010 https://github.com/libretro/mame2010-libretro.git PROJECT YES GENERIC Makefile . VRENDER=soft emulator 
 scummvm libretro-scummvm  https://github.com/libretro/scummvm.git PROJECT YES GENERIC Makefile backends/platform/libretro/build 
 puae libretro-puae  https://github.com/libretro/libretro-uae.git PROJECT YES GENERIC Makefile . 
-glupen64 libretro-glupen64 https://github.com/loganmc10/GLupeN64.git PROJECT YES GENERIC Makefile . 
-glupen64_gles3 libretro-glupen64-gles3 https://github.com/loganmc10/GLupeN64.git PROJECT YES GENERIC Makefile . platform=android-armv7-gles3 
