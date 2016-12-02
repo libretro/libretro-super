@@ -11,11 +11,13 @@ BRANCH=""
 while read line; do
 	KEY=`echo $line | cut -f 1 -d " "`
 	VALUE=`echo $line | cut -f 2 -d " "`
-
+   rm $TMPDIR/vars
 	if [ "${KEY}" = "PATH" ]; then
 		export PATH=${VALUE}:${ORIGPATH}
+      echo PATH=${VALUE}:${ORIGPATH} >> $TMPDIR/vars
 	else
 		export ${KEY}=${VALUE}
+      echo ${KEY}=${VALUE} >> $TMPDIR/vars
 	fi
 	echo Setting: ${KEY} ${VALUE}
 done < $1.conf
@@ -421,8 +423,11 @@ build_libretro_generic_jni() {
 	PLATFORM=$5
 	ARGS=$6
 
+	echo --------------------------------------------------| tee $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}_${a}.log
+	cat $TMPDIR/vars | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}_${a}.log
+
 	cd ${DIR}/${SUBDIR}
-	echo -------------------------------------------------- 2>&1 | tee $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}_${a}.log
+	echo -------------------------------------------------- 2>&1 | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}_${a}.log
 	for a in "${ABIS[@]}"; do
 		if [ -z "${NOCLEAN}" ]; then
 			echo "CLEANUP CMD: ${NDK} -j${JOBS} ${ARGS} APP_ABI=${a} clean" 2>&1 | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}_${a}.log
