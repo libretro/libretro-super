@@ -39,8 +39,8 @@
 # The number of mandatory/optional firmware files the core needs:
 # firmware_count = 7
 
-# Firmware entries should be named from 0 
-# Firmware description 
+# Firmware entries should be named from 0
+# Firmware description
 # firmware0_desc = "filename (Description)" ex: firmware0_desc = "bios.gg (GameGear BIOS)"
 # Firmware path
 # firmware0_path = "filename.ext"  ex: firmware0_path = "bios.gg"
@@ -48,4 +48,4 @@
 # firmware0_opt = "true/false"
 
 # Additional notes:
-#notes = "note1|note2|note3 with spaces|note 4 with spaces|note 5 (test)|note6"
+#notes = "(!) hash|(!) game rom|(^) continue|[1] notes|[^] continue|[*] list"
