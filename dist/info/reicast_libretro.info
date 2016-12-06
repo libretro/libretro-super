@@ -1,4 +1,4 @@
-display_name = "Dreamcast (Reicast)"
+display_name = "Sega Dreamcast (Reicast)"
 authors = "skmp"
 supported_extensions = "chd|cdi|iso|elf|bin|cue|gdi"
 corename = "Reicast"
