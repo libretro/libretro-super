@@ -205,6 +205,7 @@ build_libretro_databases() {
 	build_libretro_database "Casio - Loopy" "rom.crc"
 	build_libretro_database "Casio - PV-1000" "rom.crc"
 	build_libretro_database "Coleco - ColecoVision" "rom.crc"
+	build_libretro_database "Dinothawr" "rom.crc"
 	build_libretro_database "Emerson - Arcadia 2001" "rom.crc"
 	build_libretro_database "Entex - Adventure Vision" "rom.crc"
 	build_libretro_database "Epoch - Super Cassette Vision" "rom.crc"
