@@ -1316,8 +1316,6 @@ key.alias.password=buildbot
 
 EOF
 
-		$NDK clean | tee $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_${PLATFORM}.log
-		$NDK -j${JOBS} | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_${PLATFORM}.log
 		if [ "${RELEASE}" == "NO" ]; then
 			python ./version_increment.py
 		else
