@@ -14,4 +14,4 @@ firmware_count = 1
 firmware0_desc = "saturn_bios.bin (Saturn BIOS)"
 firmware0_path = "saturn_bios.bin"
 firmware0_opt = "true"
-notes = "Suggested md5sum:|af5828fdff51384f99b3c4926be27762 = saturn_bios.bin"
+notes = "(!) saturn_bios.bin (md5): af5828fdff51384f99b3c4926be27762"
