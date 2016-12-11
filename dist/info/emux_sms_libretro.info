@@ -14,4 +14,4 @@ firmware_count = 1
 firmware0_desc = "bios.sms (Master System BIOS)"
 firmware0_path = "bios.sms"
 firmware0_opt = "false"
-notes = "(!) bios.sms (md5): ?????????????????????"
+notes = "(!) bios.sms (md5): missing"
