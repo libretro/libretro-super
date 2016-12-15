@@ -14,4 +14,4 @@ firmware_count = 1
 firmware0_desc = "pcfx.bios (PC-FX BIOS)"
 firmware0_path = "pcfx.bios"
 firmware0_opt = "false"
-notes = "Suggested md5sums:|1c8996258dfe6c1a07df305f0a3e5758 = pcfx.bios"
+notes = "(!) pcfx.bios (md5): 1c8996258dfe6c1a07df305f0a3e5758"
