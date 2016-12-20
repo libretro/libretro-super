@@ -1347,19 +1347,6 @@ EOF
 		fi
 		echo buildbot job: $MESSAGE
 		buildbot_log "$MESSAGE"
-
-		if [ $? -eq 0 ]; then
-			MESSAGE="retroarch debug:	[status: done] [$jobid]"
-			echo $MESSAGE $RARCH_DIR
-		else
-			ERROR=$TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_${PLATFORM}.log
-			HASTE=`curl -X POST http://hastebin.com/documents --data-binary @$ERROR`
-			HASTE=`echo $HASTE | cut -d"\"" -f4`
-			MESSAGE="retroarch:	[status: fail] [$jobid] LOG: http://hastebin.com/$HASTE"
-			echo $MESSAGE
-		fi
-			echo buildbot job: $MESSAGE
-		buildbot_log "$MESSAGE"
 	fi
 fi
 
