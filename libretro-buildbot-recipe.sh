@@ -1090,7 +1090,6 @@ if [ "${PLATFORM}" == "osx" ] && [ "${RA}" == "YES" ]; then
 	buildbot_pull
 
 	if [ "${BUILD}" == "YES" -o "${FORCE}" == "YES" -o "${FORCE_RETROARCH_BUILD}" == "YES" -o "${CORES_BUILT}" == "YES" ]; then
-		touch $TMPDIR/built-frontend
 		cd $RADIR
 		git clean -xdf
 		echo WORKINGDIR=$PWD
@@ -1123,6 +1122,7 @@ if [ "${PLATFORM}" == "osx" ] && [ "${RA}" == "YES" ]; then
 
 		if [ $? -eq 0 ]; then
 			MESSAGE="retroarch:	[status: done] [$jobid]"
+			touch $TMPDIR/built-frontend
 			echo $MESSAGE
 		else
 			ERROR=$TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_CG_${PLATFORM}.txt
@@ -1150,7 +1150,6 @@ if [ "${PLATFORM}" == "ios" ] && [ "${RA}" == "YES" ]; then
 	buildbot_pull
 
 	if [ "${BUILD}" == "YES" -o "${FORCE}" == "YES" -o "${FORCE_RETROARCH_BUILD}" == "YES" -o "${CORES_BUILT}" == "YES" ]; then
-		touch $TMPDIR/built-frontend
 		cd $RADIR
 		git clean -xdf
 		echo "buildbot job: $jobid Building"
@@ -1161,6 +1160,7 @@ if [ "${PLATFORM}" == "ios" ] && [ "${RA}" == "YES" ]; then
 
 		if [ $? -eq 0 ]; then
 			MESSAGE="retroarch:	[status: done] [$jobid]"
+			touch $TMPDIR/built-frontend
 			echo $MESSAGE
 		else
 			ERROR=$TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_${PLATFORM}.txt
@@ -1190,7 +1190,6 @@ if [ "${PLATFORM}" == "ios9" ] && [ "${RA}" == "YES" ]; then
 	buildbot_pull
 
 	if [ "${BUILD}" == "YES" -o "${FORCE}" == "YES" -o "${FORCE_RETROARCH_BUILD}" == "YES" -o "${CORES_BUILT}" == "YES" ]; then
-		touch $TMPDIR/built-frontend
 		cd $RADIR
 		git clean -xdf
 		echo "buildbot job: $jobid Building"
@@ -1201,6 +1200,7 @@ if [ "${PLATFORM}" == "ios9" ] && [ "${RA}" == "YES" ]; then
 
 		if [ $? -eq 0 ]; then
 			MESSAGE="retroarch:	[status: done] [$jobid]"
+			touch $TMPDIR/built-frontend
 			cd build/Release-iphoneos
 			security unlock-keychain -p buildbot /Users/buildbot/Library/Keychains/login.keychain
 			codesign -fs "buildbot" RetroArch.app
@@ -1235,7 +1235,6 @@ if [ "${PLATFORM}" = "android" ] && [ "${RA}" = "YES" ]; then
 	buildbot_pull
 
 	if [ "${BUILD}" = "YES" -o "${FORCE}" = "YES" -o "${FORCE_RETROARCH_BUILD}" == "YES" ]; then
-		touch $TMPDIR/built-frontend
 		echo "buildbot job: $jobid compiling shaders"
 		echo
 		cd $RADIR
@@ -1337,6 +1336,7 @@ EOF
 
 		if [ $? -eq 0 ]; then
 			MESSAGE="retroarch:	[status: done] [$jobid]"
+			touch $TMPDIR/built-frontend
 			echo $MESSAGE
 		else
 			ERROR=$TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_${PLATFORM}.txt
@@ -1362,7 +1362,6 @@ if [ "${PLATFORM}" = "MINGW64" ] || [ "${PLATFORM}" = "MINGW32" ] || [ "${PLATFO
 	echo
 
 	if [ "${BUILD}" = "YES" -o "${FORCE}" = "YES" -o "${FORCE_RETROARCH_BUILD}" == "YES" ]; then
-		touch $TMPDIR/built-frontend
 		cd $RADIR
 		git clean -xdf
 		echo "buildbot job: $jobid Building"
@@ -1432,6 +1431,7 @@ if [ "${PLATFORM}" = "MINGW64" ] || [ "${PLATFORM}" = "MINGW32" ] || [ "${PLATFO
 
 		if [ $status -eq 0 ]; then
 			MESSAGE="retroarch:	[status: done] [$jobid]"
+			touch $TMPDIR/built-frontend
 			echo $MESSAGE
 			echo buildbot job: $MESSAGE | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_${PLATFORM}.txt
 			buildbot_log "$MESSAGE"
@@ -1446,6 +1446,7 @@ if [ "${PLATFORM}" = "MINGW64" ] || [ "${PLATFORM}" = "MINGW32" ] || [ "${PLATFO
 
 			if [ $? -eq 0 ]; then	
 				MESSAGE="retroarch debug:	[status: done] [$jobid]"
+				
 				echo $MESSAGE
 				echo buildbot job: $MESSAGE | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_${PLATFORM}.txt
 				buildbot_log "$MESSAGE"
@@ -1502,7 +1503,7 @@ if [ "${PLATFORM}" = "psp1" ] && [ "${RA}" = "YES" ]; then
 	buildbot_pull
 
 	if [ "${BUILD}" == "YES" -o "${FORCE}" == "YES" -o "${FORCE_RETROARCH_BUILD}" == "YES" -o "${CORES_BUILT}" == "YES" ]; then
-		touch $TMPDIR/built-frontend
+		
 		cd $RADIR
 		git clean -xdf
 		echo "buildbot job: $jobid Building"
@@ -1515,6 +1516,7 @@ if [ "${PLATFORM}" = "psp1" ] && [ "${RA}" = "YES" ]; then
 		time sh ./dist-cores.sh psp1 &> $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_${PLATFORM}.txt
 		if [ $? -eq 0 ]; then
 			MESSAGE="retroarch:	[status: done] [$jobid]"
+			touch $TMPDIR/built-frontend
 			echo $MESSAGE
 		else
 			ERROR=$TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_${PLATFORM}.txt
