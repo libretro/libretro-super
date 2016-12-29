@@ -1438,6 +1438,7 @@ if [ "${PLATFORM}" = "MINGW64" ] || [ "${PLATFORM}" = "MINGW32" ] || [ "${PLATFO
 
 			${HELPER} ${MAKE} clean
 			${HELPER} ${MAKE} -j${JOBS} DEBUG=1 GL_DEBUG=1 2>&1 | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_DEBUG_${PLATFORM}.txt
+			for i in $(seq 3); do for bin in $(ntldd -R *exe | grep -i mingw | cut -d">" -f2 | cut -d" " -f2); do cp -vu "$bin" . ; done; done
 			for i in $(seq 3); do for bin in $(ntldd *exe *dll | grep -i mingw | cut -d\  -f 3); do cp -vu "$bin" . ; done; for bin in $(ldd *exe *dll | grep -i mingw | cut -d\  -f 3); do cp -vu "$bin" . ; done; done;
 
 			cp -v retroarch.exe windows/retroarch_debug.exe	| tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_${PLATFORM}.txt		
