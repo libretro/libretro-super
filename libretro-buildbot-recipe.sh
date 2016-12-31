@@ -1111,7 +1111,7 @@ if [ "${PLATFORM}" == "osx" ] && [ "${RA}" == "YES" ]; then
 			ERROR=$TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_${PLATFORM}.log
 			HASTE=`curl -X POST http://p.0bl.net/ --data-binary @$ERROR`
 			//HASTE=`echo $HASTE | cut -d"\"" -f4`
-			MESSAGE="retroarch:	[status: fail] [$jobid] LOG: http://p.0bl.net/$HASTE"
+			MESSAGE="retroarch:	[status: fail] [$jobid] LOG: $HASTE"
 			echo $MESSAGE
 		fi
 
@@ -1128,7 +1128,7 @@ if [ "${PLATFORM}" == "osx" ] && [ "${RA}" == "YES" ]; then
 			ERROR=$TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_CG_${PLATFORM}.log
 			HASTE=`curl -X POST http://p.0bl.net/ --data-binary @$ERROR`
 			//HASTE=`echo $HASTE | cut -d"\"" -f4`
-			MESSAGE="retroarch:	[status: fail] [$jobid] LOG: http://p.0bl.net/$HASTE"
+			MESSAGE="retroarch:	[status: fail] [$jobid] LOG: $HASTE"
 			echo $MESSAGE
 		fi
 
@@ -1166,7 +1166,7 @@ if [ "${PLATFORM}" == "ios" ] && [ "${RA}" == "YES" ]; then
 			ERROR=$TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_${PLATFORM}.log
 			HASTE=`curl -X POST http://p.0bl.net/ --data-binary @$ERROR`
 			//HASTE=`echo $HASTE | cut -d"\"" -f4`
-			MESSAGE="retroarch:	[status: fail] [$jobid] LOG: http://p.0bl.net/$HASTE"
+			MESSAGE="retroarch:	[status: fail] [$jobid] LOG: $HASTE"
 			echo $MESSAGE
 		fi
 
@@ -1210,7 +1210,7 @@ if [ "${PLATFORM}" == "ios9" ] && [ "${RA}" == "YES" ]; then
 			ERROR=$TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_${PLATFORM}.log
 			HASTE=`curl -X POST http://p.0bl.net/ --data-binary @$ERROR`
 			//HASTE=`echo $HASTE | cut -d"\"" -f4`
-			MESSAGE="retroarch:	[status: fail] [$jobid] LOG: http://p.0bl.net/$HASTE"
+			MESSAGE="retroarch:	[status: fail] [$jobid] LOG: $HASTE"
 			echo $MESSAGE
 		fi
 
@@ -1342,7 +1342,7 @@ EOF
 			ERROR=$TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_${PLATFORM}.log
 			HASTE=`curl -X POST http://p.0bl.net/ --data-binary @$ERROR`
 			//HASTE=`echo $HASTE | cut -d"\"" -f4`
-			MESSAGE="retroarch:	[status: fail] [$jobid] LOG: http://p.0bl.net/$HASTE"
+			MESSAGE="retroarch:	[status: fail] [$jobid] LOG: $HASTE"
 			echo $MESSAGE
 		fi
 		echo buildbot job: $MESSAGE
@@ -1491,7 +1491,7 @@ EOF
 			ERROR=$TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_${PLATFORM}.log
 			HASTE=`curl -X POST http://p.0bl.net/ --data-binary @$ERROR`
 			//HASTE=`echo $HASTE | cut -d"\"" -f4`
-			MESSAGE="retroarch:	[status: fail] [$jobid] LOG: http://p.0bl.net/$HASTE"
+			MESSAGE="retroarch:	[status: fail] [$jobid] LOG: $HASTE"
 			echo $MESSAGE
 			echo buildbot job: $MESSAGE | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_${PLATFORM}.log
 			buildbot_log "$MESSAGE"
@@ -1527,7 +1527,7 @@ if [ "${PLATFORM}" = "psp1" ] && [ "${RA}" = "YES" ]; then
 			ERROR=$TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_${PLATFORM}.log
 			HASTE=`curl -X POST http://p.0bl.net/ --data-binary @$ERROR`
 			//HASTE=`echo $HASTE | cut -d"\"" -f4`
-			MESSAGE="retroarch:	[status: fail] [$jobid] LOG: http://p.0bl.net/$HASTE"
+			MESSAGE="retroarch:	[status: fail] [$jobid] LOG: $HASTE"
 			echo $MESSAGE
 		fi
 		buildbot_log "$MESSAGE"
@@ -1572,7 +1572,7 @@ if [ "${PLATFORM}" == "wii" ] && [ "${RA}" == "YES" ]; then
 			ERROR=$TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_${PLATFORM}.log
 			HASTE=`curl -X POST http://p.0bl.net/ --data-binary @$ERROR`
 			//HASTE=`echo $HASTE | cut -d"\"" -f4`
-			MESSAGE="retroarch:	[status: fail] [$jobid] LOG: http://p.0bl.net/$HASTE"
+			MESSAGE="retroarch:	[status: fail] [$jobid] LOG: $HASTE"
 			echo $MESSAGE
 		fi
 		buildbot_log "$MESSAGE"
@@ -1620,7 +1620,7 @@ if [ "${PLATFORM}" == "wiiu" ] && [ "${RA}" == "YES" ]; then
 			ERROR=$TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_${PLATFORM}.log
 			HASTE=`curl -X POST http://p.0bl.net/ --data-binary @$ERROR`
 			//HASTE=`echo $HASTE | cut -d"\"" -f4`
-			MESSAGE="retroarch:	[status: fail] [$jobid] LOG: http://p.0bl.net/$HASTE"
+			MESSAGE="retroarch:	[status: fail] [$jobid] LOG: $HASTE"
 			echo $MESSAGE
 		fi
 		buildbot_log "$MESSAGE"
@@ -1659,7 +1659,7 @@ if [ "${PLATFORM}" == "ngc" ] && [ "${RA}" == "YES" ]; then
 			ERROR=$TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_${PLATFORM}.log
 			HASTE=`curl -X POST http://p.0bl.net/ --data-binary @$ERROR`
 			//HASTE=`echo $HASTE | cut -d"\"" -f4`
-			MESSAGE="retroarch:	[status: fail] [$jobid] LOG: http://p.0bl.net/$HASTE"
+			MESSAGE="retroarch:	[status: fail] [$jobid] LOG: $HASTE"
 			echo $MESSAGE
 		fi
 		buildbot_log "$MESSAGE"
@@ -1704,7 +1704,7 @@ if [ "${PLATFORM}" == "ctr" ] && [ "${RA}" == "YES" ]; then
 			ERROR=$TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_${PLATFORM}.log
 			HASTE=`curl -X POST http://p.0bl.net/ --data-binary @$ERROR`
 			//HASTE=`echo $HASTE | cut -d"\"" -f4`
-			MESSAGE="retroarch:	[status: fail] [$jobid] LOG: http://p.0bl.net/$HASTE"
+			MESSAGE="retroarch:	[status: fail] [$jobid] LOG: $HASTE"
 			echo $MESSAGE
 		fi
 		buildbot_log "$MESSAGE"
@@ -1767,7 +1767,7 @@ if [ "${PLATFORM}" == "vita" ] && [ "${RA}" == "YES" ]; then
 			ERROR=$TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_${PLATFORM}.log
 			HASTE=`curl -X POST http://p.0bl.net/ --data-binary @$ERROR`
 			//HASTE=`echo $HASTE | cut -d"\"" -f4`
-			MESSAGE="retroarch:	[status: fail] [$jobid] LOG: http://p.0bl.net/$HASTE"
+			MESSAGE="retroarch:	[status: fail] [$jobid] LOG: $HASTE"
 			echo $MESSAGE
 		fi
 		buildbot_log "$MESSAGE"
@@ -1811,7 +1811,7 @@ if [ "${PLATFORM}" == "ps3" ] && [ "${RA}" == "YES" ]; then
 			ERROR=$TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_${PLATFORM}_dex.log
 			HASTE=`curl -X POST http://p.0bl.net/ --data-binary @$ERROR`
 			//HASTE=`echo $HASTE | cut -d"\"" -f4`
-			MESSAGE="retroarch:	[status: fail] [$jobid] LOG: http://p.0bl.net/$HASTE"
+			MESSAGE="retroarch:	[status: fail] [$jobid] LOG: $HASTE"
 			echo $MESSAGE
 		fi
 		buildbot_log "$MESSAGE"
@@ -1824,7 +1824,7 @@ if [ "${PLATFORM}" == "ps3" ] && [ "${RA}" == "YES" ]; then
 			ERROR=$TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_${PLATFORM}_cex.log
 			HASTE=`curl -X POST http://p.0bl.net/ --data-binary @$ERROR`
 			//HASTE=`echo $HASTE | cut -d"\"" -f4`
-			MESSAGE="retroarch:	[status: fail] [$jobid] LOG: http://p.0bl.net/$HASTE"
+			MESSAGE="retroarch:	[status: fail] [$jobid] LOG: $HASTE"
 			echo $MESSAGE
 		fi
 		buildbot_log "$MESSAGE"
@@ -1837,7 +1837,7 @@ if [ "${PLATFORM}" == "ps3" ] && [ "${RA}" == "YES" ]; then
 			ERROR=$TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_${PLATFORM}_ode.log
 			HASTE=`curl -X POST http://p.0bl.net/ --data-binary @$ERROR`
 			//HASTE=`echo $HASTE | cut -d"\"" -f4`
-			MESSAGE="retroarch:	[status: fail] [$jobid] LOG: http://p.0bl.net/$HASTE"
+			MESSAGE="retroarch:	[status: fail] [$jobid] LOG: $HASTE"
 			echo $MESSAGE
 		fi
 		buildbot_log "$MESSAGE"
@@ -1874,7 +1874,7 @@ if [ "${PLATFORM}" = "emscripten" ] && [ "${RA}" = "YES" ]; then
 			ERROR=$TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_${PLATFORM}.log
 			HASTE=`curl -X POST http://p.0bl.net/ --data-binary @$ERROR`
 			//HASTE=`echo $HASTE | cut -d"\"" -f4`
-			MESSAGE="retroarch:	[status: fail] [$jobid] LOG: http://p.0bl.net/$HASTE"
+			MESSAGE="retroarch:	[status: fail] [$jobid] LOG: $HASTE"
 			echo $MESSAGE
 		fi
 		buildbot_log "$MESSAGE"
@@ -1970,7 +1970,7 @@ if [ "${PLATFORM}" = "unix" ]; then
 			ERROR=$TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_${PLATFORM}.log
 			HASTE=`curl -X POST http://p.0bl.net/ --data-binary @$ERROR`
 			//HASTE=`echo $HASTE | cut -d"\"" -f4`
-			MESSAGE="retroarch:	[status: fail] [$jobid] LOG: http://p.0bl.net/$HASTE"
+			MESSAGE="retroarch:	[status: fail] [$jobid] LOG: $HASTE"
 			echo $MESSAGE
 			echo buildbot job: $MESSAGE | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_${PLATFORM}.log
 			buildbot_log "$MESSAGE"
