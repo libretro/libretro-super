@@ -53,9 +53,9 @@ fi
 
 post_error_log() {
 	error=`cat $WORKDIR/log/$1.log | tail -n 100`
-	haste=`curl -s -XPOST http://hastebin.com/documents -d"$error"`
+	haste=`curl -s -XPOST http://p.0bl.net/ -d"$error"`
 	haste=`echo $haste | cut -d"\"" -f4`
-	echo "$1:	[status: fail ] (platform: $FORMAT_COMPILER_TARGET) LOG: http://hastebin.com/$haste"
+	echo "$1:	[status: fail ] (platform: $FORMAT_COMPILER_TARGET) LOG: http://p.0bl.net/$haste"
 }
 
 build_summary_log() {
@@ -200,7 +200,7 @@ build_makefile() {
 	make_cmdline="$make_cmdline platform=\"$core_build_platform\""
 
 	[ -n "$STATIC_LINKING" ] && make_cmdline="$make_cmdline STATIC_LINKING=1"
-	
+
 	[ -n "$JOBS" ] && make_cmdline="$make_cmdline -j$JOBS"
 	[ -n "$DEBUG" ] && make_cmdline="$make_cmdline DEBUG=$DEBUG"
 
