@@ -311,7 +311,7 @@ build_libretro_generic_makefile() {
 		ERROR=$TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}.log
 		HASTE=`curl -X POST http://p.0bl.net/ --data-binary @$ERROR`
 		//HASTE=`echo $HASTE | cut -d"\"" -f4`
-		MESSAGE="$1:	[status: fail] [$jobid] LOG: http://hastebin.com/$HASTE"
+		MESSAGE="$1:	[status: fail] [$jobid] LOG: $HASTE"
 	fi
 
 	echo buildbot job: $MESSAGE
@@ -363,7 +363,7 @@ build_libretro_leiradel_makefile() {
 		ERROR=$TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}.log
 		HASTE=`curl -X POST http://p.0bl.net/ --data-binary @$ERROR`
 		//HASTE=`echo $HASTE | cut -d"\"" -f4`
-		MESSAGE="$1:	[status: fail] [$jobid] LOG: http://hastebin.com/$HASTE"
+		MESSAGE="$1:	[status: fail] [$jobid] LOG: $HASTE"
 	fi
 	echo buildbot job: $MESSAGE
 
@@ -419,7 +419,7 @@ build_libretro_generic_gl_makefile() {
 		ERROR=$TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}.log
 		HASTE=`curl -X POST http://p.0bl.net/ --data-binary @$ERROR`
 		//HASTE=`echo $HASTE | cut -d"\"" -f4`
-		MESSAGE="$1:	[status: fail] [$jobid] LOG: http://hastebin.com/$HASTE"
+		MESSAGE="$1:	[status: fail] [$jobid] LOG: $HASTE"
 	fi
 	echo buildbot job: $MESSAGE
 	buildbot_log "$MESSAGE"
@@ -478,7 +478,7 @@ build_libretro_generic_jni() {
 			ERROR=$TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}_${a}.log
 			HASTE=`curl -X POST http://p.0bl.net/ --data-binary @$ERROR`
 			//HASTE=`echo $HASTE | cut -d"\"" -f4`
-			MESSAGE="$1-$a:	[status: fail] [$jobid] LOG: http://hastebin.com/$HASTE"
+			MESSAGE="$1-$a:	[status: fail] [$jobid] LOG: $HASTE"
 			echo buildbot job: $MESSAGE
 			buildbot_log "$MESSAGE"
 		fi
@@ -536,7 +536,7 @@ build_libretro_bsnes_jni() {
 			ERROR=$TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PROFILE}_${PLATFORM}_${a}.log
 			HASTE=`curl -X POST http://p.0bl.net/ --data-binary @$ERROR`
 			//HASTE=`echo $HASTE | cut -d"\"" -f4`
-			MESSAGE="$1-$a-${PROFILE}:	[status: fail] [$jobid] LOG: http://hastebin.com/$HASTE"
+			MESSAGE="$1-$a-${PROFILE}:	[status: fail] [$jobid] LOG: $HASTE"
 		fi
 		echo buildbot job: $MESSAGE
 
@@ -600,7 +600,7 @@ build_libretro_bsnes() {
 		ERROR=$TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PROFILE}_${PLATFORM}.log
 		HASTE=`curl -X POST http://p.0bl.net/ --data-binary @$ERROR`
 		//HASTE=`echo $HASTE | cut -d"\"" -f4`
-		MESSAGE="$1-${PROFILE}:	[status: fail] [$jobid] LOG: http://hastebin.com/$HASTE"
+		MESSAGE="$1-${PROFILE}:	[status: fail] [$jobid] LOG: $HASTE"
 	fi
 	echo buildbot job: $MESSAGE
 
@@ -1437,13 +1437,9 @@ if [ "${PLATFORM}" = "MINGW64" ] || [ "${PLATFORM}" = "MINGW32" ] || [ "${PLATFO
 			buildbot_log "$MESSAGE"
 
 			${HELPER} ${MAKE} clean
-<<<<<<< HEAD
+
 			${HELPER} ${MAKE} -j${JOBS} DEBUG=1 GL_DEBUG=1 2>&1 | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_DEBUG_${PLATFORM}.txt
 			for i in $(seq 3); do for bin in $(ntldd -R *exe | grep -i mingw | cut -d">" -f2 | cut -d" " -f2); do cp -vu "$bin" . ; done; done
-=======
-			${HELPER} ${MAKE} -j${JOBS} DEBUG=1 GL_DEBUG=1 2>&1 | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_DEBUG_${PLATFORM}.log
->>>>>>> parent of 79dd1f7... skip hastebinning and point to local log instead
-			for i in $(seq 3); do for bin in $(ntldd *exe *dll | grep -i mingw | cut -d\  -f 3); do cp -vu "$bin" . ; done; for bin in $(ldd *exe *dll | grep -i mingw | cut -d\  -f 3); do cp -vu "$bin" . ; done; done;
 
 			cp -v retroarch.exe windows/retroarch_debug.exe	| tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_${PLATFORM}.log
 			cp -v *.dll windows/
