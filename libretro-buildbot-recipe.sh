@@ -1066,6 +1066,39 @@ buildbot_pull(){
 	cd $WORK
 }
 
+compile_audio_filters()
+{
+  HELPER=$1
+  MAKE=$2
+	echo "compiling audio filters"
+	cd audio/audio_filters
+	echo "audio filter BUILD CMD: ${HELPER} ${MAKE}"
+	${HELPER} ${MAKE}
+	if [ $? -eq 0 ]; then
+		echo buildbot job: $jobid audio filter build success!
+	else
+		echo buildbot job: $jobid audio filter:	[status: fail]!
+	fi
+	cd ..
+	cd ..
+}
+
+compile_video_filters()
+{
+  HELPER=$1
+  MAKE=$2
+  echo "compiling video filters"
+  cd gfx/video_filters
+  echo "audio filter BUILD CMD: ${HELPER} ${MAKE}"
+  ${HELPER} ${MAKE}
+  if [ $? -eq 0 ]; then
+     echo buildbot job: $jobid video filter build success!
+  else
+     echo buildbot job: $jobid video filter:	[status: fail]!
+  fi
+  cd ..
+  cd ..
+}
 
 
 echo "buildbot job: $jobid Building Retroarch-$PLATFORM"
@@ -1355,32 +1388,9 @@ if [ "${PLATFORM}" = "MINGW64" ] || [ "${PLATFORM}" = "MINGW32" ] || [ "${PLATFO
 		git clean -xdf
 		echo "buildbot job: $jobid Building"
 		echo
-
-		echo "compiling audio filters"
-		cd audio/audio_filters
-		echo "audio filter BUILD CMD: ${HELPER} ${MAKE}"
-		${HELPER} ${MAKE}
-		if [ $? -eq 0 ]; then
-			echo buildbot job: $jobid audio filter build success!
-		else
-			echo buildbot job: $jobid audio filter:	[status: fail]!
-		fi
-
-		cd ..
-		cd ..
-
-		echo "compiling video filters"
-		cd gfx/video_filters
-		echo "audio filter BUILD CMD: ${HELPER} ${MAKE}"
-		${HELPER} ${MAKE}
-		if [ $? -eq 0 ]; then
-			echo buildbot job: $jobid video filter build success!
-		else
-			echo buildbot job: $jobid video filter:	[status: fail]!
-		fi
-
-		cd ..
-		cd ..
+		
+		compile_audio_filters ${HELPER} ${MAKE}
+		compile_video_filters ${HELPER} ${MAKE}
 
 		echo "configuring..."
 		echo "configure command: $CONFIGURE $ARGS"
@@ -1878,31 +1888,8 @@ if [ "${PLATFORM}" = "unix" ]; then
 		echo "buildbot job: $jobid Building"
 		echo
 
-		echo "compiling audio filters"
-		cd audio/audio_filters
-		echo "audio filter BUILD CMD: ${HELPER} ${MAKE}"
-		${HELPER} ${MAKE}
-		if [ $? -eq 0 ]; then
-			echo buildbot job: $jobid audio filter build success!
-		else
-			echo buildbot job: $jobid audio filter:	[status: fail]!
-		fi
-
-		cd ..
-		cd ..
-
-		echo "compiling video filters"
-		cd gfx/video_filters
-		echo "audio filter BUILD CMD: ${HELPER} ${MAKE}"
-		${HELPER} ${MAKE}
-		if [ $? -eq 0 ]; then
-			echo buildbot job: $jobid video filter build success!
-		else
-			echo buildbot job: $jobid video filter:	[status: fail]!
-		fi
-
-		cd ..
-		cd ..
+		compile_audio_filters ${HELPER} ${MAKE}
+		compile_video_filters ${HELPER} ${MAKE}
 
 		echo "configuring..."
 		echo "configure command: $CONFIGURE $ARGS"
