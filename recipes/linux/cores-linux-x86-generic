@@ -11,6 +11,7 @@ bsnes_mercury libretro-bsnes_mercury https://github.com/libretro/bsnes-mercury.g
 bsnes_mercury libretro-bsnes_mercury https://github.com/libretro/bsnes-mercury.git PROJECT YES BSNES Makefile . balanced 
 bsnes_mercury libretro-bsnes_mercury https://github.com/libretro/bsnes-mercury.git PROJECT YES BSNES Makefile . performance 
 craft libretro-craft https://github.com/libretro/craft PROJECT YES GENERIC Makefile.libretro . 
+cap32 libretro-cap32 https://github.com/libretro/libretro-cap32.git PROJECT YES GENERIC Makefile .
 desmume libretro-desmume https://github.com/libretro/desmume.git PROJECT YES GENERIC Makefile.libretro desmume 
 dinothawr libretro-dinothawr https://github.com/libretro/Dinothawr.git PROJECT YES GENERIC Makefile . 
 dosbox libretro-dosbox https://github.com/libretro/dosbox-libretro.git PROJECT YES GENERIC Makefile.libretro . 
