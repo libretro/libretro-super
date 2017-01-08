@@ -225,7 +225,7 @@ build_libretro_databases() {
 	build_libretro_database "NEC - PC Engine - TurboGrafx 16" "rom.crc"
 	build_libretro_database "NEC - PC Engine SuperGrafx" "rom.crc"
 	build_libretro_database "NEC - PC-FX" "rom.crc"
-	build_libretro_database "Nintendo - Famicom Disk System" "rom.crc"
+	build_libretro_database "Nintendo - Family Computer Disk System" "rom.crc"
 	build_libretro_database "Nintendo - Game Boy" "rom.crc"
 	build_libretro_database "Nintendo - Game Boy Advance" "rom.crc"
 	build_libretro_database "Nintendo - Game Boy Advance (e-Cards)" "rom.crc"
