@@ -1071,7 +1071,7 @@ compile_audio_filters()
   HELPER=$1
   MAKE=$2
 	echo "compiling audio filters"
-	cd audio/audio_filters
+	cd libretro-common/audio/dsp_filters
 	echo "audio filter BUILD CMD: ${HELPER} ${MAKE}"
 	${HELPER} ${MAKE}
 	if [ $? -eq 0 ]; then
@@ -1312,7 +1312,7 @@ if [ "${PLATFORM}" = "android" ] && [ "${RA}" = "YES" ]; then
 		cp -rf media/shaders_glsl/* pkg/android/phoenix/assets/shaders/shaders_glsl/
 		cp -rf media/libretrodb/cursors/* pkg/android/phoenix/assets/database/cursors/
 		cp -rf media/libretrodb/rdb/* pkg/android/phoenix/assets/database/rdb/
-		cp -rf audio/audio_filters/*.dsp pkg/android/phoenix/assets/filters/audio/
+		cp -rf libretro-common/audio/dsp_filters/*.dsp pkg/android/phoenix/assets/filters/audio/
 		cp -rf gfx/video_filters/*.filt pkg/android/phoenix/assets/filters/video/
 
 
@@ -1477,8 +1477,8 @@ EOF
 
 			cp -v retroarch.default.cfg windows/
 			cp -v tools/*.exe windows/
-			cp -rf audio/audio_filters/*.dll windows/filters/audio
-			cp -rf audio/audio_filters/*.dsp windows/filters/audio
+			cp -rf libretro-common/audio/dsp_filters/*.dll windows/filters/audio
+			cp -rf libretro-common/audio/dsp_filters/*.dsp windows/filters/audio
 			cp -rf gfx/video_filters/*.dll windows/filters/video
 			cp -rf gfx/video_filters/*.filt windows/filters/video
 
@@ -1719,7 +1719,7 @@ if [ "${PLATFORM}" == "ctr" ] && [ "${RA}" == "YES" ]; then
 
 
 		cp -v $WORK/$RADIR/gfx/video_filters/*.filt $WORK/$RADIR/pkg/3ds/retroarch/filters/video/
-		cp -v $WORK/$RADIR/audio/audio_filters/*.dsp $WORK/$RADIR/pkg/3ds/retroarch/filters/audio/
+		cp -v $WORK/$RADIR/libretro-common/audio/dsp_filters/*.dsp $WORK/$RADIR/pkg/3ds/retroarch/filters/audio/
 		cp -v $RARCH_DIST_DIR/../info/*.info $WORK/$RADIR/pkg/3ds/retroarch/cores/info/
 		cp -v $WORK/$RADIR/media/libretrodb/rdb/*.rdb $WORK/$RADIR/pkg/3ds/retroarch/database/rdb/
 		cp -v $WORK/$RADIR/media/libretrodb/cursors/*.dbc $WORK/$RADIR/pkg/3ds/retroarch/database/cursors/
