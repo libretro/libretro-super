@@ -1079,8 +1079,6 @@ compile_audio_filters()
 	else
 		echo buildbot job: $jobid audio filter:	[status: fail]!
 	fi
-	cd ..
-	cd ..
 }
 
 compile_video_filters()
@@ -1096,8 +1094,6 @@ compile_video_filters()
   else
      echo buildbot job: $jobid video filter:	[status: fail]!
   fi
-  cd ..
-  cd ..
 }
 
 
@@ -1117,7 +1113,7 @@ if [ "${PLATFORM}" == "osx" ] && [ "${RA}" == "YES" ]; then
 	buildbot_pull
 
 	if [ "${BUILD}" == "YES" -o "${FORCE}" == "YES" -o "${FORCE_RETROARCH_BUILD}" == "YES" -o "${CORES_BUILT}" == "YES" ]; then
-		cd $RADIR
+		cd $PWD/$RADIR
 		git clean -xdf
 		echo WORKINGDIR=$PWD
 		echo RELEASE=$RELEASE
@@ -1175,7 +1171,7 @@ if [ "${PLATFORM}" == "ios" ] && [ "${RA}" == "YES" ]; then
 	buildbot_pull
 
 	if [ "${BUILD}" == "YES" -o "${FORCE}" == "YES" -o "${FORCE_RETROARCH_BUILD}" == "YES" -o "${CORES_BUILT}" == "YES" ]; then
-		cd $RADIR
+		cd $PWD/$RADIR
 		git clean -xdf
 		echo "buildbot job: $jobid Building"
 		echo
@@ -1214,7 +1210,7 @@ if [ "${PLATFORM}" == "ios9" ] && [ "${RA}" == "YES" ]; then
 	buildbot_pull
 
 	if [ "${BUILD}" == "YES" -o "${FORCE}" == "YES" -o "${FORCE_RETROARCH_BUILD}" == "YES" -o "${CORES_BUILT}" == "YES" ]; then
-		cd $RADIR
+		cd $PWD/$RADIR
 		git clean -xdf
 		echo "buildbot job: $jobid Building"
 		echo
@@ -1260,7 +1256,7 @@ if [ "${PLATFORM}" = "android" ] && [ "${RA}" = "YES" ]; then
 	if [ "${BUILD}" = "YES" -o "${FORCE}" = "YES" -o "${FORCE_RETROARCH_BUILD}" == "YES" ]; then
 		echo "buildbot job: $jobid compiling shaders"
 		echo
-		cd $RADIR
+		cd $PWD/$RADIR
 		git clean -xdf
 		echo WORKINGDIR=$PWD
 		echo RELEASE=$RELEASE
@@ -1384,15 +1380,15 @@ if [ "${PLATFORM}" = "MINGW64" ] || [ "${PLATFORM}" = "MINGW32" ] || [ "${PLATFO
 	echo
 
 	if [ "${BUILD}" = "YES" -o "${FORCE}" = "YES" -o "${FORCE_RETROARCH_BUILD}" == "YES" ]; then
-		cd $RADIR
+		cd $PWD/$RADIR
 		git clean -xdf
 		echo "buildbot job: $jobid Building"
 		echo
 		
 		compile_audio_filters ${HELPER} ${MAKE}
-		cd $RADIR
+		cd $PWD/$RADIR
 		compile_video_filters ${HELPER} ${MAKE}
-		cd $RADIR
+		cd $PWD/$RADIR
 
 		echo "configuring..."
 		echo "configure command: $CONFIGURE $ARGS"
@@ -1505,7 +1501,7 @@ if [ "${PLATFORM}" = "psp1" ] && [ "${RA}" = "YES" ]; then
 
 	if [ "${BUILD}" == "YES" -o "${FORCE}" == "YES" -o "${FORCE_RETROARCH_BUILD}" == "YES" -o "${CORES_BUILT}" == "YES" ]; then
 
-		cd $RADIR
+		cd $PWD/$RADIR
 		git clean -xdf
 		echo "buildbot job: $jobid Building"
 		echo
@@ -1549,7 +1545,7 @@ if [ "${PLATFORM}" == "wii" ] && [ "${RA}" == "YES" ]; then
 	buildbot_pull
 	if [ "${BUILD}" == "YES" -o "${FORCE}" == "YES" -o "${FORCE_RETROARCH_BUILD}" == "YES" -o "${CORES_BUILT}" == "YES" ]; then
 		touch $TMPDIR/built-frontend
-		cd $RADIR
+		cd $PWD/$RADIR
 		git clean -xdf
 		echo "buildbot job: $jobid Building"
 		echo
@@ -1594,7 +1590,7 @@ if [ "${PLATFORM}" == "wiiu" ] && [ "${RA}" == "YES" ]; then
 	buildbot_pull
 	if [ "${BUILD}" == "YES" -o "${FORCE}" == "YES" -o "${FORCE_RETROARCH_BUILD}" == "YES" -o "${CORES_BUILT}" == "YES" ]; then
 		touch $TMPDIR/built-frontend
-		cd $RADIR
+		cd $PWD/$RADIR
 		git clean -xdf
 		echo "buildbot job: $jobid Building"
 		echo
@@ -1634,7 +1630,7 @@ if [ "${PLATFORM}" == "ngc" ] && [ "${RA}" == "YES" ]; then
 	buildbot_pull
 	if [ "${BUILD}" == "YES" -o "${FORCE}" == "YES" -o "${FORCE_RETROARCH_BUILD}" == "YES" -o "${CORES_BUILT}" == "YES" ]; then
 		touch $TMPDIR/built-frontend
-		cd $RADIR
+		cd $PWD/$RADIR
 		git clean -xdf
 		echo "buildbot job: $jobid Building"
 		echo
@@ -1678,7 +1674,7 @@ if [ "${PLATFORM}" == "ctr" ] && [ "${RA}" == "YES" ]; then
 	echo RADIR=$RADIR
 
 	if [ "${BUILD}" == "YES" -o "${FORCE}" == "YES" -o "${FORCE_RETROARCH_BUILD}" == "YES" -o "${CORES_BUILT}" == "YES" ]; then
-		cd $RADIR
+		cd $PWD/$RADIR
 		git clean -xdf
 		echo "buildbot job: $jobid Building"
 		echo
@@ -1740,7 +1736,7 @@ if [ "${PLATFORM}" == "vita" ] && [ "${RA}" == "YES" ]; then
 
 	if [ "${BUILD}" == "YES" -o "${FORCE}" == "YES" -o "${FORCE_RETROARCH_BUILD}" == "YES" -o "${CORES_BUILT}" == "YES" ]; then
 		touch $TMPDIR/built-frontend
-		cd $RADIR
+		cd $PWD/$RADIR
 		git clean -xdf
 		echo "buildbot job: $jobid Building"
 		echo
@@ -1784,7 +1780,7 @@ if [ "${PLATFORM}" == "ps3" ] && [ "${RA}" == "YES" ]; then
 
 	if [ "${BUILD}" == "YES" -o "${FORCE}" == "YES" -o "${FORCE_RETROARCH_BUILD}" == "YES" -o "${CORES_BUILT}" == "YES" ]; then
 		touch $TMPDIR/built-frontend
-		cd $RADIR
+		cd $PWD/$RADIR
 		git clean -xdf
 		echo "buildbot job: $jobid Building"
 		echo
@@ -1843,7 +1839,7 @@ if [ "${PLATFORM}" = "emscripten" ] && [ "${RA}" = "YES" ]; then
 
 	if [ "${BUILD}" == "YES" -o "${FORCE}" == "YES" -o "${FORCE_RETROARCH_BUILD}" == "YES" -o "${CORES_BUILT}" == "YES" ]; then
 		touch $TMPDIR/built-frontend
-		cd $RADIR
+		cd $PWD/$RADIR
 		git clean -xdf
 		echo "buildbot job: $jobid Building"
 		echo
@@ -1885,15 +1881,15 @@ if [ "${PLATFORM}" = "unix" ]; then
 
 	if [ "${BUILD}" = "YES" -o "${FORCE}" = "YES" -o "${FORCE_RETROARCH_BUILD}" == "YES" ]; then
 		touch $TMPDIR/built-frontend
-		cd $RADIR
+		cd $PWD/$RADIR
 		git clean -xdf
 		echo "buildbot job: $jobid Building"
 		echo
 
 		compile_audio_filters ${HELPER} ${MAKE}
-		cd $RADIR
+		cd $PWD/$RADIR
 		compile_video_filters ${HELPER} ${MAKE}
-		cd $RADIR
+		cd $PWD/$RADIR
 
 		echo "configuring..."
 		echo "configure command: $CONFIGURE $ARGS"
