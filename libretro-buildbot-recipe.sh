@@ -1079,8 +1079,6 @@ compile_audio_filters()
 	else
 		echo buildbot job: $jobid audio filter:	[status: fail]!
 	fi
-	cd ..
-	cd ..
 }
 
 compile_video_filters()
@@ -1096,8 +1094,6 @@ compile_video_filters()
   else
      echo buildbot job: $jobid video filter:	[status: fail]!
   fi
-  cd ..
-  cd ..
 }
 
 
