@@ -1390,7 +1390,9 @@ if [ "${PLATFORM}" = "MINGW64" ] || [ "${PLATFORM}" = "MINGW32" ] || [ "${PLATFO
 		echo
 		
 		compile_audio_filters ${HELPER} ${MAKE}
+		cd $RADIR
 		compile_video_filters ${HELPER} ${MAKE}
+		cd $RADIR
 
 		echo "configuring..."
 		echo "configure command: $CONFIGURE $ARGS"
@@ -1889,7 +1891,9 @@ if [ "${PLATFORM}" = "unix" ]; then
 		echo
 
 		compile_audio_filters ${HELPER} ${MAKE}
+		cd $RADIR
 		compile_video_filters ${HELPER} ${MAKE}
+		cd $RADIR
 
 		echo "configuring..."
 		echo "configure command: $CONFIGURE $ARGS"
