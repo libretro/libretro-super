@@ -1386,6 +1386,7 @@ if [ "${PLATFORM}" = "MINGW64" ] || [ "${PLATFORM}" = "MINGW32" ] || [ "${PLATFO
 	if [ "${BUILD}" = "YES" -o "${FORCE}" = "YES" -o "${FORCE_RETROARCH_BUILD}" == "YES" ]; then
 		cd $RADIR
 		RADIR=$PWD
+      echo RetroArch Directory: $RADIR
 		git clean -xdf
 		echo "buildbot job: $jobid Building"
 		echo
