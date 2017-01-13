@@ -1385,6 +1385,7 @@ if [ "${PLATFORM}" = "MINGW64" ] || [ "${PLATFORM}" = "MINGW32" ] || [ "${PLATFO
 		echo "buildbot job: $jobid Building"
 		echo
 		
+		echo PWD: $PWD | WORKINGDIR: $WORKINGDIR | RADIR: $RADIR
 		compile_audio_filters ${HELPER} ${MAKE}
 		cd $WORKINGDIR/$RADIR
 		compile_video_filters ${HELPER} ${MAKE}
