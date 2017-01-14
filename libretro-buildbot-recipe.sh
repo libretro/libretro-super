@@ -1892,8 +1892,10 @@ if [ "${PLATFORM}" = "unix" ]; then
 		echo "buildbot job: $jobid Building"
 		echo
 
-		compile_audio_filters ${HELPER} ${MAKE}
+      compile_audio_filters ${HELPER} ${MAKE}
+		cd $RADIR
 		compile_video_filters ${HELPER} ${MAKE}
+		cd $RADIR
 
 		echo "configuring..."
 		echo "configure command: $CONFIGURE $ARGS"
