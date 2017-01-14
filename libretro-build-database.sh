@@ -170,6 +170,11 @@ build_libretro_database() {
 			COMMAND+=' "${LIBRETRODATABASE_META_DAT_DIR}/libretro-dats/${1}.dat"'
 		fi
 
+		#Check if meta redump is there
+		if [ -f "${LIBRETRODATABASE_META_DAT_DIR}/redump/${1}.dat" ]; then
+			COMMAND+=' "${LIBRETRODATABASE_META_DAT_DIR}/redump/${1}.dat"'
+		fi
+
 		#Check if meta no-intro is there
 		if [ -f "${LIBRETRODATABASE_META_DAT_DIR}/no-intro/${1}.dat" ]; then
 			COMMAND+=' "${LIBRETRODATABASE_META_DAT_DIR}/no-intro/${1}.dat"'
