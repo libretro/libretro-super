@@ -1,3 +1,4 @@
+fbalpha libretro-fbalpha https://github.com/libretro/fbalpha.git PROJECT YES GENERIC makefile.libretro . 
 fbalpha2012 libretro-fbalpha2012 https://github.com/libretro/fbalpha2012.git PROJECT YES GENERIC makefile.libretro svn-current/trunk 
 fbalpha2012_cps1 libretro-fbalpha2012_cps1 https://github.com/libretro/fbalpha2012_cps1.git PROJECT YES GENERIC makefile.libretro . 
 fbalpha2012_cps2 libretro-fbalpha2012_cps2 https://github.com/libretro/fbalpha2012_cps2.git PROJECT YES GENERIC makefile.libretro . 
