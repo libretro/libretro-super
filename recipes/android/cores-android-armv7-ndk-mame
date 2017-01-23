@@ -2,3 +2,4 @@ mame libretro-mame https://github.com/libretro/mame.git PROJECT YES GENERIC make
 mame2014 libretro-mame2014 https://github.com/libretro/mame2014-libretro.git PROJECT YES GENERIC Makefile . TARGET=mame 
 mess2014 libretro-mame2014 https://github.com/libretro/mame2014-libretro.git PROJECT YES GENERIC Makefile . TARGET=mess 
 ume2014 libretro-mame2014 https://github.com/libretro/mame2014-libretro.git PROJECT YES GENERIC Makefile . TARGET=ume 
+mame2016  libretro-mame2016 https://github.com/libretro/mame2016-libretro PROJECT YES GENERIC makefile . OSD=retro RETRO=1 NOWERROR=1 NOASM=1 gcc=android-arm gcc_version=4.9 TARGETOS=android-arm CONFIG=libretro NO_USE_MIDI=1 OS=linux VERBOSE=1 verbose=1 TARGET=mame
