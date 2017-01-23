@@ -1,6 +1,6 @@
 display_name = "Arcade (MAME)"
 authors = "MAMEdev"
-supported_extensions = "zip|chd|7z"
+supported_extensions = "zip|chd|7z|cmd"
 corename = "MAME (Git)"
 manufacturer = "Various"
 categories = "Emulator"
