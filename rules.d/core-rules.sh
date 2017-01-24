@@ -691,6 +691,13 @@ libretro_lutro_name="Lutro"
 libretro_lutro_git_url="https://github.com/libretro/libretro-lutro.git"
 libretro_lutro_build_makefile="Makefile"
 
+include_core_pokemini() {
+	register_module core "pokemini" 
+}
+libretro_pokemini_name="PokeMini"
+libretro_pokemini_git_url="https://github.com/libretro/PokeMini.git"
+libretro_pokemini_build_makefile="Makefile"
+
 # CORE RULE VARIABLES
 #
 # All variables follow the format of libretro_<core>_<setting> where <core> is
