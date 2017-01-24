@@ -699,7 +699,7 @@ libretro_lutro_git_url="https://github.com/libretro/libretro-lutro.git"
 libretro_lutro_build_makefile="Makefile"
 
 include_core_pokemini() {
-	register_module core "pokemini" 
+	register_module core "pokemini" -theos_ios -ngc -ps3 -psp1 -qnx -wii
 }
 libretro_pokemini_name="PokeMini"
 libretro_pokemini_git_url="https://github.com/libretro/PokeMini.git"
