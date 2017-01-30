@@ -521,7 +521,7 @@ include_core_glupen64() {
 	register_module core "glupen64" -theos_ios -ngc -ps3 -psp1 -wii
 }
 libretro_glupen64_name="GLupeN64"
-libretro_glupen64_git_url="https://github.com/libretro/GLupeN64.git"
+libretro_glupen64_git_url="https://github.com/loganmc10/GLupeN64.git"
 libretro_glupen64_build_platform="$FORMAT_COMPILER_TARGET_ALT"
 libretro_glupen64_configure() {
 	if iscpu_x86_64 $ARCH; then
