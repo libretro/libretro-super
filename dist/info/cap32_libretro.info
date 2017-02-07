@@ -1,6 +1,6 @@
 display_name = "Amstrad CPC (Caprice32)"
 authors = "Ulrich Doewich|dantoine"
-supported_extensions = "dsk|sna"
+supported_extensions = "dsk|sna|zip|tap|cdt|voc"
 corename = "Caprice32"
 manufacturer = "Amstrad"
 categories = "Emulator"
