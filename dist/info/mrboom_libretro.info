@@ -1,7 +1,7 @@
 display_name = "Mr.Boom (Bomberman)"
 authors = ""
 supported_extensions = ""
-corename = "Mr.Boom"
+corename = "MrBoom"
 categories = "Game"
 systemname = "Bomberman Game Clone"
 license = ""
