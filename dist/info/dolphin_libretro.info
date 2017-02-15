@@ -1,6 +1,6 @@
 display_name = "GameCube / Wii (Dolphin)"
 authors = "Team Dolphin"
-supported_extensions = "gcm|iso|wbfs|ciso|gcz|elf|dol|dff"
+supported_extensions = "gcm|iso|wbfs|ciso|gcz|elf|dol|dff|tgc|wad"
 corename = "Dolphin"
 manufacturer = "Nintendo"
 categories = "Emulator"
