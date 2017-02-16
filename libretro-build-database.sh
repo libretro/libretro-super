@@ -165,6 +165,11 @@ build_libretro_database() {
 			COMMAND+=' "${LIBRETRODATABASE_META_DAT_DIR}/tgdb/${1}.dat"'
 		fi
 
+		#Check if meta hacks is there
+		if [ -f "${LIBRETRODATABASE_META_DAT_DIR}/hacks/${1}.dat" ]; then
+			COMMAND+=' "${LIBRETRODATABASE_META_DAT_DIR}/hacks/${1}.dat"'
+		fi
+
 		#Check if meta libretro-dats folder is there
 		if [ -f "${LIBRETRODATABASE_META_DAT_DIR}/libretro-dats/${1}.dat" ]; then
 			COMMAND+=' "${LIBRETRODATABASE_META_DAT_DIR}/libretro-dats/${1}.dat"'
@@ -178,11 +183,6 @@ build_libretro_database() {
 		#Check if meta no-intro is there
 		if [ -f "${LIBRETRODATABASE_META_DAT_DIR}/no-intro/${1}.dat" ]; then
 			COMMAND+=' "${LIBRETRODATABASE_META_DAT_DIR}/no-intro/${1}.dat"'
-		fi
-
-		#Check if meta hacks is there
-		if [ -f "${LIBRETRODATABASE_META_DAT_DIR}/hacks/${1}.dat" ]; then
-			COMMAND+=' "${LIBRETRODATABASE_META_DAT_DIR}/hacks/${1}.dat"'
 		fi
 
 		#Check if main DAT is there
