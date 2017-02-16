@@ -180,6 +180,11 @@ build_libretro_database() {
 			COMMAND+=' "${LIBRETRODATABASE_META_DAT_DIR}/no-intro/${1}.dat"'
 		fi
 
+		#Check if meta hacks is there
+		if [ -f "${LIBRETRODATABASE_META_DAT_DIR}/hacks/${1}.dat" ]; then
+			COMMAND+=' "${LIBRETRODATABASE_META_DAT_DIR}/hacks/${1}.dat"'
+		fi
+
 		#Check if main DAT is there
 		if [ -f "${LIBRETRODATABASE_DAT_DIR}/${1}.dat" ]; then
 			COMMAND+=' "${LIBRETRODATABASE_DAT_DIR}/${1}.dat"'
