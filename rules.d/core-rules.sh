@@ -517,13 +517,13 @@ include_core_tgbdual() {
 libretro_tgbdual_name="TGB Dual"
 libretro_tgbdual_git_url="https://github.com/libretro/tgbdual-libretro.git"
 
-include_core_glupen64() {
-	register_module core "glupen64" -theos_ios -ngc -ps3 -psp1 -wii
+include_core_mupen64plus() {
+	register_module core "mupen64plus" -theos_ios -ngc -ps3 -psp1 -wii
 }
-libretro_glupen64_name="GLupeN64"
-libretro_glupen64_git_url="https://github.com/libretro/GLupeN64.git"
-libretro_glupen64_build_platform="$FORMAT_COMPILER_TARGET_ALT"
-libretro_glupen64_configure() {
+libretro_mupen64plus_name="Mupen64 Plus"
+libretro_mupen64plus_git_url="https://github.com/libretro/mupen64plus-libretro.git"
+libretro_mupen64plus_build_platform="$FORMAT_COMPILER_TARGET_ALT"
+libretro_mupen64plus_configure() {
 	if iscpu_x86_64 $ARCH; then
 		core_build_args="WITH_DYNAREC=x86_64"
 	elif iscpu_x86 $ARCH; then
@@ -533,13 +533,13 @@ libretro_glupen64_configure() {
 	fi
 }
 
-include_core_mupen64plus() {
-	register_module core "mupen64plus" -theos_ios -ngc -ps3 -psp1 -wii
+include_core_parallel_n64() {
+	register_module core "parallel_n64" -theos_ios -ngc -ps3 -psp1 -wii
 }
-libretro_mupen64plus_name="Mupen64Plus"
-libretro_mupen64plus_git_url="https://github.com/libretro/mupen64plus-libretro.git"
-libretro_mupen64plus_build_platform="$FORMAT_COMPILER_TARGET_ALT"
-libretro_mupen64Plus_configure() {
+libretro_parallel_n64_name="Parallel N64"
+libretro_parallel_n64_git_url="https://github.com/libretro/parallel-n64.git"
+libretro_parallel_n64_build_platform="$FORMAT_COMPILER_TARGET_ALT"
+libretro_parallel_n64_configure() {
 	if iscpu_x86_64 $ARCH; then
 		core_build_args="WITH_DYNAREC=x86_64"
 	elif iscpu_x86 $ARCH; then
