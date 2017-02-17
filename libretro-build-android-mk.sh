@@ -138,7 +138,7 @@ WANT_CORES=" \
 	nxengine \
 	o2em \
 	pcsx_rearmed \
-	mupen64plus \
+	parallel_n64 \
 	vecx \
 	nestopia \
 	tgbdual \
