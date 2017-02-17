@@ -108,8 +108,8 @@ include_core_picodrive
 include_core_tgbdual
 
 # --- Mupen64 Plus cores ---
-include_core_glupen64
 include_core_mupen64plus
+include_core_parallel_n64
 
 include_core_dinothawr
 include_core_3dengine
