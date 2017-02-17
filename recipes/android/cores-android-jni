@@ -43,10 +43,9 @@ meteor libretro-meteor  https://github.com/libretro/meteor-libretro.git PROJECT 
 mame2003 libretro-mame2003  https://github.com/libretro/mame2003-libretro.git PROJECT YES GENERIC_JNI Makefile jni 
 mame2000 libretro-mame2000 https://github.com/libretro/mame2000-libretro.git PROJECT YES GENERIC_JNI Makefile jni 
 mrboom libretro-mrboom  https://github.com/libretro/mrboom-libretro.git PROJECT YES GENERIC_JNI Makefile jni 
-mupen64plus libretro-mupen64plus https://github.com/libretro/mupen64plus-libretro.git PROJECT YES GENERIC_JNI Makefile jni 
+parallel_n64 libretro-parallel_n64 https://github.com/libretro/parallel-n64.git PROJECT YES GENERIC_JNI Makefile libretro/jni 
 nxengine libretro-nxengine https://github.com/libretro/nxengine-libretro.git PROJECT YES GENERIC_JNI Makefile jni 
 o2em libretro-o2em https://github.com/libretro/libretro-o2em.git PROJECT YES GENERIC_JNI Makefile jni 
-parallel libretro-parallel https://github.com/libretro/mupen64plus-libretro.git PROJECT YES GENERIC_JNI Makefile libretro/jni 
 pcsx_rearmed libretro-pcsx_rearmed https://github.com/libretro/pcsx_rearmed.git PROJECT YES GENERIC_JNI Makefile.libretro jni 
 pcsx_rearmed_interpreter libretro-pcsx_rearmed_interpreter https://github.com/libretro/pcsx_rearmed.git PROJECT YES GENERIC_JNI Makefile.libretro . USE_DYNAREC=0 
 picodrive libretro-picodrive https://github.com/libretro/picodrive.git SUBMODULE YES GENERIC_JNI Makefile.libretro jni 

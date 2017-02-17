@@ -14,7 +14,7 @@ ffmpeg libretro-ffmpeg  https://github.com/libretro/FFmpeg.git PROJECT NO GENERI
 fmsx libretro-fmsx https://github.com/libretro/fmsx-libretro.git PROJECT NO GENERIC Makefile . 
 gambatte libretro-gambatte https://github.com/libretro/gambatte-libretro.git PROJECT YES GENERIC Makefile 
 genesis_plus_gx libretro-genesis_plus_gx https://github.com/libretro/Genesis-Plus-GX.git PROJECT YES GENERIC Makefile.libretro .
-glupen64 libretro-glupen64 https://github.com/loganmc10/GLupeN64.git PROJECT YES GENERIC_GL Makefile . 
+mupen64plus libretro-mupen64plus https://github.com/libretro/mupen64plus-libretro.git PROJECT YES GENERIC_GL Makefile . 
 gme libretro-gme https://github.com/libretro/libretro-gme.git SUBMODULE YES GENERIC Makefile . 
 gpsp libretro-gpsp https://github.com/libretro/gpsp.git PROJECT YES GENERIC Makefile . 
 handy libretro-handy https://github.com/libretro/libretro-handy.git PROJECT YES GENERIC Makefile . 
@@ -29,7 +29,7 @@ mednafen_saturn libretro-beetle_saturn https://github.com/libretro/beetle-saturn
 mednafen_snes libretro-beetle_snes https://github.com/libretro/beetle-bsnes-libretro.git PROJECT YES GENERIC Makefile . 
 mednafen_vb libretro-beetle_vb https://github.com/libretro/beetle-vb-libretro.git PROJECT YES GENERIC Makefile . 
 mednafen_wswan libretro-beetle_wswan https://github.com/libretro/beetle-wswan-libretro.git PROJECT YES GENERIC Makefile . 
-mupen64plus libretro-mupen64plus https://github.com/libretro/mupen64plus-libretro.git PROJECT YES GENERIC_GL Makefile .
+parallel_n64 libretro-parallel_n64 https://github.com/libretro/parallel-n64.git PROJECT YES GENERIC_GL Makefile .
 nestopia libretro-nestopia https://github.com/libretro/nestopia.git PROJECT YES GENERIC Makefile libretro 
 nxengine libretro-nxengine https://github.com/libretro/nxengine-libretro.git PROJECT YES GENERIC Makefile . 
 o2em libretro-o2em https://github.com/libretro/libretro-o2em.git PROJECT YES GENERIC Makefile .
