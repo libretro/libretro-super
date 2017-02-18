@@ -244,6 +244,13 @@ include_core_stella() {
 libretro_stella_name="Stella"
 libretro_stella_git_url="https://github.com/libretro/stella-libretro.git"
 
+include_core_melonds() {
+register_module core "melonds" -ngc -ps3 -psp1 -qnx -wii
+}
+libretro_melonds_name="melonDS"
+libretro_melonds_git_url="https://github.com/libretro/melonDS.git"
+libretro_meldons_build_makefile="Makefile"
+
 include_core_desmume() {
 register_module core "desmume" -ngc -ps3 -psp1 -qnx -wii
 }

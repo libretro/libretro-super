@@ -62,6 +62,7 @@ include_core_nxengine
 include_core_prboom
 include_core_stella
 include_core_desmume
+include_core_melonds
 include_core_quicknes
 include_core_nestopia
 include_core_craft
