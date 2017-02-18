@@ -239,7 +239,7 @@ build_libretro_databases() {
 	build_libretro_database "Nintendo - Nintendo 3DS" "rom.crc"
 	build_libretro_database "Nintendo - Nintendo 3DS (DLC)" "rom.crc"
 	build_libretro_database "Nintendo - Nintendo DS Decrypted" "rom.crc"
-	build_libretro_database "Nintendo - Nintendo DS (Download Play) (BETA)" "rom.crc"
+	build_libretro_database "Nintendo - Nintendo DS (Download Play)" "rom.crc"
 	build_libretro_database "Nintendo - Nintendo DSi Decrypted" "rom.crc"
 	build_libretro_database "Nintendo - Nintendo DSi (DLC)" "rom.crc"
 	build_libretro_database "Nintendo - Nintendo Entertainment System" "rom.crc"
