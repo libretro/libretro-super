@@ -165,6 +165,11 @@ build_libretro_database() {
 			COMMAND+=' "${LIBRETRODATABASE_META_DAT_DIR}/tgdb/${1}.dat"'
 		fi
 
+		#Check if meta hacks is there
+		if [ -f "${LIBRETRODATABASE_META_DAT_DIR}/hacks/${1}.dat" ]; then
+			COMMAND+=' "${LIBRETRODATABASE_META_DAT_DIR}/hacks/${1}.dat"'
+		fi
+
 		#Check if meta libretro-dats folder is there
 		if [ -f "${LIBRETRODATABASE_META_DAT_DIR}/libretro-dats/${1}.dat" ]; then
 			COMMAND+=' "${LIBRETRODATABASE_META_DAT_DIR}/libretro-dats/${1}.dat"'
@@ -238,9 +243,9 @@ build_libretro_databases() {
 	build_libretro_database "Nintendo - GameCube" "rom.crc"
 	build_libretro_database "Nintendo - Nintendo 3DS" "rom.crc"
 	build_libretro_database "Nintendo - Nintendo 3DS (DLC)" "rom.crc"
-	build_libretro_database "Nintendo - Nintendo DS Decrypted" "rom.crc"
+	build_libretro_database "Nintendo - Nintendo DS" "rom.crc"
 	build_libretro_database "Nintendo - Nintendo DS (Download Play)" "rom.crc"
-	build_libretro_database "Nintendo - Nintendo DSi Decrypted" "rom.crc"
+	build_libretro_database "Nintendo - Nintendo DSi" "rom.crc"
 	build_libretro_database "Nintendo - Nintendo DSi (DLC)" "rom.crc"
 	build_libretro_database "Nintendo - Nintendo Entertainment System" "rom.crc"
 	build_libretro_database "Nintendo - Nintendo Wii (DLC)" "rom.crc"
