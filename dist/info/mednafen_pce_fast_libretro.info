@@ -14,4 +14,4 @@ firmware_count = 1
 firmware0_desc = "syscard3.pce (PCE-CD BIOS)"
 firmware0_path = "syscard3.pce"
 firmware0_opt = "false"
-notes = "(!) syscard3.pce (md5): 38179df8f4ac870017db21ebcbf53114"
+notes = "(!) syscard3.pce (md5): 38179df8f4ac870017db21ebcbf53114|[i] For cue files track type use:|[i] OGG for ogg files|[i] WAVE for wav files|[i] BINARY for iso files"
