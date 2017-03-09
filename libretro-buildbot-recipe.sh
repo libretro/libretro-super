@@ -6,6 +6,7 @@ ORIGPATH=$PATH
 WORK=$PWD
 RECIPE=$1
 BRANCH=""
+ENTRY_ID=""
 
 # ----- read variables from recipe config -----
 while read line; do
@@ -247,6 +248,8 @@ build_libretro_generic_makefile() {
 	ARGS=$6
 	JOBS=$JOBS
 
+	ENTRY_ID=`~/webapp/buildbot/build_entry.py start $jobid $NAME`
+
 	cd $DIR
 	cd $SUBDIR
 	JOBS_ORIG=$JOBS
@@ -303,6 +306,7 @@ build_libretro_generic_makefile() {
 	cp -v ${NAME}_libretro${FORMAT}${LIBSUFFIX}.${FORMAT_EXT} $RARCH_DIST_DIR/${DIST}/${NAME}_libretro${FORMAT}${LIBSUFFIX}.${FORMAT_EXT}
 
 	if [ $? -eq 0 ]; then
+		~/webapp/buildbot/build_entry.py finish $ENTRY_ID "done"
 		MESSAGE="$1:	[status: done] [$jobid]"
 		if [ "${PLATFORM}" == "windows" -o "${PLATFORM}" == "unix" ]; then
 			strip -s ${NAME}_libretro${FORMAT}${LIBSUFFIX}.${FORMAT_EXT}
@@ -311,7 +315,10 @@ build_libretro_generic_makefile() {
 		ERROR=$TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}.log
 		HASTE=`curl -X POST http://p.0bl.net/ --data-binary @$ERROR`
 		MESSAGE="$1:	[status: fail] [$jobid] LOG: $HASTE"
+		~/webapp/buildbot/build_entry.py finish $ENTRY_ID "fail" $HASTE
 	fi
+
+	ENTRY_ID=""
 
 	echo buildbot job: $MESSAGE
 	buildbot_log "$MESSAGE"
@@ -326,6 +333,8 @@ build_libretro_leiradel_makefile() {
 	MAKEFILE=$4
 	PLATFORM=$5
 	ARGS=$6
+
+	ENTRY_ID=`~/webapp/buildbot/build_entry.py start $jobid $NAME`
 
 	ARG1=`echo ${ARGS} | cut -f 1 -d " "`
 	mkdir -p $RARCH_DIST_DIR/${DIST}/${ARG1}
@@ -358,11 +367,14 @@ build_libretro_leiradel_makefile() {
 		cp -v ${NAME}_libretro.${PLATFORM}_${ARG1}.${FORMAT_EXT} $RARCH_DIST_DIR/${DIST}/${ARG1}/${NAME}_libretro${LIBSUFFIX}.${FORMAT_EXT}
 		if [ $? -eq 0 ]; then
 			MESSAGE="$1:	[status: done] [$jobid]"
+			~/webapp/buildbot/build_entry.py finish $ENTRY_ID "done"
 		else
 		ERROR=$TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}.log
 		HASTE=`curl -X POST http://p.0bl.net/ --data-binary @$ERROR`
 		MESSAGE="$1:	[status: fail] [$jobid] LOG: $HASTE"
+		~/webapp/buildbot/build_entry.py finish $ENTRY_ID "fail" $HASTE
 	fi
+	ENTRY_ID=""
 	echo buildbot job: $MESSAGE
 
 	buildbot_log "$MESSAGE"
@@ -379,6 +391,8 @@ build_libretro_generic_gl_makefile() {
 	ARGS=$6
 
 	check_opengl
+
+	ENTRY_ID=`~/webapp/buildbot/build_entry.py start $jobid $NAME`
 
 	cd $DIR
 	cd $SUBDIR
@@ -413,11 +427,14 @@ build_libretro_generic_gl_makefile() {
 
 	if [ $? -eq 0 ]; then
 		MESSAGE="$1:	[status: done] [$jobid]"
+		~/webapp/buildbot/build_entry.py finish $ENTRY_ID "done"
 	else
 		ERROR=$TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}.log
 		HASTE=`curl -X POST http://p.0bl.net/ --data-binary @$ERROR`
 		MESSAGE="$1:	[status: fail] [$jobid] LOG: $HASTE"
+		~/webapp/buildbot/build_entry.py finish $ENTRY_ID "fail" $HASTE
 	fi
+	ENTRY_ID=""
 	echo buildbot job: $MESSAGE
 	buildbot_log "$MESSAGE"
 
@@ -431,6 +448,8 @@ build_libretro_generic_jni() {
 	MAKEFILE=$4
 	PLATFORM=$5
 	ARGS=$6
+
+	ENTRY_ID=`~/webapp/buildbot/build_entry.py start $jobid $NAME`
 
 	echo --------------------------------------------------| tee $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}_${a}.log
 	cat $TMPDIR/vars | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}_${a}.log
@@ -470,14 +489,17 @@ build_libretro_generic_jni() {
 		if [ $? -eq 0 ]; then
 			MESSAGE="$1-$a:	[status: done] [$jobid]"
 			echo buildbot job: $MESSAGE
+			~/webapp/buildbot/build_entry.py finish $ENTRY_ID "done"
 			buildbot_log "$MESSAGE"
 		else
 			ERROR=$TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}_${a}.log
 			HASTE=`curl -X POST http://p.0bl.net/ --data-binary @$ERROR`
 			MESSAGE="$1-$a:	[status: fail] [$jobid] LOG: $HASTE"
 			echo buildbot job: $MESSAGE
+			~/webapp/buildbot/build_entry.py finish $ENTRY_ID "fail" $HASTE
 			buildbot_log "$MESSAGE"
 		fi
+		ENTRY_ID=""
 		echo buildbot job: $MESSAGE
 
 		if [ -z "${NOCLEAN}" ]; then
@@ -500,6 +522,8 @@ build_libretro_bsnes_jni() {
 	MAKEFILE=$4
 	PLATFORM=$5
 	PROFILE=$6
+
+	ENTRY_ID=`~/webapp/buildbot/build_entry.py start $jobid $NAME`
 
 	cd ${DIR}/${SUBDIR}
 	echo -------------------------------------------------- 2>&1 | tee $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PROFILE}_${PLATFORM}_${a}.log
@@ -528,11 +552,14 @@ build_libretro_bsnes_jni() {
 		cp -v ../libs/${a}/libretro_${NAME}_${PROFILE}.${FORMAT_EXT} $RARCH_DIST_DIR/${a}/${NAME}_${PROFILE}_libretro${FORMAT}${LIBSUFFIX}.${FORMAT_EXT}
 		if [ $? -eq 0 ]; then
 			MESSAGE="$1-$a-${PROFILE}:	[status: done] [$jobid]"
+			~/webapp/buildbot/build_entry.py finish $ENTRY_ID "done"
 		else
 			ERROR=$TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PROFILE}_${PLATFORM}_${a}.log
 			HASTE=`curl -X POST http://p.0bl.net/ --data-binary @$ERROR`
 			MESSAGE="$1-$a-${PROFILE}:	[status: fail] [$jobid] LOG: $HASTE"
+			~/webapp/buildbot/build_entry.py finish $ENTRY_ID "fail" $HASTE
 		fi
+		ENTRY_ID=""
 		echo buildbot job: $MESSAGE
 
 		buildbot_log "$MESSAGE"
@@ -546,6 +573,8 @@ build_libretro_bsnes() {
 	MAKEFILE=$4
 	PLATFORM=$5
 	BSNESCOMPILER=$6
+
+	ENTRY_ID=`~/webapp/buildbot/build_entry.py start $jobid $NAME`
 
 	cd $DIR
 	echo -------------------------------------------------- 2>&1 | tee $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PROFILE}_${PLATFORM}.log
@@ -591,11 +620,14 @@ build_libretro_bsnes() {
 	fi
 	if [ $? -eq 0 ]; then
 		MESSAGE="$1-${PROFILE}:	[status: done] [$jobid]"
+		~/webapp/buildbot/build_entry.py finish $ENTRY_ID "done"
 	else
 		ERROR=$TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PROFILE}_${PLATFORM}.log
 		HASTE=`curl -X POST http://p.0bl.net/ --data-binary @$ERROR`
 		MESSAGE="$1-${PROFILE}:	[status: fail] [$jobid] LOG: $HASTE"
+		~/webapp/buildbot/build_entry.py finish $ENTRY_ID "fail" $HASTE
 	fi
+	ENTRY_ID=""
 	echo buildbot job: $MESSAGE
 
 	buildbot_log "$MESSAGE"
@@ -756,7 +788,7 @@ while read line; do
 			if [ -d "${DIR}/.git" ]; then
 				if [ "${CLEANUP}" == "YES" ]; then
 					rm -rfv $DIR
-					echo "cloning repo..."
+					echo "cloning repo $URL..."
 					git clone --depth=1 "$URL" "$DIR"
 					BUILD="YES"
 				else
@@ -764,7 +796,7 @@ while read line; do
 					echo "resetting repo state... "
 					git clean -xdf
 					git reset --hard
-					echo "pulling changes from repo... "
+					echo "pulling changes from repo $URL... "
 					OUT=`git pull`
 
 					if [[ $OUT == *"Already up-to-date"* ]]; then
@@ -864,7 +896,7 @@ while read line; do
 				fi
 				cd $WORK
 			else
-				echo "cloning repo..."
+				echo "cloning repo $URL..."
 				git clone --depth=1 "$URL" "$DIR"
 				BUILD="YES"
 			fi
@@ -875,7 +907,7 @@ while read line; do
 				echo "resetting repo state... "
 				git clean -xdf
 				git reset --hard
-				echo "pulling changes from repo... "
+				echo "pulling changes from repo $URL... "
 				OUT=`git pull`
 
 				if [[ $OUT == *"Already up-to-date"* ]]; then
@@ -897,10 +929,10 @@ while read line; do
 			if [ -d "${DIR}/.git" ]; then
 
 				cd $DIR
-				echo "resetting repo state... "
+				echo "resetting repo state $URL... "
 				git clean -xdf
 				git reset --hard
-				echo "pulling changes from repo... "
+				echo "pulling changes from repo $URL... "
 				OUT=`git pull`
 
 				if [[ $OUT == *"Already up-to-date"* ]]; then
@@ -911,7 +943,7 @@ while read line; do
 				OUT=`git submodule update --init --recursive`
 				cd $WORK
 		else
-				echo "cloning repo..."
+				echo "cloning repo $URL..."
 				git clone --depth=1 "$URL" "$DIR"
 				cd $DIR
 				git submodule update --init
@@ -1011,10 +1043,10 @@ buildbot_pull(){
 			if [ -d "${PARENTDIR}/${DIR}/.git" ]; then
 				cd $PARENTDIR
 				cd $DIR
-				echo "resetting repo state... "
+				echo "resetting repo state $URL... "
 				git clean -xdf
 				git reset --hard
-				echo "pulling changes from repo... "
+				echo "pulling changes from repo $URL... "
 				OUT=`git pull`
 				echo $OUT
 				if [ "${TYPE}" = "PROJECT" ]; then
@@ -1036,7 +1068,7 @@ buildbot_pull(){
 				fi
 				cd $WORK
 			else
-				echo "cloning repo..."
+				echo "cloning repo $URL..."
 				cd $PARENTDIR
 				if [ ! -z "$BRANCH" -a "${NAME}" == "retroarch" ]; then
 					git clone -b "$BRANCH" "$URL" "$DIR"
@@ -1127,6 +1159,8 @@ if [ "${PLATFORM}" == "osx" ] && [ "${RA}" == "YES" ]; then
 		echo "buildbot job: $jobid Building"
 		echo
 
+		ENTRY_ID=`~/webapp/buildbot/build_entry.py start $jobid retroarch`
+
 		cd pkg/apple
 
 		xcodebuild -project RetroArch.xcodeproj -target RetroArch -configuration Release | tee $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_${PLATFORM}.log
@@ -1134,26 +1168,33 @@ if [ "${PLATFORM}" == "osx" ] && [ "${RA}" == "YES" ]; then
 		if [ $? -eq 0 ]; then
 			MESSAGE="retroarch:	[status: done] [$jobid]"
 			echo $MESSAGE
+			~/webapp/buildbot/build_entry.py finish $ENTRY_ID "done"
 		else
 			ERROR=$TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_${PLATFORM}.log
 			HASTE=`curl -X POST http://p.0bl.net/ --data-binary @$ERROR`
 			MESSAGE="retroarch:	[status: fail] [$jobid] LOG: $HASTE"
+			~/webapp/buildbot/build_entry.py finish $ENTRY_ID "fail" $HASTE
 			echo $MESSAGE
 		fi
 
+		ENTRY_ID=""
 		buildbot_log "$MESSAGE"
 		echo buildbot job: $MESSAGE
+
+		ENTRY_ID=`~/webapp/buildbot/build_entry.py start $jobid retroarch-cg`
 
 		xcodebuild -project RetroArch.xcodeproj -target "RetroArch Cg" -configuration Release | tee $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_CG_${PLATFORM}.log
 
 		if [ $? -eq 0 ]; then
 			MESSAGE="retroarch:	[status: done] [$jobid]"
+			~/webapp/buildbot/build_entry.py finish $ENTRY_ID "done"
 			touch $TMPDIR/built-frontend
 			echo $MESSAGE
 		else
 			ERROR=$TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_CG_${PLATFORM}.log
 			HASTE=`curl -X POST http://p.0bl.net/ --data-binary @$ERROR`
 			MESSAGE="retroarch:	[status: fail] [$jobid] LOG: $HASTE"
+			~/webapp/buildbot/build_entry.py finish $ENTRY_ID "fail" $HASTE
 			echo $MESSAGE
 		fi
 
@@ -1180,20 +1221,25 @@ if [ "${PLATFORM}" == "ios" ] && [ "${RA}" == "YES" ]; then
 		echo "buildbot job: $jobid Building"
 		echo
 
+		ENTRY_ID=`~/webapp/buildbot/build_entry.py start $jobid retroarch`
+
 		cd pkg/apple
 		xcodebuild clean build CODE_SIGN_IDENTITY="" CODE_SIGNING_REQUIRED=NO -project RetroArch_iOS.xcodeproj -configuration Release &> $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_${PLATFORM}.log
 
 		if [ $? -eq 0 ]; then
 			MESSAGE="retroarch:	[status: done] [$jobid]"
+			~/webapp/buildbot/build_entry.py finish $ENTRY_ID "done"
 			touch $TMPDIR/built-frontend
 			echo $MESSAGE
 		else
 			ERROR=$TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_${PLATFORM}.log
 			HASTE=`curl -X POST http://p.0bl.net/ --data-binary @$ERROR`
 			MESSAGE="retroarch:	[status: fail] [$jobid] LOG: $HASTE"
+			~/webapp/buildbot/build_entry.py finish $ENTRY_ID "fail" $HASTE
 			echo $MESSAGE
 		fi
 
+		ENTRY_ID=""
 		buildbot_log "$MESSAGE"
 		echo buildbot job: $MESSAGE
 		cd $WORK/$RADIR
@@ -1219,6 +1265,8 @@ if [ "${PLATFORM}" == "ios9" ] && [ "${RA}" == "YES" ]; then
 		echo "buildbot job: $jobid Building"
 		echo
 
+		ENTRY_ID=`~/webapp/buildbot/build_entry.py start $jobid retroarch`
+
 		cd pkg/apple
 		xcodebuild clean build CODE_SIGN_IDENTITY="" CODE_SIGNING_REQUIRED=NO -project RetroArch_iOS.xcodeproj -configuration Release -target "RetroArch iOS9" &> $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_${PLATFORM}.log
 
@@ -1228,15 +1276,18 @@ if [ "${PLATFORM}" == "ios9" ] && [ "${RA}" == "YES" ]; then
 			cd build/Release-iphoneos
 			security unlock-keychain -p buildbot /Users/buildbot/Library/Keychains/login.keychain
 			codesign -fs "buildbot" RetroArch.app
+			~/webapp/buildbot/build_entry.py finish $ENTRY_ID "done"
 
 			echo $MESSAGE
 		else
 			ERROR=$TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_${PLATFORM}.log
 			HASTE=`curl -X POST http://p.0bl.net/ --data-binary @$ERROR`
 			MESSAGE="retroarch:	[status: fail] [$jobid] LOG: $HASTE"
+			~/webapp/buildbot/build_entry.py finish $ENTRY_ID "fail" $HASTE
 			echo $MESSAGE
 		fi
 
+		ENTRY_ID=""
 		buildbot_log "$MESSAGE"
 		echo buildbot job: $MESSAGE
 		cd $WORK/$RADIR
@@ -1330,6 +1381,8 @@ if [ "${PLATFORM}" = "android" ] && [ "${RA}" = "YES" ]; then
 		cd pkg/android/phoenix
 		rm bin/*.apk
 
+		ENTRY_ID=`~/webapp/buildbot/build_entry.py start $jobid retroarch`
+
 cat << EOF > local.properties
 sdk.dir=/home/buildbot/tools/android/android-sdk-linux
 key.store=/home/buildbot/.android/release.keystore
@@ -1360,14 +1413,17 @@ EOF
 
 		if [ $? -eq 0 ]; then
 			MESSAGE="retroarch:	[status: done] [$jobid]"
+			~/webapp/buildbot/build_entry.py finish $ENTRY_ID "done"
 			touch $TMPDIR/built-frontend
 			echo $MESSAGE
 		else
 			ERROR=$TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_${PLATFORM}.log
 			HASTE=`curl -X POST http://p.0bl.net/ --data-binary @$ERROR`
 			MESSAGE="retroarch:	[status: fail] [$jobid] LOG: $HASTE"
+			~/webapp/buildbot/build_entry.py finish $ENTRY_ID "fail" $HASTE
 			echo $MESSAGE
 		fi
+		ENTRY_ID=""
 		echo buildbot job: $MESSAGE
 		buildbot_log "$MESSAGE"
 	fi
@@ -1391,7 +1447,9 @@ if [ "${PLATFORM}" = "MINGW64" ] || [ "${PLATFORM}" = "MINGW32" ] || [ "${PLATFO
 		git clean -xdf
 		echo "buildbot job: $jobid Building"
 		echo
-		
+
+		ENTRY_ID=`~/webapp/buildbot/build_entry.py start $jobid retroarch`
+
 		compile_audio_filters ${HELPER} ${MAKE}
 		cd $RADIR
 		compile_video_filters ${HELPER} ${MAKE}
@@ -1435,12 +1493,15 @@ if [ "${PLATFORM}" = "MINGW64" ] || [ "${PLATFORM}" = "MINGW32" ] || [ "${PLATFO
 
 		if [ $status -eq 0 ]; then
 			MESSAGE="retroarch:	[status: done] [$jobid]"
+			~/webapp/buildbot/build_entry.py finish $ENTRY_ID "done"
 			touch $TMPDIR/built-frontend
 			echo $MESSAGE
 			echo buildbot job: $MESSAGE | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_${PLATFORM}.log
 			buildbot_log "$MESSAGE"
 
 			${HELPER} ${MAKE} clean
+
+			ENTRY_ID=`~/webapp/buildbot/build_entry.py start $jobid retroarch-debug`
 
 			${HELPER} ${MAKE} -j${JOBS} DEBUG=1 GL_DEBUG=1 2>&1 | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_DEBUG_${PLATFORM}.txt
 			for i in $(seq 3); do for bin in $(ntldd -R *exe | grep -i mingw | cut -d">" -f2 | cut -d" " -f2); do cp -vu "$bin" . ; done; done
@@ -1449,9 +1510,11 @@ if [ "${PLATFORM}" = "MINGW64" ] || [ "${PLATFORM}" = "MINGW32" ] || [ "${PLATFO
 			cp -v *.dll windows/
 			cp -v retroarch.exe windows/retroarch_debug.exe
 
+			~/webapp/buildbot/build_entry.py finish $ENTRY_ID "done"
+			ENTRY_ID=""
+
 			if [ $? -eq 0 ]; then
 				MESSAGE="retroarch debug:	[status: done] [$jobid]"
-
 				echo $MESSAGE
 				echo buildbot job: $MESSAGE | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_${PLATFORM}.log
 				buildbot_log "$MESSAGE"
@@ -1491,6 +1554,8 @@ EOF
 			ERROR=$TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_${PLATFORM}.log
 			HASTE=`curl -X POST http://p.0bl.net/ --data-binary @$ERROR`
 			MESSAGE="retroarch:	[status: fail] [$jobid] LOG: $HASTE"
+			~/webapp/buildbot/build_entry.py finish $ENTRY_ID "fail" $HASTE
+			ENTRY_ID=""
 			echo $MESSAGE
 			echo buildbot job: $MESSAGE | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_${PLATFORM}.log
 			buildbot_log "$MESSAGE"
@@ -1513,6 +1578,8 @@ if [ "${PLATFORM}" = "psp1" ] && [ "${RA}" = "YES" ]; then
 		echo "buildbot job: $jobid Building"
 		echo
 
+		ENTRY_ID=`~/webapp/buildbot/build_entry.py start $jobid retroarch`
+
 		cd dist-scripts
 		rm *.a
 		cp -v $RARCH_DIST_DIR/*.a .
@@ -1520,14 +1587,17 @@ if [ "${PLATFORM}" = "psp1" ] && [ "${RA}" = "YES" ]; then
 		time sh ./dist-cores.sh psp1 &> $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_${PLATFORM}.log
 		if [ $? -eq 0 ]; then
 			MESSAGE="retroarch:	[status: done] [$jobid]"
+			~/webapp/buildbot/build_entry.py finish $ENTRY_ID "done"
 			touch $TMPDIR/built-frontend
 			echo $MESSAGE
 		else
 			ERROR=$TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_${PLATFORM}.log
 			HASTE=`curl -X POST http://p.0bl.net/ --data-binary @$ERROR`
 			MESSAGE="retroarch:	[status: fail] [$jobid] LOG: $HASTE"
+			~/webapp/buildbot/build_entry.py finish $ENTRY_ID "fail" $HASTE
 			echo $MESSAGE
 		fi
+		ENTRY_ID=""
 		buildbot_log "$MESSAGE"
 		echo buildbot job: $MESSAGE
 
@@ -1557,6 +1627,8 @@ if [ "${PLATFORM}" == "wii" ] && [ "${RA}" == "YES" ]; then
 		echo "buildbot job: $jobid Building"
 		echo
 
+		ENTRY_ID=`~/webapp/buildbot/build_entry.py start $jobid retroarch`
+
 		cd dist-scripts
 		rm *.a
 		cp -v $RARCH_DIST_DIR/*.a .
@@ -1565,13 +1637,16 @@ if [ "${PLATFORM}" == "wii" ] && [ "${RA}" == "YES" ]; then
 		if [ $? -eq 0 ];
 		then
 			MESSAGE="retroarch:	[status: done] [$jobid]"
+			~/webapp/buildbot/build_entry.py finish $ENTRY_ID "done"
 			echo $MESSAGE
 		else
 			ERROR=$TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_${PLATFORM}.log
 			HASTE=`curl -X POST http://p.0bl.net/ --data-binary @$ERROR`
 			MESSAGE="retroarch:	[status: fail] [$jobid] LOG: $HASTE"
+			~/webapp/buildbot/build_entry.py finish $ENTRY_ID "fail" $HASTE
 			echo $MESSAGE
 		fi
+		ENTRY_ID=""
 		buildbot_log "$MESSAGE"
 		echo buildbot job: $MESSAGE
 
@@ -1602,6 +1677,8 @@ if [ "${PLATFORM}" == "wiiu" ] && [ "${RA}" == "YES" ]; then
 		echo "buildbot job: $jobid Building"
 		echo
 
+		ENTRY_ID=`~/webapp/buildbot/build_entry.py start $jobid retroarch`
+
 		cd dist-scripts
 		rm *.a
 		cp -v $RARCH_DIST_DIR/*.a .
@@ -1612,13 +1689,16 @@ if [ "${PLATFORM}" == "wiiu" ] && [ "${RA}" == "YES" ]; then
 		if [ $? -eq 0 ];
 		then
 			MESSAGE="retroarch:	[status: done] [$jobid]"
+			~/webapp/buildbot/build_entry.py finish $ENTRY_ID "done"
 			echo $MESSAGE
 		else
 			ERROR=$TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_${PLATFORM}.log
 			HASTE=`curl -X POST http://p.0bl.net/ --data-binary @$ERROR`
 			MESSAGE="retroarch:	[status: fail] [$jobid] LOG: $HASTE"
+			~/webapp/buildbot/build_entry.py finish $ENTRY_ID "fail" $HASTE
 			echo $MESSAGE
 		fi
+		ENTRY_ID=""
 		buildbot_log "$MESSAGE"
 		echo buildbot job: $MESSAGE
 
@@ -1642,6 +1722,8 @@ if [ "${PLATFORM}" == "ngc" ] && [ "${RA}" == "YES" ]; then
 		echo "buildbot job: $jobid Building"
 		echo
 
+		ENTRY_ID=`~/webapp/buildbot/build_entry.py start $jobid retroarch`
+
 		cd dist-scripts
 		rm *.a
 		cp -v $RARCH_DIST_DIR/*.a .
@@ -1650,13 +1732,16 @@ if [ "${PLATFORM}" == "ngc" ] && [ "${RA}" == "YES" ]; then
 		if [ $? -eq 0 ];
 		then
 			MESSAGE="retroarch:	[status: done] [$jobid]"
+			~/webapp/buildbot/build_entry.py finish $ENTRY_ID "done"
 			echo $MESSAGE
 		else
 			ERROR=$TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_${PLATFORM}.log
 			HASTE=`curl -X POST http://p.0bl.net/ --data-binary @$ERROR`
 			MESSAGE="retroarch:	[status: fail] [$jobid] LOG: $HASTE"
+			~/webapp/buildbot/build_entry.py finish $ENTRY_ID "fail" $HASTE
 			echo $MESSAGE
 		fi
+		ENTRY_ID=""
 		buildbot_log "$MESSAGE"
 		echo buildbot job: $MESSAGE
 
@@ -1686,6 +1771,8 @@ if [ "${PLATFORM}" == "ctr" ] && [ "${RA}" == "YES" ]; then
 		echo "buildbot job: $jobid Building"
 		echo
 
+		ENTRY_ID=`~/webapp/buildbot/build_entry.py start $jobid retroarch`
+
 		cd dist-scripts
 		rm *.a
 		cp -v $RARCH_DIST_DIR/*.a .
@@ -1693,14 +1780,17 @@ if [ "${PLATFORM}" == "ctr" ] && [ "${RA}" == "YES" ]; then
 		time sh ./dist-cores.sh ctr &> $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_${PLATFORM}.log
 		if [ $? -eq 0 ]; then
 			MESSAGE="retroarch:	[status: done] [$jobid]"
+			~/webapp/buildbot/build_entry.py finish $ENTRY_ID "done"
 			echo $MESSAGE
 			touch $TMPDIR/built-frontend
 		else
 			ERROR=$TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_${PLATFORM}.log
 			HASTE=`curl -X POST http://p.0bl.net/ --data-binary @$ERROR`
 			MESSAGE="retroarch:	[status: fail] [$jobid] LOG: $HASTE"
+			~/webapp/buildbot/build_entry.py finish $ENTRY_ID "fail" $HASTE
 			echo $MESSAGE
 		fi
+		ENTRY_ID=""
 		buildbot_log "$MESSAGE"
 		echo buildbot job: $MESSAGE
 		cd $WORK/$RADIR
@@ -1748,6 +1838,8 @@ if [ "${PLATFORM}" == "vita" ] && [ "${RA}" == "YES" ]; then
 		echo "buildbot job: $jobid Building"
 		echo
 
+		ENTRY_ID=`~/webapp/buildbot/build_entry.py start $jobid retroarch`
+
 		cd dist-scripts
 		rm *.a
 		cp -v $RARCH_DIST_DIR/*.a .
@@ -1756,13 +1848,16 @@ if [ "${PLATFORM}" == "vita" ] && [ "${RA}" == "YES" ]; then
 		time sh ./dist-cores.sh vita &> $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_${PLATFORM}.log
 		if [ $? -eq 0 ]; then
 			MESSAGE="retroarch:	[status: done] [$jobid]"
+			~/webapp/buildbot/build_entry.py finish $ENTRY_ID "done"
 			echo $MESSAGE
 		else
 			ERROR=$TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_${PLATFORM}.log
 			HASTE=`curl -X POST http://p.0bl.net/ --data-binary @$ERROR`
 			MESSAGE="retroarch:	[status: fail] [$jobid] LOG: $HASTE"
+			~/webapp/buildbot/build_entry.py finish $ENTRY_ID "fail" $HASTE
 			echo $MESSAGE
 		fi
+		ENTRY_ID=""
 		buildbot_log "$MESSAGE"
 		echo buildbot job: $MESSAGE
 		echo "Packaging"
@@ -1792,6 +1887,8 @@ if [ "${PLATFORM}" == "ps3" ] && [ "${RA}" == "YES" ]; then
 		echo "buildbot job: $jobid Building"
 		echo
 
+		ENTRY_ID=`~/webapp/buildbot/build_entry.py start $jobid retroarch-dex`
+
 		cd dist-scripts
 		rm *.a
 		cp -v $RARCH_DIST_DIR/*.a .
@@ -1799,37 +1896,48 @@ if [ "${PLATFORM}" == "ps3" ] && [ "${RA}" == "YES" ]; then
 		time sh ./dist-cores.sh dex-ps3 &> $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_${PLATFORM}_dex.log
 		if [ $? -eq 0 ]; then
 			MESSAGE="retroarch:	[status: done] [$jobid]"
+			~/webapp/buildbot/build_entry.py finish $ENTRY_ID "done"
 			echo $MESSAGE
 		else
 			ERROR=$TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_${PLATFORM}_dex.log
 			HASTE=`curl -X POST http://p.0bl.net/ --data-binary @$ERROR`
 			MESSAGE="retroarch:	[status: fail] [$jobid] LOG: $HASTE"
+			~/webapp/buildbot/build_entry.py finish $ENTRY_ID "fail" $HASTE
 			echo $MESSAGE
 		fi
+		ENTRY_ID=""
 		buildbot_log "$MESSAGE"
 		echo buildbot job: $MESSAGE
+		ENTRY_ID=`~/webapp/buildbot/build_entry.py start $jobid retroarch-cex`
 		time sh ./dist-cores.sh cex-ps3 &> $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_${PLATFORM}_cex.log
 		if [ $? -eq 0 ]; then
 			MESSAGE="retroarch:	[status: done] [$jobid]"
+			~/webapp/buildbot/build_entry.py finish $ENTRY_ID "done"
 			echo $MESSAGE
 		else
 			ERROR=$TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_${PLATFORM}_cex.log
 			HASTE=`curl -X POST http://p.0bl.net/ --data-binary @$ERROR`
 			MESSAGE="retroarch:	[status: fail] [$jobid] LOG: $HASTE"
+			~/webapp/buildbot/build_entry.py finish $ENTRY_ID "fail" $HASTE
 			echo $MESSAGE
 		fi
+		ENTRY_ID=""
 		buildbot_log "$MESSAGE"
 		echo buildbot job: $MESSAGE
+		ENTRY_ID=`~/webapp/buildbot/build_entry.py start $jobid retroarch-ode`
 		time sh ./dist-cores.sh ode-ps3 &> $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_${PLATFORM}_ode.log
 		if [ $? -eq 0 ]; then
 			MESSAGE="retroarch:	[status: done] [$jobid]"
+			~/webapp/buildbot/build_entry.py finish $ENTRY_ID "done"
 			echo $MESSAGE
 		else
 			ERROR=$TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_${PLATFORM}_ode.log
 			HASTE=`curl -X POST http://p.0bl.net/ --data-binary @$ERROR`
 			MESSAGE="retroarch:	[status: fail] [$jobid] LOG: $HASTE"
+			~/webapp/buildbot/build_entry.py finish $ENTRY_ID "fail" $HASTE
 			echo $MESSAGE
 		fi
+		ENTRY_ID=""
 		buildbot_log "$MESSAGE"
 		echo buildbot job: $MESSAGE
 
@@ -1851,6 +1959,8 @@ if [ "${PLATFORM}" = "emscripten" ] && [ "${RA}" = "YES" ]; then
 		echo "buildbot job: $jobid Building"
 		echo
 
+		ENTRY_ID=`~/webapp/buildbot/build_entry.py start $jobid retroarch`
+
 		cd dist-scripts
 		rm *.a
 		cp -v $RARCH_DIST_DIR/*.bc .
@@ -1859,13 +1969,16 @@ if [ "${PLATFORM}" = "emscripten" ] && [ "${RA}" = "YES" ]; then
 		$HELPER ./dist-cores.sh emscripten &> $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_${PLATFORM}.log
 		if [ $? -eq 0 ]; then
 			MESSAGE="retroarch:	[status: done] [$jobid]"
+			~/webapp/buildbot/build_entry.py finish $ENTRY_ID "done"
 			echo $MESSAGE
 		else
 			ERROR=$TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_${PLATFORM}.log
 			HASTE=`curl -X POST http://p.0bl.net/ --data-binary @$ERROR`
 			MESSAGE="retroarch:	[status: fail] [$jobid] LOG: $HASTE"
+			~/webapp/buildbot/build_entry.py finish $ENTRY_ID "fail" $HASTE
 			echo $MESSAGE
 		fi
+		ENTRY_ID=""
 		buildbot_log "$MESSAGE"
 		echo buildbot job: $MESSAGE
 
@@ -1893,7 +2006,9 @@ if [ "${PLATFORM}" = "unix" ]; then
 		echo "buildbot job: $jobid Building"
 		echo
 
-      compile_audio_filters ${HELPER} ${MAKE}
+		ENTRY_ID=`~/webapp/buildbot/build_entry.py start $jobid retroarch`
+
+		compile_audio_filters ${HELPER} ${MAKE}
 		cd $RADIR
 		compile_video_filters ${HELPER} ${MAKE}
 		cd $RADIR
@@ -1928,6 +2043,7 @@ if [ "${PLATFORM}" = "unix" ]; then
 
 		if [ $status -eq 0 ]; then
 			MESSAGE="retroarch:	[status: done] [$jobid]"
+			~/webapp/buildbot/build_entry.py finish $ENTRY_ID "done"
 			echo $MESSAGE
 			echo buildbot job: $MESSAGE | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_${PLATFORM}.log
 			buildbot_log "$MESSAGE"
@@ -1938,6 +2054,7 @@ if [ "${PLATFORM}" = "unix" ]; then
 			ERROR=$TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_${PLATFORM}.log
 			HASTE=`curl -X POST http://p.0bl.net/ --data-binary @$ERROR`
 			MESSAGE="retroarch:	[status: fail] [$jobid] LOG: $HASTE"
+			~/webapp/buildbot/build_entry.py finish $ENTRY_ID "fail" $HASTE
 			echo $MESSAGE
 			echo buildbot job: $MESSAGE | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_${PLATFORM}.log
 			buildbot_log "$MESSAGE"
