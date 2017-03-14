@@ -1519,7 +1519,7 @@ if [ "${PLATFORM}" = "MINGW64" ] || [ "${PLATFORM}" = "MINGW32" ] || [ "${PLATFO
 			cp -v retroarch.exe windows/retroarch_debug.exe	| tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_${PLATFORM}.log
 			cp -v *.dll windows/
 			cp -v retroarch.exe windows/retroarch_debug.exe
-			cp -v retroarch.exe.manifest windows/retroarch.exe.manifest 2>/dev/null
+			cp -v retroarch.exe.manifest windows/retroarch_debug.exe.manifest 2>/dev/null
 
 			curl -X POST -d type="finish" -d index="$ENTRY_ID" -d status="done" http://buildbot.fiveforty.net/build_entry/
 			ENTRY_ID=""
