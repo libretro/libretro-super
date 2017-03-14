@@ -1181,7 +1181,7 @@ if [ "${PLATFORM}" == "osx" ] && [ "${RA}" == "YES" ]; then
 		buildbot_log "$MESSAGE"
 		echo buildbot job: $MESSAGE
 
-		ENTRY_ID=`curl -X POST -d type="start" -d platform="$jobid" -d name="retroarch" http://buildbot.fiveforty.net/build_entry/-cg`
+		ENTRY_ID=`curl -X POST -d type="start" -d platform="$jobid" -d name="retroarch" http://buildbot.fiveforty.net/build_entry/`
 
 		xcodebuild -project RetroArch.xcodeproj -target "RetroArch Cg" -configuration Release | tee $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_CG_${PLATFORM}.log
 
@@ -1487,12 +1487,12 @@ if [ "${PLATFORM}" = "MINGW64" ] || [ "${PLATFORM}" = "MINGW32" ] || [ "${PLATFO
 
 		if [ -n ${CUSTOM_BUILD} ]; then
 			${CUSTOM_BUILD} 2>&1 | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_${PLATFORM}.log
-
 		fi
 
 		strip -s retroarch.exe
 		cp -v retroarch.exe windows/retroarch.exe | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_${PLATFORM}.log
 		cp -v retroarch.exe windows/retroarch.exe
+		cp -v retroarch.exe.manifest windows/retroarch.exe.manifest 2>/dev/null
 
 		status=$?
 		echo $status
@@ -1507,14 +1507,19 @@ if [ "${PLATFORM}" = "MINGW64" ] || [ "${PLATFORM}" = "MINGW32" ] || [ "${PLATFO
 
 			${HELPER} ${MAKE} clean
 
-			ENTRY_ID=`curl -X POST -d type="start" -d platform="$jobid" -d name="retroarch" http://buildbot.fiveforty.net/build_entry/-debug`
+			ENTRY_ID=`curl -X POST -d type="start" -d platform="$jobid" -d name="retroarch-debug" http://buildbot.fiveforty.net/build_entry/`
 
 			${HELPER} ${MAKE} -j${JOBS} DEBUG=1 GL_DEBUG=1 2>&1 | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_DEBUG_${PLATFORM}.txt
 			for i in $(seq 3); do for bin in $(ntldd -R *exe | grep -i mingw | cut -d">" -f2 | cut -d" " -f2); do cp -vu "$bin" . ; done; done
 
+			if [ -n ${CUSTOM_BUILD_DEBUG} ]; then
+				${CUSTOM_BUILD_DEBUG} 2>&1 | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_${PLATFORM}.log
+			fi
+
 			cp -v retroarch.exe windows/retroarch_debug.exe	| tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_${PLATFORM}.log
 			cp -v *.dll windows/
 			cp -v retroarch.exe windows/retroarch_debug.exe
+			cp -v retroarch.exe.manifest windows/retroarch.exe.manifest 2>/dev/null
 
 			curl -X POST -d type="finish" -d index="$ENTRY_ID" -d status="done" http://buildbot.fiveforty.net/build_entry/
 			ENTRY_ID=""
@@ -1893,7 +1898,7 @@ if [ "${PLATFORM}" == "ps3" ] && [ "${RA}" == "YES" ]; then
 		echo "buildbot job: $jobid Building"
 		echo
 
-		ENTRY_ID=`curl -X POST -d type="start" -d platform="$jobid" -d name="retroarch" http://buildbot.fiveforty.net/build_entry/-dex`
+		ENTRY_ID=`curl -X POST -d type="start" -d platform="$jobid" -d name="retroarch" http://buildbot.fiveforty.net/build_entry/`
 
 		cd dist-scripts
 		rm *.a
@@ -1914,7 +1919,7 @@ if [ "${PLATFORM}" == "ps3" ] && [ "${RA}" == "YES" ]; then
 		ENTRY_ID=""
 		buildbot_log "$MESSAGE"
 		echo buildbot job: $MESSAGE
-		ENTRY_ID=`curl -X POST -d type="start" -d platform="$jobid" -d name="retroarch" http://buildbot.fiveforty.net/build_entry/-cex`
+		ENTRY_ID=`curl -X POST -d type="start" -d platform="$jobid" -d name="retroarch" http://buildbot.fiveforty.net/build_entry/`
 		time sh ./dist-cores.sh cex-ps3 &> $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_${PLATFORM}_cex.log
 		if [ $? -eq 0 ]; then
 			MESSAGE="retroarch:	[status: done] [$jobid]"
@@ -1930,7 +1935,7 @@ if [ "${PLATFORM}" == "ps3" ] && [ "${RA}" == "YES" ]; then
 		ENTRY_ID=""
 		buildbot_log "$MESSAGE"
 		echo buildbot job: $MESSAGE
-		ENTRY_ID=`curl -X POST -d type="start" -d platform="$jobid" -d name="retroarch" http://buildbot.fiveforty.net/build_entry/-ode`
+		ENTRY_ID=`curl -X POST -d type="start" -d platform="$jobid" -d name="retroarch" http://buildbot.fiveforty.net/build_entry/`
 		time sh ./dist-cores.sh ode-ps3 &> $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_${PLATFORM}_ode.log
 		if [ $? -eq 0 ]; then
 			MESSAGE="retroarch:	[status: done] [$jobid]"
