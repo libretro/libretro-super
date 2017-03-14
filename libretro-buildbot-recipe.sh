@@ -1484,6 +1484,12 @@ if [ "${PLATFORM}" = "MINGW64" ] || [ "${PLATFORM}" = "MINGW32" ] || [ "${PLATFO
 		echo "building..."
 		echo "BUILD CMD: ${HELPER} ${MAKE} -j${JOBS}"
 		${HELPER} ${MAKE} -j${JOBS} 2>&1 | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_${PLATFORM}.log
+
+		if [ -n ${CUSTOM_BUILD} ]; then
+			${CUSTOM_BUILD} 2>&1 | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_${PLATFORM}.log
+
+		fi
+
 		strip -s retroarch.exe
 		cp -v retroarch.exe windows/retroarch.exe | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_${PLATFORM}.log
 		cp -v retroarch.exe windows/retroarch.exe
