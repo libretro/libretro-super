@@ -793,13 +793,18 @@ while read line; do
 					BUILD="YES"
 				else
 					cd $DIR
+
+					if [ -f .forcebuild ]; then
+						BUILD="YES"
+					fi
+
 					echo "resetting repo state... "
 					git clean -xdf
 					git reset --hard
 					echo "pulling changes from repo $URL... "
 					OUT=`git pull`
 
-					if [[ $OUT == *"Already up-to-date"* ]]; then
+					if [[ $OUT == *"Already up-to-date"* ]] && [ ! "${BUILD}" = "YES" ]; then
 						BUILD="NO"
 					else
 						BUILD="YES"
@@ -1472,7 +1477,6 @@ if [ "${PLATFORM}" = "MINGW64" ] || [ "${PLATFORM}" = "MINGW32" ] || [ "${PLATFO
 		else
 			echo buildbot job: $jobid retroarch cleanup failed!
 		fi
-
 
 
 		if [ $? -eq 0 ]; then
