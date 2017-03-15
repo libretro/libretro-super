@@ -795,6 +795,7 @@ while read line; do
 					cd $DIR
 
 					if [ -f .forcebuild ]; then
+						echo "found .forcebuild file, building $NAME"
 						BUILD="YES"
 					fi
 
@@ -907,15 +908,20 @@ while read line; do
 			fi
 		elif [ "${TYPE}" = "psp_hw_render" ]; then
 			if [ -d "${DIR}/.git" ]; then
-
 				cd $DIR
+
+				if [ -f .forcebuild ]; then
+					echo "found .forcebuild file, building $NAME"
+					BUILD="YES"
+				fi
+
 				echo "resetting repo state... "
 				git clean -xdf
 				git reset --hard
 				echo "pulling changes from repo $URL... "
 				OUT=`git pull`
 
-				if [[ $OUT == *"Already up-to-date"* ]]; then
+				if [[ $OUT == *"Already up-to-date"* ]] && [ ! "${BUILD}" = "YES" ]; then
 					BUILD="NO"
 				else
 					BUILD="YES"
@@ -932,15 +938,20 @@ while read line; do
 			fi
 		elif [ "${TYPE}" == "SUBMODULE" ]; then
 			if [ -d "${DIR}/.git" ]; then
-
 				cd $DIR
+
+				if [ -f .forcebuild ]; then
+					echo "found .forcebuild file, building $NAME"
+					BUILD="YES"
+				fi
+
 				echo "resetting repo state $URL... "
 				git clean -xdf
 				git reset --hard
 				echo "pulling changes from repo $URL... "
 				OUT=`git pull`
 
-				if [[ $OUT == *"Already up-to-date"* ]]; then
+				if [[ $OUT == *"Already up-to-date"* ]] && [ ! "${BUILD}" = "YES" ]; then
 					BUILD="NO"
 				else
 					BUILD="YES"
@@ -1048,6 +1059,12 @@ buildbot_pull(){
 			if [ -d "${PARENTDIR}/${DIR}/.git" ]; then
 				cd $PARENTDIR
 				cd $DIR
+
+				if [ -f .forcebuild ]; then
+					echo "found .forcebuild file, building $NAME"
+					BUILD="YES"
+				fi
+
 				echo "resetting repo state $URL... "
 				git clean -xdf
 				git reset --hard
@@ -1056,14 +1073,14 @@ buildbot_pull(){
 				echo $OUT
 				if [ "${TYPE}" = "PROJECT" ]; then
 					RADIR=$DIR
-					if [[ $OUT == *"Already up-to-date"* ]]; then
+					if [[ $OUT == *"Already up-to-date"* ]] && [ ! "${BUILD}" = "YES" ]; then
 						BUILD="NO"
 					else
 						BUILD="YES"
 					fi
 				elif [ "${TYPE}" = "SUBMODULE" ]; then
 					RADIR=$DIR
-					if [[ $OUT == *"Already up-to-date"* ]]; then
+					if [[ $OUT == *"Already up-to-date"* ]] && [ ! "${BUILD}" = "YES" ]; then
 						BUILD="NO"
 					else
 						BUILD="YES"
