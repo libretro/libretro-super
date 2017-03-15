@@ -1490,9 +1490,9 @@ if [ "${PLATFORM}" = "MINGW64" ] || [ "${PLATFORM}" = "MINGW32" ] || [ "${PLATFO
 		fi
 
 		strip -s retroarch.exe
+		cp -v retroarch.exe.manifest windows/retroarch.exe.manifest 2>/dev/null
 		cp -v retroarch.exe windows/retroarch.exe | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_${PLATFORM}.log
 		cp -v retroarch.exe windows/retroarch.exe
-		cp -v retroarch.exe.manifest windows/retroarch.exe.manifest 2>/dev/null
 
 		status=$?
 		echo $status
@@ -1509,27 +1509,35 @@ if [ "${PLATFORM}" = "MINGW64" ] || [ "${PLATFORM}" = "MINGW32" ] || [ "${PLATFO
 
 			ENTRY_ID=`curl -X POST -d type="start" -d platform="$jobid" -d name="retroarch-debug" http://buildbot.fiveforty.net/build_entry/`
 
-			${HELPER} ${MAKE} -j${JOBS} DEBUG=1 GL_DEBUG=1 2>&1 | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_DEBUG_${PLATFORM}.txt
+			${HELPER} ${MAKE} -j${JOBS} DEBUG=1 GL_DEBUG=1 2>&1 | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_DEBUG_${PLATFORM}.log
 			for i in $(seq 3); do for bin in $(ntldd -R *exe | grep -i mingw | cut -d">" -f2 | cut -d" " -f2); do cp -vu "$bin" . ; done; done
 
 			if [ -n ${CUSTOM_BUILD_DEBUG} ]; then
-				${CUSTOM_BUILD_DEBUG} 2>&1 | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_${PLATFORM}.log
+				${CUSTOM_BUILD_DEBUG} 2>&1 | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_DEBUG_${PLATFORM}.log
 			fi
 
-			cp -v retroarch.exe windows/retroarch_debug.exe	| tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_${PLATFORM}.log
+			cp -v retroarch.exe.manifest windows/retroarch_debug.exe.manifest 2>/dev/null
+			cp -v retroarch.exe windows/retroarch_debug.exe	| tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_DEBUG_${PLATFORM}.log
 			cp -v *.dll windows/
 			cp -v retroarch.exe windows/retroarch_debug.exe
-			cp -v retroarch.exe.manifest windows/retroarch_debug.exe.manifest 2>/dev/null
-
-			curl -X POST -d type="finish" -d index="$ENTRY_ID" -d status="done" http://buildbot.fiveforty.net/build_entry/
-			ENTRY_ID=""
 
 			if [ $? -eq 0 ]; then
+				curl -X POST -d type="finish" -d index="$ENTRY_ID" -d status="done" http://buildbot.fiveforty.net/build_entry/
 				MESSAGE="retroarch debug:	[status: done] [$jobid]"
 				echo $MESSAGE
-				echo buildbot job: $MESSAGE | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_${PLATFORM}.log
+				echo buildbot job: $MESSAGE | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_DEBUG_${PLATFORM}.log
+				buildbot_log "$MESSAGE"
+			else
+				ERROR=$TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_DEBUG_${PLATFORM}.log
+				HASTE=`curl -X POST http://p.0bl.net/ --data-binary @$ERROR`
+				MESSAGE="retroarch-debug:	[status: fail] [$jobid] LOG: $HASTE"
+				echo $MESSAGE
+				echo buildbot job: $MESSAGE | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_DEBUG_${PLATFORM}.log
+				curl -X POST -d type="finish" -d index="$ENTRY_ID" -d status="fail" -d log="$HASTE" http://buildbot.fiveforty.net/build_entry/
 				buildbot_log "$MESSAGE"
 			fi
+
+			ENTRY_ID=""
 
 			echo "Packaging"
 			cp retroarch.cfg retroarch.default.cfg
