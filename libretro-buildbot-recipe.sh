@@ -783,6 +783,7 @@ while read line; do
 			fi
 
 		ARGS="${ARGS%"${ARGS##*[![:space:]]}"}"
+		BUILD="NO"
 
 		if [ "${TYPE}" = "PROJECT" ]; then
 			if [ -d "${DIR}/.git" ]; then
