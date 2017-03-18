@@ -804,6 +804,7 @@ while read line; do
 					git reset --hard
 					echo "pulling changes from repo $URL... "
 					OUT=`git pull`
+					echo $OUT
 
 					if [[ $OUT == *"Already up-to-date"* ]] && [ ! "${BUILD}" = "YES" ]; then
 						BUILD="NO"
@@ -920,6 +921,7 @@ while read line; do
 				git reset --hard
 				echo "pulling changes from repo $URL... "
 				OUT=`git pull`
+				echo $OUT
 
 				if [[ $OUT == *"Already up-to-date"* ]] && [ ! "${BUILD}" = "YES" ]; then
 					BUILD="NO"
@@ -950,6 +952,7 @@ while read line; do
 				git reset --hard
 				echo "pulling changes from repo $URL... "
 				OUT=`git pull`
+				echo $OUT
 
 				if [[ $OUT == *"Already up-to-date"* ]] && [ ! "${BUILD}" = "YES" ]; then
 					BUILD="NO"
@@ -1071,6 +1074,7 @@ buildbot_pull(){
 				echo "pulling changes from repo $URL... "
 				OUT=`git pull`
 				echo $OUT
+
 				if [ "${TYPE}" = "PROJECT" ]; then
 					RADIR=$DIR
 					if [[ $OUT == *"Already up-to-date"* ]] && [ ! "${BUILD}" = "YES" ]; then
