@@ -893,7 +893,7 @@ while read line; do
 					BUILD="YES"
 				fi
 
-				if [[ "${PREVCORE}" == *fb* ]] && [[ "${PREVBUILD}" = "YES" ]] && [[ "${NAME}" == *fb* ]]; then
+				if [[ "${PREVCORE}" == *fbalpha2012* ]] && [[ "${PREVBUILD}" = "YES" ]] && [[ "${NAME}" == *fbalpha2012* ]]; then
 					FORCE="YES"
 					BUILD="YES"
 				fi
