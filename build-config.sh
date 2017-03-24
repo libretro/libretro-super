@@ -33,6 +33,7 @@ include_core_genesis_plus_gx
 
 include_core_mgba
 include_core_video_processor
+include_core_pocketcdg
 
 # --- Final Burn (arcade) ---
 include_core_fbalpha
