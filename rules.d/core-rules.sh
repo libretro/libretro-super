@@ -38,6 +38,13 @@ libretro_xrick_name="XRick"
 libretro_xrick_git_url="https://github.com/libretro/xrick-libretro.git"
 libretro_xrick_build_makefile="Makefile"
 
+include_core_pocketcdg() {
+	register_module core "pocketcdg"
+}
+libretro_pocketcdg_name="PocketCDG"
+libretro_pocketcdg_git_url="https://github.com/libretro/libretro-pocketcdg.git"
+libretro_pocketcdg_build_makefile="Makefile"
+
 include_core_easyrpg() {
 	register_module core "easyrpg" -ngc -ps3 -psp1 -wii
 }
