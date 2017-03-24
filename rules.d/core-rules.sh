@@ -31,6 +31,13 @@ libretro_mrboom_name="Mr.Boom"
 libretro_mrboom_git_url="https://github.com/libretro/mrboom-libretro.git"
 libretro_mrboom_build_makefile="Makefile"
 
+include_core_xrick() {
+	register_module core "xrick"
+}
+libretro_xrick_name="XRick"
+libretro_xrick_git_url="https://github.com/libretro/xrick-libretro.git"
+libretro_xrick_build_makefile="Makefile"
+
 include_core_easyrpg() {
 	register_module core "easyrpg" -ngc -ps3 -psp1 -wii
 }
