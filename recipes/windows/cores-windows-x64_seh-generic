@@ -60,6 +60,7 @@ nxengine libretro-nxengine https://github.com/libretro/nxengine-libretro.git PRO
 o2em libretro-o2em https://github.com/libretro/libretro-o2em.git PROJECT YES GENERIC Makefile . 
 pcsx_rearmed libretro-pcsx_rearmed https://github.com/libretro/pcsx_rearmed.git PROJECT YES GENERIC Makefile.libretro . USE_DYNAREC=0 
 picodrive libretro-picodrive https://github.com/libretro/picodrive.git SUBMODULE YES GENERIC Makefile.libretro . 
+pocketcdg libretro-pocketcdg https://github.com/libretro/libretro-pocketcdg.git PROJECT YES GENERIC Makefile . 
 pokemini libretro-pokemini https://github.com/libretro/PokeMini.git PROJECT YES GENERIC Makefile . 
 prboom libretro-prboom  https://github.com/libretro/libretro-prboom.git PROJECT YES GENERIC Makefile . 
 prosystem libretro-prosystem https://github.com/libretro/prosystem-libretro.git PROJECT YES GENERIC Makefile . 
