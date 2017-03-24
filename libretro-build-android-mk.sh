@@ -158,6 +158,8 @@ WANT_CORES=" \
 	bsnes_performance \
 	mame2000 \
 	mame2003 \
+	mrboom \
+	xrick \
 	pocketsnes"
 fi
 
