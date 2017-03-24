@@ -5,6 +5,10 @@ call "C:\Program Files\Microsoft SDKs\Windows\v7.1\Bin\SetEnv.cmd" /x64
 rem del x64\Release\RetroArch-msvc2010.exe 2>nul
 echo %date% %time% >buildlog.txt
 tskill vcexpress 2>nul
+rem this is a hack for sleep()
+ping 192.0.2.1 -n 1 -w 2000 >nul
+taskkill /t /f /im vcexpress.exe
+ping 192.0.2.1 -n 1 -w 2000 >nul
 set platform=
 set PLATFORM=
 set tmp=
