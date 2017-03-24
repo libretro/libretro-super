@@ -31,6 +31,13 @@ libretro_mrboom_name="Mr.Boom"
 libretro_mrboom_git_url="https://github.com/libretro/mrboom-libretro.git"
 libretro_mrboom_build_makefile="Makefile"
 
+include_core_vice() {
+	register_module core "vice"
+}
+libretro_vice_name="VICE"
+libretro_vice_git_url="https://github.com/libretro/vice-libretro.git"
+libretro_vice_build_makefile="Makefile"
+
 include_core_xrick() {
 	register_module core "xrick"
 }
