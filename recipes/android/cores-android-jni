@@ -34,7 +34,7 @@ mednafen_pce_fast libretro-beetle_pce_fast https://github.com/libretro/beetle-pc
 mednafen_pcfx libretro-beetle_pcfx https://github.com/libretro/beetle-pcfx-libretro.git PROJECT YES GENERIC_JNI Makefile jni 
 mednafen_psx libretro-beetle_psx https://github.com/libretro/beetle-psx-libretro.git PROJECT YES GENERIC_JNI Makefile jni 
 mednafen_psx_hw libretro-beetle_psx_hw https://github.com/libretro/beetle-psx-libretro.git PROJECT YES GENERIC_JNI Makefile parallel-psx/jni 
-mednafen_saturn libretro-beetle_saturn https://github.com/libretro/beetle-saturn-libretro.git PROJECT YES GENERIC Makefile . 
+mednafen_saturn libretro-beetle_saturn https://github.com/libretro/beetle-saturn-libretro.git PROJECT YES GENERIC_JNI Makefile jni 
 mednafen_snes libretro-beetle_snes https://github.com/libretro/beetle-bsnes-libretro.git PROJECT YES GENERIC_JNI Makefile jni 
 mednafen_supergrafx libretro-beetle_supergrafx https://github.com/libretro/beetle-supergrafx-libretro.git PROJECT YES GENERIC_JNI Makefile jni 
 mednafen_vb libretro-beetle_vb https://github.com/libretro/beetle-vb-libretro.git PROJECT YES GENERIC_JNI Makefile jni 
