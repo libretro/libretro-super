@@ -161,7 +161,7 @@ if [ "${CORE_JOB}" == "YES" ]; then
 	fi
 
 	if [ "${CC}" ] && [ "${CXX}" ]; then
-		COMPILER="CC='${CC}' CXX='${CXX}'"
+		COMPILER="CC="\""${CC}"\"" CXX="\""${CXX}"\"""
 	else
 		COMPILER=""
 	fi
@@ -596,7 +596,7 @@ build_libretro_bsnes() {
 
 	echo -------------------------------------------------- 2>&1 | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PROFILE}_${PLATFORM}.log
 	if [ "${PROFILE}" = "cpp98" ]; then
-		${HELPER} ${MAKE} platform="${PLATFORM}" "${COMPILER}" "-j${JOBS}" 2>&1 | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PROFILE}_${PLATFORM}.log
+		${HELPER} ${MAKE} platform="${PLATFORM}" ${COMPILER} "-j${JOBS}" 2>&1 | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PROFILE}_${PLATFORM}.log
 	elif [ "${PROFILE}" = "bnes" ]; then
 		echo "BUILD CMD: ${HELPER} ${MAKE} -f Makefile ${COMPILER} "-j${JOBS}" compiler=${BSNESCOMPILER}" platform=${FORMAT_COMPILER_TARGET} 2>&1 | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PROFILE}_${PLATFORM}.log
 		${HELPER} ${MAKE} -f Makefile ${COMPILER} "-j${JOBS}" compiler="${BSNESCOMPILER}" platform=${FORMAT_COMPILER_TARGET} 2>&1 | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PROFILE}_${PLATFORM}.log
