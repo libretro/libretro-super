@@ -48,7 +48,7 @@ nxengine libretro-nxengine https://github.com/libretro/nxengine-libretro.git PRO
 o2em libretro-o2em https://github.com/libretro/libretro-o2em.git PROJECT YES GENERIC_JNI Makefile jni 
 pcsx_rearmed libretro-pcsx_rearmed https://github.com/libretro/pcsx_rearmed.git PROJECT YES GENERIC_JNI Makefile.libretro jni 
 pcsx_rearmed_interpreter libretro-pcsx_rearmed_interpreter https://github.com/libretro/pcsx_rearmed.git PROJECT YES GENERIC_JNI Makefile.libretro . USE_DYNAREC=0 
-pocketcdg libretro-pocketcdg https://github.com/libretro/libretro-pocketcdg.git PROJECT YES GENERIC_JNI Makefile jni
+pocketcdg libretro-pocketcdg https://github.com/libretro/libretro-pocketcdg.git PROJECT YES GENERIC_JNI Makefile jni 
 picodrive libretro-picodrive https://github.com/libretro/picodrive.git SUBMODULE YES GENERIC_JNI Makefile.libretro jni 
 pokemini libretro-pokemini https://github.com/libretro/PokeMini.git PROJECT YES GENERIC_JNI Makefile jni 
 ppsspp libretro-ppsspp https://github.com/libretro/ppsspp.git SUBMODULE YES GENERIC_JNI Makefile.libretro libretro/jni 
