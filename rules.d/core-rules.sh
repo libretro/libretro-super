@@ -31,12 +31,21 @@ libretro_mrboom_name="Mr.Boom"
 libretro_mrboom_git_url="https://github.com/libretro/mrboom-libretro.git"
 libretro_mrboom_build_makefile="Makefile"
 
-include_core_vice() {
-	register_module core "vice"
+include_core_vice_x64() {
+	register_module core "vice_x64"
 }
-libretro_vice_name="VICE"
-libretro_vice_git_url="https://github.com/libretro/vice-libretro.git"
-libretro_vice_build_makefile="Makefile"
+libretro_vice_x64_name="VICE x64"
+libretro_vice_x64_git_url="https://github.com/libretro/vice-libretro.git"
+libretro_vice_x64_build_makefile="Makefile"
+
+include_core_vice_x128() {
+	register_module core "vice_x128"
+}
+libretro_vice_x128_name="VICE x128"
+libretro_vice_x128_git_url="https://github.com/libretro/vice-libretro.git"
+libretro_vice_x128_build_makefile="Makefile"
+libretro_vice_x128_build_args="EMUTYPE=\"x128\""
+libretro_vice_x128_build_cores="vice_x128"
 
 include_core_xrick() {
 	register_module core "xrick"
