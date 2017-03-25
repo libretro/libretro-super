@@ -64,6 +64,7 @@ vba_next libretro-vba_next https://github.com/libretro/vba-next.git PROJECT YES 
 vbam libretro-vbam https://github.com/libretro/vbam-libretro.git PROJECT YES GENERIC_ALT Makefile src/libretro 
 vecx libretro-vecx  https://github.com/libretro/libretro-vecx.git PROJECT YES GENERIC Makefile.libretro . 
 virtualjaguar libretro-virtualjaguar https://github.com/libretro/virtualjaguar-libretro.git PROJECT YES GENERIC Makefile . 
+vice_x64 libretro-vice_x64 https://github.com/libretro/vice-libretro.git PROJECT YES GENERIC Makefile . 
 xrick libretro-xrick https://github.com/libretro/xrick-libretro.git PROJECT YES GENERIC Makefile . 
 yabause libretro-yabause https://github.com/libretro/yabause.git PROJECT YES GENERIC Makefile libretro 
 desmume libretro-desmume https://github.com/libretro/desmume.git PROJECT YES GENERIC Makefile.libretro desmume 
