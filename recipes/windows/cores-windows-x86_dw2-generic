@@ -10,6 +10,7 @@ bsnes_cplusplus98 libretro-bsnes_cplusplus98 https://github.com/libretro/bsnes-l
 bsnes_mercury libretro-bsnes_mercury https://github.com/libretro/bsnes-mercury.git PROJECT YES BSNES Makefile . accuracy 
 bsnes_mercury libretro-bsnes_mercury https://github.com/libretro/bsnes-mercury.git PROJECT YES BSNES Makefile . balanced 
 bsnes_mercury libretro-bsnes_mercury https://github.com/libretro/bsnes-mercury.git PROJECT YES BSNES Makefile . performance 
+craft libretro-craft https://github.com/libretro/craft PROJECT YES GENERIC Makefile.libretro . 
 dinothawr libretro-dinothawr https://github.com/libretro/Dinothawr.git PROJECT YES GENERIC_ALT Makefile . 
 fbalpha libretro-fbalpha https://github.com/libretro/fbalpha.git PROJECT YES GENERIC makefile.libretro svn-current/trunk 
 fbalpha2012 libretro-fbalpha2012 https://github.com/libretro/fbalpha2012.git PROJECT YES GENERIC makefile.libretro svn-current/trunk 
