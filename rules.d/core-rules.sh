@@ -24,6 +24,13 @@ libretro_bsnes_performance_git_url="https://github.com/libretro/bsnes-libretro.g
 libretro_bsnes_performance_build_args="compiler=\"${CXX11}\" profile=\"performance\""
 libretro_bsnes_performance_build_products="out"
 
+include_core_crocods() {
+	register_module core "crocods"
+}
+libretro_crocods_name="CrocoDS"
+libretro_crocods_git_url="https://github.com/libretro/libretro-crocods.git"
+libretro_crocods_build_makefile="Makefile"
+
 include_core_mrboom() {
 	register_module core "mrboom"
 }

@@ -62,6 +62,7 @@ include_core_meteor
 include_core_nxengine
 include_core_prboom
 include_core_mrboom
+include_core_crocods
 include_core_xrick
 include_core_vice_x64
 include_core_vice_x128
