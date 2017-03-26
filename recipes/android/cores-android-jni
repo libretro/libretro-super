@@ -61,5 +61,6 @@ vba_next libretro-vba-next https://github.com/libretro/vba-next.git PROJECT YES 
 vbam libretro-vbam https://github.com/libretro/vbam-libretro.git PROJECT YES GENERIC_JNI Makefile src/libretro/jni 
 vecx libretro-vecx https://github.com/libretro/libretro-vecx.git PROJECT YES GENERIC_JNI Makefile.libretro jni 
 virtualjaguar libretro-virtualjaguar https://github.com/libretro/virtualjaguar-libretro.git PROJECT YES GENERIC_JNI Makefile jni 
+vice_x64 libretro-vice https://github.com/libretro/vice-libretro.git PROJECT YES GENERIC_JNI Makefile jni 
 xrick libretro-xrick https://github.com/libretro/xrick-libretro.git PROJECT YES GENERIC_JNI Makefile jni 
 yabause libretro-yabause https://github.com/libretro/yabause.git PROJECT YES GENERIC_JNI Makefile libretro/jni 
