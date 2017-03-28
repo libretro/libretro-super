@@ -13,7 +13,8 @@ snes9x2005 libretro-snes9x2005 https://github.com/libretro/snes9x2005.git PROJEC
 snes9x2010 libretro-snes9x2010 https://github.com/libretro/snes9x2010.git PROJECT YES GENERIC_JNI Makefile jni 
 snes9x libretro-snes9x https://github.com/libretro/snes9x.git PROJECT YES GENERIC_JNI Makefile libretro/jni 
 snes9x2010 libretro-snes9x2010 https://github.com/libretro/snes9x2010.git PROJECT YES GENERIC_JNI Makefile jni 
-craft libretro-craft https://github.com/libretro/craft PROJECT YES GENERIC_JNI Makefile.libretro jni 
+craft libretro-craft https://github.com/libretro/Craft.git PROJECT YES GENERIC_JNI Makefile.libretro jni 
+crocods libretro-crocods https://github.com/libretro/libretro-crocods.git PROJECT YES GENERIC_JNI Makefile jni 
 desmume libretro-desmume https://github.com/libretro/desmume.git PROJECT YES GENERIC_JNI Makefile.libretro desmume/src/libretro/jni 
 dinothawr libretro-dinothawr https://github.com/libretro/Dinothawr.git PROJECT YES GENERIC_JNI Makefile jni
 dosbox libretro-dosbox https://github.com/libretro/dosbox-libretro.git PROJECT YES GENERIC_JNI Makefile.libretro jni 
@@ -34,7 +35,7 @@ mednafen_pce_fast libretro-beetle_pce_fast https://github.com/libretro/beetle-pc
 mednafen_pcfx libretro-beetle_pcfx https://github.com/libretro/beetle-pcfx-libretro.git PROJECT YES GENERIC_JNI Makefile jni 
 mednafen_psx libretro-beetle_psx https://github.com/libretro/beetle-psx-libretro.git PROJECT YES GENERIC_JNI Makefile jni 
 mednafen_psx_hw libretro-beetle_psx_hw https://github.com/libretro/beetle-psx-libretro.git PROJECT YES GENERIC_JNI Makefile parallel-psx/jni 
-mednafen_saturn libretro-beetle_saturn https://github.com/libretro/beetle-saturn-libretro.git PROJECT YES GENERIC Makefile . 
+mednafen_saturn libretro-beetle_saturn https://github.com/libretro/beetle-saturn-libretro.git PROJECT YES GENERIC_JNI Makefile jni 
 mednafen_snes libretro-beetle_snes https://github.com/libretro/beetle-bsnes-libretro.git PROJECT YES GENERIC_JNI Makefile jni 
 mednafen_supergrafx libretro-beetle_supergrafx https://github.com/libretro/beetle-supergrafx-libretro.git PROJECT YES GENERIC_JNI Makefile jni 
 mednafen_vb libretro-beetle_vb https://github.com/libretro/beetle-vb-libretro.git PROJECT YES GENERIC_JNI Makefile jni 
@@ -61,5 +62,6 @@ vba_next libretro-vba-next https://github.com/libretro/vba-next.git PROJECT YES 
 vbam libretro-vbam https://github.com/libretro/vbam-libretro.git PROJECT YES GENERIC_JNI Makefile src/libretro/jni 
 vecx libretro-vecx https://github.com/libretro/libretro-vecx.git PROJECT YES GENERIC_JNI Makefile.libretro jni 
 virtualjaguar libretro-virtualjaguar https://github.com/libretro/virtualjaguar-libretro.git PROJECT YES GENERIC_JNI Makefile jni 
+vice_x64 libretro-vice https://github.com/libretro/vice-libretro.git PROJECT YES GENERIC_JNI Makefile jni 
 xrick libretro-xrick https://github.com/libretro/xrick-libretro.git PROJECT YES GENERIC_JNI Makefile jni 
 yabause libretro-yabause https://github.com/libretro/yabause.git PROJECT YES GENERIC_JNI Makefile libretro/jni 

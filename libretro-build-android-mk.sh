@@ -160,6 +160,8 @@ WANT_CORES=" \
 	mame2003 \
 	mrboom \
 	xrick \
+	pocketcdg \
+	crocods \
 	pocketsnes"
 fi
 
