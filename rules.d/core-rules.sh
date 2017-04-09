@@ -31,6 +31,14 @@ libretro_crocods_name="CrocoDS"
 libretro_crocods_git_url="https://github.com/libretro/libretro-crocods.git"
 libretro_crocods_build_makefile="Makefile"
 
+include_core_dolphin() {
+	register_module core "dolphin"
+}
+libretro_dolphin_name="Dolphin"
+libretro_dolphin_git_url="https://github.com/libretro/dolphin.git"
+libretro_dolphin_build_subdir="Source/Core/DolphinLibretro"
+libretro_dolphin_build_makefile="Makefile"
+
 include_core_mrboom() {
 	register_module core "mrboom"
 }
