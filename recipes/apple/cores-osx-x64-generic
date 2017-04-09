@@ -13,6 +13,7 @@ craft libretro-craft https://github.com/libretro/craft PROJECT YES GENERIC Makef
 crocods libretro-crocods https://github.com/libretro/libretro-crocods.git SUBMODULE YES GENERIC Makefile . 
 desmume libretro-desmume https://github.com/libretro/desmume.git PROJECT YES GENERIC Makefile.libretro desmume 
 dinothawr libretro-dinothawr https://github.com/libretro/Dinothawr.git PROJECT YES GENERIC Makefile . 
+dolphin libretro-dolphin https://github.com/libretro/dolphin.git PROJECT YES GENERIC Makefile Source/Core/DolphinLibretro/ 
 dosbox libretro-dosbox https://github.com/libretro/dosbox-libretro.git PROJECT YES GENERIC Makefile.libretro . 
 fbalpha libretro-fbalpha https://github.com/libretro/fbalpha.git PROJECT YES GENERIC makefile.libretro svn-current/trunk 
 fbalpha2012 libretro-fbalpha2012 https://github.com/libretro/fbalpha2012.git PROJECT YES GENERIC makefile.libretro svn-current/trunk 
