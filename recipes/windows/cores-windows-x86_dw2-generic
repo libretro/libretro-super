@@ -13,6 +13,7 @@ bsnes_mercury libretro-bsnes_mercury https://github.com/libretro/bsnes-mercury.g
 craft libretro-craft https://github.com/libretro/craft PROJECT YES GENERIC Makefile.libretro . 
 crocods libretro-crocods https://github.com/libretro/libretro-crocods.git SUBMODULE YES GENERIC Makefile . 
 dinothawr libretro-dinothawr https://github.com/libretro/Dinothawr.git PROJECT YES GENERIC_ALT Makefile . 
+easyrpg libretro-easyrpg https://github.com/libretro/easyrpg-libretro.git PROJECT YES GENERIC Makefile.libretro builds/libretro 
 fbalpha libretro-fbalpha https://github.com/libretro/fbalpha.git PROJECT YES GENERIC makefile.libretro svn-current/trunk 
 fbalpha2012 libretro-fbalpha2012 https://github.com/libretro/fbalpha2012.git PROJECT YES GENERIC makefile.libretro svn-current/trunk 
 fbalpha2012_cps1 libretro-fbalpha2012_cps1 https://github.com/libretro/fbalpha2012_cps1.git PROJECT YES GENERIC makefile.libretro . 
