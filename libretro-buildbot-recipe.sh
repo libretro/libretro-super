@@ -800,9 +800,6 @@ while read line; do
 						BUILD="YES"
 					fi
 
-					echo "resetting repo state... "
-					git clean -xdf
-					git reset --hard
 					echo "pulling changes from repo $URL... "
 					OUT=`git pull`
 					echo $OUT
@@ -810,6 +807,9 @@ while read line; do
 					if [[ $OUT == *"Already up-to-date"* ]] && [ ! "${BUILD}" = "YES" ]; then
 						BUILD="NO"
 					else
+						echo "resetting repo state... "
+						git clean -xdf
+						git reset --hard origin
 						BUILD="YES"
 					fi
 
@@ -917,9 +917,6 @@ while read line; do
 					BUILD="YES"
 				fi
 
-				echo "resetting repo state... "
-				git clean -xdf
-				git reset --hard
 				echo "pulling changes from repo $URL... "
 				OUT=`git pull`
 				echo $OUT
@@ -927,6 +924,9 @@ while read line; do
 				if [[ $OUT == *"Already up-to-date"* ]] && [ ! "${BUILD}" = "YES" ]; then
 					BUILD="NO"
 				else
+					echo "resetting repo state... "
+					git clean -xdf
+					git reset --hard origin
 					BUILD="YES"
 				fi
 				cd $WORK
@@ -948,9 +948,6 @@ while read line; do
 					BUILD="YES"
 				fi
 
-				echo "resetting repo state $URL... "
-				git clean -xdf
-				git reset --hard
 				echo "pulling changes from repo $URL... "
 				OUT=`git pull`
 				echo $OUT
@@ -958,6 +955,9 @@ while read line; do
 				if [[ $OUT == *"Already up-to-date"* ]] && [ ! "${BUILD}" = "YES" ]; then
 					BUILD="NO"
 				else
+					echo "resetting repo state $URL... "
+					git clean -xdf
+					git reset --hard origin
 					BUILD="YES"
 				fi
 				OUT=`git submodule update --init --recursive`
@@ -1069,9 +1069,6 @@ buildbot_pull(){
 					BUILD="YES"
 				fi
 
-				echo "resetting repo state $URL... "
-				git clean -xdf
-				git reset --hard
 				echo "pulling changes from repo $URL... "
 				OUT=`git pull`
 				echo $OUT
@@ -1081,6 +1078,9 @@ buildbot_pull(){
 					if [[ $OUT == *"Already up-to-date"* ]] && [ ! "${BUILD}" = "YES" ]; then
 						BUILD="NO"
 					else
+						echo "resetting repo state $URL... "
+						git clean -xdf
+						git reset --hard origin
 						BUILD="YES"
 					fi
 				elif [ "${TYPE}" = "SUBMODULE" ]; then
@@ -1088,6 +1088,9 @@ buildbot_pull(){
 					if [[ $OUT == *"Already up-to-date"* ]] && [ ! "${BUILD}" = "YES" ]; then
 						BUILD="NO"
 					else
+						echo "resetting repo state $URL... "
+						git clean -xdf
+						git reset --hard origin
 						BUILD="YES"
 						git submodule update --init --recursive
 						#git submodule foreach git pull origin master
