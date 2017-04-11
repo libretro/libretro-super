@@ -1,18 +1,17 @@
 @echo off
+
+echo cd pkg\msvc
 cd pkg\msvc
-echo Setting MSVC Environment...
+
+echo "C:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\vcvarsall.bat" x86
 call "C:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\vcvarsall.bat" x86
 
-rem del Debug\RetroArch-msvc2010.exe 2>nul
-echo Appending build log...
-echo %date% %time% >buildlog.txt
-set platform=
-set PLATFORM=
-set tmp=
-set TMP=
-echo Building RetroArch...
+echo msbuild RetroArch-msvc2010.sln /p:configuration=Debug;platform=win32 /flp:LogFile=buildlog.txt;verbosity=normal;Append
 call msbuild RetroArch-msvc2010.sln /p:configuration=Debug;platform=win32 /flp:LogFile=buildlog.txt;verbosity=normal;Append
-echo Moving dist files...
+
+echo move Debug\RetroArch-msvc2010.exe ../../retroarch.exe
 move Debug\RetroArch-msvc2010.exe ../../retroarch.exe
+
+echo move Debug\RetroArch-msvc2010.exe.intermediate.manifest ../../retroarch.exe.manifest
 move Debug\RetroArch-msvc2010.exe.intermediate.manifest ../../retroarch.exe.manifest
 echo Build finished.
