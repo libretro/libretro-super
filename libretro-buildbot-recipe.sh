@@ -1350,7 +1350,7 @@ if [ "${PLATFORM}" = "android" ] && [ "${RA}" = "YES" ]; then
 		echo RELEASE=$RELEASE
 		echo FORCE=$FORCE_RETROARCH_BUILD
 		echo RADIR=$RADIR
-		${HELPER} ${MAKE} -f Makefile.griffin shaders-convert-glsl PYTHON3=$PYTHON
+		#${HELPER} ${MAKE} -f Makefile.griffin shaders-convert-glsl PYTHON3=$PYTHON
 
 		echo "buildbot job: $jobid processing assets"
 		echo
