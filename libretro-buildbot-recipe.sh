@@ -1399,9 +1399,10 @@ if [ "${PLATFORM}" = "android" ] && [ "${RA}" = "YES" ]; then
 		cp -rf media/libretrodb/rdb/* pkg/android/phoenix/assets/database/rdb/
 		cp -rf libretro-common/audio/dsp_filters/*.dsp pkg/android/phoenix/assets/filters/audio/
 		cp -rf gfx/video_filters/*.filt pkg/android/phoenix/assets/filters/video/
+		find pkg/android/phoenix/assets/assets/ -type d -name src -exec rm -rf {} \;
 
 
-		cp -rf media/shaders_glsl $TMPDIR/
+		#cp -rf media/shaders_glsl $TMPDIR/
 		touch pkg/android/phoenix/assets/cheats/.empty-folder
 		touch pkg/android/phoenix/assets/saves/.empty-folder
 		touch pkg/android/phoenix/assets/states/.empty-folder
