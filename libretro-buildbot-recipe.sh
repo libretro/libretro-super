@@ -1102,7 +1102,8 @@ buildbot_pull(){
 				echo "cloning repo $URL..."
 				cd $PARENTDIR
 				if [ ! -z "$BRANCH" -a "${NAME}" == "retroarch" ]; then
-					git clone -b "$BRANCH" "$URL" "$DIR"
+					git clone "$URL" "$DIR"
+					git checkout "$BRANCH"
 				elif [ ! -z "$GIT_BRANCH" ]; then
 					git clone -b "$GIT_BRANCH" "$URL" "$DIR" --depth=1
 				else
