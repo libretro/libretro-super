@@ -655,11 +655,12 @@ while read line; do
 	NAME=`echo $line | cut -f 1 -d " "`
 	DIR=`echo $line | cut -f 2 -d " "`
 	URL=`echo $line | cut -f 3 -d " "`
-	TYPE=`echo $line | cut -f 4 -d " "`
-	ENABLED=`echo $line | cut -f 5 -d " "`
-	COMMAND=`echo $line | cut -f 6 -d " "`
-	MAKEFILE=`echo $line | cut -f 7 -d " "`
-	SUBDIR=`echo $line | cut -f 8 -d " "`
+	GIT_BRANCH=`echo $line | cut -f 4 -d " "`
+	TYPE=`echo $line | cut -f 5 -d " "`
+	ENABLED=`echo $line | cut -f 6 -d " "`
+	COMMAND=`echo $line | cut -f 7 -d " "`
+	MAKEFILE=`echo $line | cut -f 8 -d " "`
+	SUBDIR=`echo $line | cut -f 9 -d " "`
 
 	if [ "${ENABLED}" = "YES" ]; then
 		echo "buildbot job: $jobid processing $NAME"
@@ -677,14 +678,9 @@ while read line; do
 
 		ARGS=""
 
-		TEMP=`echo $line | cut -f 9 -d " "`
-		if [ -n ${TEMP} ]; then
-			ARGS="${TEMP}"
-		fi
-		TEMP=""
 		TEMP=`echo $line | cut -f 10 -d " "`
 		if [ -n ${TEMP} ]; then
-			ARGS="${ARGS} ${TEMP}"
+			ARGS="${TEMP}"
 		fi
 		TEMP=""
 		TEMP=`echo $line | cut -f 11 -d " "`
@@ -706,11 +702,11 @@ while read line; do
 		if [ -n ${TEMP} ]; then
 			ARGS="${ARGS} ${TEMP}"
 		fi
-			TEMP=""
-			TEMP=`echo $line | cut -f 15 -d " "`
-			if [ -n ${TEMP} ]; then
-				ARGS="${ARGS} ${TEMP}"
-			fi
+		TEMP=""
+		TEMP=`echo $line | cut -f 15 -d " "`
+		if [ -n ${TEMP} ]; then
+			ARGS="${ARGS} ${TEMP}"
+		fi
 			TEMP=""
 			TEMP=`echo $line | cut -f 16 -d " "`
 			if [ -n ${TEMP} ]; then
@@ -781,6 +777,11 @@ while read line; do
 			if [ -n ${TEMP} ]; then
 				ARGS="${ARGS} ${TEMP}"
 			fi
+			TEMP=""
+			TEMP=`echo $line | cut -f 30 -d " "`
+			if [ -n ${TEMP} ]; then
+				ARGS="${ARGS} ${TEMP}"
+			fi
 
 		ARGS="${ARGS%"${ARGS##*[![:space:]]}"}"
 		BUILD="NO"
@@ -790,7 +791,7 @@ while read line; do
 				if [ "${CLEANUP}" == "YES" ]; then
 					rm -rfv $DIR
 					echo "cloning repo $URL..."
-					git clone --depth=1 "$URL" "$DIR"
+					git clone --depth=1 -b "$GIT_BRANCH" "$URL" "$DIR"
 					BUILD="YES"
 				else
 					cd $DIR
@@ -905,7 +906,7 @@ while read line; do
 				cd $WORK
 			else
 				echo "cloning repo $URL..."
-				git clone --depth=1 "$URL" "$DIR"
+				git clone --depth=1 -b "$GIT_BRANCH" "$URL" "$DIR"
 				BUILD="YES"
 			fi
 		elif [ "${TYPE}" = "psp_hw_render" ]; then
@@ -933,7 +934,7 @@ while read line; do
 
 			else
 				echo "pulling changes from repo... "
-				git clone "$URL" "$DIR"
+				git clone -b "$GIT_BRANCH" "$URL" "$DIR"
 				cd $DIR
 				git checkout $TYPE
 				cd $WORK
@@ -964,7 +965,7 @@ while read line; do
 				cd $WORK
 		else
 				echo "cloning repo $URL..."
-				git clone --depth=1 "$URL" "$DIR"
+				git clone --depth=1 -b "$GIT_BRANCH" "$URL" "$DIR"
 				cd $DIR
 				git submodule update --init
 				BUILD="YES"
@@ -1103,7 +1104,7 @@ buildbot_pull(){
 				if [ ! -z "$BRANCH" -a "${NAME}" == "retroarch" ]; then
 					git clone -b "$BRANCH" "$URL" "$DIR"
 				else
-					git clone "$URL" "$DIR" --depth=1
+					git clone -b "$GIT_BRANCH" "$URL" "$DIR" --depth=1
 				fi
 				cd $WORK
 				if [ "${TYPE}" = "PROJECT" ]; then
