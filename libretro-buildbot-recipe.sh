@@ -1082,6 +1082,7 @@ buildbot_pull(){
 						echo "resetting repo state $URL... "
 						git clean -xdf
 						git reset --hard origin
+						git pull
 						BUILD="YES"
 					fi
 				elif [ "${TYPE}" = "SUBMODULE" ]; then
@@ -1092,6 +1093,7 @@ buildbot_pull(){
 						echo "resetting repo state $URL... "
 						git clean -xdf
 						git reset --hard origin
+						git pull
 						BUILD="YES"
 						git submodule update --init --recursive
 						#git submodule foreach git pull origin master
@@ -1103,6 +1105,7 @@ buildbot_pull(){
 				cd $PARENTDIR
 				if [ ! -z "$BRANCH" -a "${NAME}" == "retroarch" ]; then
 					git clone "$URL" "$DIR"
+					cd $DIR
 					git checkout "$BRANCH"
 				elif [ ! -z "$GIT_BRANCH" ]; then
 					git clone -b "$GIT_BRANCH" "$URL" "$DIR" --depth=1
