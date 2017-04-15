@@ -1,10 +1,10 @@
-81 libretro-81 https://github.com/libretro/81-libretro.git PROJECT YES LEIRADEL Makefile build x86_64 
-fuse libretro-fuse https://github.com/libretro/fuse-libretro.git PROJECT YES LEIRADEL Makefile build x86_64 
-gw libretro-gw https://github.com/libretro/gw-libretro.git PROJECT YES LEIRADEL Makefile build x86_64 
-emux_nes libretro-emux_nes https://github.com/libretro/emux PROJECT YES LEIRADEL Makefile libretro x86_64 MACHINE=nes 
-emux_sms libretro-emux_sms https://github.com/libretro/emux PROJECT YES LEIRADEL Makefile libretro x86_64 MACHINE=sms 
-emux_chip8 libretro-emux_chip8 https://github.com/libretro/emux PROJECT YES LEIRADEL Makefile libretro x86_64 MACHINE=chip8 
-emux_gb libretro-emux_gb https://github.com/libretro/emux PROJECT YES LEIRADEL Makefile libretro x86_64 MACHINE=gb 
+81 libretro-81 https://github.com/libretro/81-libretro.git master PROJECT YES LEIRADEL Makefile build x86_64 
+fuse libretro-fuse https://github.com/libretro/fuse-libretro.git master PROJECT YES LEIRADEL Makefile build x86_64 
+gw libretro-gw https://github.com/libretro/gw-libretro.git master PROJECT YES LEIRADEL Makefile build x86_64 
+emux_nes libretro-emux_nes https://github.com/libretro/emux master PROJECT YES LEIRADEL Makefile libretro x86_64 MACHINE=nes 
+emux_sms libretro-emux_sms https://github.com/libretro/emux master PROJECT YES LEIRADEL Makefile libretro x86_64 MACHINE=sms 
+emux_chip8 libretro-emux_chip8 https://github.com/libretro/emux master PROJECT YES LEIRADEL Makefile libretro x86_64 MACHINE=chip8 
+emux_gb libretro-emux_gb https://github.com/libretro/emux master PROJECT YES LEIRADEL Makefile libretro x86_64 MACHINE=gb 
 
 
 

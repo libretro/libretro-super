@@ -1,14 +1,14 @@
-snes9x2005 libretro-snes9x2005 https://github.com/libretro/snes9x2005.git PROJECT YES GENERIC Makefile . 
-snes9x2005_plus libretro-snes9x2005_plus https://github.com/libretro/snes9x2005.git PROJECT YES GENERIC Makefile . USE_BLARGG_APU=1 
-fceumm libretro-fceumm https://github.com/libretro/libretro-fceumm.git PROJECT YES GENERIC Makefile.libretro . 
-fmsx libretro-fmsx https://github.com/libretro/fmsx-libretro.git PROJECT YES GENERIC Makefile . 
-gambatte libretro-gambatte https://github.com/libretro/gambatte-libretro.git PROJECT YES GENERIC Makefile . 
-lutro libretro-lutro https://github.com/libretro/libretro-lutro PROJECT YES GENERIC Makefile . 
-mednafen_pce_fast libretro-beetle_pce_fast https://github.com/aliaspider/beetle-pce-fast-libretro.git psp_hw_render YES GENERIC Makefile . 
-mgba libretro-mgba https://github.com/libretro/mgba.git PROJECT YES GENERIC Makefile.libretro . 
-njemu_cps2 libretro-njemu https://github.com/aliaspider/NJEMU-libretro.git PROJECT YES GENERIC Makefile . 
-nxengine libretro-nxengine https://github.com/libretro/nxengine-libretro.git PROJECT YES GENERIC Makefile . 
-picodrive libretro-picodrive https://github.com/libretro/picodrive.git PROJECT YES GENERIC Makefile.libretro . 
-prboom libretro-prboom  https://github.com/libretro/libretro-prboom.git PROJECT YES GENERIC Makefile . 
-quicknes libretro-quicknes  https://github.com/libretro/QuickNES_Core.git PROJECT YES GENERIC Makefile . 
-tempgba libretro-tempgba https://github.com/libretro/TempGBA-libretro.git PROJECT YES GENERIC Makefile . 
+snes9x2005 libretro-snes9x2005 https://github.com/libretro/snes9x2005.git master PROJECT YES GENERIC Makefile . 
+snes9x2005_plus libretro-snes9x2005_plus https://github.com/libretro/snes9x2005.git master PROJECT YES GENERIC Makefile . USE_BLARGG_APU=1 
+fceumm libretro-fceumm https://github.com/libretro/libretro-fceumm.git master PROJECT YES GENERIC Makefile.libretro . 
+fmsx libretro-fmsx https://github.com/libretro/fmsx-libretro.git master PROJECT YES GENERIC Makefile . 
+gambatte libretro-gambatte https://github.com/libretro/gambatte-libretro.git master PROJECT YES GENERIC Makefile . 
+lutro libretro-lutro https://github.com/libretro/libretro-lutro master PROJECT YES GENERIC Makefile . 
+mednafen_pce_fast libretro-beetle_pce_fast https://github.com/aliaspider/beetle-pce-fast-libretro.git master psp_hw_render YES GENERIC Makefile . 
+mgba libretro-mgba https://github.com/libretro/mgba.git master PROJECT YES GENERIC Makefile.libretro . 
+njemu_cps2 libretro-njemu https://github.com/aliaspider/NJEMU-libretro.git master PROJECT YES GENERIC Makefile . 
+nxengine libretro-nxengine https://github.com/libretro/nxengine-libretro.git master PROJECT YES GENERIC Makefile . 
+picodrive libretro-picodrive https://github.com/libretro/picodrive.git master PROJECT YES GENERIC Makefile.libretro . 
+prboom libretro-prboom  https://github.com/libretro/libretro-prboom.git master PROJECT YES GENERIC Makefile . 
+quicknes libretro-quicknes  https://github.com/libretro/QuickNES_Core.git master PROJECT YES GENERIC Makefile . 
+tempgba libretro-tempgba https://github.com/libretro/TempGBA-libretro.git master PROJECT YES GENERIC Makefile . 

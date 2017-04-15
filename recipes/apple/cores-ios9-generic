@@ -1,84 +1,84 @@
-2048 libretro-2048  https://github.com/libretro/libretro-2048.git PROJECT YES GENERIC Makefile.libretro . 
-4do libretro-4do https://github.com/libretro/4do-libretro.git PROJECT YES GENERIC Makefile . 
-bluemsx libretro-bluemsx https://github.com/libretro/blueMSX-libretro.git PROJECT YES GENERIC Makefile.libretro . 
-bnes libretro-bnes https://github.com/libretro/bnes-libretro.git PROJECT YES BSNES Makefile . bnes 
-bsnes libretro-bsnes https://github.com/libretro/bsnes-libretro.git PROJECT YES BSNES Makefile . accuracy 
-bsnes libretro-bsnes https://github.com/libretro/bsnes-libretro.git PROJECT YES BSNES Makefile . balanced 
-bsnes libretro-bsnes https://github.com/libretro/bsnes-libretro.git PROJECT YES BSNES Makefile . performance 
-bsnes_cplusplus98 libretro-bsnes_cplusplus98 https://github.com/libretro/bsnes-libretro-cplusplus98.git PROJECT YES BSNES Makefile . cpp98 
-bsnes_mercury libretro-bsnes_mercury https://github.com/libretro/bsnes-mercury.git PROJECT YES BSNES Makefile . accuracy 
-bsnes_mercury libretro-bsnes_mercury https://github.com/libretro/bsnes-mercury.git PROJECT YES BSNES Makefile . balanced 
-bsnes_mercury libretro-bsnes_mercury https://github.com/libretro/bsnes-mercury.git PROJECT YES BSNES Makefile . performance 
-craft libretro-craft https://github.com/libretro/craft PROJECT YES GENERIC Makefile.libretro . 
-crocods libretro-crocods https://github.com/libretro/libretro-crocods.git SUBMODULE YES GENERIC Makefile . 
-desmume libretro-desmume https://github.com/libretro/desmume.git PROJECT YES GENERIC Makefile.libretro desmume 
-dinothawr libretro-dinothawr https://github.com/libretro/Dinothawr.git PROJECT YES GENERIC Makefile . 
-dosbox libretro-dosbox https://github.com/libretro/dosbox-libretro.git PROJECT YES GENERIC Makefile.libretro . 
-easyrpg libretro-easyrpg https://github.com/libretro/easyrpg-libretro.git PROJECT YES GENERIC Makefile.libretro builds/libretro 
-fbalpha libretro-fbalpha https://github.com/libretro/fbalpha.git PROJECT YES GENERIC makefile.libretro svn-current/trunk 
-fbalpha2012 libretro-fbalpha2012 https://github.com/libretro/fbalpha2012.git PROJECT YES GENERIC makefile.libretro svn-current/trunk 
-fbalpha2012_cps1 libretro-fbalpha2012_cps1 https://github.com/libretro/fbalpha2012_cps1.git PROJECT YES GENERIC makefile.libretro . 
-fbalpha2012_cps2 libretro-fbalpha2012_cps2 https://github.com/libretro/fbalpha2012_cps2.git PROJECT YES GENERIC makefile.libretro . 
-fbalpha2012_neogeo libretro-fbalpha_neogeo https://github.com/libretro/fbalpha2012_neogeo.git PROJECT YES GENERIC Makefile . 
-fceumm libretro-fceuumm  https://github.com/libretro/libretro-fceumm.git PROJECT YES GENERIC Makefile.libretro . 
-ffmpeg libretro-ffmpeg  https://github.com/libretro/FFmpeg.git PROJECT YES GENERIC_GL Makefile libretro 
-fmsx libretro-fmsx https://github.com/libretro/fmsx-libretro.git PROJECT YES GENERIC Makefile . 
-fuse libretro-fuse https://github.com/libretro/fuse-libretro.git PROJECT YES GENERIC Makefile.libretro .  
-gambatte libretro-gambatte https://github.com/libretro/gambatte-libretro.git PROJECT YES GENERIC Makefile . 
-genesis_plus_gx libretro-genesis_plus_gx https://github.com/libretro/Genesis-Plus-GX.git PROJECT YES GENERIC Makefile.libretro . 
-gpsp libretro-gpsp https://github.com/libretro/gpsp.git PROJECT YES GENERIC Makefile . 
-gw libretro-gw https://github.com/libretro/gw-libretro.git PROJECT YES GENERIC Makefile . 
-handy libretro-handy https://github.com/libretro/libretro-handy.git PROJECT YES GENERIC Makefile . 
-hatari libretro-hatari https://github.com/libretro/libretro-hatari.git PROJECT YES GENERIC Makefile.libretro . 
-lutro libretro-lutro https://github.com/libretro/libretro-lutro PROJECT YES GENERIC Makefile . 
-mame libretro-mame https://github.com/libretro/mame.git PROJECT YES GENERIC makefile . OSD=retro RETRO=1 NOWERROR=1 NOASM=1 TARGETOS=ios-arm CONFIG=libretro USE_BGFX=0 NO_USE_MIDI=1 VERBOSE=1 verbose=1 
-mame2000 libretro-mame2000 https://github.com/libretro/mame2000-libretro.git PROJECT YES GENERIC Makefile . 
-mame2003 libretro-mame2003 https://github.com/libretro/mame2003-libretro.git PROJECT YES GENERIC Makefile .
-mame2010 libretro-mame2010 https://github.com/libretro/mame2010-libretro.git PROJECT YES GENERIC Makefile . VRENDER=soft 
-mame2014 libretro-mame2014 https://github.com/libretro/mame2014-libretro.git PROJECT YES GENERIC Makefile . TARGET=mame 
-mednafen_gba libretro-beetle_gba https://github.com/libretro/beetle-gba-libretro.git PROJECT YES GENERIC Makefile . 
-mednafen_lynx libretro-beetle_lynx https://github.com/libretro/beetle-lynx-libretro.git PROJECT YES GENERIC Makefile . 
-mednafen_ngp libretro-beetle_ngp https://github.com/libretro/beetle-ngp-libretro.git PROJECT YES GENERIC Makefile . 
-mednafen_pce_fast libretro-beetle_pce_fast https://github.com/libretro/beetle-pce-fast-libretro.git PROJECT YES GENERIC Makefile . 
-mednafen_pcfx libretro-beetle_pcfx https://github.com/libretro/beetle-pcfx-libretro.git PROJECT YES GENERIC Makefile . 
-mednafen_psx libretro-beetle_psx https://github.com/libretro/beetle-psx-libretro.git PROJECT YES GENERIC Makefile . 
-mednafen_snes libretro-beetle_snes https://github.com/libretro/beetle-bsnes-libretro.git PROJECT YES GENERIC Makefile . 
-mednafen_supergrafx libretro-beetle_supergrafx https://github.com/libretro/beetle-supergrafx-libretro.git PROJECT YES GENERIC Makefile . 
-mednafen_vb libretro-beetle_vb https://github.com/libretro/beetle-vb-libretro.git PROJECT YES GENERIC Makefile . 
-mednafen_wswan libretro-beetle_wswan https://github.com/libretro/beetle-wswan-libretro.git PROJECT YES GENERIC Makefile . 
-mess2014 libretro-mame2014 https://github.com/libretro/mame2014-libretro.git PROJECT YES GENERIC Makefile . TARGET=mess 
-meteor libretro-meteor  https://github.com/libretro/meteor-libretro.git PROJECT YES GENERIC Makefile libretro 
-mgba libretro-mgba https://github.com/libretro/mgba.git PROJECT YES GENERIC Makefile.libretro . 
-parallel_n64 libretro-parallel_n64 https://github.com/libretro/parallel-n64.git PROJECT YES GENERIC_GL Makefile . 
-mrboom libretro-mrboom https://github.com/libretro/mrboom-libretro.git PROJECT YES GENERIC Makefile . 
-nestopia libretro-nestopia https://github.com/libretro/nestopia.git PROJECT YES GENERIC Makefile libretro 
-nxengine libretro-nxengine https://github.com/libretro/nxengine-libretro.git PROJECT YES GENERIC Makefile . 
-o2em libretro-o2em https://github.com/libretro/libretro-o2em.git PROJECT YES GENERIC Makefile . 
-pcsx_rearmed libretro-pcsx_rearmed https://github.com/libretro/pcsx_rearmed.git PROJECT YES GENERIC Makefile.libretro . USE_DYNAREC=1 
-pcsx_rearmed_interpreter libretro-pcsx_rearmed_interpreter https://github.com/libretro/pcsx_rearmed.git PROJECT YES GENERIC Makefile.libretro . USE_DYNAREC=0 
-picodrive libretro-picodrive https://github.com/libretro/picodrive.git SUBMODULE YES GENERIC Makefile.libretro . 
-pocketcdg libretro-pocketcdg https://github.com/libretro/libretro-pocketcdg.git PROJECT YES GENERIC Makefile . 
-pokemini libretro-pokemini https://github.com/libretro/PokeMini.git PROJECT YES GENERIC Makefile . 
-ppsspp libretro-ppsspp https://github.com/libretro/ppsspp.git SUBMODULE YES GENERIC_GL Makefile libretro 
-prboom libretro-prboom  https://github.com/libretro/libretro-prboom.git PROJECT YES GENERIC_ALT Makefile . 
-prosystem libretro-prosystem https://github.com/libretro/prosystem-libretro.git PROJECT YES GENERIC Makefile . 
-puae libretro-uae https://github.com/libretro/libretro-uae.git PROJECT YES GENERIC Makefile . 
-quicknes libretro-quicknes  https://github.com/libretro/QuickNES_Core.git PROJECT YES GENERIC Makefile . 
-remotejoy libretro-remotejoy  https://github.com/libretro/libretro-remotejoy.git PROJECT YES GENERIC Makefile . 
-scummvm libretro-scummvm  https://github.com/libretro/scummvm.git PROJECT YES GENERIC Makefile backends/platform/libretro/build 
-snes9x2002 libretro-snes9x2002 https://github.com/libretro/snes9x2002.git PROJECT YES GENERIC Makefile . 
-snes9x2005 libretro-snes9x2005 https://github.com/libretro/snes9x2005.git PROJECT YES GENERIC Makefile . 
-snes9x2010 libretro-snes9x2010 https://github.com/libretro/snes9x2010.git PROJECT YES GENERIC Makefile.libretro . 
-snes9x libretro-snes9x https://github.com/libretro/snes9x.git PROJECT YES GENERIC Makefile libretro 
-stella libretro-stella  https://github.com/libretro/stella-libretro.git PROJECT YES GENERIC Makefile . 
-tgbdual libretro-tgbdual https://github.com/libretro/tgbdual-libretro.git PROJECT YES GENERIC Makefile . 
-tyrquake libretro-tyrquake https://github.com/libretro/tyrquake.git PROJECT YES GENERIC Makefile . 
-ume2014 libretro-mame2014 https://github.com/libretro/mame2014-libretro.git PROJECT YES GENERIC Makefile . TARGET=ume 
-vba_next libretro-vba_next https://github.com/libretro/vba-next.git PROJECT YES GENERIC Makefile.libretro . 
-vbam libretro-vbam https://github.com/libretro/vbam-libretro.git PROJECT YES GENERIC Makefile src/libretro 
-vecx libretro-vecx  https://github.com/libretro/libretro-vecx.git PROJECT YES GENERIC Makefile.libretro . 
-virtualjaguar libretro-virtualjaguar https://github.com/libretro/virtualjaguar-libretro.git PROJECT YES GENERIC Makefile . 
-vice_x64 libretro-vice_x64 https://github.com/libretro/vice-libretro.git PROJECT YES GENERIC Makefile . 
-vice_x128 libretro-vice_x128 https://github.com/libretro/vice-libretro.git PROJECT YES GENERIC Makefile . EMUTYPE=x128 
-xrick libretro-xrick https://github.com/libretro/xrick-libretro.git PROJECT YES GENERIC Makefile . 
-yabause libretro-yabause https://github.com/libretro/yabause.git PROJECT YES GENERIC Makefile libretro 
+2048 libretro-2048  https://github.com/libretro/libretro-2048.git master PROJECT YES GENERIC Makefile.libretro . 
+4do libretro-4do https://github.com/libretro/4do-libretro.git master PROJECT YES GENERIC Makefile . 
+bluemsx libretro-bluemsx https://github.com/libretro/blueMSX-libretro.git master PROJECT YES GENERIC Makefile.libretro . 
+bnes libretro-bnes https://github.com/libretro/bnes-libretro.git master PROJECT YES BSNES Makefile . bnes 
+bsnes libretro-bsnes https://github.com/libretro/bsnes-libretro.git master PROJECT YES BSNES Makefile . accuracy 
+bsnes libretro-bsnes https://github.com/libretro/bsnes-libretro.git master PROJECT YES BSNES Makefile . balanced 
+bsnes libretro-bsnes https://github.com/libretro/bsnes-libretro.git master PROJECT YES BSNES Makefile . performance 
+bsnes_cplusplus98 libretro-bsnes_cplusplus98 https://github.com/libretro/bsnes-libretro-cplusplus98.git master PROJECT YES BSNES Makefile . cpp98 
+bsnes_mercury libretro-bsnes_mercury https://github.com/libretro/bsnes-mercury.git master PROJECT YES BSNES Makefile . accuracy 
+bsnes_mercury libretro-bsnes_mercury https://github.com/libretro/bsnes-mercury.git master PROJECT YES BSNES Makefile . balanced 
+bsnes_mercury libretro-bsnes_mercury https://github.com/libretro/bsnes-mercury.git master PROJECT YES BSNES Makefile . performance 
+craft libretro-craft https://github.com/libretro/craft master PROJECT YES GENERIC Makefile.libretro . 
+crocods libretro-crocods https://github.com/libretro/libretro-crocods.git master SUBMODULE YES GENERIC Makefile . 
+desmume libretro-desmume https://github.com/libretro/desmume.git master PROJECT YES GENERIC Makefile.libretro desmume 
+dinothawr libretro-dinothawr https://github.com/libretro/Dinothawr.git master PROJECT YES GENERIC Makefile . 
+dosbox libretro-dosbox https://github.com/libretro/dosbox-libretro.git master PROJECT YES GENERIC Makefile.libretro . 
+easyrpg libretro-easyrpg https://github.com/libretro/easyrpg-libretro.git master PROJECT YES GENERIC Makefile.libretro builds/libretro 
+fbalpha libretro-fbalpha https://github.com/libretro/fbalpha.git master PROJECT YES GENERIC makefile.libretro svn-current/trunk 
+fbalpha2012 libretro-fbalpha2012 https://github.com/libretro/fbalpha2012.git master PROJECT YES GENERIC makefile.libretro svn-current/trunk 
+fbalpha2012_cps1 libretro-fbalpha2012_cps1 https://github.com/libretro/fbalpha2012_cps1.git master PROJECT YES GENERIC makefile.libretro . 
+fbalpha2012_cps2 libretro-fbalpha2012_cps2 https://github.com/libretro/fbalpha2012_cps2.git master PROJECT YES GENERIC makefile.libretro . 
+fbalpha2012_neogeo libretro-fbalpha_neogeo https://github.com/libretro/fbalpha2012_neogeo.git master PROJECT YES GENERIC Makefile . 
+fceumm libretro-fceuumm  https://github.com/libretro/libretro-fceumm.git master PROJECT YES GENERIC Makefile.libretro . 
+ffmpeg libretro-ffmpeg  https://github.com/libretro/FFmpeg.git master PROJECT YES GENERIC_GL Makefile libretro 
+fmsx libretro-fmsx https://github.com/libretro/fmsx-libretro.git master PROJECT YES GENERIC Makefile . 
+fuse libretro-fuse https://github.com/libretro/fuse-libretro.git master PROJECT YES GENERIC Makefile.libretro .  
+gambatte libretro-gambatte https://github.com/libretro/gambatte-libretro.git master PROJECT YES GENERIC Makefile . 
+genesis_plus_gx libretro-genesis_plus_gx https://github.com/libretro/Genesis-Plus-GX.git master PROJECT YES GENERIC Makefile.libretro . 
+gpsp libretro-gpsp https://github.com/libretro/gpsp.git master PROJECT YES GENERIC Makefile . 
+gw libretro-gw https://github.com/libretro/gw-libretro.git master PROJECT YES GENERIC Makefile . 
+handy libretro-handy https://github.com/libretro/libretro-handy.git master PROJECT YES GENERIC Makefile . 
+hatari libretro-hatari https://github.com/libretro/libretro-hatari.git master PROJECT YES GENERIC Makefile.libretro . 
+lutro libretro-lutro https://github.com/libretro/libretro-lutro master PROJECT YES GENERIC Makefile . 
+mame libretro-mame https://github.com/libretro/mame.git master PROJECT YES GENERIC makefile . OSD=retro RETRO=1 NOWERROR=1 NOASM=1 TARGETOS=ios-arm CONFIG=libretro USE_BGFX=0 NO_USE_MIDI=1 VERBOSE=1 verbose=1 
+mame2000 libretro-mame2000 https://github.com/libretro/mame2000-libretro.git master PROJECT YES GENERIC Makefile . 
+mame2003 libretro-mame2003 https://github.com/libretro/mame2003-libretro.git master PROJECT YES GENERIC Makefile .
+mame2010 libretro-mame2010 https://github.com/libretro/mame2010-libretro.git master PROJECT YES GENERIC Makefile . VRENDER=soft 
+mame2014 libretro-mame2014 https://github.com/libretro/mame2014-libretro.git master PROJECT YES GENERIC Makefile . TARGET=mame 
+mednafen_gba libretro-beetle_gba https://github.com/libretro/beetle-gba-libretro.git master PROJECT YES GENERIC Makefile . 
+mednafen_lynx libretro-beetle_lynx https://github.com/libretro/beetle-lynx-libretro.git master PROJECT YES GENERIC Makefile . 
+mednafen_ngp libretro-beetle_ngp https://github.com/libretro/beetle-ngp-libretro.git master PROJECT YES GENERIC Makefile . 
+mednafen_pce_fast libretro-beetle_pce_fast https://github.com/libretro/beetle-pce-fast-libretro.git master PROJECT YES GENERIC Makefile . 
+mednafen_pcfx libretro-beetle_pcfx https://github.com/libretro/beetle-pcfx-libretro.git master PROJECT YES GENERIC Makefile . 
+mednafen_psx libretro-beetle_psx https://github.com/libretro/beetle-psx-libretro.git master PROJECT YES GENERIC Makefile . 
+mednafen_snes libretro-beetle_snes https://github.com/libretro/beetle-bsnes-libretro.git master PROJECT YES GENERIC Makefile . 
+mednafen_supergrafx libretro-beetle_supergrafx https://github.com/libretro/beetle-supergrafx-libretro.git master PROJECT YES GENERIC Makefile . 
+mednafen_vb libretro-beetle_vb https://github.com/libretro/beetle-vb-libretro.git master PROJECT YES GENERIC Makefile . 
+mednafen_wswan libretro-beetle_wswan https://github.com/libretro/beetle-wswan-libretro.git master PROJECT YES GENERIC Makefile . 
+mess2014 libretro-mame2014 https://github.com/libretro/mame2014-libretro.git master PROJECT YES GENERIC Makefile . TARGET=mess 
+meteor libretro-meteor  https://github.com/libretro/meteor-libretro.git master PROJECT YES GENERIC Makefile libretro 
+mgba libretro-mgba https://github.com/libretro/mgba.git master PROJECT YES GENERIC Makefile.libretro . 
+parallel_n64 libretro-parallel_n64 https://github.com/libretro/parallel-n64.git master PROJECT YES GENERIC_GL Makefile . 
+mrboom libretro-mrboom https://github.com/libretro/mrboom-libretro.git master PROJECT YES GENERIC Makefile . 
+nestopia libretro-nestopia https://github.com/libretro/nestopia.git master PROJECT YES GENERIC Makefile libretro 
+nxengine libretro-nxengine https://github.com/libretro/nxengine-libretro.git master PROJECT YES GENERIC Makefile . 
+o2em libretro-o2em https://github.com/libretro/libretro-o2em.git master PROJECT YES GENERIC Makefile . 
+pcsx_rearmed libretro-pcsx_rearmed https://github.com/libretro/pcsx_rearmed.git master PROJECT YES GENERIC Makefile.libretro . USE_DYNAREC=1 
+pcsx_rearmed_interpreter libretro-pcsx_rearmed_interpreter https://github.com/libretro/pcsx_rearmed.git master PROJECT YES GENERIC Makefile.libretro . USE_DYNAREC=0 
+picodrive libretro-picodrive https://github.com/libretro/picodrive.git master SUBMODULE YES GENERIC Makefile.libretro . 
+pocketcdg libretro-pocketcdg https://github.com/libretro/libretro-pocketcdg.git master PROJECT YES GENERIC Makefile . 
+pokemini libretro-pokemini https://github.com/libretro/PokeMini.git master PROJECT YES GENERIC Makefile . 
+ppsspp libretro-ppsspp https://github.com/libretro/ppsspp.git master SUBMODULE YES GENERIC_GL Makefile libretro 
+prboom libretro-prboom  https://github.com/libretro/libretro-prboom.git master PROJECT YES GENERIC_ALT Makefile . 
+prosystem libretro-prosystem https://github.com/libretro/prosystem-libretro.git master PROJECT YES GENERIC Makefile . 
+puae libretro-uae https://github.com/libretro/libretro-uae.git master PROJECT YES GENERIC Makefile . 
+quicknes libretro-quicknes  https://github.com/libretro/QuickNES_Core.git master PROJECT YES GENERIC Makefile . 
+remotejoy libretro-remotejoy  https://github.com/libretro/libretro-remotejoy.git master PROJECT YES GENERIC Makefile . 
+scummvm libretro-scummvm  https://github.com/libretro/scummvm.git master PROJECT YES GENERIC Makefile backends/platform/libretro/build 
+snes9x2002 libretro-snes9x2002 https://github.com/libretro/snes9x2002.git master PROJECT YES GENERIC Makefile . 
+snes9x2005 libretro-snes9x2005 https://github.com/libretro/snes9x2005.git master PROJECT YES GENERIC Makefile . 
+snes9x2010 libretro-snes9x2010 https://github.com/libretro/snes9x2010.git master PROJECT YES GENERIC Makefile.libretro . 
+snes9x libretro-snes9x https://github.com/libretro/snes9x.git master PROJECT YES GENERIC Makefile libretro 
+stella libretro-stella  https://github.com/libretro/stella-libretro.git master PROJECT YES GENERIC Makefile . 
+tgbdual libretro-tgbdual https://github.com/libretro/tgbdual-libretro.git master PROJECT YES GENERIC Makefile . 
+tyrquake libretro-tyrquake https://github.com/libretro/tyrquake.git master PROJECT YES GENERIC Makefile . 
+ume2014 libretro-mame2014 https://github.com/libretro/mame2014-libretro.git master PROJECT YES GENERIC Makefile . TARGET=ume 
+vba_next libretro-vba_next https://github.com/libretro/vba-next.git master PROJECT YES GENERIC Makefile.libretro . 
+vbam libretro-vbam https://github.com/libretro/vbam-libretro.git master PROJECT YES GENERIC Makefile src/libretro 
+vecx libretro-vecx  https://github.com/libretro/libretro-vecx.git master PROJECT YES GENERIC Makefile.libretro . 
+virtualjaguar libretro-virtualjaguar https://github.com/libretro/virtualjaguar-libretro.git master PROJECT YES GENERIC Makefile . 
+vice_x64 libretro-vice_x64 https://github.com/libretro/vice-libretro.git master PROJECT YES GENERIC Makefile . 
+vice_x128 libretro-vice_x128 https://github.com/libretro/vice-libretro.git master PROJECT YES GENERIC Makefile . EMUTYPE=x128 
+xrick libretro-xrick https://github.com/libretro/xrick-libretro.git master PROJECT YES GENERIC Makefile . 
+yabause libretro-yabause https://github.com/libretro/yabause.git master PROJECT YES GENERIC Makefile libretro 
