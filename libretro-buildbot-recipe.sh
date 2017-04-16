@@ -809,8 +809,8 @@ while read line; do
 						BUILD="NO"
 					else
 						echo "resetting repo state... "
+						git reset --hard FETCH_HEAD
 						git clean -xdf
-						git reset --hard origin
 						BUILD="YES"
 					fi
 
@@ -926,8 +926,8 @@ while read line; do
 					BUILD="NO"
 				else
 					echo "resetting repo state... "
+					git reset --hard FETCH_HEAD
 					git clean -xdf
-					git reset --hard origin
 					BUILD="YES"
 				fi
 				cd $WORK
@@ -957,8 +957,8 @@ while read line; do
 					BUILD="NO"
 				else
 					echo "resetting repo state $URL... "
+					git reset --hard FETCH_HEAD
 					git clean -xdf
-					git reset --hard origin
 					BUILD="YES"
 				fi
 				OUT=`git submodule update --init --recursive`
@@ -1080,9 +1080,8 @@ buildbot_pull(){
 						BUILD="NO"
 					else
 						echo "resetting repo state $URL... "
+						git reset --hard FETCH_HEAD
 						git clean -xdf
-						git reset --hard origin
-						git pull
 						BUILD="YES"
 					fi
 				elif [ "${TYPE}" = "SUBMODULE" ]; then
@@ -1091,9 +1090,8 @@ buildbot_pull(){
 						BUILD="NO"
 					else
 						echo "resetting repo state $URL... "
+						git reset --hard FETCH_HEAD
 						git clean -xdf
-						git reset --hard origin
-						git pull
 						BUILD="YES"
 						git submodule update --init --recursive
 						#git submodule foreach git pull origin master
