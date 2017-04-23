@@ -58,6 +58,7 @@ include_core_puae
 include_core_bnes
 include_core_fceumm
 include_core_gambatte
+include_core_sameboy
 include_core_meteor
 include_core_nxengine
 include_core_prboom

@@ -263,6 +263,14 @@ libretro_gambatte_git_url="https://github.com/libretro/gambatte-libretro.git"
 libretro_gambatte_build_platform="$FORMAT_COMPILER_TARGET_ALT"
 libretro_gambatte_build_makefile="Makefile.libretro"
 
+include_core_sameboy() {
+	register_module core "sameboy"
+}
+libretro_sameboy_name="SameBoy"
+libretro_sameboy_git_url="https://github.com/libretro/SameBoy.git"
+libretro_sameboy_build_platform="$FORMAT_COMPILER_TARGET_ALT"
+libretro_sameboy_build_makefile="Makefile.libretro"
+
 include_core_meteor() {
 	register_module core "meteor" -ngc -ps3 -psp1 -qnx -wii
 }
