@@ -44,7 +44,6 @@ meteor libretro-meteor  https://github.com/libretro/meteor-libretro.git master P
 mame2003 libretro-mame2003  https://github.com/libretro/mame2003-libretro.git master PROJECT YES GENERIC_JNI Makefile jni 
 mame2000 libretro-mame2000 https://github.com/libretro/mame2000-libretro.git master PROJECT YES GENERIC_JNI Makefile jni 
 mrboom libretro-mrboom  https://github.com/libretro/mrboom-libretro.git master PROJECT YES GENERIC_JNI Makefile jni 
-mrboom_devel libretro-mrboom-devel https://github.com/libretro/mrboom-libretro.git develop PROJECT YES GENERIC_JNI Makefile jni 
 parallel_n64 libretro-parallel_n64 https://github.com/libretro/parallel-n64.git master PROJECT YES GENERIC_JNI Makefile jni 
 nxengine libretro-nxengine https://github.com/libretro/nxengine-libretro.git master PROJECT YES GENERIC_JNI Makefile jni 
 o2em libretro-o2em https://github.com/libretro/libretro-o2em.git master PROJECT YES GENERIC_JNI Makefile jni 
