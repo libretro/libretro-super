@@ -307,7 +307,7 @@ libretro_melonds_build_makefile="Makefile"
 include_core_openlara() {
 register_module core "openlara" -ngc -ps3 -psp1 -qnx -wii
 }
-libretro_openlara_name="melonDS"
+libretro_openlara_name="OpenLara"
 libretro_openlara_git_url="https://github.com/libretro/OpenLara.git"
 libretro_openlara_build_subdir="src/platform/libretro"
 libretro_openlara_build_makefile="Makefile"
