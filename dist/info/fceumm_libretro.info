@@ -1,6 +1,6 @@
 display_name = "NES / Famicom (FCEUmm)"
 authors = "FCEU Team|CaH4e3"
-supported_extensions = "fds|nes|unif"
+supported_extensions = "fds|nes|unif|unf"
 corename = "FCEUmm"
 manufacturer = "Nintendo"
 categories = "Emulator"
