@@ -55,6 +55,8 @@ include_core_cap32
 include_core_fsuae
 include_core_puae
 
+include_core_openlara
+
 include_core_bnes
 include_core_fceumm
 include_core_gambatte
