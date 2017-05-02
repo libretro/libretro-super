@@ -1,6 +1,6 @@
 display_name = "Amiga (UAE4ARM)"
 authors = "GnoStiC"
-supported_extensions = "adf|dms|zip|ipf|adz"
+supported_extensions = "adf|dms|zip|ipf|adz|uae"
 corename = "UAE4ARM"
 manufacturer = "Commodore"
 categories = "Emulator"
