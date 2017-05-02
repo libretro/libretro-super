@@ -71,6 +71,7 @@ puae libretro-uae https://github.com/libretro/libretro-uae.git master PROJECT YE
 quicknes libretro-quicknes  https://github.com/libretro/QuickNES_Core.git master PROJECT YES GENERIC Makefile . 
 reicast libretro-reicast https://github.com/libretro/reicast-emulator.git master PROJECT YES GENERIC Makefile . 
 remotejoy libretro-remotejoy  https://github.com/libretro/libretro-remotejoy.git master PROJECT YES GENERIC Makefile . 
+sameboy libretro-sameboy  https://github.com/libretro/SameBoy.git master PROJECT YES GENERIC Makefile.libretro . 
 scummvm libretro-scummvm  https://github.com/libretro/scummvm.git master PROJECT YES GENERIC Makefile backends/platform/libretro/build 
 snes9x2005 libretro-snes9x2005 https://github.com/libretro/snes9x2005.git master PROJECT YES GENERIC Makefile . 
 snes9x2010 libretro-snes9x2010 https://github.com/libretro/snes9x2010.git master PROJECT YES GENERIC Makefile.libretro . 
