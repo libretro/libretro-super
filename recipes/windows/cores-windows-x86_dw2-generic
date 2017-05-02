@@ -38,6 +38,7 @@ mednafen_snes libretro-beetle_snes https://github.com/libretro/beetle-bsnes-libr
 mednafen_supergrafx libretro-beetle_supergrafx https://github.com/libretro/beetle-supergrafx-libretro.git master PROJECT YES GENERIC Makefile . 
 mednafen_vb libretro-beetle_vb https://github.com/libretro/beetle-vb-libretro.git master PROJECT YES GENERIC Makefile . 
 mednafen_wswan libretro-beetle_wswan https://github.com/libretro/beetle-wswan-libretro.git master PROJECT YES GENERIC Makefile . 
+melonds libretro-melonds  https://github.com/libretro/melonDS.git master PROJECT YES GENERIC Makefile . 
 meteor libretro-meteor  https://github.com/libretro/meteor-libretro.git master PROJECT YES GENERIC Makefile libretro 
 mgba libretro-mgba https://github.com/libretro/mgba.git master PROJECT YES GENERIC Makefile.libretro . 
 mupen64plus libretro-mupen64plus https://github.com/libretro/mupen64plus-libretro.git master PROJECT YES GENERIC_GL Makefile . WITH_DYNAREC=x86 
