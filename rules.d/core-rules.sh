@@ -781,6 +781,13 @@ libretro_nekop2_git_url="https://github.com/libretro/libretro-meowPC98.git"
 libretro_nekop2_build_subdir="libretro"
 libretro_nekop2_build_makefile="Makefile.libretro"
 
+include_core_px68k() {
+	register_module core "px68k" -theos_ios -ngc -ps3 -psp1 -qnx -wii
+}
+libretro_px68k_name="PX68K"
+libretro_px68k_git_url="https://github.com/libretro/px68k-libretro.git"
+libretro_px68k_build_makefile="Makefile.libretro"
+
 # CORE RULE VARIABLES
 #
 # All variables follow the format of libretro_<core>_<setting> where <core> is
