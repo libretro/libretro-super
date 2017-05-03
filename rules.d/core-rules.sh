@@ -773,6 +773,14 @@ libretro_pokemini_name="PokeMini"
 libretro_pokemini_git_url="https://github.com/libretro/PokeMini.git"
 libretro_pokemini_build_makefile="Makefile"
 
+include_core_nekop2() {
+	register_module core "nekop2" -theos_ios -ngc -ps3 -psp1 -qnx -wii
+}
+libretro_nekop2_name="Neko Project II"
+libretro_nekop2_git_url="https://github.com/libretro/libretro-meowPC98.git"
+libretro_nekop2_build_subdir="libretro"
+libretro_nekop2_build_makefile="Makefile.libretro"
+
 # CORE RULE VARIABLES
 #
 # All variables follow the format of libretro_<core>_<setting> where <core> is

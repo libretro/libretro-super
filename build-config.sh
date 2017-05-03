@@ -145,6 +145,7 @@ include_core_fuse
 include_core_gw
 include_core_81
 include_core_lutro
+include_core_nekop2
 
 # -------------------------------------------------------------------------------------------------
 # Devkits
