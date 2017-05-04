@@ -66,3 +66,4 @@ virtualjaguar libretro-virtualjaguar https://github.com/libretro/virtualjaguar-l
 vice_x64 libretro-vice https://github.com/libretro/vice-libretro.git master PROJECT YES GENERIC_JNI Makefile jni 
 xrick libretro-xrick https://github.com/libretro/xrick-libretro.git master PROJECT YES GENERIC_JNI Makefile jni 
 yabause libretro-yabause https://github.com/libretro/yabause.git master PROJECT YES GENERIC_JNI Makefile libretro/jni 
+uzem libretro-uzem https://github.com/libretro/libretro-uzem.git master PROJECT YES GENERIC_JNI Makefile jni 
