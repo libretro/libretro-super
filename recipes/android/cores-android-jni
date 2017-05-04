@@ -40,6 +40,7 @@ mednafen_snes libretro-beetle_snes https://github.com/libretro/beetle-bsnes-libr
 mednafen_supergrafx libretro-beetle_supergrafx https://github.com/libretro/beetle-supergrafx-libretro.git master PROJECT YES GENERIC_JNI Makefile jni 
 mednafen_vb libretro-beetle_vb https://github.com/libretro/beetle-vb-libretro.git master PROJECT YES GENERIC_JNI Makefile jni 
 mednafen_wswan libretro-beetle_wswan https://github.com/libretro/beetle-wswan-libretro.git master PROJECT YES GENERIC_JNI Makefile jni 
+melonds libretro-melonds https://github.com/libretro/melonDS.git master PROJECT YES GENERIC_JNI Makefile jni 
 meteor libretro-meteor  https://github.com/libretro/meteor-libretro.git master PROJECT YES GENERIC_JNI Makefile libretro/jni 
 mame2003 libretro-mame2003  https://github.com/libretro/mame2003-libretro.git master PROJECT YES GENERIC_JNI Makefile jni 
 mame2000 libretro-mame2000 https://github.com/libretro/mame2000-libretro.git master PROJECT YES GENERIC_JNI Makefile jni 
