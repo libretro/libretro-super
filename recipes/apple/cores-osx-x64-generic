@@ -66,6 +66,7 @@ ppsspp libretro-ppsspp https://github.com/libretro/ppsspp.git master SUBMODULE Y
 prboom libretro-prboom  https://github.com/libretro/libretro-prboom.git master PROJECT YES GENERIC_ALT Makefile . 
 prosystem libretro-prosystem https://github.com/libretro/prosystem-libretro.git master PROJECT YES GENERIC Makefile . 
 puae libretro-uae https://github.com/libretro/libretro-uae.git master PROJECT YES GENERIC Makefile . 
+px68k libretro-px68k https://github.com/libretro/px68k-libretro.git master PROJECT YES GENERIC Makefile.libretro .
 quicknes libretro-quicknes  https://github.com/libretro/QuickNES_Core.git master PROJECT YES GENERIC Makefile . 
 reicast libretro-reicast https://github.com/libretro/reicast-emulator.git master PROJECT YES GENERIC Makefile . 
 remotejoy libretro-remotejoy  https://github.com/libretro/libretro-remotejoy.git master PROJECT YES GENERIC Makefile . 
