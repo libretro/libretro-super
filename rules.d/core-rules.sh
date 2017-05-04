@@ -788,6 +788,13 @@ libretro_px68k_name="PX68K"
 libretro_px68k_git_url="https://github.com/libretro/px68k-libretro.git"
 libretro_px68k_build_makefile="Makefile.libretro"
 
+include_core_uzem() {
+	register_module core "uzem" -theos_ios -ngc -ps3 -psp1 -qnx -wii
+}
+libretro_uzem_name="Uzem"
+libretro_uzem_git_url="https://github.com/libretro/libretro-uzem.git"
+libretro_uzem_build_makefile="Makefile.libretro"
+
 # CORE RULE VARIABLES
 #
 # All variables follow the format of libretro_<core>_<setting> where <core> is
