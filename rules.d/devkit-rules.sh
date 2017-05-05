@@ -48,3 +48,10 @@ include_devkit_retroluxury () {
 libretro_retroluxury_name="Devkit: retroluxury"
 libretro_retroluxury_dir="libretro-devkit/retroluxury"
 libretro_retroluxury_git_url="https://github.com/libretro/retroluxury.git"
+
+include_devkit_sdl () {
+	register_module devkit "sdl" any
+}
+libretro_sdl_name="Devkit: sdl"
+libretro_sdl_dir="libretro-devkit/sdl"
+libretro_sdl_git_url="https://github.com/libretro/sdl-libretro.git"

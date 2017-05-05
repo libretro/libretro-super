@@ -159,6 +159,7 @@ include_devkit_common
 include_devkit_samples
 include_devkit_deps
 include_devkit_retroluxury
+include_devkit_sdl
 
 # -------------------------------------------------------------------------------------------------
 # Lutro
