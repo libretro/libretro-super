@@ -11,143 +11,185 @@
 # Console cores (rules.d/core-rules)
 # -------------------------------------------------------------------------------------------------
 
-# --- BSNES cores (Nintendo SNES emulator) ---
-include_core_bsnes_accuracy
-include_core_bsnes_balanced
-include_core_bsnes_performance
-
-include_core_easyrpg
-include_core_gme
-
-# --- Snex9x cores ---
+# --- SNES emulator cores ---
 include_core_snes9x2002
 include_core_snes9x2005
 include_core_snes9x2010
 include_core_snes9x
+include_core_bsnes_accuracy
+include_core_bsnes_balanced
+include_core_bsnes_performance
+include_core_bsnes_cplusplus98
+include_core_bsnes_mercury_accuracy
+include_core_bsnes_mercury_balanced
+include_core_bsnes_mercury_performance
+include_core_mednafen_snes
 
-# --- Reicast ---
+# --- Dreamcast emulator cores ---
 include_core_reicast
+include_core_redream
 
-# --- Genesis Plus GX ---
+# --- Genesis emulator cores ---
 include_core_genesis_plus_gx
+include_core_picodrive
+include_core_blastem
 
-include_core_mgba
-include_core_video_processor
-include_core_pocketcdg
-
-# --- Final Burn (arcade) ---
+# --- Arcade emulator cores ---
 include_core_fbalpha
 include_core_fbalpha2012
 include_core_fbalpha2012_cps1
 include_core_fbalpha2012_cps2
 include_core_fbalpha2012_neogeo
 
-include_core_blastem
-
-# --- VBA cores ---
+# --- GBA emulator cores ---
 include_core_vba_next
 include_core_vbam
+include_core_gpsp
+include_core_meteor
+include_core_mgba
+include_core_mednafen_gba
+include_core_tempgba
 
-include_core_handy
-include_core_cap32
+# --- NES emulator cores ---
+include_core_fceumm
+include_core_nestopia
+include_core_quicknes
+include_core_bnes
+
+# --- Nintendo DS emulator cores ---
+include_core_desmume
+include_core_melonds
+
+# --- Game Boy/Color emulator cores ---
+include_core_gambatte
+include_core_sameboy
+include_core_tgbdual
+
+# --- Atari 2600 emulator cores ---
+include_core_stella
+
+# --- Commodore 64 emulator cores ---
+include_core_vice_x64
+include_core_vice_x128
+
+# --- PlayStation1 emulator cores ---
+include_core_mednafen_psx
+include_core_pcsx_rearmed
+include_core_pcsx1
+include_core_rustation
+
+# --- MSX emulator cores ---
+include_core_bluemsx
+include_core_fmsx
 
 # --- UAE ---
 include_core_fsuae
 include_core_puae
 
-include_core_openlara
+# --- Saturn cores ---
+include_core_mednafen_saturn
+include_core_yabause
 
-include_core_bnes
-include_core_fceumm
-include_core_gambatte
-include_core_sameboy
-include_core_meteor
-include_core_nxengine
-include_core_prboom
-include_core_mrboom
-include_core_crocods
-include_core_xrick
-include_core_vice_x64
-include_core_vice_x128
-include_core_stella
-include_core_desmume
-include_core_melonds
-include_core_quicknes
-include_core_nestopia
-include_core_craft
-include_core_pcem
-include_core_tyrquake
-include_core_pcsx_rearmed
-include_core_pcsx1
-
-# --- Mednafen cores ---
-include_core_mednafen_gba
+# --- Atari Lynx emulator cores ---
 include_core_mednafen_lynx
+include_core_handy
+
+# --- SNK Neo Geo Pocket/Color ---
 include_core_mednafen_ngp
+
+# --- NEC PC-Engine emulator cores ---
 include_core_mednafen_pce_fast
 include_core_mednafen_supergrafx
-include_core_mednafen_psx
-include_core_mednafen_saturn
+
+# --- NEC PC-FX emulator cores ---
 include_core_mednafen_pcfx
-include_core_mednafen_snes
-include_core_mednafen_vb
+
+# --- Bandai WonderSwan emulator cores ---
 include_core_mednafen_wswan
 
-include_core_rustation
-include_core_scummvm
-include_core_yabause
-include_core_dosbox
+# --- Virtual Boy emulator cores ---
+include_core_mednafen_vb
+
+# --- Atari Jaguar emulator cores ---
 include_core_virtualjaguar
+
+# --- DOS/PC emulator cores ---
+include_core_dosbox
+include_core_pcem
 
 # --- MAME cores ---
 include_core_mame2000
 include_core_mame2003
 include_core_mame2010
 include_core_mame2014
+include_core_mame2016
 include_core_mame
 
-include_core_ffmpeg
-include_core_bsnes_cplusplus98
-include_core_bsnes_mercury_accuracy
-include_core_bsnes_mercury_balanced
-include_core_bsnes_mercury_performance
-
-# --- Picodrive ---
-include_core_picodrive
-
-include_core_tgbdual
-
-# --- Mupen64 Plus cores ---
+# --- N64 emulator cores ---
 include_core_mupen64plus
 include_core_parallel_n64
 
-include_core_dinothawr
-include_core_3dengine
-include_core_remotejoy
-include_core_bluemsx
-include_core_fmsx
-include_core_2048
-include_core_vecx
+# --- Game & Watch cores ---
+include_core_gw
 
 # --- PPSSPP cores ---
 include_core_ppsspp
 include_core_psp1
 
+# --- Atari ProSystem 7800 emulator cores ---
 include_core_prosystem
+
+# --- Odyssey 2 emulator cores ---
 include_core_o2em
+
+# --- 3DO emulator cores ---
 include_core_4do
-include_core_stonesoup
-include_core_hatari
-include_core_tempgba
-include_core_gpsp
-include_core_emux
+
+# --- ZX Spectrum emulator cores ---
 include_core_fuse
-include_core_gw
 include_core_81
-include_core_lutro
+
+# --- NEC PC-98 emulator cores ---
 include_core_nekop2
+
+# --- Sharp X-68000 emulator cores ---
 include_core_px68k
+
+include_core_hatari
+include_core_emux
+include_core_lutro
 include_core_uzem
+
+# --- Vectrex emulator cores ---
+include_core_vecx
+
+# --- Media player ---
+include_core_ffmpeg
+
+# --- Streaming ---
+include_core_remotejoy
+
+# --- Game engine cores ---
+include_core_easyrpg
+include_core_tyrquake
+include_core_prboom
+include_core_xrick
+include_core_openlara
+include_core_nxengine
+include_core_craft
+include_core_mrboom
+include_core_dinothawr
+include_core_3dengine
+include_core_2048
+include_core_stonesoup
+include_core_scummvm
+
+# --- Miscellaneous cores ---
+include_core_video_processor
+include_core_gme
+include_core_pocketcdg
+include_core_crocods
+include_core_cap32
 
 # -------------------------------------------------------------------------------------------------
 # Devkits
@@ -171,3 +213,4 @@ include_lutro_tetris
 include_lutro_snake
 include_lutro_iyfct
 include_lutro_game_of_life
+
