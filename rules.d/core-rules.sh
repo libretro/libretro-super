@@ -127,7 +127,7 @@ libretro_reicast_build_makefile="Makefile"
 include_core_redream() {
 	register_module core "redream"
 }
-libretro_redream_name="Reicast"
+libretro_redream_name="Redream"
 libretro_redream_git_url="https://github.com/libretro/redream.git"
 libretro_redream_build_makefile="Makefile"
 
