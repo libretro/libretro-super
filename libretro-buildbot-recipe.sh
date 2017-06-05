@@ -95,6 +95,10 @@ if [ "${CORE_JOB}" == "YES" ]; then
 
 	. $WORK/libretro-config.sh
 
+
+if [ -z "$ABI_OVERIDE" ]; then
+   TARGET_ABIS = $ABI_OVERIDE
+fi
 # ----- create dirs -----
 	SCRIPT=$(read_link "$0")
 	echo "SCRIPT: $SCRIPT"
