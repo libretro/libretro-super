@@ -12,13 +12,13 @@ ENTRY_ID=""
 while read line; do
 	KEY=`echo $line | cut -f 1 -d " "`
 	VALUE=`echo $line | cut -f 2 -d " "`
-   rm $TMPDIR/vars
+	rm $TMPDIR/vars
 	if [ "${KEY}" = "PATH" ]; then
 		export PATH=${VALUE}:${ORIGPATH}
-      echo PATH=${VALUE}:${ORIGPATH} >> $TMPDIR/vars
+		echo PATH=${VALUE}:${ORIGPATH} >> $TMPDIR/vars
 	else
 		export ${KEY}=${VALUE}
-      echo ${KEY}=${VALUE} >> $TMPDIR/vars
+		echo ${KEY}=${VALUE} >> $TMPDIR/vars
 	fi
 	echo Setting: ${KEY} ${VALUE}
 done < $1.conf
@@ -40,47 +40,47 @@ read_link()
 
 convert_xmb_assets()
 {
-   local src_dir=$1
-   local dst_dir=$2
-   local scale_icon=$3
-   local scale_bg=$4
-   # dots per inch, a value of 90 seems to produce a 64x64 resolution for most icons
-   local density=$5
+	local src_dir=$1
+	local dst_dir=$2
+	local scale_icon=$3
+	local scale_bg=$4
+	# dots per inch, a value of 90 seems to produce a 64x64 resolution for most icons
+	local density=$5
 
-   mkdir -p "$dst_dir"
-   IFS_old=$IFS
-   IFS=$(echo -en "\n\b")
-   for theme in `ls $src_dir`; do
-      if [ -d $src_dir/$theme ] ; then
-         theme=`basename "$theme"`
-         cp $src_dir/$theme/*.* $dst_dir/$theme/
-         mkdir -p "$dst_dir/$theme/png"
-         for png in `ls $src_dir/$theme/png/*.png -d`; do
-            local name=`basename "$png" .png`
-            local src_file="$src_dir/$theme/src/$name.svg"
-            local is_svg=1
-            if [ ! -e $src_file ] ; then
-               src_file="$src_dir/$theme/png/$name.png"
-               is_svg=
-            fi
-            local dst_file="$dst_dir/$theme/png/$name.png"
-            if [ ! -e $src_file ] || [ $src_file -nt $dst_file ] ; then
-               local scale_factor=$scale_icon
-               if [ $name = "bg" ] ; then
-                  scale_factor=$scale_bg
-               fi
-               if [ $is_svg ] ; then
-               echo convert -background none -density $density "$src_file" -resize $scale_factor "$dst_file"
-               convert -background none -density $density "$src_file" -resize $scale_factor "$dst_file"
-               else
-               echo convert -background none "$src_file" -resize $scale_factor "$dst_file"
-               convert -background none "$src_file" -resize $scale_factor "$dst_file"
-               fi
-            fi
-         done
-      fi
-   done
-   IFS=$IFS_old
+	mkdir -p "$dst_dir"
+	IFS_old=$IFS
+	IFS=$(echo -en "\n\b")
+	for theme in `ls $src_dir`; do
+		if [ -d $src_dir/$theme ] ; then
+			theme=`basename "$theme"`
+			cp $src_dir/$theme/*.* $dst_dir/$theme/
+			mkdir -p "$dst_dir/$theme/png"
+			for png in `ls $src_dir/$theme/png/*.png -d`; do
+				local name=`basename "$png" .png`
+				local src_file="$src_dir/$theme/src/$name.svg"
+				local is_svg=1
+				if [ ! -e $src_file ] ; then
+					src_file="$src_dir/$theme/png/$name.png"
+					is_svg=
+				fi
+				local dst_file="$dst_dir/$theme/png/$name.png"
+				if [ ! -e $src_file ] || [ $src_file -nt $dst_file ] ; then
+					local scale_factor=$scale_icon
+					if [ $name = "bg" ] ; then
+						scale_factor=$scale_bg
+					fi
+					if [ $is_svg ] ; then
+					echo convert -background none -density $density "$src_file" -resize $scale_factor "$dst_file"
+					convert -background none -density $density "$src_file" -resize $scale_factor "$dst_file"
+					else
+					echo convert -background none "$src_file" -resize $scale_factor "$dst_file"
+					convert -background none "$src_file" -resize $scale_factor "$dst_file"
+					fi
+				fi
+			done
+		fi
+	done
+	IFS=$IFS_old
 }
 
 
@@ -95,14 +95,6 @@ if [ "${CORE_JOB}" == "YES" ]; then
 
 	. $WORK/libretro-config.sh
 
-	echo ABIS-pre: $TARGET_ABIS
-	echo OVERRIDE: ${ABI_OVERRIDE}
-	if [ -z "${ABI_OVERRIDE}" ]; then
-		TARGET_ABIS = ${ABI_OVERRIDE}
-   	export TARGET_ABIS = ${ABI_OVERRIDE}
-	fi
-	echo ABIS-post: $TARGET_ABIS
-
 # ----- create dirs -----
 	SCRIPT=$(read_link "$0")
 	echo "SCRIPT: $SCRIPT"
@@ -114,6 +106,13 @@ if [ "${CORE_JOB}" == "YES" ]; then
 	mkdir -v -p "$RARCH_DIST_DIR"
 
 	if [ "${PLATFORM}" = "android" ]; then
+		echo ABIS-pre: $TARGET_ABIS
+		echo OVERRIDE: ${ABI_OVERRIDE}
+		if [ -z "${ABI_OVERRIDE}" ]; then
+			TARGET_ABIS=${ABI_OVERRIDE}
+			export TARGET_ABIS=${ABI_OVERRIDE}
+		fi
+		echo ABIS-post: $TARGET_ABIS
 		IFS=' ' read -ra ABIS <<< "$TARGET_ABIS"
 		for a in "${ABIS[@]}"; do
 			echo $a
@@ -269,7 +268,7 @@ build_libretro_generic_makefile() {
 		JOBS=1
 	fi
 
-   echo --------------------------------------------------| tee $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}.log
+	echo --------------------------------------------------| tee $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}.log
 	cat $TMPDIR/vars | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}.log
 
 	cd ${DIR}/${SUBDIR}
@@ -351,7 +350,7 @@ build_libretro_leiradel_makefile() {
 	cd $SUBDIR
 	JOBS_ORIG=$JOBS
 
-   echo --------------------------------------------------| tee $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}_${a}.log
+	echo --------------------------------------------------| tee $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}_${a}.log
 	cat $TMPDIR/vars | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}_${a}.log
 
 	cd ${DIR}/${SUBDIR}
@@ -405,7 +404,7 @@ build_libretro_generic_gl_makefile() {
 	cd $DIR
 	cd $SUBDIR
 
-   echo --------------------------------------------------| tee $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}_${a}.log
+	echo --------------------------------------------------| tee $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}_${a}.log
 	cat $TMPDIR/vars | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}_${a}.log
 
 	cd ${DIR}/${SUBDIR}
@@ -1167,9 +1166,9 @@ compile_video_filters()
   echo "audio filter BUILD CMD: ${HELPER} ${MAKE}"
   ${HELPER} ${MAKE}
   if [ $? -eq 0 ]; then
-     echo buildbot job: $jobid video filter build success!
+	  echo buildbot job: $jobid video filter build success!
   else
-     echo buildbot job: $jobid video filter:	[status: fail]!
+	  echo buildbot job: $jobid video filter:	[status: fail]!
   fi
   cd ..
   cd ..
@@ -1487,7 +1486,7 @@ if [ "${PLATFORM}" = "MINGW64" ] || [ "${PLATFORM}" = "MINGW32" ] || [ "${PLATFO
 	if [ "${BUILD}" = "YES" -o "${FORCE}" = "YES" -o "${FORCE_RETROARCH_BUILD}" == "YES" ]; then
 		cd $RADIR
 		RADIR=$PWD
-      echo RetroArch Directory: $RADIR
+		echo RetroArch Directory: $RADIR
 		git clean -xdf
 		echo "buildbot job: $jobid Building"
 		echo
