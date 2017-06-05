@@ -1,0 +1,10 @@
+2048 libretro64-2048  https://github.com/libretro/libretro-2048.git master PROJECT YES GENERIC_JNI Makefile jni 
+bsnes libretro64-bsnes https://github.com/libretro/bsnes-libretro.git master PROJECT YES BSNES_JNI Makefile target-libretro/jni performance 
+bsnes libretro64-bsnes https://github.com/libretro/bsnes-libretro.git master PROJECT YES BSNES_JNI Makefile target-libretro/jni balanced
+bsnes libretro64-bsnes https://github.com/libretro/bsnes-libretro.git master PROJECT YES BSNES_JNI Makefile target-libretro/jni accuracy 
+bsnes_mercury libretro64-bsnes_mercury https://github.com/libretro/bsnes-mercury.git master PROJECT YES BSNES_JNI Makefile target-libretro/jni performance 
+bsnes_mercury libretro64-bsnes_mercury https://github.com/libretro/bsnes-mercury.git master PROJECT YES BSNES_JNI Makefile target-libretro/jni balanced 
+bsnes_mercury libretro64-bsnes_mercury https://github.com/libretro/bsnes-mercury.git master PROJECT YES BSNES_JNI Makefile target-libretro/jni accuracy 
+snes9x libretro64-snes9x https://github.com/libretro/snes9x.git master PROJECT YES GENERIC_JNI Makefile libretro/jni 
+gambatte libretro64-gambatte https://github.com/libretro/gambatte-libretro.git master PROJECT YES GENERIC_JNI Makefile libgambatte/libretro/jni 
+genesis_plus_gx libretro64-genesis_plus_gx https://github.com/libretro/Genesis-Plus-GX.git master PROJECT YES GENERIC_JNI Makefile.libretro libretro/jni 
