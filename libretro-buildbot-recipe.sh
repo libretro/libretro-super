@@ -106,13 +106,13 @@ if [ "${CORE_JOB}" == "YES" ]; then
 	mkdir -v -p "$RARCH_DIST_DIR"
 
 	if [ "${PLATFORM}" = "android" ]; then
-		echo ABIS-pre: $TARGET_ABIS
-		echo OVERRIDE: ${ABI_OVERRIDE}
-		if [ -z "${ABI_OVERRIDE}" ]; then
+		if [ -n "$ABI_OVERRIDE" ]; then
+			echo ABIS-pre: $TARGET_ABIS
+			echo OVERRIDE: ${ABI_OVERRIDE}
 			TARGET_ABIS=${ABI_OVERRIDE}
 			export TARGET_ABIS=${ABI_OVERRIDE}
+			echo ABIS-post: $TARGET_ABIS
 		fi
-		echo ABIS-post: $TARGET_ABIS
 		IFS=' ' read -ra ABIS <<< "$TARGET_ABIS"
 		for a in "${ABIS[@]}"; do
 			echo $a
