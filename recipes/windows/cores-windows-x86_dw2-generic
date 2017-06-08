@@ -78,7 +78,7 @@ yabause libretro-yabause https://github.com/libretro/yabause.git master PROJECT 
 desmume libretro-desmume https://github.com/libretro/desmume.git master PROJECT YES GENERIC Makefile.libretro desmume 
 dosbox libretro-dosbox https://github.com/libretro/dosbox-libretro.git master PROJECT YES GENERIC Makefile.libretro . 
 prboom libretro-prboom  https://github.com/libretro/libretro-prboom.git master PROJECT YES GENERIC_ALT Makefile . 
-mame libretro-mame https://github.com/libretro/mame.git master PROJECT YES GENERIC Makefile.libretro . PTR64=1 
+mame libretro-mame https://github.com/libretro/mame.git master PROJECT YES GENERIC Makefile.libretro . PTR64=0 
 mame2003 libretro-mame2003 https://github.com/libretro/mame2003-libretro.git master PROJECT YES GENERIC Makefile .
 mame2010 libretro-mame2010 https://github.com/libretro/mame2010-libretro.git master PROJECT YES GENERIC Makefile . VRENDER=soft PTR64=0 
 mame2014 libretro-mame2014 https://github.com/libretro/mame2014-libretro.git master PROJECT YES GENERIC Makefile . TARGET=mame PTR64=0 
