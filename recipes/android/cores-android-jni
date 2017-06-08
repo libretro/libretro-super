@@ -57,6 +57,7 @@ pokemini libretro-pokemini https://github.com/libretro/PokeMini.git master PROJE
 ppsspp libretro-ppsspp https://github.com/libretro/ppsspp.git master SUBMODULE YES GENERIC_JNI Makefile.libretro libretro/jni 
 prboom libretro-prboom  https://github.com/libretro/libretro-prboom.git master PROJECT YES GENERIC_JNI Makefile jni 
 prosystem libretro-prosystem https://github.com/libretro/prosystem-libretro.git master PROJECT YES GENERIC_JNI Makefile jni 
+px68k libretro-px68k https://github.com/libretro/px68k-libretro.git master PROJECT YES GENERIC_JNI Makefile.libretro libretro/jni 
 stella libretro-stella https://github.com/libretro/stella-libretro.git master PROJECT YES GENERIC_JNI Makefile jni 
 tgbdual libretro-tgbdual https://github.com/libretro/tgbdual-libretro.git master PROJECT YES GENERIC_JNI Makefile jni 
 tyrquake libretro-tyrquake https://github.com/libretro/tyrquake.git master PROJECT YES GENERIC_JNI Makefile jni 
