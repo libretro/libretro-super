@@ -26,6 +26,7 @@ fmsx libretro-fmsx https://github.com/libretro/fmsx-libretro.git master PROJECT 
 fuse libretro-fuse https://github.com/libretro/fuse-libretro.git master PROJECT YES GENERIC Makefile.libretro .  
 gambatte libretro-gambatte https://github.com/libretro/gambatte-libretro.git master PROJECT YES GENERIC Makefile . 
 genesis_plus_gx libretro-genesis_plus_gx https://github.com/libretro/Genesis-Plus-GX.git master PROJECT YES GENERIC Makefile.libretro . 
+gme libretro-gme https://github.com/libretro/libretro-gme.git master SUBMODULE YES GENERIC Makefile . 
 gpsp libretro-gpsp https://github.com/libretro/gpsp.git master PROJECT YES GENERIC Makefile . 
 gw libretro-gw https://github.com/libretro/gw-libretro.git master PROJECT YES GENERIC Makefile . 
 handy libretro-handy https://github.com/libretro/libretro-handy.git master PROJECT YES GENERIC Makefile . 
