@@ -49,3 +49,6 @@ vba_next libretro-vba_next https://github.com/libretro/vba-next.git master PROJE
 vecx libretro-vecx  https://github.com/libretro/libretro-vecx.git master PROJECT YES GENERIC Makefile.libretro . 
 virtualjaguar libretro-virtualjaguar https://github.com/libretro/virtualjaguar-libretro.git master PROJECT YES GENERIC Makefile . 
 yabause libretro-yabause https://github.com/libretro/yabause.git master PROJECT NO GENERIC Makefile libretro 
+gw libretro-gw https://github.com/libretro/gw-libretro.git master PROJECT YES GENERIC Makefile . 
+81 libretro-81 https://github.com/libretro/81-libretro.git master PROJECT YES GENERIC Makefile .
+fuse libretro-fuse https://github.com/libretro/fuse-libretro.git master PROJECT YES GENERIC Makefile . 

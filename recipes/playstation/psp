@@ -13,3 +13,6 @@ picodrive libretro-picodrive https://github.com/libretro/picodrive.git master PR
 prboom libretro-prboom  https://github.com/libretro/libretro-prboom.git master PROJECT YES GENERIC Makefile . 
 quicknes libretro-quicknes  https://github.com/libretro/QuickNES_Core.git master PROJECT YES GENERIC Makefile . 
 tempgba libretro-tempgba https://github.com/libretro/TempGBA-libretro.git master PROJECT YES GENERIC Makefile . 
+gw libretro-gw https://github.com/libretro/gw-libretro.git master PROJECT YES GENERIC Makefile . 
+81 libretro-81 https://github.com/libretro/81-libretro.git master PROJECT YES GENERIC Makefile .
+fuse libretro-fuse https://github.com/libretro/fuse-libretro.git master PROJECT YES GENERIC Makefile . 
