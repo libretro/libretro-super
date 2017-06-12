@@ -93,3 +93,6 @@ mame2014 libretro-mame2014 https://github.com/libretro/mame2014-libretro.git mas
 mess2014 libretro-mame2014 https://github.com/libretro/mame2014-libretro.git master PROJECT YES GENERIC Makefile . TARGET=mess PTR64=1 
 ume2014 libretro-mame2014 https://github.com/libretro/mame2014-libretro.git master PROJECT YES GENERIC Makefile . TARGET=ume PTR64=1 
 uzem libretro-uzem https://github.com/libretro/libretro-uzem.git master PROJECT YES GENERIC Makefile . 
+gw libretro-gw https://github.com/libretro/gw-libretro.git master PROJECT YES GENERIC Makefile . 
+81 libretro-81 https://github.com/libretro/81-libretro.git master PROJECT YES GENERIC Makefile .
+fuse libretro-fuse https://github.com/libretro/fuse-libretro.git master PROJECT YES GENERIC Makefile . 

@@ -267,6 +267,7 @@ build_libretro_databases() {
 	build_libretro_database "Sega - PICO" "rom.crc"
 	build_libretro_database "Sega - Saturn" "rom.crc"
 	build_libretro_database "Sega - SG-1000" "rom.crc"
+	build_libretro_database "Sharp - X68000" "rom.crc"
 	build_libretro_database "Sinclair - ZX Spectrum" "rom.crc"
 	build_libretro_database "Sinclair - ZX Spectrum +3" "rom.crc"
 	build_libretro_database "Sinclair - ZX 81" "rom.crc"
