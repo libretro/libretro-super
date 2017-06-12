@@ -308,6 +308,14 @@ build_libretro_generic_makefile() {
 		$WORK/retrolink.sh ${NAME}_libretro${FORMAT}${LIBSUFFIX}.${FORMAT_EXT} 2>&1 | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}.log
 	fi
 
+	if [ "${PLATFORM}" == "windows" -o "${PLATFORM}" == "unix" ]; then
+		if [ -z "${STRIP}" ]; then
+			STRIP=strip
+		fi
+
+		${STRIP} -s ${NAME}_libretro${FORMAT}${LIBSUFFIX}.${FORMAT_EXT}
+	fi
+
 	echo "COPY CMD: cp -v ${NAME}_libretro${FORMAT}${LIBSUFFIX}.${FORMAT_EXT} $RARCH_DIST_DIR/${DIST}/${NAME}_libretro${FORMAT}${LIBSUFFIX}.${FORMAT_EXT}" 2>&1 | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}.log
 	cp -v ${NAME}_libretro${FORMAT}${LIBSUFFIX}.${FORMAT_EXT} $RARCH_DIST_DIR/${DIST}/${NAME}_libretro${FORMAT}${LIBSUFFIX}.${FORMAT_EXT} 2>&1 | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}.log
 	cp -v ${NAME}_libretro${FORMAT}${LIBSUFFIX}.${FORMAT_EXT} $RARCH_DIST_DIR/${DIST}/${NAME}_libretro${FORMAT}${LIBSUFFIX}.${FORMAT_EXT}
@@ -315,9 +323,6 @@ build_libretro_generic_makefile() {
 	if [ $? -eq 0 ]; then
 		curl -X POST -d type="finish" -d index="$ENTRY_ID" -d status="done" http://buildbot.fiveforty.net/build_entry/
 		MESSAGE="$1:	[status: done] [$jobid]"
-		if [ "${PLATFORM}" == "windows" -o "${PLATFORM}" == "unix" ]; then
-			strip -s ${NAME}_libretro${FORMAT}${LIBSUFFIX}.${FORMAT_EXT}
-		fi
 	else
 		ERROR=$TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}.log
 		HASTE=`curl -X POST http://p.0bl.net/ --data-binary @$ERROR`
