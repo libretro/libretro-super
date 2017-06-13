@@ -32,7 +32,7 @@ gpsp libretro-gpsp https://github.com/libretro/gpsp.git master PROJECT YES GENER
 handy libretro-handy https://github.com/libretro/libretro-handy.git master PROJECT YES GENERIC Makefile . 
 hatari libretro-hatari https://github.com/libretro/hatari.git master PROJECT YES GENERIC Makefile.libretro . 
 lutro libretro-lutro https://github.com/libretro/libretro-lutro master PROJECT YES GENERIC Makefile . 
-mame libretro-mame https://github.com/libretro/mame.git master PROJECT YES GENERIC Makefile.libretro . ARCH=arm PTR64=0 LIBRETRO_CPU=arm platform=arm
+mame libretro-mame https://github.com/libretro/mame.git master PROJECT YES GENERIC Makefile.libretro . ARCH=arm PTR64=0 LIBRETRO_CPU=arm platform=arm CC=arm-linux-gnueabihf-gcc CXX=arm-linux-gnueabihf-g++ 
 mame2000 libretro-mame2000 https://github.com/libretro/mame2000-libretro.git master PROJECT YES GENERIC Makefile . 
 mame2003 libretro-mame2003 https://github.com/libretro/mame2003-libretro.git master PROJECT YES GENERIC Makefile . 
 mame2010 libretro-mame2010 https://github.com/libretro/mame2010-libretro.git master PROJECT YES GENERIC Makefile . VRENDER=soft CC=arm-linux-gnueabihf-gcc CXX=arm-linux-gnueabihf-g++ platform=armv7-neon-hardfloat PTR64=0 
