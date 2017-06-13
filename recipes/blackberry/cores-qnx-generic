@@ -4,10 +4,10 @@ bluemsx libretro-bluemsx https://github.com/libretro/blueMSX-libretro.git master
 crocods libretro-crocods https://github.com/libretro/libretro-crocods.git master SUBMODULE YES GENERIC Makefile . 
 dinothawr libretro-dinothawr https://github.com/libretro/Dinothawr.git master PROJECT YES GENERIC Makefile . 
 dosbox libretro-dosbox https://github.com/libretro/dosbox-libretro.git master PROJECT YES GENERIC Makefile.libretro . 
-emux_chip8 libretro-emux_chip8 https://github.com/sronsse/emux master PROJECT YES GENERIC Makefile libretro TARGETS=chip8 
-emux_gb libretro-emux_gb https://github.com/sronsse/emux master PROJECT YES GENERIC Makefile libretro TARGETS=gb 
-emux_nes libretro-emux_nes https://github.com/sronsse/emux master PROJECT YES GENERIC Makefile libretro TARGETS=nes 
-emux_sms libretro-emux_sms https://github.com/sronsse/emux master PROJECT YES GENERIC Makefile libretro TARGETS=sms 
+emux_chip8 libretro-emux_chip8 https://github.com/libretro/emux master PROJECT YES LEIRADEL Makefile libretro MACHINE=chip8 
+emux_gb libretro-emux_gb https://github.com/libretro/emux master PROJECT YES LEIRADEL Makefile libretro MACHINE=gb 
+emux_nes libretro-emux_nes https://github.com/libretro/emux master PROJECT YES LEIRADEL Makefile libretro MACHINE=nes 
+emux_sms libretro-emux_sms https://github.com/libretro/emux master PROJECT YES LEIRADEL Makefile libretro MACHINE=sms 
 fbalpha libretro-fbalpha https://github.com/libretro/fbalpha.git master PROJECT YES GENERIC makefile.libretro svn-current/trunk 
 fbalpha2012 libretro-fbalpha2012 https://github.com/libretro/fbalpha2012.git master PROJECT YES GENERIC makefile.libretro svn-current/trunk 
 fbalpha2012_cps1 libretro-fbalpha2012_cps1 https://github.com/libretro/fbalpha2012_cps1.git master PROJECT YES GENERIC makefile.libretro . 
