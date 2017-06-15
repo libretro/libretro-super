@@ -15,10 +15,12 @@
 /libretro-bsnes_performance/
 /libretro-cap32/
 /libretro-catsfc/
+/libretro-citra/
 /libretro-config-user.sh
 /libretro-desmume/
 /libretro-devkit/
 /libretro-dinothawr/
+/libretro-dolphin/
 /libretro-dosbox/
 /libretro-emux/
 /libretro-fb_alpha/
@@ -72,6 +74,7 @@
 /libretro-psp1/
 /libretro-puae/
 /libretro-quicknes/
+/libretro-redream/
 /libretro-reicast/
 /libretro-remotejoy/
 /libretro-scummvm/
