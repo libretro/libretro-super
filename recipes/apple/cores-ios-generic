@@ -28,7 +28,7 @@ genesis_plus_gx libretro-genesis_plus_gx https://github.com/libretro/Genesis-Plu
 gme libretro-gme https://github.com/libretro/libretro-gme.git master SUBMODULE YES GENERIC Makefile . 
 gpsp libretro-gpsp https://github.com/libretro/gpsp.git master PROJECT YES GENERIC Makefile . 
 handy libretro-handy https://github.com/libretro/libretro-handy.git master PROJECT YES GENERIC Makefile . 
-hatari libretro-hatari https://github.com/libretro/libretro-hatari.git master PROJECT YES GENERIC Makefile.libretro . 
+hatari libretro-hatari https://github.com/libretro/hatari.git master PROJECT YES GENERIC Makefile.libretro . 
 lutro libretro-lutro https://github.com/libretro/libretro-lutro master PROJECT YES GENERIC Makefile . 
 mame libretro-mame https://github.com/libretro/mame.git master PROJECT YES GENERIC makefile . OSD=retro RETRO=1 NOWERROR=1 NOASM=1 TARGETOS=ios-arm CONFIG=libretro USE_BGFX=0 NO_USE_MIDI=1 VERBOSE=1 verbose=1 
 mame2000 libretro-mame2000 https://github.com/libretro/mame2000-libretro.git master PROJECT YES GENERIC Makefile . 
