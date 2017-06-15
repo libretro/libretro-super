@@ -4,6 +4,7 @@ fbalpha2012_cps1 libretro-fbalpha2012_cps1 https://github.com/libretro/fbalpha20
 fbalpha2012_cps2 libretro-fbalpha2012_cps2 https://github.com/libretro/fbalpha2012_cps2.git master PROJECT YES GENERIC makefile.libretro . 
 fbalpha2012_cps3 libretro-fbalpha2012_cps3 https://github.com/libretro/fbalpha2012_cps3.git master PROJECT YES GENERIC makefile.libretro svn-current/trunk 
 fbalpha2012_neogeo libretro-fbalpha_neogeo https://github.com/libretro/fbalpha2012_neogeo.git master PROJECT YES GENERIC Makefile . 
+dosbox libretro-dosbox https://github.com/libretro/dosbox-libretro.git master PROJECT YES GENERIC Makefile.libretro . 
 fceumm libretro-fceuumm  https://github.com/libretro/libretro-fceumm.git master PROJECT YES GENERIC Makefile.libretro . 
 gambatte libretro-gambatte https://github.com/libretro/gambatte-libretro.git master PROJECT YES GENERIC Makefile . 
 genesis_plus_gx libretro-genesis_plus_gx https://github.com/libretro/Genesis-Plus-GX.git master PROJECT YES GENERIC Makefile.libretro . 
@@ -28,4 +29,4 @@ prboom libretro-prboom https://github.com/libretro/libretro-prboom.git master PR
 gw libretro-gw https://github.com/libretro/gw-libretro.git master PROJECT YES GENERIC Makefile . 
 81 libretro-81 https://github.com/libretro/81-libretro.git master PROJECT YES GENERIC Makefile .
 fuse libretro-fuse https://github.com/libretro/fuse-libretro.git master PROJECT YES GENERIC Makefile . 
-
+vice_x64 libretro-vice_x64 https://github.com/libretro/vice-libretro.git master PROJECT YES GENERIC Makefile . 
