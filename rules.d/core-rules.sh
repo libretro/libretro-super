@@ -129,7 +129,7 @@ include_core_redream() {
 }
 libretro_redream_name="Redream"
 libretro_redream_git_url="https://github.com/libretro/redream.git"
-libretro_redream_build_makefile="Makefile"
+libretro_redream_build_makefile="Makefile.libretro"
 
 include_core_genesis_plus_gx() {
 	register_module core "genesis_plus_gx" -theos_ios
