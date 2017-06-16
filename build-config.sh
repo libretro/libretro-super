@@ -60,6 +60,9 @@ include_core_bnes
 include_core_desmume
 include_core_melonds
 
+# --- Nintendo 3DS emulator cores ---
+include_core_citra
+
 # --- Game Boy/Color emulator cores ---
 include_core_gambatte
 include_core_sameboy

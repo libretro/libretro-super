@@ -670,6 +670,14 @@ include_core_vecx() {
 libretro_vecx_git_url="https://github.com/libretro/libretro-vecx.git"
 libretro_vecx_build_makefile="Makefile.libretro"
 
+include_core_citra() {
+	register_module core "citra" -ios -theos_ios -ngc -ps3 -psp1 -qnx -wii
+}
+libretro_citra_name="Citra"
+libretro_citra_git_url="https://github.com/libretro/citra.git"
+libretro_citra_git_submodules="yes"
+libretro_citra_build_opengl="yes"
+
 include_core_ppsspp() {
 	register_module core "ppsspp" -ios -theos_ios -ngc -ps3 -psp1 -qnx -wii
 }
