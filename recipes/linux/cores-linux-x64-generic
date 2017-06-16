@@ -9,7 +9,7 @@ bsnes_cplusplus98 libretro-bsnes_cplusplus98 https://github.com/libretro/bsnes-l
 bsnes_mercury libretro-bsnes_mercury https://github.com/libretro/bsnes-mercury.git master PROJECT YES BSNES Makefile . accuracy 
 bsnes_mercury libretro-bsnes_mercury https://github.com/libretro/bsnes-mercury.git master PROJECT YES BSNES Makefile . balanced 
 bsnes_mercury libretro-bsnes_mercury https://github.com/libretro/bsnes-mercury.git master PROJECT YES BSNES Makefile . performance 
-citra libretro-citra https://github.com/libretro/citra.git master SUBMODULE YES CMAKE Makefile build -DENABLE_LIBRETRO=1 -DENABLE_SDL2=0 -DENABLE_QT=0 -DCMAKE_BUILD_TYPE="Release" --target citra_libretro .. 
+citra libretro-citra https://github.com/libretro/citra.git master SUBMODULE YES CMAKE Makefile build -DENABLE_LIBRETRO=1 -DENABLE_SDL2=0 -DENABLE_QT=0 -DDISABLE_LIBPNG=1 -DCMAKE_BUILD_TYPE="Release" --target citra_libretro .. 
 craft libretro-craft https://github.com/libretro/craft master PROJECT YES GENERIC Makefile.libretro . 
 crocods libretro-crocods https://github.com/libretro/libretro-crocods.git master SUBMODULE YES GENERIC Makefile . 
 cap32 libretro-cap32 https://github.com/libretro/libretro-cap32.git master PROJECT YES GENERIC Makefile .
