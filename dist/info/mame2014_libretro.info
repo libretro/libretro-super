@@ -1,6 +1,6 @@
 display_name = "Arcade (MAME 2014)"
 authors = "MAMEdev"
-supported_extensions = "zip|chd|7z"
+supported_extensions = "zip|chd|7z|cmd"
 corename = "MAME 2014 (0.159)"
 manufacturer = "Various"
 categories = "Emulator"
