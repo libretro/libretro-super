@@ -170,6 +170,17 @@ build_libretro_database() {
 			COMMAND+=' "${LIBRETRODATABASE_META_DAT_DIR}/hacks/${1}.dat"'
 		fi
 
+		#Check for the MAME folders
+		if [ -f "${LIBRETRODATABASE_META_DAT_DIR}/mame-nonmerged/${1}.dat" ]; then
+			COMMAND+=' "${LIBRETRODATABASE_META_DAT_DIR}/mame-nonmerged/${1}.dat"'
+		fi
+		if [ -f "${LIBRETRODATABASE_META_DAT_DIR}/mame-split/${1}.dat" ]; then
+			COMMAND+=' "${LIBRETRODATABASE_META_DAT_DIR}/mame-split/${1}.dat"'
+		fi
+		if [ -f "${LIBRETRODATABASE_META_DAT_DIR}/mame/${1}.dat" ]; then
+			COMMAND+=' "${LIBRETRODATABASE_META_DAT_DIR}/mame/${1}.dat"'
+		fi
+
 		#Check if meta libretro-dats folder is there
 		if [ -f "${LIBRETRODATABASE_META_DAT_DIR}/libretro-dats/${1}.dat" ]; then
 			COMMAND+=' "${LIBRETRODATABASE_META_DAT_DIR}/libretro-dats/${1}.dat"'
@@ -289,8 +300,11 @@ build_libretro_databases() {
 	build_libretro_database "VTech - CreatiVision" "rom.crc"
 	build_libretro_database "VTech - V.Smile" "rom.crc"
 	build_libretro_database "Watara - Supervision" "rom.crc"
-	build_libretro_database "MAME" "rom.name"
-	build_libretro_database "MAME2003" "rom.name"
+	build_libretro_database "MAME" "rom.crc"
+	build_libretro_database "MAME 0.139" "rom.crc"
+	build_libretro_database "MAME 0.159" "rom.crc"
+	build_libretro_database "MAME 0.37b5" "rom.crc"
+	build_libretro_database "MAME 0.078" "rom.crc"
 	build_libretro_database "FB Alpha - Arcade Games" "rom.name"
 	build_libretro_database "DOOM" "rom.crc"
 	build_libretro_database "Cave Story" "rom.crc"
