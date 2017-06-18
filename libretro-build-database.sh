@@ -304,7 +304,7 @@ build_libretro_databases() {
 	build_libretro_database "MAME 0.139" "rom.crc"
 	build_libretro_database "MAME 0.159" "rom.crc"
 	build_libretro_database "MAME 0.37b5" "rom.crc"
-	build_libretro_database "MAME 0.078" "rom.crc"
+	build_libretro_database "MAME 0.78" "rom.crc"
 	build_libretro_database "FB Alpha - Arcade Games" "rom.name"
 	build_libretro_database "DOOM" "rom.crc"
 	build_libretro_database "Cave Story" "rom.crc"
