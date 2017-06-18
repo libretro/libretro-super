@@ -45,10 +45,11 @@ meteor libretro-meteor  https://github.com/libretro/meteor-libretro.git master P
 mame2003 libretro-mame2003  https://github.com/libretro/mame2003-libretro.git master PROJECT YES GENERIC_JNI Makefile jni 
 mame2000 libretro-mame2000 https://github.com/libretro/mame2000-libretro.git master PROJECT YES GENERIC_JNI Makefile jni 
 mrboom libretro-mrboom  https://github.com/libretro/mrboom-libretro.git master PROJECT YES GENERIC_JNI Makefile jni 
-nekop2 libretro-nekop2 https://github.com/libretro/libretro-meowPC98.git master PROJECT YES GENERIC_JNI Makefile.libretro libretro/jni
+nekop2 libretro-nekop2 https://github.com/libretro/libretro-meowPC98.git master PROJECT YES GENERIC_JNI Makefile.libretro libretro/jni 
 parallel_n64 libretro-parallel_n64 https://github.com/libretro/parallel-n64.git master PROJECT YES GENERIC_JNI Makefile jni 
 nxengine libretro-nxengine https://github.com/libretro/nxengine-libretro.git master PROJECT YES GENERIC_JNI Makefile jni 
 o2em libretro-o2em https://github.com/libretro/libretro-o2em.git master PROJECT YES GENERIC_JNI Makefile jni 
+openlara libretro-openlara https://github.com/libretro/OpenLara.git master PROJECT YES GENERIC_JNI Makefile src/platform/libretro/jni 
 pcsx_rearmed libretro-pcsx_rearmed https://github.com/libretro/pcsx_rearmed.git master PROJECT YES GENERIC_JNI Makefile.libretro jni 
 pcsx_rearmed_interpreter libretro-pcsx_rearmed_interpreter https://github.com/libretro/pcsx_rearmed.git master PROJECT YES GENERIC_JNI Makefile.libretro . USE_DYNAREC=0 
 pocketcdg libretro-pocketcdg https://github.com/libretro/libretro-pocketcdg.git master PROJECT YES GENERIC_JNI Makefile jni 
