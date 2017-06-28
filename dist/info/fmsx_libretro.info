@@ -1,6 +1,6 @@
 display_name = "MSX (fMSX)"
 authors = "Marat Fayzullin"
-supported_extensions = "rom|mx1|mx2"
+supported_extensions = "rom|mx1|mx2|dsk|cas"
 corename = "fMSX"
 manufacturer = "Various"
 categories = "Emulator"
