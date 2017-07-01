@@ -16,6 +16,7 @@ snes9x2010 libretro64-snes9x2010 https://github.com/libretro/snes9x2010.git mast
 craft libretro64-craft https://github.com/libretro/Craft.git master PROJECT YES GENERIC_JNI Makefile.libretro jni 
 crocods libretro64-crocods https://github.com/libretro/libretro-crocods.git master PROJECT YES GENERIC_JNI Makefile jni 
 desmume libretro64-desmume https://github.com/libretro/desmume.git master PROJECT YES GENERIC_JNI Makefile.libretro desmume/src/libretro/jni 
+dolphin libretro-dolphin https://github.com/libretro/dolphin.git master PROJECT YES GENERIC_JNI Makefile.libretro Sources/Core/DolphinLibretro/jni 
 dinothawr libretro64-dinothawr https://github.com/libretro/Dinothawr.git master PROJECT YES GENERIC_JNI Makefile jni
 dosbox libretro64-dosbox https://github.com/libretro/dosbox-libretro.git master PROJECT YES GENERIC_JNI Makefile.libretro jni 
 fbalpha libretro64-fbalpha https://github.com/libretro/fbalpha.git master PROJECT YES GENERIC_JNI makefile.libretro jni 
