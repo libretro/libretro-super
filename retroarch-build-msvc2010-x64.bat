@@ -12,10 +12,10 @@ call "C:\Program Files\Microsoft SDKs\Windows\v7.1\Bin\SetEnv.cmd" /x64
 echo msbuild RetroArch-msvc2010.sln /p:configuration=Release;platform=x64
 call msbuild RetroArch-msvc2010.sln /p:configuration=Release;platform=x64
 
-echo move x64\Release\RetroArch-msvc2010.exe ../../retroarch.exe
-move x64\Release\RetroArch-msvc2010.exe ../../retroarch.exe
+echo move x64\Release\RetroArch-msvc2010.exe ..\..\retroarch.exe
+move x64\Release\RetroArch-msvc2010.exe ..\..\retroarch.exe
 
-echo move x64\Release\RetroArch-msvc2010.exe.intermediate.manifest ../../retroarch.exe.manifest
-move x64\Release\RetroArch-msvc2010.exe.intermediate.manifest ../../retroarch.exe.manifest
+echo move x64\Release\RetroArch-msvc2010.exe.intermediate.manifest ..\..\retroarch.exe.manifest
+move x64\Release\RetroArch-msvc2010.exe.intermediate.manifest ..\..\retroarch.exe.manifest
 
 echo Build finished.
