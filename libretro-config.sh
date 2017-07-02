@@ -614,6 +614,13 @@ case "$platform" in
 							;;
 					esac
 					;;
+				msvc2010_x86)
+					platform=windows_msvc2010_x86
+					FORMAT_EXT="dll"
+					BINARY_EXT=".exe"
+					FORMAT_COMPILER_TARGET="windows_msvc2010_x86"
+					DIST_DIR="msvc2010_x86"
+					;;
 				win|*mingw32*|*MINGW32*|*MSYS_NT*)
 					platform=win
 					FORMAT_EXT="dll"
