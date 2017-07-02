@@ -3,4 +3,5 @@ fceumm libretro-fceuumm  https://github.com/libretro/libretro-fceumm.git master 
 gambatte libretro-gambatte https://github.com/libretro/gambatte-libretro.git master PROJECT YES GENERIC Makefile . 
 snes9x2010 libretro-snes9x2010 https://github.com/libretro/snes9x2010.git master PROJECT YES GENERIC_ALT Makefile.libretro . 
 tgbdual libretro-tgbdual https://github.com/libretro/tgbdual-libretro.git master PROJECT YES GENERIC Makefile . 
+vecx libretro-vecx  https://github.com/libretro/libretro-vecx.git master PROJECT YES GENERIC Makefile.libretro . 
 vba_next libretro-vba_next https://github.com/libretro/vba-next.git master PROJECT YES GENERIC_ALT Makefile.libretro . 
