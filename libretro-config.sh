@@ -620,6 +620,9 @@ case "$platform" in
 					BINARY_EXT=".exe"
 					FORMAT_COMPILER_TARGET="windows_msvc2010_x86"
 					DIST_DIR="msvc2010_x86"
+					CC="cl.exe"
+					CXX="cl.exe"
+					CXX11="cl.exe"
 					;;
 				win|*mingw32*|*MINGW32*|*MSYS_NT*)
 					platform=win
