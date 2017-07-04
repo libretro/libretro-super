@@ -1,4 +1,5 @@
 4do libretro-4do https://github.com/libretro/4do-libretro.git master PROJECT YES GENERIC Makefile . 
+bluemsx libretro-bluemsx https://github.com/libretro/blueMSX-libretro.git master PROJECT YES GENERIC Makefile.libretro . 
 fceumm libretro-fceuumm  https://github.com/libretro/libretro-fceumm.git master PROJECT YES GENERIC Makefile.libretro . 
 fmsx libretro-fmsx https://github.com/libretro/fmsx-libretro.git master PROJECT YES GENERIC Makefile . 
 gambatte libretro-gambatte https://github.com/libretro/gambatte-libretro.git master PROJECT YES GENERIC Makefile . 
