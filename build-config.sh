@@ -186,6 +186,7 @@ include_core_3dengine
 include_core_2048
 include_core_stonesoup
 include_core_scummvm
+include_core_chaigame
 
 # --- Miscellaneous cores ---
 include_core_video_processor

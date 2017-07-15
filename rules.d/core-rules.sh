@@ -767,6 +767,14 @@ libretro_gw_git_url="https://github.com/libretro/gw-libretro.git"
 libretro_gw_git_submodules="yes"
 libretro_gw_build_makefile="Makefile.libretro"
 
+include_core_chaigame() {
+	register_module core "chaigame" -theos_ios -ngc -sncps3 -ps3 -psp1 -qnx -wii
+}
+libretro_chaigame_name="ChaiGame"
+libretro_chaigame_git_url="https://github.com/RobLoach/ChaiGame.git"
+libretro_chaigame_git_submodules="yes"
+libretro_chaigame_build_makefile="Makefile"
+
 include_core_81() {
 	register_module core "81" -theos_ios -ngc -sncps3 -ps3 -psp1 -qnx -wii
 }
