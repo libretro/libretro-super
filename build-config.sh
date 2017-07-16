@@ -187,6 +187,7 @@ include_core_2048
 include_core_stonesoup
 include_core_scummvm
 include_core_chaigame
+include_core_atari800
 
 # --- Miscellaneous cores ---
 include_core_video_processor

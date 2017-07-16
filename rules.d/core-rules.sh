@@ -818,6 +818,13 @@ libretro_uzem_name="Uzem"
 libretro_uzem_git_url="https://github.com/libretro/libretro-uzem.git"
 libretro_uzem_build_makefile="Makefile.libretro"
 
+include_core_atari800() {
+	register_module core "atari800" -theos_ios -ngc -sncps3 -ps3 -psp1 -qnx -wii
+}
+libretro_atari800_name="Atari800"
+libretro_atari800_git_url="https://github.com/libretro/libretro-atari800.git"
+libretro_atari800_build_makefile="Makefile"
+
 # CORE RULE VARIABLES
 #
 # All variables follow the format of libretro_<core>_<setting> where <core> is
