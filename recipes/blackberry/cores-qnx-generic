@@ -1,5 +1,6 @@
 2048 libretro-2048  https://github.com/libretro/libretro-2048.git master PROJECT YES GENERIC Makefile.libretro . 
 4do libretro-4do https://github.com/libretro/4do-libretro.git master PROJECT YES GENERIC Makefile . 
+atari800 libretro-atari800 https://github.com/libretro/libretro-atari800.git master PROJECT YES GENERIC Makefile . 
 bluemsx libretro-bluemsx https://github.com/libretro/blueMSX-libretro.git master PROJECT YES GENERIC Makefile.libretro . 
 crocods libretro-crocods https://github.com/libretro/libretro-crocods.git master SUBMODULE YES GENERIC Makefile . 
 dinothawr libretro-dinothawr https://github.com/libretro/Dinothawr.git master PROJECT YES GENERIC Makefile . 

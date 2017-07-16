@@ -1,4 +1,5 @@
 2048 libretro-2048  https://github.com/libretro/libretro-2048.git master PROJECT YES GENERIC Makefile.libretro . 
+atari800 libretro-atari800 https://github.com/libretro/libretro-atari800.git master PROJECT YES GENERIC Makefile . 
 bluemsx libretro-bluemsx https://github.com/libretro/blueMSX-libretro.git master PROJECT NO GENERIC Makefile.libretro . 
 desmume libretro-desmume https://github.com/libretro/desmume.git master PROJECT YES GENERIC Makefile.libretro desmume 
 dosbox libretro-dosbox https://github.com/libretro/dosbox-libretro.git master PROJECT YES GENERIC Makefile.libretro . 
