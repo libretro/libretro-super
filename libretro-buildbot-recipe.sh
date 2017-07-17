@@ -351,7 +351,8 @@ build_libretro_generic_makefile() {
 		MESSAGE="$1:	[status: done] [$jobid]"
 	else
 		ERROR=$TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}.log
-		HASTE=`curl -X POST http://p.0bl.net/ --data-binary @$ERROR`
+		gzip -9k $ERROR
+		HASTE=`curl -X POST http://p.0bl.net/ --data-binary @${ERROR}.gz`
 		MESSAGE="$1:	[status: fail] [$jobid] LOG: $HASTE"
 		curl -X POST -d type="finish" -d index="$ENTRY_ID" -d status="fail" -d log="$HASTE" http://buildbot.fiveforty.net/build_entry/
 	fi
@@ -408,7 +409,8 @@ build_libretro_leiradel_makefile() {
 			curl -X POST -d type="finish" -d index="$ENTRY_ID" -d status="done" http://buildbot.fiveforty.net/build_entry/
 		else
 		ERROR=$TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}.log
-		HASTE=`curl -X POST http://p.0bl.net/ --data-binary @$ERROR`
+		gzip -9k $ERROR
+		HASTE=`curl -X POST http://p.0bl.net/ --data-binary @${ERROR}.gz`
 		MESSAGE="$1:	[status: fail] [$jobid] LOG: $HASTE"
 		curl -X POST -d type="finish" -d index="$ENTRY_ID" -d status="fail" -d log="$HASTE" http://buildbot.fiveforty.net/build_entry/
 	fi
@@ -468,7 +470,8 @@ build_libretro_generic_gl_makefile() {
 		curl -X POST -d type="finish" -d index="$ENTRY_ID" -d status="done" http://buildbot.fiveforty.net/build_entry/
 	else
 		ERROR=$TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}.log
-		HASTE=`curl -X POST http://p.0bl.net/ --data-binary @$ERROR`
+		gzip -9k $ERROR
+		HASTE=`curl -X POST http://p.0bl.net/ --data-binary @${ERROR}.gz`
 		MESSAGE="$1:	[status: fail] [$jobid] LOG: $HASTE"
 		curl -X POST -d type="finish" -d index="$ENTRY_ID" -d status="fail" -d log="$HASTE" http://buildbot.fiveforty.net/build_entry/
 	fi
@@ -531,7 +534,8 @@ build_libretro_generic_jni() {
 			buildbot_log "$MESSAGE"
 		else
 			ERROR=$TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}_${a}.log
-			HASTE=`curl -X POST http://p.0bl.net/ --data-binary @$ERROR`
+			gzip -9k $ERROR
+			HASTE=`curl -X POST http://p.0bl.net/ --data-binary @${ERROR}.gz`
 			MESSAGE="$1-$a:	[status: fail] [$jobid] LOG: $HASTE"
 			echo buildbot job: $MESSAGE
 			curl -X POST -d type="finish" -d index="$ENTRY_ID" -d status="fail" -d log="$HASTE" http://buildbot.fiveforty.net/build_entry/
@@ -593,7 +597,8 @@ build_libretro_bsnes_jni() {
 			curl -X POST -d type="finish" -d index="$ENTRY_ID" -d status="done" http://buildbot.fiveforty.net/build_entry/
 		else
 			ERROR=$TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PROFILE}_${PLATFORM}_${a}.log
-			HASTE=`curl -X POST http://p.0bl.net/ --data-binary @$ERROR`
+			gzip -9k $ERROR
+			HASTE=`curl -X POST http://p.0bl.net/ --data-binary @${ERROR}.gz`
 			MESSAGE="$1-$a-${PROFILE}:	[status: fail] [$jobid] LOG: $HASTE"
 			curl -X POST -d type="finish" -d index="$ENTRY_ID" -d status="fail" -d log="$HASTE" http://buildbot.fiveforty.net/build_entry/
 		fi
@@ -661,7 +666,8 @@ build_libretro_bsnes() {
 		curl -X POST -d type="finish" -d index="$ENTRY_ID" -d status="done" http://buildbot.fiveforty.net/build_entry/
 	else
 		ERROR=$TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PROFILE}_${PLATFORM}.log
-		HASTE=`curl -X POST http://p.0bl.net/ --data-binary @$ERROR`
+		gzip -9k $ERROR
+		HASTE=`curl -X POST http://p.0bl.net/ --data-binary @${ERROR}.gz`
 		MESSAGE="$1-${PROFILE}:	[status: fail] [$jobid] LOG: $HASTE"
 		curl -X POST -d type="finish" -d index="$ENTRY_ID" -d status="fail" -d log="$HASTE" http://buildbot.fiveforty.net/build_entry/
 	fi
@@ -1246,7 +1252,8 @@ if [ "${PLATFORM}" == "osx" ] && [ "${RA}" == "YES" ]; then
 			curl -X POST -d type="finish" -d index="$ENTRY_ID" -d status="done" http://buildbot.fiveforty.net/build_entry/
 		else
 			ERROR=$TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_${PLATFORM}.log
-			HASTE=`curl -X POST http://p.0bl.net/ --data-binary @$ERROR`
+			gzip -9k $ERROR
+			HASTE=`curl -X POST http://p.0bl.net/ --data-binary @${ERROR}.gz`
 			MESSAGE="retroarch:	[status: fail] [$jobid] LOG: $HASTE"
 			curl -X POST -d type="finish" -d index="$ENTRY_ID" -d status="fail" -d log="$HASTE" http://buildbot.fiveforty.net/build_entry/
 			echo $MESSAGE
@@ -1267,7 +1274,8 @@ if [ "${PLATFORM}" == "osx" ] && [ "${RA}" == "YES" ]; then
 			echo $MESSAGE
 		else
 			ERROR=$TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_CG_${PLATFORM}.log
-			HASTE=`curl -X POST http://p.0bl.net/ --data-binary @$ERROR`
+			gzip -9k $ERROR
+			HASTE=`curl -X POST http://p.0bl.net/ --data-binary @${ERROR}.gz`
 			MESSAGE="retroarch:	[status: fail] [$jobid] LOG: $HASTE"
 			curl -X POST -d type="finish" -d index="$ENTRY_ID" -d status="fail" -d log="$HASTE" http://buildbot.fiveforty.net/build_entry/
 			echo $MESSAGE
@@ -1308,7 +1316,8 @@ if [ "${PLATFORM}" == "ios" ] && [ "${RA}" == "YES" ]; then
 			echo $MESSAGE
 		else
 			ERROR=$TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_${PLATFORM}.log
-			HASTE=`curl -X POST http://p.0bl.net/ --data-binary @$ERROR`
+			gzip -9k $ERROR
+			HASTE=`curl -X POST http://p.0bl.net/ --data-binary @${ERROR}.gz`
 			MESSAGE="retroarch:	[status: fail] [$jobid] LOG: $HASTE"
 			curl -X POST -d type="finish" -d index="$ENTRY_ID" -d status="fail" -d log="$HASTE" http://buildbot.fiveforty.net/build_entry/
 			echo $MESSAGE
@@ -1356,7 +1365,8 @@ if [ "${PLATFORM}" == "ios9" ] && [ "${RA}" == "YES" ]; then
 			echo $MESSAGE
 		else
 			ERROR=$TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_${PLATFORM}.log
-			HASTE=`curl -X POST http://p.0bl.net/ --data-binary @$ERROR`
+			gzip -9k $ERROR
+			HASTE=`curl -X POST http://p.0bl.net/ --data-binary @${ERROR}.gz`
 			MESSAGE="retroarch:	[status: fail] [$jobid] LOG: $HASTE"
 			curl -X POST -d type="finish" -d index="$ENTRY_ID" -d status="fail" -d log="$HASTE" http://buildbot.fiveforty.net/build_entry/
 			echo $MESSAGE
@@ -1494,7 +1504,8 @@ EOF
 			echo $MESSAGE
 		else
 			ERROR=$TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_${PLATFORM}.log
-			HASTE=`curl -X POST http://p.0bl.net/ --data-binary @$ERROR`
+			gzip -9k $ERROR
+			HASTE=`curl -X POST http://p.0bl.net/ --data-binary @${ERROR}.gz`
 			MESSAGE="retroarch:	[status: fail] [$jobid] LOG: $HASTE"
 			curl -X POST -d type="finish" -d index="$ENTRY_ID" -d status="fail" -d log="$HASTE" http://buildbot.fiveforty.net/build_entry/
 			echo $MESSAGE
@@ -1604,7 +1615,8 @@ if [ "${PLATFORM}" = "MINGW64" ] || [ "${PLATFORM}" = "MINGW32" ] || [ "${PLATFO
 				buildbot_log "$MESSAGE"
 			else
 				ERROR=$TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_DEBUG_${PLATFORM}.log
-				HASTE=`curl -X POST http://p.0bl.net/ --data-binary @$ERROR`
+				gzip -9k $ERROR
+				HASTE=`curl -X POST http://p.0bl.net/ --data-binary @${ERROR}.gz`
 				MESSAGE="retroarch-debug:	[status: fail] [$jobid] LOG: $HASTE"
 				echo $MESSAGE
 				echo buildbot job: $MESSAGE | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_DEBUG_${PLATFORM}.log
@@ -1646,7 +1658,8 @@ EOF
 
 		else
 			ERROR=$TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_${PLATFORM}.log
-			HASTE=`curl -X POST http://p.0bl.net/ --data-binary @$ERROR`
+			gzip -9k $ERROR
+			HASTE=`curl -X POST http://p.0bl.net/ --data-binary @${ERROR}.gz`
 			MESSAGE="retroarch:	[status: fail] [$jobid] LOG: $HASTE"
 			curl -X POST -d type="finish" -d index="$ENTRY_ID" -d status="fail" -d log="$HASTE" http://buildbot.fiveforty.net/build_entry/
 			ENTRY_ID=""
@@ -1686,7 +1699,8 @@ if [ "${PLATFORM}" = "psp1" ] && [ "${RA}" = "YES" ]; then
 			echo $MESSAGE
 		else
 			ERROR=$TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_${PLATFORM}.log
-			HASTE=`curl -X POST http://p.0bl.net/ --data-binary @$ERROR`
+			gzip -9k $ERROR
+			HASTE=`curl -X POST http://p.0bl.net/ --data-binary @${ERROR}.gz`
 			MESSAGE="retroarch:	[status: fail] [$jobid] LOG: $HASTE"
 			curl -X POST -d type="finish" -d index="$ENTRY_ID" -d status="fail" -d log="$HASTE" http://buildbot.fiveforty.net/build_entry/
 			echo $MESSAGE
@@ -1735,7 +1749,8 @@ if [ "${PLATFORM}" == "wii" ] && [ "${RA}" == "YES" ]; then
 			echo $MESSAGE
 		else
 			ERROR=$TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_${PLATFORM}.log
-			HASTE=`curl -X POST http://p.0bl.net/ --data-binary @$ERROR`
+			gzip -9k $ERROR
+			HASTE=`curl -X POST http://p.0bl.net/ --data-binary @${ERROR}.gz`
 			MESSAGE="retroarch:	[status: fail] [$jobid] LOG: $HASTE"
 			curl -X POST -d type="finish" -d index="$ENTRY_ID" -d status="fail" -d log="$HASTE" http://buildbot.fiveforty.net/build_entry/
 			echo $MESSAGE
@@ -1787,7 +1802,8 @@ if [ "${PLATFORM}" == "wiiu" ] && [ "${RA}" == "YES" ]; then
 			echo $MESSAGE
 		else
 			ERROR=$TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_${PLATFORM}.log
-			HASTE=`curl -X POST http://p.0bl.net/ --data-binary @$ERROR`
+			gzip -9k $ERROR
+			HASTE=`curl -X POST http://p.0bl.net/ --data-binary @${ERROR}.gz`
 			MESSAGE="retroarch:	[status: fail] [$jobid] LOG: $HASTE"
 			curl -X POST -d type="finish" -d index="$ENTRY_ID" -d status="fail" -d log="$HASTE" http://buildbot.fiveforty.net/build_entry/
 			echo $MESSAGE
@@ -1830,7 +1846,8 @@ if [ "${PLATFORM}" == "ngc" ] && [ "${RA}" == "YES" ]; then
 			echo $MESSAGE
 		else
 			ERROR=$TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_${PLATFORM}.log
-			HASTE=`curl -X POST http://p.0bl.net/ --data-binary @$ERROR`
+			gzip -9k $ERROR
+			HASTE=`curl -X POST http://p.0bl.net/ --data-binary @${ERROR}.gz`
 			MESSAGE="retroarch:	[status: fail] [$jobid] LOG: $HASTE"
 			curl -X POST -d type="finish" -d index="$ENTRY_ID" -d status="fail" -d log="$HASTE" http://buildbot.fiveforty.net/build_entry/
 			echo $MESSAGE
@@ -1879,7 +1896,8 @@ if [ "${PLATFORM}" == "ctr" ] && [ "${RA}" == "YES" ]; then
 			touch $TMPDIR/built-frontend
 		else
 			ERROR=$TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_${PLATFORM}.log
-			HASTE=`curl -X POST http://p.0bl.net/ --data-binary @$ERROR`
+			gzip -9k $ERROR
+			HASTE=`curl -X POST http://p.0bl.net/ --data-binary @${ERROR}.gz`
 			MESSAGE="retroarch:	[status: fail] [$jobid] LOG: $HASTE"
 			curl -X POST -d type="finish" -d index="$ENTRY_ID" -d status="fail" -d log="$HASTE" http://buildbot.fiveforty.net/build_entry/
 			echo $MESSAGE
@@ -1946,7 +1964,8 @@ if [ "${PLATFORM}" == "vita" ] && [ "${RA}" == "YES" ]; then
 			echo $MESSAGE
 		else
 			ERROR=$TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_${PLATFORM}.log
-			HASTE=`curl -X POST http://p.0bl.net/ --data-binary @$ERROR`
+			gzip -9k $ERROR
+			HASTE=`curl -X POST http://p.0bl.net/ --data-binary @${ERROR}.gz`
 			MESSAGE="retroarch:	[status: fail] [$jobid] LOG: $HASTE"
 			curl -X POST -d type="finish" -d index="$ENTRY_ID" -d status="fail" -d log="$HASTE" http://buildbot.fiveforty.net/build_entry/
 			echo $MESSAGE
@@ -1994,7 +2013,8 @@ if [ "${PLATFORM}" == "ps3" ] && [ "${RA}" == "YES" ]; then
 			echo $MESSAGE
 		else
 			ERROR=$TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_${PLATFORM}_dex.log
-			HASTE=`curl -X POST http://p.0bl.net/ --data-binary @$ERROR`
+			gzip -9k $ERROR
+			HASTE=`curl -X POST http://p.0bl.net/ --data-binary @${ERROR}.gz`
 			MESSAGE="retroarch:	[status: fail] [$jobid] LOG: $HASTE"
 			curl -X POST -d type="finish" -d index="$ENTRY_ID" -d status="fail" -d log="$HASTE" http://buildbot.fiveforty.net/build_entry/
 			echo $MESSAGE
@@ -2010,7 +2030,8 @@ if [ "${PLATFORM}" == "ps3" ] && [ "${RA}" == "YES" ]; then
 			echo $MESSAGE
 		else
 			ERROR=$TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_${PLATFORM}_cex.log
-			HASTE=`curl -X POST http://p.0bl.net/ --data-binary @$ERROR`
+			gzip -9k $ERROR
+			HASTE=`curl -X POST http://p.0bl.net/ --data-binary @${ERROR}.gz`
 			MESSAGE="retroarch:	[status: fail] [$jobid] LOG: $HASTE"
 			curl -X POST -d type="finish" -d index="$ENTRY_ID" -d status="fail" -d log="$HASTE" http://buildbot.fiveforty.net/build_entry/
 			echo $MESSAGE
@@ -2026,7 +2047,8 @@ if [ "${PLATFORM}" == "ps3" ] && [ "${RA}" == "YES" ]; then
 			echo $MESSAGE
 		else
 			ERROR=$TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_${PLATFORM}_ode.log
-			HASTE=`curl -X POST http://p.0bl.net/ --data-binary @$ERROR`
+			gzip -9k $ERROR
+			HASTE=`curl -X POST http://p.0bl.net/ --data-binary @${ERROR}.gz`
 			MESSAGE="retroarch:	[status: fail] [$jobid] LOG: $HASTE"
 			curl -X POST -d type="finish" -d index="$ENTRY_ID" -d status="fail" -d log="$HASTE" http://buildbot.fiveforty.net/build_entry/
 			echo $MESSAGE
@@ -2067,7 +2089,8 @@ if [ "${PLATFORM}" = "emscripten" ] && [ "${RA}" = "YES" ]; then
 			echo $MESSAGE
 		else
 			ERROR=$TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_${PLATFORM}.log
-			HASTE=`curl -X POST http://p.0bl.net/ --data-binary @$ERROR`
+			gzip -9k $ERROR
+			HASTE=`curl -X POST http://p.0bl.net/ --data-binary @${ERROR}.gz`
 			MESSAGE="retroarch:	[status: fail] [$jobid] LOG: $HASTE"
 			curl -X POST -d type="finish" -d index="$ENTRY_ID" -d status="fail" -d log="$HASTE" http://buildbot.fiveforty.net/build_entry/
 			echo $MESSAGE
@@ -2146,7 +2169,8 @@ if [ "${PLATFORM}" = "unix" ]; then
 
 		else
 			ERROR=$TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_${PLATFORM}.log
-			HASTE=`curl -X POST http://p.0bl.net/ --data-binary @$ERROR`
+			gzip -9k $ERROR
+			HASTE=`curl -X POST http://p.0bl.net/ --data-binary @${ERROR}.gz`
 			MESSAGE="retroarch:	[status: fail] [$jobid] LOG: $HASTE"
 			curl -X POST -d type="finish" -d index="$ENTRY_ID" -d status="fail" -d log="$HASTE" http://buildbot.fiveforty.net/build_entry/
 			echo $MESSAGE
