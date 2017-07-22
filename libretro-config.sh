@@ -240,6 +240,20 @@ case "$platform" in
 		CXX11="clang++ -std=c++11 -stdlib=libc++ -arch armv7 -marm -miphoneos-version-min=8.0 -isysroot $IOSSDK"
 		;;
 
+	ios-arm64)
+    DIST_DIR="ios-arm64"
+    FORMAT_EXT=dylib
+    IOS=1
+    ARCH=arm64
+    FORMAT=_ios
+    FORMAT_COMPILER_TARGET=ios-arm64
+    FORMAT_COMPILER_TARGET_ALT=ios-arm64
+    export IOSSDK=$(xcodebuild -version -sdk iphoneos Path)
+		CC="cc -arch arm64 -marm -miphoneos-version-min=8.0 -isysroot $IOSSDK"
+		CXX="c++ -arch arm64 -marm -miphoneos-version-min=8.0 -isysroot $IOSSDK"
+		CXX11="clang++ -std=c++11 -stdlib=libc++ -arch arm64 -marm -miphoneos-version-min=8.0 -isysroot $IOSSDK"
+		;;
+
    android-x86_64)
 		FORMAT_ABI="x86_64"
 		DIST_DIR="android/${FORMAT_ABI}"
