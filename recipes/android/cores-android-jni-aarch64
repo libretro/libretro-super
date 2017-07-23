@@ -73,3 +73,4 @@ yabause libretro64-yabause https://github.com/libretro/yabause.git master PROJEC
 uzem libretro64-uzem https://github.com/libretro/libretro-uzem.git master PROJECT YES GENERIC_JNI Makefile jni 
 nestopia libretro64-nestopia https://github.com/libretro/nestopia.git master PROJECT YES GENERIC_JNI Makefile libretro/jni 
 quicknes libretro64-quicknes https://github.com/libretro/QuickNES_Core.git master PROJECT YES GENERIC_JNI Makefile jni 
+puae libretro-puae  https://github.com/libretro/libretro-uae.git master PROJECT YES GENERIC_JNI Makefile jni 
