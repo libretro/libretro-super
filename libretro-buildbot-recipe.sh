@@ -1492,8 +1492,8 @@ EOF
 			cp -rv bin/retroarch-release.apk $RARCH_DIR/retroarch-release.apk | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_${PLATFORM}.log
 			cp -rv bin/retroarch-release.apk $RARCH_DIR/retroarch-release.apk
 		else
-			cp -rv bin/retroarch-release.apk $RARCH_DIR/retroarch-staging-release.apk | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_${PLATFORM}.log
-			cp -rv bin/retroarch-release.apk $RARCH_DIR/retroarch-staging-release.apk
+			cp -rv bin/retroarch-release.apk $RARCH_DIR/retroarch-$BRANCH-release.apk | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_${PLATFORM}.log
+			cp -rv bin/retroarch-release.apk $RARCH_DIR/retroarch-$BRANCH-release.apk
 		fi
 
 
