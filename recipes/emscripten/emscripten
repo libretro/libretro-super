@@ -5,7 +5,6 @@ bluemsx libretro-bluemsx https://github.com/libretro/blueMSX-libretro.git master
 craft libretro-craft https://github.com/libretro/craft master PROJECT YES GENERIC Makefile.libretro . 
 desmume libretro-desmume https://github.com/libretro/desmume.git master PROJECT YES GENERIC Makefile.libretro desmume 
 dosbox libretro-dosbox https://github.com/libretro/dosbox-libretro.git master PROJECT YES GENERIC Makefile.libretro . 
-#easyrpg libretro-easyrpg https://github.com/libretro/easyrpg-libretro.git master PROJECT YES GENERIC Makefile.libretro builds/libretro 
 fbalpha2012 libretro-fbalpha2012 https://github.com/libretro/fbalpha2012.git master PROJECT YES GENERIC makefile.libretro svn-current/trunk 
 fbalpha2012_cps1 libretro-fbalpha2012_cps1 https://github.com/libretro/fbalpha2012_cps1.git master PROJECT YES GENERIC makefile.libretro . 
 fbalpha2012_cps2 libretro-fbalpha2012_cps2 https://github.com/libretro/fbalpha2012_cps2.git master PROJECT YES GENERIC makefile.libretro . 
