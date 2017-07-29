@@ -1,6 +1,6 @@
 display_name = "Sega Dreamcast (Redream)"
 authors = "inolen"
-supported_extensions = "gdi|cdi"
+supported_extensions = "gdi|chd|cdi"
 corename = "Redream"
 manufacturer = "Sega"
 categories = "Emulator"
