@@ -6,7 +6,7 @@ cd pkg\msvc
 rem I moved SetEnv BEFORE vcvarsall because I was getting the dreaded "\Microsoft was unexpected at this time" error and this somehow prevents it.
 rem Even after reading several hard-to-find "none of the other solutions online worked for me, but this one does" posts, still nothing worked for me.
 rem Then I got this:
-rem error MSB6001: Invalid command line switch for "VCBuild.exe". Item has already been added. Key in dictionary: 'tmp'  Key being added: 'tmp'cho "C:\Program Files\Microsoft Platform SDK\SetEnv.cmd" /2000 /RETAIL
+rem error MSB6001: Invalid command line switch for "VCBuild.exe". Item has already been added. Key in dictionary: 'tmp'  Key being added: 'tmp'
 rem The fix was to unset TMP and TEMP.
 
 set TMP=
