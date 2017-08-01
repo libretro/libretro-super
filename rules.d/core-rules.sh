@@ -481,6 +481,14 @@ libretro_dosbox_name="DOSBox"
 libretro_dosbox_git_url="https://github.com/libretro/dosbox-libretro.git"
 libretro_dosbox_makefile="Makefile.libretro"
 
+include_core_basilisk2() {
+	register_module core "basilisk2" -ngc -ps3 -psp1 -wii
+}
+libretro_basilisk2_name="Basilisk II"
+libretro_basilisk2_git_url="https://github.com/libretro/Basilisk2.git"
+libretro_basilisk2_build_subdir="BasiliskII/src/libretro"
+libretro_basilisk2_makefile="Makefile.libretro"
+
 include_core_virtualjaguar() {
 	register_module core "virtualjaguar" -ngc -ps3 -psp1 -wii
 }

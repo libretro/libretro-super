@@ -116,7 +116,8 @@ include_core_mednafen_vb
 # --- Atari Jaguar emulator cores ---
 include_core_virtualjaguar
 
-# --- DOS/PC emulator cores ---
+# --- DOS/PC/MAC emulator cores ---
+include_core_basilisk2
 include_core_dosbox
 include_core_pcem
 
@@ -131,6 +132,12 @@ include_core_mame
 # --- N64 emulator cores ---
 include_core_mupen64plus
 include_core_parallel_n64
+
+# --- Nintendo Gamecube/Wii cores ---
+include_core_dolphin
+
+# --- Nintendo Pokemon Mini cores ---
+include_core_pokemini
 
 # --- Game & Watch cores ---
 include_core_gw
