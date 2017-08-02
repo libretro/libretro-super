@@ -12,6 +12,9 @@ rem The fix was to unset TMP and TEMP.
 set TMP=
 set TEMP=
 
+rem MSVC uses the platform variable which conflicts with our build system, so unset it temporarily
+set platform=
+
 call "C:\Program Files\Microsoft Platform SDK\SetEnv.cmd" /2000 /RETAIL
 
 echo "%ProgramFiles(x86)%\Microsoft Visual Studio 8\VC\vcvarsall.bat" x86
