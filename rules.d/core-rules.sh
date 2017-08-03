@@ -65,20 +65,20 @@ libretro_vice_x128_build_cores="vice_x128"
 include_core_vice_xplus4() {
 	register_module core "vice_xplus4"
 }
-libretro_vice_x64_name="VICE xplus4"
-libretro_vice_x64_git_url="https://github.com/libretro/vice-libretro.git"
-libretro_vice_x64_build_makefile="Makefile"
-libretro_vice_x128_build_args="EMUTYPE=\"xplus4\""
-libretro_vice_x128_build_cores="vice_xplus4"
+libretro_vice_xplus4_name="VICE xplus4"
+libretro_vice_xplus4_git_url="https://github.com/libretro/vice-libretro.git"
+libretro_vice_xplus4_build_makefile="Makefile"
+libretro_vice_xplus4_build_args="EMUTYPE=\"xplus4\""
+libretro_vice_xplus4_build_cores="vice_xplus4"
 
 include_core_vice_xvic() {
 	register_module core "vice_xvic"
 }
-libretro_vice_x128_name="VICE xvic"
-libretro_vice_x128_git_url="https://github.com/libretro/vice-libretro.git"
-libretro_vice_x128_build_makefile="Makefile"
-libretro_vice_x128_build_args="EMUTYPE=\"xvic\""
-libretro_vice_x128_build_cores="vice_xvic"
+libretro_vice_xvic_name="VICE xvic"
+libretro_vice_xvic_git_url="https://github.com/libretro/vice-libretro.git"
+libretro_vice_xvic_build_makefile="Makefile"
+libretro_vice_xvic_build_args="EMUTYPE=\"xvic\""
+libretro_vice_xvic_build_cores="vice_xvic"
 
 include_core_xrick() {
 	register_module core "xrick"
