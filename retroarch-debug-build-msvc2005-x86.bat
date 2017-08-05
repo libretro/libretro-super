@@ -23,10 +23,10 @@ call "%ProgramFiles(x86)%\Microsoft Visual Studio 8\VC\vcvarsall.bat" x86
 echo msbuild RetroArch-msvc2005.sln /p:configuration=Debug;platform=win32 /v:diag
 call msbuild RetroArch-msvc2005.sln /p:configuration=Debug;platform=win32 /v:diag
 
-echo move msvc-2005\Release\RetroArch-msvc2005.exe ..\..\retroarch.exe
-move msvc-2005\Release\RetroArch-msvc2005.exe ..\..\retroarch.exe
+echo move msvc-2005\Debug\RetroArch-msvc2005.exe ..\..\retroarch.exe
+move msvc-2005\Debug\RetroArch-msvc2005.exe ..\..\retroarch.exe
 
-echo move msvc-2005\Release\RetroArch-msvc2005.exe.intermediate.manifest ..\..\retroarch.exe.manifest
-move msvc-2005\Release\RetroArch-msvc2005.exe.intermediate.manifest ..\..\retroarch.exe.manifest
+echo move msvc-2005\Debug\RetroArch-msvc2005.exe.intermediate.manifest ..\..\retroarch.exe.manifest
+move msvc-2005\Debug\RetroArch-msvc2005.exe.intermediate.manifest ..\..\retroarch.exe.manifest
 
 echo Build finished.
