@@ -13,7 +13,10 @@ mednafen_vb libretro-beetle_vb https://github.com/libretro/beetle-vb-libretro.gi
 nestopia libretro-nestopia https://github.com/libretro/nestopia.git master PROJECT YES GENERIC Makefile libretro 
 nxengine libretro-nxengine https://github.com/libretro/nxengine-libretro.git master PROJECT YES GENERIC Makefile . 
 o2em libretro-o2em https://github.com/libretro/libretro-o2em.git master PROJECT YES GENERIC Makefile .
+pokemini libretro-pokemini https://github.com/libretro/PokeMini.git master PROJECT YES GENERIC Makefile . 
 prboom libretro-prboom  https://github.com/libretro/libretro-prboom.git master PROJECT YES GENERIC_ALT Makefile . 
+prosystem libretro-prosystem https://github.com/libretro/prosystem-libretro.git master PROJECT YES GENERIC Makefile . 
+pocketcdg libretro-pocketcdg https://github.com/libretro/libretro-pocketcdg.git master SUBMODULE YES GENERIC Makefile . 
 tgbdual libretro-tgbdual https://github.com/libretro/tgbdual-libretro.git master PROJECT YES GENERIC Makefile . 
 vecx libretro-vecx  https://github.com/libretro/libretro-vecx.git master PROJECT YES GENERIC Makefile.libretro . 
 tyrquake libretro-tyrquake https://github.com/libretro/tyrquake.git master PROJECT YES GENERIC Makefile . 
