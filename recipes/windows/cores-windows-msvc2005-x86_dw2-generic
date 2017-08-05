@@ -1,5 +1,6 @@
 2048 libretro-2048  https://github.com/libretro/libretro-2048.git master PROJECT YES GENERIC Makefile.libretro . 
 4do libretro-4do https://github.com/libretro/4do-libretro.git master PROJECT YES GENERIC Makefile . 
+bluemsx libretro-bluemsx https://github.com/libretro/blueMSX-libretro.git master PROJECT YES GENERIC Makefile.libretro . 
 fceumm libretro-fceuumm  https://github.com/libretro/libretro-fceumm.git master PROJECT YES GENERIC Makefile.libretro . 
 nestopia libretro-nestopia https://github.com/libretro/nestopia.git master PROJECT YES GENERIC Makefile libretro 
 prboom libretro-prboom  https://github.com/libretro/libretro-prboom.git master PROJECT YES GENERIC_ALT Makefile . 
