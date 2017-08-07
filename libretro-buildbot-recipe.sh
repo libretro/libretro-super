@@ -1795,7 +1795,7 @@ if [ "${PLATFORM}" == "wiiu" ] && [ "${RA}" == "YES" ]; then
 		cp -v $RARCH_DIST_DIR/../info/*.info .
 		cp -v ../media/assets/pkg/wiiu/*.png .
 
-		time sh ./wiiu-cores.sh &> $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_${PLATFORM}.log
+		time sh ./wiiu-cores.sh 2>&1 | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_${PLATFORM}.log
 		if [ $? -eq 0 ];
 		then
 			MESSAGE="retroarch:	[status: done] [$jobid]"
