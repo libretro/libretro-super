@@ -658,6 +658,16 @@ case "$platform" in
 					CXX="cl.exe"
 					CXX11="cl.exe"
 					;;
+				msvc2017_x64)
+					platform=windows_msvc2017_x64
+					FORMAT_EXT="dll"
+					BINARY_EXT=".exe"
+					FORMAT_COMPILER_TARGET="windows_msvc2017_x64"
+					DIST_DIR="msvc2017_x64"
+					CC="cl.exe"
+					CXX="cl.exe"
+					CXX11="cl.exe"
+					;;
 				win|*mingw32*|*MINGW32*|*MSYS_NT*)
 					platform=win
 					FORMAT_EXT="dll"
