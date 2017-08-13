@@ -1,4 +1,9 @@
+puae libretro-uae https://github.com/libretro/libretro-uae.git master PROJECT YES GENERIC Makefile . 
+cap32 libretro-cap32 https://github.com/libretro/libretro-cap32.git master PROJECT YES GENERIC Makefile . 
+hatari libretro-hatari https://github.com/libretro/hatari.git master PROJECT YES GENERIC Makefile.libretro . 
 atari800 libretro-atari800 https://github.com/libretro/libretro-atari800.git master PROJECT YES GENERIC Makefile . 
+bluemsx libretro-bluemsx https://github.com/libretro/blueMSX-libretro.git master PROJECT YES GENERIC Makefile .
+stella libretro-stella https://github.com/libretro/stella-libretro.git master PROJECT YES GENERIC Makefile .
 fbalpha libretro-fbalpha https://github.com/libretro/fbalpha.git master PROJECT YES GENERIC makefile.libretro . 
 fbalpha2012 libretro-fbalpha2012 https://github.com/libretro/fbalpha2012.git master PROJECT YES GENERIC makefile.libretro svn-current/trunk 
 fbalpha2012_cps1 libretro-fbalpha2012_cps1 https://github.com/libretro/fbalpha2012_cps1.git master PROJECT YES GENERIC makefile.libretro . 
@@ -31,3 +36,5 @@ gw libretro-gw https://github.com/libretro/gw-libretro.git master PROJECT YES GE
 81 libretro-81 https://github.com/libretro/81-libretro.git master PROJECT YES GENERIC Makefile .
 fuse libretro-fuse https://github.com/libretro/fuse-libretro.git master PROJECT YES GENERIC Makefile . 
 vice_x64 libretro-vice_x64 https://github.com/libretro/vice-libretro.git master PROJECT YES GENERIC Makefile . 
+vice_xvic libretro-vice_xvic https://github.com/libretro/vice-libretro.git master PROJECT YES GENERIC Makefile . EMUTYPE=xvic 
+vice_xplus4 libretro-vice_xplus4 https://github.com/libretro/vice-libretro.git master PROJECT YES GENERIC Makefile . EMUTYPE=xplus4 

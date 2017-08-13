@@ -628,12 +628,42 @@ case "$platform" in
 							;;
 					esac
 					;;
+				msvc2005_x86)
+					platform=windows_msvc2005_x86
+					FORMAT_EXT="dll"
+					BINARY_EXT=".exe"
+					FORMAT_COMPILER_TARGET="windows_msvc2005_x86"
+					DIST_DIR="msvc2005_x86"
+					CC="cl.exe"
+					CXX="cl.exe"
+					CXX11="cl.exe"
+					;;
 				msvc2010_x86)
 					platform=windows_msvc2010_x86
 					FORMAT_EXT="dll"
 					BINARY_EXT=".exe"
 					FORMAT_COMPILER_TARGET="windows_msvc2010_x86"
 					DIST_DIR="msvc2010_x86"
+					CC="cl.exe"
+					CXX="cl.exe"
+					CXX11="cl.exe"
+					;;
+				msvc2010_x64)
+					platform=windows_msvc2010_x64
+					FORMAT_EXT="dll"
+					BINARY_EXT=".exe"
+					FORMAT_COMPILER_TARGET="windows_msvc2010_x64"
+					DIST_DIR="msvc2010_x64"
+					CC="cl.exe"
+					CXX="cl.exe"
+					CXX11="cl.exe"
+					;;
+				msvc2017_x64)
+					platform=windows_msvc2017_x64
+					FORMAT_EXT="dll"
+					BINARY_EXT=".exe"
+					FORMAT_COMPILER_TARGET="windows_msvc2017_x64"
+					DIST_DIR="msvc2017_x64"
 					CC="cl.exe"
 					CXX="cl.exe"
 					CXX11="cl.exe"

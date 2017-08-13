@@ -62,6 +62,24 @@ libretro_vice_x128_build_makefile="Makefile"
 libretro_vice_x128_build_args="EMUTYPE=\"x128\""
 libretro_vice_x128_build_cores="vice_x128"
 
+include_core_vice_xplus4() {
+	register_module core "vice_xplus4"
+}
+libretro_vice_xplus4_name="VICE xplus4"
+libretro_vice_xplus4_git_url="https://github.com/libretro/vice-libretro.git"
+libretro_vice_xplus4_build_makefile="Makefile"
+libretro_vice_xplus4_build_args="EMUTYPE=\"xplus4\""
+libretro_vice_xplus4_build_cores="vice_xplus4"
+
+include_core_vice_xvic() {
+	register_module core "vice_xvic"
+}
+libretro_vice_xvic_name="VICE xvic"
+libretro_vice_xvic_git_url="https://github.com/libretro/vice-libretro.git"
+libretro_vice_xvic_build_makefile="Makefile"
+libretro_vice_xvic_build_args="EMUTYPE=\"xvic\""
+libretro_vice_xvic_build_cores="vice_xvic"
+
 include_core_xrick() {
 	register_module core "xrick"
 }
@@ -480,6 +498,14 @@ include_core_dosbox() {
 libretro_dosbox_name="DOSBox"
 libretro_dosbox_git_url="https://github.com/libretro/dosbox-libretro.git"
 libretro_dosbox_makefile="Makefile.libretro"
+
+include_core_basilisk2() {
+	register_module core "basilisk2" -ngc -ps3 -psp1 -wii
+}
+libretro_basilisk2_name="Basilisk II"
+libretro_basilisk2_git_url="https://github.com/libretro/Basilisk2.git"
+libretro_basilisk2_build_subdir="BasiliskII/src/libretro"
+libretro_basilisk2_makefile="Makefile.libretro"
 
 include_core_virtualjaguar() {
 	register_module core "virtualjaguar" -ngc -ps3 -psp1 -wii

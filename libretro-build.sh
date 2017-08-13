@@ -7,11 +7,9 @@ WORKDIR="$PWD"
 
 if [ "$BASE_DIR" = "$SCRIPT" ]; then
 	BASE_DIR="$WORKDIR"
-else
-	if [[ "$0" != /* ]]; then
-		# Make the path absolute
-		BASE_DIR="$WORKDIR/$BASE_DIR"
-	fi
+elif [[ "$0" != /* ]]; then
+	# Make the path absolute
+	BASE_DIR="$WORKDIR/$BASE_DIR"
 fi
 
 . "$BASE_DIR/libretro-config.sh"
@@ -21,9 +19,7 @@ if [ -z "$RARCH_DIST_DIR" ]; then
 	RARCH_DIST_DIR="$RARCH_DIR/$DIST_DIR"
 fi
 
-if [ -z "$JOBS" ]; then
-	JOBS=7
-fi
+JOBS=${JOBS:-7}
 
 if [ "$HOST_CC" ]; then
 	CC="${HOST_CC}-gcc"
@@ -75,12 +71,10 @@ fi
 
 FORMAT_COMPILER_TARGET_ALT=$FORMAT_COMPILER_TARGET
 
-
 echo "CC = $CC"
 echo "CXX = $CXX"
 echo "CXX11 = $CXX11"
 echo "STRIP = $STRIP"
-
 
 . "$BASE_DIR/libretro-build-common.sh"
 

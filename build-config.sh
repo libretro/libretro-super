@@ -74,7 +74,8 @@ include_core_stella
 # --- Commodore 64 emulator cores ---
 include_core_vice_x64
 include_core_vice_x128
-
+include_core_vice_xvic
+include_core_vice_xplus4
 # --- PlayStation1 emulator cores ---
 include_core_mednafen_psx
 include_core_pcsx_rearmed
@@ -116,7 +117,8 @@ include_core_mednafen_vb
 # --- Atari Jaguar emulator cores ---
 include_core_virtualjaguar
 
-# --- DOS/PC emulator cores ---
+# --- DOS/PC/MAC emulator cores ---
+include_core_basilisk2
 include_core_dosbox
 include_core_pcem
 
@@ -131,6 +133,12 @@ include_core_mame
 # --- N64 emulator cores ---
 include_core_mupen64plus
 include_core_parallel_n64
+
+# --- Nintendo Gamecube/Wii cores ---
+include_core_dolphin
+
+# --- Nintendo Pokemon Mini cores ---
+include_core_pokemini
 
 # --- Game & Watch cores ---
 include_core_gw
