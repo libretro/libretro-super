@@ -125,7 +125,9 @@ WANT_CORES=" \
 	mednafen_psx \
 	catsfc \
 	snes9x \
-	snes9x_next \
+	snes9x2002 \
+	snes9x2005 \
+	snes9x2010 \
 	genesis_plus_gx \
 	virtualjaguar \
 	stella \
@@ -143,7 +145,7 @@ WANT_CORES=" \
 	nestopia \
 	tgbdual \
 	quicknes \
-	handy \ 
+	handy \
    gambatte \
 	prboom \
 	tyrquake \
@@ -162,7 +164,7 @@ WANT_CORES=" \
 	xrick \
 	pocketcdg \
 	crocods \
-	pocketsnes"
+	puae"
 fi
 
 for core in $WANT_CORES; do
