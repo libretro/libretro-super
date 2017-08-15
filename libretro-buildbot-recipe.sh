@@ -1637,19 +1637,6 @@ if [ "${PLATFORM}" = "MINGW64" ] || [ "${PLATFORM}" = "MINGW32" ] || [ "${PLATFO
 			mkdir -p windows/system
 			mkdir -p windows/screenshots
 
-
-cat << EOF > windows/retroarch.cfg
-dpi_override_value = "160"
-input_joypad_driver = "xinput"
-input_osk_overlay_enable = "false"
-load_dummy_on_core_shutdown = "false"
-menu_collapse_subgroups_enable = "true"
-video_driver = "gl"
-system_directory = ":\system"
-savefile_directory = ":\saves"
-savestate_directory = ":\states"
-EOF
-
 			cp -v retroarch.default.cfg windows/
 			cp -v tools/*.exe windows/
 			cp -rf libretro-common/audio/dsp_filters/*.dll windows/filters/audio
