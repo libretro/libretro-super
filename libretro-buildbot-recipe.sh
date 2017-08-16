@@ -707,6 +707,9 @@ while read line; do
 	SUBDIR=`echo $line | cut -f 9 -d " "`
 
 	if [ "${ENABLED}" = "YES" ]; then
+		echo -ne "buildbot job started at: "
+		date
+		echo
 		echo "buildbot job: $jobid processing $NAME"
 		echo --------------------------------------------------
 		echo Variables:
@@ -1044,6 +1047,8 @@ while read line; do
 			echo "buildbot job: building $NAME up-to-date"
 		fi
 		echo
+		echo -ne "buildbot job finished at: "
+		date
 	fi
 
 	cd "${BASE_DIR}"
