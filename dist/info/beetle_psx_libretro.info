@@ -1,6 +1,6 @@
 display_name = "PlayStation (Beetle PSX)"
 authors = "Ryphecha|Libretro"
-supported_extensions = "cue|toc|m3u|ccd|exe"
+supported_extensions = "cue|toc|m3u|ccd|pbp|exe"
 corename = "Beetle PSX"
 manufacturer = "Sony"
 categories = "Emulator"
