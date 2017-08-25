@@ -16,8 +16,10 @@ fi
 
 if [[ -z "$1" ]]; then
 WANT_CORES=" \
+	81 \
 	fbalpha2012 \
 	fceumm  \
+	fuse \
 	genesis_plus_gx \
 	handy \
 	mame2000 \
