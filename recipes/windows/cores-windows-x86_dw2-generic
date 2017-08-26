@@ -11,10 +11,12 @@ bsnes_cplusplus98 libretro-bsnes_cplusplus98 https://github.com/libretro/bsnes-l
 bsnes_mercury libretro-bsnes_mercury https://github.com/libretro/bsnes-mercury.git master PROJECT YES BSNES Makefile . accuracy 
 bsnes_mercury libretro-bsnes_mercury https://github.com/libretro/bsnes-mercury.git master PROJECT YES BSNES Makefile . balanced 
 bsnes_mercury libretro-bsnes_mercury https://github.com/libretro/bsnes-mercury.git master PROJECT YES BSNES Makefile . performance 
+cap32 libretro-cap32 https://github.com/libretro/libretro-cap32.git master PROJECT YES GENERIC Makefile . 
+chaigame libretro-chaigame https://github.com/RobLoach/ChaiGame.git master PROJECT YES GENERIC Makefile . 
 craft libretro-craft https://github.com/libretro/craft master PROJECT YES GENERIC Makefile.libretro . 
 crocods libretro-crocods https://github.com/libretro/libretro-crocods.git master SUBMODULE YES GENERIC Makefile . 
 desmume libretro-desmume https://github.com/libretro/desmume.git master PROJECT YES GENERIC Makefile.libretro desmume 
-dinothawr libretro-dinothawr https://github.com/libretro/Dinothawr.git master PROJECT YES GENERIC_ALT Makefile . 
+dinothawr libretro-dinothawr https://github.com/libretro/Dinothawr.git master PROJECT YES GENERIC Makefile . 
 dosbox libretro-dosbox https://github.com/libretro/dosbox-libretro.git master PROJECT YES GENERIC Makefile.libretro . 
 easyrpg libretro-easyrpg https://github.com/libretro/easyrpg-libretro.git master PROJECT YES GENERIC Makefile.libretro builds/libretro 
 fbalpha libretro-fbalpha https://github.com/libretro/fbalpha.git master PROJECT YES GENERIC makefile.libretro svn-current/trunk 
@@ -85,8 +87,8 @@ tgbdual libretro-tgbdual https://github.com/libretro/tgbdual-libretro.git master
 tyrquake libretro-tyrquake https://github.com/libretro/tyrquake.git master PROJECT YES GENERIC Makefile . 
 ume2014 libretro-ume2014 https://github.com/libretro/mame2014-libretro.git master PROJECT YES GENERIC Makefile . TARGET=ume PTR64=0 
 uzem libretro-uzem https://github.com/libretro/libretro-uzem.git master PROJECT YES GENERIC Makefile . 
-vba_next libretro-vba_next https://github.com/libretro/vba-next.git master PROJECT YES GENERIC_ALT Makefile.libretro . 
-vbam libretro-vbam https://github.com/libretro/vbam-libretro.git master PROJECT YES GENERIC_ALT Makefile src/libretro 
+vba_next libretro-vba_next https://github.com/libretro/vba-next.git master PROJECT YES GENERIC Makefile.libretro . 
+vbam libretro-vbam https://github.com/libretro/vbam-libretro.git master PROJECT YES GENERIC Makefile src/libretro 
 vecx libretro-vecx  https://github.com/libretro/libretro-vecx.git master PROJECT YES GENERIC Makefile.libretro . 
 vice_x128 libretro-vice_x128 https://github.com/libretro/vice-libretro.git master PROJECT YES GENERIC Makefile . EMUTYPE=x128 
 vice_x64 libretro-vice_x64 https://github.com/libretro/vice-libretro.git master PROJECT YES GENERIC Makefile . 
