@@ -1,6 +1,6 @@
 display_name = "Sega MS/MD/CD/32X (PicoDrive)"
 authors = "notaz|fdave"
-supported_extensions = "bin|gen|smd|md|32x|cue|iso|sms"
+supported_extensions = "bin|gen|smd|md|32x|cue|iso|sms|68k"
 corename = "PicoDrive"
 manufacturer = "Sega"
 categories = "Emulator"
