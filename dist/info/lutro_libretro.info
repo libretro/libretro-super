@@ -1,4 +1,4 @@
-display_name = "LUA Engine (Lutro)"
+display_name = "Lua Engine (Lutro)"
 authors = "Higor Euripedes/Jean-Andre Santoni"
 supported_extensions = "lutro|lua"
 corename = "Lutro"
