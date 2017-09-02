@@ -145,7 +145,6 @@ include_core_gw
 
 # --- PPSSPP cores ---
 include_core_ppsspp
-include_core_psp1
 
 # --- Atari ProSystem 7800 emulator cores ---
 include_core_prosystem
