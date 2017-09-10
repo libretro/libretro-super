@@ -1,2 +1,3 @@
 nestopia libretro-nestopia https://github.com/libretro/nestopia.git master PROJECT YES GENERIC_JNI Makefile libretro/jni 
 quicknes libretro-quicknes https://github.com/libretro/QuickNES_Core.git master PROJECT YES GENERIC_JNI Makefile jni 
+bluemsx libretro-bluemsx-old https://github.com/libretro/blueMSX-libretro.git master PROJECT YES GENERIC_JNI Makefile jni 
