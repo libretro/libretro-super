@@ -822,6 +822,14 @@ libretro_nekop2_git_url="https://github.com/libretro/libretro-meowPC98.git"
 libretro_nekop2_build_subdir="libretro"
 libretro_nekop2_build_makefile="Makefile.libretro"
 
+include_core_np2kai() {
+	register_module core "np2kai" -theos_ios -ngc -ps3 -psp1 -qnx -wii
+}
+libretro_np2kai_name="Neko Project II"
+libretro_np2kai_git_url="https://github.com/AZO234/NP2kai.git"
+libretro_np2kai_build_subdir="sdl2"
+libretro_np2kai_build_makefile="Makefile.libretro"
+
 include_core_px68k() {
 	register_module core "px68k" -theos_ios -ngc -ps3 -psp1 -qnx -wii
 }
