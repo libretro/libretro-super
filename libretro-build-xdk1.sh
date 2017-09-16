@@ -92,9 +92,10 @@ else
 	#build_libretro_fba
 	build_libretro_vba_next
 	build_libretro_fceumm
+	build_libretro_tgbdual
 	#build_libretro_gambatte
 	#build_libretro_nx
-	#build_libretro_prboom
+	build_libretro_prboom
 	build_libretro_nestopia
 	#build_libretro_tyrquake
 fi
