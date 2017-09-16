@@ -56,6 +56,10 @@ else
 	build_libretro_nx
 	# O2EM - not tested yet - could be endian unsafe
 	#build_libretro_o2em
+	# PocketCDG - not tested yet - could be endian unsafe
+	#build_libretro_pocketcdg
+	# PokeMini - not tested yet - could be endian unsafe
+	#build_libretro_pokemini
 	# Prosystem - not tested yet - could be endian unsafe
 	#build_libretro_prosystem
 	build_libretro_prboom

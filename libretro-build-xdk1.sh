@@ -98,6 +98,8 @@ else
 	#build_libretro_gambatte
 	#build_libretro_nx
 	build_libretro_o2em
+	build_libretro_pocketcdg
+	build_libretro_pokemini
 	build_libretro_prosystem
 	build_libretro_stella
 	build_libretro_prboom
