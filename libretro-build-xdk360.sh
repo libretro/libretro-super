@@ -36,6 +36,8 @@ source $BASE_DIR/libretro-build-common-xdk.sh
 if [ $1 ]; then
 	$1
 else
+	# 2048 - not tested yet - could be endian unsafe
+	#build_libretro_2048
 	# 4DO - not tested yet - could be endian unsafe
 	#build_libretro_4do
 	#build_libretro_beetle_lynx
