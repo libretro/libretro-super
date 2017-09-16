@@ -53,6 +53,8 @@ else
 	build_libretro_fceumm
 	build_libretro_gambatte
 	build_libretro_nx
+	# O2EM - not tested yet - could be endian unsafe
+	#build_libretro_o2em
 	build_libretro_prboom
 	build_libretro_stella
 	build_libretro_quicknes
