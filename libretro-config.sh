@@ -531,6 +531,15 @@ case "$platform" in
 		AR="$DEVKITPPC/bin/powerpc-eabi-ar$BINARY_EXT"
 		;;
 
+	xbox360)
+		DIST_DIR="xbox360"
+		FORMAT_EXT=a
+		FORMAT_COMPILER_TARGET=xbox360_msvc2010
+		FORMAT_COMPILER_TARGET_ALT=xbox360_msvc2010
+		FORMAT=_xdk360
+
+		;;
+
 	wiiu)
 		DIST_DIR="wiiu"
 		FORMAT_EXT=a
