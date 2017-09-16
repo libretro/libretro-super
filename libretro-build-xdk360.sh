@@ -62,4 +62,6 @@ else
 	build_libretro_nestopia
 	#build_libretro_tyrquake
 	#build_libretro_mame078
+	# Vecx - not tested yet - could be endian unsafe
+	#build_libretro_vecx
 fi

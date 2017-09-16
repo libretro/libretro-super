@@ -102,4 +102,5 @@ else
 	build_libretro_prboom
 	build_libretro_nestopia
 	#build_libretro_tyrquake
+	build_libretro_vecx
 fi
