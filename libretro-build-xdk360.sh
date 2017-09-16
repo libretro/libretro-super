@@ -38,7 +38,7 @@ if [ $1 ]; then
 else
 	#build_libretro_beetle_lynx
 	#build_libretro_beetle_gba
-	#build_libretro_beetle_ngp
+	build_libretro_beetle_ngp
 	#build_libretro_beetle_pce_fast
 	#build_libretro_beetle_supergrafx
 	#build_libretro_beetle_pcfx
