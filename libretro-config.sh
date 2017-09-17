@@ -531,6 +531,19 @@ case "$platform" in
 		AR="$DEVKITPPC/bin/powerpc-eabi-ar$BINARY_EXT"
 		;;
 
+	xbox1)
+		DIST_DIR="xbox1"
+		FORMAT_EXT=lib
+		FORMAT_COMPILER_TARGET=xbox1_msvc2010
+		FORMAT_COMPILER_TARGET_ALT=xbox1_msvc2010
+		FORMAT=_xdk1
+		BINARY_EXT=.exe
+
+		CC="cl.exe"
+		CXX="cl.exe"
+
+		;;
+
 	xbox360)
 		DIST_DIR="xbox360"
 		FORMAT_EXT=lib
