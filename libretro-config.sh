@@ -537,6 +537,10 @@ case "$platform" in
 		FORMAT_COMPILER_TARGET=xbox360_msvc2010
 		FORMAT_COMPILER_TARGET_ALT=xbox360_msvc2010
 		FORMAT=_xdk360
+		BINARY_EXT=.exe
+
+		CC="$XEDK/bin/win32/cl.exe"
+		CXX="$XEDK/bin/win32/cl.exe"
 
 		;;
 
