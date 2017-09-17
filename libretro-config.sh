@@ -534,8 +534,8 @@ case "$platform" in
 	xbox1)
 		DIST_DIR="xbox1"
 		FORMAT_EXT=lib
-		FORMAT_COMPILER_TARGET=xbox1_msvc2010
-		FORMAT_COMPILER_TARGET_ALT=xbox1_msvc2010
+		FORMAT_COMPILER_TARGET=xbox1_msvc2003
+		FORMAT_COMPILER_TARGET_ALT=xbox1_msvc2003
 		FORMAT=_xdk1
 		BINARY_EXT=.exe
 
