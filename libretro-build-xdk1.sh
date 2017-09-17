@@ -14,4 +14,4 @@ else
 	fi
 fi
 
-platform=xbox ${BASE_DIR}/libretro-build.sh $@
+platform=xbox1 ${BASE_DIR}/libretro-build.sh $@
