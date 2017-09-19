@@ -29,7 +29,9 @@ if [ "$HOST_CC" ]; then
 fi
 
 if [ -z "$MAKE" ]; then
-	if uname -s | grep -i MINGW > /dev/null 2>&1; then
+	if uname -o | grep -i Msys > /dev/null 2>&1; then
+		MAKE=make
+	elif uname -s | grep -i MINGW > /dev/null 2>&1; then
 		MAKE=mingw32-make
 	else
 		if type gmake > /dev/null 2>&1; then
