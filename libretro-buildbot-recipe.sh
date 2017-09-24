@@ -876,7 +876,7 @@ while read line; do
 					BUILD="YES"
 				fi
 				
-				if [ "${PREVCORE}" = "bsnes-mercury" -a "${PREVBUILD}" = "YES" -a "${COMMAND}" = "BSNES" ]; then
+				if [ "${PREVCORE}" = "bsnes_mercury" -a "${PREVBUILD}" = "YES" -a "${COMMAND}" = "BSNES" ]; then
 					FORCE="YES"
 					BUILD="YES"
 				fi
