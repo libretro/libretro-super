@@ -8,9 +8,9 @@ bsnes libretro-bsnes https://github.com/libretro/bsnes-libretro.git libretro PRO
 bsnes libretro-bsnes https://github.com/libretro/bsnes-libretro.git libretro PROJECT YES BSNES Makefile . balanced 
 bsnes libretro-bsnes https://github.com/libretro/bsnes-libretro.git libretro PROJECT YES BSNES Makefile . performance 
 bsnes_cplusplus98 libretro-bsnes_cplusplus98 https://github.com/libretro/bsnes-libretro-cplusplus98.git master PROJECT YES BSNES Makefile . cpp98 
-bsnes_mercury libretro-bsnes_mercury https://github.com/libretro/bsnes-mercury.git libretro PROJECT YES BSNES Makefile . accuracy 
-bsnes_mercury libretro-bsnes_mercury https://github.com/libretro/bsnes-mercury.git libretro PROJECT YES BSNES Makefile . balanced 
-bsnes_mercury libretro-bsnes_mercury https://github.com/libretro/bsnes-mercury.git libretro PROJECT YES BSNES Makefile . performance 
+bsnes_mercury libretro-bsnes_mercury https://github.com/libretro/bsnes-mercury.git master PROJECT YES BSNES Makefile . accuracy 
+bsnes_mercury libretro-bsnes_mercury https://github.com/libretro/bsnes-mercury.git master PROJECT YES BSNES Makefile . balanced 
+bsnes_mercury libretro-bsnes_mercury https://github.com/libretro/bsnes-mercury.git master PROJECT YES BSNES Makefile . performance 
 cap32 libretro-cap32 https://github.com/libretro/libretro-cap32.git master PROJECT YES GENERIC Makefile .
 chaigame libretro-chaigame https://github.com/RobLoach/ChaiGame.git master PROJECT YES GENERIC Makefile .
 citra libretro-citra https://github.com/libretro/citra.git master SUBMODULE YES CMAKE Makefile build -DENABLE_LIBRETRO=1 -DENABLE_SDL2=0 -DENABLE_QT=0 -DDISABLE_LIBPNG=1 -DCMAKE_BUILD_TYPE="Release" --target citra_libretro .. 
