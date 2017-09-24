@@ -2,9 +2,9 @@
 3dengine libretro64-3dengine  https://github.com/libretro/libretro-3dengine.git master PROJECT YES GENERIC_JNI Makefile jni 
 4do libretro64-4do https://github.com/libretro/4do-libretro.git master PROJECT YES GENERIC_JNI Makefile jni 
 bluemsx libretro64-bluemsx https://github.com/libretro/blueMSX-libretro.git master PROJECT YES GENERIC_JNI Makefile jni 
-bsnes libretro64-bsnes https://github.com/libretro/bsnes-libretro.git master PROJECT YES BSNES_JNI Makefile target-libretro/jni performance 
-bsnes libretro64-bsnes https://github.com/libretro/bsnes-libretro.git master PROJECT YES BSNES_JNI Makefile target-libretro/jni balanced
-bsnes libretro64-bsnes https://github.com/libretro/bsnes-libretro.git master PROJECT YES BSNES_JNI Makefile target-libretro/jni accuracy 
+bsnes libretro64-bsnes https://github.com/libretro/bsnes-libretro.git libretro PROJECT YES BSNES_JNI Makefile target-libretro/jni performance 
+bsnes libretro64-bsnes https://github.com/libretro/bsnes-libretro.git libretro PROJECT YES BSNES_JNI Makefile target-libretro/jni balanced
+bsnes libretro64-bsnes https://github.com/libretro/bsnes-libretro.git libretro PROJECT YES BSNES_JNI Makefile target-libretro/jni accuracy 
 bsnes_mercury libretro64-bsnes_mercury https://github.com/libretro/bsnes-mercury.git master PROJECT YES BSNES_JNI Makefile target-libretro/jni performance 
 bsnes_mercury libretro64-bsnes_mercury https://github.com/libretro/bsnes-mercury.git master PROJECT YES BSNES_JNI Makefile target-libretro/jni balanced 
 bsnes_mercury libretro64-bsnes_mercury https://github.com/libretro/bsnes-mercury.git master PROJECT YES BSNES_JNI Makefile target-libretro/jni accuracy 
