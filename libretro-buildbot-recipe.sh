@@ -866,12 +866,12 @@ while read line; do
 				FORCE_ORIG=$FORCE
 				OLDBUILD=$BUILD
 
-				if [ "${PREVCORE}" = *"bsnes"* -a "${PREVBUILD}" = "YES" -a "${COMMAND}" = *"BSNES"* ]; then
+				if [ "${PREVCORE}" = "bsnes" -a "${PREVBUILD}" = "YES" -a "${COMMAND}" = "BSNES" ]; then
 					FORCE="YES"
 					BUILD="YES"
 				fi
 
-				if [ "${PREVCORE}" = *"bsnes"* -a "${PREVBUILD}" = "YES" -a "${NAME}" = *"bsnes"* ]; then
+				if [ "${PREVCORE}" = "bsnes" -a "${PREVBUILD}" = "YES" -a "${COMMAND}" = "BSNES_JNI" ]; then
 					FORCE="YES"
 					BUILD="YES"
 				fi
