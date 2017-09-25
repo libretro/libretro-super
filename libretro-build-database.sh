@@ -252,7 +252,7 @@ build_libretro_databases() {
 	build_libretro_database "Nintendo - Family Computer Disk System" "rom.crc"
 	build_libretro_database "Nintendo - Game Boy" "rom.crc"
 	build_libretro_database "Nintendo - Game Boy Advance" "rom.crc"
-	build_libretro_database "Nintendo - Game Boy Advance (e-Cards)" "rom.crc"
+	build_libretro_database "Nintendo - e-Reader" "rom.crc"
 	build_libretro_database "Nintendo - Game Boy Color" "rom.crc"
 	build_libretro_database "Nintendo - GameCube" "rom.crc"
 	build_libretro_database "Nintendo - Nintendo 3DS" "rom.crc"
