@@ -1022,7 +1022,7 @@ while read line; do
 				echo "cloning repo $URL..."
 				git clone --depth=1 -b "$GIT_BRANCH" "$URL" "$DIR"
 				cd $DIR
-				git submodule update --init
+				git submodule update --init --recursive
 				BUILD="YES"
 			fi
 		cd $WORK
