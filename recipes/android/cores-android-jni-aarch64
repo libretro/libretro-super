@@ -57,7 +57,6 @@ pcsx_rearmed_interpreter libretro64-pcsx_rearmed_interpreter https://github.com/
 pocketcdg libretro64-pocketcdg https://github.com/libretro/libretro-pocketcdg.git master PROJECT YES GENERIC_JNI Makefile jni 
 picodrive libretro64-picodrive https://github.com/libretro/picodrive.git master SUBMODULE YES GENERIC_JNI Makefile.libretro jni 
 pokemini libretro64-pokemini https://github.com/libretro/PokeMini.git master PROJECT YES GENERIC_JNI Makefile jni 
-ppsspp libretro64-ppsspp https://github.com/libretro/ppsspp.git master SUBMODULE YES GENERIC_JNI Makefile.libretro libretro/jni 
 prboom libretro64-prboom  https://github.com/libretro/libretro-prboom.git master PROJECT YES GENERIC_JNI Makefile jni 
 prosystem libretro64-prosystem https://github.com/libretro/prosystem-libretro.git master PROJECT YES GENERIC_JNI Makefile jni 
 px68k libretro64-px68k https://github.com/libretro/px68k-libretro.git master PROJECT YES GENERIC_JNI Makefile.libretro libretro/jni 
