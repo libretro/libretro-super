@@ -1,6 +1,6 @@
 display_name = "PlayStation (Beetle PSX)"
 authors = "Mednafen Team"
-supported_extensions = "cue|toc|m3u|ccd|exe|pbp"
+supported_extensions = "cue|toc|m3u|ccd|exe|pbp|chd"
 corename = "Beetle PSX"
 manufacturer = "Sony"
 categories = "Emulator"

@@ -46,6 +46,7 @@ mednafen_pce_fast libretro-beetle_pce_fast https://github.com/libretro/beetle-pc
 mednafen_pcfx libretro-beetle_pcfx https://github.com/libretro/beetle-pcfx-libretro.git master PROJECT YES GENERIC Makefile . 
 mednafen_psx libretro-beetle_psx https://github.com/libretro/beetle-psx-libretro.git master PROJECT YES GENERIC Makefile . 
 mednafen_psx_hw libretro-beetle_psx_hw https://github.com/libretro/beetle-psx-libretro.git master PROJECT YES GENERIC Makefile . HAVE_HW=1 
+mednafen_saturn libretro-beetle_saturn https://github.com/libretro/beetle-saturn-libretro.git master PROJECT YES GENERIC Makefile . 
 mednafen_snes libretro-beetle_snes https://github.com/libretro/beetle-bsnes-libretro.git master PROJECT YES GENERIC Makefile . 
 mednafen_supergrafx libretro-beetle_supergrafx https://github.com/libretro/beetle-supergrafx-libretro.git master PROJECT YES GENERIC Makefile . 
 mednafen_vb libretro-beetle_vb https://github.com/libretro/beetle-vb-libretro.git master PROJECT YES GENERIC Makefile . 
@@ -57,6 +58,7 @@ parallel_n64 libretro-parallel_n64 https://github.com/libretro/parallel-n64.git 
 mrboom libretro-mrboom https://github.com/libretro/mrboom-libretro.git master PROJECT YES GENERIC Makefile . 
 nekop2 libretro-nekop2 https://github.com/libretro/libretro-meowPC98.git master PROJECT YES GENERIC Makefile.libretro libretro 
 nestopia libretro-nestopia https://github.com/libretro/nestopia.git master PROJECT YES GENERIC Makefile libretro 
+np2kai libretro-np2kai https://github.com/AZO234/NP2kai.git master PROJECT YES GENERIC Makefile.libretro sdl2 
 nxengine libretro-nxengine https://github.com/libretro/nxengine-libretro.git master PROJECT YES GENERIC Makefile . 
 o2em libretro-o2em https://github.com/libretro/libretro-o2em.git master PROJECT YES GENERIC Makefile . 
 openlara libretro-openlara https://github.com/libretro/OpenLara.git master PROJECT YES GENERIC Makefile src/platform/libretro 
@@ -64,7 +66,7 @@ pcsx_rearmed libretro-pcsx_rearmed https://github.com/libretro/pcsx_rearmed.git 
 picodrive libretro-picodrive https://github.com/libretro/picodrive.git master SUBMODULE YES GENERIC Makefile.libretro . 
 pocketcdg libretro-pocketcdg https://github.com/libretro/libretro-pocketcdg.git master SUBMODULE YES GENERIC Makefile . 
 pokemini libretro-pokemini https://github.com/libretro/PokeMini.git master PROJECT YES GENERIC Makefile . 
-ppsspp libretro-ppsspp https://github.com/libretro/ppsspp.git master SUBMODULE YES GENERIC_GL Makefile libretro 
+ppsspp libretro-ppsspp https://github.com/libretro/ppsspp.git master SUBMODULE YES CMAKE Makefile build -DLIBRETRO=ON -DCMAKE_BUILD_TYPE=Release ..
 prboom libretro-prboom  https://github.com/libretro/libretro-prboom.git master PROJECT YES GENERIC_ALT Makefile . 
 prosystem libretro-prosystem https://github.com/libretro/prosystem-libretro.git master PROJECT YES GENERIC Makefile . 
 puae libretro-uae https://github.com/libretro/libretro-uae.git master PROJECT YES GENERIC Makefile .  

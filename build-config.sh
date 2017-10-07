@@ -145,7 +145,6 @@ include_core_gw
 
 # --- PPSSPP cores ---
 include_core_ppsspp
-include_core_psp1
 
 # --- Atari ProSystem 7800 emulator cores ---
 include_core_prosystem
@@ -162,6 +161,7 @@ include_core_81
 
 # --- NEC PC-98 emulator cores ---
 include_core_nekop2
+include_core_np2kai
 
 # --- Sharp X-68000 emulator cores ---
 include_core_px68k

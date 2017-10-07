@@ -14,4 +14,4 @@ firmware_count = 1
 firmware0_desc = "disksys.rom (Family Computer Disk System BIOS)"
 firmware0_path = "disksys.rom"
 firmware0_opt = "false"
-notes = "(!) disksys.rom (md5): ca30b50f880eb660a320674ed365ef7a"
+notes = "(!) disksys.rom (md5): ca30b50f880eb660a320674ed365ef7a|Press Retropad L1 to switch disk side."

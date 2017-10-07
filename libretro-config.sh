@@ -531,6 +531,32 @@ case "$platform" in
 		AR="$DEVKITPPC/bin/powerpc-eabi-ar$BINARY_EXT"
 		;;
 
+	xbox1)
+		DIST_DIR="xbox1"
+		FORMAT_EXT=lib
+		FORMAT_COMPILER_TARGET=xbox1_msvc2003
+		FORMAT_COMPILER_TARGET_ALT=xbox1_msvc2003
+		FORMAT=_xdk1
+		BINARY_EXT=.exe
+
+		CC="cl.exe"
+		CXX="cl.exe"
+
+		;;
+
+	xbox360)
+		DIST_DIR="xbox360"
+		FORMAT_EXT=lib
+		FORMAT_COMPILER_TARGET=xbox360_msvc2010
+		FORMAT_COMPILER_TARGET_ALT=xbox360_msvc2010
+		FORMAT=_xdk360
+		BINARY_EXT=.exe
+
+		CC="cl.exe"
+		CXX="cl.exe"
+
+		;;
+
 	wiiu)
 		DIST_DIR="wiiu"
 		FORMAT_EXT=a
@@ -658,12 +684,52 @@ case "$platform" in
 					CXX="cl.exe"
 					CXX11="cl.exe"
 					;;
-				msvc2017_x64)
-					platform=windows_msvc2017_x64
+				msvc2017_desktop_x86)
+					platform=windows_msvc2017_desktop_x86
 					FORMAT_EXT="dll"
 					BINARY_EXT=".exe"
-					FORMAT_COMPILER_TARGET="windows_msvc2017_x64"
-					DIST_DIR="msvc2017_x64"
+					FORMAT_COMPILER_TARGET="windows_msvc2017_desktop_x86"
+					DIST_DIR="msvc2017_desktop_x86"
+					CC="cl.exe"
+					CXX="cl.exe"
+					CXX11="cl.exe"
+					;;
+				msvc2017_desktop_x64)
+					platform=windows_msvc2017_desktop_x64
+					FORMAT_EXT="dll"
+					BINARY_EXT=".exe"
+					FORMAT_COMPILER_TARGET="windows_msvc2017_desktop_x64"
+					DIST_DIR="msvc2017_desktop_x64"
+					CC="cl.exe"
+					CXX="cl.exe"
+					CXX11="cl.exe"
+					;;
+				msvc2017_uwp_x86)
+					platform=windows_msvc2017_uwp_x86
+					FORMAT_EXT="dll"
+					BINARY_EXT=".exe"
+					FORMAT_COMPILER_TARGET="windows_msvc2017_uwp_x86"
+					DIST_DIR="msvc2017_uwp_x86"
+					CC="cl.exe"
+					CXX="cl.exe"
+					CXX11="cl.exe"
+					;;
+				msvc2017_uwp_x64)
+					platform=windows_msvc2017_uwp_x64
+					FORMAT_EXT="dll"
+					BINARY_EXT=".exe"
+					FORMAT_COMPILER_TARGET="windows_msvc2017_uwp_x64"
+					DIST_DIR="msvc2017_uwp_x64"
+					CC="cl.exe"
+					CXX="cl.exe"
+					CXX11="cl.exe"
+					;;
+				msvc2017_uwp_arm)
+					platform=windows_msvc2017_uwp_arm
+					FORMAT_EXT="dll"
+					BINARY_EXT=".exe"
+					FORMAT_COMPILER_TARGET="windows_msvc2017_uwp_arm"
+					DIST_DIR="msvc2017_uwp_arm"
 					CC="cl.exe"
 					CXX="cl.exe"
 					CXX11="cl.exe"

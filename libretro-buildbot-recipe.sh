@@ -306,14 +306,17 @@ build_libretro_generic_makefile() {
 	fi
 
 	if [ "${COMMAND}" = "CMAKE" ]; then
+		if [ "${PLATFORM}" = "android" ]; then
+			EXTRAARGS="-DCMAKE_SYSTEM_NAME=Android -DCMAKE_SYSTEM_VERSION=${API_LEVEL} -DCMAKE_ANDROID_ARCH_ABI=${ABI_OVERRIDE} -DCMAKE_ANDROID_NDK=${NDK_ROOT}"
+		fi
 		if [ -z "${ARGS}" ]; then
 			echo "BUILD CMD: ${CMAKE}" 2>&1 | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}.log
 			${CMAKE} | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}.log
 			echo "BUILD CMD: ${HELPER} ${MAKE} -f ${MAKEFILE} -j${JOBS}" 2>&1 | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}.log
 			${HELPER} ${MAKE} -f ${MAKEFILE} platform=${PLATFORM} -j${JOBS} 2>&1 | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}.log
 		else
-			echo "BUILD CMD: ${CMAKE} ${ARGS}" 2>&1 | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}.log
-			echo ${ARGS} | xargs ${CMAKE} 2>&1 | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}.log
+			echo "BUILD CMD: ${CMAKE} ${EXTRAARGS} ${ARGS}" 2>&1 | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}.log
+			echo ${EXTRAARGS} ${ARGS} | xargs ${CMAKE} 2>&1 | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}.log
 			echo "BUILD CMD: ${HELPER} ${MAKE} -f ${MAKEFILE} -j${JOBS}" 2>&1 | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}.log
 			${HELPER} ${MAKE} -f ${MAKEFILE} -j${JOBS} 2>&1 | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}.log
 		fi
@@ -707,6 +710,9 @@ while read line; do
 	SUBDIR=`echo $line | cut -f 9 -d " "`
 
 	if [ "${ENABLED}" = "YES" ]; then
+		echo -ne "buildbot job started at: "
+		date
+		echo
 		echo "buildbot job: $jobid processing $NAME"
 		echo --------------------------------------------------
 		echo Variables:
@@ -868,12 +874,17 @@ while read line; do
 					BUILD="YES"
 				fi
 
-				if [ "${PREVCORE}" = "bsnes" -a "${PREVBUILD}" = "YES" -a "${NAME}" = "bsnes" ]; then
+				if [ "${PREVCORE}" = "bsnes" -a "${PREVBUILD}" = "YES" -a "${COMMAND}" = "BSNES_JNI" ]; then
+					FORCE="YES"
+					BUILD="YES"
+				fi
+				
+				if [ "${PREVCORE}" = "bsnes_mercury" -a "${PREVBUILD}" = "YES" -a "${COMMAND}" = "BSNES" ]; then
 					FORCE="YES"
 					BUILD="YES"
 				fi
 
-				if [ "${PREVCORE}" = "bsnes" -a "${PREVBUILD}" = "YES" -a "${NAME}" = "bsnes-mercury" ]; then
+				if [ "${PREVCORE}" = "bsnes_mercury" -a "${PREVBUILD}" = "YES" -a "${COMMAND}" = "BSNES_JNI" ]; then
 					FORCE="YES"
 					BUILD="YES"
 				fi
@@ -1011,7 +1022,7 @@ while read line; do
 				echo "cloning repo $URL..."
 				git clone --depth=1 -b "$GIT_BRANCH" "$URL" "$DIR"
 				cd $DIR
-				git submodule update --init
+				git submodule update --init --recursive
 				BUILD="YES"
 			fi
 		cd $WORK
@@ -1044,6 +1055,8 @@ while read line; do
 			echo "buildbot job: building $NAME up-to-date"
 		fi
 		echo
+		echo -ne "buildbot job finished at: "
+		date
 	fi
 
 	cd "${BASE_DIR}"
@@ -1637,19 +1650,6 @@ if [ "${PLATFORM}" = "MINGW64" ] || [ "${PLATFORM}" = "MINGW32" ] || [ "${PLATFO
 			mkdir -p windows/system
 			mkdir -p windows/screenshots
 
-
-cat << EOF > windows/retroarch.cfg
-dpi_override_value = "160"
-input_joypad_driver = "xinput"
-input_osk_overlay_enable = "false"
-load_dummy_on_core_shutdown = "false"
-menu_collapse_subgroups_enable = "true"
-video_driver = "gl"
-system_directory = ":\system"
-savefile_directory = ":\saves"
-savestate_directory = ":\states"
-EOF
-
 			cp -v retroarch.default.cfg windows/
 			cp -v tools/*.exe windows/
 			cp -rf libretro-common/audio/dsp_filters/*.dll windows/filters/audio
@@ -1693,7 +1693,7 @@ if [ "${PLATFORM}" = "psp1" ] && [ "${RA}" = "YES" ]; then
 		cp -v $RARCH_DIST_DIR/*.a .
 
 		time sh ./dist-cores.sh psp1 2>&1 | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_${PLATFORM}.log
-		if [ $? -eq 0 ]; then
+		if [ ${PIPESTATUS[0]} -eq 0 ]; then
 			MESSAGE="retroarch:	[status: done] [$jobid]"
 			curl -X POST -d type="finish" -d index="$ENTRY_ID" -d status="done" http://buildbot.fiveforty.net/build_entry/
 			touch $TMPDIR/built-frontend
@@ -1743,7 +1743,7 @@ if [ "${PLATFORM}" == "wii" ] && [ "${RA}" == "YES" ]; then
 		cp -v $RARCH_DIST_DIR/*.a .
 
 		time sh ./dist-cores.sh wii 2>&1 | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_${PLATFORM}.log
-		if [ $? -eq 0 ];
+		if [ ${PIPESTATUS[0]} -eq 0 ];
 		then
 			MESSAGE="retroarch:	[status: done] [$jobid]"
 			curl -X POST -d type="finish" -d index="$ENTRY_ID" -d status="done" http://buildbot.fiveforty.net/build_entry/
@@ -1796,7 +1796,7 @@ if [ "${PLATFORM}" == "wiiu" ] && [ "${RA}" == "YES" ]; then
 		cp -v ../media/assets/pkg/wiiu/*.png .
 
 		time sh ./wiiu-cores.sh 2>&1 | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_${PLATFORM}.log
-		if [ $? -eq 0 ];
+		if [ ${PIPESTATUS[0]} -eq 0 ];
 		then
 			MESSAGE="retroarch:	[status: done] [$jobid]"
 			curl -X POST -d type="finish" -d index="$ENTRY_ID" -d status="done" http://buildbot.fiveforty.net/build_entry/
@@ -1840,7 +1840,7 @@ if [ "${PLATFORM}" == "ngc" ] && [ "${RA}" == "YES" ]; then
 		cp -v $RARCH_DIST_DIR/*.a .
 
 		time sh ./dist-cores.sh ngc 2>&1 | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_${PLATFORM}.log
-		if [ $? -eq 0 ];
+		if [ ${PIPESTATUS[0]} -eq 0 ];
 		then
 			MESSAGE="retroarch:	[status: done] [$jobid]"
 			curl -X POST -d type="finish" -d index="$ENTRY_ID" -d status="done" http://buildbot.fiveforty.net/build_entry/
@@ -1890,7 +1890,7 @@ if [ "${PLATFORM}" == "ctr" ] && [ "${RA}" == "YES" ]; then
 		cp -v $RARCH_DIST_DIR/*.a .
 
 		time sh ./dist-cores.sh ctr 2>&1 | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_${PLATFORM}.log
-		if [ $? -eq 0 ]; then
+		if [ ${PIPESTATUS[0]} -eq 0 ]; then
 			MESSAGE="retroarch:	[status: done] [$jobid]"
 			curl -X POST -d type="finish" -d index="$ENTRY_ID" -d status="done" http://buildbot.fiveforty.net/build_entry/
 			echo $MESSAGE
@@ -1959,7 +1959,7 @@ if [ "${PLATFORM}" == "vita" ] && [ "${RA}" == "YES" ]; then
 		cp -v $RARCH_DIST_DIR/arm/*.a .
 
 		time sh ./dist-cores.sh vita 2>&1 | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_${PLATFORM}.log
-		if [ $? -eq 0 ]; then
+		if [ ${PIPESTATUS[0]} -eq 0 ]; then
 			MESSAGE="retroarch:	[status: done] [$jobid]"
 			curl -X POST -d type="finish" -d index="$ENTRY_ID" -d status="done" http://buildbot.fiveforty.net/build_entry/
 			echo $MESSAGE
@@ -2008,7 +2008,7 @@ if [ "${PLATFORM}" == "ps3" ] && [ "${RA}" == "YES" ]; then
 		cp -v $RARCH_DIST_DIR/*.a .
 
 		time sh ./dist-cores.sh dex-ps3 2>&1 | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_${PLATFORM}_dex.log
-		if [ $? -eq 0 ]; then
+		if [ ${PIPESTATUS[0]} -eq 0 ]; then
 			MESSAGE="retroarch:	[status: done] [$jobid]"
 			curl -X POST -d type="finish" -d index="$ENTRY_ID" -d status="done" http://buildbot.fiveforty.net/build_entry/
 			echo $MESSAGE
@@ -2025,7 +2025,7 @@ if [ "${PLATFORM}" == "ps3" ] && [ "${RA}" == "YES" ]; then
 		echo buildbot job: $MESSAGE
 		ENTRY_ID=`curl -X POST -d type="start" -d master_log="$MASTER_LOG_ID" -d platform="$jobid" -d name="retroarch" http://buildbot.fiveforty.net/build_entry/`
 		time sh ./dist-cores.sh cex-ps3 2>&1 | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_${PLATFORM}_cex.log
-		if [ $? -eq 0 ]; then
+		if [ ${PIPESTATUS[0]} -eq 0 ]; then
 			MESSAGE="retroarch:	[status: done] [$jobid]"
 			curl -X POST -d type="finish" -d index="$ENTRY_ID" -d status="done" http://buildbot.fiveforty.net/build_entry/
 			echo $MESSAGE
@@ -2042,7 +2042,7 @@ if [ "${PLATFORM}" == "ps3" ] && [ "${RA}" == "YES" ]; then
 		echo buildbot job: $MESSAGE
 		ENTRY_ID=`curl -X POST -d type="start" -d master_log="$MASTER_LOG_ID" -d platform="$jobid" -d name="retroarch" http://buildbot.fiveforty.net/build_entry/`
 		time sh ./dist-cores.sh ode-ps3 2>&1 | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_${PLATFORM}_ode.log
-		if [ $? -eq 0 ]; then
+		if [ ${PIPESTATUS[0]} -eq 0 ]; then
 			MESSAGE="retroarch:	[status: done] [$jobid]"
 			curl -X POST -d type="finish" -d index="$ENTRY_ID" -d status="done" http://buildbot.fiveforty.net/build_entry/
 			echo $MESSAGE
@@ -2084,7 +2084,7 @@ if [ "${PLATFORM}" = "emscripten" ] && [ "${RA}" = "YES" ]; then
 
 		echo "BUILD CMD $HELPER ./dist-cores.sh emscripten" &> $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_${PLATFORM}.log
 		$HELPER ./dist-cores.sh emscripten 2>&1 | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_${PLATFORM}.log
-		if [ $? -eq 0 ]; then
+		if [ ${PIPESTATUS[0]} -eq 0 ]; then
 			MESSAGE="retroarch:	[status: done] [$jobid]"
 			curl -X POST -d type="finish" -d index="$ENTRY_ID" -d status="done" http://buildbot.fiveforty.net/build_entry/
 			echo $MESSAGE

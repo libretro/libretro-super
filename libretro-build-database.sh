@@ -181,6 +181,14 @@ build_libretro_database() {
 			COMMAND+=' "${LIBRETRODATABASE_META_DAT_DIR}/mame/${1}.dat"'
 		fi
 
+		#Check for Final Burn Alpha folders
+		if [ -f "${LIBRETRODATABASE_META_DAT_DIR}/fba-merged/${1}.dat" ]; then
+			COMMAND+=' "${LIBRETRODATABASE_META_DAT_DIR}/fba-merged/${1}.dat"'
+		fi
+		if [ -f "${LIBRETRODATABASE_META_DAT_DIR}/fba-split/${1}.dat" ]; then
+			COMMAND+=' "${LIBRETRODATABASE_META_DAT_DIR}/fba-split/${1}.dat"'
+		fi
+
 		#Check if meta libretro-dats folder is there
 		if [ -f "${LIBRETRODATABASE_META_DAT_DIR}/libretro-dats/${1}.dat" ]; then
 			COMMAND+=' "${LIBRETRODATABASE_META_DAT_DIR}/libretro-dats/${1}.dat"'
@@ -214,6 +222,7 @@ build_libretro_databases() {
 	build_libretro_database "Lutro" "rom.name"
 	build_libretro_database "ChaiGame" "rom.crc"
 	build_libretro_database "Nintendo - Super Nintendo Entertainment System" "rom.crc"
+	build_libretro_database "Nintendo - Super Nintendo Entertainment System Hacks" "rom.crc"
 	build_libretro_database "Sony - PlayStation" "rom.serial"
 	build_libretro_database "Atari - Jaguar" "rom.crc"
 	build_libretro_database "Nintendo - Nintendo 64" "rom.crc"
@@ -252,7 +261,7 @@ build_libretro_databases() {
 	build_libretro_database "Nintendo - Family Computer Disk System" "rom.crc"
 	build_libretro_database "Nintendo - Game Boy" "rom.crc"
 	build_libretro_database "Nintendo - Game Boy Advance" "rom.crc"
-	build_libretro_database "Nintendo - Game Boy Advance (e-Cards)" "rom.crc"
+	build_libretro_database "Nintendo - e-Reader" "rom.crc"
 	build_libretro_database "Nintendo - Game Boy Color" "rom.crc"
 	build_libretro_database "Nintendo - GameCube" "rom.crc"
 	build_libretro_database "Nintendo - Nintendo 3DS" "rom.crc"
@@ -270,6 +279,7 @@ build_libretro_databases() {
 	build_libretro_database "The 3DO Company - 3DO" "rom.crc"
 	build_libretro_database "Philips - Videopac+" "rom.crc"
 	build_libretro_database "RCA - Studio II" "rom.crc"
+	build_libretro_database "Rick Dangerous" "rom.crc"
 	build_libretro_database "Sega - 32X" "rom.crc"
 	build_libretro_database "Sega - Dreamcast" "rom.crc"
 	build_libretro_database "Sega - Game Gear" "rom.crc"
@@ -309,7 +319,7 @@ build_libretro_databases() {
 	build_libretro_database "MAME 2010" "rom.crc"
 	build_libretro_database "MAME 2014" "rom.crc"
 	build_libretro_database "MAME 2016" "rom.crc"
-	build_libretro_database "FB Alpha - Arcade Games" "rom.name"
+	build_libretro_database "FB Alpha - Arcade Games" "rom.crc"
 	build_libretro_database "DOOM" "rom.crc"
 	build_libretro_database "Cave Story" "rom.crc"
 	build_libretro_database "Quake1" "rom.crc"
