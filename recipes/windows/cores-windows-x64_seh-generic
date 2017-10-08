@@ -36,6 +36,7 @@ gpsp libretro-gpsp https://github.com/libretro/gpsp.git master PROJECT YES GENER
 gw libretro-gw https://github.com/libretro/gw-libretro.git master PROJECT YES GENERIC Makefile . 
 handy libretro-handy https://github.com/libretro/libretro-handy.git master PROJECT YES GENERIC Makefile . 
 hatari libretro-hatari https://github.com/libretro/hatari.git master PROJECT YES GENERIC Makefile.libretro . 
+higan_sfc libretro-higan https://gitlab.com/higan/higan.git libretro PROJECT YES HIGAN GNUmakefile higan target=libretro binary=library 
 lutro libretro-lutro https://github.com/libretro/libretro-lutro master PROJECT YES GENERIC Makefile . 
 mame libretro-mame https://github.com/libretro/mame.git master PROJECT YES GENERIC Makefile.libretro . PTR64=1 
 mame2000 libretro-mame2000 https://github.com/libretro/mame2000-libretro.git master PROJECT YES GENERIC Makefile . 
