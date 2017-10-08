@@ -58,7 +58,6 @@ pcsx_rearmed_interpreter libretro-pcsx_rearmed_interpreter https://github.com/li
 pocketcdg libretro-pocketcdg https://github.com/libretro/libretro-pocketcdg.git master PROJECT YES GENERIC_JNI Makefile jni 
 picodrive libretro-picodrive https://github.com/libretro/picodrive.git master SUBMODULE YES GENERIC_JNI Makefile.libretro jni 
 pokemini libretro-pokemini https://github.com/libretro/PokeMini.git master PROJECT YES GENERIC_JNI Makefile jni 
-ppsspp libretro-ppsspp https://github.com/libretro/ppsspp.git master SUBMODULE YES GENERIC_JNI Makefile.libretro libretro/jni 
 prboom libretro-prboom  https://github.com/libretro/libretro-prboom.git master PROJECT YES GENERIC_JNI Makefile jni 
 prosystem libretro-prosystem https://github.com/libretro/prosystem-libretro.git master PROJECT YES GENERIC_JNI Makefile jni 
 px68k libretro-px68k https://github.com/libretro/px68k-libretro.git master PROJECT YES GENERIC_JNI Makefile.libretro libretro/jni 
@@ -74,4 +73,3 @@ xrick libretro-xrick https://github.com/libretro/xrick-libretro.git master PROJE
 yabause libretro-yabause https://github.com/libretro/yabause.git master PROJECT YES GENERIC_JNI Makefile libretro/jni 
 uzem libretro-uzem https://github.com/libretro/libretro-uzem.git master PROJECT YES GENERIC_JNI Makefile jni 
 puae libretro-puae  https://github.com/libretro/libretro-uae.git master PROJECT YES GENERIC_JNI Makefile jni 
-ppsspp libretro-ppsspp-cmake-v7a https://github.com/webgeek1234/ppsspp.git master SUBMODULE YES CMAKE Makefile build -DLIBRETRO=ON -DCMAKE_SYSTEM_NAME=Android -DCMAKE_SYSTEM_VERSION=9  -DCMAKE_ANDROID_ARCH_ABI=armeabi-v7a -DCMAKE_ANDROID_NDK=${NDK_ROOT}  -DCMAKE_ANDROID_NDK_TOOLCHAIN_VERSION=clang  -DCMAKE_ANDROID_STL_TYPE=c++_static -DCMAKE_BUILD_TYPE=Release .. 
