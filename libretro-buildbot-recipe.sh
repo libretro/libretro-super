@@ -705,6 +705,8 @@ build_libretro_higan() {
 		fi
 	fi
 
+   unset $platform
+
 	echo -------------------------------------------------- 2>&1 | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PROFILE}_${PLATFORM}.log
 	echo "BUILD CMD: ${HELPER} ${MAKE} -f ${MAKEFILE} compiler=${BSNESCOMPILER} ${ARGS} -j${JOBS}" 2>&1 | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PROFILE}_${PLATFORM}.log
 	${HELPER} ${MAKE} -f ${MAKEFILE} compiler=${BSNESCOMPILER} ${ARGS} -j${JOBS} 2>&1 | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PROFILE}_${PLATFORM}.log
