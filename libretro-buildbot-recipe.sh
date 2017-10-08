@@ -707,6 +707,8 @@ build_libretro_higan() {
 
    unset $platform
    unset $PLATFORM
+   platform=""
+   PLATFORM=""
 
 	echo -------------------------------------------------- 2>&1 | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PROFILE}_${PLAT}.log
 	echo "BUILD CMD: ${HELPER} ${MAKE} -f ${MAKEFILE} compiler=${BSNESCOMPILER} ${ARGS} -j${JOBS}" 2>&1 | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PROFILE}_${PLAT}.log
