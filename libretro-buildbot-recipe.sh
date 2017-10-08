@@ -685,18 +685,18 @@ build_libretro_higan() {
 	DIR=$2
    SUBDIR=$3
 	MAKEFILE=$4
-   PLATFORM=$5
+   PLAT=$5
 	BSNESCOMPILER=$7
    ARGS=$8
 
 	ENTRY_ID=`curl -X POST -d type="start" -d master_log="$MASTER_LOG_ID" -d platform="$jobid" -d name="$NAME" http://buildbot.fiveforty.net/build_entry/`
 
 	cd $DIR/$SUBDIR
-	echo -------------------------------------------------- 2>&1 | tee $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PROFILE}_${PLATFORM}.log
+	echo -------------------------------------------------- 2>&1 | tee $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PROFILE}_${PLAT}.log
 	if [ -z "${NOCLEAN}" ]; then
 
-		rm -f obj/*.{o,"${FORMAT_EXT}"} 2>&1 | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PROFILE}_${PLATFORM}.log
-		rm -f out/*.{o,"${FORMAT_EXT}"} 2>&1 | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PROFILE}_${PLATFORM}.log
+		rm -f obj/*.{o,"${FORMAT_EXT}"} 2>&1 | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PROFILE}_${PLAT}.log
+		rm -f out/*.{o,"${FORMAT_EXT}"} 2>&1 | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PROFILE}_${PLAT}.log
 
 		if [ $? -eq 0 ]; then
 			echo buildbot job: $jobid $1 cleanup success!
@@ -706,13 +706,14 @@ build_libretro_higan() {
 	fi
 
    unset $platform
+   unset $PLATFORM
 
-	echo -------------------------------------------------- 2>&1 | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PROFILE}_${PLATFORM}.log
-	echo "BUILD CMD: ${HELPER} ${MAKE} -f ${MAKEFILE} compiler=${BSNESCOMPILER} ${ARGS} -j${JOBS}" 2>&1 | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PROFILE}_${PLATFORM}.log
-	${HELPER} ${MAKE} -f ${MAKEFILE} compiler=${BSNESCOMPILER} ${ARGS} -j${JOBS} 2>&1 | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PROFILE}_${PLATFORM}.log
+	echo -------------------------------------------------- 2>&1 | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PROFILE}_${PLAT}.log
+	echo "BUILD CMD: ${HELPER} ${MAKE} -f ${MAKEFILE} compiler=${BSNESCOMPILER} ${ARGS} -j${JOBS}" 2>&1 | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PROFILE}_${PLAT}.log
+	${HELPER} ${MAKE} -f ${MAKEFILE} compiler=${BSNESCOMPILER} ${ARGS} -j${JOBS} 2>&1 | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PROFILE}_${PLAT}.log
 
-	echo "COPY CMD cp -fv" "out/${NAME}_${PROFILE}_libretro${FORMAT}.${FORMAT_EXT}" $RARCH_DIST_DIR/${NAME}_${PROFILE}_libretro${FORMAT}${LIBSUFFIX}.${FORMAT_EXT} 2>&1 | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PROFILE}_${PLATFORM}.log
-   cp -fv "out/${NAME}_libretro${FORMAT}.${FORMAT_EXT}" $RARCH_DIST_DIR/${NAME}_libretro${FORMAT}${LIBSUFFIX}.${FORMAT_EXT} 2>&1 | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PROFILE}_${PLATFORM}.log
+	echo "COPY CMD cp -fv" "out/${NAME}_${PROFILE}_libretro${FORMAT}.${FORMAT_EXT}" $RARCH_DIST_DIR/${NAME}_${PROFILE}_libretro${FORMAT}${LIBSUFFIX}.${FORMAT_EXT} 2>&1 | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PROFILE}_${PLAT}.log
+   cp -fv "out/${NAME}_libretro${FORMAT}.${FORMAT_EXT}" $RARCH_DIST_DIR/${NAME}_libretro${FORMAT}${LIBSUFFIX}.${FORMAT_EXT} 2>&1 | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PROFILE}_${PLAT}.log
 	cp -fv "out/${NAME}_libretro${FORMAT}.${FORMAT_EXT}" $RARCH_DIST_DIR/${NAME}_libretro${FORMAT}${LIBSUFFIX}.${FORMAT_EXT}
 
 
@@ -720,7 +721,7 @@ build_libretro_higan() {
 		MESSAGE="$1-${PROFILE}:	[status: done] [$jobid]"
 		curl -X POST -d type="finish" -d index="$ENTRY_ID" -d status="done" http://buildbot.fiveforty.net/build_entry/
 	else
-		ERROR=$TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PROFILE}_${PLATFORM}.log
+		ERROR=$TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PROFILE}_${PLAT}.log
 		gzip -9fk $ERROR
 		HASTE=`curl -X POST http://p.0bl.net/ --data-binary @${ERROR}.gz`
 		MESSAGE="$1-${PROFILE}:	[status: fail] [$jobid] LOG: $HASTE"
