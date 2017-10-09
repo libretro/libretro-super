@@ -157,7 +157,7 @@ if [ "${CORE_JOB}" == "YES" ]; then
 	if [ -z "$CXX" ]; then
 		if [ $FORMAT_COMPILER_TARGET = "osx" ]; then
 			CXX=c++
-			CXX11="clang++ -std=c++11 -stdlib=libc++"
+			CXX11=clang++
 		elif uname -s | grep -i MINGW32 > /dev/null 2>&1; then
 			CXX=mingw32-g++f
 			CXX11=mingw32-g++
