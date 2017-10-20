@@ -275,8 +275,8 @@ buildbot_handle_message() {
 	echo buildbot job: $MESSAGE
 	buildbot_log "$MESSAGE"
 
-	if [ "$FAIL_ON_ERROR" = "1" ]; then
-		return 1
+	if [ "$EXIT_ON_ERROR" = "1" ]; then
+		exit 1
 	fi
 }
 
