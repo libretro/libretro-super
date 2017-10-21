@@ -2,7 +2,9 @@
 # vim: set ts=3 sw=3 noet ft=sh : bash
 # ----- setup -----
 
-LOGDATE=`date +%Y-%m-%d`
+# This will use an overridden value from the command-line if provided, otherwise just use the current date
+LOGDATE=${LOGDATE:-`date +%Y-%m-%d`}
+
 ORIGPATH=$PATH
 WORK=$PWD
 RECIPE=$1
@@ -275,6 +277,7 @@ buildbot_handle_message() {
 	echo buildbot job: $MESSAGE
 	buildbot_log "$MESSAGE"
 
+	# used by Travis-CI to exit immediately if a core build fails, instead of trying to build RA anyways (for static/console builds)
 	if [ "$EXIT_ON_ERROR" = "1" ]; then
 		exit 1
 	fi
