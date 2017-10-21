@@ -1,6 +1,6 @@
 #!/bin/bash
 
-RECIPE=recipes/nintendo/ngc
+RECIPE=recipes/nintendo/gamecube
 
 sudo mkdir -p /home/buildbot/tools
 
