@@ -392,7 +392,7 @@ build_libretro_generic_makefile() {
 
 	RET=$?
 	ERROR=$TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}.log
-	buildbot_handle_message $RET $ENTRY_ID $1 $jobid $ERROR
+	buildbot_handle_message $RET $ENTRY_ID $NAME $jobid $ERROR
 
 	ENTRY_ID=""
 	JOBS=$JOBS_ORIG
@@ -444,7 +444,7 @@ build_libretro_leiradel_makefile() {
 
 	RET=$?
 	ERROR=$TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}.log
-	buildbot_handle_message $RET $ENTRY_ID $1 $jobid $ERROR
+	buildbot_handle_message $RET $ENTRY_ID $NAME $jobid $ERROR
 
 	ENTRY_ID=""
 	JOBS=$JOBS_ORIG
@@ -499,7 +499,7 @@ build_libretro_generic_gl_makefile() {
 
 	RET=$?
 	ERROR=$TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}.log
-	buildbot_handle_message $RET $ENTRY_ID $1 $jobid $ERROR
+	buildbot_handle_message $RET $ENTRY_ID $NAME $jobid $ERROR
 
 	ENTRY_ID=""
 
@@ -557,7 +557,7 @@ build_libretro_generic_jni() {
 
 		RET=$?
 		ERROR=$TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}_${a}.log
-		buildbot_handle_message $RET $ENTRY_ID $1-$a $jobid $ERROR
+		buildbot_handle_message $RET $ENTRY_ID ${NAME}-${a} $jobid $ERROR
 
 		ENTRY_ID=""
 
@@ -616,7 +616,7 @@ build_libretro_bsnes_jni() {
 
 		RET=$?
 		ERROR=$TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PROFILE}_${PLATFORM}_${a}.log
-		buildbot_handle_message $RET $ENTRY_ID $1-$a $jobid $ERROR
+		buildbot_handle_message $RET $ENTRY_ID ${NAME}-${a} $jobid $ERROR
 
 		ENTRY_ID=""
 	done
@@ -681,7 +681,7 @@ build_libretro_bsnes() {
 
 	RET=$?
 	ERROR=$TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PROFILE}_${PLATFORM}.log
-	buildbot_handle_message $RET $ENTRY_ID $1-${PROFILE} $jobid $ERROR
+	buildbot_handle_message $RET $ENTRY_ID ${NAME}-${PROFILE} $jobid $ERROR
 
 	ENTRY_ID=""
 }
@@ -730,7 +730,7 @@ build_libretro_higan() {
 
 	RET=$?
 	ERROR=$TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PROFILE}_${PLAT}.log
-	buildbot_handle_message $RET $ENTRY_ID $1-${PROFILE} $jobid $ERROR
+	buildbot_handle_message $RET $ENTRY_ID ${NAME}-${PROFILE} $jobid $ERROR
 
 	ENTRY_ID=""
 }
@@ -1541,7 +1541,7 @@ EOF
 		fi
 
 		RET=$?
-		buildbot_handle_message $RET $ENTRY_ID $1 $jobid $ERROR
+		buildbot_handle_message $RET $ENTRY_ID retroarch $jobid $ERROR
 
 		if [ $RET -eq 0 ]; then
 			touch $TMPDIR/built-frontend
