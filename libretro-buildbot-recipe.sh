@@ -1874,6 +1874,7 @@ if [ "${PLATFORM}" == "ctr" ] && [ "${RA}" == "YES" ]; then
 	echo RADIR=$RADIR
 
 	if [ "${BUILD}" == "YES" -o "${FORCE}" == "YES" -o "${FORCE_RETROARCH_BUILD}" == "YES" -o "${CORES_BUILT}" == "YES" ]; then
+		touch $TMPDIR/built-frontend
 		cd $RADIR
 		git clean -xdf
 		echo "buildbot job: $jobid Building"
