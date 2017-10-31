@@ -17,6 +17,7 @@ cd ~/libretro-super
 
 if [ "${TRAVIS_BUILD_DIR}" ]; then
   CORE_DIRNAME=`grep ${CORE} ${RECIPE} | head -1 | awk '{print $2}'`
+  rm -fr ${CORE_DIRNAME}
   mv ${TRAVIS_BUILD_DIR} ${CORE_DIRNAME}
 fi
 
