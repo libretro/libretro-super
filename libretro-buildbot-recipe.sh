@@ -764,6 +764,12 @@ while read line; do
 	MAKEFILE=`echo $line | cut -f 8 -d " "`
 	SUBDIR=`echo $line | cut -f 9 -d " "`
 
+	if [ "$SINGLE_CORE" ]; then
+		if [ "$NAME" != "$SINGLE_CORE" ]; then
+			continue
+		fi
+	fi
+
 	if [ "${ENABLED}" = "YES" ]; then
 		echo -ne "buildbot job started at: "
 		date
