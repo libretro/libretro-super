@@ -392,7 +392,7 @@ build_libretro_generic_makefile() {
 
 	RET=$?
 	ERROR=$TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}.log
-	buildbot_handle_message $RET $ENTRY_ID $NAME $jobid $ERROR
+	buildbot_handle_message "$RET" "$ENTRY_ID" "$NAME" "$jobid" "$ERROR"
 
 	ENTRY_ID=""
 	JOBS=$JOBS_ORIG
@@ -444,7 +444,7 @@ build_libretro_leiradel_makefile() {
 
 	RET=$?
 	ERROR=$TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}.log
-	buildbot_handle_message $RET $ENTRY_ID $NAME $jobid $ERROR
+	buildbot_handle_message "$RET" "$ENTRY_ID" "$NAME" "$jobid" "$ERROR"
 
 	ENTRY_ID=""
 	JOBS=$JOBS_ORIG
@@ -499,7 +499,7 @@ build_libretro_generic_gl_makefile() {
 
 	RET=$?
 	ERROR=$TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}.log
-	buildbot_handle_message $RET $ENTRY_ID $NAME $jobid $ERROR
+	buildbot_handle_message "$RET" "$ENTRY_ID" "$NAME" "$jobid" "$ERROR"
 
 	ENTRY_ID=""
 
@@ -557,7 +557,7 @@ build_libretro_generic_jni() {
 
 		RET=$?
 		ERROR=$TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}_${a}.log
-		buildbot_handle_message $RET $ENTRY_ID $NAME $jobid $ERROR
+		buildbot_handle_message "$RET" "$ENTRY_ID" "$NAME" "$jobid" "$ERROR"
 
 		ENTRY_ID=""
 
@@ -616,7 +616,7 @@ build_libretro_bsnes_jni() {
 
 		RET=$?
 		ERROR=$TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PROFILE}_${PLATFORM}_${a}.log
-		buildbot_handle_message $RET $ENTRY_ID $NAME $jobid $ERROR
+		buildbot_handle_message "$RET" "$ENTRY_ID" "$NAME" "$jobid" "$ERROR"
 
 		ENTRY_ID=""
 	done
@@ -681,7 +681,7 @@ build_libretro_bsnes() {
 
 	RET=$?
 	ERROR=$TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PROFILE}_${PLATFORM}.log
-	buildbot_handle_message $RET $ENTRY_ID ${NAME}-${PROFILE} $jobid $ERROR
+	buildbot_handle_message "$RET" "$ENTRY_ID" "${NAME}-${PROFILE}" "$jobid" "$ERROR"
 
 	ENTRY_ID=""
 }
@@ -730,7 +730,7 @@ build_libretro_higan() {
 
 	RET=$?
 	ERROR=$TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PROFILE}_${PLAT}.log
-	buildbot_handle_message $RET $ENTRY_ID ${NAME}-${PROFILE} $jobid $ERROR
+	buildbot_handle_message "$RET" "$ENTRY_ID" "${NAME}-${PROFILE}" "$jobid" "$ERROR"
 
 	ENTRY_ID=""
 }
@@ -1328,7 +1328,7 @@ if [ "${PLATFORM}" == "osx" ] && [ "${RA}" == "YES" ]; then
 
 		RET=$?
 		ERROR=$TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_${PLATFORM}.log
-		buildbot_handle_message $RET $ENTRY_ID retroarch $jobid $ERROR
+		buildbot_handle_message "$RET" "$ENTRY_ID" "retroarch" "$jobid" "$ERROR"
 
 		if [ -n "$LOGURL" ]; then
 			ENTRY_ID=`curl -X POST -d type="start" -d master_log="$MASTER_LOG_ID" -d platform="$jobid" -d name="retroarch" http://buildbot.fiveforty.net/build_entry/`
@@ -1338,7 +1338,7 @@ if [ "${PLATFORM}" == "osx" ] && [ "${RA}" == "YES" ]; then
 
 		RET=$?
 		ERROR=$TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_CG_${PLATFORM}.log
-		buildbot_handle_message $RET $ENTRY_ID retroarch $jobid $ERROR
+		buildbot_handle_message "$RET" "$ENTRY_ID" "retroarch" "$jobid" "$ERROR"
 
 		cd $WORK/$RADIR
 
@@ -1372,7 +1372,7 @@ if [ "${PLATFORM}" == "ios" ] && [ "${RA}" == "YES" ]; then
 
 		RET=$?
 		ERROR=$TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_${PLATFORM}.log
-		buildbot_handle_message $RET $ENTRY_ID retroarch $jobid $ERROR
+		buildbot_handle_message "$RET" "$ENTRY_ID" "retroarch" "$jobid" "$ERROR"
 
 		ENTRY_ID=""
 		cd $WORK/$RADIR
@@ -1417,7 +1417,7 @@ if [ "${PLATFORM}" == "ios9" ] && [ "${RA}" == "YES" ]; then
 		fi
 
 		ERROR=$TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_${PLATFORM}.log
-		buildbot_handle_message $RET $ENTRY_ID retroarch $jobid $ERROR
+		buildbot_handle_message "$RET" "$ENTRY_ID" "retroarch" "$jobid" "$ERROR"
 
 		ENTRY_ID=""
 		cd $WORK/$RADIR
@@ -1547,7 +1547,7 @@ EOF
 		fi
 
 		RET=$?
-		buildbot_handle_message $RET $ENTRY_ID retroarch $jobid $ERROR
+		buildbot_handle_message "$RET" "$ENTRY_ID" "retroarch" "$jobid" "$ERROR"
 
 		if [ $RET -eq 0 ]; then
 			touch $TMPDIR/built-frontend
@@ -1629,7 +1629,7 @@ if [ "${PLATFORM}" = "MINGW64" ] || [ "${PLATFORM}" = "MINGW32" ] || [ "${PLATFO
 		echo $status
 
 		ERROR=$TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_${PLATFORM}.log
-		buildbot_handle_message $status $ENTRY_ID retroarch $jobid $ERROR
+		buildbot_handle_message "$status" "$ENTRY_ID" "retroarch" "$jobid" "$ERROR"
 
 		if [ $status -eq 0 ]; then
 			touch $TMPDIR/built-frontend
@@ -1655,7 +1655,7 @@ if [ "${PLATFORM}" = "MINGW64" ] || [ "${PLATFORM}" = "MINGW32" ] || [ "${PLATFO
 
 			status=$?
 			ERROR=$TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_DEBUG_${PLATFORM}.log
-			buildbot_handle_message $status $ENTRY_ID retroarch $jobid $ERROR
+			buildbot_handle_message "$status" "$ENTRY_ID" "retroarch" "$jobid" "$ERROR"
 
 			if [ $status -eq 0 ]; then
 				MESSAGE="retroarch debug:	[status: done] [$jobid]"
@@ -1722,7 +1722,7 @@ if [ "${PLATFORM}" = "psp1" ] && [ "${RA}" = "YES" ]; then
 
 		RET=${PIPESTATUS[0]}
 		ERROR=$TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_${PLATFORM}.log
-		buildbot_handle_message $RET $ENTRY_ID retroarch $jobid $ERROR
+		buildbot_handle_message "$RET" "$ENTRY_ID" "retroarch" "$jobid" "$ERROR"
 
 		if [ $RET -eq 0 ]; then
 			touch $TMPDIR/built-frontend
@@ -1770,7 +1770,7 @@ if [ "${PLATFORM}" == "wii" ] && [ "${RA}" == "YES" ]; then
 
 		RET=${PIPESTATUS[0]}
 		ERROR=$TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_${PLATFORM}.log
-		buildbot_handle_message $RET $ENTRY_ID retroarch $jobid $ERROR
+		buildbot_handle_message "$RET" "$ENTRY_ID" "retroarch" "$jobid" "$ERROR"
 
 		ENTRY_ID=""
 
@@ -1817,7 +1817,7 @@ if [ "${PLATFORM}" == "wiiu" ] && [ "${RA}" == "YES" ]; then
 
 		RET=${PIPESTATUS[0]}
 		ERROR=$TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_${PLATFORM}.log
-		buildbot_handle_message $RET $ENTRY_ID retroarch $jobid $ERROR
+		buildbot_handle_message "$RET" "$ENTRY_ID" "retroarch" "$jobid" "$ERROR"
 
 		ENTRY_ID=""
 
@@ -1855,7 +1855,7 @@ if [ "${PLATFORM}" == "ngc" ] && [ "${RA}" == "YES" ]; then
 
 		RET=${PIPESTATUS[0]}
 		ERROR=$TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_${PLATFORM}.log
-		buildbot_handle_message $RET $ENTRY_ID retroarch $jobid $ERROR
+		buildbot_handle_message "$RET" "$ENTRY_ID" "retroarch" "$jobid" "$ERROR"
 
 		ENTRY_ID=""
 
@@ -1900,7 +1900,7 @@ if [ "${PLATFORM}" == "ctr" ] && [ "${RA}" == "YES" ]; then
 
 		RET=${PIPESTATUS[0]}
 		ERROR=$TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_${PLATFORM}.log
-		buildbot_handle_message $RET $ENTRY_ID retroarch $jobid $ERROR
+		buildbot_handle_message "$RET" "$ENTRY_ID" "retroarch" "$jobid" "$ERROR"
 
 		ENTRY_ID=""
 
@@ -1964,7 +1964,7 @@ if [ "${PLATFORM}" == "vita" ] && [ "${RA}" == "YES" ]; then
 
 		RET=${PIPESTATUS[0]}
 		ERROR=$TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_${PLATFORM}.log
-		buildbot_handle_message $RET $ENTRY_ID retroarch $jobid $ERROR
+		buildbot_handle_message "$RET" "$ENTRY_ID" "retroarch" "$jobid" "$ERROR"
 
 		ENTRY_ID=""
 
@@ -2009,7 +2009,7 @@ if [ "${PLATFORM}" == "ps3" ] && [ "${RA}" == "YES" ]; then
 
 		RET=${PIPESTATUS[0]}
 		ERROR=$TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_${PLATFORM}_dex.log
-		buildbot_handle_message $RET $ENTRY_ID retroarch-dex $jobid $ERROR
+		buildbot_handle_message "$RET" "$ENTRY_ID" "retroarch-dex" "$jobid" "$ERROR"
 
 
 		if [ -n "$LOGURL" ]; then
@@ -2020,7 +2020,7 @@ if [ "${PLATFORM}" == "ps3" ] && [ "${RA}" == "YES" ]; then
 
 		RET=${PIPESTATUS[0]}
 		ERROR=$TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_${PLATFORM}_cex.log
-		buildbot_handle_message $RET $ENTRY_ID retroarch-cex $jobid $ERROR
+		buildbot_handle_message "$RET" "$ENTRY_ID" "retroarch-cex" "$jobid" "$ERROR"
 
 		if [ -n "$LOGURL" ]; then
 			ENTRY_ID=`curl -X POST -d type="start" -d master_log="$MASTER_LOG_ID" -d platform="$jobid" -d name="retroarch" http://buildbot.fiveforty.net/build_entry/`
@@ -2030,7 +2030,7 @@ if [ "${PLATFORM}" == "ps3" ] && [ "${RA}" == "YES" ]; then
 
 		RET=${PIPESTATUS[0]}
 		ERROR=$TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_${PLATFORM}_ode.log
-		buildbot_handle_message $RET $ENTRY_ID retroarch-ode $jobid $ERROR
+		buildbot_handle_message "$RET" "$ENTRY_ID" "retroarch-ode" "$jobid" "$ERROR"
 		ENTRY_ID=""
 	fi
 fi
@@ -2065,7 +2065,7 @@ if [ "${PLATFORM}" = "emscripten" ] && [ "${RA}" = "YES" ]; then
 
 		RET=${PIPESTATUS[0]}
 		ERROR=$TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_${PLATFORM}.log
-		buildbot_handle_message $RET $ENTRY_ID retroarch $jobid $ERROR
+		buildbot_handle_message "$RET" "$ENTRY_ID" "retroarch" "$jobid" "$ERROR"
 		ENTRY_ID=""
 
 		echo "Packaging"
@@ -2132,7 +2132,7 @@ if [ "${PLATFORM}" = "unix" ]; then
 		echo $status
 
 		ERROR=$TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_${PLATFORM}.log
-		buildbot_handle_message $status $ENTRY_ID retroarch $jobid $ERROR
+		buildbot_handle_message "$status" "$ENTRY_ID" "retroarch" "$jobid" "$ERROR"
 
 		if [ $status -eq 0 ]; then
 			MESSAGE="retroarch:	[status: done] [$jobid]"
