@@ -557,7 +557,7 @@ build_libretro_generic_jni() {
 
 		RET=$?
 		ERROR=$TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}_${a}.log
-		buildbot_handle_message $RET $ENTRY_ID ${NAME}-${a} $jobid $ERROR
+		buildbot_handle_message $RET $ENTRY_ID $NAME $jobid $ERROR
 
 		ENTRY_ID=""
 
@@ -616,7 +616,7 @@ build_libretro_bsnes_jni() {
 
 		RET=$?
 		ERROR=$TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PROFILE}_${PLATFORM}_${a}.log
-		buildbot_handle_message $RET $ENTRY_ID ${NAME}-${a} $jobid $ERROR
+		buildbot_handle_message $RET $ENTRY_ID $NAME $jobid $ERROR
 
 		ENTRY_ID=""
 	done
