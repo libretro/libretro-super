@@ -21,4 +21,4 @@ if [ "${TRAVIS_BUILD_DIR}" ]; then
 fi
 
 # only build the one core specified in $CORE
-SINGLE_CORE=${CORE} ./libretro-buildbot-recipe.sh ${RECIPE}
+FORCE=YES SINGLE_CORE=${CORE} ./libretro-buildbot-recipe.sh ${RECIPE}
