@@ -1251,7 +1251,11 @@ buildbot_pull(){
 
 		echo
 		echo RADIR=$RADIR
-	done < $RECIPE.ra
+	if [ -e {$RECIPE}.ra ]; then
+		done < {$RECIPE}.ra
+	else
+		done < $RECIPE
+	fi
 	cd $WORK
 }
 
