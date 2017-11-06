@@ -789,111 +789,14 @@ while read line; do
 
 		ARGS=""
 
-		TEMP=`echo $line | cut -f 10 -d " "`
-		if [ -n ${TEMP} ]; then
-			ARGS="${TEMP}"
-		fi
-		TEMP=""
-		TEMP=`echo $line | cut -f 11 -d " "`
-		if [ -n ${TEMP} ]; then
-			ARGS="${ARGS} ${TEMP}"
-		fi
-		TEMP=""
-		TEMP=`echo $line | cut -f 12 -d " "`
-		if [ -n ${TEMP} ]; then
-			ARGS="${ARGS} ${TEMP}"
-		fi
-		TEMP=""
-		TEMP=`echo $line | cut -f 13 -d " "`
-		if [ -n ${TEMP} ]; then
-			ARGS="${ARGS} ${TEMP}"
-		fi
-		TEMP=""
-		TEMP=`echo $line | cut -f 14 -d " "`
-		if [ -n ${TEMP} ]; then
-			ARGS="${ARGS} ${TEMP}"
-		fi
-		TEMP=""
-		TEMP=`echo $line | cut -f 15 -d " "`
-		if [ -n ${TEMP} ]; then
-			ARGS="${ARGS} ${TEMP}"
-		fi
-			TEMP=""
-			TEMP=`echo $line | cut -f 16 -d " "`
-			if [ -n ${TEMP} ]; then
+		for number in {10...30}; do
+			TEMP="$(echo "$line" | cut -f "$number" -d " ")"
+			if [ -n "${TEMP}" ]; then
 				ARGS="${ARGS} ${TEMP}"
 			fi
-			TEMP=""
-			TEMP=`echo $line | cut -f 17 -d " "`
-			if [ -n ${TEMP} ]; then
-				ARGS="${ARGS} ${TEMP}"
-			fi
-			TEMP=""
-			TEMP=`echo $line | cut -f 18 -d " "`
-			if [ -n ${TEMP} ]; then
-				ARGS="${ARGS} ${TEMP}"
-			fi
-			TEMP=""
-			TEMP=`echo $line | cut -f 19 -d " "`
-			if [ -n ${TEMP} ]; then
-				ARGS="${ARGS} ${TEMP}"
-			fi
-			TEMP=""
-			TEMP=`echo $line | cut -f 20 -d " "`
-			if [ -n ${TEMP} ]; then
-				ARGS="${ARGS} ${TEMP}"
-			fi
-			TEMP=""
-			TEMP=`echo $line | cut -f 21 -d " "`
-			if [ -n ${TEMP} ]; then
-				ARGS="${ARGS} ${TEMP}"
-			fi
-			TEMP=""
-			TEMP=`echo $line | cut -f 22 -d " "`
-			if [ -n ${TEMP} ]; then
-				ARGS="${ARGS} ${TEMP}"
-			fi
-			TEMP=""
-			TEMP=`echo $line | cut -f 23 -d " "`
-			if [ -n ${TEMP} ]; then
-				ARGS="${ARGS} ${TEMP}"
-			fi
-			TEMP=""
-			TEMP=`echo $line | cut -f 24 -d " "`
-			if [ -n ${TEMP} ]; then
-				ARGS="${ARGS} ${TEMP}"
-			fi
-			TEMP=""
-			TEMP=`echo $line | cut -f 25 -d " "`
-			if [ -n ${TEMP} ]; then
-				ARGS="${ARGS} ${TEMP}"
-			fi
-			TEMP=""
-			TEMP=`echo $line | cut -f 26 -d " "`
-			if [ -n ${TEMP} ]; then
-				ARGS="${ARGS} ${TEMP}"
-			fi
-			TEMP=""
-			TEMP=`echo $line | cut -f 27 -d " "`
-			if [ -n ${TEMP} ]; then
-				ARGS="${ARGS} ${TEMP}"
-			fi
-			TEMP=""
-			TEMP=`echo $line | cut -f 28 -d " "`
-			if [ -n ${TEMP} ]; then
-				ARGS="${ARGS} ${TEMP}"
-			fi
-			TEMP=""
-			TEMP=`echo $line | cut -f 29 -d " "`
-			if [ -n ${TEMP} ]; then
-				ARGS="${ARGS} ${TEMP}"
-			fi
-			TEMP=""
-			TEMP=`echo $line | cut -f 30 -d " "`
-			if [ -n ${TEMP} ]; then
-				ARGS="${ARGS} ${TEMP}"
-			fi
+		done
 
+		ARGS="${ARGS# }"
 		ARGS="${ARGS%"${ARGS##*[![:space:]]}"}"
 		BUILD="NO"
 
@@ -930,82 +833,12 @@ while read line; do
 				FORCE_ORIG=$FORCE
 				OLDBUILD=$BUILD
 
-				if [ "${PREVCORE}" = "bsnes" -a "${PREVBUILD}" = "YES" -a "${COMMAND}" = "BSNES" ]; then
+				if [ "${PREVCORE}" = "mame2014" ] && [ "${PREVBUILD}" = "YES" ] && [ "${NAME}" = "mess2014" ]; then
 					FORCE="YES"
 					BUILD="YES"
 				fi
 
-				if [ "${PREVCORE}" = "bsnes" -a "${PREVBUILD}" = "YES" -a "${COMMAND}" = "BSNES_JNI" ]; then
-					FORCE="YES"
-					BUILD="YES"
-				fi
-				
-				if [ "${PREVCORE}" = "bsnes_mercury" -a "${PREVBUILD}" = "YES" -a "${COMMAND}" = "BSNES" ]; then
-					FORCE="YES"
-					BUILD="YES"
-				fi
-
-				if [ "${PREVCORE}" = "bsnes_mercury" -a "${PREVBUILD}" = "YES" -a "${COMMAND}" = "BSNES_JNI" ]; then
-					FORCE="YES"
-					BUILD="YES"
-				fi
-
-				if [ "${PREVCORE}" = "gw" -a "${PREVBUILD}" = "YES" -a "${NAME}" = "gw" ]; then
-					FORCE="YES"
-					BUILD="YES"
-				fi
-
-				if [ "${PREVCORE}" = "fuse" -a "${PREVBUILD}" = "YES" -a "${NAME}" = "fuse" ]; then
-					FORCE="YES"
-					BUILD="YES"
-				fi
-
-				if [ "${PREVCORE}" = "81" -a "${PREVBUILD}" = "YES" -a "${NAME}" = "81" ]; then
-					FORCE="YES"
-					BUILD="YES"
-				fi
-
-				if [ "${PREVCORE}" = "snes9x-next" -a "${PREVBUILD}" = "YES" -a "${NAME}" = "snes9x-next" ]; then
-					FORCE="YES"
-					BUILD="YES"
-				fi
-
-				if [ "${PREVCORE}" = "vba_next" -a "${PREVBUILD}" = "YES" -a "${NAME}" = "vba_next" ]; then
-					FORCE="YES"
-					BUILD="YES"
-				fi
-
-				if [ "${PREVCORE}" = "emux_nes" -a "${PREVBUILD}" = "YES" -a "${NAME}" = "emux_nes" ]; then
-					FORCE="YES"
-					BUILD="YES"
-				fi
-
-				if [ "${PREVCORE}" = "emux_sms" -a "${PREVBUILD}" = "YES" -a "${NAME}" = "emux_sms" ]; then
-					FORCE="YES"
-					BUILD="YES"
-				fi
-
-				if [ "${PREVCORE}" = "mgba" -a "${PREVBUILD}" = "YES" -a "${NAME}" = "mgba" ]; then
-					FORCE="YES"
-					BUILD="YES"
-				fi
-
-				if [ "${PREVCORE}" = "snes9x_next" -a "${PREVBUILD}" = "YES" -a "${NAME}" = "snes9x_next" ]; then
-					FORCE="YES"
-					BUILD="YES"
-				fi
-
-				if [ "${PREVCORE}" = "bsnes_mercury" -a "${PREVBUILD}" = "YES" -a "${COMMAND}" = "BSNES" ]; then
-					FORCE="YES"
-					BUILD="YES"
-				fi
-
-				if [ "${PREVCORE}" = "mame2014" -a "${PREVBUILD}" = "YES" -a "${NAME}" = "mess2014" ]; then
-					FORCE="YES"
-					BUILD="YES"
-				fi
-
-				if [ "${PREVCORE}" = "mess2014" -a "${PREVBUILD}" = "YES" -a "${NAME}" = "ume2014" ]; then
+				if [ "${PREVCORE}" = "mess2014" ] && [ "${PREVBUILD}" = "YES" ] && [ "${NAME}" = "ume2014" ]; then
 					FORCE="YES"
 					BUILD="YES"
 				fi
@@ -1015,10 +848,22 @@ while read line; do
 					BUILD="YES"
 				fi
 
-				if [ "${PREVCORE}" = "mame2010" -a "${PREVBUILD}" = "YES" -a "${NAME}" = "mame2010" ]; then
-					FORCE="YES"
-					BUILD="YES"
-				fi
+				for core in bsnes bsnes_mercury; do
+					if [ "${PREVCORE}" = "$core" ] && [ "${PREVBUILD}" = "YES" ]; then
+						if [ "${COMMAND}" = "BSNES" ] || [ "${COMMAND}" = "BSNES_JNI" ]; then
+							FORCE="YES"
+							BUILD="YES"
+						fi
+					fi
+				done
+
+				for core in 81 emux_nes emux_sms fuse gw mame2010 mgba snes9x_next snes9x-next vba_next; do
+					if [ "${PREVCORE}" = "$core" ] && [ "${PREVBUILD}" = "YES" ] && [ "${NAME}" = "$core" ]; then
+						FORCE="YES"
+						BUILD="YES"
+					fi
+				done
+
 				cd $WORK
 			else
 				echo "cloning repo $URL..."
