@@ -934,31 +934,22 @@ while read line; do
 		cd $WORK
 		fi
 
-		if [ "${BUILD}" = "YES" -o "${FORCE}" = "YES" ]; then
+		if [ "${BUILD}" = "YES" ] || [ "${FORCE}" = "YES" ]; then
 			touch $TMPDIR/built-cores
 			CORES_BUILT=YES
 			echo "buildbot job: building $NAME"
-			if [ "${COMMAND}" = "GENERIC" ]; then
-				build_libretro_generic_makefile $NAME $DIR $SUBDIR $MAKEFILE ${FORMAT_COMPILER_TARGET} "${ARGS}"
-			elif [ "${COMMAND}" = "CMAKE" ]; then
-				build_libretro_generic_makefile $NAME $DIR $SUBDIR $MAKEFILE ${FORMAT_COMPILER_TARGET} "${ARGS}"
-			elif [ "${COMMAND}" = "LEIRADEL" ]; then
-				build_libretro_leiradel_makefile $NAME $DIR $SUBDIR $MAKEFILE ${PLATFORM} "${ARGS}"
-			elif [ "${COMMAND}" = "GENERIC_GL" ]; then
-				build_libretro_generic_gl_makefile $NAME $DIR $SUBDIR $MAKEFILE ${FORMAT_COMPILER_TARGET} "${ARGS}"
-			elif [ "${COMMAND}" = "GENERIC_ALT" ]; then
-				build_libretro_generic_makefile $NAME $DIR $SUBDIR $MAKEFILE ${FORMAT_COMPILER_TARGET_ALT} "${ARGS}"
-			elif [ "${COMMAND}" = "GENERIC_JNI" ]; then
-				build_libretro_generic_jni $NAME $DIR $SUBDIR $MAKEFILE ${FORMAT_COMPILER_TARGET_ALT} "${ARGS}"
-			elif [ "${COMMAND}" = "BSNES_JNI" ]; then
-				build_libretro_bsnes_jni $NAME $DIR $SUBDIR $MAKEFILE ${FORMAT_COMPILER_TARGET_ALT} "${ARGS}"
-			elif [ "${COMMAND}" = "GENERIC_THEOS" ]; then
-				build_libretro_generic_theos $NAME $DIR $SUBDIR $MAKEFILE ${FORMAT_COMPILER_TARGET_ALT} "${ARGS}"
-			elif [ "${COMMAND}" = "BSNES" ]; then
-				build_libretro_bsnes $NAME $DIR "${ARGS}" $MAKEFILE ${FORMAT_COMPILER_TARGET} ${CXX11}
-         elif [ "${COMMAND}" = "HIGAN" ]; then
-            build_libretro_higan $NAME $DIR $SUBDIR $MAKEFILE $PLATFORM ${FORMAT_COMPILER_TARGET} ${CXX11} "${ARGS}"
-			fi
+			case "${COMMAND}" in
+				GENERIC|CMAKE ) build_libretro_generic_makefile $NAME $DIR $SUBDIR $MAKEFILE ${FORMAT_COMPILER_TARGET} "${ARGS}"         ;;
+				GENERIC_ALT )   build_libretro_generic_makefile $NAME $DIR $SUBDIR $MAKEFILE ${FORMAT_COMPILER_TARGET_ALT} "${ARGS}"     ;;
+				LEIRADEL )      build_libretro_leiradel_makefile $NAME $DIR $SUBDIR $MAKEFILE ${PLATFORM} "${ARGS}"                      ;;
+				GENERIC_GL )    build_libretro_generic_gl_makefile $NAME $DIR $SUBDIR $MAKEFILE ${FORMAT_COMPILER_TARGET} "${ARGS}"      ;;
+				GENERIC_JNI )   build_libretro_generic_jni $NAME $DIR $SUBDIR $MAKEFILE ${FORMAT_COMPILER_TARGET_ALT} "${ARGS}"          ;;
+				BSNES_JNI )     build_libretro_bsnes_jni $NAME $DIR $SUBDIR $MAKEFILE ${FORMAT_COMPILER_TARGET_ALT} "${ARGS}"            ;;
+				GENERIC_THEOS ) build_libretro_generic_theos $NAME $DIR $SUBDIR $MAKEFILE ${FORMAT_COMPILER_TARGET_ALT} "${ARGS}"        ;;
+				BSNES )         build_libretro_bsnes $NAME $DIR "${ARGS}" $MAKEFILE ${FORMAT_COMPILER_TARGET} ${CXX11}                   ;;
+				HIGAN )         build_libretro_higan $NAME $DIR $SUBDIR $MAKEFILE $PLATFORM ${FORMAT_COMPILER_TARGET} ${CXX11} "${ARGS}" ;;
+				* )             :                                                                                                        ;;
+			esac
 		else
 			echo "buildbot job: building $NAME up-to-date"
 		fi
