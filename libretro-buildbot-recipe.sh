@@ -800,36 +800,39 @@ while read line; do
 		ARGS="${ARGS%"${ARGS##*[![:space:]]}"}"
 		BUILD="NO"
 
-		if [ "${TYPE}" = "PROJECT" ]; then
-			if [ -d "${DIR}/.git" ]; then
-				if [ "${CLEANUP}" == "YES" ]; then
-					rm -rfv $DIR
-					echo "cloning repo $URL..."
-					git clone --depth=1 -b "$GIT_BRANCH" "$URL" "$DIR"
+		if [ -d "${DIR}/.git" ]; then
+			if [ "${CLEANUP}" = "YES" ]; then
+				rm -rfv -- "$DIR"
+				echo "cloning repo $URL..."
+				git clone --depth=1 -b "$GIT_BRANCH" "$URL" "$DIR"
+				BUILD="YES"
+			else
+				cd "$DIR"
+
+				if [ -f .forcebuild ]; then
+					echo "found .forcebuild file, building $NAME"
 					BUILD="YES"
-				else
-					cd $DIR
-
-					if [ -f .forcebuild ]; then
-						echo "found .forcebuild file, building $NAME"
-						BUILD="YES"
-					fi
-
-					echo "pulling changes from repo $URL... "
-					OUT=`git pull`
-					echo $OUT
-
-					if [[ $OUT == *"Already up-to-date"* ]] && [ ! "${BUILD}" = "YES" ]; then
-						BUILD="NO"
-					else
-						echo "resetting repo state... "
-						git reset --hard FETCH_HEAD
-						git clean -xdf
-						BUILD="YES"
-					fi
-
 				fi
 
+				echo "pulling changes from repo $URL..."
+				OUT="$(git pull)"
+				echo "$OUT"
+
+				if [[ $OUT == *"Already up-to-date"* ]] && [ ! "${BUILD}" = "YES" ]; then
+					BUILD="NO"
+				else
+					echo "resetting repo state $URL..."
+					git reset --hard FETCH_HEAD
+					git clean -xdf
+					BUILD="YES"
+				fi
+
+				if [ "${TYPE}" = "SUBMODULE" ]; then
+					git submodule update --init --recursive
+				fi
+			fi
+
+			if [ "${TYPE}" = "PROJECT" ]; then
 				FORCE_ORIG=$FORCE
 				OLDBUILD=$BUILD
 
@@ -863,76 +866,23 @@ while read line; do
 						BUILD="YES"
 					fi
 				done
-
-				cd $WORK
-			else
-				echo "cloning repo $URL..."
-				git clone --depth=1 -b "$GIT_BRANCH" "$URL" "$DIR"
-				BUILD="YES"
 			fi
-		elif [ "${TYPE}" = "psp_hw_render" ]; then
-			if [ -d "${DIR}/.git" ]; then
-				cd $DIR
-
-				if [ -f .forcebuild ]; then
-					echo "found .forcebuild file, building $NAME"
-					BUILD="YES"
-				fi
-
-				echo "pulling changes from repo $URL... "
-				OUT=`git pull`
-				echo $OUT
-
-				if [[ $OUT == *"Already up-to-date"* ]] && [ ! "${BUILD}" = "YES" ]; then
-					BUILD="NO"
-				else
-					echo "resetting repo state... "
-					git reset --hard FETCH_HEAD
-					git clean -xdf
-					BUILD="YES"
-				fi
-				cd $WORK
-
-			else
-				echo "pulling changes from repo... "
-				git clone -b "$GIT_BRANCH" "$URL" "$DIR"
-				cd $DIR
-				git checkout $TYPE
-				cd $WORK
-				BUILD="YES"
-			fi
-		elif [ "${TYPE}" == "SUBMODULE" ]; then
-			if [ -d "${DIR}/.git" ]; then
-				cd $DIR
-
-				if [ -f .forcebuild ]; then
-					echo "found .forcebuild file, building $NAME"
-					BUILD="YES"
-				fi
-
-				echo "pulling changes from repo $URL... "
-				OUT=`git pull`
-				echo $OUT
-
-				if [[ $OUT == *"Already up-to-date"* ]] && [ ! "${BUILD}" = "YES" ]; then
-					BUILD="NO"
-				else
-					echo "resetting repo state $URL... "
-					git reset --hard FETCH_HEAD
-					git clean -xdf
-					BUILD="YES"
-				fi
-				OUT=`git submodule update --init --recursive`
-				cd $WORK
 		else
-				echo "cloning repo $URL..."
-				git clone --depth=1 -b "$GIT_BRANCH" "$URL" "$DIR"
-				cd $DIR
+			echo "cloning repo $URL..."
+			git clone --depth=1 -b "$GIT_BRANCH" "$URL" "$DIR"
+			cd $DIR
+
+			if [ "${TYPE}" = "SUBMODULE" ]; then
 				git submodule update --init --recursive
-				BUILD="YES"
+			elif [ "${TYPE}" = "psp_hw_render" ]; then
+				git remote set-branches origin "$TYPE"
+				git fetch --depth 1 origin "$TYPE"
+				git checkout "$TYPE"
 			fi
-		cd $WORK
+
+			BUILD="YES"
 		fi
+		cd $WORK
 
 		if [ "${BUILD}" = "YES" ] || [ "${FORCE}" = "YES" ]; then
 			touch $TMPDIR/built-cores
@@ -987,36 +937,14 @@ buildbot_pull(){
 
 			ARGS=""
 
-			TEMP=`echo $line | cut -f 9 -d " "`
-			if [ -n ${TEMP} ]; then
-				ARGS="${TEMP}"
-			fi
-			TEMP=""
-			TEMP=`echo $line | cut -f 10 -d " "`
-			if [ -n ${TEMP} ]; then
-				ARGS="${ARGS} ${TEMP}"
-			fi
-			TEMP=""
-			TEMP=`echo $line | cut -f 11 -d " "`
-			if [ -n ${TEMP} ]; then
-				ARGS="${ARGS} ${TEMP}"
-			fi
-			TEMP=""
-			TEMP=`echo $line | cut -f 12 -d " "`
-			if [ -n ${TEMP} ]; then
-				ARGS="${ARGS} ${TEMP}"
-			fi
-			TEMP=""
-			TEMP=`echo $line | cut -f 13 -d " "`
-			if [ -n ${TEMP} ]; then
-				ARGS="${ARGS} ${TEMP}"
-			fi
-			TEMP=""
-			TEMP=`echo $line | cut -f 14 -d " "`
-			if [ -n ${TEMP} ]; then
-				ARGS="${ARGS} ${TEMP}"
-			fi
+			for number in {9..14}; do
+				TEMP="$(echo "$line" | cut -f "$number" -d " ")"
+				if [ -n "${TEMP}" ]; then
+					ARGS="${ARGS} ${TEMP}"
+				fi
+			done
 
+			ARGS="${ARGS# }"
 			ARGS="${ARGS%"${ARGS##*[![:space:]]}"}"
 
 			if [ -d "${PARENTDIR}/${DIR}/.git" ]; then
