@@ -764,10 +764,8 @@ while read line; do
 	MAKEFILE=`echo $line | cut -f 8 -d " "`
 	SUBDIR=`echo $line | cut -f 9 -d " "`
 
-	if [ "$SINGLE_CORE" ]; then
-		if [ "$NAME" != "$SINGLE_CORE" ]; then
-			continue
-		fi
+	if [ "$SINGLE_CORE" ] && [ "$NAME" != "$SINGLE_CORE" ]; then
+		continue
 	fi
 
 	if [ "${ENABLED}" = "YES" ]; then
