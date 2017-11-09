@@ -275,8 +275,12 @@ buildbot_handle_message() {
 		MESSAGE="$NAME:	[status: done] [$jobid]"
 	else
 		if [ -n "$LOGURL" ]; then
-			gzip -9fk $ERROR
-			HASTE=`curl -X POST http://p.0bl.net/ --data-binary @${ERROR}.gz`
+			HASTE="n/a"
+
+			if [ -n "$ERROR" ]; then
+				gzip -9fk $ERROR
+				HASTE=`curl -X POST http://p.0bl.net/ --data-binary @${ERROR}.gz`
+			fi
 			MESSAGE="$NAME:	[status: fail] [$jobid] LOG: $HASTE"
 			curl -X POST -d type="finish" -d index="$ENTRY_ID" -d status="fail" -d log="$HASTE" http://buildbot.fiveforty.net/build_entry/
 		else
