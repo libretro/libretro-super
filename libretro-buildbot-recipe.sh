@@ -789,7 +789,7 @@ while read line; do
 
 		ARGS=""
 
-		for number in {10...30}; do
+		for number in {10..30}; do
 			TEMP="$(echo "$line" | cut -f "$number" -d " ")"
 			if [ -n "${TEMP}" ]; then
 				ARGS="${ARGS} ${TEMP}"
