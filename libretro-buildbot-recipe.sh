@@ -798,89 +798,83 @@ while read line; do
 		ARGS="${ARGS%"${ARGS##*[![:space:]]}"}"
 		BUILD="NO"
 
-		if [ -d "${DIR}/.git" ]; then
-			if [ "${CLEANUP}" = "YES" ]; then
-				rm -rfv -- "$DIR"
-				echo "cloning repo $URL..."
-				git clone --depth=1 -b "$GIT_BRANCH" "$URL" "$DIR"
-				BUILD="YES"
-			else
-				cd "$DIR"
-
-				if [ -f .forcebuild ]; then
-					echo "found .forcebuild file, building $NAME"
-					BUILD="YES"
-				fi
-
-				echo "pulling changes from repo $URL..."
-				OUT="$(git pull)"
-				echo "$OUT"
-
-				if [[ $OUT == *"Already up-to-date"* ]] && [ ! "${BUILD}" = "YES" ]; then
-					BUILD="NO"
-				else
-					echo "resetting repo state $URL..."
-					git reset --hard FETCH_HEAD
-					git clean -xdf
-					BUILD="YES"
-				fi
-
-				if [ "${TYPE}" = "SUBMODULE" ]; then
-					git submodule update --init --recursive
-				fi
-			fi
-
-			if [ "${TYPE}" = "PROJECT" ]; then
-				FORCE_ORIG=$FORCE
-				OLDBUILD=$BUILD
-
-				if [ "${PREVCORE}" = "mame2014" ] && [ "${PREVBUILD}" = "YES" ] && [ "${NAME}" = "mess2014" ]; then
-					FORCE="YES"
-					BUILD="YES"
-				fi
-
-				if [ "${PREVCORE}" = "mess2014" ] && [ "${PREVBUILD}" = "YES" ] && [ "${NAME}" = "ume2014" ]; then
-					FORCE="YES"
-					BUILD="YES"
-				fi
-
-				if [[ "${PREVCORE}" == *fbalpha2012* ]] && [[ "${PREVBUILD}" = "YES" ]] && [[ "${NAME}" == *fbalpha2012* ]]; then
-					FORCE="YES"
-					BUILD="YES"
-				fi
-
-				for core in bsnes bsnes_mercury; do
-					if [ "${PREVCORE}" = "$core" ] && [ "${PREVBUILD}" = "YES" ]; then
-						if [ "${COMMAND}" = "BSNES" ] || [ "${COMMAND}" = "BSNES_JNI" ]; then
-							FORCE="YES"
-							BUILD="YES"
-						fi
-					fi
-				done
-
-				for core in 81 emux_nes emux_sms fuse gw mame2010 mgba snes9x_next snes9x-next vba_next; do
-					if [ "${PREVCORE}" = "$core" ] && [ "${PREVBUILD}" = "YES" ] && [ "${NAME}" = "$core" ]; then
-						FORCE="YES"
-						BUILD="YES"
-					fi
-				done
-			fi
-		else
+		if [ ! -d "${DIR}/.git" ] || [ "${CLEANUP}" = "YES" ]; then
+			rm -rfv -- "$DIR"
 			echo "cloning repo $URL..."
 			git clone --depth=1 -b "$GIT_BRANCH" "$URL" "$DIR"
-			cd $DIR
+			cd "$DIR"
 
 			if [ "${TYPE}" = "SUBMODULE" ]; then
 				git submodule update --init --recursive
 			elif [ "${TYPE}" = "psp_hw_render" ]; then
 				git remote set-branches origin "$TYPE"
-				git fetch --depth 1 origin "$TYPE"
+				git fetch --depth=1 origin "$TYPE"
 				git checkout "$TYPE"
 			fi
 
 			BUILD="YES"
+		else
+			cd "$DIR"
+
+			if [ -f .forcebuild ]; then
+				echo "found .forcebuild file, building $NAME"
+				BUILD="YES"
+			fi
+
+			echo "pulling changes from repo $URL..."
+			OUT="$(git pull)"
+			echo "$OUT"
+
+			if [[ $OUT == *"Already up-to-date"* ]] && [ ! "${BUILD}" = "YES" ]; then
+				BUILD="NO"
+			else
+				echo "resetting repo state $URL..."
+				git reset --hard FETCH_HEAD
+				git clean -xdf
+				BUILD="YES"
+			fi
+
+			if [ "${TYPE}" = "SUBMODULE" ]; then
+				git submodule update --init --recursive
+			fi
 		fi
 		cd $WORK
+
+		if [ "${TYPE}" = "PROJECT" ]; then
+			FORCE_ORIG=$FORCE
+			OLDBUILD=$BUILD
+
+			if [ "${PREVCORE}" = "mame2014" ] && [ "${PREVBUILD}" = "YES" ] && [ "${NAME}" = "mess2014" ]; then
+				FORCE="YES"
+				BUILD="YES"
+			fi
+
+			if [ "${PREVCORE}" = "mess2014" ] && [ "${PREVBUILD}" = "YES" ] && [ "${NAME}" = "ume2014" ]; then
+				FORCE="YES"
+				BUILD="YES"
+			fi
+
+			if [[ "${PREVCORE}" == *fbalpha2012* ]] && [[ "${PREVBUILD}" = "YES" ]] && [[ "${NAME}" == *fbalpha2012* ]]; then
+				FORCE="YES"
+				BUILD="YES"
+			fi
+
+			for core in bsnes bsnes_mercury; do
+				if [ "${PREVCORE}" = "$core" ] && [ "${PREVBUILD}" = "YES" ]; then
+					if [ "${COMMAND}" = "BSNES" ] || [ "${COMMAND}" = "BSNES_JNI" ]; then
+						FORCE="YES"
+						BUILD="YES"
+					fi
+				fi
+			done
+
+			for core in 81 emux_nes emux_sms fuse gw mame2010 mgba snes9x_next snes9x-next vba_next; do
+				if [ "${PREVCORE}" = "$core" ] && [ "${PREVBUILD}" = "YES" ] && [ "${NAME}" = "$core" ]; then
+					FORCE="YES"
+					BUILD="YES"
+				fi
+			done
+		fi
 
 		if [ "${BUILD}" = "YES" ] || [ "${FORCE}" = "YES" ]; then
 			touch $TMPDIR/built-cores
