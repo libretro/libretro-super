@@ -797,25 +797,19 @@ while read line; do
 		ARGS="${ARGS# }"
 		ARGS="${ARGS%"${ARGS##*[![:space:]]}"}"
 		BUILD="NO"
+		UPDATE="YES"
 
 		if [ ! -d "${DIR}/.git" ] || [ "${CLEANUP}" = "YES" ]; then
 			rm -rfv -- "$DIR"
 			echo "cloning repo $URL..."
 			git clone --depth=1 -b "$GIT_BRANCH" "$URL" "$DIR"
-			cd "$DIR"
-
-			if [ "${TYPE}" = "SUBMODULE" ]; then
-				git submodule update --init --recursive
-			elif [ "${TYPE}" = "psp_hw_render" ]; then
-				git remote set-branches origin "$TYPE"
-				git fetch --depth=1 origin "$TYPE"
-				git checkout "$TYPE"
-			fi
-
 			BUILD="YES"
-		else
-			cd "$DIR"
+			UPDATE="NO"
+		fi
 
+		cd "$DIR"
+
+		if [ "${UPDATE}" != "NO" ]; then
 			if [ -f .forcebuild ]; then
 				echo "found .forcebuild file, building $NAME"
 				BUILD="YES"
@@ -825,7 +819,7 @@ while read line; do
 			OUT="$(git pull)"
 			echo "$OUT"
 
-			if [[ $OUT == *"Already up-to-date"* ]] && [ ! "${BUILD}" = "YES" ]; then
+			if [[ $OUT == *"Already up-to-date"* ]] && [ "${BUILD}" != "YES" ]; then
 				BUILD="NO"
 			else
 				echo "resetting repo state $URL..."
@@ -833,12 +827,11 @@ while read line; do
 				git clean -xdf
 				BUILD="YES"
 			fi
-
-			if [ "${TYPE}" = "SUBMODULE" ]; then
-				git submodule update --init --recursive
-			fi
+		elif [ "${TYPE}" = "psp_hw_render" ]; then
+			git remote set-branches origin "$TYPE"
+			git fetch --depth=1 origin "$TYPE"
+			git checkout "$TYPE"
 		fi
-		cd $WORK
 
 		if [ "${TYPE}" = "PROJECT" ]; then
 			FORCE_ORIG=$FORCE
@@ -874,7 +867,11 @@ while read line; do
 					BUILD="YES"
 				fi
 			done
+		elif [ "${TYPE}" = "SUBMODULE"]; then
+			git submodule update --init --recursive
 		fi
+
+		cd "$WORK"
 
 		if [ "${BUILD}" = "YES" ] || [ "${FORCE}" = "YES" ]; then
 			touch $TMPDIR/built-cores
