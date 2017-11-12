@@ -797,25 +797,19 @@ while read line; do
 		ARGS="${ARGS# }"
 		ARGS="${ARGS%"${ARGS##*[![:space:]]}"}"
 		BUILD="NO"
+		UPDATE="YES"
 
 		if [ ! -d "${DIR}/.git" ] || [ "${CLEANUP}" = "YES" ]; then
 			rm -rfv -- "$DIR"
 			echo "cloning repo $URL..."
 			git clone --depth=1 -b "$GIT_BRANCH" "$URL" "$DIR"
-			cd "$DIR"
-
-			if [ "${TYPE}" = "SUBMODULE" ]; then
-				git submodule update --init --recursive
-			elif [ "${TYPE}" = "psp_hw_render" ]; then
-				git remote set-branches origin "$TYPE"
-				git fetch --depth=1 origin "$TYPE"
-				git checkout "$TYPE"
-			fi
-
 			BUILD="YES"
-		else
-			cd "$DIR"
+			UPDATE="NO"
+		fi
 
+		cd "$DIR"
+
+		if [ "${UPDATE}" != "NO" ]; then
 			if [ -f .forcebuild ]; then
 				echo "found .forcebuild file, building $NAME"
 				BUILD="YES"
@@ -825,7 +819,7 @@ while read line; do
 			OUT="$(git pull)"
 			echo "$OUT"
 
-			if [[ $OUT == *"Already up-to-date"* ]] && [ ! "${BUILD}" = "YES" ]; then
+			if [[ $OUT == *"Already up-to-date"* ]] && [ "${BUILD}" != "YES" ]; then
 				BUILD="NO"
 			else
 				echo "resetting repo state $URL..."
@@ -833,12 +827,11 @@ while read line; do
 				git clean -xdf
 				BUILD="YES"
 			fi
-
-			if [ "${TYPE}" = "SUBMODULE" ]; then
-				git submodule update --init --recursive
-			fi
+		elif [ "${TYPE}" = "psp_hw_render" ]; then
+			git remote set-branches origin "$TYPE"
+			git fetch --depth=1 origin "$TYPE"
+			git checkout "$TYPE"
 		fi
-		cd $WORK
 
 		if [ "${TYPE}" = "PROJECT" ]; then
 			FORCE_ORIG=$FORCE
@@ -874,7 +867,11 @@ while read line; do
 					BUILD="YES"
 				fi
 			done
+		elif [ "${TYPE}" = "SUBMODULE"]; then
+			git submodule update --init --recursive
 		fi
+
+		cd "$WORK"
 
 		if [ "${BUILD}" = "YES" ] || [ "${FORCE}" = "YES" ]; then
 			touch $TMPDIR/built-cores
@@ -1052,31 +1049,31 @@ echo
 cd $WORK
 BUILD=""
 
-if [ "${PLATFORM}" == "osx" ] && [ "${RA}" == "YES" ]; then
+echo WORKINGDIR=$PWD
+echo RELEASE=$RELEASE
+echo FORCE=$FORCE_RETROARCH_BUILD
+echo RADIR=$RADIR
+echo BRANCH=$BRANCH
 
+buildbot_pull
+
+if [ "${BUILD}" = "YES" ] || [ "${FORCE}" = "YES" ] || [ "${FORCE_RETROARCH_BUILD}" = "YES" ] || [ "${CORES_BUILT}" = "YES" ]; then
+	cd "$RADIR"
+	git clean -xdf
 	echo WORKINGDIR=$PWD
-	echo RELEASE=$RELEASE
-	echo FORCE=$FORCE_RETROARCH_BUILD
 	echo RADIR=$RADIR
 
-	buildbot_pull
+	echo "buildbot job: $jobid Building"
+	echo
+
+	if [ -n "${LOGURL}" ]; then
+		ENTRY_ID="$(curl -X POST -d type="start" -d master_log="$MASTER_LOG_ID" -d platform="$jobid" -d name="retroarch" http://buildbot.fiveforty.net/build_entry/)"
+	fi
+fi
+
+if [ "${PLATFORM}" == "osx" ] && [ "${RA}" == "YES" ]; then
 
 	if [ "${BUILD}" == "YES" -o "${FORCE}" == "YES" -o "${FORCE_RETROARCH_BUILD}" == "YES" -o "${CORES_BUILT}" == "YES" ]; then
-		cd $RADIR
-		git clean -xdf
-		echo WORKINGDIR=$PWD
-		echo RELEASE=$RELEASE
-		echo FORCE=$FORCE_RETROARCH_BUILD
-		echo RADIR=$RADIR
-
-		echo "buildbot job: $jobid Building"
-		echo
-
-		ENTRY_ID=""
-
-		if [ -n "$LOGURL" ]; then
-			ENTRY_ID=`curl -X POST -d type="start" -d master_log="$MASTER_LOG_ID" -d platform="$jobid" -d name="retroarch" http://buildbot.fiveforty.net/build_entry/`
-		fi
 
 		cd pkg/apple
 
@@ -1104,24 +1101,7 @@ if [ "${PLATFORM}" == "osx" ] && [ "${RA}" == "YES" ]; then
 fi
 if [ "${PLATFORM}" == "ios" ] && [ "${RA}" == "YES" ]; then
 
-	echo WORKINGDIR=$PWD
-	echo RELEASE=$RELEASE
-	echo FORCE=$FORCE_RETROARCH_BUILD
-	echo RADIR=$RADIR
-
-	buildbot_pull
-
 	if [ "${BUILD}" == "YES" -o "${FORCE}" == "YES" -o "${FORCE_RETROARCH_BUILD}" == "YES" -o "${CORES_BUILT}" == "YES" ]; then
-		cd $RADIR
-		git clean -xdf
-		echo "buildbot job: $jobid Building"
-		echo
-
-		ENTRY_ID=""
-
-		if [ -n "$LOGURL" ]; then
-			ENTRY_ID=`curl -X POST -d type="start" -d master_log="$MASTER_LOG_ID" -d platform="$jobid" -d name="retroarch" http://buildbot.fiveforty.net/build_entry/`
-		fi
 
 		cd pkg/apple
 		xcodebuild clean build CODE_SIGN_IDENTITY="" CODE_SIGNING_REQUIRED=NO -project RetroArch_iOS.xcodeproj -configuration Release &> $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_${PLATFORM}.log
@@ -1141,24 +1121,7 @@ fi
 
 if [ "${PLATFORM}" == "ios9" ] && [ "${RA}" == "YES" ]; then
 
-	echo WORKINGDIR=$PWD
-	echo RELEASE=$RELEASE
-	echo FORCE=$FORCE_RETROARCH_BUILD
-	echo RADIR=$RADIR
-
-	buildbot_pull
-
 	if [ "${BUILD}" == "YES" -o "${FORCE}" == "YES" -o "${FORCE_RETROARCH_BUILD}" == "YES" -o "${CORES_BUILT}" == "YES" ]; then
-		cd $RADIR
-		git clean -xdf
-		echo "buildbot job: $jobid Building"
-		echo
-
-		ENTRY_ID=""
-
-		if [ -n "$LOGURL" ]; then
-			ENTRY_ID=`curl -X POST -d type="start" -d master_log="$MASTER_LOG_ID" -d platform="$jobid" -d name="retroarch" http://buildbot.fiveforty.net/build_entry/`
-		fi
 
 		cd pkg/apple
 		xcodebuild clean build CODE_SIGN_IDENTITY="" CODE_SIGNING_REQUIRED=NO -project RetroArch_iOS.xcodeproj -configuration Release -target "RetroArch iOS9" &> $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_${PLATFORM}.log
@@ -1186,23 +1149,8 @@ fi
 
 if [ "${PLATFORM}" = "android" ] && [ "${RA}" = "YES" ]; then
 
-	echo WORKINGDIR=$PWD
-	echo RELEASE=$RELEASE
-	echo FORCE=$FORCE_RETROARCH_BUILD
-	echo RADIR=$RADIR
-	echo BRANCH=$BRANCH
-
-	buildbot_pull
-
 	if [ "${BUILD}" = "YES" -o "${FORCE}" = "YES" -o "${FORCE_RETROARCH_BUILD}" == "YES" ]; then
-		echo "buildbot job: $jobid compiling shaders"
-		echo
-		cd $RADIR
-		git clean -xdf
-		echo WORKINGDIR=$PWD
-		echo RELEASE=$RELEASE
-		echo FORCE=$FORCE_RETROARCH_BUILD
-		echo RADIR=$RADIR
+
 		#${HELPER} ${MAKE} -f Makefile.griffin shaders-convert-glsl PYTHON3=$PYTHON
 
 		echo "buildbot job: $jobid processing assets"
@@ -1269,12 +1217,6 @@ if [ "${PLATFORM}" = "android" ] && [ "${RA}" = "YES" ]; then
 		cd pkg/android/phoenix
 		rm bin/*.apk
 
-		ENTRY_ID=""
-
-		if [ -n "$LOGURL" ]; then
-			ENTRY_ID=`curl -X POST -d type="start" -d master_log="$MASTER_LOG_ID" -d platform="$jobid" -d name="retroarch" http://buildbot.fiveforty.net/build_entry/`
-		fi
-
 cat << EOF > local.properties
 sdk.dir=/home/buildbot/tools/android/android-sdk-linux
 key.store=/home/buildbot/.android/release.keystore
@@ -1314,29 +1256,8 @@ EOF
 fi
 
 if [ "${PLATFORM}" = "MINGW64" ] || [ "${PLATFORM}" = "MINGW32" ] || [ "${PLATFORM}" = "windows" ] && [ "${RA}" = "YES" ]; then
-	echo WORKINGDIR=$PWD
-	echo RELEASE=$RELEASE
-	echo FORCE=$FORCE_RETROARCH_BUILD
-	echo RADIR=$RADIR
-
-	buildbot_pull
-
-	echo
-	echo
 
 	if [ "${BUILD}" = "YES" -o "${FORCE}" = "YES" -o "${FORCE_RETROARCH_BUILD}" == "YES" ]; then
-		cd $RADIR
-		RADIR=$PWD
-		echo RetroArch Directory: $RADIR
-		git clean -xdf
-		echo "buildbot job: $jobid Building"
-		echo
-
-		ENTRY_ID=""
-
-		if [ -n "$LOGURL" ]; then
-			ENTRY_ID=`curl -X POST -d type="start" -d master_log="$MASTER_LOG_ID" -d platform="$jobid" -d name="retroarch" http://buildbot.fiveforty.net/build_entry/`
-		fi
 
 		compile_audio_filters ${HELPER} ${MAKE}
 		cd $RADIR
@@ -1450,25 +1371,8 @@ if [ "${PLATFORM}" = "MINGW64" ] || [ "${PLATFORM}" = "MINGW32" ] || [ "${PLATFO
 fi
 
 if [ "${PLATFORM}" = "psp1" ] && [ "${RA}" = "YES" ]; then
-	echo WORKINGDIR=$PWD
-	echo RELEASE=$RELEASE
-	echo FORCE=$FORCE_RETROARCH_BUILD
-	echo RADIR=$RADIR
-
-	buildbot_pull
 
 	if [ "${BUILD}" == "YES" -o "${FORCE}" == "YES" -o "${FORCE_RETROARCH_BUILD}" == "YES" -o "${CORES_BUILT}" == "YES" ]; then
-
-		cd $RADIR
-		git clean -xdf
-		echo "buildbot job: $jobid Building"
-		echo
-
-		ENTRY_ID=""
-
-		if [ -n "$LOGURL" ]; then
-			ENTRY_ID=`curl -X POST -d type="start" -d master_log="$MASTER_LOG_ID" -d platform="$jobid" -d name="retroarch" http://buildbot.fiveforty.net/build_entry/`
-		fi
 
 		cd dist-scripts
 		rm *.a
@@ -1499,24 +1403,10 @@ if [ "${PLATFORM}" = "psp1" ] && [ "${RA}" = "YES" ]; then
 fi
 
 if [ "${PLATFORM}" == "wii" ] && [ "${RA}" == "YES" ]; then
-	echo WORKINGDIR=$PWD
-	echo RELEASE=$RELEASE
-	echo FORCE=$FORCE_RETROARCH_BUILD
-	echo RADIR=$RADIR
 
-	buildbot_pull
 	if [ "${BUILD}" == "YES" -o "${FORCE}" == "YES" -o "${FORCE_RETROARCH_BUILD}" == "YES" -o "${CORES_BUILT}" == "YES" ]; then
+
 		touch $TMPDIR/built-frontend
-		cd $RADIR
-		git clean -xdf
-		echo "buildbot job: $jobid Building"
-		echo
-
-		ENTRY_ID=""
-
-		if [ -n "$LOGURL" ]; then
-			ENTRY_ID=`curl -X POST -d type="start" -d master_log="$MASTER_LOG_ID" -d platform="$jobid" -d name="retroarch" http://buildbot.fiveforty.net/build_entry/`
-		fi
 
 		cd dist-scripts
 		rm *.a
@@ -1544,24 +1434,10 @@ if [ "${PLATFORM}" == "wii" ] && [ "${RA}" == "YES" ]; then
 fi
 
 if [ "${PLATFORM}" == "wiiu" ] && [ "${RA}" == "YES" ]; then
-	echo WORKINGDIR=$PWD
-	echo RELEASE=$RELEASE
-	echo FORCE=$FORCE_RETROARCH_BUILD
-	echo RADIR=$RADIR
 
-	buildbot_pull
 	if [ "${BUILD}" == "YES" -o "${FORCE}" == "YES" -o "${FORCE_RETROARCH_BUILD}" == "YES" -o "${CORES_BUILT}" == "YES" ]; then
+
 		touch $TMPDIR/built-frontend
-		cd $RADIR
-		git clean -xdf
-		echo "buildbot job: $jobid Building"
-		echo
-
-		ENTRY_ID=""
-
-		if [ -n "$LOGURL" ]; then
-			ENTRY_ID=`curl -X POST -d type="start" -d master_log="$MASTER_LOG_ID" -d platform="$jobid" -d name="retroarch" http://buildbot.fiveforty.net/build_entry/`
-		fi
 
 		cd dist-scripts
 		rm *.a
@@ -1584,24 +1460,10 @@ if [ "${PLATFORM}" == "wiiu" ] && [ "${RA}" == "YES" ]; then
 fi
 
 if [ "${PLATFORM}" == "ngc" ] && [ "${RA}" == "YES" ]; then
-	echo WORKINGDIR=$PWD
-	echo RELEASE=$RELEASE
-	echo FORCE=$FORCE_RETROARCH_BUILD
-	echo RADIR=$RADIR
 
-	buildbot_pull
 	if [ "${BUILD}" == "YES" -o "${FORCE}" == "YES" -o "${FORCE_RETROARCH_BUILD}" == "YES" -o "${CORES_BUILT}" == "YES" ]; then
+
 		touch $TMPDIR/built-frontend
-		cd $RADIR
-		git clean -xdf
-		echo "buildbot job: $jobid Building"
-		echo
-
-		ENTRY_ID=""
-
-		if [ -n "$LOGURL" ]; then
-			ENTRY_ID=`curl -X POST -d type="start" -d master_log="$MASTER_LOG_ID" -d platform="$jobid" -d name="retroarch" http://buildbot.fiveforty.net/build_entry/`
-		fi
 
 		cd dist-scripts
 		rm *.a
@@ -1629,24 +1491,10 @@ if [ "${PLATFORM}" == "ngc" ] && [ "${RA}" == "YES" ]; then
 fi
 
 if [ "${PLATFORM}" == "ctr" ] && [ "${RA}" == "YES" ]; then
-	buildbot_pull
-	echo WORKINGDIR=$PWD $WORK
-	echo RELEASE=$RELEASE
-	echo FORCE=$FORCE_RETROARCH_BUILD
-	echo RADIR=$RADIR
 
 	if [ "${BUILD}" == "YES" -o "${FORCE}" == "YES" -o "${FORCE_RETROARCH_BUILD}" == "YES" -o "${CORES_BUILT}" == "YES" ]; then
+
 		touch $TMPDIR/built-frontend
-		cd $RADIR
-		git clean -xdf
-		echo "buildbot job: $jobid Building"
-		echo
-
-		ENTRY_ID=""
-
-		if [ -n "$LOGURL" ]; then
-			ENTRY_ID=`curl -X POST -d type="start" -d master_log="$MASTER_LOG_ID" -d platform="$jobid" -d name="retroarch" http://buildbot.fiveforty.net/build_entry/`
-		fi
 
 		cd dist-scripts
 		rm *.a
@@ -1691,25 +1539,10 @@ if [ "${PLATFORM}" == "ctr" ] && [ "${RA}" == "YES" ]; then
 fi
 
 if [ "${PLATFORM}" == "vita" ] && [ "${RA}" == "YES" ]; then
-	echo WORKINGDIR=$PWD
-	echo RELEASE=$RELEASE
-	echo FORCE=$FORCE_RETROARCH_BUILD
-	echo RADIR=$RADIR
-
-	buildbot_pull
 
 	if [ "${BUILD}" == "YES" -o "${FORCE}" == "YES" -o "${FORCE_RETROARCH_BUILD}" == "YES" -o "${CORES_BUILT}" == "YES" ]; then
+
 		touch $TMPDIR/built-frontend
-		cd $RADIR
-		git clean -xdf
-		echo "buildbot job: $jobid Building"
-		echo
-
-		ENTRY_ID=""
-
-		if [ -n "$LOGURL" ]; then
-			ENTRY_ID=`curl -X POST -d type="start" -d master_log="$MASTER_LOG_ID" -d platform="$jobid" -d name="retroarch" http://buildbot.fiveforty.net/build_entry/`
-		fi
 
 		cd dist-scripts
 		rm *.a
@@ -1737,25 +1570,10 @@ if [ "${PLATFORM}" == "vita" ] && [ "${RA}" == "YES" ]; then
 fi
 
 if [ "${PLATFORM}" == "ps3" ] && [ "${RA}" == "YES" ]; then
-	echo WORKINGDIR=$PWD
-	echo RELEASE=$RELEASE
-	echo FORCE=$FORCE_RETROARCH_BUILD
-	echo RADIR=$RADIR
-
-	buildbot_pull
 
 	if [ "${BUILD}" == "YES" -o "${FORCE}" == "YES" -o "${FORCE_RETROARCH_BUILD}" == "YES" -o "${CORES_BUILT}" == "YES" ]; then
+
 		touch $TMPDIR/built-frontend
-		cd $RADIR
-		git clean -xdf
-		echo "buildbot job: $jobid Building"
-		echo
-
-		ENTRY_ID=""
-
-		if [ -n "$LOGURL" ]; then
-			ENTRY_ID=`curl -X POST -d type="start" -d master_log="$MASTER_LOG_ID" -d platform="$jobid" -d name="retroarch" http://buildbot.fiveforty.net/build_entry/`
-		fi
 
 		cd dist-scripts
 		rm *.a
@@ -1792,25 +1610,10 @@ if [ "${PLATFORM}" == "ps3" ] && [ "${RA}" == "YES" ]; then
 fi
 
 if [ "${PLATFORM}" = "emscripten" ] && [ "${RA}" = "YES" ]; then
-	echo WORKINGDIR=$PWD
-	echo RELEASE=$RELEASE
-	echo FORCE=$FORCE_RETROARCH_BUILD
-	echo RADIR=$RADIR
-
-	buildbot_pull
 
 	if [ "${BUILD}" == "YES" -o "${FORCE}" == "YES" -o "${FORCE_RETROARCH_BUILD}" == "YES" -o "${CORES_BUILT}" == "YES" ]; then
+
 		touch $TMPDIR/built-frontend
-		cd $RADIR
-		git clean -xdf
-		echo "buildbot job: $jobid Building"
-		echo
-
-		ENTRY_ID=""
-
-		if [ -n "$LOGURL" ]; then
-			ENTRY_ID=`curl -X POST -d type="start" -d master_log="$MASTER_LOG_ID" -d platform="$jobid" -d name="retroarch" http://buildbot.fiveforty.net/build_entry/`
-		fi
 
 		cd dist-scripts
 		rm *.a
@@ -1831,28 +1634,10 @@ if [ "${PLATFORM}" = "emscripten" ] && [ "${RA}" = "YES" ]; then
 fi
 
 if [ "${PLATFORM}" = "unix" ]; then
-	echo WORKINGDIR=$PWD
-	echo RELEASE=$RELEASE
-	echo FORCE=$FORCE_RETROARCH_BUILD
-	echo RADIR=$RADIR
-
-	buildbot_pull
-
-	echo
-	echo
 
 	if [ "${BUILD}" = "YES" -o "${FORCE}" = "YES" -o "${FORCE_RETROARCH_BUILD}" == "YES" ]; then
+
 		touch $TMPDIR/built-frontend
-		cd $RADIR
-		git clean -xdf
-		echo "buildbot job: $jobid Building"
-		echo
-
-		ENTRY_ID=""
-
-		if [ -n "$LOGURL" ]; then
-			ENTRY_ID=`curl -X POST -d type="start" -d master_log="$MASTER_LOG_ID" -d platform="$jobid" -d name="retroarch" http://buildbot.fiveforty.net/build_entry/`
-		fi
 
 		compile_audio_filters ${HELPER} ${MAKE}
 		cd $RADIR
@@ -1863,7 +1648,6 @@ if [ "${PLATFORM}" = "unix" ]; then
 		echo "configure command: $CONFIGURE $ARGS"
 		${CONFIGURE} ${ARGS}
 
-
 		echo "cleaning up..."
 		echo "CLEANUP CMD: ${HELPER} ${MAKE} clean"
 		${HELPER} ${MAKE} clean
@@ -1872,12 +1656,6 @@ if [ "${PLATFORM}" = "unix" ]; then
 			echo buildbot job: $jobid retroarch cleanup success!
 		else
 			echo buildbot job: $jobid retroarch cleanup failed!
-		fi
-
-		if [ $? -eq 0 ]; then
-			echo buildbot job: $jobid retroarch configure success!
-		else
-			echo buildbot job: $jobid retroarch configure failed!
 		fi
 
 		echo "building..."
