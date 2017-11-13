@@ -23,7 +23,7 @@ ENTRY_ID=""
 while read line; do
 	KEY=`echo $line | cut -f 1 -d " "`
 	VALUE=`echo $line | cut -f 2 -d " "`
-	rm $TMPDIR/vars
+	rm -f -- "$TMPDIR/vars"
 	if [ "${KEY}" = "PATH" ]; then
 		export PATH=${VALUE}:${ORIGPATH}
 		echo PATH=${VALUE}:${ORIGPATH} >> $TMPDIR/vars
