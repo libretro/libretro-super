@@ -916,6 +916,8 @@ while read line; do
 done < $1
 
 buildbot_pull(){
+	[ ! -f "$RECIPE.ra" ] && return 0
+
 	while read line; do
 		NAME=`echo $line | cut -f 1 -d " "`
 		DIR=`echo $line | cut -f 2 -d " "`
