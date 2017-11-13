@@ -3,7 +3,8 @@
 # ----- setup -----
 
 # This will use an overridden value from the command-line if provided, otherwise just use the current date
-LOGDATE=${LOGDATE:-`date +%Y-%m-%d`}
+BOT="${BOT:-.}"
+LOGDATE="${LOGDATE:-$(date +%Y-%m-%d)}"
 TMPDIR="${TMPDIR:-/tmp}"
 
 if [ -z "${1}" ]; then
