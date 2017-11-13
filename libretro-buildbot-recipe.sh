@@ -6,6 +6,11 @@
 LOGDATE=${LOGDATE:-`date +%Y-%m-%d`}
 TMPDIR="${TMPDIR:-/tmp}"
 
+if [ -z "${1}" ]; then
+	echo 'No recipe target, exiting.' >&2
+	exit 1
+fi
+
 mkdir -p -- "$TMPDIR/log/${BOT}/${LOGDATE}"
 
 ORIGPATH=$PATH
