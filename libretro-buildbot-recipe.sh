@@ -1573,11 +1573,30 @@ if [ "${PLATFORM}" == "vita" ] && [ "${RA}" == "YES" ]; then
 
 		cd $WORK/$RADIR
 		cp retroarch.cfg retroarch.default.cfg
+		
+		mkdir -p $WORK/$RADIR/pkg/vita/retroarch
+		mkdir -p $WORK/$RADIR/pkg/vita/retroarch/info
+		mkdir -p $WORK/$RADIR/pkg/vita/retroarch/remaps
+		mkdir -p $WORK/$RADIR/pkg/vita/retroarch/cheats
+		mkdir -p $WORK/$RADIR/pkg/vita/retroarch/filters
+		mkdir -p $WORK/$RADIR/pkg/vita/retroarch/filters/audio
+		mkdir -p $WORK/$RADIR/pkg/vita/retroarch/filters/video
+		mkdir -p $WORK/$RADIR/pkg/vita/retroarch/database
+		mkdir -p $WORK/$RADIR/pkg/vita/retroarch/database/rdb
+		mkdir -p $WORK/$RADIR/pkg/vita/retroarch/database/cursors
+		mkdir -p $WORK/$RADIR/pkg/vita/retroarch/assets/glui
 
-		mkdir -p pkg/vita
-		mkdir -p pkg/vita/remaps
-		mkdir -p pkg/vita/cheats
-		cp -rf media/overlays/* pkg/vita/overlays/
+
+		cp -v $WORK/$RADIR/gfx/video_filters/*.filt $WORK/$RADIR/pkg/vita/retroarch/filters/video/
+		cp -v $WORK/$RADIR/libretro-common/audio/dsp_filters/*.dsp $WORK/$RADIR/pkg/vita/retroarch/filters/audio/
+		cp -v $RARCH_DIST_DIR/../info/*.info $WORK/$RADIR/pkg/vita/retroarch/info/
+		cp -v $WORK/$RADIR/media/libretrodb/rdb/*.rdb $WORK/$RADIR/pkg/vita/retroarch/database/rdb/
+		cp -v $WORK/$RADIR/media/libretrodb/cursors/*.dbc $WORK/$RADIR/pkg/vita/retroarch/database/cursors/
+		cp -v $WORK/$RADIR/media/libretrodb/cursors/*.dbc $WORK/$RADIR/pkg/vita/retroarch/database/cursors/
+		cp -r $WORK/$RADIR/media/assets/glui $WORK/$RADIR/pkg/vita/retroarch/assets
+		
+		convert_xmb_assets $WORK/$RADIR/media/assets/xmb $WORK/$RADIR/pkg/vita/retroarch/assets/xmb 128x64! 960x544! 90
+		
 	fi
 fi
 
