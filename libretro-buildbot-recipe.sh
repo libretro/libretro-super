@@ -21,6 +21,7 @@ ENTRY_ID=""
 
 # ----- read variables from recipe config -----
 while read line; do
+	[ -z "${line}" ] && continue
 	KEY=`echo $line | cut -f 1 -d " "`
 	VALUE=`echo $line | cut -f 2 -d " "`
 	rm -f -- "$TMPDIR/vars"
