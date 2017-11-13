@@ -21,7 +21,7 @@ dinothawr libretro64-dinothawr https://github.com/libretro/Dinothawr.git master 
 dosbox libretro64-dosbox https://github.com/libretro/dosbox-libretro.git master PROJECT YES GENERIC_JNI Makefile.libretro jni 
 fbalpha libretro64-fbalpha https://github.com/libretro/fbalpha.git master PROJECT YES GENERIC_JNI makefile.libretro jni 
 fbalpha2012 libretro64-fbalpha2012 https://github.com/libretro/fbalpha2012.git master PROJECT YES GENERIC_JNI makefile.libretro svn-current/trunk/projectfiles/libretro-android/jni 
-fceumm libretro64-fceuumm  https://github.com/libretro/libretro-fceumm.git master PROJECT YES GENERIC_JNI Makefile.libretro jni 
+fceumm libretro64-fceumm  https://github.com/libretro/libretro-fceumm.git master PROJECT YES GENERIC_JNI Makefile.libretro jni 
 fmsx libretro64-fmsx https://github.com/libretro/fmsx-libretro.git master PROJECT YES GENERIC_JNI Makefile jni 
 gambatte libretro64-gambatte https://github.com/libretro/gambatte-libretro.git master PROJECT YES GENERIC_JNI Makefile libgambatte/libretro/jni 
 genesis_plus_gx libretro64-genesis_plus_gx https://github.com/libretro/Genesis-Plus-GX.git master PROJECT YES GENERIC_JNI Makefile.libretro libretro/jni 
