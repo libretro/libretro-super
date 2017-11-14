@@ -312,8 +312,6 @@ build_libretro_generic_makefile() {
 		mkdir -p $DIR/$SUBDIR
 	fi
 
-	cd $DIR
-	cd $SUBDIR
 	JOBS_ORIG=$JOBS
 
 	if [ "${NAME}" == "mame2003" ]; then
