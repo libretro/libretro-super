@@ -762,15 +762,27 @@ export jobid=$1
 echo
 echo
 while read line; do
-	NAME=`echo $line | cut -f 1 -d " "`
-	DIR=`echo $line | cut -f 2 -d " "`
-	URL=`echo $line | cut -f 3 -d " "`
-	GIT_BRANCH=`echo $line | cut -f 4 -d " "`
-	TYPE=`echo $line | cut -f 5 -d " "`
-	ENABLED=`echo $line | cut -f 6 -d " "`
-	COMMAND=`echo $line | cut -f 7 -d " "`
-	MAKEFILE=`echo $line | cut -f 8 -d " "`
-	SUBDIR=`echo $line | cut -f 9 -d " "`
+	eval "set -- \$line"
+
+	NAME="$1"
+	DIR="$2"
+	URL="$3"
+	GIT_BRANCH="$4"
+	TYPE="$5"
+	ENABLED="$6"
+	COMMAND="$7"
+	MAKEFILE="$8"
+	SUBDIR="$9"
+	ARGS=""
+
+	shift 9
+	while [ $# -gt 0 ]; do
+		ARGS="${ARGS} ${1}"
+		shift
+	done
+
+	ARGS="${ARGS# }"
+	ARGS="${ARGS%"${ARGS##*[![:space:]]}"}"
 
 	if [ "$SINGLE_CORE" ] && [ "$NAME" != "$SINGLE_CORE" ]; then
 		continue
@@ -793,17 +805,6 @@ while read line; do
 		echo
 		echo
 
-		ARGS=""
-
-		eval "set -- \$line"
-		shift 9
-		while [ $# -gt 0 ]; do
-			ARGS="${ARGS} ${1}"
-			shift
-		done
-
-		ARGS="${ARGS# }"
-		ARGS="${ARGS%"${ARGS##*[![:space:]]}"}"
 		BUILD="NO"
 		UPDATE="YES"
 
@@ -917,12 +918,24 @@ buildbot_pull(){
 	[ ! -f "$RECIPE.ra" ] && return 0
 
 	while read line; do
-		NAME=`echo $line | cut -f 1 -d " "`
-		DIR=`echo $line | cut -f 2 -d " "`
-		URL=`echo $line | cut -f 3 -d " "`
-		TYPE=`echo $line | cut -f 4 -d " "`
-		ENABLED=`echo $line | cut -f 5 -d " "`
-		PARENTDIR=`echo $line | cut -f 6 -d " "`
+		eval "set -- \$line"
+
+		NAME="$1"
+		DIR="$2"
+		URL="$3"
+		TYPE="$4"
+		ENABLED="$5"
+		PARENTDIR="$6"
+		ARGS=""
+
+		shift 6
+		while [ $# -gt 0 ]; do
+			ARGS="${ARGS} ${1}"
+			shift
+		done
+
+		ARGS="${ARGS# }"
+		ARGS="${ARGS%"${ARGS##*[![:space:]]}"}"
 
 		if [ "${ENABLED}" = "YES" ]; then
 			echo "buildbot job: $jobid Processing $NAME"
@@ -933,18 +946,6 @@ buildbot_pull(){
 			echo URL: $URL
 			echo REPO TYPE: $TYPE
 			echo ENABLED: $ENABLED
-
-			ARGS=""
-
-			eval "set -- \$line"
-			shift 8
-			while [ $# -gt 0 ]; do
-				ARGS="${ARGS} ${1}"
-				shift
-			done
-
-			ARGS="${ARGS# }"
-			ARGS="${ARGS%"${ARGS##*[![:space:]]}"}"
 
 			if [ -d "${PARENTDIR}/${DIR}/.git" ]; then
 				cd $PARENTDIR
