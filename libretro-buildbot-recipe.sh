@@ -1039,7 +1039,7 @@ compile_video_filters()
   MAKE=$2
   echo "compiling video filters"
   echo "$PWD"
-  echo "audio filter BUILD CMD: ${HELPER} ${MAKE}"
+  echo "video filter BUILD CMD: ${HELPER} ${MAKE}"
   ${HELPER} ${MAKE} -C gfx/video_filters
   if [ $? -eq 0 ]; then
 	  echo buildbot job: $jobid video filter build success!
