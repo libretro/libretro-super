@@ -1024,16 +1024,13 @@ compile_audio_filters()
   HELPER=$1
   MAKE=$2
 	echo "compiling audio filters"
-	cd libretro-common/audio/dsp_filters
 	echo "audio filter BUILD CMD: ${HELPER} ${MAKE}"
-	${HELPER} ${MAKE}
+	${HELPER} ${MAKE} -C libretro-common/audio/dsp_filters
 	if [ $? -eq 0 ]; then
 		echo buildbot job: $jobid audio filter build success!
 	else
 		echo buildbot job: $jobid audio filter:	[status: fail]!
 	fi
-	cd ..
-	cd ..
 }
 
 compile_video_filters()
@@ -1041,16 +1038,14 @@ compile_video_filters()
   HELPER=$1
   MAKE=$2
   echo "compiling video filters"
-  cd gfx/video_filters
+  echo "$PWD"
   echo "audio filter BUILD CMD: ${HELPER} ${MAKE}"
-  ${HELPER} ${MAKE}
+  ${HELPER} ${MAKE} -C gfx/video_filters
   if [ $? -eq 0 ]; then
 	  echo buildbot job: $jobid video filter build success!
   else
 	  echo buildbot job: $jobid video filter:	[status: fail]!
   fi
-  cd ..
-  cd ..
 }
 
 
@@ -1271,9 +1266,7 @@ if [ "${PLATFORM}" = "MINGW64" ] || [ "${PLATFORM}" = "MINGW32" ] || [ "${PLATFO
 	if [ "${BUILD}" = "YES" -o "${FORCE}" = "YES" -o "${FORCE_RETROARCH_BUILD}" == "YES" ]; then
 
 		compile_audio_filters ${HELPER} ${MAKE}
-		cd $RADIR
 		compile_video_filters ${HELPER} ${MAKE}
-		cd $RADIR
 
 		echo "configuring..."
 		echo "configure command: $CONFIGURE $ARGS"
@@ -1670,9 +1663,7 @@ if [ "${PLATFORM}" = "unix" ]; then
 		touch $TMPDIR/built-frontend
 
 		compile_audio_filters ${HELPER} ${MAKE}
-		cd $RADIR
 		compile_video_filters ${HELPER} ${MAKE}
-		cd $RADIR
 
 		echo "configuring..."
 		echo "configure command: $CONFIGURE $ARGS"
