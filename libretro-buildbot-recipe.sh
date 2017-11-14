@@ -797,11 +797,11 @@ while read line; do
 
 		ARGS=""
 
-		for number in {10..30}; do
-			TEMP="$(echo "$line" | cut -f "$number" -d " ")"
-			if [ -n "${TEMP}" ]; then
-				ARGS="${ARGS} ${TEMP}"
-			fi
+		eval "set -- \$line"
+		shift 9
+		while [ $# -gt 0 ]; do
+			ARGS="${ARGS} ${1}"
+			shift
 		done
 
 		ARGS="${ARGS# }"
@@ -938,11 +938,11 @@ buildbot_pull(){
 
 			ARGS=""
 
-			for number in {9..14}; do
-				TEMP="$(echo "$line" | cut -f "$number" -d " ")"
-				if [ -n "${TEMP}" ]; then
-					ARGS="${ARGS} ${TEMP}"
-				fi
+			eval "set -- \$line"
+			shift 8
+			while [ $# -gt 0 ]; do
+				ARGS="${ARGS} ${1}"
+				shift
 			done
 
 			ARGS="${ARGS# }"
