@@ -1031,8 +1031,8 @@ compile_filters()
 	esac
 
 	echo "compile $FILTER filters"
-	echo "$FILTER filter BUILD CMD: ${HELPER} ${MAKE} -C $FILTERDIR"
-	${HELPER} ${MAKE} -C "$FILTERDIR"
+	echo "$FILTER filter BUILD CMD: ${HELPER} ${MAKE}"
+	( cd "$FILTERDIR"; ${HELPER} ${MAKE} )
 	if [ $? -eq 0 ]; then
 		echo "buildbot job: $jobid $FILTER filter build success!"
 	else
