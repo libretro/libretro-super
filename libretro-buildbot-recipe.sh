@@ -876,7 +876,7 @@ while read line; do
 					BUILD="YES"
 				fi
 			done
-		elif [ "${TYPE}" = "SUBMODULE"]; then
+		elif [ "${TYPE}" = "SUBMODULE" ]; then
 			git submodule update --init --recursive
 		fi
 
