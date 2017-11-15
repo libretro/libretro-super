@@ -9,7 +9,7 @@ emux_chip8 libretro-emux_chip8 https://github.com/libretro/emux master PROJECT Y
 emux_gb libretro-emux_gb https://github.com/libretro/emux master PROJECT YES LEIRADEL Makefile libretro MACHINE=gb 
 emux_nes libretro-emux_nes https://github.com/libretro/emux master PROJECT YES LEIRADEL Makefile libretro MACHINE=nes 
 emux_sms libretro-emux_sms https://github.com/libretro/emux master PROJECT YES LEIRADEL Makefile libretro MACHINE=sms 
-fbalpha libretro-fbalpha https://github.com/libretro/fbalpha.git master PROJECT YES GENERIC makefile.libretro svn-current/trunk 
+fbalpha libretro-fbalpha https://github.com/libretro/fbalpha.git master PROJECT YES GENERIC makefile.libretro . 
 fbalpha2012 libretro-fbalpha2012 https://github.com/libretro/fbalpha2012.git master PROJECT YES GENERIC makefile.libretro svn-current/trunk 
 fbalpha2012_cps1 libretro-fbalpha2012_cps1 https://github.com/libretro/fbalpha2012_cps1.git master PROJECT YES GENERIC makefile.libretro . 
 fbalpha2012_cps2 libretro-fbalpha2012_cps2 https://github.com/libretro/fbalpha2012_cps2.git master PROJECT YES GENERIC makefile.libretro . 
