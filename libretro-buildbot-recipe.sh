@@ -1030,31 +1030,32 @@ compile_filters()
 	fi
 }
 
-echo "buildbot job: $jobid Building Retroarch-$PLATFORM"
-echo --------------------------------------------------
-echo
-cd $WORK
-BUILD=""
-
-echo WORKINGDIR=$PWD
-echo RELEASE=$RELEASE
-echo FORCE=$FORCE_RETROARCH_BUILD
-echo RADIR=$RADIR
-echo BRANCH=$BRANCH
-
-buildbot_pull
-
-if [ "${BUILD}" = "YES" ] || [ "${FORCE}" = "YES" ] || [ "${FORCE_RETROARCH_BUILD}" = "YES" ] || [ "${CORES_BUILT}" = "YES" ]; then
-	cd "$RADIR"
-	git clean -xdf
-	echo WORKINGDIR=$PWD
-	echo RADIR=$RADIR
-
-	echo "buildbot job: $jobid Building"
+if [ "${RA}" = "YES" ]; then
+	echo "buildbot job: $jobid Building Retroarch-$PLATFORM"
+	echo --------------------------------------------------
 	echo
+	BUILD=""
 
-	if [ -n "${LOGURL}" ]; then
-		ENTRY_ID="$(curl -X POST -d type="start" -d master_log="$MASTER_LOG_ID" -d platform="$jobid" -d name="retroarch" http://buildbot.fiveforty.net/build_entry/)"
+	echo WORKINGDIR=$PWD
+	echo RELEASE=$RELEASE
+	echo FORCE=$FORCE_RETROARCH_BUILD
+	echo RADIR=$RADIR
+	echo BRANCH=$BRANCH
+
+	buildbot_pull
+
+	if [ "${BUILD}" = "YES" ] || [ "${FORCE}" = "YES" ] || [ "${FORCE_RETROARCH_BUILD}" = "YES" ] || [ "${CORES_BUILT}" = "YES" ]; then
+		cd "$RADIR"
+		git clean -xdf
+		echo WORKINGDIR=$PWD
+		echo RADIR=$RADIR
+
+		echo "buildbot job: $jobid Building"
+		echo
+
+		if [ -n "${LOGURL}" ]; then
+			ENTRY_ID="$(curl -X POST -d type="start" -d master_log="$MASTER_LOG_ID" -d platform="$jobid" -d name="retroarch" http://buildbot.fiveforty.net/build_entry/)"
+		fi
 	fi
 fi
 
@@ -1637,7 +1638,7 @@ if [ "${PLATFORM}" = "emscripten" ] && [ "${RA}" = "YES" ]; then
 	fi
 fi
 
-if [ "${PLATFORM}" = "unix" ]; then
+if [ "${PLATFORM}" = "unix" ] && [ "${RA}" = "YES" ]; then
 
 	if [ "${BUILD}" = "YES" -o "${FORCE}" = "YES" -o "${FORCE_RETROARCH_BUILD}" == "YES" ]; then
 
