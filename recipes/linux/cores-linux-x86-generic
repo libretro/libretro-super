@@ -66,7 +66,7 @@ pcsx_rearmed libretro-pcsx_rearmed https://github.com/libretro/pcsx_rearmed.git 
 picodrive libretro-picodrive https://github.com/libretro/picodrive.git master SUBMODULE YES GENERIC Makefile.libretro . 
 pocketcdg libretro-pocketcdg https://github.com/libretro/libretro-pocketcdg.git master SUBMODULE YES GENERIC Makefile . 
 pokemini libretro-pokemini https://github.com/libretro/PokeMini.git master PROJECT YES GENERIC Makefile . 
-ppsspp libretro-ppsspp https://github.com/libretro/ppsspp.git master SUBMODULE YES CMAKE Makefile build -DLIBRETRO=ON -DCMAKE_BUILD_TYPE=Release ..
+ppsspp libretro-ppsspp https://github.com/libretro/ppsspp.git master SUBMODULE YES CMAKE Makefile build -DLIBRETRO=ON -DCMAKE_BUILD_TYPE=Release 
 prboom libretro-prboom https://github.com/libretro/libretro-prboom.git master PROJECT YES GENERIC_ALT Makefile . 
 prosystem libretro-prosystem https://github.com/libretro/prosystem-libretro.git master PROJECT YES GENERIC Makefile . 
 puae libretro-uae https://github.com/libretro/libretro-uae.git master PROJECT YES GENERIC Makefile . 
