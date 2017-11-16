@@ -34,7 +34,7 @@ while read line; do
 		echo ${KEY}=${VALUE} >> $TMPDIR/vars
 	fi
 	echo "Setting: ${KEY} ${VALUE}"
-done < $1.conf
+done < $RECIPE.conf
 
 read_link()
 {
@@ -906,7 +906,7 @@ while read line; do
 
 	BUILD=$OLDBUILD
 	FORCE=$FORCE_ORIG
-done < $1
+done < $RECIPE
 
 buildbot_pull(){
 	[ ! -f "$RECIPE.ra" ] && return 0
