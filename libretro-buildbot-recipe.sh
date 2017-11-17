@@ -23,8 +23,8 @@ ENTRY_ID=""
 # ----- read variables from recipe config -----
 while read line; do
 	[ -z "${line}" ] && continue
-	KEY=`echo $line | cut -f 1 -d " "`
-	VALUE=`echo $line | cut -f 2 -d " "`
+	KEY="${line% *}"
+	VALUE="${line#* }"
 	rm -f -- "$TMPDIR/vars"
 	if [ "${KEY}" = "PATH" ]; then
 		export PATH=${VALUE}:${ORIGPATH}
@@ -33,7 +33,7 @@ while read line; do
 		export ${KEY}=${VALUE}
 		echo ${KEY}=${VALUE} >> $TMPDIR/vars
 	fi
-	echo Setting: ${KEY} ${VALUE}
+	echo "Setting: ${KEY} ${VALUE}"
 done < $1.conf
 
 read_link()
@@ -414,7 +414,7 @@ build_libretro_leiradel_makefile() {
 		ENTRY_ID=`curl -X POST -d type="start" -d master_log="$MASTER_LOG_ID" -d platform="$jobid" -d name="$NAME" http://buildbot.fiveforty.net/build_entry/`
 	fi
 
-	ARG1=`echo ${ARGS} | cut -f 1 -d " "`
+	ARG1="${ARGS%% *}"
 	mkdir -p $RARCH_DIST_DIR/${DIST}/${ARG1}
 
 	cd $DIR
