@@ -1,6 +1,6 @@
 display_name = "Nintendo 3DS (Citra)"
 authors = "Citra Emulation Project"
-supported_extensions = "3ds|3dsx|cia|elf|cxi"
+supported_extensions = "3ds|3dsx|elf|axf|cci|cxi|app"
 corename = "Citra"
 manufacturer = "Nintendo"
 categories = "Emulator"
