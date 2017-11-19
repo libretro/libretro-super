@@ -177,6 +177,9 @@ build_libretro_database() {
 		if [ -f "${LIBRETRODATABASE_META_DAT_DIR}/mame-split/${1}.dat" ]; then
 			COMMAND+=' "${LIBRETRODATABASE_META_DAT_DIR}/mame-split/${1}.dat"'
 		fi
+		if [ -f "${LIBRETRODATABASE_META_DAT_DIR}/mame-member/${1}.dat" ]; then
+			COMMAND+=' "${LIBRETRODATABASE_META_DAT_DIR}/mame-member/${1}.dat"'
+		fi
 		if [ -f "${LIBRETRODATABASE_META_DAT_DIR}/mame/${1}.dat" ]; then
 			COMMAND+=' "${LIBRETRODATABASE_META_DAT_DIR}/mame/${1}.dat"'
 		fi
@@ -187,6 +190,9 @@ build_libretro_database() {
 		fi
 		if [ -f "${LIBRETRODATABASE_META_DAT_DIR}/fba-split/${1}.dat" ]; then
 			COMMAND+=' "${LIBRETRODATABASE_META_DAT_DIR}/fba-split/${1}.dat"'
+		fi
+		if [ -f "${LIBRETRODATABASE_META_DAT_DIR}/fba-member/${1}.dat" ]; then
+			COMMAND+=' "${LIBRETRODATABASE_META_DAT_DIR}/fba-member/${1}.dat"'
 		fi
 
 		#Check if meta libretro-dats folder is there
