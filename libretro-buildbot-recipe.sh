@@ -1090,8 +1090,12 @@ if [ "${PLATFORM}" == "ios" ] && [ "${RA}" == "YES" ]; then
 
 		cd pkg/apple
 		xcodebuild clean build CODE_SIGN_IDENTITY="" CODE_SIGNING_REQUIRED=NO -project RetroArch_iOS.xcodeproj -configuration Release &> $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_${PLATFORM}.log
-
 		RET=$?
+
+		if [ $RET -eq 0 ]; then
+			touch $TMPDIR/built-frontend
+		fi
+
 		ERROR=$TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_${PLATFORM}.log
 		buildbot_handle_message "$RET" "$ENTRY_ID" "retroarch" "$jobid" "$ERROR"
 
