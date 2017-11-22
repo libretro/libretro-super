@@ -1053,6 +1053,8 @@ if [ "${RA}" = "YES" ]; then
 		if [ -n "${LOGURL}" ]; then
 			ENTRY_ID="$(curl -X POST -d type="start" -d master_log="$MASTER_LOG_ID" -d platform="$jobid" -d name="retroarch" http://buildbot.fiveforty.net/build_entry/)"
 		fi
+
+		LOGFILE="$TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_${PLATFORM}.log"
 	fi
 fi
 
@@ -1062,11 +1064,10 @@ if [ "${PLATFORM}" == "osx" ] && [ "${RA}" == "YES" ]; then
 
 		cd pkg/apple
 
-		xcodebuild -project RetroArch.xcodeproj -target RetroArch -configuration Release | tee $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_${PLATFORM}.log
+		xcodebuild -project RetroArch.xcodeproj -target RetroArch -configuration Release | tee "$LOGFILE"
 
 		RET=$?
-		ERROR=$TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_${PLATFORM}.log
-		buildbot_handle_message "$RET" "$ENTRY_ID" "retroarch" "$jobid" "$ERROR"
+		buildbot_handle_message "$RET" "$ENTRY_ID" "retroarch" "$jobid" "$LOGFILE"
 
 		if [ -n "$LOGURL" ]; then
 			ENTRY_ID=`curl -X POST -d type="start" -d master_log="$MASTER_LOG_ID" -d platform="$jobid" -d name="retroarch" http://buildbot.fiveforty.net/build_entry/`
@@ -1089,15 +1090,14 @@ if [ "${PLATFORM}" == "ios" ] && [ "${RA}" == "YES" ]; then
 	if [ "${BUILD}" == "YES" -o "${FORCE}" == "YES" -o "${FORCE_RETROARCH_BUILD}" == "YES" -o "${CORES_BUILT}" == "YES" ]; then
 
 		cd pkg/apple
-		xcodebuild clean build CODE_SIGN_IDENTITY="" CODE_SIGNING_REQUIRED=NO -project RetroArch_iOS.xcodeproj -configuration Release &> $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_${PLATFORM}.log
+		xcodebuild clean build CODE_SIGN_IDENTITY="" CODE_SIGNING_REQUIRED=NO -project RetroArch_iOS.xcodeproj -configuration Release &> "$LOGFILE"
 		RET=$?
 
 		if [ $RET -eq 0 ]; then
 			touch $TMPDIR/built-frontend
 		fi
 
-		ERROR=$TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_${PLATFORM}.log
-		buildbot_handle_message "$RET" "$ENTRY_ID" "retroarch" "$jobid" "$ERROR"
+		buildbot_handle_message "$RET" "$ENTRY_ID" "retroarch" "$jobid" "$LOGFILE"
 
 		ENTRY_ID=""
 		cd $WORK/$RADIR
@@ -1113,7 +1113,7 @@ if [ "${PLATFORM}" == "ios9" ] && [ "${RA}" == "YES" ]; then
 	if [ "${BUILD}" == "YES" -o "${FORCE}" == "YES" -o "${FORCE_RETROARCH_BUILD}" == "YES" -o "${CORES_BUILT}" == "YES" ]; then
 
 		cd pkg/apple
-		xcodebuild clean build CODE_SIGN_IDENTITY="" CODE_SIGNING_REQUIRED=NO -project RetroArch_iOS.xcodeproj -configuration Release -target "RetroArch iOS9" &> $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_${PLATFORM}.log
+		xcodebuild clean build CODE_SIGN_IDENTITY="" CODE_SIGNING_REQUIRED=NO -project RetroArch_iOS.xcodeproj -configuration Release -target "RetroArch iOS9" &> "$LOGFILE"
 
 		RET=$?
 
@@ -1124,8 +1124,7 @@ if [ "${PLATFORM}" == "ios9" ] && [ "${RA}" == "YES" ]; then
 			codesign -fs "buildbot" RetroArch.app
 		fi
 
-		ERROR=$TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_${PLATFORM}.log
-		buildbot_handle_message "$RET" "$ENTRY_ID" "retroarch" "$jobid" "$ERROR"
+		buildbot_handle_message "$RET" "$ENTRY_ID" "retroarch" "$jobid" "$LOGFILE"
 
 		ENTRY_ID=""
 		cd $WORK/$RADIR
@@ -1220,16 +1219,16 @@ EOF
 		else
 			git reset --hard
 		fi
-		ant clean | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_${PLATFORM}.log
-		android update project --path . --target android-24 | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_${PLATFORM}.log
-		android update project --path libs/googleplay --target android-24 | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_${PLATFORM}.log
-		android update project --path libs/appcompat --target android-24 | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_${PLATFORM}.log
-		ant release | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_${PLATFORM}.log
+		ant clean | tee -a "$LOGFILE"
+		android update project --path . --target android-24 | tee -a "$LOGFILE"
+		android update project --path libs/googleplay --target android-24 | tee -a "$LOGFILE"
+		android update project --path libs/appcompat --target android-24 | tee -a "$LOGFILE"
+		ant release | tee -a "$LOGFILE"
 		if [ -z "$BRANCH" ]; then
-			cp -rv bin/retroarch-release.apk $RARCH_DIR/retroarch-release.apk | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_${PLATFORM}.log
+			cp -rv bin/retroarch-release.apk $RARCH_DIR/retroarch-release.apk | tee -a "$LOGFILE"
 			cp -rv bin/retroarch-release.apk $RARCH_DIR/retroarch-release.apk
 		else
-			cp -rv bin/retroarch-release.apk $RARCH_DIR/retroarch-$BRANCH-release.apk | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_${PLATFORM}.log
+			cp -rv bin/retroarch-release.apk $RARCH_DIR/retroarch-$BRANCH-release.apk | tee -a "$LOGFILE"
 			cp -rv bin/retroarch-release.apk $RARCH_DIR/retroarch-$BRANCH-release.apk
 		fi
 
@@ -1278,26 +1277,25 @@ if [ "${PLATFORM}" = "MINGW64" ] || [ "${PLATFORM}" = "MINGW32" ] || [ "${PLATFO
 
 		echo "building..."
 		echo "BUILD CMD: ${HELPER} ${MAKE} -j${JOBS}"
-		${HELPER} ${MAKE} -j${JOBS} 2>&1 | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_${PLATFORM}.log
+		${HELPER} ${MAKE} -j${JOBS} 2>&1 | tee -a "$LOGFILE"
 
 		if [ -n ${CUSTOM_BUILD} ]; then
-			${CUSTOM_BUILD} 2>&1 | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_${PLATFORM}.log
+			${CUSTOM_BUILD} 2>&1 | tee -a "$LOGFILE"
 		fi
 
 		strip -s retroarch.exe
 		cp -v retroarch.exe.manifest windows/retroarch.exe.manifest 2>/dev/null
-		cp -v retroarch.exe windows/retroarch.exe | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_${PLATFORM}.log
+		cp -v retroarch.exe windows/retroarch.exe | tee -a "$LOGFILE"
 		cp -v retroarch.exe windows/retroarch.exe
 
 		status=$?
 		echo $status
 
-		ERROR=$TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_${PLATFORM}.log
-		buildbot_handle_message "$status" "$ENTRY_ID" "retroarch" "$jobid" "$ERROR"
+		buildbot_handle_message "$status" "$ENTRY_ID" "retroarch" "$jobid" "$LOGFILE"
 
 		if [ $status -eq 0 ]; then
 			touch $TMPDIR/built-frontend
-			echo buildbot job: $MESSAGE >>$TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_${PLATFORM}.log
+			echo buildbot job: $MESSAGE >> "$LOGFILE"
 
 			${HELPER} ${MAKE} clean
 
@@ -1352,7 +1350,7 @@ if [ "${PLATFORM}" = "MINGW64" ] || [ "${PLATFORM}" = "MINGW32" ] || [ "${PLATFO
 		else
 			MESSAGE="retroarch:	[status: fail] [$jobid]"
 			ENTRY_ID=""
-			echo buildbot job: $MESSAGE >>$TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_${PLATFORM}.log
+			echo buildbot job: $MESSAGE >> "$LOGFILE"
 		fi
 	fi
 fi
@@ -1365,11 +1363,10 @@ if [ "${PLATFORM}" = "psp1" ] && [ "${RA}" = "YES" ]; then
 		rm *.a
 		cp -v $RARCH_DIST_DIR/*.a .
 
-		time sh ./dist-cores.sh psp1 2>&1 | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_${PLATFORM}.log
+		time sh ./dist-cores.sh psp1 2>&1 | tee -a "$LOGFILE"
 
 		RET=${PIPESTATUS[0]}
-		ERROR=$TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_${PLATFORM}.log
-		buildbot_handle_message "$RET" "$ENTRY_ID" "retroarch" "$jobid" "$ERROR"
+		buildbot_handle_message "$RET" "$ENTRY_ID" "retroarch" "$jobid" "$LOGFILE"
 
 		if [ $RET -eq 0 ]; then
 			touch $TMPDIR/built-frontend
@@ -1399,11 +1396,10 @@ if [ "${PLATFORM}" == "wii" ] && [ "${RA}" == "YES" ]; then
 		rm *.a
 		cp -v $RARCH_DIST_DIR/*.a .
 
-		time sh ./dist-cores.sh wii 2>&1 | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_${PLATFORM}.log
+		time sh ./dist-cores.sh wii 2>&1 | tee -a "$LOGFILE"
 
 		RET=${PIPESTATUS[0]}
-		ERROR=$TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_${PLATFORM}.log
-		buildbot_handle_message "$RET" "$ENTRY_ID" "retroarch" "$jobid" "$ERROR"
+		buildbot_handle_message "$RET" "$ENTRY_ID" "retroarch" "$jobid" "$LOGFILE"
 
 		ENTRY_ID=""
 
@@ -1432,11 +1428,10 @@ if [ "${PLATFORM}" == "wiiu" ] && [ "${RA}" == "YES" ]; then
 		cp -v $RARCH_DIST_DIR/../info/*.info .
 		cp -v ../media/assets/pkg/wiiu/*.png .
 
-		time sh ./wiiu-cores.sh 2>&1 | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_${PLATFORM}.log
+		time sh ./wiiu-cores.sh 2>&1 | tee -a "$LOGFILE"
 
 		RET=${PIPESTATUS[0]}
-		ERROR=$TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_${PLATFORM}.log
-		buildbot_handle_message "$RET" "$ENTRY_ID" "retroarch" "$jobid" "$ERROR"
+		buildbot_handle_message "$RET" "$ENTRY_ID" "retroarch" "$jobid" "$LOGFILE"
 
 		ENTRY_ID=""
 
@@ -1456,11 +1451,10 @@ if [ "${PLATFORM}" == "ngc" ] && [ "${RA}" == "YES" ]; then
 		rm *.a
 		cp -v $RARCH_DIST_DIR/*.a .
 
-		time sh ./dist-cores.sh ngc 2>&1 | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_${PLATFORM}.log
+		time sh ./dist-cores.sh ngc 2>&1 | tee -a "$LOGFILE"
 
 		RET=${PIPESTATUS[0]}
-		ERROR=$TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_${PLATFORM}.log
-		buildbot_handle_message "$RET" "$ENTRY_ID" "retroarch" "$jobid" "$ERROR"
+		buildbot_handle_message "$RET" "$ENTRY_ID" "retroarch" "$jobid" "$LOGFILE"
 
 		ENTRY_ID=""
 
@@ -1487,11 +1481,10 @@ if [ "${PLATFORM}" == "ctr" ] && [ "${RA}" == "YES" ]; then
 		rm *.a
 		cp -v $RARCH_DIST_DIR/*.a .
 
-		time sh ./dist-cores.sh ctr 2>&1 | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_${PLATFORM}.log
+		time sh ./dist-cores.sh ctr 2>&1 | tee -a "$LOGFILE"
 
 		RET=${PIPESTATUS[0]}
-		ERROR=$TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_${PLATFORM}.log
-		buildbot_handle_message "$RET" "$ENTRY_ID" "retroarch" "$jobid" "$ERROR"
+		buildbot_handle_message "$RET" "$ENTRY_ID" "retroarch" "$jobid" "$LOGFILE"
 
 		ENTRY_ID=""
 
@@ -1536,11 +1529,10 @@ if [ "${PLATFORM}" == "vita" ] && [ "${RA}" == "YES" ]; then
 		cp -v $RARCH_DIST_DIR/*.a .
 		cp -v $RARCH_DIST_DIR/arm/*.a .
 
-		time sh ./dist-cores.sh vita 2>&1 | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_${PLATFORM}.log
+		time sh ./dist-cores.sh vita 2>&1 | tee -a "$LOGFILE"
 
 		RET=${PIPESTATUS[0]}
-		ERROR=$TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_${PLATFORM}.log
-		buildbot_handle_message "$RET" "$ENTRY_ID" "retroarch" "$jobid" "$ERROR"
+		buildbot_handle_message "$RET" "$ENTRY_ID" "retroarch" "$jobid" "$LOGFILE"
 
 		ENTRY_ID=""
 
@@ -1625,12 +1617,11 @@ if [ "${PLATFORM}" = "emscripten" ] && [ "${RA}" = "YES" ]; then
 		rm *.a
 		cp -v $RARCH_DIST_DIR/*.bc .
 
-		echo "BUILD CMD $HELPER ./dist-cores.sh emscripten" &> $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_${PLATFORM}.log
-		$HELPER ./dist-cores.sh emscripten 2>&1 | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_${PLATFORM}.log
+		echo "BUILD CMD $HELPER ./dist-cores.sh emscripten" &> "$LOGFILE"
+		$HELPER ./dist-cores.sh emscripten 2>&1 | tee -a "$LOGFILE"
 
 		RET=${PIPESTATUS[0]}
-		ERROR=$TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_${PLATFORM}.log
-		buildbot_handle_message "$RET" "$ENTRY_ID" "retroarch" "$jobid" "$ERROR"
+		buildbot_handle_message "$RET" "$ENTRY_ID" "retroarch" "$jobid" "$LOGFILE"
 		ENTRY_ID=""
 
 		echo "Packaging"
@@ -1664,21 +1655,20 @@ if [ "${PLATFORM}" = "unix" ] && [ "${RA}" = "YES" ]; then
 
 		echo "building..."
 		echo "BUILD CMD: ${HELPER} ${MAKE} -j${JOBS}"
-		${HELPER} ${MAKE} -j${JOBS} 2>&1 | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_${PLATFORM}.log
+		${HELPER} ${MAKE} -j${JOBS} 2>&1 | tee -a "$LOGFILE"
 
 		status=$?
 		echo $status
 
-		ERROR=$TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_${PLATFORM}.log
-		buildbot_handle_message "$status" "$ENTRY_ID" "retroarch" "$jobid" "$ERROR"
+		buildbot_handle_message "$status" "$ENTRY_ID" "retroarch" "$jobid" "$LOGFILE"
 
 		if [ $status -eq 0 ]; then
 			MESSAGE="retroarch:	[status: done] [$jobid]"
-			echo buildbot job: $MESSAGE >>$TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_${PLATFORM}.log
+			echo buildbot job: $MESSAGE >> "$LOGFILE"
 			echo "Packaging"
 		else
 			MESSAGE="retroarch:	[status: fail] [$jobid]"
-			echo buildbot job: $MESSAGE >>$TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_${PLATFORM}.log
+			echo buildbot job: $MESSAGE >> "$LOGFILE"
 		fi
 	fi
 fi
