@@ -1233,7 +1233,7 @@ EOF
 		fi
 
 		RET=$?
-		buildbot_handle_message "$RET" "$ENTRY_ID" "retroarch" "$jobid" "$ERROR"
+		buildbot_handle_message "$RET" "$ENTRY_ID" "retroarch" "$jobid" "$LOGFILE"
 
 		if [ $RET -eq 0 ]; then
 			touch $TMPDIR/built-frontend
