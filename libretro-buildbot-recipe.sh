@@ -957,18 +957,6 @@ buildbot_pull(){
 						git clean -xdf
 						BUILD="YES"
 					fi
-				elif [ "${TYPE}" = "SUBMODULE" ]; then
-					RADIR=$DIR
-					if [[ $OUT == *"Already up-to-date"* ]] && [ ! "${BUILD}" = "YES" ]; then
-						BUILD="NO"
-					else
-						echo "resetting repo state $URL... "
-						git reset --hard FETCH_HEAD
-						git clean -xdf
-						BUILD="YES"
-						git submodule update --init --recursive
-						#git submodule foreach git pull origin master
-					fi
 				fi
 				cd $WORK
 			else
@@ -987,14 +975,6 @@ buildbot_pull(){
 				if [ "${TYPE}" = "PROJECT" ]; then
 					BUILD="YES"
 					RADIR=$DIR
-				elif [ "${TYPE}" == "SUBMODULE" ]; then
-					cd $PARENTDIR
-					cd $DIR
-					RADIR=$DIR
-					echo "updating submodules..."
-					git submodule update --init --recursive
-					#git submodule foreach git pull origin master
-					BUILD="YES"
 				fi
 				cd $WORK
 			fi
