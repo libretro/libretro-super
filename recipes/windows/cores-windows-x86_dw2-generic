@@ -4,9 +4,10 @@
 81 libretro-81 https://github.com/libretro/81-libretro.git master PROJECT YES GENERIC Makefile .
 atari800 libretro-atari800 https://github.com/libretro/libretro-atari800.git master PROJECT YES GENERIC Makefile .
 bluemsx libretro-bluemsx https://github.com/libretro/blueMSX-libretro.git master PROJECT YES GENERIC Makefile.libretro .
-bsnes libretro-bsnes https://github.com/libretro/bsnes-libretro.git master PROJECT YES BSNES Makefile . accuracy
-bsnes libretro-bsnes https://github.com/libretro/bsnes-libretro.git master PROJECT YES BSNES Makefile . balanced
-bsnes libretro-bsnes https://github.com/libretro/bsnes-libretro.git master PROJECT YES BSNES Makefile . performance
+bsnes libretro-bsnes https://github.com/libretro/bsnes-libretro.git libretro PROJECT YES BSNES Makefile . accuracy
+bsnes libretro-bsnes https://github.com/libretro/bsnes-libretro.git libretro PROJECT YES BSNES Makefile . balanced
+bsnes libretro-bsnes https://github.com/libretro/bsnes-libretro.git libretro PROJECT YES BSNES Makefile . balanced
+bsnes libretro-bsnes https://github.com/libretro/bsnes-libretro.git libretro PROJECT YES BSNES Makefile . performance
 bsnes_cplusplus98 libretro-bsnes_cplusplus98 https://github.com/libretro/bsnes-libretro-cplusplus98.git master PROJECT YES BSNES Makefile . cpp98
 bsnes_mercury libretro-bsnes_mercury https://github.com/libretro/bsnes-mercury.git master PROJECT YES BSNES Makefile . accuracy
 bsnes_mercury libretro-bsnes_mercury https://github.com/libretro/bsnes-mercury.git master PROJECT YES BSNES Makefile . balanced
@@ -36,6 +37,7 @@ gw libretro-gw https://github.com/libretro/gw-libretro.git master PROJECT YES GE
 handy libretro-handy https://github.com/libretro/libretro-handy.git master PROJECT YES GENERIC Makefile .
 hatari libretro-hatari https://github.com/libretro/hatari.git master PROJECT YES GENERIC Makefile.libretro .
 higan_sfc libretro-higan https://gitlab.com/higan/higan.git libretro PROJECT YES HIGAN GNUmakefile higan target=libretro binary=library
+higan_sfc libretro-nside https://github.com/hex-usr/nSide.git libretro PROJECT YES HIGAN GNUmakefile higan target=libretro binary=library
 lutro libretro-lutro https://github.com/libretro/libretro-lutro master PROJECT YES GENERIC Makefile .
 mame libretro-mame https://github.com/libretro/mame.git master PROJECT YES GENERIC Makefile.libretro . PTR64=0
 mame2000 libretro-mame2000 https://github.com/libretro/mame2000-libretro.git master PROJECT YES GENERIC Makefile .
@@ -79,11 +81,12 @@ puae libretro-uae https://github.com/libretro/libretro-uae.git master PROJECT YE
 px68k libretro-px68k https://github.com/libretro/px68k-libretro.git master PROJECT YES GENERIC Makefile.libretro .
 quicknes libretro-quicknes https://github.com/libretro/QuickNES_Core.git master PROJECT YES GENERIC Makefile .
 remotejoy libretro-remotejoy https://github.com/libretro/libretro-remotejoy.git master PROJECT YES GENERIC Makefile .
-sameboy libretro-sameboy https://github.com/libretro/SameBoy.git master PROJECT YES GENERIC Makefile.libretro .
+sameboy libretro-sameboy https://github.com/libretro/SameBoy.git master PROJECT YES GENERIC Makefile . libretro
 scummvm libretro-scummvm https://github.com/libretro/scummvm.git master PROJECT YES GENERIC Makefile backends/platform/libretro/build
 snes9x libretro-snes9x https://github.com/libretro/snes9x.git master PROJECT YES GENERIC Makefile libretro
 snes9x2002 libretro-snes9x2002 https://github.com/libretro/snes9x2002.git master PROJECT YES GENERIC Makefile .
 snes9x2005 libretro-snes9x2005 https://github.com/libretro/snes9x2005.git master PROJECT YES GENERIC Makefile .
+snes9x2005_plus libretro-snes9x2005_plus https://github.com/libretro/snes9x2005.git master PROJECT YES GENERIC Makefile . USE_BLARGG_APU=1
 snes9x2010 libretro-snes9x2010 https://github.com/libretro/snes9x2010.git master PROJECT YES GENERIC Makefile.libretro .
 stella libretro-stella https://github.com/libretro/stella-libretro.git master PROJECT YES GENERIC Makefile .
 tgbdual libretro-tgbdual https://github.com/libretro/tgbdual-libretro.git master PROJECT YES GENERIC Makefile .
