@@ -7,7 +7,6 @@ bluemsx libretro-bluemsx https://github.com/libretro/blueMSX-libretro.git master
 bnes libretro-bnes https://github.com/libretro/bnes-libretro.git master PROJECT YES GENERIC Makefile .
 bsnes libretro-bsnes https://github.com/libretro/bsnes-libretro.git libretro PROJECT YES BSNES Makefile . accuracy
 bsnes libretro-bsnes https://github.com/libretro/bsnes-libretro.git libretro PROJECT YES BSNES Makefile . balanced
-bsnes libretro-bsnes https://github.com/libretro/bsnes-libretro.git libretro PROJECT YES BSNES Makefile . balanced
 bsnes libretro-bsnes https://github.com/libretro/bsnes-libretro.git libretro PROJECT YES BSNES Makefile . performance
 bsnes_cplusplus98 libretro-bsnes_cplusplus98 https://github.com/libretro/bsnes-libretro-cplusplus98.git master PROJECT YES BSNES Makefile . cpp98
 bsnes_mercury libretro-bsnes_mercury https://github.com/libretro/bsnes-mercury.git master PROJECT YES BSNES Makefile . accuracy
