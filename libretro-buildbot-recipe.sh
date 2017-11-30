@@ -812,10 +812,10 @@ while read line; do
 			fi
 
 			echo "pulling changes from repo $URL..."
-			OUT="$(git pull)"
-			echo "$OUT"
+			HEAD="$(git rev-parse HEAD)"
+			git pull
 
-			if [[ $OUT == *"Already up-to-date"* ]] && [ "${BUILD}" != "YES" ]; then
+			if [ "$HEAD" = "$(git rev-parse HEAD)" ] && [ "${BUILD}" != "YES" ]; then
 				BUILD="NO"
 			else
 				echo "resetting repo state $URL..."
@@ -946,12 +946,12 @@ buildbot_pull(){
 				fi
 
 				echo "pulling changes from repo $URL... "
-				OUT=`git pull`
-				echo $OUT
+				HEAD="$(git rev-parse HEAD)"
+				git pull
 
 				if [ "${TYPE}" = "PROJECT" ]; then
 					RADIR=$DIR
-					if [[ $OUT == *"Already up-to-date"* ]] && [ ! "${BUILD}" = "YES" ]; then
+					if [ "$HEAD" = "$(git rev-parse HEAD)" ] && [ "${BUILD}" != "YES" ]; then
 						BUILD="NO"
 					else
 						echo "resetting repo state $URL... "
