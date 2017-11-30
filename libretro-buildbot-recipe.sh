@@ -885,6 +885,8 @@ while read line; do
 				HIGAN )         build_libretro_higan $NAME $DIR $SUBDIR $MAKEFILE $PLATFORM ${FORMAT_COMPILER_TARGET} ${CXX11} "${ARGS}" ;;
 				* )             :                                                                                                        ;;
 			esac
+			echo "Cleaning repo state after build $URL..."
+			git clean -xdf
 		else
 			echo "buildbot job: building $NAME up-to-date"
 		fi
