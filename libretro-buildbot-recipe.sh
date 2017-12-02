@@ -132,7 +132,7 @@ if [ "${CORE_JOB}" == "YES" ]; then
 			if [ -d $RARCH_DIST_DIR/${a} ]; then
 				echo "Directory $RARCH_DIST_DIR/${a} already exists, skipping creation..."
 			else
-				mkdir $RARCH_DIST_DIR/${a}
+				mkdir -p $RARCH_DIST_DIR/${a}
 			fi
 		done
 	fi
