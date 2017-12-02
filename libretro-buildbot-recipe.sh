@@ -433,7 +433,6 @@ build_libretro_leiradel_makefile() {
 	echo --------------------------------------------------| tee $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}_${a}.log
 	cat $TMPDIR/vars | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}_${a}.log
 
-	cd ${DIR}/${SUBDIR}
 	echo -------------------------------------------------- 2>&1 | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}_${a}.log
 	if [ -z "${NOCLEAN}" ]; then
 		echo "CLEANUP CMD: ${HELPER} ${MAKE} -f ${MAKEFILE}.${PLATFORM}_${ARGS} platform=${PLATFORM}_${ARGS} -j${JOBS} clean" 2>&1 | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}.log
@@ -483,7 +482,6 @@ build_libretro_generic_gl_makefile() {
 	echo --------------------------------------------------| tee $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}_${a}.log
 	cat $TMPDIR/vars | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}_${a}.log
 
-	cd ${DIR}/${SUBDIR}
 	echo -------------------------------------------------- 2>&1 | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}_${a}.log
 	if [ -z "${NOCLEAN}" ]; then
 		echo "CLEANUP CMD: ${HELPER} ${MAKE} -f ${MAKEFILE} platform=${PLATFORM} -j${JOBS} clean" 2>&1 | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}.log
@@ -534,7 +532,8 @@ build_libretro_generic_jni() {
 	echo --------------------------------------------------| tee $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}_${a}.log
 	cat $TMPDIR/vars | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}_${a}.log
 
-	cd ${DIR}/${SUBDIR}
+	cd ${DIR}
+	cd ${SUBDIR}
 	echo -------------------------------------------------- 2>&1 | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}_${a}.log
 	for a in "${ABIS[@]}"; do
 		if [ -z "${NOCLEAN}" ]; then
@@ -599,7 +598,8 @@ build_libretro_bsnes_jni() {
 		ENTRY_ID=`curl -X POST -d type="start" -d master_log="$MASTER_LOG_ID" -d platform="$jobid" -d name="$NAME" http://buildbot.fiveforty.net/build_entry/`
 	fi
 
-	cd ${DIR}/${SUBDIR}
+	cd ${DIR}
+	cd ${SUBDIR}
 	echo -------------------------------------------------- 2>&1 | tee $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PROFILE}_${PLATFORM}_${a}.log
 	for a in "${ABIS[@]}"; do
 		if [ -z "${NOCLEAN}" ]; then
@@ -829,8 +829,12 @@ while read line; do
 				BSNES )               build_libretro_bsnes $NAME $DIR "${ARGS}" $MAKEFILE ${FORMAT_COMPILER_TARGET} ${CXX11}               ;;
 				* )                   :                                                                                                    ;;
 			esac
-			echo "Cleaning repo state after build $URL..."
-			git clean -xdf
+			BUILD_DIR="${BASE_DIR}/${DIR}"
+			[ "${SUBDIR}" != . ] && BUILD_DIR="${BUILD_DIR}/${SUBDIR}"
+			if [ "$(realpath .)" = "${BUILD_DIR}" ]; then
+				echo "Cleaning repo state after build $URL..."
+				git clean -xdf
+			fi
 		else
 			echo "buildbot job: building $NAME up-to-date"
 		fi
