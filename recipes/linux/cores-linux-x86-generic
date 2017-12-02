@@ -7,8 +7,7 @@ bnes libretro-bnes https://github.com/libretro/bnes-libretro.git master PROJECT 
 bsnes libretro-bsnes https://github.com/libretro/bsnes-libretro.git master PROJECT YES BSNES Makefile . accuracy
 bsnes libretro-bsnes https://github.com/libretro/bsnes-libretro.git master PROJECT YES BSNES Makefile . balanced
 bsnes libretro-bsnes https://github.com/libretro/bsnes-libretro.git master PROJECT YES BSNES Makefile . performance
-bsnes_cplusplus98 libretro-bsnes_cplusplus98 https://github.com/libretro/bsnes-libretro-cplusplus98.git master PROJECT YES BSNES Makefile . cpp98
-bsnes_cplusplus98 libretro-bsnes_cplusplus98 https://github.com/libretro/bsnes-libretro-cplusplus98.git master PROJECT YES BSNES Makefile . cpp98
+bsnes_cplusplus98 libretro-bsnes_cplusplus98 https://github.com/libretro/bsnes-libretro-cplusplus98.git master PROJECT YES GENERIC Makefile .
 bsnes_mercury libretro-bsnes_mercury https://github.com/libretro/bsnes-mercury.git master PROJECT YES BSNES Makefile . accuracy
 bsnes_mercury libretro-bsnes_mercury https://github.com/libretro/bsnes-mercury.git master PROJECT YES BSNES Makefile . balanced
 bsnes_mercury libretro-bsnes_mercury https://github.com/libretro/bsnes-mercury.git master PROJECT YES BSNES Makefile . performance
