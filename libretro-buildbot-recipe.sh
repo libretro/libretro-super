@@ -750,6 +750,18 @@ while read line; do
 
 		cd "$DIR"
 
+		CURRENT_BRANCH="$(git rev-parse --abbrev-ref HEAD)"
+
+		if [ "${GIT_BRANCH}" != "${CURRENT_BRANCH}" ]; then
+			echo "Changing to the branch ${GIT_BRANCH} from ${CURRENT_BRANCH}"
+			git remote set-branches origin "${GIT_BRANCH}"
+			git fetch --depth 1 origin "${GIT_BRANCH}"
+			git checkout "${GIT_BRANCH}"
+			git branch -D "${CURRENT_BRANCH}"
+			BUILD="YES"
+			UPDATE="NO"
+		fi
+
 		if [ "${UPDATE}" != "NO" ]; then
 			if [ -f .forcebuild ]; then
 				echo "found .forcebuild file, building $NAME"
