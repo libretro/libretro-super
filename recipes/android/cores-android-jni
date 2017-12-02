@@ -12,7 +12,7 @@ craft libretro-craft https://github.com/libretro/Craft.git master PROJECT YES GE
 crocods libretro-crocods https://github.com/libretro/libretro-crocods.git master PROJECT YES GENERIC_JNI Makefile jni
 desmume libretro-desmume https://github.com/libretro/desmume.git master PROJECT YES GENERIC_JNI Makefile.libretro desmume/src/libretro/jni
 dinothawr libretro-dinothawr https://github.com/libretro/Dinothawr.git master PROJECT YES GENERIC_JNI Makefile jni
-dolphin libretro-dolphin https://github.com/libretro/dolphin.git master PROJECT YES GENERIC_JNI Makefile.libretro Sources/Core/DolphinLibretro/jni
+dolphin libretro-dolphin https://github.com/libretro/dolphin.git master PROJECT YES GENERIC_JNI Makefile.libretro Source/Core/DolphinLibretro/jni
 dosbox libretro-dosbox https://github.com/libretro/dosbox-libretro.git master PROJECT YES GENERIC_JNI Makefile.libretro jni
 fbalpha libretro-fbalpha https://github.com/libretro/fbalpha.git master PROJECT YES GENERIC_JNI makefile.libretro jni
 fbalpha2012 libretro-fbalpha2012 https://github.com/libretro/fbalpha2012.git master PROJECT YES GENERIC_JNI makefile.libretro svn-current/trunk/projectfiles/libretro-android/jni
