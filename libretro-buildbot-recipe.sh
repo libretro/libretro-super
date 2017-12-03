@@ -752,7 +752,7 @@ while read line; do
 
 		CURRENT_BRANCH="$(git rev-parse --abbrev-ref HEAD)"
 
-		if [ "${GIT_BRANCH}" != "${CURRENT_BRANCH}" ]; then
+		if [ "${GIT_BRANCH}" != "${CURRENT_BRANCH}" ] && [ "${TRAVIS:-0}" = "0" ]; then
 			echo "Changing to the branch ${GIT_BRANCH} from ${CURRENT_BRANCH}"
 			git remote set-branches origin "${GIT_BRANCH}"
 			git fetch --depth 1 origin "${GIT_BRANCH}"
