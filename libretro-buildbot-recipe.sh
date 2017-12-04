@@ -748,7 +748,7 @@ while read line; do
 			UPDATE="NO"
 		fi
 
-		cd "$DIR"
+		cd "$DIR" || { echo "Failed to cd to ${DIR}, skipping ${NAME}"; continue; }
 
 		CURRENT_BRANCH="$(git rev-parse --abbrev-ref HEAD)"
 
