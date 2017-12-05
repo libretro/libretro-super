@@ -2,13 +2,9 @@
 4do libretro-4do https://github.com/libretro/4do-libretro.git master PROJECT YES GENERIC Makefile .
 atari800 libretro-atari800 https://github.com/libretro/libretro-atari800.git master PROJECT YES GENERIC Makefile .
 bluemsx libretro-bluemsx https://github.com/libretro/blueMSX-libretro.git master PROJECT YES GENERIC Makefile.libretro .
-bsnes libretro-bsnes https://github.com/libretro/bsnes-libretro.git libretro PROJECT YES BSNES Makefile . profile=accuracy
-bsnes libretro-bsnes https://github.com/libretro/bsnes-libretro.git libretro PROJECT YES BSNES Makefile . profile=balanced
-bsnes libretro-bsnes https://github.com/libretro/bsnes-libretro.git libretro PROJECT YES BSNES Makefile . profile=performance
+bsnes libretro-bsnes https://github.com/libretro/bsnes-libretro.git libretro PROJECT YES BSNES Makefile .
 bsnes_cplusplus98 libretro-bsnes_cplusplus98 https://github.com/libretro/bsnes-libretro-cplusplus98.git master PROJECT YES GENERIC Makefile .
-bsnes_mercury libretro-bsnes_mercury https://github.com/libretro/bsnes-mercury.git master PROJECT YES BSNES Makefile . profile=accuracy
-bsnes_mercury libretro-bsnes_mercury https://github.com/libretro/bsnes-mercury.git master PROJECT YES BSNES Makefile . profile=balanced
-bsnes_mercury libretro-bsnes_mercury https://github.com/libretro/bsnes-mercury.git master PROJECT YES BSNES Makefile . profile=performance
+bsnes_mercury libretro-bsnes_mercury https://github.com/libretro/bsnes-mercury.git master PROJECT YES BSNES Makefile .
 craft libretro-craft https://github.com/libretro/craft master PROJECT YES GENERIC Makefile.libretro .
 crocods libretro-crocods https://github.com/libretro/libretro-crocods.git master SUBMODULE YES GENERIC Makefile .
 desmume libretro-desmume https://github.com/libretro/desmume.git master PROJECT YES GENERIC Makefile.libretro desmume

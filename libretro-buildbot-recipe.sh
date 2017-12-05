@@ -328,76 +328,86 @@ build_libretro_generic_makefile() {
 		OUT="out"
 	fi
 
-	[ "${COMMAND}" = "BSNES" ] && NAME="${NAME}_${ARGS##*=}"
-
 	cd "${SUBDIR}"
 
-	echo --------------------------------------------------| tee $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}.log
-	cat $TMPDIR/vars | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}.log
+	if [ "${COMMAND}" = "BSNES" ]; then
+		CORE="${NAME}_accuracy ${NAME}_balanced ${NAME}_performance"
+	else
+		CORE="${NAME}"
+	fi
 
-	echo -------------------------------------------------- 2>&1 | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}.log
-	if [ -z "${NOCLEAN}" ] && [ -f "${MAKEFILE}" ] && [ "${COMMAND}" != "CMAKE" ]; then
-		if [ "${COMMAND}" = "HIGAN" ]; then
-			rm -fv obj/*.{o,"${FORMAT_EXT}"} 2>&1 | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}.log
-			rm -fv out/*.{o,"${FORMAT_EXT}"} 2>&1 | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}.log
+	eval "set -- $CORE"
+	for core do
+		NAME="$core"
+		[ "${COMMAND}" = "BSNES" ] && ARGS="profile=${core##*_}"
+
+		echo --------------------------------------------------| tee $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}.log
+		cat $TMPDIR/vars | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}.log
+
+		echo -------------------------------------------------- 2>&1 | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}.log
+		if [ -z "${NOCLEAN}" ] && [ -f "${MAKEFILE}" ] && [ "${COMMAND}" != "CMAKE" ]; then
+			if [ "${COMMAND}" = "HIGAN" ]; then
+				rm -fv obj/*.{o,"${FORMAT_EXT}"} 2>&1 | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}.log
+				rm -fv out/*.{o,"${FORMAT_EXT}"} 2>&1 | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}.log
+			else
+				eval "set -- ${HELPER} ${MAKE} -f ${MAKEFILE} platform=${PLATFORM} -j${JOBS} ${ARGS} clean"
+				echo "CLEANUP CMD: $@" 2>&1 | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}.log
+				"$@" 2>&1 | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}.log
+			fi
+
+			if [ $? -eq 0 ]; then
+				echo buildbot job: $jobid ${NAME} cleanup success!
+			else
+				echo buildbot job: $jobid ${NAME} cleanup failed!
+			fi
+		fi
+
+		echo -------------------------------------------------- 2>&1 | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}.log
+		if [ "${NAME}" == "mame2010" ]; then
+			echo "BUILD CMD: PLATFORM="" platform="" ${HELPER} ${MAKE} -f ${MAKEFILE} "VRENDER=soft" "NATIVE=1" buildtools -j${JOBS}" 2>&1 | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}.log
+			PLATFORM="" platform="" ${HELPER} ${MAKE} -f ${MAKEFILE} "VRENDER=soft" "NATIVE=1" buildtools -j${JOBS} 2>&1 | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}.log
+			JOBS=$JOBS_ORIG
+		fi
+
+		if [ "${COMMAND}" = "CMAKE" ]; then
+			if [ "${PLATFORM}" = "android" ]; then
+				EXTRAARGS="-DCMAKE_SYSTEM_NAME=Android -DCMAKE_SYSTEM_VERSION=${API_LEVEL} -DCMAKE_ANDROID_ARCH_ABI=${ABI_OVERRIDE} -DCMAKE_ANDROID_NDK=${NDK_ROOT}"
+			fi
+
+			eval "set -- ${EXTRAARGS} ${ARGS}"
+			echo "BUILD CMD: ${CMAKE} $@" 2>&1 | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}.log
+			echo "$@" .. | xargs ${CMAKE} 2>&1 | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}.log
+			echo "BUILD CMD: ${HELPER} ${MAKE} -f ${MAKEFILE} -j${JOBS}" 2>&1 | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}.log
+			${HELPER} ${MAKE} -f ${MAKEFILE} -j${JOBS} 2>&1 | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}.log
+
+			find . -mindepth 2 -name "${NAME}_libretro${FORMAT}${LIBSUFFIX}.${FORMAT_EXT}" -exec cp -f "{}" . \;
+		elif [ "${COMMAND}" = "HIGAN" ]; then
+			platform=""
+			echo "BUILD CMD: ${HELPER} ${MAKE} -f ${MAKEFILE} -j${JOBS}" ${ARGS} 2>&1 | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}.log
+			${HELPER} ${MAKE} -f ${MAKEFILE} -j${JOBS} ${ARGS} 2>&1 | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}.log
 		else
-			eval "set -- ${HELPER} ${MAKE} -f ${MAKEFILE} platform=${PLATFORM} -j${JOBS} ${ARGS} clean"
-			echo "CLEANUP CMD: $@" 2>&1 | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}.log
+			eval "set -- ${HELPER} ${MAKE} -f ${MAKEFILE} platform=${PLATFORM} -j${JOBS} ${ARGS}"
+			echo "BUILD CMD: $@" 2>&1 | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}.log
 			"$@" 2>&1 | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}.log
 		fi
 
-		if [ $? -eq 0 ]; then
-			echo buildbot job: $jobid ${NAME} cleanup success!
-		else
-			echo buildbot job: $jobid ${NAME} cleanup failed!
-		fi
-	fi
-
-	echo -------------------------------------------------- 2>&1 | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}.log
-	if [ "${NAME}" == "mame2010" ]; then
-		echo "BUILD CMD: PLATFORM="" platform="" ${HELPER} ${MAKE} -f ${MAKEFILE} "VRENDER=soft" "NATIVE=1" buildtools -j${JOBS}" 2>&1 | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}.log
-		PLATFORM="" platform="" ${HELPER} ${MAKE} -f ${MAKEFILE} "VRENDER=soft" "NATIVE=1" buildtools -j${JOBS} 2>&1 | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}.log
-		JOBS=$JOBS_ORIG
-	fi
-
-	if [ "${COMMAND}" = "CMAKE" ]; then
-		if [ "${PLATFORM}" = "android" ]; then
-			EXTRAARGS="-DCMAKE_SYSTEM_NAME=Android -DCMAKE_SYSTEM_VERSION=${API_LEVEL} -DCMAKE_ANDROID_ARCH_ABI=${ABI_OVERRIDE} -DCMAKE_ANDROID_NDK=${NDK_ROOT}"
+		if [ "${MAKEPORTABLE}" == "YES" ]; then
+			echo "BUILD CMD $WORK/retrolink.sh ${OUT}/${NAME}_libretro${FORMAT}${LIBSUFFIX}.${FORMAT_EXT}" 2>&1 | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}.log
+			$WORK/retrolink.sh ${OUT}/${NAME}_libretro${FORMAT}${LIBSUFFIX}.${FORMAT_EXT} 2>&1 | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}.log
 		fi
 
-		eval "set -- ${EXTRAARGS} ${ARGS}"
-		echo "BUILD CMD: ${CMAKE} $@" 2>&1 | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}.log
-		echo "$@" .. | xargs ${CMAKE} 2>&1 | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}.log
-		echo "BUILD CMD: ${HELPER} ${MAKE} -f ${MAKEFILE} -j${JOBS}" 2>&1 | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}.log
-		${HELPER} ${MAKE} -f ${MAKEFILE} -j${JOBS} 2>&1 | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}.log
+		if [ "${PLATFORM}" = "windows" ] || [ "${PLATFORM}" = "unix" ]; then
+			${STRIP:=strip} -s ${OUT}/${NAME}_libretro${FORMAT}${LIBSUFFIX}.${FORMAT_EXT}
+		fi
 
-		find . -mindepth 2 -name "${NAME}_libretro${FORMAT}${LIBSUFFIX}.${FORMAT_EXT}" -exec cp -f "{}" . \;
-	elif [ "${COMMAND}" = "HIGAN" ]; then
-		platform=""
-		echo "BUILD CMD: ${HELPER} ${MAKE} -f ${MAKEFILE} -j${JOBS}" ${ARGS} 2>&1 | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}.log
-		${HELPER} ${MAKE} -f ${MAKEFILE} -j${JOBS} ${ARGS} 2>&1 | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}.log
-	else
-		eval "set -- ${HELPER} ${MAKE} -f ${MAKEFILE} platform=${PLATFORM} -j${JOBS} ${ARGS}"
-		echo "BUILD CMD: $@" 2>&1 | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}.log
-		"$@" 2>&1 | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}.log
-	fi
+		echo "COPY CMD: cp -v ${OUT}/${NAME}_libretro${FORMAT}${LIBSUFFIX}.${FORMAT_EXT} $RARCH_DIST_DIR/${DIST}/${NAME}_libretro${FORMAT}${LIBSUFFIX}.${FORMAT_EXT}" 2>&1 | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}.log
+		cp -v ${OUT}/${NAME}_libretro${FORMAT}${LIBSUFFIX}.${FORMAT_EXT} $RARCH_DIST_DIR/${DIST}/${NAME}_libretro${FORMAT}${LIBSUFFIX}.${FORMAT_EXT} 2>&1 | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}.log
+		cp -v ${OUT}/${NAME}_libretro${FORMAT}${LIBSUFFIX}.${FORMAT_EXT} $RARCH_DIST_DIR/${DIST}/${NAME}_libretro${FORMAT}${LIBSUFFIX}.${FORMAT_EXT}
 
-	if [ "${MAKEPORTABLE}" == "YES" ]; then
-		echo "BUILD CMD $WORK/retrolink.sh ${OUT}/${NAME}_libretro${FORMAT}${LIBSUFFIX}.${FORMAT_EXT}" 2>&1 | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}.log
-		$WORK/retrolink.sh ${OUT}/${NAME}_libretro${FORMAT}${LIBSUFFIX}.${FORMAT_EXT} 2>&1 | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}.log
-	fi
-
-	if [ "${PLATFORM}" = "windows" ] || [ "${PLATFORM}" = "unix" ]; then
-		${STRIP:=strip} -s ${OUT}/${NAME}_libretro${FORMAT}${LIBSUFFIX}.${FORMAT_EXT}
-	fi
-
-	echo "COPY CMD: cp -v ${OUT}/${NAME}_libretro${FORMAT}${LIBSUFFIX}.${FORMAT_EXT} $RARCH_DIST_DIR/${DIST}/${NAME}_libretro${FORMAT}${LIBSUFFIX}.${FORMAT_EXT}" 2>&1 | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}.log
-	cp -v ${OUT}/${NAME}_libretro${FORMAT}${LIBSUFFIX}.${FORMAT_EXT} $RARCH_DIST_DIR/${DIST}/${NAME}_libretro${FORMAT}${LIBSUFFIX}.${FORMAT_EXT} 2>&1 | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}.log
-	cp -v ${OUT}/${NAME}_libretro${FORMAT}${LIBSUFFIX}.${FORMAT_EXT} $RARCH_DIST_DIR/${DIST}/${NAME}_libretro${FORMAT}${LIBSUFFIX}.${FORMAT_EXT}
-
-	RET=$?
-	ERROR=$TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}.log
-	buildbot_handle_message "$RET" "$ENTRY_ID" "$NAME" "$jobid" "$ERROR"
+		RET=$?
+		ERROR=$TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}.log
+		buildbot_handle_message "$RET" "$ENTRY_ID" "$NAME" "$jobid" "$ERROR"
+	done
 
 	ENTRY_ID=""
 	JOBS=$JOBS_ORIG
@@ -516,59 +526,70 @@ build_libretro_generic_jni() {
 	ARGS=$6
 
 	ENTRY_ID=""
+	LIBNAM="libretro"
 
 	if [ -n "$LOGURL" ]; then
 		ENTRY_ID=`curl -X POST -d type="start" -d master_log="$MASTER_LOG_ID" -d platform="$jobid" -d name="$NAME" http://buildbot.fiveforty.net/build_entry/`
 	fi
 
 	if [ "${COMMAND}" = "BSNES_JNI" ]; then
-		NAME="${NAME}_${ARGS##*=}"
-		LIBNAM="libretro_${NAME}"
+		CORE="${NAME}_accuracy ${NAME}_balanced ${NAME}_performance"
 	else
-		LIBNAM="libretro"
+		CORE="${NAME}"
 	fi
-
-	echo --------------------------------------------------| tee $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}_${a}.log
-	cat $TMPDIR/vars | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}_${a}.log
 
 	cd ${DIR}
 	cd ${SUBDIR}
-	echo -------------------------------------------------- 2>&1 | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}_${a}.log
-	for a in "${ABIS[@]}"; do
-		if [ -z "${NOCLEAN}" ]; then
-			echo "CLEANUP CMD: ${NDK} -j${JOBS} ${ARGS} APP_ABI=${a} clean" 2>&1 | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}_${a}.log
-			${NDK} -j${JOBS} ${ARGS} APP_ABI=${a} clean 2>&1 | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}_${a}.log
 
-			if [ $? -eq 0 ]; then
-				echo buildbot job: $jobid $a ${NAME} cleanup success!
-			else
-				echo buildbot job: $jobid $a ${NAME} cleanup failed!
+	eval "set -- $CORE"
+	for core do
+		NAME="${core}"
+
+		if [ "${COMMAND}" = "BSNES_JNI" ]; then
+			ARGS="profile=${core##*_}"
+			LIBNAM="libretro_${NAME}"
+		fi
+
+		for a in "${ABIS[@]}"; do
+			echo --------------------------------------------------| tee $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}_${a}.log
+			cat $TMPDIR/vars | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}_${a}.log
+
+			echo -------------------------------------------------- 2>&1 | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}_${a}.log
+			if [ -z "${NOCLEAN}" ]; then
+				echo "CLEANUP CMD: ${NDK} -j${JOBS} ${ARGS} APP_ABI=${a} clean" 2>&1 | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}_${a}.log
+				${NDK} -j${JOBS} ${ARGS} APP_ABI=${a} clean 2>&1 | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}_${a}.log
+
+				if [ $? -eq 0 ]; then
+					echo buildbot job: $jobid $a ${NAME} cleanup success!
+				else
+					echo buildbot job: $jobid $a ${NAME} cleanup failed!
+				fi
 			fi
-		fi
 
-		echo -------------------------------------------------- 2>&1 | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}_${a}.log
-		eval "set -- ${NDK} -j${JOBS} APP_ABI=${a} ${ARGS}"
-		echo "BUILD CMD: $@" 2>&1 | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}_${a}.log
-		"$@" 2>&1 | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}_${a}.log
-
-
-		if [ "${NAME}" == "mupen64plus" ]; then
-			echo "COPY CMD: cp -v ../libs/${a}/libparallel_retro.${FORMAT_EXT} $RARCH_DIST_DIR/${a}/parallel_libretro${FORMAT}${LIBSUFFIX}.${FORMAT_EXT}" 2>&1 | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}_${a}.log
-			cp -v ../libs/${a}/libparallel_retro.${FORMAT_EXT} $RARCH_DIST_DIR/${a}/parallel_libretro${FORMAT}${LIBSUFFIX}.${FORMAT_EXT} 2>&1 | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}_${a}.log
-			cp -v ../libs/${a}/libparallel_retro.${FORMAT_EXT} $RARCH_DIST_DIR/${a}/parallel_libretro${FORMAT}${LIBSUFFIX}.${FORMAT_EXT}
-		fi
-
-		echo "COPY CMD: cp -v ../libs/${a}/$LIBNAM.${FORMAT_EXT} $RARCH_DIST_DIR/${a}/${NAME}_libretro${FORMAT}${LIBSUFFIX}.${FORMAT_EXT}" 2>&1 | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}_${a}.log
-		cp -v ../libs/${a}/$LIBNAM.${FORMAT_EXT} $RARCH_DIST_DIR/${a}/${NAME}_libretro${FORMAT}${LIBSUFFIX}.${FORMAT_EXT} 2>&1 | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}_${a}.log
-		cp -v ../libs/${a}/$LIBNAM.${FORMAT_EXT} $RARCH_DIST_DIR/${a}/${NAME}_libretro${FORMAT}${LIBSUFFIX}.${FORMAT_EXT}
+			echo -------------------------------------------------- 2>&1 | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}_${a}.log
+			eval "set -- ${NDK} -j${JOBS} APP_ABI=${a} ${ARGS}"
+			echo "BUILD CMD: $@" 2>&1 | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}_${a}.log
+			"$@" 2>&1 | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}_${a}.log
 
 
-		RET=$?
-		ERROR=$TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}_${a}.log
-		buildbot_handle_message "$RET" "$ENTRY_ID" "$NAME" "$jobid" "$ERROR"
+			if [ "${NAME}" == "mupen64plus" ]; then
+				echo "COPY CMD: cp -v ../libs/${a}/libparallel_retro.${FORMAT_EXT} $RARCH_DIST_DIR/${a}/parallel_libretro${FORMAT}${LIBSUFFIX}.${FORMAT_EXT}" 2>&1 | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}_${a}.log
+				cp -v ../libs/${a}/libparallel_retro.${FORMAT_EXT} $RARCH_DIST_DIR/${a}/parallel_libretro${FORMAT}${LIBSUFFIX}.${FORMAT_EXT} 2>&1 | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}_${a}.log
+				cp -v ../libs/${a}/libparallel_retro.${FORMAT_EXT} $RARCH_DIST_DIR/${a}/parallel_libretro${FORMAT}${LIBSUFFIX}.${FORMAT_EXT}
+			fi
 
-		ENTRY_ID=""
+			echo "COPY CMD: cp -v ../libs/${a}/$LIBNAM.${FORMAT_EXT} $RARCH_DIST_DIR/${a}/${NAME}_libretro${FORMAT}${LIBSUFFIX}.${FORMAT_EXT}" 2>&1 | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}_${a}.log
+			cp -v ../libs/${a}/$LIBNAM.${FORMAT_EXT} $RARCH_DIST_DIR/${a}/${NAME}_libretro${FORMAT}${LIBSUFFIX}.${FORMAT_EXT} 2>&1 | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}_${a}.log
+			cp -v ../libs/${a}/$LIBNAM.${FORMAT_EXT} $RARCH_DIST_DIR/${a}/${NAME}_libretro${FORMAT}${LIBSUFFIX}.${FORMAT_EXT}
+
+
+			RET=$?
+			ERROR=$TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}_${a}.log
+			buildbot_handle_message "$RET" "$ENTRY_ID" "$NAME" "$jobid" "$ERROR"
+		done
 	done
+
+	ENTRY_ID=""
 }
 
 # ----- buildbot -----
@@ -700,15 +721,6 @@ while read line; do
 				FORCE="YES"
 				BUILD="YES"
 			fi
-
-			for core in bsnes bsnes_mercury; do
-				if [ "${PREVCORE}" = "$core" ] && [ "${PREVBUILD}" = "YES" ]; then
-					if [ "${COMMAND}" = "BSNES" ] || [ "${COMMAND}" = "BSNES_JNI" ]; then
-						FORCE="YES"
-						BUILD="YES"
-					fi
-				fi
-			done
 
 			for core in 81 emux_nes emux_sms fuse gw mame2010 mgba snes9x_next snes9x-next vba_next; do
 				if [ "${PREVCORE}" = "$core" ] && [ "${PREVBUILD}" = "YES" ] && [ "${NAME}" = "$core" ]; then
