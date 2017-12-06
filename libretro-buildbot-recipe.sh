@@ -287,19 +287,12 @@ build_libretro_generic_makefile() {
 	MAKEFILE=$4
 	PLATFORM=$5
 	ARGS=$6
-	JOBS=$JOBS
 	OUT=.
 
 	ENTRY_ID=""
 
 	if [ -n "$LOGURL" ]; then
 		ENTRY_ID=`curl -X POST -d type="start" -d master_log="$MASTER_LOG_ID" -d platform="$jobid" -d name="$NAME" http://buildbot.fiveforty.net/build_entry/`
-	fi
-
-	JOBS_ORIG=$JOBS
-
-	if [ "${NAME}" = "mame2003" ] || [ "${NAME}" = "mame2010" ]; then
-		JOBS=1
 	fi
 
 	cd "${DIR}"
@@ -357,7 +350,6 @@ build_libretro_generic_makefile() {
 		if [ "${NAME}" == "mame2010" ]; then
 			echo "BUILD CMD: PLATFORM="" platform="" ${HELPER} ${MAKE} -f ${MAKEFILE} "VRENDER=soft" "NATIVE=1" buildtools -j${JOBS}" 2>&1 | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}.log
 			PLATFORM="" platform="" ${HELPER} ${MAKE} -f ${MAKEFILE} "VRENDER=soft" "NATIVE=1" buildtools -j${JOBS} 2>&1 | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}.log
-			JOBS=$JOBS_ORIG
 		fi
 
 		if [ "${COMMAND}" = "CMAKE" ]; then
@@ -406,7 +398,6 @@ build_libretro_generic_makefile() {
 	fi
 
 	ENTRY_ID=""
-	JOBS=$JOBS_ORIG
 }
 
 build_libretro_leiradel_makefile() {
