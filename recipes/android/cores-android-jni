@@ -2,12 +2,8 @@
 3dengine libretro-3dengine https://github.com/libretro/libretro-3dengine.git master PROJECT YES GENERIC_JNI Makefile jni
 4do libretro-4do https://github.com/libretro/4do-libretro.git master PROJECT YES GENERIC_JNI Makefile jni
 atari800 libretro-atari800 https://github.com/libretro/libretro-atari800.git master PROJECT YES GENERIC_JNI Makefile jni
-bsnes libretro-bsnes https://github.com/libretro/bsnes-libretro.git libretro PROJECT YES BSNES_JNI Makefile target-libretro/jni profile=accuracy
-bsnes libretro-bsnes https://github.com/libretro/bsnes-libretro.git libretro PROJECT YES BSNES_JNI Makefile target-libretro/jni profile=balanced
-bsnes libretro-bsnes https://github.com/libretro/bsnes-libretro.git libretro PROJECT YES BSNES_JNI Makefile target-libretro/jni profile=performance
-bsnes_mercury libretro-bsnes_mercury https://github.com/libretro/bsnes-mercury.git master PROJECT YES BSNES_JNI Makefile target-libretro/jni profile=accuracy
-bsnes_mercury libretro-bsnes_mercury https://github.com/libretro/bsnes-mercury.git master PROJECT YES BSNES_JNI Makefile target-libretro/jni profile=balanced
-bsnes_mercury libretro-bsnes_mercury https://github.com/libretro/bsnes-mercury.git master PROJECT YES BSNES_JNI Makefile target-libretro/jni profile=performance
+bsnes libretro-bsnes https://github.com/libretro/bsnes-libretro.git libretro PROJECT YES BSNES_JNI Makefile target-libretro/jni
+bsnes_mercury libretro-bsnes_mercury https://github.com/libretro/bsnes-mercury.git master PROJECT YES BSNES_JNI Makefile target-libretro/jni
 craft libretro-craft https://github.com/libretro/Craft.git master PROJECT YES GENERIC_JNI Makefile.libretro jni
 crocods libretro-crocods https://github.com/libretro/libretro-crocods.git master PROJECT YES GENERIC_JNI Makefile jni
 desmume libretro-desmume https://github.com/libretro/desmume.git master PROJECT YES GENERIC_JNI Makefile.libretro desmume/src/libretro/jni
