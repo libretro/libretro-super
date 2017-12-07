@@ -300,6 +300,9 @@ build_libretro_generic_makefile() {
 	if [ "${COMMAND}" = "CMAKE" ] && [ "${SUBDIR}" != . ]; then
 		rm -rf -- "$SUBDIR"
 		mkdir -p -- "$SUBDIR"
+	elif [ "${COMMAND}" = "LEIRADEL" ]; then
+		ARG1="${ARGS%% *}"
+		mkdir -p $RARCH_DIST_DIR/${DIST}/${ARG1}
 	elif [ "${COMMAND}" = "GENERIC_GL" ] && [ "${BUILD_LIBRETRO_GL}" ]; then
 		if [ "${ENABLE_GLES}" ]; then
 			export FORMAT_COMPILER_TARGET="${FORMAT_COMPILER_TARGET}-gles"
@@ -323,6 +326,15 @@ build_libretro_generic_makefile() {
 	eval "set -- $CORE"
 	for core do
 		NAME="$core"
+
+		if [ "${COMMAND}" = "LEIRADEL" ]; then
+			CORENAM="${NAME}_libretro.${PLATFORM}_${ARG1}.${FORMAT_EXT}"
+			LIBPATH="$RARCH_DIST_DIR/${DIST}/${ARG1}/${NAME}_libretro${LIBSUFFIX}.${FORMAT_EXT}"
+		else
+			CORENAM="${NAME}_libretro${FORMAT}${LIBSUFFIX}.${FORMAT_EXT}"
+			LIBPATH="$RARCH_DIST_DIR/${DIST}/${CORENAM}"
+		fi
+
 		[ "${COMMAND}" = "BSNES" ] && ARGS="profile=${core##*_}"
 
 		echo --------------------------------------------------| tee $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}.log
@@ -333,6 +345,10 @@ build_libretro_generic_makefile() {
 			if [ "${COMMAND}" = "HIGAN" ]; then
 				rm -fv obj/*.{o,"${FORMAT_EXT}"} 2>&1 | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}.log
 				rm -fv out/*.{o,"${FORMAT_EXT}"} 2>&1 | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}.log
+			elif [ "${COMMAND}" = "LEIRADEL" ]; then
+				eval "set -- ${HELPER} ${MAKE} -f ${MAKEFILE}.${PLATFORM}_${ARGS} platform=${PLATFORM}_${ARGS} -j${JOBS} clean"
+				echo "CLEANUP CMD: $@" 2>&1 | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}.log
+				"$@" 2>&1 | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}.log
 			else
 				eval "set -- ${HELPER} ${MAKE} -f ${MAKEFILE} platform=${PLATFORM} -j${JOBS} ${ARGS} clean"
 				echo "CLEANUP CMD: $@" 2>&1 | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}.log
@@ -363,11 +379,15 @@ build_libretro_generic_makefile() {
 			echo "BUILD CMD: ${HELPER} ${MAKE} -f ${MAKEFILE} -j${JOBS}" 2>&1 | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}.log
 			${HELPER} ${MAKE} -f ${MAKEFILE} -j${JOBS} 2>&1 | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}.log
 
-			find . -mindepth 2 -name "${NAME}_libretro${FORMAT}${LIBSUFFIX}.${FORMAT_EXT}" -exec cp -f "{}" . \;
+			find . -mindepth 2 -name "${CORENAM}" -exec cp -f "{}" . \;
 		elif [ "${COMMAND}" = "HIGAN" ]; then
 			platform=""
 			echo "BUILD CMD: ${HELPER} ${MAKE} -f ${MAKEFILE} -j${JOBS}" ${ARGS} 2>&1 | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}.log
 			${HELPER} ${MAKE} -f ${MAKEFILE} -j${JOBS} ${ARGS} 2>&1 | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}.log
+		elif [ "${COMMAND}" = "LEIRADEL" ]; then
+			eval "set -- ${HELPER} ${MAKE} -f ${MAKEFILE}.${PLATFORM}_${ARGS} platform=${PLATFORM}_${ARGS} -j${JOBS}"
+			echo "BUILD CMD: $@" 2>&1 | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}.log
+			"$@" 2>&1 | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}.log
 		else
 			eval "set -- ${HELPER} ${MAKE} -f ${MAKEFILE} platform=${PLATFORM} -j${JOBS} ${ARGS}"
 			echo "BUILD CMD: $@" 2>&1 | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}.log
@@ -375,17 +395,17 @@ build_libretro_generic_makefile() {
 		fi
 
 		if [ "${MAKEPORTABLE}" == "YES" ]; then
-			echo "BUILD CMD $WORK/retrolink.sh ${OUT}/${NAME}_libretro${FORMAT}${LIBSUFFIX}.${FORMAT_EXT}" 2>&1 | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}.log
-			$WORK/retrolink.sh ${OUT}/${NAME}_libretro${FORMAT}${LIBSUFFIX}.${FORMAT_EXT} 2>&1 | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}.log
+			echo "BUILD CMD $WORK/retrolink.sh ${OUT}/${CORENAM}" 2>&1 | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}.log
+			$WORK/retrolink.sh ${OUT}/${CORENAM} 2>&1 | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}.log
 		fi
 
 		if [ "${PLATFORM}" = "windows" ] || [ "${PLATFORM}" = "unix" ]; then
-			${STRIP:=strip} -s ${OUT}/${NAME}_libretro${FORMAT}${LIBSUFFIX}.${FORMAT_EXT}
+			${STRIP:=strip} -s ${OUT}/${CORENAM}
 		fi
 
-		echo "COPY CMD: cp -v ${OUT}/${NAME}_libretro${FORMAT}${LIBSUFFIX}.${FORMAT_EXT} $RARCH_DIST_DIR/${DIST}/${NAME}_libretro${FORMAT}${LIBSUFFIX}.${FORMAT_EXT}" 2>&1 | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}.log
-		cp -v ${OUT}/${NAME}_libretro${FORMAT}${LIBSUFFIX}.${FORMAT_EXT} $RARCH_DIST_DIR/${DIST}/${NAME}_libretro${FORMAT}${LIBSUFFIX}.${FORMAT_EXT} 2>&1 | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}.log
-		cp -v ${OUT}/${NAME}_libretro${FORMAT}${LIBSUFFIX}.${FORMAT_EXT} $RARCH_DIST_DIR/${DIST}/${NAME}_libretro${FORMAT}${LIBSUFFIX}.${FORMAT_EXT}
+		echo "COPY CMD: cp -v ${OUT}/${CORENAM} ${LIBPATH}" 2>&1 | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}.log
+		cp -v ${OUT}/${CORENAM} ${LIBPATH} 2>&1 | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}.log
+		cp -v ${OUT}/${CORENAM} ${LIBPATH}
 
 		RET=$?
 		ERROR=$TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}.log
@@ -398,58 +418,6 @@ build_libretro_generic_makefile() {
 	fi
 
 	ENTRY_ID=""
-}
-
-build_libretro_leiradel_makefile() {
-	NAME=$1
-	DIR=$2
-	SUBDIR=$3
-	MAKEFILE=$4
-	PLATFORM=$5
-	ARGS=$6
-
-	ENTRY_ID=""
-
-	if [ -n "$LOGURL" ]; then
-		ENTRY_ID=`curl -X POST -d type="start" -d master_log="$MASTER_LOG_ID" -d platform="$jobid" -d name="$NAME" http://buildbot.fiveforty.net/build_entry/`
-	fi
-
-	ARG1="${ARGS%% *}"
-	mkdir -p $RARCH_DIST_DIR/${DIST}/${ARG1}
-
-	cd $DIR
-	cd $SUBDIR
-	JOBS_ORIG=$JOBS
-
-	echo --------------------------------------------------| tee $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}_${a}.log
-	cat $TMPDIR/vars | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}_${a}.log
-
-	echo -------------------------------------------------- 2>&1 | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}_${a}.log
-	if [ -z "${NOCLEAN}" ]; then
-		echo "CLEANUP CMD: ${HELPER} ${MAKE} -f ${MAKEFILE}.${PLATFORM}_${ARGS} platform=${PLATFORM}_${ARGS} -j${JOBS} clean" 2>&1 | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}.log
-		${HELPER} ${MAKE} -f ${MAKEFILE}.${PLATFORM}_${ARGS} platform=${PLATFORM}_${ARGS} -j${JOBS} clean 2>&1 | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}.log
-
-		if [ $? -eq 0 ]; then
-			echo buildbot job: $jobid ${NAME} cleanup success!
-		else
-			echo buildbot job: $jobid ${NAME} cleanup failed!
-		fi
-	fi
-
-	echo -------------------------------------------------- 2>&1 | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}.log
-	echo "BUILD CMD: ${HELPER} ${MAKE} -f ${MAKEFILE}.${PLATFORM}_${ARGS} platform=${PLATFORM}_${ARGS} -j${JOBS}" 2>&1 | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}.log
-	${HELPER} ${MAKE} -f ${MAKEFILE}.${PLATFORM}_${ARGS} platform=${PLATFORM}_${ARGS} -j${JOBS} 2>&1 | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}.log
-
-	echo "COPY CMD: cp -v ${NAME}_libretro.${PLATFORM}_${ARG1}.${FORMAT_EXT} $RARCH_DIST_DIR/${DIST}/${ARG1}/${NAME}_libretro${LIBSUFFIX}.${FORMAT_EXT}" 2>&1 | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}.log
-	cp -v ${NAME}_libretro.${PLATFORM}_${ARG1}.${FORMAT_EXT} $RARCH_DIST_DIR/${DIST}/${ARG1}/${NAME}_libretro${LIBSUFFIX}.${FORMAT_EXT} 2>&1 | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}.log
-	cp -v ${NAME}_libretro.${PLATFORM}_${ARG1}.${FORMAT_EXT} $RARCH_DIST_DIR/${DIST}/${ARG1}/${NAME}_libretro${LIBSUFFIX}.${FORMAT_EXT}
-
-	RET=$?
-	ERROR=$TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}.log
-	buildbot_handle_message "$RET" "$ENTRY_ID" "$NAME" "$jobid" "$ERROR"
-
-	ENTRY_ID=""
-	JOBS=$JOBS_ORIG
 }
 
 build_libretro_generic_jni() {
@@ -675,12 +643,12 @@ while read line; do
 			echo "buildbot job: building $NAME"
 			case "${COMMAND}" in
 				BSNES|CMAKE|GENERIC|GENERIC_GL|HIGAN )
-				                build_libretro_generic_makefile $NAME $DIR $SUBDIR $MAKEFILE ${FORMAT_COMPILER_TARGET} "${ARGS}"     ;;
+				              build_libretro_generic_makefile $NAME $DIR $SUBDIR $MAKEFILE ${FORMAT_COMPILER_TARGET} "${ARGS}"     ;;
 				BSNES_JNI|GENERIC_JNI )
-				                build_libretro_generic_jni $NAME $DIR $SUBDIR $MAKEFILE ${FORMAT_COMPILER_TARGET_ALT} "${ARGS}"      ;;
-				GENERIC_ALT )   build_libretro_generic_makefile $NAME $DIR $SUBDIR $MAKEFILE ${FORMAT_COMPILER_TARGET_ALT} "${ARGS}" ;;
-				LEIRADEL )      build_libretro_leiradel_makefile $NAME $DIR $SUBDIR $MAKEFILE ${PLATFORM} "${ARGS}"                  ;;
-				* )             :                                                                                                    ;;
+				              build_libretro_generic_jni $NAME $DIR $SUBDIR $MAKEFILE ${FORMAT_COMPILER_TARGET_ALT} "${ARGS}"      ;;
+				GENERIC_ALT ) build_libretro_generic_makefile $NAME $DIR $SUBDIR $MAKEFILE ${FORMAT_COMPILER_TARGET_ALT} "${ARGS}" ;;
+				LEIRADEL )    build_libretro_generic_makefile $NAME $DIR $SUBDIR $MAKEFILE ${PLATFORM} "${ARGS}"                   ;;
+				* )           :                                                                                                    ;;
 			esac
 			BUILD_DIR="${BASE_DIR}/${DIR}"
 			[ "${SUBDIR}" != . ] && BUILD_DIR="${BUILD_DIR}/${SUBDIR}"
