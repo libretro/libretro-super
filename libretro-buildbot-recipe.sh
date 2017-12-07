@@ -188,23 +188,6 @@ if [ "${CORE_JOB}" == "YES" ]; then
 
 	RESET_FORMAT_COMPILER_TARGET=$FORMAT_COMPILER_TARGET
 	RESET_FORMAT_COMPILER_TARGET_ALT=$FORMAT_COMPILER_TARGET_ALT
-
-	check_opengl() {
-		if [ "${BUILD_LIBRETRO_GL}" ]; then
-			if [ "${ENABLE_GLES}" ]; then
-				export FORMAT_COMPILER_TARGET="${FORMAT_COMPILER_TARGET}-gles"
-				export FORMAT_COMPILER_TARGET_ALT="${FORMAT_COMPILER_TARGET}"
-			else
-				export FORMAT_COMPILER_TARGET="${FORMAT_COMPILER_TARGET}-opengl"
-				export FORMAT_COMPILER_TARGET_ALT="${FORMAT_COMPILER_TARGET}"
-			fi
-		fi
-	}
-
-	reset_compiler_targets() {
-		export FORMAT_COMPILER_TARGET=$RESET_FORMAT_COMPILER_TARGET
-		export FORMAT_COMPILER_TARGET_ALT=$RESET_FORMAT_COMPILER_TARGET_ALT
-	}
 else
 	SCRIPT=$(read_link "$0")
 	echo "SCRIPT: $SCRIPT"
@@ -324,6 +307,14 @@ build_libretro_generic_makefile() {
 	if [ "${COMMAND}" = "CMAKE" ] && [ "${SUBDIR}" != . ]; then
 		rm -rf -- "$SUBDIR"
 		mkdir -p -- "$SUBDIR"
+	elif [ "${COMMAND}" = "GENERIC_GL" ] && [ "${BUILD_LIBRETRO_GL}" ]; then
+		if [ "${ENABLE_GLES}" ]; then
+			export FORMAT_COMPILER_TARGET="${FORMAT_COMPILER_TARGET}-gles"
+			export FORMAT_COMPILER_TARGET_ALT="${FORMAT_COMPILER_TARGET}"
+		else
+			export FORMAT_COMPILER_TARGET="${FORMAT_COMPILER_TARGET}-opengl"
+			export FORMAT_COMPILER_TARGET_ALT="${FORMAT_COMPILER_TARGET}"
+		fi
 	elif [ "${COMMAND}" = "HIGAN" ] || [ "${COMMAND}" = "BSNES" ] || [ "${NAME}" = "bsnes_cplusplus98" ]; then
 		OUT="out"
 	fi
@@ -409,6 +400,11 @@ build_libretro_generic_makefile() {
 		buildbot_handle_message "$RET" "$ENTRY_ID" "$NAME" "$jobid" "$ERROR"
 	done
 
+	if [ "${COMMAND}" = "GENERIC_GL" ]; then
+		export FORMAT_COMPILER_TARGET=$RESET_FORMAT_COMPILER_TARGET
+		export FORMAT_COMPILER_TARGET_ALT=$RESET_FORMAT_COMPILER_TARGET_ALT
+	fi
+
 	ENTRY_ID=""
 	JOBS=$JOBS_ORIG
 }
@@ -463,58 +459,6 @@ build_libretro_leiradel_makefile() {
 
 	ENTRY_ID=""
 	JOBS=$JOBS_ORIG
-}
-
-build_libretro_generic_gl_makefile() {
-	NAME=$1
-	DIR=$2
-	SUBDIR=$3
-	MAKEFILE=$4
-	PLATFORM=$5
-	ARGS=$6
-
-	check_opengl
-
-	ENTRY_ID=""
-
-	if [ -n "$LOGURL" ]; then
-		ENTRY_ID=`curl -X POST -d type="start" -d master_log="$MASTER_LOG_ID" -d platform="$jobid" -d name="$NAME" http://buildbot.fiveforty.net/build_entry/`
-	fi
-
-	cd $DIR
-	cd $SUBDIR
-
-	echo --------------------------------------------------| tee $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}_${a}.log
-	cat $TMPDIR/vars | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}_${a}.log
-
-	echo -------------------------------------------------- 2>&1 | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}_${a}.log
-	if [ -z "${NOCLEAN}" ]; then
-		echo "CLEANUP CMD: ${HELPER} ${MAKE} -f ${MAKEFILE} platform=${PLATFORM} -j${JOBS} clean" 2>&1 | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}.log
-		${HELPER} ${MAKE} -f ${MAKEFILE} platform=${PLATFORM} -j${JOBS} clean 2>&1 | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}.log
-
-		if [ $? -eq 0 ]; then
-			echo buildbot job: $jobid ${NAME} cleanup success!
-		else
-			echo buildbot job: $jobid ${NAME} cleanup failed!
-		fi
-	fi
-
-	echo -------------------------------------------------- 2>&1 | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}.log
-	eval "set --  ${HELPER} ${MAKE} -f ${MAKEFILE} platform=${PLATFORM} ${COMPILER} -j${JOBS} ${ARGS}"
-	echo "BUILD CMD: $@" 2>&1 | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}.log
-	"$@" 2>&1 | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}.log
-
-	echo "COPY CMD: cp -v ${NAME}_libretro${FORMAT}${LIBSUFFIX}.${FORMAT_EXT} $RARCH_DIST_DIR/${NAME}_libretro${FORMAT}${LIBSUFFIX}.${FORMAT_EXT}" 2>&1 | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}.log
-	cp -v ${NAME}_libretro${FORMAT}${LIBSUFFIX}.${FORMAT_EXT} $RARCH_DIST_DIR/${NAME}_libretro${FORMAT}${LIBSUFFIX}.${FORMAT_EXT} 2>&1 | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}.log
-	cp -v ${NAME}_libretro${FORMAT}${LIBSUFFIX}.${FORMAT_EXT} $RARCH_DIST_DIR/${NAME}_libretro${FORMAT}${LIBSUFFIX}.${FORMAT_EXT}
-
-	RET=$?
-	ERROR=$TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}.log
-	buildbot_handle_message "$RET" "$ENTRY_ID" "$NAME" "$jobid" "$ERROR"
-
-	ENTRY_ID=""
-
-	reset_compiler_targets
 }
 
 build_libretro_generic_jni() {
@@ -739,14 +683,12 @@ while read line; do
 			CORES_BUILT=YES
 			echo "buildbot job: building $NAME"
 			case "${COMMAND}" in
-				BSNES|CMAKE|GENERIC|HIGAN )
+				BSNES|CMAKE|GENERIC|GENERIC_GL|HIGAN )
 				                build_libretro_generic_makefile $NAME $DIR $SUBDIR $MAKEFILE ${FORMAT_COMPILER_TARGET} "${ARGS}"     ;;
 				BSNES_JNI|GENERIC_JNI )
 				                build_libretro_generic_jni $NAME $DIR $SUBDIR $MAKEFILE ${FORMAT_COMPILER_TARGET_ALT} "${ARGS}"      ;;
 				GENERIC_ALT )   build_libretro_generic_makefile $NAME $DIR $SUBDIR $MAKEFILE ${FORMAT_COMPILER_TARGET_ALT} "${ARGS}" ;;
 				LEIRADEL )      build_libretro_leiradel_makefile $NAME $DIR $SUBDIR $MAKEFILE ${PLATFORM} "${ARGS}"                  ;;
-				GENERIC_GL )    build_libretro_generic_gl_makefile $NAME $DIR $SUBDIR $MAKEFILE ${FORMAT_COMPILER_TARGET} "${ARGS}"  ;;
-				GENERIC_THEOS ) build_libretro_generic_theos $NAME $DIR $SUBDIR $MAKEFILE ${FORMAT_COMPILER_TARGET_ALT} "${ARGS}"    ;;
 				* )             :                                                                                                    ;;
 			esac
 			BUILD_DIR="${BASE_DIR}/${DIR}"
