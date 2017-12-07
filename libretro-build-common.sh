@@ -282,12 +282,7 @@ libretro_build_core() {
 		exec 6>&1
 		echo "Building ${1}..." >> $log_module
 
-		# TODO: Possibly a shell function for tee?
-		if [[ -n "$LIBRETRO_DEVELOPER" && -n "${cmd_tee:=$(find_tool "tee")}" ]]; then
-			exec > >($cmd_tee -a $log_module)
-		else
-			exec > $log_module
-		fi
+		exec > $log_module
 	fi
 
 	case "$core_build_rule" in
