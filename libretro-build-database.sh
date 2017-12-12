@@ -227,7 +227,7 @@ build_libretro_databases() {
 	build_libretro_database "DOS" "rom.crc"
 	build_libretro_database "Lutro" "rom.name"
 	build_libretro_database "ChaiLove" "rom.crc"
-	build_libretro_database "Mr Boom" "rom.crc"
+	build_libretro_database "MrBoom" "rom.crc"
 	build_libretro_database "Nintendo - Super Nintendo Entertainment System" "rom.crc"
 	build_libretro_database "Nintendo - Super Nintendo Entertainment System Hacks" "rom.crc"
 	build_libretro_database "Sony - PlayStation" "rom.serial"
