@@ -45,8 +45,6 @@ if [ "$1" = "install" ]; then
 
       fetch 
 
-      cd ~
-
       if [ ! -d "/home/buildbot/tools" ]; then
          sudo mkdir -p /home/buildbot
          sudo ln -s ~/tools /home/buildbot/tools
