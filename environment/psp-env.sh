@@ -1,11 +1,11 @@
 display_usage() { 
-	echo "Usage: [install] [build] [export]" 
+   echo -e "\nSetup a RetroArch PSP build environment on Debian/Ubuntu or MSYS2 (MINGW64 only)" 
+	echo -e "\nUsage: [install] [build] [export]\n" 
 	echo -e "It will install the toolchain in /home/buildbot/tools\n"
 	echo -e "Arguments:\n"
 	echo -e "install:\n install or re(install) the toolchain"
 	echo -e "build:\n update the source tree and build everything"
 	echo -e "export:\n setup the environment for local building, run with source psp-env.sh"
-
 } 
 
 #!/bin/bash
