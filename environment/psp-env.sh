@@ -1,23 +1,14 @@
 display_usage() { 
-	echo "Usage: [install] [build]" 
+	echo "Usage: [install] [build] [export]" 
 	echo -e "It will install the toolchain in /home/buildbot/tools\n"
 	echo -e "Arguments:\n"
 	echo -e "install:\n install or re(install) the toolchain"
 	echo -e "build:\n update the source tree and build everything"
+	echo -e "export:\n setup the environment for local building, run with source psp-env.sh"
 
 } 
 
 #!/bin/bash
-
-export PATH=$PATH:/home/buildbot/tools/devkitpro/devkitPSP/bin/
-export DEVKITPRO=/home/buildbot/tools/devkitpro/
-export DEVKITPSP=/home/buildbot/tools/devkitpro/devkitPSP/
-export platform=psp1
-export PLATFORM=psp1
-export CC=psp-gcc
-export CXX=psp-g++
-
-cd ~
 
 if [ "$1" = "install" ]; then
    if [[ "$MSYSTEM" == *"MINGW64"* ]]; then
@@ -61,6 +52,19 @@ if [ "$1" = "build" ]; then
    ./libretro-buildbot-recipe.sh recipes/playstation/psp
 fi;
 
-if [  $# -le 1 ]; then 
+if [ "$1" = "export" ]; then
+   export PATH=$PATH:/home/buildbot/tools/devkitpro/devkitPSP/bin/
+   export DEVKITPRO=/home/buildbot/tools/devkitpro/
+   export DEVKITPSP=/home/buildbot/tools/devkitpro/devkitPSP/
+   export platform=psp1
+   export PLATFORM=psp1
+   export CC=psp-gcc
+   export CXX=psp-g++
+
+   echo environment ready...
+fi
+
+if [ $# -le 0 ]; then 
    display_usage
 fi
+
