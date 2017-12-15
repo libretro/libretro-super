@@ -632,10 +632,6 @@ while read line; do
 				git clean -xdf
 				BUILD="YES"
 			fi
-		elif [ "${TYPE}" = "psp_hw_render" ]; then
-			git remote set-branches origin "$TYPE"
-			git fetch --depth=1 origin "$TYPE"
-			git checkout "$TYPE"
 		fi
 
 		if [ "${TYPE}" = "PROJECT" ]; then
