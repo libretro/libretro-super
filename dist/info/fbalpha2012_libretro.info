@@ -1,6 +1,6 @@
 display_name = "Arcade (FB Alpha 2012)"
 authors = "Team FB Alpha"
-supported_extensions = "iso|zip"
+supported_extensions = "iso|zip|7z"
 corename = "FB Alpha 2012"
 manufacturer = "Various"
 categories = "Emulator"

@@ -177,6 +177,9 @@ build_libretro_database() {
 		if [ -f "${LIBRETRODATABASE_META_DAT_DIR}/mame-split/${1}.dat" ]; then
 			COMMAND+=' "${LIBRETRODATABASE_META_DAT_DIR}/mame-split/${1}.dat"'
 		fi
+		if [ -f "${LIBRETRODATABASE_META_DAT_DIR}/mame-member/${1}.dat" ]; then
+			COMMAND+=' "${LIBRETRODATABASE_META_DAT_DIR}/mame-member/${1}.dat"'
+		fi
 		if [ -f "${LIBRETRODATABASE_META_DAT_DIR}/mame/${1}.dat" ]; then
 			COMMAND+=' "${LIBRETRODATABASE_META_DAT_DIR}/mame/${1}.dat"'
 		fi
@@ -187,6 +190,9 @@ build_libretro_database() {
 		fi
 		if [ -f "${LIBRETRODATABASE_META_DAT_DIR}/fba-split/${1}.dat" ]; then
 			COMMAND+=' "${LIBRETRODATABASE_META_DAT_DIR}/fba-split/${1}.dat"'
+		fi
+		if [ -f "${LIBRETRODATABASE_META_DAT_DIR}/fba-member/${1}.dat" ]; then
+			COMMAND+=' "${LIBRETRODATABASE_META_DAT_DIR}/fba-member/${1}.dat"'
 		fi
 
 		#Check if meta libretro-dats folder is there
@@ -220,7 +226,8 @@ build_libretro_databases() {
 	build_libretro_database "ScummVM" "rom.crc"
 	build_libretro_database "DOS" "rom.crc"
 	build_libretro_database "Lutro" "rom.name"
-	build_libretro_database "ChaiGame" "rom.crc"
+	build_libretro_database "ChaiLove" "rom.crc"
+	build_libretro_database "MrBoom" "rom.crc"
 	build_libretro_database "Nintendo - Super Nintendo Entertainment System" "rom.crc"
 	build_libretro_database "Nintendo - Super Nintendo Entertainment System Hacks" "rom.crc"
 	build_libretro_database "Sony - PlayStation" "rom.serial"
@@ -263,7 +270,7 @@ build_libretro_databases() {
 	build_libretro_database "Nintendo - Game Boy Advance" "rom.crc"
 	build_libretro_database "Nintendo - e-Reader" "rom.crc"
 	build_libretro_database "Nintendo - Game Boy Color" "rom.crc"
-	build_libretro_database "Nintendo - GameCube" "rom.crc"
+	build_libretro_database "Nintendo - GameCube" "rom.serial"
 	build_libretro_database "Nintendo - Nintendo 3DS" "rom.crc"
 	build_libretro_database "Nintendo - Nintendo 3DS (DLC)" "rom.crc"
 	build_libretro_database "Nintendo - Nintendo DS" "rom.crc"
@@ -275,7 +282,7 @@ build_libretro_databases() {
 	build_libretro_database "Nintendo - Pokemon Mini" "rom.crc"
 	build_libretro_database "Nintendo - Satellaview" "rom.crc"
 	build_libretro_database "Nintendo - Sufami Turbo" "rom.crc"
-	build_libretro_database "Nintendo - Wii" "rom.crc"
+	build_libretro_database "Nintendo - Wii" "rom.serial"
 	build_libretro_database "The 3DO Company - 3DO" "rom.crc"
 	build_libretro_database "Philips - Videopac+" "rom.crc"
 	build_libretro_database "RCA - Studio II" "rom.crc"

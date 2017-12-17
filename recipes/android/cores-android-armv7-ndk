@@ -1,4 +1,4 @@
-mupen64plus libretro-mupen64plus https://github.com/libretro/mupen64plus-libretro.git master PROJECT YES GENERIC Makefile . 
-mupen64plus_gles3 libretro-glupen64-gles3 https://github.com/libretro/mupen64plus-libretro.git master PROJECT YES GENERIC Makefile . platform=android-armv7-gles3 
-mame2010 libretro-mame2010 https://github.com/libretro/mame2010-libretro.git master PROJECT YES GENERIC Makefile . VRENDER=soft PTR64=0 CC=arm-linux-androideabi-gcc CXX=arm-linux-androideabi-g++ LD=arm-linux-androideabi-g++ platform=android emulator 
-scummvm libretro-scummvm  https://github.com/libretro/scummvm.git master PROJECT YES GENERIC Makefile backends/platform/libretro/build 
+mupen64plus libretro-mupen64plus https://github.com/libretro/mupen64plus-libretro.git master PROJECT YES GENERIC Makefile .
+mupen64plus_gles3 libretro-mupen64plus-gles3 https://github.com/libretro/mupen64plus-libretro.git master PROJECT YES GENERIC Makefile . platform=android-armv7-gles3
+mame2010 libretro-mame2010 https://github.com/libretro/mame2010-libretro.git master PROJECT YES GENERIC Makefile . VRENDER=soft PTR64=0 CC=arm-linux-androideabi-gcc CXX=arm-linux-androideabi-g++ LD=arm-linux-androideabi-g++ platform=android emulator
+scummvm libretro-scummvm https://github.com/libretro/scummvm.git master PROJECT YES GENERIC Makefile backends/platform/libretro/build

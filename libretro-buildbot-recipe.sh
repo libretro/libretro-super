@@ -1,7 +1,19 @@
+#!/bin/bash
 # vim: set ts=3 sw=3 noet ft=sh : bash
 # ----- setup -----
 
-LOGDATE=`date +%Y-%m-%d`
+# This will use an overridden value from the command-line if provided, otherwise just use the current date
+BOT="${BOT:-.}"
+LOGDATE="${LOGDATE:-$(date +%Y-%m-%d)}"
+TMPDIR="${TMPDIR:-/tmp}"
+
+if [ -z "${1}" ]; then
+	echo 'No recipe target, exiting.' >&2
+	exit 1
+fi
+
+mkdir -p -- "$TMPDIR/log/${BOT}/${LOGDATE}"
+
 ORIGPATH=$PATH
 WORK=$PWD
 RECIPE=$1
@@ -10,9 +22,10 @@ ENTRY_ID=""
 
 # ----- read variables from recipe config -----
 while read line; do
-	KEY=`echo $line | cut -f 1 -d " "`
-	VALUE=`echo $line | cut -f 2 -d " "`
-	rm $TMPDIR/vars
+	[ -z "${line}" ] && continue
+	KEY="${line% *}"
+	VALUE="${line#* }"
+	rm -f -- "$TMPDIR/vars"
 	if [ "${KEY}" = "PATH" ]; then
 		export PATH=${VALUE}:${ORIGPATH}
 		echo PATH=${VALUE}:${ORIGPATH} >> $TMPDIR/vars
@@ -20,8 +33,8 @@ while read line; do
 		export ${KEY}=${VALUE}
 		echo ${KEY}=${VALUE} >> $TMPDIR/vars
 	fi
-	echo Setting: ${KEY} ${VALUE}
-done < $1.conf
+	echo "Setting: ${KEY} ${VALUE}"
+done < $RECIPE.conf
 
 read_link()
 {
@@ -119,7 +132,7 @@ if [ "${CORE_JOB}" == "YES" ]; then
 			if [ -d $RARCH_DIST_DIR/${a} ]; then
 				echo "Directory $RARCH_DIST_DIR/${a} already exists, skipping creation..."
 			else
-				mkdir $RARCH_DIST_DIR/${a}
+				mkdir -p $RARCH_DIST_DIR/${a}
 			fi
 		done
 	fi
@@ -157,7 +170,7 @@ if [ "${CORE_JOB}" == "YES" ]; then
 	if [ -z "$CXX" ]; then
 		if [ $FORMAT_COMPILER_TARGET = "osx" ]; then
 			CXX=c++
-			CXX11="clang++ -std=c++11 -stdlib=libc++"
+			CXX11=clang++
 		elif uname -s | grep -i MINGW32 > /dev/null 2>&1; then
 			CXX=mingw32-g++f
 			CXX11=mingw32-g++
@@ -175,23 +188,6 @@ if [ "${CORE_JOB}" == "YES" ]; then
 
 	RESET_FORMAT_COMPILER_TARGET=$FORMAT_COMPILER_TARGET
 	RESET_FORMAT_COMPILER_TARGET_ALT=$FORMAT_COMPILER_TARGET_ALT
-
-	check_opengl() {
-		if [ "${BUILD_LIBRETRO_GL}" ]; then
-			if [ "${ENABLE_GLES}" ]; then
-				export FORMAT_COMPILER_TARGET="${FORMAT_COMPILER_TARGET}-gles"
-				export FORMAT_COMPILER_TARGET_ALT="${FORMAT_COMPILER_TARGET}"
-			else
-				export FORMAT_COMPILER_TARGET="${FORMAT_COMPILER_TARGET}-opengl"
-				export FORMAT_COMPILER_TARGET_ALT="${FORMAT_COMPILER_TARGET}"
-			fi
-		fi
-	}
-
-	reset_compiler_targets() {
-		export FORMAT_COMPILER_TARGET=$RESET_FORMAT_COMPILER_TARGET
-		export FORMAT_COMPILER_TARGET_ALT=$RESET_FORMAT_COMPILER_TARGET_ALT
-	}
 else
 	SCRIPT=$(read_link "$0")
 	echo "SCRIPT: $SCRIPT"
@@ -242,8 +238,46 @@ buildbot_log() {
 	echo buildbot message: $MESSAGE
 	MESSAGE=`echo -e $1`
 
-	HASH=`echo -n "$MESSAGE" | openssl sha1 -hmac $SIG | cut -f 2 -d " "`
-	curl --max-time 30 --data "message=$MESSAGE&sign=$HASH" $LOGURL
+	if  [ -n "$LOGURL" ]; then
+		HASH=`echo -n "$MESSAGE" | openssl sha1 -hmac $SIG | cut -f 2 -d " "`
+		curl --max-time 30 --data "message=$MESSAGE&sign=$HASH" $LOGURL
+	fi
+}
+
+buildbot_handle_message() {
+	RET=$1
+	ENTRY_ID=$2
+	NAME=$3
+	jobid=$4
+	ERROR=$5
+
+	if [ $RET -eq 0 ]; then
+		if [ -n "$LOGURL" ]; then
+			curl -X POST -d type="finish" -d index="$ENTRY_ID" -d status="done" http://buildbot.fiveforty.net/build_entry/
+		fi
+		MESSAGE="$NAME:	[status: done] [$jobid]"
+	else
+		if [ -n "$LOGURL" ]; then
+			HASTE="n/a"
+
+			if [ -n "$ERROR" ]; then
+				gzip -9fk $ERROR
+				HASTE=`curl -X POST http://p.0bl.net/ --data-binary @${ERROR}.gz`
+			fi
+			MESSAGE="$NAME:	[status: fail] [$jobid] LOG: $HASTE"
+			curl -X POST -d type="finish" -d index="$ENTRY_ID" -d status="fail" -d log="$HASTE" http://buildbot.fiveforty.net/build_entry/
+		else
+			MESSAGE="$NAME:	[status: fail] [$jobid]"
+		fi
+	fi
+
+	echo buildbot job: $MESSAGE
+	buildbot_log "$MESSAGE"
+
+	# used by Travis-CI to exit immediately if a core build fails, instead of trying to build RA anyways (for static/console builds)
+	if [ $RET -ne 0 ] && [ "$EXIT_ON_ERROR" = "1" ]; then
+		exit 1
+	fi
 }
 
 build_libretro_generic_makefile() {
@@ -253,119 +287,117 @@ build_libretro_generic_makefile() {
 	MAKEFILE=$4
 	PLATFORM=$5
 	ARGS=$6
-	JOBS=$JOBS
-
-	ENTRY_ID=`curl -X POST -d type="start" -d master_log="$MASTER_LOG_ID" -d platform="$jobid" -d name="$NAME" http://buildbot.fiveforty.net/build_entry/`
-
-	if [ "${COMMAND}" = "CMAKE" ]; then
-		mkdir -p $DIR/$SUBDIR
-	fi
-
-	cd $DIR
-	cd $SUBDIR
-	JOBS_ORIG=$JOBS
-
-	if [ "${NAME}" == "mame2003" ]; then
-		JOBS=1
-	fi
-	if [ "${NAME}" == "mame2010" ]; then
-		JOBS=1
-	fi
-
-	echo --------------------------------------------------| tee $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}.log
-	cat $TMPDIR/vars | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}.log
-
-	cd ${DIR}/${SUBDIR}
-	echo -------------------------------------------------- 2>&1 | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}.log
-	if [ -z "${NOCLEAN}" ]; then
-		if [ "${COMMAND}" = "CMAKE" ]; then
-			echo "CLEANUP CMD: ${HELPER} ${MAKE} -f ${MAKEFILE} -j${JOBS} clean" 2>&1 | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}.log
-			${HELPER} ${MAKE} -f ${MAKEFILE} -j${JOBS} clean 2>&1 | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}.log
-		else
-			if [ -z "${ARGS}" ]; then
-				echo "CLEANUP CMD: ${HELPER} ${MAKE} -f ${MAKEFILE} platform=${PLATFORM} -j${JOBS} clean" 2>&1 | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}.log
-				${HELPER} ${MAKE} -f ${MAKEFILE} platform=${PLATFORM} -j${JOBS} clean 2>&1 | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}.log
-			else
-				echo "CLEANUP CMD: ${HELPER} ${MAKE} -f ${MAKEFILE} platform=${PLATFORM} -j${JOBS} ${ARGS} clean" 2>&1 | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}.log
-				${HELPER} ${MAKE} -f ${MAKEFILE} platform=${PLATFORM} -j${JOBS} ${ARGS} clean 2>&1 | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}.log
-			fi
-		fi
-
-		if [ $? -eq 0 ]; then
-			echo buildbot job: $jobid $1 cleanup success!
-		else
-			echo buildbot job: $jobid $1 cleanup failed!
-		fi
-	fi
-
-	echo -------------------------------------------------- 2>&1 | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}.log
-	if [ "${NAME}" == "mame2010" ]; then
-		echo "BUILD CMD: PLATFORM="" platform="" ${HELPER} ${MAKE} -f ${MAKEFILE} "VRENDER=soft" "NATIVE=1" buildtools -j${JOBS}" 2>&1 | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}.log
-		PLATFORM="" platform="" ${HELPER} ${MAKE} -f ${MAKEFILE} "VRENDER=soft" "NATIVE=1" buildtools -j${JOBS} 2>&1 | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}.log
-		JOBS=$JOBS_ORIG
-	fi
-
-	if [ "${COMMAND}" = "CMAKE" ]; then
-		if [ "${PLATFORM}" = "android" ]; then
-			EXTRAARGS="-DCMAKE_SYSTEM_NAME=Android -DCMAKE_SYSTEM_VERSION=${API_LEVEL} -DCMAKE_ANDROID_ARCH_ABI=${ABI_OVERRIDE} -DCMAKE_ANDROID_NDK=${NDK_ROOT}"
-		fi
-		if [ -z "${ARGS}" ]; then
-			echo "BUILD CMD: ${CMAKE}" 2>&1 | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}.log
-			${CMAKE} | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}.log
-			echo "BUILD CMD: ${HELPER} ${MAKE} -f ${MAKEFILE} -j${JOBS}" 2>&1 | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}.log
-			${HELPER} ${MAKE} -f ${MAKEFILE} platform=${PLATFORM} -j${JOBS} 2>&1 | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}.log
-		else
-			echo "BUILD CMD: ${CMAKE} ${EXTRAARGS} ${ARGS}" 2>&1 | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}.log
-			echo ${EXTRAARGS} ${ARGS} | xargs ${CMAKE} 2>&1 | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}.log
-			echo "BUILD CMD: ${HELPER} ${MAKE} -f ${MAKEFILE} -j${JOBS}" 2>&1 | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}.log
-			${HELPER} ${MAKE} -f ${MAKEFILE} -j${JOBS} 2>&1 | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}.log
-		fi
-
-		find . -mindepth 2 -name "${NAME}_libretro${FORMAT}${LIBSUFFIX}.${FORMAT_EXT}" -exec cp -f "{}" . \;
-	else
-		if [ -z "${ARGS}" ]; then
-			echo "BUILD CMD: ${HELPER} ${MAKE} -f ${MAKEFILE} platform=${PLATFORM} -j${JOBS}" 2>&1 | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}.log
-			${HELPER} ${MAKE} -f ${MAKEFILE} platform=${PLATFORM} -j${JOBS} 2>&1 | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}.log
-		else
-			echo "BUILD CMD: ${HELPER} ${MAKE} -f ${MAKEFILE} platform=${PLATFORM} -j${JOBS} ${ARGS}" 2>&1 | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}.log
-			${HELPER} ${MAKE} -f ${MAKEFILE} platform=${PLATFORM} -j${JOBS} ${ARGS} 2>&1 | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}.log
-		fi
-	fi
-
-	if [ "${MAKEPORTABLE}" == "YES" ]; then
-		echo "BUILD CMD $WORK/retrolink.sh ${NAME}_libretro${FORMAT}${LIBSUFFIX}.${FORMAT_EXT}" 2>&1 | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}.log
-		$WORK/retrolink.sh ${NAME}_libretro${FORMAT}${LIBSUFFIX}.${FORMAT_EXT} 2>&1 | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}.log
-	fi
-
-	if [ "${PLATFORM}" == "windows" -o "${PLATFORM}" == "unix" ]; then
-		if [ -z "${STRIP}" ]; then
-			STRIP=strip
-		fi
-
-		${STRIP} -s ${NAME}_libretro${FORMAT}${LIBSUFFIX}.${FORMAT_EXT}
-	fi
-
-	echo "COPY CMD: cp -v ${NAME}_libretro${FORMAT}${LIBSUFFIX}.${FORMAT_EXT} $RARCH_DIST_DIR/${DIST}/${NAME}_libretro${FORMAT}${LIBSUFFIX}.${FORMAT_EXT}" 2>&1 | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}.log
-	cp -v ${NAME}_libretro${FORMAT}${LIBSUFFIX}.${FORMAT_EXT} $RARCH_DIST_DIR/${DIST}/${NAME}_libretro${FORMAT}${LIBSUFFIX}.${FORMAT_EXT} 2>&1 | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}.log
-	cp -v ${NAME}_libretro${FORMAT}${LIBSUFFIX}.${FORMAT_EXT} $RARCH_DIST_DIR/${DIST}/${NAME}_libretro${FORMAT}${LIBSUFFIX}.${FORMAT_EXT}
-
-	if [ $? -eq 0 ]; then
-		curl -X POST -d type="finish" -d index="$ENTRY_ID" -d status="done" http://buildbot.fiveforty.net/build_entry/
-		MESSAGE="$1:	[status: done] [$jobid]"
-	else
-		ERROR=$TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}.log
-		gzip -9fk $ERROR
-		HASTE=`curl -X POST http://p.0bl.net/ --data-binary @${ERROR}.gz`
-		MESSAGE="$1:	[status: fail] [$jobid] LOG: $HASTE"
-		curl -X POST -d type="finish" -d index="$ENTRY_ID" -d status="fail" -d log="$HASTE" http://buildbot.fiveforty.net/build_entry/
-	fi
+	OUT=.
 
 	ENTRY_ID=""
 
-	echo buildbot job: $MESSAGE
-	buildbot_log "$MESSAGE"
-	JOBS=$JOBS_ORIG
+	if [ -n "$LOGURL" ]; then
+		ENTRY_ID=`curl -X POST -d type="start" -d master_log="$MASTER_LOG_ID" -d platform="$jobid" -d name="$NAME" http://buildbot.fiveforty.net/build_entry/`
+	fi
 
+	cd "${DIR}"
+
+	if [ "${COMMAND}" = "CMAKE" ] && [ "${SUBDIR}" != . ]; then
+		rm -rf -- "$SUBDIR"
+		mkdir -p -- "$SUBDIR"
+	elif [ "${COMMAND}" = "GENERIC_GL" ] && [ "${BUILD_LIBRETRO_GL}" ]; then
+		if [ "${ENABLE_GLES}" ]; then
+			export FORMAT_COMPILER_TARGET="${FORMAT_COMPILER_TARGET}-gles"
+			export FORMAT_COMPILER_TARGET_ALT="${FORMAT_COMPILER_TARGET}"
+		else
+			export FORMAT_COMPILER_TARGET="${FORMAT_COMPILER_TARGET}-opengl"
+			export FORMAT_COMPILER_TARGET_ALT="${FORMAT_COMPILER_TARGET}"
+		fi
+	elif [ "${COMMAND}" = "HIGAN" ] || [ "${COMMAND}" = "BSNES" ] || [ "${NAME}" = "bsnes_cplusplus98" ]; then
+		OUT="out"
+	fi
+
+	cd "${SUBDIR}"
+
+	if [ "${COMMAND}" = "BSNES" ]; then
+		CORE="${NAME}_accuracy ${NAME}_balanced ${NAME}_performance"
+	else
+		CORE="${NAME}"
+	fi
+
+	eval "set -- $CORE"
+	for core do
+		NAME="$core"
+		[ "${COMMAND}" = "BSNES" ] && ARGS="profile=${core##*_}"
+
+		echo --------------------------------------------------| tee $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}.log
+		cat $TMPDIR/vars | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}.log
+
+		echo -------------------------------------------------- 2>&1 | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}.log
+		if [ -z "${NOCLEAN}" ] && [ -f "${MAKEFILE}" ] && [ "${COMMAND}" != "CMAKE" ]; then
+			if [ "${COMMAND}" = "HIGAN" ]; then
+				rm -fv obj/*.{o,"${FORMAT_EXT}"} 2>&1 | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}.log
+				rm -fv out/*.{o,"${FORMAT_EXT}"} 2>&1 | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}.log
+			else
+				eval "set -- ${HELPER} ${MAKE} -f ${MAKEFILE} platform=${PLATFORM} -j${JOBS} ${ARGS} clean"
+				echo "CLEANUP CMD: $@" 2>&1 | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}.log
+				"$@" 2>&1 | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}.log
+			fi
+
+			if [ $? -eq 0 ]; then
+				echo buildbot job: $jobid ${NAME} cleanup success!
+			else
+				echo buildbot job: $jobid ${NAME} cleanup failed!
+			fi
+		fi
+
+		echo -------------------------------------------------- 2>&1 | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}.log
+		if [ "${NAME}" == "mame2010" ]; then
+			echo "BUILD CMD: PLATFORM="" platform="" ${HELPER} ${MAKE} -f ${MAKEFILE} "VRENDER=soft" "NATIVE=1" buildtools -j${JOBS}" 2>&1 | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}.log
+			PLATFORM="" platform="" ${HELPER} ${MAKE} -f ${MAKEFILE} "VRENDER=soft" "NATIVE=1" buildtools -j${JOBS} 2>&1 | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}.log
+		fi
+
+		if [ "${COMMAND}" = "CMAKE" ]; then
+			if [ "${PLATFORM}" = "android" ]; then
+				EXTRAARGS="-DCMAKE_SYSTEM_NAME=Android -DCMAKE_SYSTEM_VERSION=${API_LEVEL} -DCMAKE_ANDROID_ARCH_ABI=${ABI_OVERRIDE} -DCMAKE_ANDROID_NDK=${NDK_ROOT}"
+			fi
+
+			eval "set -- ${EXTRAARGS} ${ARGS}"
+			echo "BUILD CMD: ${CMAKE} $@" 2>&1 | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}.log
+			echo "$@" .. | xargs ${CMAKE} 2>&1 | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}.log
+			echo "BUILD CMD: ${HELPER} ${MAKE} -f ${MAKEFILE} -j${JOBS}" 2>&1 | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}.log
+			${HELPER} ${MAKE} -f ${MAKEFILE} -j${JOBS} 2>&1 | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}.log
+
+			find . -mindepth 2 -name "${NAME}_libretro${FORMAT}${LIBSUFFIX}.${FORMAT_EXT}" -exec cp -f "{}" . \;
+		elif [ "${COMMAND}" = "HIGAN" ]; then
+			platform=""
+			echo "BUILD CMD: ${HELPER} ${MAKE} -f ${MAKEFILE} -j${JOBS}" ${ARGS} 2>&1 | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}.log
+			${HELPER} ${MAKE} -f ${MAKEFILE} -j${JOBS} ${ARGS} 2>&1 | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}.log
+		else
+			eval "set -- ${HELPER} ${MAKE} -f ${MAKEFILE} platform=${PLATFORM} -j${JOBS} ${ARGS}"
+			echo "BUILD CMD: $@" 2>&1 | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}.log
+			"$@" 2>&1 | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}.log
+		fi
+
+		if [ "${MAKEPORTABLE}" == "YES" ]; then
+			echo "BUILD CMD $WORK/retrolink.sh ${OUT}/${NAME}_libretro${FORMAT}${LIBSUFFIX}.${FORMAT_EXT}" 2>&1 | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}.log
+			$WORK/retrolink.sh ${OUT}/${NAME}_libretro${FORMAT}${LIBSUFFIX}.${FORMAT_EXT} 2>&1 | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}.log
+		fi
+
+		if [ "${PLATFORM}" = "windows" ] || [ "${PLATFORM}" = "unix" ]; then
+			${STRIP:=strip} -s ${OUT}/${NAME}_libretro${FORMAT}${LIBSUFFIX}.${FORMAT_EXT}
+		fi
+
+		echo "COPY CMD: cp -v ${OUT}/${NAME}_libretro${FORMAT}${LIBSUFFIX}.${FORMAT_EXT} $RARCH_DIST_DIR/${DIST}/${NAME}_libretro${FORMAT}${LIBSUFFIX}.${FORMAT_EXT}" 2>&1 | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}.log
+		cp -v ${OUT}/${NAME}_libretro${FORMAT}${LIBSUFFIX}.${FORMAT_EXT} $RARCH_DIST_DIR/${DIST}/${NAME}_libretro${FORMAT}${LIBSUFFIX}.${FORMAT_EXT} 2>&1 | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}.log
+		cp -v ${OUT}/${NAME}_libretro${FORMAT}${LIBSUFFIX}.${FORMAT_EXT} $RARCH_DIST_DIR/${DIST}/${NAME}_libretro${FORMAT}${LIBSUFFIX}.${FORMAT_EXT}
+
+		RET=$?
+		ERROR=$TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}.log
+		buildbot_handle_message "$RET" "$ENTRY_ID" "$NAME" "$jobid" "$ERROR"
+	done
+
+	if [ "${COMMAND}" = "GENERIC_GL" ]; then
+		export FORMAT_COMPILER_TARGET=$RESET_FORMAT_COMPILER_TARGET
+		export FORMAT_COMPILER_TARGET_ALT=$RESET_FORMAT_COMPILER_TARGET_ALT
+	fi
+
+	ENTRY_ID=""
 }
 
 build_libretro_leiradel_makefile() {
@@ -376,9 +408,13 @@ build_libretro_leiradel_makefile() {
 	PLATFORM=$5
 	ARGS=$6
 
-	ENTRY_ID=`curl -X POST -d type="start" -d master_log="$MASTER_LOG_ID" -d platform="$jobid" -d name="$NAME" http://buildbot.fiveforty.net/build_entry/`
+	ENTRY_ID=""
 
-	ARG1=`echo ${ARGS} | cut -f 1 -d " "`
+	if [ -n "$LOGURL" ]; then
+		ENTRY_ID=`curl -X POST -d type="start" -d master_log="$MASTER_LOG_ID" -d platform="$jobid" -d name="$NAME" http://buildbot.fiveforty.net/build_entry/`
+	fi
+
+	ARG1="${ARGS%% *}"
 	mkdir -p $RARCH_DIST_DIR/${DIST}/${ARG1}
 
 	cd $DIR
@@ -388,101 +424,32 @@ build_libretro_leiradel_makefile() {
 	echo --------------------------------------------------| tee $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}_${a}.log
 	cat $TMPDIR/vars | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}_${a}.log
 
-	cd ${DIR}/${SUBDIR}
 	echo -------------------------------------------------- 2>&1 | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}_${a}.log
 	if [ -z "${NOCLEAN}" ]; then
 		echo "CLEANUP CMD: ${HELPER} ${MAKE} -f ${MAKEFILE}.${PLATFORM}_${ARGS} platform=${PLATFORM}_${ARGS} -j${JOBS} clean" 2>&1 | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}.log
 		${HELPER} ${MAKE} -f ${MAKEFILE}.${PLATFORM}_${ARGS} platform=${PLATFORM}_${ARGS} -j${JOBS} clean 2>&1 | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}.log
+
 		if [ $? -eq 0 ]; then
-			echo buildbot job: $jobid $1 cleanup success!
+			echo buildbot job: $jobid ${NAME} cleanup success!
 		else
-			echo buildbot job: $jobid $1 cleanup failed!
+			echo buildbot job: $jobid ${NAME} cleanup failed!
 		fi
 	fi
 
 	echo -------------------------------------------------- 2>&1 | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}.log
-		echo "BUILD CMD: ${HELPER} ${MAKE} -f ${MAKEFILE}.${PLATFORM}_${ARGS} platform=${PLATFORM}_${ARGS} -j${JOBS}" 2>&1 | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}.log
-		${HELPER} ${MAKE} -f ${MAKEFILE}.${PLATFORM}_${ARGS} platform=${PLATFORM}_${ARGS} -j${JOBS} 2>&1 | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}.log
+	echo "BUILD CMD: ${HELPER} ${MAKE} -f ${MAKEFILE}.${PLATFORM}_${ARGS} platform=${PLATFORM}_${ARGS} -j${JOBS}" 2>&1 | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}.log
+	${HELPER} ${MAKE} -f ${MAKEFILE}.${PLATFORM}_${ARGS} platform=${PLATFORM}_${ARGS} -j${JOBS} 2>&1 | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}.log
 
-		echo "COPY CMD: cp -v ${NAME}_libretro.${PLATFORM}_${ARG1}.${FORMAT_EXT} $RARCH_DIST_DIR/${DIST}/${ARG1}/${NAME}_libretro${LIBSUFFIX}.${FORMAT_EXT}" 2>&1 | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}.log
-		cp -v ${NAME}_libretro.${PLATFORM}_${ARG1}.${FORMAT_EXT} $RARCH_DIST_DIR/${DIST}/${ARG1}/${NAME}_libretro${LIBSUFFIX}.${FORMAT_EXT} 2>&1 | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}.log
-		cp -v ${NAME}_libretro.${PLATFORM}_${ARG1}.${FORMAT_EXT} $RARCH_DIST_DIR/${DIST}/${ARG1}/${NAME}_libretro${LIBSUFFIX}.${FORMAT_EXT}
-		if [ $? -eq 0 ]; then
-			MESSAGE="$1:	[status: done] [$jobid]"
-			curl -X POST -d type="finish" -d index="$ENTRY_ID" -d status="done" http://buildbot.fiveforty.net/build_entry/
-		else
-		ERROR=$TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}.log
-		gzip -9fk $ERROR
-		HASTE=`curl -X POST http://p.0bl.net/ --data-binary @${ERROR}.gz`
-		MESSAGE="$1:	[status: fail] [$jobid] LOG: $HASTE"
-		curl -X POST -d type="finish" -d index="$ENTRY_ID" -d status="fail" -d log="$HASTE" http://buildbot.fiveforty.net/build_entry/
-	fi
+	echo "COPY CMD: cp -v ${NAME}_libretro.${PLATFORM}_${ARG1}.${FORMAT_EXT} $RARCH_DIST_DIR/${DIST}/${ARG1}/${NAME}_libretro${LIBSUFFIX}.${FORMAT_EXT}" 2>&1 | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}.log
+	cp -v ${NAME}_libretro.${PLATFORM}_${ARG1}.${FORMAT_EXT} $RARCH_DIST_DIR/${DIST}/${ARG1}/${NAME}_libretro${LIBSUFFIX}.${FORMAT_EXT} 2>&1 | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}.log
+	cp -v ${NAME}_libretro.${PLATFORM}_${ARG1}.${FORMAT_EXT} $RARCH_DIST_DIR/${DIST}/${ARG1}/${NAME}_libretro${LIBSUFFIX}.${FORMAT_EXT}
+
+	RET=$?
+	ERROR=$TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}.log
+	buildbot_handle_message "$RET" "$ENTRY_ID" "$NAME" "$jobid" "$ERROR"
+
 	ENTRY_ID=""
-	echo buildbot job: $MESSAGE
-
-	buildbot_log "$MESSAGE"
 	JOBS=$JOBS_ORIG
-
-}
-
-build_libretro_generic_gl_makefile() {
-	NAME=$1
-	DIR=$2
-	SUBDIR=$3
-	MAKEFILE=$4
-	PLATFORM=$5
-	ARGS=$6
-
-	check_opengl
-
-	ENTRY_ID=`curl -X POST -d type="start" -d master_log="$MASTER_LOG_ID" -d platform="$jobid" -d name="$NAME" http://buildbot.fiveforty.net/build_entry/`
-
-	cd $DIR
-	cd $SUBDIR
-
-	echo --------------------------------------------------| tee $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}_${a}.log
-	cat $TMPDIR/vars | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}_${a}.log
-
-	cd ${DIR}/${SUBDIR}
-	echo -------------------------------------------------- 2>&1 | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}_${a}.log
-	if [ -z "${NOCLEAN}" ]; then
-		echo "CLEANUP CMD: ${HELPER} ${MAKE} -f ${MAKEFILE} platform=${PLATFORM} -j${JOBS} clean" 2>&1 | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}.log
-		${HELPER} ${MAKE} -f ${MAKEFILE} platform=${PLATFORM} -j${JOBS} clean 2>&1 | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}.log
-		if [ $? -eq 0 ]; then
-			echo buildbot job: $jobid $1 cleanup success!
-		else
-			echo buildbot job: $jobid $1 cleanup failed!
-		fi
-	fi
-
-	echo -------------------------------------------------- 2>&1 | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}.log
-	if [ -z "${ARGS}" ]; then
-		echo "BUILD CMD: ${HELPER} ${MAKE} -f ${MAKEFILE} platform=${PLATFORM} -j${JOBS}" 2>&1 | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}.log
-		${HELPER} ${MAKE} -f ${MAKEFILE} platform=${PLATFORM} -j${JOBS} 2>&1 | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}.log
-	else
-		echo "BUILD CMD: ${HELPER} ${MAKE} -f ${MAKEFILE} platform=${PLATFORM} ${COMPILER} -j${JOBS} ${ARGS}" 2>&1 | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}.log
-		${HELPER} ${MAKE} -f ${MAKEFILE} platform=${PLATFORM} -j${JOBS} ${ARGS} 2>&1 | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}.log
-	fi
-
-	echo "COPY CMD: cp -v ${NAME}_libretro${FORMAT}${LIBSUFFIX}.${FORMAT_EXT} $RARCH_DIST_DIR/${NAME}_libretro${FORMAT}${LIBSUFFIX}.${FORMAT_EXT}" 2>&1 | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}.log
-	cp -v ${NAME}_libretro${FORMAT}${LIBSUFFIX}.${FORMAT_EXT} $RARCH_DIST_DIR/${NAME}_libretro${FORMAT}${LIBSUFFIX}.${FORMAT_EXT} 2>&1 | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}.log
-	cp -v ${NAME}_libretro${FORMAT}${LIBSUFFIX}.${FORMAT_EXT} $RARCH_DIST_DIR/${NAME}_libretro${FORMAT}${LIBSUFFIX}.${FORMAT_EXT}
-
-	if [ $? -eq 0 ]; then
-		MESSAGE="$1:	[status: done] [$jobid]"
-		curl -X POST -d type="finish" -d index="$ENTRY_ID" -d status="done" http://buildbot.fiveforty.net/build_entry/
-	else
-		ERROR=$TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}.log
-		gzip -9fk $ERROR
-		HASTE=`curl -X POST http://p.0bl.net/ --data-binary @${ERROR}.gz`
-		MESSAGE="$1:	[status: fail] [$jobid] LOG: $HASTE"
-		curl -X POST -d type="finish" -d index="$ENTRY_ID" -d status="fail" -d log="$HASTE" http://buildbot.fiveforty.net/build_entry/
-	fi
-	ENTRY_ID=""
-	echo buildbot job: $MESSAGE
-	buildbot_log "$MESSAGE"
-
-	reset_compiler_targets
 }
 
 build_libretro_generic_jni() {
@@ -493,191 +460,71 @@ build_libretro_generic_jni() {
 	PLATFORM=$5
 	ARGS=$6
 
-	ENTRY_ID=`curl -X POST -d type="start" -d master_log="$MASTER_LOG_ID" -d platform="$jobid" -d name="$NAME" http://buildbot.fiveforty.net/build_entry/`
-
-	echo --------------------------------------------------| tee $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}_${a}.log
-	cat $TMPDIR/vars | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}_${a}.log
-
-	cd ${DIR}/${SUBDIR}
-	echo -------------------------------------------------- 2>&1 | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}_${a}.log
-	for a in "${ABIS[@]}"; do
-		if [ -z "${NOCLEAN}" ]; then
-			echo "CLEANUP CMD: ${NDK} -j${JOBS} ${ARGS} APP_ABI=${a} clean" 2>&1 | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}_${a}.log
-			${NDK} -j${JOBS} ${ARGS} APP_ABI=${a} clean 2>&1 | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}_${a}.log
-			if [ $? -eq 0 ]; then
-				echo buildbot job: $jobid $a $1 cleanup success!
-			else
-				echo buildbot job: $jobid $a $1 cleanup failed!
-			fi
-		fi
-
-		echo -------------------------------------------------- 2>&1 | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}_${a}.log
-		if [ -z "${ARGS}" ]; then
-			echo "BUILD CMD: ${NDK} -j${JOBS} APP_ABI=${a}" 2>&1 | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}_${a}.log
-			${NDK} -j${JOBS} APP_ABI=${a} 2>&1 | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}_${a}.log
-		else
-			echo "BUILD CMD: ${NDK} -j${JOBS} APP_ABI=${a} ${ARGS} " 2>&1 | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}_${a}.log
-			${NDK} -j${JOBS} APP_ABI=${a} ${ARGS} 2>&1 | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}_${a}.log
-		fi
-
-
-		if [ "${NAME}" == "mupen64plus" ]; then
-			echo "COPY CMD: cp -v ../libs/${a}/libparallel_retro.${FORMAT_EXT} $RARCH_DIST_DIR/${a}/parallel_libretro${FORMAT}${LIBSUFFIX}.${FORMAT_EXT}" 2>&1 | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}_${a}.log
-			cp -v ../libs/${a}/libparallel_retro.${FORMAT_EXT} $RARCH_DIST_DIR/${a}/parallel_libretro${FORMAT}${LIBSUFFIX}.${FORMAT_EXT} 2>&1 | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}_${a}.log
-			cp -v ../libs/${a}/libparallel_retro.${FORMAT_EXT} $RARCH_DIST_DIR/${a}/parallel_libretro${FORMAT}${LIBSUFFIX}.${FORMAT_EXT}
-		fi
-		echo "COPY CMD: cp -v ../libs/${a}/libretro.${FORMAT_EXT} $RARCH_DIST_DIR/${a}/${1}_libretro${FORMAT}${LIBSUFFIX}.${FORMAT_EXT}" 2>&1 | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}_${a}.log
-		cp -v ../libs/${a}/libretro.${FORMAT_EXT} $RARCH_DIST_DIR/${a}/${1}_libretro${FORMAT}${LIBSUFFIX}.${FORMAT_EXT} 2>&1 | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}_${a}.log
-				cp -v ../libs/${a}/libretro.${FORMAT_EXT} $RARCH_DIST_DIR/${a}/${1}_libretro${FORMAT}${LIBSUFFIX}.${FORMAT_EXT}
-
-		if [ $? -eq 0 ]; then
-			MESSAGE="$1-$a:	[status: done] [$jobid]"
-			echo buildbot job: $MESSAGE
-			curl -X POST -d type="finish" -d index="$ENTRY_ID" -d status="done" http://buildbot.fiveforty.net/build_entry/
-			buildbot_log "$MESSAGE"
-		else
-			ERROR=$TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}_${a}.log
-			gzip -9fk $ERROR
-			HASTE=`curl -X POST http://p.0bl.net/ --data-binary @${ERROR}.gz`
-			MESSAGE="$1-$a:	[status: fail] [$jobid] LOG: $HASTE"
-			echo buildbot job: $MESSAGE
-			curl -X POST -d type="finish" -d index="$ENTRY_ID" -d status="fail" -d log="$HASTE" http://buildbot.fiveforty.net/build_entry/
-			buildbot_log "$MESSAGE"
-		fi
-		ENTRY_ID=""
-		echo buildbot job: $MESSAGE
-
-		if [ -z "${NOCLEAN}" ]; then
-			echo "CLEANUP CMD: ${NDK} -j${JOBS} ${ARGS} APP_ABI=${a} clean" 2>&1 | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}_${a}.log
-			${NDK} -j${JOBS} ${ARGS} APP_ABI=${a} clean 2>&1 | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}_${a}.log
-			if [ $? -eq 0 ]; then
-				echo buildbot job: $jobid $a $1 cleanup success!
-			else
-				echo buildbot job: $jobid $a $1 cleanup failed!
-			fi
-		fi
-	done
-
-}
-
-build_libretro_bsnes_jni() {
-	NAME=$1
-	DIR=$2
-	SUBDIR=$3
-	MAKEFILE=$4
-	PLATFORM=$5
-	PROFILE=$6
-
-	ENTRY_ID=`curl -X POST -d type="start" -d master_log="$MASTER_LOG_ID" -d platform="$jobid" -d name="$NAME" http://buildbot.fiveforty.net/build_entry/`
-
-	cd ${DIR}/${SUBDIR}
-	echo -------------------------------------------------- 2>&1 | tee $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PROFILE}_${PLATFORM}_${a}.log
-	for a in "${ABIS[@]}"; do
-		if [ -z "${NOCLEAN}" ]; then
-			echo "CLEANUP CMD: ${NDK} -j${JOBS} APP_ABI=${a} clean" 2>&1 | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PROFILE}_${PLATFORM}_${a}.log
-			${NDK} -j${JOBS} APP_ABI=${a} clean 2>&1 | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PROFILE}_${PLATFORM}_${a}.log
-			if [ $? -eq 0 ]; then
-				echo buildbot job: $jobid $1 cleanup success!
-			else
-				echo buildbot job: $jobid $1 cleanup failed!
-			fi
-		fi
-
-		echo -------------------------------------------------- 2>&1 | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PROFILE}_${PLATFORM}_${a}.log
-		if [ -z "${ARGS}" ]; then
-			echo "BUILD CMD: ${NDK} -j${JOBS} APP_ABI=${a} profile=${PROFILE}" 2>&1 | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PROFILE}_${PLATFORM}_${a}.log
-			${NDK} -j${JOBS} APP_ABI=${a} profile=${PROFILE} 2>&1 | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PROFILE}_${PLATFORM}_${a}.log
-		else
-			echo "BUILD CMD: ${NDK} -j${JOBS} APP_ABI=${a} profile=${PROFILE}" 2>&1 | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PROFILE}_${PLATFORM}_${a}.log
-			${NDK} -j${JOBS} APP_ABI=${a} profile=${PROFILE} 2>&1 | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PROFILE}_${PLATFORM}_${a}.log
-		fi
-
-		echo "COPY CMD: cp -v ../libs/${a}/libretro_${NAME}_${PROFILE}.${FORMAT_EXT} $RARCH_DIST_DIR/${a}/${NAME}_${PROFILE}_libretro${FORMAT}${LIBSUFFIX}.${FORMAT_EXT}" 2>&1 | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PROFILE}_${PLATFORM}_${a}.log
-		cp -v ../libs/${a}/libretro_${NAME}_${PROFILE}.${FORMAT_EXT} $RARCH_DIST_DIR/${a}/${NAME}_${PROFILE}_libretro${FORMAT}${LIBSUFFIX}.${FORMAT_EXT} | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PROFILE}_${PLATFORM}_${a}.log
-		cp -v ../libs/${a}/libretro_${NAME}_${PROFILE}.${FORMAT_EXT} $RARCH_DIST_DIR/${a}/${NAME}_${PROFILE}_libretro${FORMAT}${LIBSUFFIX}.${FORMAT_EXT}
-		if [ $? -eq 0 ]; then
-			MESSAGE="$1-$a-${PROFILE}:	[status: done] [$jobid]"
-			curl -X POST -d type="finish" -d index="$ENTRY_ID" -d status="done" http://buildbot.fiveforty.net/build_entry/
-		else
-			ERROR=$TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PROFILE}_${PLATFORM}_${a}.log
-			gzip -9fk $ERROR
-			HASTE=`curl -X POST http://p.0bl.net/ --data-binary @${ERROR}.gz`
-			MESSAGE="$1-$a-${PROFILE}:	[status: fail] [$jobid] LOG: $HASTE"
-			curl -X POST -d type="finish" -d index="$ENTRY_ID" -d status="fail" -d log="$HASTE" http://buildbot.fiveforty.net/build_entry/
-		fi
-		ENTRY_ID=""
-		echo buildbot job: $MESSAGE
-
-		buildbot_log "$MESSAGE"
-	done
-}
-
-build_libretro_bsnes() {
-	NAME=$1
-	DIR=$2
-	PROFILE=$3
-	MAKEFILE=$4
-	PLATFORM=$5
-	BSNESCOMPILER=$6
-
-	ENTRY_ID=`curl -X POST -d type="start" -d master_log="$MASTER_LOG_ID" -d platform="$jobid" -d name="$NAME" http://buildbot.fiveforty.net/build_entry/`
-
-	cd $DIR
-	echo -------------------------------------------------- 2>&1 | tee $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PROFILE}_${PLATFORM}.log
-	if [ -z "${NOCLEAN}" ]; then
-
-		rm -f obj/*.{o,"${FORMAT_EXT}"} 2>&1 | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PROFILE}_${PLATFORM}.log
-		rm -f out/*.{o,"${FORMAT_EXT}"} 2>&1 | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PROFILE}_${PLATFORM}.log
-
-		if [ "${PROFILE}" = "cpp98" -o "${PROFILE}" = "bnes" ]; then
-			${HELPER} ${MAKE} clean 2>&1 | tee $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PROFILE}_${PLATFORM}.log
-		fi
-
-		if [ $? -eq 0 ]; then
-			echo buildbot job: $jobid $1 cleanup success!
-		else
-			echo buildbot job: $jobid $1 cleanup failed!
-		fi
-	fi
-
-	echo -------------------------------------------------- 2>&1 | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PROFILE}_${PLATFORM}.log
-	if [ "${PROFILE}" = "cpp98" ]; then
-		${HELPER} ${MAKE} platform="${PLATFORM}" ${COMPILER} "-j${JOBS}" 2>&1 | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PROFILE}_${PLATFORM}.log
-	elif [ "${PROFILE}" = "bnes" ]; then
-		echo "BUILD CMD: ${HELPER} ${MAKE} -f Makefile ${COMPILER} "-j${JOBS}" compiler=${BSNESCOMPILER}" platform=${FORMAT_COMPILER_TARGET} 2>&1 | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PROFILE}_${PLATFORM}.log
-		${HELPER} ${MAKE} -f Makefile ${COMPILER} "-j${JOBS}" compiler="${BSNESCOMPILER}" platform=${FORMAT_COMPILER_TARGET} 2>&1 | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PROFILE}_${PLATFORM}.log
-	else
-		echo "BUILD CMD: ${HELPER} ${MAKE} -f ${MAKEFILE} platform=${PLATFORM} compiler=${BSNESCOMPILER} ui='target-libretro' profile=${PROFILE} -j${JOBS}" 2>&1 | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PROFILE}_${PLATFORM}.log
-		${HELPER} ${MAKE} -f ${MAKEFILE} platform=${PLATFORM} compiler=${BSNESCOMPILER} ui='target-libretro' profile=${PROFILE} -j${JOBS} 2>&1 | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PROFILE}_${PLATFORM}.log
-	fi
-
-	if [ "${PROFILE}" = "cpp98" ]; then
-		echo "COPY CMD: cp -fv out/${NAME}_libretro${FORMAT}${LIBSUFFIX}.${FORMAT_EXT}" "${RARCH_DIST_DIR}/${NAME}_libretro${FORMAT}${LIBSUFFIX}.${FORMAT_EXT}" 2>&1 | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PROFILE}_${PLATFORM}.log
-		cp -fv "out/${NAME}_libretro${FORMAT}${LIBSUFFIX}.${FORMAT_EXT}" "${RARCH_DIST_DIR}/${NAME}_libretro${FORMAT}${LIBSUFFIX}.${FORMAT_EXT}" 2>&1 | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PROFILE}_${PLATFORM}.log
-		cp -fv "out/${NAME}_libretro${FORMAT}${LIBSUFFIX}.${FORMAT_EXT}" "${RARCH_DIST_DIR}/${NAME}_libretro${FORMAT}${LIBSUFFIX}.${FORMAT_EXT}" 2>&1
-	elif [ "${PROFILE}" = "bnes" ]; then
-		echo "COPY CMD cp -fv ${NAME}_libretro${FORMAT}${LIBSUFFIX}.${FORMAT_EXT}" "${RARCH_DIST_DIR}/${NAME}_libretro${FORMAT}${LIBSUFFIX}.${FORMAT_EXT}" 2>&1 | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PROFILE}_${PLATFORM}.log
-		cp -fv "${NAME}_libretro${FORMAT}${LIBSUFFIX}.${FORMAT_EXT}" "${RARCH_DIST_DIR}/${NAME}_libretro${FORMAT}${LIBSUFFIX}.${FORMAT_EXT}" 2>&1 | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PROFILE}_${PLATFORM}.log
-		cp -fv "${NAME}_libretro${FORMAT}${LIBSUFFIX}.${FORMAT_EXT}" "${RARCH_DIST_DIR}/${NAME}_libretro${FORMAT}${LIBSUFFIX}.${FORMAT_EXT}"
-	else
-		echo "COPY CMD cp -fv "out/${NAME}_${PROFILE}_libretro${FORMAT}.${FORMAT_EXT}" $RARCH_DIST_DIR/${NAME}_${PROFILE}_libretro${FORMAT}${LIBSUFFIX}.${FORMAT_EXT}" 2>&1 | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PROFILE}_${PLATFORM}.log
-		cp -fv "out/${NAME}_${PROFILE}_libretro${FORMAT}.${FORMAT_EXT}" $RARCH_DIST_DIR/${NAME}_${PROFILE}_libretro${FORMAT}${LIBSUFFIX}.${FORMAT_EXT} 2>&1 | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PROFILE}_${PLATFORM}.log
-		cp -fv "out/${NAME}_${PROFILE}_libretro${FORMAT}.${FORMAT_EXT}" $RARCH_DIST_DIR/${NAME}_${PROFILE}_libretro${FORMAT}${LIBSUFFIX}.${FORMAT_EXT}
-	fi
-	if [ $? -eq 0 ]; then
-		MESSAGE="$1-${PROFILE}:	[status: done] [$jobid]"
-		curl -X POST -d type="finish" -d index="$ENTRY_ID" -d status="done" http://buildbot.fiveforty.net/build_entry/
-	else
-		ERROR=$TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PROFILE}_${PLATFORM}.log
-		gzip -9fk $ERROR
-		HASTE=`curl -X POST http://p.0bl.net/ --data-binary @${ERROR}.gz`
-		MESSAGE="$1-${PROFILE}:	[status: fail] [$jobid] LOG: $HASTE"
-		curl -X POST -d type="finish" -d index="$ENTRY_ID" -d status="fail" -d log="$HASTE" http://buildbot.fiveforty.net/build_entry/
-	fi
 	ENTRY_ID=""
-	echo buildbot job: $MESSAGE
+	LIBNAM="libretro"
 
-	buildbot_log "$MESSAGE"
+	if [ -n "$LOGURL" ]; then
+		ENTRY_ID=`curl -X POST -d type="start" -d master_log="$MASTER_LOG_ID" -d platform="$jobid" -d name="$NAME" http://buildbot.fiveforty.net/build_entry/`
+	fi
+
+	if [ "${COMMAND}" = "BSNES_JNI" ]; then
+		CORE="${NAME}_accuracy ${NAME}_balanced ${NAME}_performance"
+	else
+		CORE="${NAME}"
+	fi
+
+	cd ${DIR}
+	cd ${SUBDIR}
+
+	eval "set -- $CORE"
+	for core do
+		NAME="${core}"
+
+		if [ "${COMMAND}" = "BSNES_JNI" ]; then
+			ARGS="profile=${core##*_}"
+			LIBNAM="libretro_${NAME}"
+		fi
+
+		for a in "${ABIS[@]}"; do
+			echo --------------------------------------------------| tee $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}_${a}.log
+			cat $TMPDIR/vars | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}_${a}.log
+
+			echo -------------------------------------------------- 2>&1 | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}_${a}.log
+			if [ -z "${NOCLEAN}" ]; then
+				echo "CLEANUP CMD: ${NDK} -j${JOBS} ${ARGS} APP_ABI=${a} clean" 2>&1 | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}_${a}.log
+				${NDK} -j${JOBS} ${ARGS} APP_ABI=${a} clean 2>&1 | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}_${a}.log
+
+				if [ $? -eq 0 ]; then
+					echo buildbot job: $jobid $a ${NAME} cleanup success!
+				else
+					echo buildbot job: $jobid $a ${NAME} cleanup failed!
+				fi
+			fi
+
+			echo -------------------------------------------------- 2>&1 | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}_${a}.log
+			eval "set -- ${NDK} -j${JOBS} APP_ABI=${a} ${ARGS}"
+			echo "BUILD CMD: $@" 2>&1 | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}_${a}.log
+			"$@" 2>&1 | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}_${a}.log
+
+
+			if [ "${NAME}" == "mupen64plus" ]; then
+				echo "COPY CMD: cp -v ../libs/${a}/libparallel_retro.${FORMAT_EXT} $RARCH_DIST_DIR/${a}/parallel_libretro${FORMAT}${LIBSUFFIX}.${FORMAT_EXT}" 2>&1 | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}_${a}.log
+				cp -v ../libs/${a}/libparallel_retro.${FORMAT_EXT} $RARCH_DIST_DIR/${a}/parallel_libretro${FORMAT}${LIBSUFFIX}.${FORMAT_EXT} 2>&1 | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}_${a}.log
+				cp -v ../libs/${a}/libparallel_retro.${FORMAT_EXT} $RARCH_DIST_DIR/${a}/parallel_libretro${FORMAT}${LIBSUFFIX}.${FORMAT_EXT}
+			fi
+
+			echo "COPY CMD: cp -v ../libs/${a}/$LIBNAM.${FORMAT_EXT} $RARCH_DIST_DIR/${a}/${NAME}_libretro${FORMAT}${LIBSUFFIX}.${FORMAT_EXT}" 2>&1 | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}_${a}.log
+			cp -v ../libs/${a}/$LIBNAM.${FORMAT_EXT} $RARCH_DIST_DIR/${a}/${NAME}_libretro${FORMAT}${LIBSUFFIX}.${FORMAT_EXT} 2>&1 | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}_${a}.log
+			cp -v ../libs/${a}/$LIBNAM.${FORMAT_EXT} $RARCH_DIST_DIR/${a}/${NAME}_libretro${FORMAT}${LIBSUFFIX}.${FORMAT_EXT}
+
+
+			RET=$?
+			ERROR=$TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}_${a}.log
+			buildbot_handle_message "$RET" "$ENTRY_ID" "$NAME" "$jobid" "$ERROR"
+		done
+	done
+
+	ENTRY_ID=""
 }
 
 # ----- buildbot -----
@@ -699,15 +546,31 @@ export jobid=$1
 echo
 echo
 while read line; do
-	NAME=`echo $line | cut -f 1 -d " "`
-	DIR=`echo $line | cut -f 2 -d " "`
-	URL=`echo $line | cut -f 3 -d " "`
-	GIT_BRANCH=`echo $line | cut -f 4 -d " "`
-	TYPE=`echo $line | cut -f 5 -d " "`
-	ENABLED=`echo $line | cut -f 6 -d " "`
-	COMMAND=`echo $line | cut -f 7 -d " "`
-	MAKEFILE=`echo $line | cut -f 8 -d " "`
-	SUBDIR=`echo $line | cut -f 9 -d " "`
+	eval "set -- \$line"
+
+	NAME="$1"
+	DIR="$2"
+	URL="$3"
+	GIT_BRANCH="$4"
+	TYPE="$5"
+	ENABLED="$6"
+	COMMAND="$7"
+	MAKEFILE="$8"
+	SUBDIR="$9"
+	ARGS=""
+
+	shift 9
+	while [ $# -gt 0 ]; do
+		ARGS="${ARGS} ${1}"
+		shift
+	done
+
+	ARGS="${ARGS# }"
+	ARGS="${ARGS%"${ARGS##*[![:space:]]}"}"
+
+	if [ "$SINGLE_CORE" ] && [ "$NAME" != "$SINGLE_CORE" ]; then
+		continue
+	fi
 
 	if [ "${ENABLED}" = "YES" ]; then
 		echo -ne "buildbot job started at: "
@@ -726,330 +589,100 @@ while read line; do
 		echo
 		echo
 
-		ARGS=""
-
-		TEMP=`echo $line | cut -f 10 -d " "`
-		if [ -n ${TEMP} ]; then
-			ARGS="${TEMP}"
-		fi
-		TEMP=""
-		TEMP=`echo $line | cut -f 11 -d " "`
-		if [ -n ${TEMP} ]; then
-			ARGS="${ARGS} ${TEMP}"
-		fi
-		TEMP=""
-		TEMP=`echo $line | cut -f 12 -d " "`
-		if [ -n ${TEMP} ]; then
-			ARGS="${ARGS} ${TEMP}"
-		fi
-		TEMP=""
-		TEMP=`echo $line | cut -f 13 -d " "`
-		if [ -n ${TEMP} ]; then
-			ARGS="${ARGS} ${TEMP}"
-		fi
-		TEMP=""
-		TEMP=`echo $line | cut -f 14 -d " "`
-		if [ -n ${TEMP} ]; then
-			ARGS="${ARGS} ${TEMP}"
-		fi
-		TEMP=""
-		TEMP=`echo $line | cut -f 15 -d " "`
-		if [ -n ${TEMP} ]; then
-			ARGS="${ARGS} ${TEMP}"
-		fi
-			TEMP=""
-			TEMP=`echo $line | cut -f 16 -d " "`
-			if [ -n ${TEMP} ]; then
-				ARGS="${ARGS} ${TEMP}"
-			fi
-			TEMP=""
-			TEMP=`echo $line | cut -f 17 -d " "`
-			if [ -n ${TEMP} ]; then
-				ARGS="${ARGS} ${TEMP}"
-			fi
-			TEMP=""
-			TEMP=`echo $line | cut -f 18 -d " "`
-			if [ -n ${TEMP} ]; then
-				ARGS="${ARGS} ${TEMP}"
-			fi
-			TEMP=""
-			TEMP=`echo $line | cut -f 19 -d " "`
-			if [ -n ${TEMP} ]; then
-				ARGS="${ARGS} ${TEMP}"
-			fi
-			TEMP=""
-			TEMP=`echo $line | cut -f 20 -d " "`
-			if [ -n ${TEMP} ]; then
-				ARGS="${ARGS} ${TEMP}"
-			fi
-			TEMP=""
-			TEMP=`echo $line | cut -f 21 -d " "`
-			if [ -n ${TEMP} ]; then
-				ARGS="${ARGS} ${TEMP}"
-			fi
-			TEMP=""
-			TEMP=`echo $line | cut -f 22 -d " "`
-			if [ -n ${TEMP} ]; then
-				ARGS="${ARGS} ${TEMP}"
-			fi
-			TEMP=""
-			TEMP=`echo $line | cut -f 23 -d " "`
-			if [ -n ${TEMP} ]; then
-				ARGS="${ARGS} ${TEMP}"
-			fi
-			TEMP=""
-			TEMP=`echo $line | cut -f 24 -d " "`
-			if [ -n ${TEMP} ]; then
-				ARGS="${ARGS} ${TEMP}"
-			fi
-			TEMP=""
-			TEMP=`echo $line | cut -f 25 -d " "`
-			if [ -n ${TEMP} ]; then
-				ARGS="${ARGS} ${TEMP}"
-			fi
-			TEMP=""
-			TEMP=`echo $line | cut -f 26 -d " "`
-			if [ -n ${TEMP} ]; then
-				ARGS="${ARGS} ${TEMP}"
-			fi
-			TEMP=""
-			TEMP=`echo $line | cut -f 27 -d " "`
-			if [ -n ${TEMP} ]; then
-				ARGS="${ARGS} ${TEMP}"
-			fi
-			TEMP=""
-			TEMP=`echo $line | cut -f 28 -d " "`
-			if [ -n ${TEMP} ]; then
-				ARGS="${ARGS} ${TEMP}"
-			fi
-			TEMP=""
-			TEMP=`echo $line | cut -f 29 -d " "`
-			if [ -n ${TEMP} ]; then
-				ARGS="${ARGS} ${TEMP}"
-			fi
-			TEMP=""
-			TEMP=`echo $line | cut -f 30 -d " "`
-			if [ -n ${TEMP} ]; then
-				ARGS="${ARGS} ${TEMP}"
-			fi
-
-		ARGS="${ARGS%"${ARGS##*[![:space:]]}"}"
 		BUILD="NO"
+		UPDATE="YES"
+
+		if [ ! -d "${DIR}/.git" ] || [ "${CLEANUP}" = "YES" ]; then
+			rm -rfv -- "$DIR"
+			echo "cloning repo $URL..."
+			git clone --depth=1 -b "$GIT_BRANCH" "$URL" "$DIR"
+			BUILD="YES"
+			UPDATE="NO"
+		fi
+
+		cd "$DIR" || { echo "Failed to cd to ${DIR}, skipping ${NAME}"; continue; }
+
+		CURRENT_BRANCH="$(git rev-parse --abbrev-ref HEAD)"
+
+		if [ "${GIT_BRANCH}" != "${CURRENT_BRANCH}" ] && [ "${TRAVIS:-0}" = "0" ]; then
+			echo "Changing to the branch ${GIT_BRANCH} from ${CURRENT_BRANCH}"
+			git remote set-branches origin "${GIT_BRANCH}"
+			git fetch --depth 1 origin "${GIT_BRANCH}"
+			git checkout "${GIT_BRANCH}"
+			git branch -D "${CURRENT_BRANCH}"
+			BUILD="YES"
+			UPDATE="NO"
+		fi
+
+		if [ "${UPDATE}" != "NO" ]; then
+			if [ -f .forcebuild ]; then
+				echo "found .forcebuild file, building $NAME"
+				BUILD="YES"
+			fi
+
+			echo "pulling changes from repo $URL..."
+			HEAD="$(git rev-parse HEAD)"
+			git pull
+
+			if [ "$HEAD" = "$(git rev-parse HEAD)" ] && [ "${BUILD}" != "YES" ]; then
+				BUILD="NO"
+			else
+				echo "resetting repo state $URL..."
+				git reset --hard FETCH_HEAD
+				git clean -xdf
+				BUILD="YES"
+			fi
+		fi
 
 		if [ "${TYPE}" = "PROJECT" ]; then
-			if [ -d "${DIR}/.git" ]; then
-				if [ "${CLEANUP}" == "YES" ]; then
-					rm -rfv $DIR
-					echo "cloning repo $URL..."
-					git clone --depth=1 -b "$GIT_BRANCH" "$URL" "$DIR"
-					BUILD="YES"
-				else
-					cd $DIR
+			FORCE_ORIG=$FORCE
+			OLDBUILD=$BUILD
 
-					if [ -f .forcebuild ]; then
-						echo "found .forcebuild file, building $NAME"
-						BUILD="YES"
-					fi
-
-					echo "pulling changes from repo $URL... "
-					OUT=`git pull`
-					echo $OUT
-
-					if [[ $OUT == *"Already up-to-date"* ]] && [ ! "${BUILD}" = "YES" ]; then
-						BUILD="NO"
-					else
-						echo "resetting repo state... "
-						git reset --hard FETCH_HEAD
-						git clean -xdf
-						BUILD="YES"
-					fi
-
-				fi
-
-				FORCE_ORIG=$FORCE
-				OLDBUILD=$BUILD
-
-				if [ "${PREVCORE}" = "bsnes" -a "${PREVBUILD}" = "YES" -a "${COMMAND}" = "BSNES" ]; then
-					FORCE="YES"
-					BUILD="YES"
-				fi
-
-				if [ "${PREVCORE}" = "bsnes" -a "${PREVBUILD}" = "YES" -a "${COMMAND}" = "BSNES_JNI" ]; then
-					FORCE="YES"
-					BUILD="YES"
-				fi
-				
-				if [ "${PREVCORE}" = "bsnes_mercury" -a "${PREVBUILD}" = "YES" -a "${COMMAND}" = "BSNES" ]; then
-					FORCE="YES"
-					BUILD="YES"
-				fi
-
-				if [ "${PREVCORE}" = "bsnes_mercury" -a "${PREVBUILD}" = "YES" -a "${COMMAND}" = "BSNES_JNI" ]; then
-					FORCE="YES"
-					BUILD="YES"
-				fi
-
-				if [ "${PREVCORE}" = "gw" -a "${PREVBUILD}" = "YES" -a "${NAME}" = "gw" ]; then
-					FORCE="YES"
-					BUILD="YES"
-				fi
-
-				if [ "${PREVCORE}" = "fuse" -a "${PREVBUILD}" = "YES" -a "${NAME}" = "fuse" ]; then
-					FORCE="YES"
-					BUILD="YES"
-				fi
-
-				if [ "${PREVCORE}" = "81" -a "${PREVBUILD}" = "YES" -a "${NAME}" = "81" ]; then
-					FORCE="YES"
-					BUILD="YES"
-				fi
-
-				if [ "${PREVCORE}" = "snes9x-next" -a "${PREVBUILD}" = "YES" -a "${NAME}" = "snes9x-next" ]; then
-					FORCE="YES"
-					BUILD="YES"
-				fi
-
-				if [ "${PREVCORE}" = "vba_next" -a "${PREVBUILD}" = "YES" -a "${NAME}" = "vba_next" ]; then
-					FORCE="YES"
-					BUILD="YES"
-				fi
-
-				if [ "${PREVCORE}" = "emux_nes" -a "${PREVBUILD}" = "YES" -a "${NAME}" = "emux_nes" ]; then
-					FORCE="YES"
-					BUILD="YES"
-				fi
-
-				if [ "${PREVCORE}" = "emux_sms" -a "${PREVBUILD}" = "YES" -a "${NAME}" = "emux_sms" ]; then
-					FORCE="YES"
-					BUILD="YES"
-				fi
-
-				if [ "${PREVCORE}" = "mgba" -a "${PREVBUILD}" = "YES" -a "${NAME}" = "mgba" ]; then
-					FORCE="YES"
-					BUILD="YES"
-				fi
-
-				if [ "${PREVCORE}" = "snes9x_next" -a "${PREVBUILD}" = "YES" -a "${NAME}" = "snes9x_next" ]; then
-					FORCE="YES"
-					BUILD="YES"
-				fi
-
-				if [ "${PREVCORE}" = "bsnes_mercury" -a "${PREVBUILD}" = "YES" -a "${COMMAND}" = "BSNES" ]; then
-					FORCE="YES"
-					BUILD="YES"
-				fi
-
-				if [ "${PREVCORE}" = "mame2014" -a "${PREVBUILD}" = "YES" -a "${NAME}" = "mess2014" ]; then
-					FORCE="YES"
-					BUILD="YES"
-				fi
-
-				if [ "${PREVCORE}" = "mess2014" -a "${PREVBUILD}" = "YES" -a "${NAME}" = "ume2014" ]; then
-					FORCE="YES"
-					BUILD="YES"
-				fi
-
-				if [[ "${PREVCORE}" == *fbalpha2012* ]] && [[ "${PREVBUILD}" = "YES" ]] && [[ "${NAME}" == *fbalpha2012* ]]; then
-					FORCE="YES"
-					BUILD="YES"
-				fi
-
-				if [ "${PREVCORE}" = "mame2010" -a "${PREVBUILD}" = "YES" -a "${NAME}" = "mame2010" ]; then
-					FORCE="YES"
-					BUILD="YES"
-				fi
-				cd $WORK
-			else
-				echo "cloning repo $URL..."
-				git clone --depth=1 -b "$GIT_BRANCH" "$URL" "$DIR"
+			if [ "${PREVCORE}" = "mame2014" ] && [ "${PREVBUILD}" = "YES" ] && [ "${NAME}" = "mess2014" ]; then
+				FORCE="YES"
 				BUILD="YES"
 			fi
-		elif [ "${TYPE}" = "psp_hw_render" ]; then
-			if [ -d "${DIR}/.git" ]; then
-				cd $DIR
 
-				if [ -f .forcebuild ]; then
-					echo "found .forcebuild file, building $NAME"
-					BUILD="YES"
-				fi
-
-				echo "pulling changes from repo $URL... "
-				OUT=`git pull`
-				echo $OUT
-
-				if [[ $OUT == *"Already up-to-date"* ]] && [ ! "${BUILD}" = "YES" ]; then
-					BUILD="NO"
-				else
-					echo "resetting repo state... "
-					git reset --hard FETCH_HEAD
-					git clean -xdf
-					BUILD="YES"
-				fi
-				cd $WORK
-
-			else
-				echo "pulling changes from repo... "
-				git clone -b "$GIT_BRANCH" "$URL" "$DIR"
-				cd $DIR
-				git checkout $TYPE
-				cd $WORK
+			if [ "${PREVCORE}" = "mess2014" ] && [ "${PREVBUILD}" = "YES" ] && [ "${NAME}" = "ume2014" ]; then
+				FORCE="YES"
 				BUILD="YES"
 			fi
-		elif [ "${TYPE}" == "SUBMODULE" ]; then
-			if [ -d "${DIR}/.git" ]; then
-				cd $DIR
 
-				if [ -f .forcebuild ]; then
-					echo "found .forcebuild file, building $NAME"
-					BUILD="YES"
-				fi
-
-				echo "pulling changes from repo $URL... "
-				OUT=`git pull`
-				echo $OUT
-
-				if [[ $OUT == *"Already up-to-date"* ]] && [ ! "${BUILD}" = "YES" ]; then
-					BUILD="NO"
-				else
-					echo "resetting repo state $URL... "
-					git reset --hard FETCH_HEAD
-					git clean -xdf
-					BUILD="YES"
-				fi
-				OUT=`git submodule update --init --recursive`
-				cd $WORK
-		else
-				echo "cloning repo $URL..."
-				git clone --depth=1 -b "$GIT_BRANCH" "$URL" "$DIR"
-				cd $DIR
-				git submodule update --init --recursive
+			if [[ "${PREVCORE}" == *fbalpha2012* ]] && [[ "${PREVBUILD}" = "YES" ]] && [[ "${NAME}" == *fbalpha2012* ]]; then
+				FORCE="YES"
 				BUILD="YES"
 			fi
-		cd $WORK
+
+			for core in 81 emux_nes emux_sms fuse gw mame2010 mgba snes9x_next snes9x-next vba_next; do
+				if [ "${PREVCORE}" = "$core" ] && [ "${PREVBUILD}" = "YES" ] && [ "${NAME}" = "$core" ]; then
+					FORCE="YES"
+					BUILD="YES"
+				fi
+			done
+		elif [ "${TYPE}" = "SUBMODULE" ]; then
+			git submodule update --init --recursive
 		fi
 
-		if [ "${BUILD}" = "YES" -o "${FORCE}" = "YES" ]; then
+		cd "$WORK"
+
+		if [ "${BUILD}" = "YES" ] || [ "${FORCE}" = "YES" ]; then
 			touch $TMPDIR/built-cores
 			CORES_BUILT=YES
 			echo "buildbot job: building $NAME"
-			if [ "${COMMAND}" = "GENERIC" ]; then
-				build_libretro_generic_makefile $NAME $DIR $SUBDIR $MAKEFILE ${FORMAT_COMPILER_TARGET} "${ARGS}"
-			elif [ "${COMMAND}" = "CMAKE" ]; then
-				build_libretro_generic_makefile $NAME $DIR $SUBDIR $MAKEFILE ${FORMAT_COMPILER_TARGET} "${ARGS}"
-			elif [ "${COMMAND}" = "LEIRADEL" ]; then
-				build_libretro_leiradel_makefile $NAME $DIR $SUBDIR $MAKEFILE ${PLATFORM} "${ARGS}"
-			elif [ "${COMMAND}" = "GENERIC_GL" ]; then
-				build_libretro_generic_gl_makefile $NAME $DIR $SUBDIR $MAKEFILE ${FORMAT_COMPILER_TARGET} "${ARGS}"
-			elif [ "${COMMAND}" = "GENERIC_ALT" ]; then
-				build_libretro_generic_makefile $NAME $DIR $SUBDIR $MAKEFILE ${FORMAT_COMPILER_TARGET_ALT} "${ARGS}"
-			elif [ "${COMMAND}" = "GENERIC_JNI" ]; then
-				build_libretro_generic_jni $NAME $DIR $SUBDIR $MAKEFILE ${FORMAT_COMPILER_TARGET_ALT} "${ARGS}"
-			elif [ "${COMMAND}" = "BSNES_JNI" ]; then
-				build_libretro_bsnes_jni $NAME $DIR $SUBDIR $MAKEFILE ${FORMAT_COMPILER_TARGET_ALT} "${ARGS}"
-			elif [ "${COMMAND}" = "GENERIC_THEOS" ]; then
-				build_libretro_generic_theos $NAME $DIR $SUBDIR $MAKEFILE ${FORMAT_COMPILER_TARGET_ALT} "${ARGS}"
-			elif [ "${COMMAND}" = "BSNES" ]; then
-				build_libretro_bsnes $NAME $DIR "${ARGS}" $MAKEFILE ${FORMAT_COMPILER_TARGET} ${CXX11}
+			case "${COMMAND}" in
+				BSNES|CMAKE|GENERIC|GENERIC_GL|HIGAN )
+				                build_libretro_generic_makefile $NAME $DIR $SUBDIR $MAKEFILE ${FORMAT_COMPILER_TARGET} "${ARGS}"     ;;
+				BSNES_JNI|GENERIC_JNI )
+				                build_libretro_generic_jni $NAME $DIR $SUBDIR $MAKEFILE ${FORMAT_COMPILER_TARGET_ALT} "${ARGS}"      ;;
+				GENERIC_ALT )   build_libretro_generic_makefile $NAME $DIR $SUBDIR $MAKEFILE ${FORMAT_COMPILER_TARGET_ALT} "${ARGS}" ;;
+				LEIRADEL )      build_libretro_leiradel_makefile $NAME $DIR $SUBDIR $MAKEFILE ${PLATFORM} "${ARGS}"                  ;;
+				* )             :                                                                                                    ;;
+			esac
+			BUILD_DIR="${BASE_DIR}/${DIR}"
+			[ "${SUBDIR}" != . ] && BUILD_DIR="${BUILD_DIR}/${SUBDIR}"
+			if [ "$(realpath .)" = "${BUILD_DIR}" ]; then
+				echo "Cleaning repo state after build $URL..."
+				git clean -xdf
 			fi
 		else
 			echo "buildbot job: building $NAME up-to-date"
@@ -1065,16 +698,30 @@ while read line; do
 
 	BUILD=$OLDBUILD
 	FORCE=$FORCE_ORIG
-done < $1
+done < $RECIPE
 
 buildbot_pull(){
+	[ ! -f "$RECIPE.ra" ] && return 0
+
 	while read line; do
-		NAME=`echo $line | cut -f 1 -d " "`
-		DIR=`echo $line | cut -f 2 -d " "`
-		URL=`echo $line | cut -f 3 -d " "`
-		TYPE=`echo $line | cut -f 4 -d " "`
-		ENABLED=`echo $line | cut -f 5 -d " "`
-		PARENTDIR=`echo $line | cut -f 6 -d " "`
+		eval "set -- \$line"
+
+		NAME="$1"
+		DIR="$2"
+		URL="$3"
+		TYPE="$4"
+		ENABLED="$5"
+		PARENTDIR="$6"
+		ARGS=""
+
+		shift 6
+		while [ $# -gt 0 ]; do
+			ARGS="${ARGS} ${1}"
+			shift
+		done
+
+		ARGS="${ARGS# }"
+		ARGS="${ARGS%"${ARGS##*[![:space:]]}"}"
 
 		if [ "${ENABLED}" = "YES" ]; then
 			echo "buildbot job: $jobid Processing $NAME"
@@ -1086,40 +733,6 @@ buildbot_pull(){
 			echo REPO TYPE: $TYPE
 			echo ENABLED: $ENABLED
 
-			ARGS=""
-
-			TEMP=`echo $line | cut -f 9 -d " "`
-			if [ -n ${TEMP} ]; then
-				ARGS="${TEMP}"
-			fi
-			TEMP=""
-			TEMP=`echo $line | cut -f 10 -d " "`
-			if [ -n ${TEMP} ]; then
-				ARGS="${ARGS} ${TEMP}"
-			fi
-			TEMP=""
-			TEMP=`echo $line | cut -f 11 -d " "`
-			if [ -n ${TEMP} ]; then
-				ARGS="${ARGS} ${TEMP}"
-			fi
-			TEMP=""
-			TEMP=`echo $line | cut -f 12 -d " "`
-			if [ -n ${TEMP} ]; then
-				ARGS="${ARGS} ${TEMP}"
-			fi
-			TEMP=""
-			TEMP=`echo $line | cut -f 13 -d " "`
-			if [ -n ${TEMP} ]; then
-				ARGS="${ARGS} ${TEMP}"
-			fi
-			TEMP=""
-			TEMP=`echo $line | cut -f 14 -d " "`
-			if [ -n ${TEMP} ]; then
-				ARGS="${ARGS} ${TEMP}"
-			fi
-
-			ARGS="${ARGS%"${ARGS##*[![:space:]]}"}"
-
 			if [ -d "${PARENTDIR}/${DIR}/.git" ]; then
 				cd $PARENTDIR
 				cd $DIR
@@ -1130,30 +743,18 @@ buildbot_pull(){
 				fi
 
 				echo "pulling changes from repo $URL... "
-				OUT=`git pull`
-				echo $OUT
+				HEAD="$(git rev-parse HEAD)"
+				git pull
 
 				if [ "${TYPE}" = "PROJECT" ]; then
 					RADIR=$DIR
-					if [[ $OUT == *"Already up-to-date"* ]] && [ ! "${BUILD}" = "YES" ]; then
+					if [ "$HEAD" = "$(git rev-parse HEAD)" ] && [ "${BUILD}" != "YES" ]; then
 						BUILD="NO"
 					else
 						echo "resetting repo state $URL... "
 						git reset --hard FETCH_HEAD
 						git clean -xdf
 						BUILD="YES"
-					fi
-				elif [ "${TYPE}" = "SUBMODULE" ]; then
-					RADIR=$DIR
-					if [[ $OUT == *"Already up-to-date"* ]] && [ ! "${BUILD}" = "YES" ]; then
-						BUILD="NO"
-					else
-						echo "resetting repo state $URL... "
-						git reset --hard FETCH_HEAD
-						git clean -xdf
-						BUILD="YES"
-						git submodule update --init --recursive
-						#git submodule foreach git pull origin master
 					fi
 				fi
 				cd $WORK
@@ -1173,14 +774,6 @@ buildbot_pull(){
 				if [ "${TYPE}" = "PROJECT" ]; then
 					BUILD="YES"
 					RADIR=$DIR
-				elif [ "${TYPE}" == "SUBMODULE" ]; then
-					cd $PARENTDIR
-					cd $DIR
-					RADIR=$DIR
-					echo "updating submodules..."
-					git submodule update --init --recursive
-					#git submodule foreach git pull origin master
-					BUILD="YES"
 				fi
 				cd $WORK
 			fi
@@ -1192,110 +785,79 @@ buildbot_pull(){
 	cd $WORK
 }
 
-compile_audio_filters()
+compile_filters()
 {
-  HELPER=$1
-  MAKE=$2
-	echo "compiling audio filters"
-	cd libretro-common/audio/dsp_filters
-	echo "audio filter BUILD CMD: ${HELPER} ${MAKE}"
-	${HELPER} ${MAKE}
+	FILTER="$1"
+	HELPER="$2"
+	MAKE="$3"
+
+	case "$FILTER" in
+		audio ) FILTERDIR='libretro-common/audio/dsp_filters' ;;
+		video ) FILTERDIR='gfx/video_filters' ;;
+	esac
+
+	echo "compile $FILTER filters"
+	echo "$FILTER filter BUILD CMD: ${HELPER} ${MAKE}"
+	( cd "$FILTERDIR"; ${HELPER} ${MAKE} )
 	if [ $? -eq 0 ]; then
-		echo buildbot job: $jobid audio filter build success!
+		echo "buildbot job: $jobid $FILTER filter build success!"
 	else
-		echo buildbot job: $jobid audio filter:	[status: fail]!
+		echo "buildbot job: $jobid $FILTER filter: [status: fail]!"
 	fi
-	cd ..
-	cd ..
 }
 
-compile_video_filters()
-{
-  HELPER=$1
-  MAKE=$2
-  echo "compiling video filters"
-  cd gfx/video_filters
-  echo "audio filter BUILD CMD: ${HELPER} ${MAKE}"
-  ${HELPER} ${MAKE}
-  if [ $? -eq 0 ]; then
-	  echo buildbot job: $jobid video filter build success!
-  else
-	  echo buildbot job: $jobid video filter:	[status: fail]!
-  fi
-  cd ..
-  cd ..
-}
-
-
-echo "buildbot job: $jobid Building Retroarch-$PLATFORM"
-echo --------------------------------------------------
-echo
-cd $WORK
-BUILD=""
-
-if [ "${PLATFORM}" == "osx" ] && [ "${RA}" == "YES" ]; then
+if [ "${RA}" = "YES" ]; then
+	echo "buildbot job: $jobid Building Retroarch-$PLATFORM"
+	echo --------------------------------------------------
+	echo
+	BUILD=""
 
 	echo WORKINGDIR=$PWD
 	echo RELEASE=$RELEASE
 	echo FORCE=$FORCE_RETROARCH_BUILD
 	echo RADIR=$RADIR
+	echo BRANCH=$BRANCH
 
 	buildbot_pull
 
-	if [ "${BUILD}" == "YES" -o "${FORCE}" == "YES" -o "${FORCE_RETROARCH_BUILD}" == "YES" -o "${CORES_BUILT}" == "YES" ]; then
-		cd $RADIR
+	if [ "${BUILD}" = "YES" ] || [ "${FORCE}" = "YES" ] || [ "${FORCE_RETROARCH_BUILD}" = "YES" ] || [ "${CORES_BUILT}" = "YES" ]; then
+		cd "$RADIR"
 		git clean -xdf
 		echo WORKINGDIR=$PWD
-		echo RELEASE=$RELEASE
-		echo FORCE=$FORCE_RETROARCH_BUILD
 		echo RADIR=$RADIR
 
 		echo "buildbot job: $jobid Building"
 		echo
 
-		ENTRY_ID=`curl -X POST -d type="start" -d master_log="$MASTER_LOG_ID" -d platform="$jobid" -d name="retroarch" http://buildbot.fiveforty.net/build_entry/`
+		if [ -n "${LOGURL}" ]; then
+			ENTRY_ID="$(curl -X POST -d type="start" -d master_log="$MASTER_LOG_ID" -d platform="$jobid" -d name="retroarch" http://buildbot.fiveforty.net/build_entry/)"
+		fi
+
+		LOGFILE="$TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_${RECIPE##*/}.log"
+	fi
+fi
+
+if [ "${PLATFORM}" == "osx" ] && [ "${RA}" == "YES" ]; then
+
+	if [ "${BUILD}" == "YES" -o "${FORCE}" == "YES" -o "${FORCE_RETROARCH_BUILD}" == "YES" -o "${CORES_BUILT}" == "YES" ]; then
 
 		cd pkg/apple
 
-		xcodebuild -project RetroArch.xcodeproj -target RetroArch -configuration Release | tee $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_${PLATFORM}.log
+		xcodebuild -project RetroArch.xcodeproj -target RetroArch -configuration Release | tee "$LOGFILE"
 
-		if [ $? -eq 0 ]; then
-			MESSAGE="retroarch:	[status: done] [$jobid]"
-			echo $MESSAGE
-			curl -X POST -d type="finish" -d index="$ENTRY_ID" -d status="done" http://buildbot.fiveforty.net/build_entry/
-		else
-			ERROR=$TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_${PLATFORM}.log
-			gzip -9fk $ERROR
-			HASTE=`curl -X POST http://p.0bl.net/ --data-binary @${ERROR}.gz`
-			MESSAGE="retroarch:	[status: fail] [$jobid] LOG: $HASTE"
-			curl -X POST -d type="finish" -d index="$ENTRY_ID" -d status="fail" -d log="$HASTE" http://buildbot.fiveforty.net/build_entry/
-			echo $MESSAGE
+		RET=$?
+		buildbot_handle_message "$RET" "$ENTRY_ID" "retroarch" "$jobid" "$LOGFILE"
+
+		if [ -n "$LOGURL" ]; then
+			ENTRY_ID=`curl -X POST -d type="start" -d master_log="$MASTER_LOG_ID" -d platform="$jobid" -d name="retroarch" http://buildbot.fiveforty.net/build_entry/`
 		fi
-
-		ENTRY_ID=""
-		buildbot_log "$MESSAGE"
-		echo buildbot job: $MESSAGE
-
-		ENTRY_ID=`curl -X POST -d type="start" -d master_log="$MASTER_LOG_ID" -d platform="$jobid" -d name="retroarch" http://buildbot.fiveforty.net/build_entry/`
 
 		xcodebuild -project RetroArch.xcodeproj -target "RetroArch Cg" -configuration Release | tee $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_CG_${PLATFORM}.log
 
-		if [ $? -eq 0 ]; then
-			MESSAGE="retroarch:	[status: done] [$jobid]"
-			curl -X POST -d type="finish" -d index="$ENTRY_ID" -d status="done" http://buildbot.fiveforty.net/build_entry/
-			touch $TMPDIR/built-frontend
-			echo $MESSAGE
-		else
-			ERROR=$TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_CG_${PLATFORM}.log
-			gzip -9fk $ERROR
-			HASTE=`curl -X POST http://p.0bl.net/ --data-binary @${ERROR}.gz`
-			MESSAGE="retroarch:	[status: fail] [$jobid] LOG: $HASTE"
-			curl -X POST -d type="finish" -d index="$ENTRY_ID" -d status="fail" -d log="$HASTE" http://buildbot.fiveforty.net/build_entry/
-			echo $MESSAGE
-		fi
+		RET=$?
+		ERROR=$TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_CG_${PLATFORM}.log
+		buildbot_handle_message "$RET" "$ENTRY_ID" "retroarch" "$jobid" "$ERROR"
 
-		buildbot_log "$MESSAGE"
-		echo buildbot job: $MESSAGE
 		cd $WORK/$RADIR
 
 		echo "Packaging"
@@ -1304,41 +866,19 @@ if [ "${PLATFORM}" == "osx" ] && [ "${RA}" == "YES" ]; then
 fi
 if [ "${PLATFORM}" == "ios" ] && [ "${RA}" == "YES" ]; then
 
-	echo WORKINGDIR=$PWD
-	echo RELEASE=$RELEASE
-	echo FORCE=$FORCE_RETROARCH_BUILD
-	echo RADIR=$RADIR
-
-	buildbot_pull
-
 	if [ "${BUILD}" == "YES" -o "${FORCE}" == "YES" -o "${FORCE_RETROARCH_BUILD}" == "YES" -o "${CORES_BUILT}" == "YES" ]; then
-		cd $RADIR
-		git clean -xdf
-		echo "buildbot job: $jobid Building"
-		echo
-
-		ENTRY_ID=`curl -X POST -d type="start" -d master_log="$MASTER_LOG_ID" -d platform="$jobid" -d name="retroarch" http://buildbot.fiveforty.net/build_entry/`
 
 		cd pkg/apple
-		xcodebuild clean build CODE_SIGN_IDENTITY="" CODE_SIGNING_REQUIRED=NO -project RetroArch_iOS.xcodeproj -configuration Release &> $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_${PLATFORM}.log
+		xcodebuild clean build CODE_SIGN_IDENTITY="" CODE_SIGNING_REQUIRED=NO -project RetroArch_iOS.xcodeproj -configuration Release &> "$LOGFILE"
+		RET=$?
 
-		if [ $? -eq 0 ]; then
-			MESSAGE="retroarch:	[status: done] [$jobid]"
-			curl -X POST -d type="finish" -d index="$ENTRY_ID" -d status="done" http://buildbot.fiveforty.net/build_entry/
+		if [ $RET -eq 0 ]; then
 			touch $TMPDIR/built-frontend
-			echo $MESSAGE
-		else
-			ERROR=$TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_${PLATFORM}.log
-			gzip -9fk $ERROR
-			HASTE=`curl -X POST http://p.0bl.net/ --data-binary @${ERROR}.gz`
-			MESSAGE="retroarch:	[status: fail] [$jobid] LOG: $HASTE"
-			curl -X POST -d type="finish" -d index="$ENTRY_ID" -d status="fail" -d log="$HASTE" http://buildbot.fiveforty.net/build_entry/
-			echo $MESSAGE
 		fi
 
+		buildbot_handle_message "$RET" "$ENTRY_ID" "retroarch" "$jobid" "$LOGFILE"
+
 		ENTRY_ID=""
-		buildbot_log "$MESSAGE"
-		echo buildbot job: $MESSAGE
 		cd $WORK/$RADIR
 
 		echo "Packaging"
@@ -1349,45 +889,23 @@ fi
 
 if [ "${PLATFORM}" == "ios9" ] && [ "${RA}" == "YES" ]; then
 
-	echo WORKINGDIR=$PWD
-	echo RELEASE=$RELEASE
-	echo FORCE=$FORCE_RETROARCH_BUILD
-	echo RADIR=$RADIR
-
-	buildbot_pull
-
 	if [ "${BUILD}" == "YES" -o "${FORCE}" == "YES" -o "${FORCE_RETROARCH_BUILD}" == "YES" -o "${CORES_BUILT}" == "YES" ]; then
-		cd $RADIR
-		git clean -xdf
-		echo "buildbot job: $jobid Building"
-		echo
-
-		ENTRY_ID=`curl -X POST -d type="start" -d master_log="$MASTER_LOG_ID" -d platform="$jobid" -d name="retroarch" http://buildbot.fiveforty.net/build_entry/`
 
 		cd pkg/apple
-		xcodebuild clean build CODE_SIGN_IDENTITY="" CODE_SIGNING_REQUIRED=NO -project RetroArch_iOS.xcodeproj -configuration Release -target "RetroArch iOS9" &> $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_${PLATFORM}.log
+		xcodebuild clean build CODE_SIGN_IDENTITY="" CODE_SIGNING_REQUIRED=NO -project RetroArch_iOS.xcodeproj -configuration Release -target "RetroArch iOS9" &> "$LOGFILE"
 
-		if [ $? -eq 0 ]; then
-			MESSAGE="retroarch:	[status: done] [$jobid]"
+		RET=$?
+
+		if [ $RET -eq 0 ]; then
 			touch $TMPDIR/built-frontend
 			cd build/Release-iphoneos
 			security unlock-keychain -p buildbot /Users/buildbot/Library/Keychains/login.keychain
 			codesign -fs "buildbot" RetroArch.app
-			curl -X POST -d type="finish" -d index="$ENTRY_ID" -d status="done" http://buildbot.fiveforty.net/build_entry/
-
-			echo $MESSAGE
-		else
-			ERROR=$TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_${PLATFORM}.log
-			gzip -9fk $ERROR
-			HASTE=`curl -X POST http://p.0bl.net/ --data-binary @${ERROR}.gz`
-			MESSAGE="retroarch:	[status: fail] [$jobid] LOG: $HASTE"
-			curl -X POST -d type="finish" -d index="$ENTRY_ID" -d status="fail" -d log="$HASTE" http://buildbot.fiveforty.net/build_entry/
-			echo $MESSAGE
 		fi
 
+		buildbot_handle_message "$RET" "$ENTRY_ID" "retroarch" "$jobid" "$LOGFILE"
+
 		ENTRY_ID=""
-		buildbot_log "$MESSAGE"
-		echo buildbot job: $MESSAGE
 		cd $WORK/$RADIR
 
 		echo "Packaging"
@@ -1398,23 +916,8 @@ fi
 
 if [ "${PLATFORM}" = "android" ] && [ "${RA}" = "YES" ]; then
 
-	echo WORKINGDIR=$PWD
-	echo RELEASE=$RELEASE
-	echo FORCE=$FORCE_RETROARCH_BUILD
-	echo RADIR=$RADIR
-	echo BRANCH=$BRANCH
-
-	buildbot_pull
-
 	if [ "${BUILD}" = "YES" -o "${FORCE}" = "YES" -o "${FORCE_RETROARCH_BUILD}" == "YES" ]; then
-		echo "buildbot job: $jobid compiling shaders"
-		echo
-		cd $RADIR
-		git clean -xdf
-		echo WORKINGDIR=$PWD
-		echo RELEASE=$RELEASE
-		echo FORCE=$FORCE_RETROARCH_BUILD
-		echo RADIR=$RADIR
+
 		#${HELPER} ${MAKE} -f Makefile.griffin shaders-convert-glsl PYTHON3=$PYTHON
 
 		echo "buildbot job: $jobid processing assets"
@@ -1481,8 +984,6 @@ if [ "${PLATFORM}" = "android" ] && [ "${RA}" = "YES" ]; then
 		cd pkg/android/phoenix
 		rm bin/*.apk
 
-		ENTRY_ID=`curl -X POST -d type="start" -d master_log="$MASTER_LOG_ID" -d platform="$jobid" -d name="retroarch" http://buildbot.fiveforty.net/build_entry/`
-
 cat << EOF > local.properties
 sdk.dir=/home/buildbot/tools/android/android-sdk-linux
 key.store=/home/buildbot/.android/release.keystore
@@ -1497,73 +998,45 @@ EOF
 		else
 			git reset --hard
 		fi
-		ant clean | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_${PLATFORM}.log
-		android update project --path . --target android-24 | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_${PLATFORM}.log
-		android update project --path libs/googleplay --target android-24 | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_${PLATFORM}.log
-		android update project --path libs/appcompat --target android-24 | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_${PLATFORM}.log
-		ant release | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_${PLATFORM}.log
+		ant clean | tee -a "$LOGFILE"
+		android update project --path . --target android-24 | tee -a "$LOGFILE"
+		android update project --path libs/googleplay --target android-24 | tee -a "$LOGFILE"
+		android update project --path libs/appcompat --target android-24 | tee -a "$LOGFILE"
+		ant release | tee -a "$LOGFILE"
 		if [ -z "$BRANCH" ]; then
-			cp -rv bin/retroarch-release.apk $RARCH_DIR/retroarch-release.apk | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_${PLATFORM}.log
+			cp -rv bin/retroarch-release.apk $RARCH_DIR/retroarch-release.apk | tee -a "$LOGFILE"
 			cp -rv bin/retroarch-release.apk $RARCH_DIR/retroarch-release.apk
 		else
-			cp -rv bin/retroarch-release.apk $RARCH_DIR/retroarch-$BRANCH-release.apk | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_${PLATFORM}.log
+			cp -rv bin/retroarch-release.apk $RARCH_DIR/retroarch-$BRANCH-release.apk | tee -a "$LOGFILE"
 			cp -rv bin/retroarch-release.apk $RARCH_DIR/retroarch-$BRANCH-release.apk
 		fi
 
+		RET=$?
+		buildbot_handle_message "$RET" "$ENTRY_ID" "retroarch" "$jobid" "$LOGFILE"
 
-		if [ $? -eq 0 ]; then
-			MESSAGE="retroarch:	[status: done] [$jobid]"
-			curl -X POST -d type="finish" -d index="$ENTRY_ID" -d status="done" http://buildbot.fiveforty.net/build_entry/
+		if [ $RET -eq 0 ]; then
 			touch $TMPDIR/built-frontend
-			echo $MESSAGE
-		else
-			ERROR=$TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_${PLATFORM}.log
-			gzip -9fk $ERROR
-			HASTE=`curl -X POST http://p.0bl.net/ --data-binary @${ERROR}.gz`
-			MESSAGE="retroarch:	[status: fail] [$jobid] LOG: $HASTE"
-			curl -X POST -d type="finish" -d index="$ENTRY_ID" -d status="fail" -d log="$HASTE" http://buildbot.fiveforty.net/build_entry/
-			echo $MESSAGE
 		fi
+
 		ENTRY_ID=""
-		echo buildbot job: $MESSAGE
-		buildbot_log "$MESSAGE"
 	fi
 fi
 
 if [ "${PLATFORM}" = "MINGW64" ] || [ "${PLATFORM}" = "MINGW32" ] || [ "${PLATFORM}" = "windows" ] && [ "${RA}" = "YES" ]; then
-	echo WORKINGDIR=$PWD
-	echo RELEASE=$RELEASE
-	echo FORCE=$FORCE_RETROARCH_BUILD
-	echo RADIR=$RADIR
-
-	buildbot_pull
-
-	echo
-	echo
 
 	if [ "${BUILD}" = "YES" -o "${FORCE}" = "YES" -o "${FORCE_RETROARCH_BUILD}" == "YES" ]; then
-		cd $RADIR
-		RADIR=$PWD
-		echo RetroArch Directory: $RADIR
-		git clean -xdf
-		echo "buildbot job: $jobid Building"
-		echo
 
-		ENTRY_ID=`curl -X POST -d type="start" -d master_log="$MASTER_LOG_ID" -d platform="$jobid" -d name="retroarch" http://buildbot.fiveforty.net/build_entry/`
-
-		compile_audio_filters ${HELPER} ${MAKE}
-		cd $RADIR
-		compile_video_filters ${HELPER} ${MAKE}
-		cd $RADIR
+		compile_filters audio ${HELPER} ${MAKE}
+		compile_filters video ${HELPER} ${MAKE}
 
 		echo "configuring..."
-		echo "configure command: $CONFIGURE $ARGS"
-		${CONFIGURE} ${ARGS}
+		echo "configure command: $CONFIGURE"
+		${CONFIGURE}
 
 
 		echo "cleaning up..."
-		echo "CLEANUP CMD: ${HELPER} ${MAKE} clean"
-		${HELPER} ${MAKE} clean
+		echo "CLEANUP CMD: ${HELPER} ${MAKE} ${ARGS} clean"
+		${HELPER} ${MAKE} ${ARGS} clean
 
 		rm -rf windows
 		mkdir -p windows
@@ -1582,34 +1055,34 @@ if [ "${PLATFORM}" = "MINGW64" ] || [ "${PLATFORM}" = "MINGW32" ] || [ "${PLATFO
 		fi
 
 		echo "building..."
-		echo "BUILD CMD: ${HELPER} ${MAKE} -j${JOBS}"
-		${HELPER} ${MAKE} -j${JOBS} 2>&1 | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_${PLATFORM}.log
+		echo "BUILD CMD: ${HELPER} ${MAKE} -j${JOBS} ${ARGS}"
+		${HELPER} ${MAKE} -j${JOBS} ${ARGS} 2>&1 | tee -a "$LOGFILE"
 
 		if [ -n ${CUSTOM_BUILD} ]; then
-			${CUSTOM_BUILD} 2>&1 | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_${PLATFORM}.log
+			${CUSTOM_BUILD} 2>&1 | tee -a "$LOGFILE"
 		fi
 
 		strip -s retroarch.exe
 		cp -v retroarch.exe.manifest windows/retroarch.exe.manifest 2>/dev/null
-		cp -v retroarch.exe windows/retroarch.exe | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_${PLATFORM}.log
+		cp -v retroarch.exe windows/retroarch.exe | tee -a "$LOGFILE"
 		cp -v retroarch.exe windows/retroarch.exe
 
 		status=$?
 		echo $status
 
+		buildbot_handle_message "$status" "$ENTRY_ID" "retroarch" "$jobid" "$LOGFILE"
+
 		if [ $status -eq 0 ]; then
-			MESSAGE="retroarch:	[status: done] [$jobid]"
-			curl -X POST -d type="finish" -d index="$ENTRY_ID" -d status="done" http://buildbot.fiveforty.net/build_entry/
 			touch $TMPDIR/built-frontend
-			echo $MESSAGE
-			echo buildbot job: $MESSAGE | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_${PLATFORM}.log
-			buildbot_log "$MESSAGE"
+			echo buildbot job: $MESSAGE >> "$LOGFILE"
 
-			${HELPER} ${MAKE} clean
+			${HELPER} ${MAKE} ${ARGS} clean
 
-			ENTRY_ID=`curl -X POST -d type="start" -d master_log="$MASTER_LOG_ID" -d platform="$jobid" -d name="retroarch-debug" http://buildbot.fiveforty.net/build_entry/`
+			if [ -n "$LOGURL" ]; then
+				ENTRY_ID=`curl -X POST -d type="start" -d master_log="$MASTER_LOG_ID" -d platform="$jobid" -d name="retroarch-debug" http://buildbot.fiveforty.net/build_entry/`
+			fi
 
-			${HELPER} ${MAKE} -j${JOBS} DEBUG=1 GL_DEBUG=1 2>&1 | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_DEBUG_${PLATFORM}.log
+			${HELPER} ${MAKE} -j${JOBS} ${ARGS} DEBUG=1 GL_DEBUG=1 2>&1 | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_DEBUG_${PLATFORM}.log
 			for i in $(seq 3); do for bin in $(ntldd -R *exe | grep -i mingw | cut -d">" -f2 | cut -d" " -f2); do cp -vu "$bin" . ; done; done
 
 			if [ -n ${CUSTOM_BUILD_DEBUG} ]; then
@@ -1621,21 +1094,17 @@ if [ "${PLATFORM}" = "MINGW64" ] || [ "${PLATFORM}" = "MINGW32" ] || [ "${PLATFO
 			cp -v *.dll windows/
 			cp -v retroarch.exe windows/retroarch_debug.exe
 
-			if [ $? -eq 0 ]; then
-				curl -X POST -d type="finish" -d index="$ENTRY_ID" -d status="done" http://buildbot.fiveforty.net/build_entry/
+			status=$?
+			ERROR=$TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_DEBUG_${PLATFORM}.log
+			buildbot_handle_message "$status" "$ENTRY_ID" "retroarch" "$jobid" "$ERROR"
+
+			if [ $status -eq 0 ]; then
 				MESSAGE="retroarch debug:	[status: done] [$jobid]"
-				echo $MESSAGE
-				echo buildbot job: $MESSAGE | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_DEBUG_${PLATFORM}.log
+				echo buildbot job: $MESSAGE >>$TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_DEBUG_${PLATFORM}.log
 				buildbot_log "$MESSAGE"
 			else
-				ERROR=$TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_DEBUG_${PLATFORM}.log
-				gzip -9fk $ERROR
-				HASTE=`curl -X POST http://p.0bl.net/ --data-binary @${ERROR}.gz`
-				MESSAGE="retroarch-debug:	[status: fail] [$jobid] LOG: $HASTE"
-				echo $MESSAGE
-				echo buildbot job: $MESSAGE | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_DEBUG_${PLATFORM}.log
-				curl -X POST -d type="finish" -d index="$ENTRY_ID" -d status="fail" -d log="$HASTE" http://buildbot.fiveforty.net/build_entry/
-				buildbot_log "$MESSAGE"
+				MESSAGE="retroarch-debug:	[status: fail] [$jobid]"
+				echo buildbot job: $MESSAGE >>$TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_DEBUG_${PLATFORM}.log
 			fi
 
 			ENTRY_ID=""
@@ -1658,57 +1127,31 @@ if [ "${PLATFORM}" = "MINGW64" ] || [ "${PLATFORM}" = "MINGW32" ] || [ "${PLATFO
 			cp -rf gfx/video_filters/*.filt windows/filters/video
 
 		else
-			ERROR=$TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_${PLATFORM}.log
-			gzip -9fk $ERROR
-			HASTE=`curl -X POST http://p.0bl.net/ --data-binary @${ERROR}.gz`
-			MESSAGE="retroarch:	[status: fail] [$jobid] LOG: $HASTE"
-			curl -X POST -d type="finish" -d index="$ENTRY_ID" -d status="fail" -d log="$HASTE" http://buildbot.fiveforty.net/build_entry/
+			MESSAGE="retroarch:	[status: fail] [$jobid]"
 			ENTRY_ID=""
-			echo $MESSAGE
-			echo buildbot job: $MESSAGE | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_${PLATFORM}.log
-			buildbot_log "$MESSAGE"
+			echo buildbot job: $MESSAGE >> "$LOGFILE"
 		fi
 	fi
 fi
 
 if [ "${PLATFORM}" = "psp1" ] && [ "${RA}" = "YES" ]; then
-	echo WORKINGDIR=$PWD
-	echo RELEASE=$RELEASE
-	echo FORCE=$FORCE_RETROARCH_BUILD
-	echo RADIR=$RADIR
-
-	buildbot_pull
 
 	if [ "${BUILD}" == "YES" -o "${FORCE}" == "YES" -o "${FORCE_RETROARCH_BUILD}" == "YES" -o "${CORES_BUILT}" == "YES" ]; then
-
-		cd $RADIR
-		git clean -xdf
-		echo "buildbot job: $jobid Building"
-		echo
-
-		ENTRY_ID=`curl -X POST -d type="start" -d master_log="$MASTER_LOG_ID" -d platform="$jobid" -d name="retroarch" http://buildbot.fiveforty.net/build_entry/`
 
 		cd dist-scripts
 		rm *.a
 		cp -v $RARCH_DIST_DIR/*.a .
 
-		time sh ./dist-cores.sh psp1 2>&1 | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_${PLATFORM}.log
-		if [ ${PIPESTATUS[0]} -eq 0 ]; then
-			MESSAGE="retroarch:	[status: done] [$jobid]"
-			curl -X POST -d type="finish" -d index="$ENTRY_ID" -d status="done" http://buildbot.fiveforty.net/build_entry/
+		time sh ./dist-cores.sh psp1 2>&1 | tee -a "$LOGFILE"
+
+		RET=${PIPESTATUS[0]}
+		buildbot_handle_message "$RET" "$ENTRY_ID" "retroarch" "$jobid" "$LOGFILE"
+
+		if [ $RET -eq 0 ]; then
 			touch $TMPDIR/built-frontend
-			echo $MESSAGE
-		else
-			ERROR=$TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_${PLATFORM}.log
-			gzip -9fk $ERROR
-			HASTE=`curl -X POST http://p.0bl.net/ --data-binary @${ERROR}.gz`
-			MESSAGE="retroarch:	[status: fail] [$jobid] LOG: $HASTE"
-			curl -X POST -d type="finish" -d index="$ENTRY_ID" -d status="fail" -d log="$HASTE" http://buildbot.fiveforty.net/build_entry/
-			echo $MESSAGE
 		fi
+
 		ENTRY_ID=""
-		buildbot_log "$MESSAGE"
-		echo buildbot job: $MESSAGE
 
 		echo "Packaging"
 
@@ -1723,42 +1166,21 @@ if [ "${PLATFORM}" = "psp1" ] && [ "${RA}" = "YES" ]; then
 fi
 
 if [ "${PLATFORM}" == "wii" ] && [ "${RA}" == "YES" ]; then
-	echo WORKINGDIR=$PWD
-	echo RELEASE=$RELEASE
-	echo FORCE=$FORCE_RETROARCH_BUILD
-	echo RADIR=$RADIR
 
-	buildbot_pull
 	if [ "${BUILD}" == "YES" -o "${FORCE}" == "YES" -o "${FORCE_RETROARCH_BUILD}" == "YES" -o "${CORES_BUILT}" == "YES" ]; then
-		touch $TMPDIR/built-frontend
-		cd $RADIR
-		git clean -xdf
-		echo "buildbot job: $jobid Building"
-		echo
 
-		ENTRY_ID=`curl -X POST -d type="start" -d master_log="$MASTER_LOG_ID" -d platform="$jobid" -d name="retroarch" http://buildbot.fiveforty.net/build_entry/`
+		touch $TMPDIR/built-frontend
 
 		cd dist-scripts
 		rm *.a
 		cp -v $RARCH_DIST_DIR/*.a .
 
-		time sh ./dist-cores.sh wii 2>&1 | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_${PLATFORM}.log
-		if [ ${PIPESTATUS[0]} -eq 0 ];
-		then
-			MESSAGE="retroarch:	[status: done] [$jobid]"
-			curl -X POST -d type="finish" -d index="$ENTRY_ID" -d status="done" http://buildbot.fiveforty.net/build_entry/
-			echo $MESSAGE
-		else
-			ERROR=$TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_${PLATFORM}.log
-			gzip -9fk $ERROR
-			HASTE=`curl -X POST http://p.0bl.net/ --data-binary @${ERROR}.gz`
-			MESSAGE="retroarch:	[status: fail] [$jobid] LOG: $HASTE"
-			curl -X POST -d type="finish" -d index="$ENTRY_ID" -d status="fail" -d log="$HASTE" http://buildbot.fiveforty.net/build_entry/
-			echo $MESSAGE
-		fi
+		time sh ./dist-cores.sh wii 2>&1 | tee -a "$LOGFILE"
+
+		RET=${PIPESTATUS[0]}
+		buildbot_handle_message "$RET" "$ENTRY_ID" "retroarch" "$jobid" "$LOGFILE"
+
 		ENTRY_ID=""
-		buildbot_log "$MESSAGE"
-		echo buildbot job: $MESSAGE
 
 		echo "Packaging"
 
@@ -1774,20 +1196,10 @@ if [ "${PLATFORM}" == "wii" ] && [ "${RA}" == "YES" ]; then
 fi
 
 if [ "${PLATFORM}" == "wiiu" ] && [ "${RA}" == "YES" ]; then
-	echo WORKINGDIR=$PWD
-	echo RELEASE=$RELEASE
-	echo FORCE=$FORCE_RETROARCH_BUILD
-	echo RADIR=$RADIR
 
-	buildbot_pull
 	if [ "${BUILD}" == "YES" -o "${FORCE}" == "YES" -o "${FORCE_RETROARCH_BUILD}" == "YES" -o "${CORES_BUILT}" == "YES" ]; then
-		touch $TMPDIR/built-frontend
-		cd $RADIR
-		git clean -xdf
-		echo "buildbot job: $jobid Building"
-		echo
 
-		ENTRY_ID=`curl -X POST -d type="start" -d master_log="$MASTER_LOG_ID" -d platform="$jobid" -d name="retroarch" http://buildbot.fiveforty.net/build_entry/`
+		touch $TMPDIR/built-frontend
 
 		cd dist-scripts
 		rm *.a
@@ -1795,23 +1207,12 @@ if [ "${PLATFORM}" == "wiiu" ] && [ "${RA}" == "YES" ]; then
 		cp -v $RARCH_DIST_DIR/../info/*.info .
 		cp -v ../media/assets/pkg/wiiu/*.png .
 
-		time sh ./wiiu-cores.sh 2>&1 | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_${PLATFORM}.log
-		if [ ${PIPESTATUS[0]} -eq 0 ];
-		then
-			MESSAGE="retroarch:	[status: done] [$jobid]"
-			curl -X POST -d type="finish" -d index="$ENTRY_ID" -d status="done" http://buildbot.fiveforty.net/build_entry/
-			echo $MESSAGE
-		else
-			ERROR=$TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_${PLATFORM}.log
-			gzip -9fk $ERROR
-			HASTE=`curl -X POST http://p.0bl.net/ --data-binary @${ERROR}.gz`
-			MESSAGE="retroarch:	[status: fail] [$jobid] LOG: $HASTE"
-			curl -X POST -d type="finish" -d index="$ENTRY_ID" -d status="fail" -d log="$HASTE" http://buildbot.fiveforty.net/build_entry/
-			echo $MESSAGE
-		fi
+		time sh ./wiiu-cores.sh 2>&1 | tee -a "$LOGFILE"
+
+		RET=${PIPESTATUS[0]}
+		buildbot_handle_message "$RET" "$ENTRY_ID" "retroarch" "$jobid" "$LOGFILE"
+
 		ENTRY_ID=""
-		buildbot_log "$MESSAGE"
-		echo buildbot job: $MESSAGE
 
 		echo "Packaging"
 
@@ -1820,42 +1221,21 @@ if [ "${PLATFORM}" == "wiiu" ] && [ "${RA}" == "YES" ]; then
 fi
 
 if [ "${PLATFORM}" == "ngc" ] && [ "${RA}" == "YES" ]; then
-	echo WORKINGDIR=$PWD
-	echo RELEASE=$RELEASE
-	echo FORCE=$FORCE_RETROARCH_BUILD
-	echo RADIR=$RADIR
 
-	buildbot_pull
 	if [ "${BUILD}" == "YES" -o "${FORCE}" == "YES" -o "${FORCE_RETROARCH_BUILD}" == "YES" -o "${CORES_BUILT}" == "YES" ]; then
-		touch $TMPDIR/built-frontend
-		cd $RADIR
-		git clean -xdf
-		echo "buildbot job: $jobid Building"
-		echo
 
-		ENTRY_ID=`curl -X POST -d type="start" -d master_log="$MASTER_LOG_ID" -d platform="$jobid" -d name="retroarch" http://buildbot.fiveforty.net/build_entry/`
+		touch $TMPDIR/built-frontend
 
 		cd dist-scripts
 		rm *.a
 		cp -v $RARCH_DIST_DIR/*.a .
 
-		time sh ./dist-cores.sh ngc 2>&1 | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_${PLATFORM}.log
-		if [ ${PIPESTATUS[0]} -eq 0 ];
-		then
-			MESSAGE="retroarch:	[status: done] [$jobid]"
-			curl -X POST -d type="finish" -d index="$ENTRY_ID" -d status="done" http://buildbot.fiveforty.net/build_entry/
-			echo $MESSAGE
-		else
-			ERROR=$TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_${PLATFORM}.log
-			gzip -9fk $ERROR
-			HASTE=`curl -X POST http://p.0bl.net/ --data-binary @${ERROR}.gz`
-			MESSAGE="retroarch:	[status: fail] [$jobid] LOG: $HASTE"
-			curl -X POST -d type="finish" -d index="$ENTRY_ID" -d status="fail" -d log="$HASTE" http://buildbot.fiveforty.net/build_entry/
-			echo $MESSAGE
-		fi
+		time sh ./dist-cores.sh ngc 2>&1 | tee -a "$LOGFILE"
+
+		RET=${PIPESTATUS[0]}
+		buildbot_handle_message "$RET" "$ENTRY_ID" "retroarch" "$jobid" "$LOGFILE"
+
 		ENTRY_ID=""
-		buildbot_log "$MESSAGE"
-		echo buildbot job: $MESSAGE
 
 		echo "Packaging"
 
@@ -1871,41 +1251,22 @@ if [ "${PLATFORM}" == "ngc" ] && [ "${RA}" == "YES" ]; then
 fi
 
 if [ "${PLATFORM}" == "ctr" ] && [ "${RA}" == "YES" ]; then
-	buildbot_pull
-	echo WORKINGDIR=$PWD $WORK
-	echo RELEASE=$RELEASE
-	echo FORCE=$FORCE_RETROARCH_BUILD
-	echo RADIR=$RADIR
 
 	if [ "${BUILD}" == "YES" -o "${FORCE}" == "YES" -o "${FORCE_RETROARCH_BUILD}" == "YES" -o "${CORES_BUILT}" == "YES" ]; then
-		cd $RADIR
-		git clean -xdf
-		echo "buildbot job: $jobid Building"
-		echo
 
-		ENTRY_ID=`curl -X POST -d type="start" -d master_log="$MASTER_LOG_ID" -d platform="$jobid" -d name="retroarch" http://buildbot.fiveforty.net/build_entry/`
+		touch $TMPDIR/built-frontend
 
 		cd dist-scripts
 		rm *.a
 		cp -v $RARCH_DIST_DIR/*.a .
 
-		time sh ./dist-cores.sh ctr 2>&1 | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_${PLATFORM}.log
-		if [ ${PIPESTATUS[0]} -eq 0 ]; then
-			MESSAGE="retroarch:	[status: done] [$jobid]"
-			curl -X POST -d type="finish" -d index="$ENTRY_ID" -d status="done" http://buildbot.fiveforty.net/build_entry/
-			echo $MESSAGE
-			touch $TMPDIR/built-frontend
-		else
-			ERROR=$TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_${PLATFORM}.log
-			gzip -9fk $ERROR
-			HASTE=`curl -X POST http://p.0bl.net/ --data-binary @${ERROR}.gz`
-			MESSAGE="retroarch:	[status: fail] [$jobid] LOG: $HASTE"
-			curl -X POST -d type="finish" -d index="$ENTRY_ID" -d status="fail" -d log="$HASTE" http://buildbot.fiveforty.net/build_entry/
-			echo $MESSAGE
-		fi
+		time sh ./dist-cores.sh ctr 2>&1 | tee -a "$LOGFILE"
+
+		RET=${PIPESTATUS[0]}
+		buildbot_handle_message "$RET" "$ENTRY_ID" "retroarch" "$jobid" "$LOGFILE"
+
 		ENTRY_ID=""
-		buildbot_log "$MESSAGE"
-		echo buildbot job: $MESSAGE
+
 		cd $WORK/$RADIR
 		echo $PWD
 
@@ -1937,168 +1298,110 @@ if [ "${PLATFORM}" == "ctr" ] && [ "${RA}" == "YES" ]; then
 fi
 
 if [ "${PLATFORM}" == "vita" ] && [ "${RA}" == "YES" ]; then
-	echo WORKINGDIR=$PWD
-	echo RELEASE=$RELEASE
-	echo FORCE=$FORCE_RETROARCH_BUILD
-	echo RADIR=$RADIR
-
-	buildbot_pull
 
 	if [ "${BUILD}" == "YES" -o "${FORCE}" == "YES" -o "${FORCE_RETROARCH_BUILD}" == "YES" -o "${CORES_BUILT}" == "YES" ]; then
-		touch $TMPDIR/built-frontend
-		cd $RADIR
-		git clean -xdf
-		echo "buildbot job: $jobid Building"
-		echo
 
-		ENTRY_ID=`curl -X POST -d type="start" -d master_log="$MASTER_LOG_ID" -d platform="$jobid" -d name="retroarch" http://buildbot.fiveforty.net/build_entry/`
+		touch $TMPDIR/built-frontend
 
 		cd dist-scripts
 		rm *.a
 		cp -v $RARCH_DIST_DIR/*.a .
 		cp -v $RARCH_DIST_DIR/arm/*.a .
 
-		time sh ./dist-cores.sh vita 2>&1 | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_${PLATFORM}.log
-		if [ ${PIPESTATUS[0]} -eq 0 ]; then
-			MESSAGE="retroarch:	[status: done] [$jobid]"
-			curl -X POST -d type="finish" -d index="$ENTRY_ID" -d status="done" http://buildbot.fiveforty.net/build_entry/
-			echo $MESSAGE
-		else
-			ERROR=$TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_${PLATFORM}.log
-			gzip -9fk $ERROR
-			HASTE=`curl -X POST http://p.0bl.net/ --data-binary @${ERROR}.gz`
-			MESSAGE="retroarch:	[status: fail] [$jobid] LOG: $HASTE"
-			curl -X POST -d type="finish" -d index="$ENTRY_ID" -d status="fail" -d log="$HASTE" http://buildbot.fiveforty.net/build_entry/
-			echo $MESSAGE
-		fi
+		time sh ./dist-cores.sh vita 2>&1 | tee -a "$LOGFILE"
+
+		RET=${PIPESTATUS[0]}
+		buildbot_handle_message "$RET" "$ENTRY_ID" "retroarch" "$jobid" "$LOGFILE"
+
 		ENTRY_ID=""
-		buildbot_log "$MESSAGE"
-		echo buildbot job: $MESSAGE
+
 		echo "Packaging"
 
 		cd $WORK/$RADIR
 		cp retroarch.cfg retroarch.default.cfg
+		
+		mkdir -p $WORK/$RADIR/pkg/vita/retroarch
+		mkdir -p $WORK/$RADIR/pkg/vita/retroarch/info
+		mkdir -p $WORK/$RADIR/pkg/vita/retroarch/remaps
+		mkdir -p $WORK/$RADIR/pkg/vita/retroarch/cheats
+		mkdir -p $WORK/$RADIR/pkg/vita/retroarch/filters
+		mkdir -p $WORK/$RADIR/pkg/vita/retroarch/filters/audio
+		mkdir -p $WORK/$RADIR/pkg/vita/retroarch/filters/video
+		mkdir -p $WORK/$RADIR/pkg/vita/retroarch/database
+		mkdir -p $WORK/$RADIR/pkg/vita/retroarch/database/rdb
+		mkdir -p $WORK/$RADIR/pkg/vita/retroarch/database/cursors
+		mkdir -p $WORK/$RADIR/pkg/vita/retroarch/assets/glui
 
-		mkdir -p pkg/vita
-		mkdir -p pkg/vita/remaps
-		mkdir -p pkg/vita/cheats
-		cp -rf media/overlays/* pkg/vita/overlays/
+
+		cp -v $WORK/$RADIR/gfx/video_filters/*.filt $WORK/$RADIR/pkg/vita/retroarch/filters/video/
+		cp -v $WORK/$RADIR/libretro-common/audio/dsp_filters/*.dsp $WORK/$RADIR/pkg/vita/retroarch/filters/audio/
+		cp -v $RARCH_DIST_DIR/../info/*.info $WORK/$RADIR/pkg/vita/retroarch/info/
+		cp -v $WORK/$RADIR/media/libretrodb/rdb/*.rdb $WORK/$RADIR/pkg/vita/retroarch/database/rdb/
+		cp -v $WORK/$RADIR/media/libretrodb/cursors/*.dbc $WORK/$RADIR/pkg/vita/retroarch/database/cursors/
+		cp -v $WORK/$RADIR/media/libretrodb/cursors/*.dbc $WORK/$RADIR/pkg/vita/retroarch/database/cursors/
+		cp -r $WORK/$RADIR/media/assets/glui $WORK/$RADIR/pkg/vita/retroarch/assets
+		
+		convert_xmb_assets $WORK/$RADIR/media/assets/xmb $WORK/$RADIR/pkg/vita/retroarch/assets/xmb 64x64! 960x544! 90
+		
 	fi
 fi
 
 if [ "${PLATFORM}" == "ps3" ] && [ "${RA}" == "YES" ]; then
-	echo WORKINGDIR=$PWD
-	echo RELEASE=$RELEASE
-	echo FORCE=$FORCE_RETROARCH_BUILD
-	echo RADIR=$RADIR
-
-	buildbot_pull
 
 	if [ "${BUILD}" == "YES" -o "${FORCE}" == "YES" -o "${FORCE_RETROARCH_BUILD}" == "YES" -o "${CORES_BUILT}" == "YES" ]; then
-		touch $TMPDIR/built-frontend
-		cd $RADIR
-		git clean -xdf
-		echo "buildbot job: $jobid Building"
-		echo
 
-		ENTRY_ID=`curl -X POST -d type="start" -d master_log="$MASTER_LOG_ID" -d platform="$jobid" -d name="retroarch" http://buildbot.fiveforty.net/build_entry/`
+		touch $TMPDIR/built-frontend
 
 		cd dist-scripts
 		rm *.a
 		cp -v $RARCH_DIST_DIR/*.a .
 
 		time sh ./dist-cores.sh dex-ps3 2>&1 | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_${PLATFORM}_dex.log
-		if [ ${PIPESTATUS[0]} -eq 0 ]; then
-			MESSAGE="retroarch:	[status: done] [$jobid]"
-			curl -X POST -d type="finish" -d index="$ENTRY_ID" -d status="done" http://buildbot.fiveforty.net/build_entry/
-			echo $MESSAGE
-		else
-			ERROR=$TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_${PLATFORM}_dex.log
-			gzip -9fk $ERROR
-			HASTE=`curl -X POST http://p.0bl.net/ --data-binary @${ERROR}.gz`
-			MESSAGE="retroarch:	[status: fail] [$jobid] LOG: $HASTE"
-			curl -X POST -d type="finish" -d index="$ENTRY_ID" -d status="fail" -d log="$HASTE" http://buildbot.fiveforty.net/build_entry/
-			echo $MESSAGE
-		fi
-		ENTRY_ID=""
-		buildbot_log "$MESSAGE"
-		echo buildbot job: $MESSAGE
-		ENTRY_ID=`curl -X POST -d type="start" -d master_log="$MASTER_LOG_ID" -d platform="$jobid" -d name="retroarch" http://buildbot.fiveforty.net/build_entry/`
-		time sh ./dist-cores.sh cex-ps3 2>&1 | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_${PLATFORM}_cex.log
-		if [ ${PIPESTATUS[0]} -eq 0 ]; then
-			MESSAGE="retroarch:	[status: done] [$jobid]"
-			curl -X POST -d type="finish" -d index="$ENTRY_ID" -d status="done" http://buildbot.fiveforty.net/build_entry/
-			echo $MESSAGE
-		else
-			ERROR=$TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_${PLATFORM}_cex.log
-			gzip -9fk $ERROR
-			HASTE=`curl -X POST http://p.0bl.net/ --data-binary @${ERROR}.gz`
-			MESSAGE="retroarch:	[status: fail] [$jobid] LOG: $HASTE"
-			curl -X POST -d type="finish" -d index="$ENTRY_ID" -d status="fail" -d log="$HASTE" http://buildbot.fiveforty.net/build_entry/
-			echo $MESSAGE
-		fi
-		ENTRY_ID=""
-		buildbot_log "$MESSAGE"
-		echo buildbot job: $MESSAGE
-		ENTRY_ID=`curl -X POST -d type="start" -d master_log="$MASTER_LOG_ID" -d platform="$jobid" -d name="retroarch" http://buildbot.fiveforty.net/build_entry/`
-		time sh ./dist-cores.sh ode-ps3 2>&1 | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_${PLATFORM}_ode.log
-		if [ ${PIPESTATUS[0]} -eq 0 ]; then
-			MESSAGE="retroarch:	[status: done] [$jobid]"
-			curl -X POST -d type="finish" -d index="$ENTRY_ID" -d status="done" http://buildbot.fiveforty.net/build_entry/
-			echo $MESSAGE
-		else
-			ERROR=$TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_${PLATFORM}_ode.log
-			gzip -9fk $ERROR
-			HASTE=`curl -X POST http://p.0bl.net/ --data-binary @${ERROR}.gz`
-			MESSAGE="retroarch:	[status: fail] [$jobid] LOG: $HASTE"
-			curl -X POST -d type="finish" -d index="$ENTRY_ID" -d status="fail" -d log="$HASTE" http://buildbot.fiveforty.net/build_entry/
-			echo $MESSAGE
-		fi
-		ENTRY_ID=""
-		buildbot_log "$MESSAGE"
-		echo buildbot job: $MESSAGE
 
+		RET=${PIPESTATUS[0]}
+		ERROR=$TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_${PLATFORM}_dex.log
+		buildbot_handle_message "$RET" "$ENTRY_ID" "retroarch-dex" "$jobid" "$ERROR"
+
+
+		if [ -n "$LOGURL" ]; then
+			ENTRY_ID=`curl -X POST -d type="start" -d master_log="$MASTER_LOG_ID" -d platform="$jobid" -d name="retroarch" http://buildbot.fiveforty.net/build_entry/`
+		fi
+
+		time sh ./dist-cores.sh cex-ps3 2>&1 | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_${PLATFORM}_cex.log
+
+		RET=${PIPESTATUS[0]}
+		ERROR=$TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_${PLATFORM}_cex.log
+		buildbot_handle_message "$RET" "$ENTRY_ID" "retroarch-cex" "$jobid" "$ERROR"
+
+		if [ -n "$LOGURL" ]; then
+			ENTRY_ID=`curl -X POST -d type="start" -d master_log="$MASTER_LOG_ID" -d platform="$jobid" -d name="retroarch" http://buildbot.fiveforty.net/build_entry/`
+		fi
+
+		time sh ./dist-cores.sh ode-ps3 2>&1 | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_${PLATFORM}_ode.log
+
+		RET=${PIPESTATUS[0]}
+		ERROR=$TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_${PLATFORM}_ode.log
+		buildbot_handle_message "$RET" "$ENTRY_ID" "retroarch-ode" "$jobid" "$ERROR"
+		ENTRY_ID=""
 	fi
 fi
 
 if [ "${PLATFORM}" = "emscripten" ] && [ "${RA}" = "YES" ]; then
-	echo WORKINGDIR=$PWD
-	echo RELEASE=$RELEASE
-	echo FORCE=$FORCE_RETROARCH_BUILD
-	echo RADIR=$RADIR
-
-	buildbot_pull
 
 	if [ "${BUILD}" == "YES" -o "${FORCE}" == "YES" -o "${FORCE_RETROARCH_BUILD}" == "YES" -o "${CORES_BUILT}" == "YES" ]; then
-		touch $TMPDIR/built-frontend
-		cd $RADIR
-		git clean -xdf
-		echo "buildbot job: $jobid Building"
-		echo
 
-		ENTRY_ID=`curl -X POST -d type="start" -d master_log="$MASTER_LOG_ID" -d platform="$jobid" -d name="retroarch" http://buildbot.fiveforty.net/build_entry/`
+		touch $TMPDIR/built-frontend
 
 		cd dist-scripts
 		rm *.a
 		cp -v $RARCH_DIST_DIR/*.bc .
 
-		echo "BUILD CMD $HELPER ./dist-cores.sh emscripten" &> $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_${PLATFORM}.log
-		$HELPER ./dist-cores.sh emscripten 2>&1 | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_${PLATFORM}.log
-		if [ ${PIPESTATUS[0]} -eq 0 ]; then
-			MESSAGE="retroarch:	[status: done] [$jobid]"
-			curl -X POST -d type="finish" -d index="$ENTRY_ID" -d status="done" http://buildbot.fiveforty.net/build_entry/
-			echo $MESSAGE
-		else
-			ERROR=$TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_${PLATFORM}.log
-			gzip -9fk $ERROR
-			HASTE=`curl -X POST http://p.0bl.net/ --data-binary @${ERROR}.gz`
-			MESSAGE="retroarch:	[status: fail] [$jobid] LOG: $HASTE"
-			curl -X POST -d type="finish" -d index="$ENTRY_ID" -d status="fail" -d log="$HASTE" http://buildbot.fiveforty.net/build_entry/
-			echo $MESSAGE
-		fi
+		echo "BUILD CMD $HELPER ./dist-cores.sh emscripten" &> "$LOGFILE"
+		$HELPER ./dist-cores.sh emscripten 2>&1 | tee -a "$LOGFILE"
+
+		RET=${PIPESTATUS[0]}
+		buildbot_handle_message "$RET" "$ENTRY_ID" "retroarch" "$jobid" "$LOGFILE"
 		ENTRY_ID=""
-		buildbot_log "$MESSAGE"
-		echo buildbot job: $MESSAGE
 
 		echo "Packaging"
 
@@ -2106,35 +1409,18 @@ if [ "${PLATFORM}" = "emscripten" ] && [ "${RA}" = "YES" ]; then
 	fi
 fi
 
-if [ "${PLATFORM}" = "unix" ]; then
-	echo WORKINGDIR=$PWD
-	echo RELEASE=$RELEASE
-	echo FORCE=$FORCE_RETROARCH_BUILD
-	echo RADIR=$RADIR
-
-	buildbot_pull
-
-	echo
-	echo
+if [ "${PLATFORM}" = "unix" ] && [ "${RA}" = "YES" ]; then
 
 	if [ "${BUILD}" = "YES" -o "${FORCE}" = "YES" -o "${FORCE_RETROARCH_BUILD}" == "YES" ]; then
+
 		touch $TMPDIR/built-frontend
-		cd $RADIR
-		git clean -xdf
-		echo "buildbot job: $jobid Building"
-		echo
 
-		ENTRY_ID=`curl -X POST -d type="start" -d master_log="$MASTER_LOG_ID" -d platform="$jobid" -d name="retroarch" http://buildbot.fiveforty.net/build_entry/`
-
-		compile_audio_filters ${HELPER} ${MAKE}
-		cd $RADIR
-		compile_video_filters ${HELPER} ${MAKE}
-		cd $RADIR
+		compile_filters audio ${HELPER} ${MAKE}
+		compile_filters video ${HELPER} ${MAKE}
 
 		echo "configuring..."
 		echo "configure command: $CONFIGURE $ARGS"
 		${CONFIGURE} ${ARGS}
-
 
 		echo "cleaning up..."
 		echo "CLEANUP CMD: ${HELPER} ${MAKE} clean"
@@ -2146,37 +1432,22 @@ if [ "${PLATFORM}" = "unix" ]; then
 			echo buildbot job: $jobid retroarch cleanup failed!
 		fi
 
-		if [ $? -eq 0 ]; then
-			echo buildbot job: $jobid retroarch configure success!
-		else
-			echo buildbot job: $jobid retroarch configure failed!
-		fi
-
 		echo "building..."
 		echo "BUILD CMD: ${HELPER} ${MAKE} -j${JOBS}"
-		${HELPER} ${MAKE} -j${JOBS} 2>&1 | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_${PLATFORM}.log
+		${HELPER} ${MAKE} -j${JOBS} 2>&1 | tee -a "$LOGFILE"
 
 		status=$?
 		echo $status
 
+		buildbot_handle_message "$status" "$ENTRY_ID" "retroarch" "$jobid" "$LOGFILE"
+
 		if [ $status -eq 0 ]; then
 			MESSAGE="retroarch:	[status: done] [$jobid]"
-			curl -X POST -d type="finish" -d index="$ENTRY_ID" -d status="done" http://buildbot.fiveforty.net/build_entry/
-			echo $MESSAGE
-			echo buildbot job: $MESSAGE | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_${PLATFORM}.log
-			buildbot_log "$MESSAGE"
-
+			echo buildbot job: $MESSAGE >> "$LOGFILE"
 			echo "Packaging"
-
 		else
-			ERROR=$TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_${PLATFORM}.log
-			gzip -9fk $ERROR
-			HASTE=`curl -X POST http://p.0bl.net/ --data-binary @${ERROR}.gz`
-			MESSAGE="retroarch:	[status: fail] [$jobid] LOG: $HASTE"
-			curl -X POST -d type="finish" -d index="$ENTRY_ID" -d status="fail" -d log="$HASTE" http://buildbot.fiveforty.net/build_entry/
-			echo $MESSAGE
-			echo buildbot job: $MESSAGE | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_${PLATFORM}.log
-			buildbot_log "$MESSAGE"
+			MESSAGE="retroarch:	[status: fail] [$jobid]"
+			echo buildbot job: $MESSAGE >> "$LOGFILE"
 		fi
 	fi
 fi

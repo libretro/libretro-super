@@ -1,0 +1,1 @@
+retroarch retroarch https://github.com/libretro/Retroarch.git PROJECT YES . -f Makefile.griffin platform=windows_msvc2003_x86 HAVE_DIRECTX=1
