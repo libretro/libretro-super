@@ -634,32 +634,32 @@ while read line; do
 			fi
 		fi
 
-		if [ "${TYPE}" = "PROJECT" ]; then
-			FORCE_ORIG=$FORCE
-			OLDBUILD=$BUILD
+		FORCE_ORIG=$FORCE
+		OLDBUILD=$BUILD
 
-			if [ "${PREVCORE}" = "mame2014" ] && [ "${PREVBUILD}" = "YES" ] && [ "${NAME}" = "mess2014" ]; then
+		if [ "${PREVCORE}" = "mame2014" ] && [ "${PREVBUILD}" = "YES" ] && [ "${NAME}" = "mess2014" ]; then
+			FORCE="YES"
+			BUILD="YES"
+		fi
+
+		if [ "${PREVCORE}" = "mess2014" ] && [ "${PREVBUILD}" = "YES" ] && [ "${NAME}" = "ume2014" ]; then
+			FORCE="YES"
+			BUILD="YES"
+		fi
+
+		if [[ "${PREVCORE}" == *fbalpha2012* ]] && [[ "${PREVBUILD}" = "YES" ]] && [[ "${NAME}" == *fbalpha2012* ]]; then
+			FORCE="YES"
+			BUILD="YES"
+		fi
+
+		for core in 81 emux_nes emux_sms fuse gw mame2010 mgba snes9x_next snes9x-next vba_next; do
+			if [ "${PREVCORE}" = "$core" ] && [ "${PREVBUILD}" = "YES" ] && [ "${NAME}" = "$core" ]; then
 				FORCE="YES"
 				BUILD="YES"
 			fi
+		done
 
-			if [ "${PREVCORE}" = "mess2014" ] && [ "${PREVBUILD}" = "YES" ] && [ "${NAME}" = "ume2014" ]; then
-				FORCE="YES"
-				BUILD="YES"
-			fi
-
-			if [[ "${PREVCORE}" == *fbalpha2012* ]] && [[ "${PREVBUILD}" = "YES" ]] && [[ "${NAME}" == *fbalpha2012* ]]; then
-				FORCE="YES"
-				BUILD="YES"
-			fi
-
-			for core in 81 emux_nes emux_sms fuse gw mame2010 mgba snes9x_next snes9x-next vba_next; do
-				if [ "${PREVCORE}" = "$core" ] && [ "${PREVBUILD}" = "YES" ] && [ "${NAME}" = "$core" ]; then
-					FORCE="YES"
-					BUILD="YES"
-				fi
-			done
-		elif [ "${TYPE}" = "SUBMODULE" ]; then
+		if git config --file .gitmodules --name-only --get-regexp path 2>&1 >/dev/null; then
 			git submodule update --init --recursive
 		fi
 
