@@ -1,4 +1,4 @@
-display_name = "CHIP-8 (Emux)"
+display_name = "CHIP-8 (Emux CHIP-8)"
 authors = "Sebastien Ronsse"
 supported_extensions = "ch8|bin|rom"
 corename = "Emux CHIP-8"

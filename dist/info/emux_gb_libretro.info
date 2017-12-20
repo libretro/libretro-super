@@ -1,4 +1,4 @@
-display_name = "Game Boy / Game Boy Color (Emux)"
+display_name = "Game Boy / Game Boy Color (Emux GB)"
 authors = "Sebastien Ronsse"
 supported_extensions = "gb|bin|rom"
 corename = "Emux GB"
