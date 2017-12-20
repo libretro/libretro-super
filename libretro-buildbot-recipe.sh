@@ -552,14 +552,13 @@ while read line; do
 	DIR="$2"
 	URL="$3"
 	GIT_BRANCH="$4"
-	TYPE="$5"
-	ENABLED="$6"
-	COMMAND="$7"
-	MAKEFILE="$8"
-	SUBDIR="$9"
+	ENABLED="$5"
+	COMMAND="$6"
+	MAKEFILE="$7"
+	SUBDIR="$8"
 	ARGS=""
 
-	shift 9
+	shift 8
 	while [ $# -gt 0 ]; do
 		ARGS="${ARGS} ${1}"
 		shift
@@ -580,7 +579,6 @@ while read line; do
 		echo --------------------------------------------------
 		echo Variables:
 		echo URL		  $URL
-		echo REPO TYPE  $TYPE
 		echo ENABLED	 $ENABLED
 		echo COMMAND	 $COMMAND
 		echo MAKEFILE	$MAKEFILE

@@ -1,4 +1,4 @@
-mame2014 libretro-mame2014o https://github.com/libretro/mame2014-libretro.git master PROJECT YES GENERIC Makefile . TARGET=mame
-mess2014 libretro-mame2014o https://github.com/libretro/mame2014-libretro.git master PROJECT YES GENERIC Makefile . TARGET=mess
-ume2014 libretro-mame2014o https://github.com/libretro/mame2014-libretro.git master PROJECT YES GENERIC Makefile . TARGET=ume
-mame2016 libretro-mame2016o https://github.com/libretro/mame2016-libretro master PROJECT YES GENERIC makefile . OSD=retro RETRO=1 NOWERROR=1 NOASM=1 gcc=android-arm gcc_version=4.9 TARGETOS=android-arm CONFIG=libretro NO_USE_MIDI=1 OS=linux VERBOSE=1 verbose=1 OVERRIDE_CC=/home/buildbot/tools/android/android-ndk-r10e/toolchains/llvm-3.5/prebuilt/linux-x86_64/bin/clang OVERRIDE_CXX=/home/buildbot/tools/android/android-ndk-r10e/toolchains/llvm-3.5/prebuilt/linux-x86_64/bin/clang++ TARGET=mame
+mame2014 libretro-mame2014o https://github.com/libretro/mame2014-libretro.git master YES GENERIC Makefile . TARGET=mame
+mess2014 libretro-mame2014o https://github.com/libretro/mame2014-libretro.git master YES GENERIC Makefile . TARGET=mess
+ume2014 libretro-mame2014o https://github.com/libretro/mame2014-libretro.git master YES GENERIC Makefile . TARGET=ume
+mame2016 libretro-mame2016o https://github.com/libretro/mame2016-libretro master YES GENERIC makefile . OSD=retro RETRO=1 NOWERROR=1 NOASM=1 gcc=android-arm gcc_version=4.9 TARGETOS=android-arm CONFIG=libretro NO_USE_MIDI=1 OS=linux VERBOSE=1 verbose=1 OVERRIDE_CC=/home/buildbot/tools/android/android-ndk-r10e/toolchains/llvm-3.5/prebuilt/linux-x86_64/bin/clang OVERRIDE_CXX=/home/buildbot/tools/android/android-ndk-r10e/toolchains/llvm-3.5/prebuilt/linux-x86_64/bin/clang++ TARGET=mame

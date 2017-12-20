@@ -1,1 +1,1 @@
-ppsspp libretro-ppsspp-armv7 https://github.com/libretro/ppsspp.git master SUBMODULE YES CMAKE Makefile build -DLIBRETRO=ON -DCMAKE_ANDROID_NDK_TOOLCHAIN_VERSION=clang -DCMAKE_ANDROID_STL_TYPE=c++_static -DCMAKE_BUILD_TYPE=Release
+ppsspp libretro-ppsspp-armv7 https://github.com/libretro/ppsspp.git master YES CMAKE Makefile build -DLIBRETRO=ON -DCMAKE_ANDROID_NDK_TOOLCHAIN_VERSION=clang -DCMAKE_ANDROID_STL_TYPE=c++_static -DCMAKE_BUILD_TYPE=Release

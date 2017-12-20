@@ -1,7 +1,7 @@
 RECIPE FORMAT:
-{CORENAME} {COREDIR} {URL} {BRANCH} {REPOTYPE} {ENABLED} {COMMAND} {MAKEFILE} {SUBDIR} {ARGS} TRAILINGSPACE
+{CORENAME} {COREDIR} {URL} {BRANCH} {ENABLED} {COMMAND} {MAKEFILE} {SUBDIR} {ARGS}
 
 Ex:
-2048 libretro-2048 https://github.com/libretro/libretro-2048.git master PROJECT YES GENERIC Makefile.libretro .
+2048 libretro-2048 https://github.com/libretro/libretro-2048.git master YES GENERIC Makefile.libretro .
 
 Command should usually be GENERIC and REPOTYPE should usually be project. Notable exceptions are PPSSPP and PICODRIVE. Those are submodule repos.
