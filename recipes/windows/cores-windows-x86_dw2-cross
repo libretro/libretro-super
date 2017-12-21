@@ -1,3 +1,3 @@
-emux_gb libretro-emux_gb https://github.com/libretro/emux master PROJECT YES LEIRADEL Makefile libretro x86 MACHINE=gb
-emux_nes libretro-emux_nes https://github.com/libretro/emux master PROJECT YES LEIRADEL Makefile libretro x86 MACHINE=nes
-emux_sms libretro-emux_sms https://github.com/libretro/emux master PROJECT YES LEIRADEL Makefile libretro x86 MACHINE=sms
+emux_gb libretro-emux_gb https://github.com/libretro/emux master YES LEIRADEL Makefile libretro x86 MACHINE=gb
+emux_nes libretro-emux_nes https://github.com/libretro/emux master YES LEIRADEL Makefile libretro x86 MACHINE=nes
+emux_sms libretro-emux_sms https://github.com/libretro/emux master YES LEIRADEL Makefile libretro x86 MACHINE=sms
