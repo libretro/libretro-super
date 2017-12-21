@@ -645,7 +645,7 @@ while read line; do
 			BUILD="YES"
 		fi
 
-		for core in 81 emux_nes emux_sms fuse gw mame2010 mgba snes9x_next snes9x-next vba_next; do
+		for core in 81 emux_nes emux_sms fuse gw mgba; do
 			if [ "${PREVCORE}" = "$core" ] && [ "${PREVBUILD}" = "YES" ] && [ "${NAME}" = "$core" ]; then
 				FORCE="YES"
 				BUILD="YES"
