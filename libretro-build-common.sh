@@ -236,43 +236,6 @@ build_makefile() {
 	fi
 }
 
-libretro_build_rule() {
-	case "$core_build_rule" in
-		generic_makefile)
-			# As of right now, only configure is used for now...
-			if [ "$(type -t libretro_${1}_configure 2> /dev/null)" = "function" ]; then
-				eval "core_configure=libretro_${1}_configure"
-			else
-				eval "core_configure=do_nothing"
-			fi
-			eval "core_build_makefile=\$libretro_${1}_build_makefile"
-			eval "core_build_subdir=\$libretro_${1}_build_subdir"
-			eval "core_build_args=\$libretro_${1}_build_args"
-
-			# TODO: Really, change how all of this is done...
-			eval "core_build_platform=\${libretro_${1}_build_platform:-$FORMAT_COMPILER_TARGET}$opengl_type"
-
-			eval "core_build_cores=\${libretro_${1}_build_cores:-$1}"
-			eval "core_build_products=\$libretro_${1}_build_products"
-			build_makefile $1 2>&1
-		;;
-		legacy)
-			eval "core_build_legacy=\$libretro_${1}_build_legacy"
-			if [ -n "$core_build_legacy" ]; then
-				echo "Warning: $1 hasn't been ported to a modern build rule yet."
-				echo "         Will build it using legacy \"$core_build_legacy\"..."
-				$core_build_legacy 2>&1
-			fi
-		;;
-		none)
-			echo "Don't have a build rule for $1, skipping..."
-		;;
-		*)
-			echo "libretro_build_core:Unknown build rule for $1: \"$core_build_rule\"." >&2
-			exit 1
-		;;
-	esac
-}
 
 # libretro_build_core: Build the given core using its build rules
 #
@@ -316,13 +279,50 @@ libretro_build_core() {
 	echo "Building ${1}..."
 	lecho "Building ${1}..."
 	if [ -n "$log_module" ]; then
-		if [[ -n "$LIBRETRO_DEVELOPER" && -n "${cmd_tee:=$(find_tool "tee")}" ]]; then
-			libretro_build_rule 2>&1 | $cmd_tee -a $log_module
-		else
-			libretro_build_rule > $log_module
-		fi
-	else
-		libretro_build_rule
+		exec 6>&1
+		echo "Building ${1}..." >> $log_module
+
+		exec > $log_module
+	fi
+
+	case "$core_build_rule" in
+		generic_makefile)
+			# As of right now, only configure is used for now...
+			if [ "$(type -t libretro_${1}_configure 2> /dev/null)" = "function" ]; then
+				eval "core_configure=libretro_${1}_configure"
+			else
+				eval "core_configure=do_nothing"
+			fi
+			eval "core_build_makefile=\$libretro_${1}_build_makefile"
+			eval "core_build_subdir=\$libretro_${1}_build_subdir"
+			eval "core_build_args=\$libretro_${1}_build_args"
+
+			# TODO: Really, change how all of this is done...
+			eval "core_build_platform=\${libretro_${1}_build_platform:-$FORMAT_COMPILER_TARGET}$opengl_type"
+
+			eval "core_build_cores=\${libretro_${1}_build_cores:-$1}"
+			eval "core_build_products=\$libretro_${1}_build_products"
+			build_makefile $1 2>&1
+			;;
+
+		legacy)
+			eval "core_build_legacy=\$libretro_${1}_build_legacy"
+			if [ -n "$core_build_legacy" ]; then
+				echo "Warning: $1 hasn't been ported to a modern build rule yet."
+				echo "         Will build it using legacy \"$core_build_legacy\"..."
+				$core_build_legacy 2>&1
+			fi
+			;;
+		none)
+			echo "Don't have a build rule for $1, skipping..."
+			;;
+		*)
+			echo "libretro_build_core:Unknown build rule for $1: \"$core_build_rule\"." >&2
+			exit 1
+			;;
+	esac
+	if [ -n "$log_module" ]; then
+		exec 1>&6 6>&-
 	fi
 }
 
