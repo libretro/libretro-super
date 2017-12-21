@@ -316,6 +316,8 @@ build_libretro_generic_makefile() {
 
 	if [ "${COMMAND}" = "BSNES" ]; then
 		CORE="${NAME}_accuracy ${NAME}_balanced ${NAME}_performance"
+	elif [ "${NAME}" = "mame2014" ]; then
+		CORE="${NAME} mess2014 ume2014"
 	else
 		CORE="${NAME}"
 	fi
@@ -326,6 +328,8 @@ build_libretro_generic_makefile() {
 
 		if [ "${COMMAND}" = "BSNES" ]; then
 			CORE_ARGS="profile=${core##*_} ${ARGS}"
+		elif [ "${NAME}" = "mame2014" ] || [ "${NAME}" = "mess2014" ] || [ "${NAME}" = "ume2014" ]; then
+			CORE_ARGS="TARGET=${core%%[0-9]*} ${ARGS}"
 		else
 			CORE_ARGS="${ARGS}"
 		fi
@@ -352,11 +356,6 @@ build_libretro_generic_makefile() {
 		fi
 
 		echo -------------------------------------------------- 2>&1 | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}.log
-		if [ "${NAME}" == "mame2010" ]; then
-			echo "BUILD CMD: PLATFORM="" platform="" ${HELPER} ${MAKE} -f ${MAKEFILE} "VRENDER=soft" "NATIVE=1" buildtools -j${JOBS}" 2>&1 | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}.log
-			PLATFORM="" platform="" ${HELPER} ${MAKE} -f ${MAKEFILE} "VRENDER=soft" "NATIVE=1" buildtools -j${JOBS} 2>&1 | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}.log
-		fi
-
 		if [ "${COMMAND}" = "CMAKE" ]; then
 			if [ "${PLATFORM}" = "android" ]; then
 				EXTRAARGS="-DCMAKE_SYSTEM_NAME=Android -DCMAKE_SYSTEM_VERSION=${API_LEVEL} -DCMAKE_ANDROID_ARCH_ABI=${ABI_OVERRIDE} -DCMAKE_ANDROID_NDK=${NDK_ROOT}"
@@ -641,16 +640,6 @@ while read line; do
 
 		FORCE_ORIG=$FORCE
 		OLDBUILD=$BUILD
-
-		if [ "${PREVCORE}" = "mame2014" ] && [ "${PREVBUILD}" = "YES" ] && [ "${NAME}" = "mess2014" ]; then
-			FORCE="YES"
-			BUILD="YES"
-		fi
-
-		if [ "${PREVCORE}" = "mess2014" ] && [ "${PREVBUILD}" = "YES" ] && [ "${NAME}" = "ume2014" ]; then
-			FORCE="YES"
-			BUILD="YES"
-		fi
 
 		for core in 81 emux_nes emux_sms fuse gw mgba; do
 			if [ "${PREVCORE}" = "$core" ] && [ "${PREVBUILD}" = "YES" ] && [ "${NAME}" = "$core" ]; then
