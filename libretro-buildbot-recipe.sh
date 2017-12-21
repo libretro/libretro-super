@@ -323,7 +323,12 @@ build_libretro_generic_makefile() {
 	eval "set -- $CORE"
 	for core do
 		NAME="$core"
-		[ "${COMMAND}" = "BSNES" ] && ARGS="profile=${core##*_}"
+
+		if [ "${COMMAND}" = "BSNES" ]; then
+			CORE_ARGS="profile=${core##*_} ${ARGS}"
+		else
+			CORE_ARGS="${ARGS}"
+		fi
 
 		echo --------------------------------------------------| tee $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}.log
 		cat $TMPDIR/vars | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}.log
@@ -334,7 +339,7 @@ build_libretro_generic_makefile() {
 				rm -fv obj/*.{o,"${FORMAT_EXT}"} 2>&1 | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}.log
 				rm -fv out/*.{o,"${FORMAT_EXT}"} 2>&1 | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}.log
 			else
-				eval "set -- ${HELPER} ${MAKE} -f ${MAKEFILE} platform=${PLATFORM} -j${JOBS} ${ARGS} clean"
+				eval "set -- ${HELPER} ${MAKE} -f ${MAKEFILE} platform=${PLATFORM} -j${JOBS} ${CORE_ARGS} clean"
 				echo "CLEANUP CMD: $@" 2>&1 | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}.log
 				"$@" 2>&1 | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}.log
 			fi
@@ -357,7 +362,7 @@ build_libretro_generic_makefile() {
 				EXTRAARGS="-DCMAKE_SYSTEM_NAME=Android -DCMAKE_SYSTEM_VERSION=${API_LEVEL} -DCMAKE_ANDROID_ARCH_ABI=${ABI_OVERRIDE} -DCMAKE_ANDROID_NDK=${NDK_ROOT}"
 			fi
 
-			eval "set -- ${EXTRAARGS} ${ARGS}"
+			eval "set -- ${EXTRAARGS} ${CORE_ARGS}"
 			echo "BUILD CMD: ${CMAKE} $@" 2>&1 | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}.log
 			echo "$@" .. | xargs ${CMAKE} 2>&1 | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}.log
 			echo "BUILD CMD: ${HELPER} ${MAKE} -f ${MAKEFILE} -j${JOBS}" 2>&1 | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}.log
@@ -366,10 +371,10 @@ build_libretro_generic_makefile() {
 			find . -mindepth 2 -name "${NAME}_libretro${FORMAT}${LIBSUFFIX}.${FORMAT_EXT}" -exec cp -f "{}" . \;
 		elif [ "${COMMAND}" = "HIGAN" ]; then
 			platform=""
-			echo "BUILD CMD: ${HELPER} ${MAKE} -f ${MAKEFILE} -j${JOBS}" ${ARGS} 2>&1 | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}.log
-			${HELPER} ${MAKE} -f ${MAKEFILE} -j${JOBS} ${ARGS} 2>&1 | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}.log
+			echo "BUILD CMD: ${HELPER} ${MAKE} -f ${MAKEFILE} -j${JOBS}" ${CORE_ARGS} 2>&1 | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}.log
+			${HELPER} ${MAKE} -f ${MAKEFILE} -j${JOBS} ${CORE_ARGS} 2>&1 | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}.log
 		else
-			eval "set -- ${HELPER} ${MAKE} -f ${MAKEFILE} platform=${PLATFORM} -j${JOBS} ${ARGS}"
+			eval "set -- ${HELPER} ${MAKE} -f ${MAKEFILE} platform=${PLATFORM} -j${JOBS} ${CORE_ARGS}"
 			echo "BUILD CMD: $@" 2>&1 | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}.log
 			"$@" 2>&1 | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}.log
 		fi
@@ -481,8 +486,10 @@ build_libretro_generic_jni() {
 		NAME="${core}"
 
 		if [ "${COMMAND}" = "BSNES_JNI" ]; then
-			ARGS="profile=${core##*_}"
+			CORE_ARGS="profile=${core##*_} ${ARGS}"
 			LIBNAM="libretro_${NAME}"
+		else
+			CORE_ARGS="${ARGS}"
 		fi
 
 		for a in "${ABIS[@]}"; do
@@ -491,8 +498,8 @@ build_libretro_generic_jni() {
 
 			echo -------------------------------------------------- 2>&1 | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}_${a}.log
 			if [ -z "${NOCLEAN}" ]; then
-				echo "CLEANUP CMD: ${NDK} -j${JOBS} ${ARGS} APP_ABI=${a} clean" 2>&1 | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}_${a}.log
-				${NDK} -j${JOBS} ${ARGS} APP_ABI=${a} clean 2>&1 | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}_${a}.log
+				echo "CLEANUP CMD: ${NDK} -j${JOBS} ${CORE_ARGS} APP_ABI=${a} clean" 2>&1 | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}_${a}.log
+				${NDK} -j${JOBS} ${CORE_ARGS} APP_ABI=${a} clean 2>&1 | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}_${a}.log
 
 				if [ $? -eq 0 ]; then
 					echo buildbot job: $jobid $a ${NAME} cleanup success!
@@ -502,7 +509,7 @@ build_libretro_generic_jni() {
 			fi
 
 			echo -------------------------------------------------- 2>&1 | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}_${a}.log
-			eval "set -- ${NDK} -j${JOBS} APP_ABI=${a} ${ARGS}"
+			eval "set -- ${NDK} -j${JOBS} APP_ABI=${a} ${CORE_ARGS}"
 			echo "BUILD CMD: $@" 2>&1 | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}_${a}.log
 			"$@" 2>&1 | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}_${a}.log
 
