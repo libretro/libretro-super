@@ -645,11 +645,6 @@ while read line; do
 			BUILD="YES"
 		fi
 
-		if [[ "${PREVCORE}" == *fbalpha2012* ]] && [[ "${PREVBUILD}" = "YES" ]] && [[ "${NAME}" == *fbalpha2012* ]]; then
-			FORCE="YES"
-			BUILD="YES"
-		fi
-
 		for core in 81 emux_nes emux_sms fuse gw mame2010 mgba snes9x_next snes9x-next vba_next; do
 			if [ "${PREVCORE}" = "$core" ] && [ "${PREVBUILD}" = "YES" ] && [ "${NAME}" = "$core" ]; then
 				FORCE="YES"
