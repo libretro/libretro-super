@@ -594,6 +594,8 @@ while read line; do
 		echo
 
 		BUILD="NO"
+		BUILD_ORIG=$BUILD
+		FORCE_ORIG=$FORCE
 
 		if [ ! -d "${DIR}/.git" ] || [ "${CLEANUP}" = "YES" ]; then
 			rm -rfv -- "$DIR"
@@ -634,9 +636,6 @@ while read line; do
 			git branch -D "${CURRENT_BRANCH}"
 			BUILD="YES"
 		fi
-
-		FORCE_ORIG=$FORCE
-		OLDBUILD=$BUILD
 
 		for core in 81 emux_nes emux_sms fuse gw mgba; do
 			if [ "${PREVCORE}" = "$core" ] && [ "${PREVBUILD}" = "YES" ] && [ "${NAME}" = "$core" ]; then
@@ -682,7 +681,7 @@ while read line; do
 	PREVCORE=$NAME
 	PREVBUILD=$BUILD
 
-	BUILD=$OLDBUILD
+	BUILD=$BUILD_ORIG
 	FORCE=$FORCE_ORIG
 done < $RECIPE
 
