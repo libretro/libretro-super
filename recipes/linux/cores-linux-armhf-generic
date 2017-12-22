@@ -35,7 +35,7 @@ mame libretro-mame https://github.com/libretro/mame.git master YES GENERIC Makef
 mame2000 libretro-mame2000 https://github.com/libretro/mame2000-libretro.git master YES GENERIC Makefile .
 mame2003 libretro-mame2003 https://github.com/libretro/mame2003-libretro.git master YES GENERIC Makefile .
 mame2010 libretro-mame2010 https://github.com/libretro/mame2010-libretro.git master YES GENERIC Makefile . VRENDER=soft CC=arm-linux-gnueabihf-gcc CXX=arm-linux-gnueabihf-g++ LD=arm-linux-gnueabihf-g++ platform=armv7-neon-hardfloat PTR64=0
-mame2014 libretro-mame2014 https://github.com/libretro/mame2014-libretro.git master YES GENERIC Makefile . TARGET=mame
+mame2014 libretro-mame2014 https://github.com/libretro/mame2014-libretro.git master YES GENERIC Makefile .
 mednafen_gba libretro-mednafen_gba https://github.com/libretro/beetle-gba-libretro.git master YES GENERIC Makefile .
 mednafen_lynx libretro-mednafen_lynx https://github.com/libretro/beetle-lynx-libretro.git master YES GENERIC Makefile .
 mednafen_ngp libretro-mednafen_ngp https://github.com/libretro/beetle-ngp-libretro.git master YES GENERIC Makefile .
@@ -47,7 +47,6 @@ mednafen_snes libretro-mednafen_snes https://github.com/libretro/beetle-bsnes-li
 mednafen_supergrafx libretro-mednafen_supergrafx https://github.com/libretro/beetle-supergrafx-libretro.git master YES GENERIC Makefile .
 mednafen_vb libretro-mednafen_vb https://github.com/libretro/beetle-vb-libretro.git master YES GENERIC Makefile .
 mednafen_wswan libretro-mednafen_wswan https://github.com/libretro/beetle-wswan-libretro.git master YES GENERIC Makefile .
-mess2014 libretro-mame2014 https://github.com/libretro/mame2014-libretro.git master YES GENERIC Makefile . TARGET=mess
 meteor libretro-meteor https://github.com/libretro/meteor-libretro.git master YES GENERIC Makefile libretro
 mgba libretro-mgba https://github.com/libretro/mgba.git master YES GENERIC Makefile.libretro .
 parallel_n64 libretro-parallel_n64 https://github.com/libretro/parallel-n64.git master YES GENERIC_GL Makefile . ARCH=arm
@@ -71,7 +70,6 @@ snes9x libretro-snes9x https://github.com/libretro/snes9x.git master YES GENERIC
 stella libretro-stella https://github.com/libretro/stella-libretro.git master YES GENERIC Makefile .
 tgbdual libretro-tgbdual https://github.com/libretro/tgbdual-libretro.git master YES GENERIC Makefile .
 tyrquake libretro-tyrquake https://github.com/libretro/tyrquake.git master YES GENERIC Makefile .
-ume2014 libretro-mame2014 https://github.com/libretro/mame2014-libretro.git master YES GENERIC Makefile . TARGET=ume PTR64=0 PARTIAL=1
 vba_next libretro-vba_next https://github.com/libretro/vba-next.git master YES GENERIC Makefile.libretro .
 vbam libretro-vbam https://github.com/libretro/vbam-libretro.git master YES GENERIC Makefile src/libretro
 vecx libretro-vecx https://github.com/libretro/libretro-vecx.git master YES GENERIC Makefile.libretro .
