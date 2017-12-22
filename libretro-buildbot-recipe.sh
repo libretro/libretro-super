@@ -602,6 +602,12 @@ while read line; do
 			git clone --depth=1 -b "$GIT_BRANCH" "$URL" "$DIR"
 			BUILD="YES"
 			UPDATE="NO"
+		else
+			HEAD="$(git --work-tree="$DIR" --git-dir="$DIR/.git" rev-parse HEAD)" || \
+				{ echo 'git directory broken, removing $NAME and skipping.'; \
+				rm -rfv -- "$DIR" && continue; }
+			echo "pulling changes from repo $URL..."
+			git --work-tree="$DIR" --git-dir="$DIR/.git" pull
 		fi
 
 		cd "$DIR" || { echo "Failed to cd to ${DIR}, skipping ${NAME}"; continue; }
@@ -623,10 +629,6 @@ while read line; do
 				echo "found .forcebuild file, building $NAME"
 				BUILD="YES"
 			fi
-
-			echo "pulling changes from repo $URL..."
-			HEAD="$(git rev-parse HEAD)"
-			git pull
 
 			if [ "$HEAD" = "$(git rev-parse HEAD)" ] && [ "${BUILD}" != "YES" ]; then
 				BUILD="NO"
