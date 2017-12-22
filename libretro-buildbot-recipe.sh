@@ -624,18 +624,24 @@ while read line; do
 			fi
 		fi
 
-		cd "$DIR" || { echo "Failed to cd to ${DIR}, skipping ${NAME}"; continue; }
-
-		CURRENT_BRANCH="$(git rev-parse --abbrev-ref HEAD)"
+		CURRENT_BRANCH="$(git --work-tree="$DIR" --git-dir="$DIR/.git" rev-parse --abbrev-ref HEAD)"
 
 		if [ "${GIT_BRANCH}" != "${CURRENT_BRANCH}" ] && [ "${TRAVIS:-0}" = "0" ]; then
 			echo "Changing to the branch ${GIT_BRANCH} from ${CURRENT_BRANCH}"
-			git remote set-branches origin "${GIT_BRANCH}"
-			git fetch --depth 1 origin "${GIT_BRANCH}"
-			git checkout "${GIT_BRANCH}"
-			git branch -D "${CURRENT_BRANCH}"
+			git --work-tree="$DIR" --git-dir="$DIR/.git" remote set-branches origin "${GIT_BRANCH}"
+			git --work-tree="$DIR" --git-dir="$DIR/.git" fetch --depth 1 origin "${GIT_BRANCH}"
+			git --work-tree="$DIR" --git-dir="$DIR/.git" checkout "${GIT_BRANCH}"
+			git --work-tree="$DIR" --git-dir="$DIR/.git" branch -D "${CURRENT_BRANCH}"
 			BUILD="YES"
 		fi
+
+		(
+			cd -- "$DIR" || { echo "Failed to cd to ${DIR}, skipping ${NAME}"; continue; }
+
+			if git config --file .gitmodules --name-only --get-regexp path 2>&1 >/dev/null; then
+				git --work-tree="." --git-dir=".git" submodule update --init --recursive
+			fi
+		)
 
 		for core in 81 emux_nes emux_sms fuse gw mgba; do
 			if [ "${PREVCORE}" = "$core" ] && [ "${PREVBUILD}" = "YES" ] && [ "${NAME}" = "$core" ]; then
@@ -643,12 +649,6 @@ while read line; do
 				BUILD="YES"
 			fi
 		done
-
-		if git config --file .gitmodules --name-only --get-regexp path 2>&1 >/dev/null; then
-			git submodule update --init --recursive
-		fi
-
-		cd "$WORK"
 
 		if [ "${BUILD}" = "YES" ] || [ "${FORCE}" = "YES" ]; then
 			touch $TMPDIR/built-cores
