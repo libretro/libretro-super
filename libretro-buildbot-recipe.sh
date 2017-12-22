@@ -594,20 +594,34 @@ while read line; do
 		echo
 
 		BUILD="NO"
-		UPDATE="YES"
+		BUILD_ORIG=$BUILD
+		FORCE_ORIG=$FORCE
 
 		if [ ! -d "${DIR}/.git" ] || [ "${CLEANUP}" = "YES" ]; then
 			rm -rfv -- "$DIR"
 			echo "cloning repo $URL..."
 			git clone --depth=1 -b "$GIT_BRANCH" "$URL" "$DIR"
 			BUILD="YES"
-			UPDATE="NO"
 		else
+			if [ -f "$DIR/.forcebuild" ]; then
+				echo "found $DIR/.forcebuild file, building $NAME"
+				BUILD="YES"
+			fi
+
 			HEAD="$(git --work-tree="$DIR" --git-dir="$DIR/.git" rev-parse HEAD)" || \
-				{ echo 'git directory broken, removing $NAME and skipping.'; \
+				{ echo "git directory broken, removing $DIR and skipping $NAME."; \
 				rm -rfv -- "$DIR" && continue; }
 			echo "pulling changes from repo $URL..."
 			git --work-tree="$DIR" --git-dir="$DIR/.git" pull
+
+			if [ "$HEAD" = "$(git --work-tree="$DIR" --git-dir="$DIR/.git" rev-parse HEAD)" ] && [ "${BUILD}" != "YES" ]; then
+				BUILD="NO"
+			else
+				echo "resetting repo state $URL..."
+				git --work-tree="$DIR" --git-dir="$DIR/.git" reset --hard FETCH_HEAD
+				git --work-tree="$DIR" --git-dir="$DIR/.git" clean -xdf
+				BUILD="YES"
+			fi
 		fi
 
 		cd "$DIR" || { echo "Failed to cd to ${DIR}, skipping ${NAME}"; continue; }
@@ -621,27 +635,7 @@ while read line; do
 			git checkout "${GIT_BRANCH}"
 			git branch -D "${CURRENT_BRANCH}"
 			BUILD="YES"
-			UPDATE="NO"
 		fi
-
-		if [ "${UPDATE}" != "NO" ]; then
-			if [ -f .forcebuild ]; then
-				echo "found .forcebuild file, building $NAME"
-				BUILD="YES"
-			fi
-
-			if [ "$HEAD" = "$(git rev-parse HEAD)" ] && [ "${BUILD}" != "YES" ]; then
-				BUILD="NO"
-			else
-				echo "resetting repo state $URL..."
-				git reset --hard FETCH_HEAD
-				git clean -xdf
-				BUILD="YES"
-			fi
-		fi
-
-		FORCE_ORIG=$FORCE
-		OLDBUILD=$BUILD
 
 		for core in 81 emux_nes emux_sms fuse gw mgba; do
 			if [ "${PREVCORE}" = "$core" ] && [ "${PREVBUILD}" = "YES" ] && [ "${NAME}" = "$core" ]; then
@@ -687,7 +681,7 @@ while read line; do
 	PREVCORE=$NAME
 	PREVBUILD=$BUILD
 
-	BUILD=$OLDBUILD
+	BUILD=$BUILD_ORIG
 	FORCE=$FORCE_ORIG
 done < $RECIPE
 
