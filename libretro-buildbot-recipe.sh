@@ -573,7 +573,9 @@ while read line; do
 	ARGS="${ARGS# }"
 	ARGS="${ARGS%"${ARGS##*[![:space:]]}"}"
 
-	if [ "$SINGLE_CORE" ] && [ "$NAME" != "$SINGLE_CORE" ]; then
+	if [ -z "${SINGLE_CORE:-}" ]; then
+		CORE=""
+	elif [ "$NAME" != "$SINGLE_CORE" ]; then
 		continue
 	fi
 
