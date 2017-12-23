@@ -659,12 +659,8 @@ while read line; do
 				LEIRADEL )      build_libretro_leiradel_makefile $NAME $DIR $SUBDIR $MAKEFILE ${PLATFORM} "${ARGS}"                  ;;
 				* )             :                                                                                                    ;;
 			esac
-			BUILD_DIR="${BASE_DIR}/${DIR}"
-			[ "${SUBDIR}" != . ] && BUILD_DIR="${BUILD_DIR}/${SUBDIR}"
-			if [ "$(realpath .)" = "${BUILD_DIR}" ]; then
-				echo "Cleaning repo state after build $URL..."
-				git clean -xdf
-			fi
+			echo "Cleaning repo state after build $URL..."
+			git --work-tree="${BASE_DIR}/${DIR}" --git-dir="${BASE_DIR}/${DIR}/.git" clean -xdf
 		else
 			echo "buildbot job: building $NAME up-to-date"
 		fi
