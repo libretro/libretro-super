@@ -635,13 +635,9 @@ while read line; do
 			BUILD="YES"
 		fi
 
-		(
-			cd -- "$DIR" || { echo "Failed to cd to ${DIR}, skipping ${NAME}"; continue; }
-
-			if git config --file .gitmodules --name-only --get-regexp path 2>&1 >/dev/null; then
-				git --work-tree="." --git-dir=".git" submodule update --init --recursive
-			fi
-		)
+		if git config --file "$DIR/.gitmodules" --name-only --get-regexp path 2>&1 >/dev/null; then
+			git --work-tree="." --git-dir=".git" -C "$DIR" submodule update --init --recursive
+		fi
 
 		for core in 81 emux_nes emux_sms fuse gw mgba; do
 			if [ "${PREVCORE}" = "$core" ] && [ "${PREVBUILD}" = "YES" ] && [ "${NAME}" = "$core" ]; then
