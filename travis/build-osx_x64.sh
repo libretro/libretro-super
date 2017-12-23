@@ -10,5 +10,7 @@ if [ "${TRAVIS_BUILD_DIR}" ]; then
   mv ${TRAVIS_BUILD_DIR} ${CORE_DIRNAME}
 fi
 
+[ -z "${NAME:-}" ] && NAME="${CORE}"
+
 # only build the one core specified in $CORE
-FORCE=YES SINGLE_CORE=${CORE} ./libretro-buildbot-recipe.sh ${RECIPE}
+FORCE=YES SINGLE_CORE="${CORE}" CORE="${NAME}" ./libretro-buildbot-recipe.sh "${RECIPE}"
