@@ -579,97 +579,97 @@ while read line; do
 		continue
 	fi
 
-	if [ "${ENABLED}" = "YES" ]; then
-		echo -ne "buildbot job started at: "
-		date
-		echo
-		echo "buildbot job: $jobid processing $NAME"
-		echo --------------------------------------------------
-		echo Variables:
-		echo URL		  $URL
-		echo ENABLED	 $ENABLED
-		echo COMMAND	 $COMMAND
-		echo MAKEFILE	$MAKEFILE
-		echo DIR		  $DIR
-		echo SUBDIR	  $SUBDIR
-		echo
-		echo
+	[ "${ENABLED}" != "YES" ] && { echo "${NAME} is disabled, skipping"; continue; }
 
-		BUILD="NO"
-		BUILD_ORIG=$BUILD
-		FORCE_ORIG=$FORCE
+	echo -ne "buildbot job started at: "
+	date
+	echo
+	echo "buildbot job: $jobid processing $NAME"
+	echo --------------------------------------------------
+	echo Variables:
+	echo URL		  $URL
+	echo ENABLED	 $ENABLED
+	echo COMMAND	 $COMMAND
+	echo MAKEFILE	$MAKEFILE
+	echo DIR		  $DIR
+	echo SUBDIR	  $SUBDIR
+	echo
+	echo
 
-		if [ ! -d "${DIR}/.git" ] || [ "${CLEANUP}" = "YES" ]; then
-			rm -rfv -- "$DIR"
-			echo "cloning repo $URL..."
-			git clone --depth=1 -b "$GIT_BRANCH" "$URL" "$DIR"
-			BUILD="YES"
-		else
-			if [ -f "$DIR/.forcebuild" ]; then
-				echo "found $DIR/.forcebuild file, building $NAME"
-				BUILD="YES"
-			fi
+	BUILD="NO"
+	BUILD_ORIG=$BUILD
+	FORCE_ORIG=$FORCE
 
-			HEAD="$(git --work-tree="$DIR" --git-dir="$DIR/.git" rev-parse HEAD)" || \
-				{ echo "git directory broken, removing $DIR and skipping $NAME."; \
-				rm -rfv -- "$DIR" && continue; }
-			echo "pulling changes from repo $URL..."
-			git --work-tree="$DIR" --git-dir="$DIR/.git" pull
-
-			if [ "$HEAD" = "$(git --work-tree="$DIR" --git-dir="$DIR/.git" rev-parse HEAD)" ] && [ "${BUILD}" != "YES" ]; then
-				BUILD="NO"
-			else
-				echo "resetting repo state $URL..."
-				git --work-tree="$DIR" --git-dir="$DIR/.git" reset --hard FETCH_HEAD
-				git --work-tree="$DIR" --git-dir="$DIR/.git" clean -xdf
-				BUILD="YES"
-			fi
-		fi
-
-		CURRENT_BRANCH="$(git --work-tree="$DIR" --git-dir="$DIR/.git" rev-parse --abbrev-ref HEAD)"
-
-		if [ "${GIT_BRANCH}" != "${CURRENT_BRANCH}" ] && [ "${TRAVIS:-0}" = "0" ]; then
-			echo "Changing to the branch ${GIT_BRANCH} from ${CURRENT_BRANCH}"
-			git --work-tree="$DIR" --git-dir="$DIR/.git" remote set-branches origin "${GIT_BRANCH}"
-			git --work-tree="$DIR" --git-dir="$DIR/.git" fetch --depth 1 origin "${GIT_BRANCH}"
-			git --work-tree="$DIR" --git-dir="$DIR/.git" checkout "${GIT_BRANCH}"
-			git --work-tree="$DIR" --git-dir="$DIR/.git" branch -D "${CURRENT_BRANCH}"
+	if [ ! -d "${DIR}/.git" ] || [ "${CLEANUP}" = "YES" ]; then
+		rm -rfv -- "$DIR"
+		echo "cloning repo $URL..."
+		git clone --depth=1 -b "$GIT_BRANCH" "$URL" "$DIR"
+		BUILD="YES"
+	else
+		if [ -f "$DIR/.forcebuild" ]; then
+			echo "found $DIR/.forcebuild file, building $NAME"
 			BUILD="YES"
 		fi
 
-		if git config --file "$DIR/.gitmodules" --name-only --get-regexp path 2>&1 >/dev/null; then
-			git --work-tree="." --git-dir=".git" -C "$DIR" submodule update --init --recursive
-		fi
+		HEAD="$(git --work-tree="$DIR" --git-dir="$DIR/.git" rev-parse HEAD)" || \
+			{ echo "git directory broken, removing $DIR and skipping $NAME."; \
+			rm -rfv -- "$DIR" && continue; }
+		echo "pulling changes from repo $URL..."
+		git --work-tree="$DIR" --git-dir="$DIR/.git" pull
 
-		for core in 81 emux_nes emux_sms fuse gw mgba; do
-			if [ "${PREVCORE}" = "$core" ] && [ "${PREVBUILD}" = "YES" ] && [ "${NAME}" = "$core" ]; then
-				FORCE="YES"
-				BUILD="YES"
-			fi
-		done
-
-		if [ "${BUILD}" = "YES" ] || [ "${FORCE}" = "YES" ]; then
-			touch $TMPDIR/built-cores
-			CORES_BUILT=YES
-			echo "buildbot job: building $NAME"
-			case "${COMMAND}" in
-				BSNES|CMAKE|GENERIC|GENERIC_GL|HIGAN )
-				                build_libretro_generic_makefile $NAME $DIR $SUBDIR $MAKEFILE ${FORMAT_COMPILER_TARGET} "${ARGS}"     ;;
-				BSNES_JNI|GENERIC_JNI )
-				                build_libretro_generic_jni $NAME $DIR $SUBDIR $MAKEFILE ${FORMAT_COMPILER_TARGET_ALT} "${ARGS}"      ;;
-				GENERIC_ALT )   build_libretro_generic_makefile $NAME $DIR $SUBDIR $MAKEFILE ${FORMAT_COMPILER_TARGET_ALT} "${ARGS}" ;;
-				LEIRADEL )      build_libretro_leiradel_makefile $NAME $DIR $SUBDIR $MAKEFILE ${PLATFORM} "${ARGS}"                  ;;
-				* )             :                                                                                                    ;;
-			esac
-			echo "Cleaning repo state after build $URL..."
-			git --work-tree="${BASE_DIR}/${DIR}" --git-dir="${BASE_DIR}/${DIR}/.git" clean -xdf
+		if [ "$HEAD" = "$(git --work-tree="$DIR" --git-dir="$DIR/.git" rev-parse HEAD)" ] && [ "${BUILD}" != "YES" ]; then
+			BUILD="NO"
 		else
-			echo "buildbot job: building $NAME up-to-date"
+			echo "resetting repo state $URL..."
+			git --work-tree="$DIR" --git-dir="$DIR/.git" reset --hard FETCH_HEAD
+			git --work-tree="$DIR" --git-dir="$DIR/.git" clean -xdf
+			BUILD="YES"
 		fi
-		echo
-		echo -ne "buildbot job finished at: "
-		date
 	fi
+
+	CURRENT_BRANCH="$(git --work-tree="$DIR" --git-dir="$DIR/.git" rev-parse --abbrev-ref HEAD)"
+
+	if [ "${GIT_BRANCH}" != "${CURRENT_BRANCH}" ] && [ "${TRAVIS:-0}" = "0" ]; then
+		echo "Changing to the branch ${GIT_BRANCH} from ${CURRENT_BRANCH}"
+		git --work-tree="$DIR" --git-dir="$DIR/.git" remote set-branches origin "${GIT_BRANCH}"
+		git --work-tree="$DIR" --git-dir="$DIR/.git" fetch --depth 1 origin "${GIT_BRANCH}"
+		git --work-tree="$DIR" --git-dir="$DIR/.git" checkout "${GIT_BRANCH}"
+		git --work-tree="$DIR" --git-dir="$DIR/.git" branch -D "${CURRENT_BRANCH}"
+		BUILD="YES"
+	fi
+
+	if git config --file "$DIR/.gitmodules" --name-only --get-regexp path 2>&1 >/dev/null; then
+		git --work-tree="." --git-dir=".git" -C "$DIR" submodule update --init --recursive
+	fi
+
+	for core in 81 emux_nes emux_sms fuse gw mgba; do
+		if [ "${PREVCORE}" = "$core" ] && [ "${PREVBUILD}" = "YES" ] && [ "${NAME}" = "$core" ]; then
+			FORCE="YES"
+			BUILD="YES"
+		fi
+	done
+
+	if [ "${BUILD}" = "YES" ] || [ "${FORCE}" = "YES" ]; then
+		touch $TMPDIR/built-cores
+		CORES_BUILT=YES
+		echo "buildbot job: building $NAME"
+		case "${COMMAND}" in
+			BSNES|CMAKE|GENERIC|GENERIC_GL|HIGAN )
+			                build_libretro_generic_makefile $NAME $DIR $SUBDIR $MAKEFILE ${FORMAT_COMPILER_TARGET} "${ARGS}"     ;;
+			BSNES_JNI|GENERIC_JNI )
+			                build_libretro_generic_jni $NAME $DIR $SUBDIR $MAKEFILE ${FORMAT_COMPILER_TARGET_ALT} "${ARGS}"      ;;
+			GENERIC_ALT )   build_libretro_generic_makefile $NAME $DIR $SUBDIR $MAKEFILE ${FORMAT_COMPILER_TARGET_ALT} "${ARGS}" ;;
+			LEIRADEL )      build_libretro_leiradel_makefile $NAME $DIR $SUBDIR $MAKEFILE ${PLATFORM} "${ARGS}"                  ;;
+			* )             :                                                                                                    ;;
+		esac
+		echo "Cleaning repo state after build $URL..."
+		git --work-tree="${BASE_DIR}/${DIR}" --git-dir="${BASE_DIR}/${DIR}/.git" clean -xdf
+	else
+		echo "buildbot job: building $NAME up-to-date"
+	fi
+	echo
+	echo -ne "buildbot job finished at: "
+	date
 
 	cd "${BASE_DIR}"
 	PREVCORE=$NAME
