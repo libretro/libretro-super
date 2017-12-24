@@ -315,9 +315,9 @@ build_libretro_generic_makefile() {
 	cd "${SUBDIR}"
 
 	if [ "${COMMAND}" = "BSNES" ]; then
-		CORE="${NAME}_accuracy ${NAME}_balanced ${NAME}_performance"
+		CORE="${CORE:-${NAME}_accuracy ${NAME}_balanced ${NAME}_performance}"
 	elif [ "${NAME}" = "mame2014" ]; then
-		CORE="${NAME} mess2014 ume2014"
+		CORE="${CORE:-${NAME} mess2014 ume2014}"
 	else
 		CORE="${NAME}"
 	fi
@@ -472,7 +472,7 @@ build_libretro_generic_jni() {
 	fi
 
 	if [ "${COMMAND}" = "BSNES_JNI" ]; then
-		CORE="${NAME}_accuracy ${NAME}_balanced ${NAME}_performance"
+		CORE="${CORE:-${NAME}_accuracy ${NAME}_balanced ${NAME}_performance}"
 	else
 		CORE="${NAME}"
 	fi
@@ -573,7 +573,9 @@ while read line; do
 	ARGS="${ARGS# }"
 	ARGS="${ARGS%"${ARGS##*[![:space:]]}"}"
 
-	if [ "$SINGLE_CORE" ] && [ "$NAME" != "$SINGLE_CORE" ]; then
+	if [ -z "${SINGLE_CORE:-}" ]; then
+		CORE=""
+	elif [ "$NAME" != "$SINGLE_CORE" ]; then
 		continue
 	fi
 
