@@ -5,9 +5,9 @@
 atari800 libretro-atari800 https://github.com/libretro/libretro-atari800.git master YES GENERIC Makefile .
 bluemsx libretro-bluemsx https://github.com/libretro/blueMSX-libretro.git master YES GENERIC Makefile.libretro .
 bnes libretro-bnes https://github.com/libretro/bnes-libretro.git master YES GENERIC Makefile .
-bsnes libretro-bsnes https://github.com/libretro/bsnes-libretro.git libretro YES BSNES Makefile .
+bsnes libretro-bsnes https://github.com/libretro/bsnes-libretro.git libretro YES GENERIC Makefile .
 bsnes_cplusplus98 libretro-bsnes_cplusplus98 https://github.com/libretro/bsnes-libretro-cplusplus98.git master YES GENERIC Makefile .
-bsnes_mercury libretro-bsnes_mercury https://github.com/libretro/bsnes-mercury.git master YES BSNES Makefile .
+bsnes_mercury libretro-bsnes_mercury https://github.com/libretro/bsnes-mercury.git master YES GENERIC Makefile .
 cap32 libretro-cap32 https://github.com/libretro/libretro-cap32.git master YES GENERIC Makefile .
 chailove libretro-chailove https://github.com/RobLoach/ChaiLove.git master YES GENERIC Makefile .
 citra libretro-citra https://github.com/libretro/citra.git master YES CMAKE Makefile build -DENABLE_LIBRETRO=1 -DENABLE_SDL2=0 -DENABLE_QT=0 -DDISABLE_LIBPNG=1 -DCMAKE_BUILD_TYPE="Release" -DENABLE_WEB_SERVICE=0 -DUSE_SYSTEM_CURL=1 --target citra_libretro

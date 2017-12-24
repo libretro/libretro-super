@@ -247,7 +247,7 @@ buildbot_log() {
 buildbot_handle_message() {
 	RET=$1
 	ENTRY_ID=$2
-	NAME=$3
+	CORE_NAME=$3
 	jobid=$4
 	ERROR=$5
 
@@ -255,7 +255,7 @@ buildbot_handle_message() {
 		if [ -n "$LOGURL" ]; then
 			curl -X POST -d type="finish" -d index="$ENTRY_ID" -d status="done" http://buildbot.fiveforty.net/build_entry/
 		fi
-		MESSAGE="$NAME:	[status: done] [$jobid]"
+		MESSAGE="$CORE_NAME: [status: done] [$jobid]"
 	else
 		if [ -n "$LOGURL" ]; then
 			HASTE="n/a"
@@ -264,10 +264,10 @@ buildbot_handle_message() {
 				gzip -9fk $ERROR
 				HASTE=`curl -X POST http://p.0bl.net/ --data-binary @${ERROR}.gz`
 			fi
-			MESSAGE="$NAME:	[status: fail] [$jobid] LOG: $HASTE"
+			MESSAGE="$CORE_NAME: [status: fail] [$jobid] LOG: $HASTE"
 			curl -X POST -d type="finish" -d index="$ENTRY_ID" -d status="fail" -d log="$HASTE" http://buildbot.fiveforty.net/build_entry/
 		else
-			MESSAGE="$NAME:	[status: fail] [$jobid]"
+			MESSAGE="$CORE_NAME: [status: fail] [$jobid]"
 		fi
 	fi
 
@@ -308,13 +308,13 @@ build_libretro_generic_makefile() {
 			export FORMAT_COMPILER_TARGET="${FORMAT_COMPILER_TARGET}-opengl"
 			export FORMAT_COMPILER_TARGET_ALT="${FORMAT_COMPILER_TARGET}"
 		fi
-	elif [ "${COMMAND}" = "HIGAN" ] || [ "${COMMAND}" = "BSNES" ] || [ "${NAME}" = "bsnes_cplusplus98" ]; then
+	elif [ "${COMMAND}" = "HIGAN" ] || [ "${NAME}" = "bsnes" ] || [ "${NAME}" = "bsnes_mercury" ] || [ "${NAME}" = "bsnes_cplusplus98" ]; then
 		OUT="out"
 	fi
 
 	cd "${SUBDIR}"
 
-	if [ "${COMMAND}" = "BSNES" ]; then
+	if [ "${NAME}" = "bsnes" ] || [ "${NAME}" = "bsnes_mercury" ]; then
 		CORE="${CORE:-${NAME}_accuracy ${NAME}_balanced ${NAME}_performance}"
 	elif [ "${NAME}" = "mame2014" ]; then
 		CORE="${CORE:-${NAME} mess2014 ume2014}"
@@ -324,12 +324,11 @@ build_libretro_generic_makefile() {
 
 	eval "set -- $CORE"
 	for core do
-		NAME="$core"
-		LOGFILE="$TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}.log"
+		LOGFILE="$TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${core}_${PLATFORM}.log"
 
-		if [ "${COMMAND}" = "BSNES" ]; then
+		if [ "${NAME}" = "bsnes" ] || [ "${NAME}" = "bsnes_mercury" ]; then
 			CORE_ARGS="profile=${core##*_} ${ARGS}"
-		elif [ "${NAME}" = "mame2014" ] || [ "${NAME}" = "mess2014" ] || [ "${NAME}" = "ume2014" ]; then
+		elif [ "${NAME}" = "mame2014" ]; then
 			CORE_ARGS="TARGET=${core%%[0-9]*} ${ARGS}"
 		else
 			CORE_ARGS="${ARGS}"
@@ -350,9 +349,9 @@ build_libretro_generic_makefile() {
 			fi
 
 			if [ $? -eq 0 ]; then
-				echo buildbot job: $jobid ${NAME} cleanup success!
+				echo buildbot job: $jobid ${core} cleanup success!
 			else
-				echo buildbot job: $jobid ${NAME} cleanup failed!
+				echo buildbot job: $jobid ${core} cleanup failed!
 			fi
 		fi
 
@@ -368,7 +367,7 @@ build_libretro_generic_makefile() {
 			echo "BUILD CMD: ${HELPER} ${MAKE} -f ${MAKEFILE} -j${JOBS}" 2>&1 | tee -a "$LOGFILE"
 			${HELPER} ${MAKE} -f ${MAKEFILE} -j${JOBS} 2>&1 | tee -a "$LOGFILE"
 
-			find . -mindepth 2 -name "${NAME}_libretro${FORMAT}${LIBSUFFIX}.${FORMAT_EXT}" -exec cp -f "{}" . \;
+			find . -mindepth 2 -name "${core}_libretro${FORMAT}${LIBSUFFIX}.${FORMAT_EXT}" -exec cp -f "{}" . \;
 		elif [ "${COMMAND}" = "HIGAN" ]; then
 			platform=""
 			echo "BUILD CMD: ${HELPER} ${MAKE} -f ${MAKEFILE} -j${JOBS}" ${CORE_ARGS} 2>&1 | tee -a "$LOGFILE"
@@ -380,20 +379,20 @@ build_libretro_generic_makefile() {
 		fi
 
 		if [ "${MAKEPORTABLE}" == "YES" ]; then
-			echo "BUILD CMD $WORK/retrolink.sh ${OUT}/${NAME}_libretro${FORMAT}${LIBSUFFIX}.${FORMAT_EXT}" 2>&1 | tee -a "$LOGFILE"
-			$WORK/retrolink.sh ${OUT}/${NAME}_libretro${FORMAT}${LIBSUFFIX}.${FORMAT_EXT} 2>&1 | tee -a "$LOGFILE"
+			echo "BUILD CMD $WORK/retrolink.sh ${OUT}/${core}_libretro${FORMAT}${LIBSUFFIX}.${FORMAT_EXT}" 2>&1 | tee -a "$LOGFILE"
+			$WORK/retrolink.sh ${OUT}/${core}_libretro${FORMAT}${LIBSUFFIX}.${FORMAT_EXT} 2>&1 | tee -a "$LOGFILE"
 		fi
 
 		if [ "${PLATFORM}" = "windows" ] || [ "${PLATFORM}" = "unix" ]; then
-			${STRIP:=strip} -s ${OUT}/${NAME}_libretro${FORMAT}${LIBSUFFIX}.${FORMAT_EXT}
+			${STRIP:=strip} -s ${OUT}/${core}_libretro${FORMAT}${LIBSUFFIX}.${FORMAT_EXT}
 		fi
 
-		echo "COPY CMD: cp -v ${OUT}/${NAME}_libretro${FORMAT}${LIBSUFFIX}.${FORMAT_EXT} $RARCH_DIST_DIR/${DIST}/${NAME}_libretro${FORMAT}${LIBSUFFIX}.${FORMAT_EXT}" 2>&1 | tee -a "$LOGFILE"
-		cp -v ${OUT}/${NAME}_libretro${FORMAT}${LIBSUFFIX}.${FORMAT_EXT} $RARCH_DIST_DIR/${DIST}/${NAME}_libretro${FORMAT}${LIBSUFFIX}.${FORMAT_EXT} 2>&1 | tee -a "$LOGFILE"
-		cp -v ${OUT}/${NAME}_libretro${FORMAT}${LIBSUFFIX}.${FORMAT_EXT} $RARCH_DIST_DIR/${DIST}/${NAME}_libretro${FORMAT}${LIBSUFFIX}.${FORMAT_EXT}
+		echo "COPY CMD: cp -v ${OUT}/${core}_libretro${FORMAT}${LIBSUFFIX}.${FORMAT_EXT} $RARCH_DIST_DIR/${DIST}/${core}_libretro${FORMAT}${LIBSUFFIX}.${FORMAT_EXT}" 2>&1 | tee -a "$LOGFILE"
+		cp -v ${OUT}/${core}_libretro${FORMAT}${LIBSUFFIX}.${FORMAT_EXT} $RARCH_DIST_DIR/${DIST}/${core}_libretro${FORMAT}${LIBSUFFIX}.${FORMAT_EXT} 2>&1 | tee -a "$LOGFILE"
+		cp -v ${OUT}/${core}_libretro${FORMAT}${LIBSUFFIX}.${FORMAT_EXT} $RARCH_DIST_DIR/${DIST}/${core}_libretro${FORMAT}${LIBSUFFIX}.${FORMAT_EXT}
 
 		RET=$?
-		buildbot_handle_message "$RET" "$ENTRY_ID" "$NAME" "$jobid" "$LOGFILE"
+		buildbot_handle_message "$RET" "$ENTRY_ID" "$core" "$jobid" "$LOGFILE"
 	done
 
 	if [ "${COMMAND}" = "GENERIC_GL" ]; then
@@ -654,7 +653,7 @@ while read line; do
 		CORES_BUILT=YES
 		echo "buildbot job: building $NAME"
 		case "${COMMAND}" in
-			BSNES|CMAKE|GENERIC|GENERIC_GL|HIGAN )
+			CMAKE|GENERIC|GENERIC_GL|HIGAN )
 			                build_libretro_generic_makefile $NAME $DIR $SUBDIR $MAKEFILE ${FORMAT_COMPILER_TARGET} "${ARGS}"     ;;
 			BSNES_JNI|GENERIC_JNI )
 			                build_libretro_generic_jni $NAME $DIR $SUBDIR $MAKEFILE ${FORMAT_COMPILER_TARGET_ALT} "${ARGS}"      ;;
