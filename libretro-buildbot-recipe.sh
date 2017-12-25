@@ -287,7 +287,6 @@ build_libretro_generic_makefile() {
 	MAKEFILE=$4
 	PLATFORM=$5
 	ARGS=$6
-	OUT=.
 
 	ENTRY_ID=""
 
@@ -308,9 +307,12 @@ build_libretro_generic_makefile() {
 			export FORMAT_COMPILER_TARGET="${FORMAT_COMPILER_TARGET}-opengl"
 			export FORMAT_COMPILER_TARGET_ALT="${FORMAT_COMPILER_TARGET}"
 		fi
-	elif [ "${COMMAND}" = "HIGAN" ] || [ "${NAME}" = "bsnes" ] || [ "${NAME}" = "bsnes_mercury" ] || [ "${NAME}" = "bsnes_cplusplus98" ]; then
-		OUT="out"
 	fi
+
+	case "{$NAME}" in
+		*higan_sfc*|*bsnes* ) OUT="out" ;;
+		* ) OUT=. ;;
+	esac
 
 	cd "${SUBDIR}"
 
@@ -339,7 +341,7 @@ build_libretro_generic_makefile() {
 
 		echo -------------------------------------------------- 2>&1 | tee -a "$LOGFILE"
 		if [ -z "${NOCLEAN}" ] && [ -f "${MAKEFILE}" ] && [ "${COMMAND}" != "CMAKE" ]; then
-			if [ "${COMMAND}" = "HIGAN" ]; then
+			if [ "${NAME}" = "higan_sfc" ] || [ "${NAME}" = "higan_sfc_balanced" ]; then
 				rm -fv obj/*.{o,"${FORMAT_EXT}"} 2>&1 | tee -a "$LOGFILE"
 				rm -fv out/*.{o,"${FORMAT_EXT}"} 2>&1 | tee -a "$LOGFILE"
 			else
@@ -368,7 +370,7 @@ build_libretro_generic_makefile() {
 			${HELPER} ${MAKE} -f ${MAKEFILE} -j${JOBS} 2>&1 | tee -a "$LOGFILE"
 
 			find . -mindepth 2 -name "${core}_libretro${FORMAT}${LIBSUFFIX}.${FORMAT_EXT}" -exec cp -f "{}" . \;
-		elif [ "${COMMAND}" = "HIGAN" ]; then
+		elif [ "${NAME}" = "higan_sfc" ] || [ "${NAME}" = "higan_sfc_balanced" ]; then
 			platform=""
 			echo "BUILD CMD: ${HELPER} ${MAKE} -f ${MAKEFILE} -j${JOBS}" ${CORE_ARGS} 2>&1 | tee -a "$LOGFILE"
 			${HELPER} ${MAKE} -f ${MAKEFILE} -j${JOBS} ${CORE_ARGS} 2>&1 | tee -a "$LOGFILE"
@@ -651,7 +653,7 @@ while read line; do
 		CORES_BUILT=YES
 		echo "buildbot job: building $NAME"
 		case "${COMMAND}" in
-			CMAKE|GENERIC|GENERIC_GL|HIGAN )
+			CMAKE|GENERIC|GENERIC_GL )
 			              build_libretro_generic_makefile $NAME $DIR $SUBDIR $MAKEFILE ${FORMAT_COMPILER_TARGET} "${ARGS}"     ;;
 			GENERIC_JNI ) build_libretro_generic_jni $NAME $DIR $SUBDIR $MAKEFILE ${FORMAT_COMPILER_TARGET_ALT} "${ARGS}"      ;;
 			GENERIC_ALT ) build_libretro_generic_makefile $NAME $DIR $SUBDIR $MAKEFILE ${FORMAT_COMPILER_TARGET_ALT} "${ARGS}" ;;
