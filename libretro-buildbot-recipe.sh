@@ -325,6 +325,7 @@ build_libretro_generic_makefile() {
 	eval "set -- $CORE"
 	for core do
 		NAME="$core"
+		LOGFILE="$TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}.log"
 
 		if [ "${COMMAND}" = "BSNES" ]; then
 			CORE_ARGS="profile=${core##*_} ${ARGS}"
@@ -334,18 +335,18 @@ build_libretro_generic_makefile() {
 			CORE_ARGS="${ARGS}"
 		fi
 
-		echo --------------------------------------------------| tee $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}.log
-		cat $TMPDIR/vars | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}.log
+		echo --------------------------------------------------| tee "$LOGFILE"
+		cat $TMPDIR/vars | tee -a "$LOGFILE"
 
-		echo -------------------------------------------------- 2>&1 | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}.log
+		echo -------------------------------------------------- 2>&1 | tee -a "$LOGFILE"
 		if [ -z "${NOCLEAN}" ] && [ -f "${MAKEFILE}" ] && [ "${COMMAND}" != "CMAKE" ]; then
 			if [ "${COMMAND}" = "HIGAN" ]; then
-				rm -fv obj/*.{o,"${FORMAT_EXT}"} 2>&1 | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}.log
-				rm -fv out/*.{o,"${FORMAT_EXT}"} 2>&1 | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}.log
+				rm -fv obj/*.{o,"${FORMAT_EXT}"} 2>&1 | tee -a "$LOGFILE"
+				rm -fv out/*.{o,"${FORMAT_EXT}"} 2>&1 | tee -a "$LOGFILE"
 			else
 				eval "set -- ${HELPER} ${MAKE} -f ${MAKEFILE} platform=${PLATFORM} -j${JOBS} ${CORE_ARGS} clean"
-				echo "CLEANUP CMD: $@" 2>&1 | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}.log
-				"$@" 2>&1 | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}.log
+				echo "CLEANUP CMD: $@" 2>&1 | tee -a "$LOGFILE"
+				"$@" 2>&1 | tee -a "$LOGFILE"
 			fi
 
 			if [ $? -eq 0 ]; then
@@ -355,45 +356,44 @@ build_libretro_generic_makefile() {
 			fi
 		fi
 
-		echo -------------------------------------------------- 2>&1 | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}.log
+		echo -------------------------------------------------- 2>&1 | tee -a "$LOGFILE"
 		if [ "${COMMAND}" = "CMAKE" ]; then
 			if [ "${PLATFORM}" = "android" ]; then
 				EXTRAARGS="-DCMAKE_SYSTEM_NAME=Android -DCMAKE_SYSTEM_VERSION=${API_LEVEL} -DCMAKE_ANDROID_ARCH_ABI=${ABI_OVERRIDE} -DCMAKE_ANDROID_NDK=${NDK_ROOT}"
 			fi
 
 			eval "set -- ${EXTRAARGS} ${CORE_ARGS}"
-			echo "BUILD CMD: ${CMAKE} $@" 2>&1 | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}.log
-			echo "$@" .. | xargs ${CMAKE} 2>&1 | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}.log
-			echo "BUILD CMD: ${HELPER} ${MAKE} -f ${MAKEFILE} -j${JOBS}" 2>&1 | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}.log
-			${HELPER} ${MAKE} -f ${MAKEFILE} -j${JOBS} 2>&1 | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}.log
+			echo "BUILD CMD: ${CMAKE} $@" 2>&1 | tee -a "$LOGFILE"
+			echo "$@" .. | xargs ${CMAKE} 2>&1 | tee -a "$LOGFILE"
+			echo "BUILD CMD: ${HELPER} ${MAKE} -f ${MAKEFILE} -j${JOBS}" 2>&1 | tee -a "$LOGFILE"
+			${HELPER} ${MAKE} -f ${MAKEFILE} -j${JOBS} 2>&1 | tee -a "$LOGFILE"
 
 			find . -mindepth 2 -name "${NAME}_libretro${FORMAT}${LIBSUFFIX}.${FORMAT_EXT}" -exec cp -f "{}" . \;
 		elif [ "${COMMAND}" = "HIGAN" ]; then
 			platform=""
-			echo "BUILD CMD: ${HELPER} ${MAKE} -f ${MAKEFILE} -j${JOBS}" ${CORE_ARGS} 2>&1 | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}.log
-			${HELPER} ${MAKE} -f ${MAKEFILE} -j${JOBS} ${CORE_ARGS} 2>&1 | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}.log
+			echo "BUILD CMD: ${HELPER} ${MAKE} -f ${MAKEFILE} -j${JOBS}" ${CORE_ARGS} 2>&1 | tee -a "$LOGFILE"
+			${HELPER} ${MAKE} -f ${MAKEFILE} -j${JOBS} ${CORE_ARGS} 2>&1 | tee -a "$LOGFILE"
 		else
 			eval "set -- ${HELPER} ${MAKE} -f ${MAKEFILE} platform=${PLATFORM} -j${JOBS} ${CORE_ARGS}"
-			echo "BUILD CMD: $@" 2>&1 | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}.log
-			"$@" 2>&1 | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}.log
+			echo "BUILD CMD: $@" 2>&1 | tee -a "$LOGFILE"
+			"$@" 2>&1 | tee -a "$LOGFILE"
 		fi
 
 		if [ "${MAKEPORTABLE}" == "YES" ]; then
-			echo "BUILD CMD $WORK/retrolink.sh ${OUT}/${NAME}_libretro${FORMAT}${LIBSUFFIX}.${FORMAT_EXT}" 2>&1 | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}.log
-			$WORK/retrolink.sh ${OUT}/${NAME}_libretro${FORMAT}${LIBSUFFIX}.${FORMAT_EXT} 2>&1 | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}.log
+			echo "BUILD CMD $WORK/retrolink.sh ${OUT}/${NAME}_libretro${FORMAT}${LIBSUFFIX}.${FORMAT_EXT}" 2>&1 | tee -a "$LOGFILE"
+			$WORK/retrolink.sh ${OUT}/${NAME}_libretro${FORMAT}${LIBSUFFIX}.${FORMAT_EXT} 2>&1 | tee -a "$LOGFILE"
 		fi
 
 		if [ "${PLATFORM}" = "windows" ] || [ "${PLATFORM}" = "unix" ]; then
 			${STRIP:=strip} -s ${OUT}/${NAME}_libretro${FORMAT}${LIBSUFFIX}.${FORMAT_EXT}
 		fi
 
-		echo "COPY CMD: cp -v ${OUT}/${NAME}_libretro${FORMAT}${LIBSUFFIX}.${FORMAT_EXT} $RARCH_DIST_DIR/${DIST}/${NAME}_libretro${FORMAT}${LIBSUFFIX}.${FORMAT_EXT}" 2>&1 | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}.log
-		cp -v ${OUT}/${NAME}_libretro${FORMAT}${LIBSUFFIX}.${FORMAT_EXT} $RARCH_DIST_DIR/${DIST}/${NAME}_libretro${FORMAT}${LIBSUFFIX}.${FORMAT_EXT} 2>&1 | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}.log
+		echo "COPY CMD: cp -v ${OUT}/${NAME}_libretro${FORMAT}${LIBSUFFIX}.${FORMAT_EXT} $RARCH_DIST_DIR/${DIST}/${NAME}_libretro${FORMAT}${LIBSUFFIX}.${FORMAT_EXT}" 2>&1 | tee -a "$LOGFILE"
+		cp -v ${OUT}/${NAME}_libretro${FORMAT}${LIBSUFFIX}.${FORMAT_EXT} $RARCH_DIST_DIR/${DIST}/${NAME}_libretro${FORMAT}${LIBSUFFIX}.${FORMAT_EXT} 2>&1 | tee -a "$LOGFILE"
 		cp -v ${OUT}/${NAME}_libretro${FORMAT}${LIBSUFFIX}.${FORMAT_EXT} $RARCH_DIST_DIR/${DIST}/${NAME}_libretro${FORMAT}${LIBSUFFIX}.${FORMAT_EXT}
 
 		RET=$?
-		ERROR=$TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}.log
-		buildbot_handle_message "$RET" "$ENTRY_ID" "$NAME" "$jobid" "$ERROR"
+		buildbot_handle_message "$RET" "$ENTRY_ID" "$NAME" "$jobid" "$LOGFILE"
 	done
 
 	if [ "${COMMAND}" = "GENERIC_GL" ]; then
@@ -492,13 +492,14 @@ build_libretro_generic_jni() {
 		fi
 
 		for a in "${ABIS[@]}"; do
-			echo --------------------------------------------------| tee $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}_${a}.log
-			cat $TMPDIR/vars | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}_${a}.log
+			LOGFILE="$TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}_${a}.log"
+			echo --------------------------------------------------| tee "$LOGFILE"
+			cat $TMPDIR/vars | tee -a "$LOGFILE"
 
-			echo -------------------------------------------------- 2>&1 | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}_${a}.log
+			echo -------------------------------------------------- 2>&1 | tee -a "$LOGFILE"
 			if [ -z "${NOCLEAN}" ]; then
-				echo "CLEANUP CMD: ${NDK} -j${JOBS} ${CORE_ARGS} APP_ABI=${a} clean" 2>&1 | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}_${a}.log
-				${NDK} -j${JOBS} ${CORE_ARGS} APP_ABI=${a} clean 2>&1 | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}_${a}.log
+				echo "CLEANUP CMD: ${NDK} -j${JOBS} ${CORE_ARGS} APP_ABI=${a} clean" 2>&1 | tee -a "$LOGFILE"
+				${NDK} -j${JOBS} ${CORE_ARGS} APP_ABI=${a} clean 2>&1 | tee -a "$LOGFILE"
 
 				if [ $? -eq 0 ]; then
 					echo buildbot job: $jobid $a ${NAME} cleanup success!
@@ -507,26 +508,25 @@ build_libretro_generic_jni() {
 				fi
 			fi
 
-			echo -------------------------------------------------- 2>&1 | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}_${a}.log
+			echo -------------------------------------------------- 2>&1 | tee -a "$LOGFILE"
 			eval "set -- ${NDK} -j${JOBS} APP_ABI=${a} ${CORE_ARGS}"
-			echo "BUILD CMD: $@" 2>&1 | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}_${a}.log
-			"$@" 2>&1 | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}_${a}.log
+			echo "BUILD CMD: $@" 2>&1 | tee -a "$LOGFILE"
+			"$@" 2>&1 | tee -a "$LOGFILE"
 
 
 			if [ "${NAME}" == "mupen64plus" ]; then
-				echo "COPY CMD: cp -v ../libs/${a}/libparallel_retro.${FORMAT_EXT} $RARCH_DIST_DIR/${a}/parallel_libretro${FORMAT}${LIBSUFFIX}.${FORMAT_EXT}" 2>&1 | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}_${a}.log
-				cp -v ../libs/${a}/libparallel_retro.${FORMAT_EXT} $RARCH_DIST_DIR/${a}/parallel_libretro${FORMAT}${LIBSUFFIX}.${FORMAT_EXT} 2>&1 | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}_${a}.log
+				echo "COPY CMD: cp -v ../libs/${a}/libparallel_retro.${FORMAT_EXT} $RARCH_DIST_DIR/${a}/parallel_libretro${FORMAT}${LIBSUFFIX}.${FORMAT_EXT}" 2>&1 | tee -a "$LOGFILE"
+				cp -v ../libs/${a}/libparallel_retro.${FORMAT_EXT} $RARCH_DIST_DIR/${a}/parallel_libretro${FORMAT}${LIBSUFFIX}.${FORMAT_EXT} 2>&1 | tee -a "$LOGFILE"
 				cp -v ../libs/${a}/libparallel_retro.${FORMAT_EXT} $RARCH_DIST_DIR/${a}/parallel_libretro${FORMAT}${LIBSUFFIX}.${FORMAT_EXT}
 			fi
 
-			echo "COPY CMD: cp -v ../libs/${a}/$LIBNAM.${FORMAT_EXT} $RARCH_DIST_DIR/${a}/${NAME}_libretro${FORMAT}${LIBSUFFIX}.${FORMAT_EXT}" 2>&1 | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}_${a}.log
-			cp -v ../libs/${a}/$LIBNAM.${FORMAT_EXT} $RARCH_DIST_DIR/${a}/${NAME}_libretro${FORMAT}${LIBSUFFIX}.${FORMAT_EXT} 2>&1 | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}_${a}.log
+			echo "COPY CMD: cp -v ../libs/${a}/$LIBNAM.${FORMAT_EXT} $RARCH_DIST_DIR/${a}/${NAME}_libretro${FORMAT}${LIBSUFFIX}.${FORMAT_EXT}" 2>&1 | tee -a "$LOGFILE"
+			cp -v ../libs/${a}/$LIBNAM.${FORMAT_EXT} $RARCH_DIST_DIR/${a}/${NAME}_libretro${FORMAT}${LIBSUFFIX}.${FORMAT_EXT} 2>&1 | tee -a "$LOGFILE"
 			cp -v ../libs/${a}/$LIBNAM.${FORMAT_EXT} $RARCH_DIST_DIR/${a}/${NAME}_libretro${FORMAT}${LIBSUFFIX}.${FORMAT_EXT}
 
 
 			RET=$?
-			ERROR=$TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}_${a}.log
-			buildbot_handle_message "$RET" "$ENTRY_ID" "$NAME" "$jobid" "$ERROR"
+			buildbot_handle_message "$RET" "$ENTRY_ID" "$NAME" "$jobid" "$LOGFILE"
 		done
 	done
 
