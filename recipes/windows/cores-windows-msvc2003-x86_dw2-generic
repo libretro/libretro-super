@@ -16,6 +16,8 @@ prboom libretro-prboom https://github.com/libretro/libretro-prboom.git master YE
 prosystem libretro-prosystem https://github.com/libretro/prosystem-libretro.git master YES GENERIC Makefile .
 pocketcdg libretro-pocketcdg https://github.com/libretro/libretro-pocketcdg.git master YES GENERIC Makefile .
 quicknes libretro-quicknes https://github.com/libretro/QuickNES_Core.git master YES GENERIC Makefile .
+snes9x2010 libretro-snes9x2010 https://github.com/libretro/snes9x2010.git master YES GENERIC_ALT Makefile.libretro .
+snes9x libretro-snes9x https://github.com/libretro/snes9x.git master YES GENERIC Makefile libretro
 stella libretro-stella https://github.com/libretro/stella-libretro.git master YES GENERIC Makefile .
 tgbdual libretro-tgbdual https://github.com/libretro/tgbdual-libretro.git master YES GENERIC Makefile .
 vecx libretro-vecx https://github.com/libretro/libretro-vecx.git master YES GENERIC Makefile.libretro .
