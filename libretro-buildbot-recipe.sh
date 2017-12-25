@@ -485,7 +485,7 @@ build_libretro_generic_jni() {
 	for core do
 		if [ "${NAME}" = "bsnes" ] || [ "${NAME}" = "bsnes_mercury" ]; then
 			CORE_ARGS="profile=${core##*_} ${ARGS}"
-			LIBNAM="libretro_${NAME}"
+			LIBNAM="libretro_${core}"
 		else
 			CORE_ARGS="${ARGS}"
 		fi
