@@ -6,6 +6,10 @@ fmsx libretro-fmsx https://github.com/libretro/fmsx-libretro.git master YES GENE
 gme libretro-gme https://github.com/libretro/libretro-gme.git master YES GENERIC Makefile .
 genesis_plus_gx libretro-genesis_plus_gx https://github.com/libretro/Genesis-Plus-GX.git master YES GENERIC Makefile.libretro .
 handy libretro-handy https://github.com/libretro/libretro-handy.git master YES GENERIC Makefile .
+mednafen_ngp libretro-beetle_ngp https://github.com/libretro/beetle-ngp-libretro.git master YES GENERIC Makefile .
+mednafen_pce_fast libretro-beetle_pce_fast https://github.com/libretro/beetle-pce-fast-libretro.git master YES GENERIC Makefile .
+mednafen_vb libretro-beetle_vb https://github.com/libretro/beetle-vb-libretro.git master YES GENERIC Makefile .
+mednafen_wswan libretro-beetle_vb https://github.com/libretro/beetle-wswan-libretro.git master YES GENERIC Makefile .
 nestopia libretro-nestopia https://github.com/libretro/nestopia.git master YES GENERIC Makefile libretro
 o2em libretro-o2em https://github.com/libretro/libretro-o2em.git master YES GENERIC Makefile .
 prboom libretro-prboom https://github.com/libretro/libretro-prboom.git master YES GENERIC_ALT Makefile .
