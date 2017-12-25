@@ -2,8 +2,8 @@
 3dengine libretro64-3dengine https://github.com/libretro/libretro-3dengine.git master YES GENERIC_JNI Makefile jni
 4do libretro64-4do https://github.com/libretro/4do-libretro.git master YES GENERIC_JNI Makefile jni
 bluemsx libretro64-bluemsx https://github.com/libretro/blueMSX-libretro.git master YES GENERIC_JNI Makefile jni
-bsnes libretro64-bsnes https://github.com/libretro/bsnes-libretro.git libretro YES BSNES_JNI Makefile target-libretro/jni
-bsnes_mercury libretro64-bsnes_mercury https://github.com/libretro/bsnes-mercury.git master YES BSNES_JNI Makefile target-libretro/jni
+bsnes libretro64-bsnes https://github.com/libretro/bsnes-libretro.git libretro YES GENERIC_JNI Makefile target-libretro/jni
+bsnes_mercury libretro64-bsnes_mercury https://github.com/libretro/bsnes-mercury.git master YES GENERIC_JNI Makefile target-libretro/jni
 snes9x2002 libretro64-snes9x2002 https://github.com/libretro/snes9x2002.git master YES GENERIC_JNI Makefile jni
 snes9x2005 libretro64-snes9x2005 https://github.com/libretro/snes9x2005.git master YES GENERIC_JNI Makefile jni
 snes9x2010 libretro64-snes9x2010 https://github.com/libretro/snes9x2010.git master YES GENERIC_JNI Makefile jni

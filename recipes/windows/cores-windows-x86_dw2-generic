@@ -5,9 +5,9 @@
 atari800 libretro-atari800 https://github.com/libretro/libretro-atari800.git master YES GENERIC Makefile .
 bluemsx libretro-bluemsx https://github.com/libretro/blueMSX-libretro.git master YES GENERIC Makefile.libretro .
 bnes libretro-bnes https://github.com/libretro/bnes-libretro.git master YES GENERIC Makefile .
-bsnes libretro-bsnes https://github.com/libretro/bsnes-libretro.git libretro YES BSNES Makefile .
+bsnes libretro-bsnes https://github.com/libretro/bsnes-libretro.git libretro YES GENERIC Makefile .
 bsnes_cplusplus98 libretro-bsnes_cplusplus98 https://github.com/libretro/bsnes-libretro-cplusplus98.git master YES GENERIC Makefile .
-bsnes_mercury libretro-bsnes_mercury https://github.com/libretro/bsnes-mercury.git master YES BSNES Makefile .
+bsnes_mercury libretro-bsnes_mercury https://github.com/libretro/bsnes-mercury.git master YES GENERIC Makefile .
 cap32 libretro-cap32 https://github.com/libretro/libretro-cap32.git master YES GENERIC Makefile .
 chailove libretro-chailove https://github.com/RobLoach/ChaiLove.git master YES GENERIC Makefile .
 craft libretro-craft https://github.com/libretro/craft master YES GENERIC Makefile.libretro .
@@ -33,8 +33,8 @@ gpsp libretro-gpsp https://github.com/libretro/gpsp.git master YES GENERIC Makef
 gw libretro-gw https://github.com/libretro/gw-libretro.git master YES GENERIC Makefile .
 handy libretro-handy https://github.com/libretro/libretro-handy.git master YES GENERIC Makefile .
 hatari libretro-hatari https://github.com/libretro/hatari.git master YES GENERIC Makefile.libretro .
-higan_sfc libretro-higan https://gitlab.com/higan/higan.git libretro YES HIGAN GNUmakefile higan compiler=g++ target=libretro binary=library
-higan_sfc_balanced libretro-nside https://github.com/hex-usr/nSide.git master YES HIGAN GNUmakefile nSide compiler=g++ target=libretro binary=library
+higan_sfc libretro-higan https://gitlab.com/higan/higan.git libretro YES GENERIC GNUmakefile higan compiler=g++ target=libretro binary=library
+higan_sfc_balanced libretro-nside https://github.com/hex-usr/nSide.git master YES GENERIC GNUmakefile nSide compiler=g++ target=libretro binary=library
 lutro libretro-lutro https://github.com/libretro/libretro-lutro master YES GENERIC Makefile .
 mame libretro-mame https://github.com/libretro/mame.git master YES GENERIC Makefile.libretro . PTR64=0
 mame2000 libretro-mame2000 https://github.com/libretro/mame2000-libretro.git master YES GENERIC Makefile .
