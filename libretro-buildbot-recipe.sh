@@ -470,7 +470,7 @@ build_libretro_generic_jni() {
 		ENTRY_ID=`curl -X POST -d type="start" -d master_log="$MASTER_LOG_ID" -d platform="$jobid" -d name="$NAME" http://buildbot.fiveforty.net/build_entry/`
 	fi
 
-	if [ "${COMMAND}" = "BSNES_JNI" ]; then
+	if [ "${NAME}" = "bsnes" ] || [ "${NAME}" = "bsnes_mercury" ]; then
 		CORE="${CORE:-${NAME}_accuracy ${NAME}_balanced ${NAME}_performance}"
 	else
 		CORE="${NAME}"
@@ -481,9 +481,7 @@ build_libretro_generic_jni() {
 
 	eval "set -- $CORE"
 	for core do
-		NAME="${core}"
-
-		if [ "${COMMAND}" = "BSNES_JNI" ]; then
+		if [ "${NAME}" = "bsnes" ] || [ "${NAME}" = "bsnes_mercury" ]; then
 			CORE_ARGS="profile=${core##*_} ${ARGS}"
 			LIBNAM="libretro_${NAME}"
 		else
@@ -491,7 +489,7 @@ build_libretro_generic_jni() {
 		fi
 
 		for a in "${ABIS[@]}"; do
-			LOGFILE="$TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}_${a}.log"
+			LOGFILE="$TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${core}_${PLATFORM}_${a}.log"
 			echo --------------------------------------------------| tee "$LOGFILE"
 			cat $TMPDIR/vars | tee -a "$LOGFILE"
 
@@ -501,9 +499,9 @@ build_libretro_generic_jni() {
 				${NDK} -j${JOBS} ${CORE_ARGS} APP_ABI=${a} clean 2>&1 | tee -a "$LOGFILE"
 
 				if [ $? -eq 0 ]; then
-					echo buildbot job: $jobid $a ${NAME} cleanup success!
+					echo buildbot job: $jobid $a ${core} cleanup success!
 				else
-					echo buildbot job: $jobid $a ${NAME} cleanup failed!
+					echo buildbot job: $jobid $a ${core} cleanup failed!
 				fi
 			fi
 
@@ -519,13 +517,13 @@ build_libretro_generic_jni() {
 				cp -v ../libs/${a}/libparallel_retro.${FORMAT_EXT} $RARCH_DIST_DIR/${a}/parallel_libretro${FORMAT}${LIBSUFFIX}.${FORMAT_EXT}
 			fi
 
-			echo "COPY CMD: cp -v ../libs/${a}/$LIBNAM.${FORMAT_EXT} $RARCH_DIST_DIR/${a}/${NAME}_libretro${FORMAT}${LIBSUFFIX}.${FORMAT_EXT}" 2>&1 | tee -a "$LOGFILE"
-			cp -v ../libs/${a}/$LIBNAM.${FORMAT_EXT} $RARCH_DIST_DIR/${a}/${NAME}_libretro${FORMAT}${LIBSUFFIX}.${FORMAT_EXT} 2>&1 | tee -a "$LOGFILE"
-			cp -v ../libs/${a}/$LIBNAM.${FORMAT_EXT} $RARCH_DIST_DIR/${a}/${NAME}_libretro${FORMAT}${LIBSUFFIX}.${FORMAT_EXT}
+			echo "COPY CMD: cp -v ../libs/${a}/$LIBNAM.${FORMAT_EXT} $RARCH_DIST_DIR/${a}/${core}_libretro${FORMAT}${LIBSUFFIX}.${FORMAT_EXT}" 2>&1 | tee -a "$LOGFILE"
+			cp -v ../libs/${a}/$LIBNAM.${FORMAT_EXT} $RARCH_DIST_DIR/${a}/${core}_libretro${FORMAT}${LIBSUFFIX}.${FORMAT_EXT} 2>&1 | tee -a "$LOGFILE"
+			cp -v ../libs/${a}/$LIBNAM.${FORMAT_EXT} $RARCH_DIST_DIR/${a}/${core}_libretro${FORMAT}${LIBSUFFIX}.${FORMAT_EXT}
 
 
 			RET=$?
-			buildbot_handle_message "$RET" "$ENTRY_ID" "$NAME" "$jobid" "$LOGFILE"
+			buildbot_handle_message "$RET" "$ENTRY_ID" "$core" "$jobid" "$LOGFILE"
 		done
 	done
 
@@ -654,12 +652,11 @@ while read line; do
 		echo "buildbot job: building $NAME"
 		case "${COMMAND}" in
 			CMAKE|GENERIC|GENERIC_GL|HIGAN )
-			                build_libretro_generic_makefile $NAME $DIR $SUBDIR $MAKEFILE ${FORMAT_COMPILER_TARGET} "${ARGS}"     ;;
-			BSNES_JNI|GENERIC_JNI )
-			                build_libretro_generic_jni $NAME $DIR $SUBDIR $MAKEFILE ${FORMAT_COMPILER_TARGET_ALT} "${ARGS}"      ;;
-			GENERIC_ALT )   build_libretro_generic_makefile $NAME $DIR $SUBDIR $MAKEFILE ${FORMAT_COMPILER_TARGET_ALT} "${ARGS}" ;;
-			LEIRADEL )      build_libretro_leiradel_makefile $NAME $DIR $SUBDIR $MAKEFILE ${PLATFORM} "${ARGS}"                  ;;
-			* )             :                                                                                                    ;;
+			              build_libretro_generic_makefile $NAME $DIR $SUBDIR $MAKEFILE ${FORMAT_COMPILER_TARGET} "${ARGS}"     ;;
+			GENERIC_JNI ) build_libretro_generic_jni $NAME $DIR $SUBDIR $MAKEFILE ${FORMAT_COMPILER_TARGET_ALT} "${ARGS}"      ;;
+			GENERIC_ALT ) build_libretro_generic_makefile $NAME $DIR $SUBDIR $MAKEFILE ${FORMAT_COMPILER_TARGET_ALT} "${ARGS}" ;;
+			LEIRADEL )    build_libretro_leiradel_makefile $NAME $DIR $SUBDIR $MAKEFILE ${PLATFORM} "${ARGS}"                  ;;
+			* )           :                                                                                                    ;;
 		esac
 		echo "Cleaning repo state after build $URL..."
 		git --work-tree="${BASE_DIR}/${DIR}" --git-dir="${BASE_DIR}/${DIR}/.git" clean -xdf
