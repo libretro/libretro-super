@@ -326,6 +326,7 @@ build_libretro_generic_makefile() {
 
 	eval "set -- $CORE"
 	for core do
+		CORENAM="${core}_libretro${FORMAT}${LIBSUFFIX}.${FORMAT_EXT}"
 		LOGFILE="$TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${core}_${PLATFORM}.log"
 
 		if [ "${NAME}" = "bsnes" ] || [ "${NAME}" = "bsnes_mercury" ]; then
@@ -336,10 +337,10 @@ build_libretro_generic_makefile() {
 			CORE_ARGS="${ARGS}"
 		fi
 
-		echo --------------------------------------------------| tee "$LOGFILE"
+		echo -------------------------------------------------- | tee "$LOGFILE"
 		cat $TMPDIR/vars | tee -a "$LOGFILE"
 
-		echo -------------------------------------------------- 2>&1 | tee -a "$LOGFILE"
+		echo -------------------------------------------------- | tee -a "$LOGFILE"
 		if [ -z "${NOCLEAN}" ] && [ -f "${MAKEFILE}" ] && [ "${COMMAND}" != "CMAKE" ]; then
 			if [ "${NAME}" = "higan_sfc" ] || [ "${NAME}" = "higan_sfc_balanced" ]; then
 				rm -fv obj/*.{o,"${FORMAT_EXT}"} 2>&1 | tee -a "$LOGFILE"
@@ -357,10 +358,13 @@ build_libretro_generic_makefile() {
 			fi
 		fi
 
-		echo -------------------------------------------------- 2>&1 | tee -a "$LOGFILE"
+		echo -------------------------------------------------- | tee -a "$LOGFILE"
 		if [ "${COMMAND}" = "CMAKE" ]; then
 			if [ "${PLATFORM}" = "android" ]; then
-				EXTRAARGS="-DCMAKE_SYSTEM_NAME=Android -DCMAKE_SYSTEM_VERSION=${API_LEVEL} -DCMAKE_ANDROID_ARCH_ABI=${ABI_OVERRIDE} -DCMAKE_ANDROID_NDK=${NDK_ROOT}"
+				EXTRAARGS="-DCMAKE_SYSTEM_NAME=Android \
+					-DCMAKE_SYSTEM_VERSION=${API_LEVEL} \
+					-DCMAKE_ANDROID_ARCH_ABI=${ABI_OVERRIDE} \
+					-DCMAKE_ANDROID_NDK=${NDK_ROOT}"
 			fi
 
 			eval "set -- ${EXTRAARGS} ${CORE_ARGS}"
@@ -369,7 +373,7 @@ build_libretro_generic_makefile() {
 			echo "BUILD CMD: ${HELPER} ${MAKE} -f ${MAKEFILE} -j${JOBS}" 2>&1 | tee -a "$LOGFILE"
 			${HELPER} ${MAKE} -f ${MAKEFILE} -j${JOBS} 2>&1 | tee -a "$LOGFILE"
 
-			find . -mindepth 2 -name "${core}_libretro${FORMAT}${LIBSUFFIX}.${FORMAT_EXT}" -exec cp -f "{}" . \;
+			find . -mindepth 2 -name "${CORENAM}" -exec cp -f "{}" . \;
 		elif [ "${NAME}" = "higan_sfc" ] || [ "${NAME}" = "higan_sfc_balanced" ]; then
 			platform=""
 			echo "BUILD CMD: ${HELPER} ${MAKE} -f ${MAKEFILE} -j${JOBS}" ${CORE_ARGS} 2>&1 | tee -a "$LOGFILE"
@@ -381,17 +385,17 @@ build_libretro_generic_makefile() {
 		fi
 
 		if [ "${MAKEPORTABLE}" == "YES" ]; then
-			echo "BUILD CMD $WORK/retrolink.sh ${OUT}/${core}_libretro${FORMAT}${LIBSUFFIX}.${FORMAT_EXT}" 2>&1 | tee -a "$LOGFILE"
-			$WORK/retrolink.sh ${OUT}/${core}_libretro${FORMAT}${LIBSUFFIX}.${FORMAT_EXT} 2>&1 | tee -a "$LOGFILE"
+			echo "BUILD CMD $WORK/retrolink.sh ${OUT}/${CORENAM}" 2>&1 | tee -a "$LOGFILE"
+			$WORK/retrolink.sh ${OUT}/${CORENAM} 2>&1 | tee -a "$LOGFILE"
 		fi
 
 		if [ "${PLATFORM}" = "windows" ] || [ "${PLATFORM}" = "unix" ]; then
-			${STRIP:=strip} -s ${OUT}/${core}_libretro${FORMAT}${LIBSUFFIX}.${FORMAT_EXT}
+			${STRIP:=strip} -s ${OUT}/${CORENAM}
 		fi
 
-		echo "COPY CMD: cp -v ${OUT}/${core}_libretro${FORMAT}${LIBSUFFIX}.${FORMAT_EXT} $RARCH_DIST_DIR/${DIST}/${core}_libretro${FORMAT}${LIBSUFFIX}.${FORMAT_EXT}" 2>&1 | tee -a "$LOGFILE"
-		cp -v ${OUT}/${core}_libretro${FORMAT}${LIBSUFFIX}.${FORMAT_EXT} $RARCH_DIST_DIR/${DIST}/${core}_libretro${FORMAT}${LIBSUFFIX}.${FORMAT_EXT} 2>&1 | tee -a "$LOGFILE"
-		cp -v ${OUT}/${core}_libretro${FORMAT}${LIBSUFFIX}.${FORMAT_EXT} $RARCH_DIST_DIR/${DIST}/${core}_libretro${FORMAT}${LIBSUFFIX}.${FORMAT_EXT}
+		echo "COPY CMD: cp -v ${OUT}/${CORENAM} $RARCH_DIST_DIR/${DIST}/${CORENAM}" 2>&1 | tee -a "$LOGFILE"
+		cp -v ${OUT}/${CORENAM} $RARCH_DIST_DIR/${DIST}/${CORENAM} 2>&1 | tee -a "$LOGFILE"
+		cp -v ${OUT}/${CORENAM} $RARCH_DIST_DIR/${DIST}/${CORENAM}
 
 		RET=$?
 		buildbot_handle_message "$RET" "$ENTRY_ID" "$core" "$jobid" "$LOGFILE"
@@ -426,10 +430,10 @@ build_libretro_leiradel_makefile() {
 	cd $SUBDIR
 	JOBS_ORIG=$JOBS
 
-	echo --------------------------------------------------| tee $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}_${a}.log
+	echo -------------------------------------------------- | tee $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}_${a}.log
 	cat $TMPDIR/vars | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}_${a}.log
 
-	echo -------------------------------------------------- 2>&1 | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}_${a}.log
+	echo -------------------------------------------------- | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}_${a}.log
 	if [ -z "${NOCLEAN}" ]; then
 		echo "CLEANUP CMD: ${HELPER} ${MAKE} -f ${MAKEFILE}.${PLATFORM}_${ARGS} platform=${PLATFORM}_${ARGS} -j${JOBS} clean" 2>&1 | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}.log
 		${HELPER} ${MAKE} -f ${MAKEFILE}.${PLATFORM}_${ARGS} platform=${PLATFORM}_${ARGS} -j${JOBS} clean 2>&1 | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}.log
@@ -441,7 +445,7 @@ build_libretro_leiradel_makefile() {
 		fi
 	fi
 
-	echo -------------------------------------------------- 2>&1 | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}.log
+	echo -------------------------------------------------- | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}.log
 	echo "BUILD CMD: ${HELPER} ${MAKE} -f ${MAKEFILE}.${PLATFORM}_${ARGS} platform=${PLATFORM}_${ARGS} -j${JOBS}" 2>&1 | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}.log
 	${HELPER} ${MAKE} -f ${MAKEFILE}.${PLATFORM}_${ARGS} platform=${PLATFORM}_${ARGS} -j${JOBS} 2>&1 | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}.log
 
@@ -491,11 +495,12 @@ build_libretro_generic_jni() {
 		fi
 
 		for a in "${ABIS[@]}"; do
+			CORENAM="${core}_libretro${FORMAT}${LIBSUFFIX}.${FORMAT_EXT}"
 			LOGFILE="$TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${core}_${PLATFORM}_${a}.log"
-			echo --------------------------------------------------| tee "$LOGFILE"
+			echo -------------------------------------------------- | tee "$LOGFILE"
 			cat $TMPDIR/vars | tee -a "$LOGFILE"
 
-			echo -------------------------------------------------- 2>&1 | tee -a "$LOGFILE"
+			echo -------------------------------------------------- | tee -a "$LOGFILE"
 			if [ -z "${NOCLEAN}" ]; then
 				echo "CLEANUP CMD: ${NDK} -j${JOBS} ${CORE_ARGS} APP_ABI=${a} clean" 2>&1 | tee -a "$LOGFILE"
 				${NDK} -j${JOBS} ${CORE_ARGS} APP_ABI=${a} clean 2>&1 | tee -a "$LOGFILE"
@@ -507,7 +512,7 @@ build_libretro_generic_jni() {
 				fi
 			fi
 
-			echo -------------------------------------------------- 2>&1 | tee -a "$LOGFILE"
+			echo -------------------------------------------------- | tee -a "$LOGFILE"
 			eval "set -- ${NDK} -j${JOBS} APP_ABI=${a} ${CORE_ARGS}"
 			echo "BUILD CMD: $@" 2>&1 | tee -a "$LOGFILE"
 			"$@" 2>&1 | tee -a "$LOGFILE"
@@ -519,9 +524,9 @@ build_libretro_generic_jni() {
 				cp -v ../libs/${a}/libparallel_retro.${FORMAT_EXT} $RARCH_DIST_DIR/${a}/parallel_libretro${FORMAT}${LIBSUFFIX}.${FORMAT_EXT}
 			fi
 
-			echo "COPY CMD: cp -v ../libs/${a}/$LIBNAM.${FORMAT_EXT} $RARCH_DIST_DIR/${a}/${core}_libretro${FORMAT}${LIBSUFFIX}.${FORMAT_EXT}" 2>&1 | tee -a "$LOGFILE"
-			cp -v ../libs/${a}/$LIBNAM.${FORMAT_EXT} $RARCH_DIST_DIR/${a}/${core}_libretro${FORMAT}${LIBSUFFIX}.${FORMAT_EXT} 2>&1 | tee -a "$LOGFILE"
-			cp -v ../libs/${a}/$LIBNAM.${FORMAT_EXT} $RARCH_DIST_DIR/${a}/${core}_libretro${FORMAT}${LIBSUFFIX}.${FORMAT_EXT}
+			echo "COPY CMD: cp -v ../libs/${a}/$LIBNAM.${FORMAT_EXT} $RARCH_DIST_DIR/${a}/${CORENAM}" 2>&1 | tee -a "$LOGFILE"
+			cp -v ../libs/${a}/$LIBNAM.${FORMAT_EXT} $RARCH_DIST_DIR/${a}/${CORENAM} 2>&1 | tee -a "$LOGFILE"
+			cp -v ../libs/${a}/$LIBNAM.${FORMAT_EXT} $RARCH_DIST_DIR/${a}/${CORENAM}
 
 
 			RET=$?
