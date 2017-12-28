@@ -1,6 +1,7 @@
 2048 libretro64-2048 https://github.com/libretro/libretro-2048.git master YES GENERIC_JNI Makefile jni
 3dengine libretro64-3dengine https://github.com/libretro/libretro-3dengine.git master YES GENERIC_JNI Makefile jni
 4do libretro64-4do https://github.com/libretro/4do-libretro.git master YES GENERIC_JNI Makefile jni
+atari800 libretro64-atari800 https://github.com/libretro/libretro-atari800.git master YES GENERIC_JNI Makefile jni
 bluemsx libretro64-bluemsx https://github.com/libretro/blueMSX-libretro.git master YES GENERIC_JNI Makefile jni
 bsnes libretro64-bsnes https://github.com/libretro/bsnes-libretro.git libretro YES GENERIC_JNI Makefile target-libretro/jni
 bsnes_mercury libretro64-bsnes_mercury https://github.com/libretro/bsnes-mercury.git master YES GENERIC_JNI Makefile target-libretro/jni
