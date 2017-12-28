@@ -424,19 +424,22 @@ build_libretro_leiradel_makefile() {
 	fi
 
 	ARG1="${ARGS%% *}"
+	CORENAM="${NAME}_libretro${LIBSUFFIX}.${FORMAT_EXT}"
+	LOGFILE="$TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}.log"
+	ORIGNAM="${NAME}_libretro.${PLATFORM}_${ARG1}.${FORMAT_EXT}"
+
 	mkdir -p $RARCH_DIST_DIR/${DIST}/${ARG1}
 
 	cd $DIR
 	cd $SUBDIR
-	JOBS_ORIG=$JOBS
 
-	echo -------------------------------------------------- | tee $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}_${a}.log
-	cat $TMPDIR/vars | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}_${a}.log
+	echo -------------------------------------------------- | tee "$LOGFILE"
+	cat $TMPDIR/vars | tee -a "$LOGFILE"
 
-	echo -------------------------------------------------- | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}_${a}.log
+	echo -------------------------------------------------- | tee -a "$LOGFILE"
 	if [ -z "${NOCLEAN}" ]; then
-		echo "CLEANUP CMD: ${HELPER} ${MAKE} -f ${MAKEFILE}.${PLATFORM}_${ARGS} platform=${PLATFORM}_${ARGS} -j${JOBS} clean" 2>&1 | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}.log
-		${HELPER} ${MAKE} -f ${MAKEFILE}.${PLATFORM}_${ARGS} platform=${PLATFORM}_${ARGS} -j${JOBS} clean 2>&1 | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}.log
+		echo "CLEANUP CMD: ${HELPER} ${MAKE} -f ${MAKEFILE}.${PLATFORM}_${ARGS} platform=${PLATFORM}_${ARGS} -j${JOBS} clean" 2>&1 | tee -a "$LOGFILE"
+		${HELPER} ${MAKE} -f ${MAKEFILE}.${PLATFORM}_${ARGS} platform=${PLATFORM}_${ARGS} -j${JOBS} clean 2>&1 | tee -a "$LOGFILE"
 
 		if [ $? -eq 0 ]; then
 			echo buildbot job: $jobid ${NAME} cleanup success!
@@ -445,20 +448,18 @@ build_libretro_leiradel_makefile() {
 		fi
 	fi
 
-	echo -------------------------------------------------- | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}.log
-	echo "BUILD CMD: ${HELPER} ${MAKE} -f ${MAKEFILE}.${PLATFORM}_${ARGS} platform=${PLATFORM}_${ARGS} -j${JOBS}" 2>&1 | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}.log
-	${HELPER} ${MAKE} -f ${MAKEFILE}.${PLATFORM}_${ARGS} platform=${PLATFORM}_${ARGS} -j${JOBS} 2>&1 | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}.log
+	echo -------------------------------------------------- | tee -a "$LOGFILE"
+	echo "BUILD CMD: ${HELPER} ${MAKE} -f ${MAKEFILE}.${PLATFORM}_${ARGS} platform=${PLATFORM}_${ARGS} -j${JOBS}" 2>&1 | tee -a "$LOGFILE"
+	${HELPER} ${MAKE} -f ${MAKEFILE}.${PLATFORM}_${ARGS} platform=${PLATFORM}_${ARGS} -j${JOBS} 2>&1 | tee -a "$LOGFILE"
 
-	echo "COPY CMD: cp -v ${NAME}_libretro.${PLATFORM}_${ARG1}.${FORMAT_EXT} $RARCH_DIST_DIR/${DIST}/${ARG1}/${NAME}_libretro${LIBSUFFIX}.${FORMAT_EXT}" 2>&1 | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}.log
-	cp -v ${NAME}_libretro.${PLATFORM}_${ARG1}.${FORMAT_EXT} $RARCH_DIST_DIR/${DIST}/${ARG1}/${NAME}_libretro${LIBSUFFIX}.${FORMAT_EXT} 2>&1 | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}.log
-	cp -v ${NAME}_libretro.${PLATFORM}_${ARG1}.${FORMAT_EXT} $RARCH_DIST_DIR/${DIST}/${ARG1}/${NAME}_libretro${LIBSUFFIX}.${FORMAT_EXT}
+	echo "COPY CMD: cp -v ${ORIGNAM} $RARCH_DIST_DIR/${DIST}/${ARG1}/${CORENAM}" 2>&1 | tee -a "$LOGFILE"
+	cp -v ${ORIGNAM} $RARCH_DIST_DIR/${DIST}/${ARG1}/${CORENAM} 2>&1 | tee -a "$LOGFILE"
+	cp -v ${ORIGNAM} $RARCH_DIST_DIR/${DIST}/${ARG1}/${CORENAM}
 
 	RET=$?
-	ERROR=$TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}.log
-	buildbot_handle_message "$RET" "$ENTRY_ID" "$NAME" "$jobid" "$ERROR"
+	buildbot_handle_message "$RET" "$ENTRY_ID" "$NAME" "$jobid" "$LOGFILE"
 
 	ENTRY_ID=""
-	JOBS=$JOBS_ORIG
 }
 
 build_libretro_generic_jni() {
@@ -487,6 +488,7 @@ build_libretro_generic_jni() {
 
 	eval "set -- $CORE"
 	for core do
+		CORENAM="${core}_libretro${FORMAT}${LIBSUFFIX}.${FORMAT_EXT}"
 		if [ "${NAME}" = "bsnes" ] || [ "${NAME}" = "bsnes_mercury" ]; then
 			CORE_ARGS="profile=${core##*_} ${ARGS}"
 			LIBNAM="libretro_${core}"
@@ -495,7 +497,6 @@ build_libretro_generic_jni() {
 		fi
 
 		for a in "${ABIS[@]}"; do
-			CORENAM="${core}_libretro${FORMAT}${LIBSUFFIX}.${FORMAT_EXT}"
 			LOGFILE="$TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${core}_${PLATFORM}_${a}.log"
 			echo -------------------------------------------------- | tee "$LOGFILE"
 			cat $TMPDIR/vars | tee -a "$LOGFILE"
