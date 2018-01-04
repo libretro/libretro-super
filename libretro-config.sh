@@ -569,6 +569,19 @@ case "$platform" in
 		AR="$DEVKITPPC/bin/powerpc-eabi-ar$BINARY_EXT"
 		;;
 
+	switch)
+		DIST_DIR="switch"
+		FORMAT_EXT=a
+		FORMAT_COMPILER_TARGET=switch
+		FORMAT_COMPILER_TARGET_ALT=switch
+		FORMAT=_switch
+
+		CC="clang$BINARY_EXT" 
+		CXX="clang++$BINARY_EXT"
+		AR="llvm-ar$BINARY_EXT"
+
+		;;
+
 	sncps3)
 		DIST_DIR="ps3"
 		FORMAT_EXT=a
