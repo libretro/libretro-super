@@ -295,7 +295,8 @@ include_core_sameboy() {
 libretro_sameboy_name="SameBoy"
 libretro_sameboy_git_url="https://github.com/libretro/SameBoy.git"
 libretro_sameboy_build_platform="$FORMAT_COMPILER_TARGET_ALT"
-libretro_sameboy_build_makefile="Makefile.libretro"
+libretro_sameboy_build_subdir="libretro"
+libretro_sameboy_build_makefile="Makefile"
 
 include_core_meteor() {
 	register_module core "meteor" -ngc -ps3 -psp1 -qnx -wii
