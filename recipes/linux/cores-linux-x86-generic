@@ -70,7 +70,7 @@ px68k libretro-px68k https://github.com/libretro/px68k-libretro.git master YES G
 quicknes libretro-quicknes https://github.com/libretro/QuickNES_Core.git master YES GENERIC Makefile .
 reicast libretro-reicast https://github.com/libretro/reicast-emulator.git master YES GENERIC Makefile .
 remotejoy libretro-remotejoy https://github.com/libretro/libretro-remotejoy.git master YES GENERIC Makefile .
-sameboy libretro-sameboy https://github.com/libretro/SameBoy.git master YES GENERIC Makefile.libretro .
+sameboy libretro-sameboy https://github.com/libretro/SameBoy.git master YES GENERIC Makefile libretro
 scummvm libretro-scummvm https://github.com/libretro/scummvm.git master YES GENERIC Makefile backends/platform/libretro/build
 snes9x2005 libretro-snes9x2005 https://github.com/libretro/snes9x2005.git master YES GENERIC Makefile .
 snes9x2010 libretro-snes9x2010 https://github.com/libretro/snes9x2010.git master YES GENERIC_ALT Makefile.libretro .
