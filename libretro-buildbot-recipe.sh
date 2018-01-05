@@ -627,9 +627,19 @@ while read line; do
 		else
 			echo "resetting repo state $URL..."
 			git --work-tree="$DIR" --git-dir="$DIR/.git" reset --hard FETCH_HEAD
-			git --work-tree="$DIR" --git-dir="$DIR/.git" clean -xdf
+			git --work-tree="$DIR" --git-dir="$DIR/.git" clean -xdf -e .libretro-core-recipe
 			BUILD="YES"
 		fi
+	fi
+
+	if [ -f "$DIR/.libretro-core-recipe" ]; then
+		recipe="$(cat "$DIR/.libretro-core-recipe")"
+		if [ "$line" != "$recipe" ]; then
+			echo "$line" > "$DIR/.libretro-core-recipe"
+			BUILD="YES"
+		fi
+	else
+		echo "$line" > "$DIR/.libretro-core-recipe"
 	fi
 
 	CURRENT_BRANCH="$(git --work-tree="$DIR" --git-dir="$DIR/.git" rev-parse --abbrev-ref HEAD)"
@@ -667,7 +677,7 @@ while read line; do
 			* )           :                                                                                                    ;;
 		esac
 		echo "Cleaning repo state after build $URL..."
-		git --work-tree="${BASE_DIR}/${DIR}" --git-dir="${BASE_DIR}/${DIR}/.git" clean -xdf
+		git --work-tree="${BASE_DIR}/${DIR}" --git-dir="${BASE_DIR}/${DIR}/.git" clean -xdf -e .libretro-core-recipe
 	else
 		echo "buildbot job: building $NAME up-to-date"
 	fi
