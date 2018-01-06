@@ -367,7 +367,7 @@ build_libretro_generic_makefile() {
 					-DCMAKE_ANDROID_NDK=${NDK_ROOT}"
 			fi
 
-			eval "set -- ${EXTRAARGS} ${CORE_ARGS}"
+			eval "set -- ${EXTRAARGS} \${CORE_ARGS}"
 			echo "BUILD CMD: ${CMAKE} $@" 2>&1 | tee -a "$LOGFILE"
 			echo "$@" .. | xargs ${CMAKE} 2>&1 | tee -a "$LOGFILE"
 			echo "BUILD CMD: ${HELPER} ${MAKE} -f ${MAKEFILE} -j${JOBS}" 2>&1 | tee -a "$LOGFILE"
