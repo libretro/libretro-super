@@ -224,6 +224,7 @@ build_libretro_database() {
 
 build_libretro_databases() {
 	build_libretro_database "Amstrad - CPC" "rom.crc"
+	build_libretro_database "Mattel - Intellivision" "rom.crc"
 	build_libretro_database "ScummVM" "rom.crc"
 	build_libretro_database "DOS" "rom.crc"
 	build_libretro_database "Lutro" "rom.name"
