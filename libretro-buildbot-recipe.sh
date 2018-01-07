@@ -619,15 +619,17 @@ while read line; do
 		HEAD="$(git --work-tree="$DIR" --git-dir="$DIR/.git" rev-parse HEAD)" || \
 			{ echo "git directory broken, removing $DIR and skipping $NAME."; \
 			rm -rfv -- "$DIR" && continue; }
+
+		echo "resetting repo state $URL..."
+		git --work-tree="$DIR" --git-dir="$DIR/.git" reset --hard FETCH_HEAD
+		git --work-tree="$DIR" --git-dir="$DIR/.git" clean -xdf -e .libretro-core-recipe
+
 		echo "pulling changes from repo $URL..."
 		git --work-tree="$DIR" --git-dir="$DIR/.git" pull
 
 		if [ "$HEAD" = "$(git --work-tree="$DIR" --git-dir="$DIR/.git" rev-parse HEAD)" ] && [ "${BUILD}" != "YES" ]; then
 			BUILD="NO"
 		else
-			echo "resetting repo state $URL..."
-			git --work-tree="$DIR" --git-dir="$DIR/.git" reset --hard FETCH_HEAD
-			git --work-tree="$DIR" --git-dir="$DIR/.git" clean -xdf -e .libretro-core-recipe
 			BUILD="YES"
 		fi
 	fi
