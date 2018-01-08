@@ -6,7 +6,7 @@ bsnes libretro-bsnes https://github.com/libretro/bsnes-libretro.git libretro YES
 bsnes_cplusplus98 libretro-bsnes_cplusplus98 https://github.com/libretro/bsnes-libretro-cplusplus98.git master YES GENERIC Makefile .
 bsnes_mercury libretro-bsnes_mercury https://github.com/libretro/bsnes-mercury.git master YES GENERIC Makefile .
 chailove libretro-chailove https://github.com/RobLoach/ChaiLove.git master YES GENERIC Makefile .
-citra libretro-citra https://github.com/libretro/citra.git master YES CMAKE Makefile build -DENABLE_LIBRETRO=1 -DENABLE_SDL2=0 -DENABLE_QT=0 -DDISABLE_LIBPNG=1 -DCMAKE_BUILD_TYPE="Release" --target citra_libretro
+citra libretro-citra https://github.com/libretro/citra.git master YES CMAKE Makefile build -DENABLE_LIBRETRO=1 -DENABLE_SDL2=0 -DENABLE_QT=0 -DDISABLE_LIBPNG=1 -DENABLE_WEB_SERVICE=0 -DCMAKE_BUILD_TYPE="Release" --target citra_libretro
 craft libretro-craft https://github.com/libretro/craft master YES GENERIC Makefile.libretro .
 crocods libretro-crocods https://github.com/libretro/libretro-crocods.git master YES GENERIC Makefile .
 desmume libretro-desmume https://github.com/libretro/desmume.git master YES GENERIC Makefile.libretro desmume
