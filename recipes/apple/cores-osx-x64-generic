@@ -72,7 +72,7 @@ puae libretro-uae https://github.com/libretro/libretro-uae.git master YES GENERI
 px68k libretro-px68k https://github.com/libretro/px68k-libretro.git master YES GENERIC Makefile.libretro .
 quicknes libretro-quicknes https://github.com/libretro/QuickNES_Core.git master YES GENERIC Makefile .
 reicast libretro-reicast https://github.com/libretro/reicast-emulator.git master YES GENERIC Makefile .
-redream libretro-redream https://github.com/inolen/redream.git master YES GENERIC Makefile deps/libretro
+redream libretro-redream https://github.com/libretro/redream.git master YES GENERIC Makefile deps/libretro
 remotejoy libretro-remotejoy https://github.com/libretro/libretro-remotejoy.git master YES GENERIC Makefile .
 sameboy libretro-sameboy https://github.com/libretro/SameBoy.git master YES GENERIC Makefile libretro
 scummvm libretro-scummvm https://github.com/libretro/scummvm.git master YES GENERIC Makefile backends/platform/libretro/build
