@@ -146,7 +146,7 @@ include_core_redream() {
 	register_module core "redream"
 }
 libretro_redream_name="Redream"
-libretro_redream_git_url="https://github.com/inolen/redream.git"
+libretro_redream_git_url="https://github.com/libretro/redream.git"
 libretro_redream_build_makefile="Makefile"
 libretro_redream_build_subdir="deps/libretro"
 
