@@ -621,7 +621,7 @@ while read line; do
 			rm -rfv -- "$DIR" && continue; }
 
 		echo "fetching changes from repo $URL..."
-		git --work-tree="$DIR" --git-dir="$DIR/.git" fetch origin "$GIT_BRANCH"
+		git --work-tree="$DIR" --git-dir="$DIR/.git" fetch --depth 1 origin "${GIT_BRANCH}"
 
 		echo "resetting repo state $URL..."
 		git --work-tree="." --git-dir=".git" -C "$DIR" reset --hard FETCH_HEAD
