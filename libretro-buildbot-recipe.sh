@@ -660,7 +660,7 @@ while read line; do
 	fi
 
 	for core in 81 emux_nes emux_sms fuse gw mgba; do
-		if [ "${PREVCORE}" = "$core" ] && [ "${PREVBUILD}" = "YES" ] && [ "${NAME}" = "$core" ]; then
+		if [ "${PREVCORE}" = "$core" ] && [ "${PREVBUILD}" = "YES" ] && [ "${NAME}" = "${PREVCORE}" ] then
 			FORCE="YES"
 			BUILD="YES"
 		fi
