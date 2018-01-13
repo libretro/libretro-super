@@ -281,12 +281,13 @@ buildbot_handle_message() {
 }
 
 build_libretro_generic_makefile() {
-	NAME=$1
-	DIR=$2
-	SUBDIR=$3
-	MAKEFILE=$4
-	PLATFORM=$5
-	ARGS=$6
+	NAME="$1"
+	DIR="$2"
+	SUBDIR="$3"
+	MAKEFILE="$4"
+	PLATFORM="$5"
+	ARGS="$6"
+	CORES="${7:-$NAME}"
 
 	ENTRY_ID=""
 
@@ -316,26 +317,19 @@ build_libretro_generic_makefile() {
 
 	cd "${SUBDIR}"
 
-	if [ "${NAME}" = "bsnes" ] || [ "${NAME}" = "bsnes_mercury" ]; then
-		CORE="${CORE:-${NAME}_accuracy ${NAME}_balanced ${NAME}_performance}"
-	elif [ "${NAME}" = "mame2014" ]; then
-		CORE="${CORE:-${NAME} mess2014 ume2014}"
-	else
-		CORE="${NAME}"
-	fi
+	eval "set -- $CORES"
+	for i do
+		core="${i%:*}"
+		arg="${i##*:}"
 
-	eval "set -- $CORE"
-	for core do
-		CORENAM="${core}_libretro${FORMAT}${LIBSUFFIX}.${FORMAT_EXT}"
-		LOGFILE="$TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${core}_${PLATFORM}.log"
-
-		if [ "${NAME}" = "bsnes" ] || [ "${NAME}" = "bsnes_mercury" ]; then
-			CORE_ARGS="profile=${core##*_} ${ARGS}"
-		elif [ "${NAME}" = "mame2014" ]; then
-			CORE_ARGS="TARGET=${core%%[0-9]*} ${ARGS}"
+		if [ "$arg" != "$core" ]; then
+			CORE_ARGS="${arg} ${ARGS}"
 		else
 			CORE_ARGS="${ARGS}"
 		fi
+
+		CORENAM="${core}_libretro${FORMAT}${LIBSUFFIX}.${FORMAT_EXT}"
+		LOGFILE="$TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${core}_${PLATFORM}.log"
 
 		echo -------------------------------------------------- | tee "$LOGFILE"
 		cat $TMPDIR/vars | tee -a "$LOGFILE"
@@ -568,21 +562,29 @@ while read line; do
 	MAKEFILE="$7"
 	SUBDIR="$8"
 	ARGS=""
-
-	shift 8
-	while [ $# -gt 0 ]; do
-		ARGS="${ARGS} ${1}"
-		shift
-	done
-
-	ARGS="${ARGS# }"
-	ARGS="${ARGS%"${ARGS##*[![:space:]]}"}"
+	CORES=""
 
 	if [ -z "${SINGLE_CORE:-}" ]; then
 		CORE=""
 	elif [ "$NAME" != "$SINGLE_CORE" ]; then
 		continue
 	fi
+
+	shift 8
+	while [ $# -gt 0 ]; do
+		arg="$1"; shift
+		[ "$arg" = \| ] && break
+		ARGS="${ARGS} ${arg}"
+	done
+
+	for i do
+		if [ -z "${CORE}" ] || [ "${CORE}" = "${i%:*}" ]; then
+			CORES="${CORES} $i"
+		fi
+	done
+
+	ARGS="${ARGS# }"
+	ARGS="${ARGS%"${ARGS##*[![:space:]]}"}"
 
 	[ "${ENABLED}" != "YES" ] && { echo "${NAME} is disabled, skipping"; continue; }
 
@@ -672,11 +674,11 @@ while read line; do
 		echo "buildbot job: building $NAME"
 		case "${COMMAND}" in
 			CMAKE|GENERIC|GENERIC_GL )
-			              build_libretro_generic_makefile $NAME $DIR $SUBDIR $MAKEFILE ${FORMAT_COMPILER_TARGET} "${ARGS}"     ;;
-			GENERIC_JNI ) build_libretro_generic_jni $NAME $DIR $SUBDIR $MAKEFILE ${FORMAT_COMPILER_TARGET_ALT} "${ARGS}"      ;;
-			GENERIC_ALT ) build_libretro_generic_makefile $NAME $DIR $SUBDIR $MAKEFILE ${FORMAT_COMPILER_TARGET_ALT} "${ARGS}" ;;
-			LEIRADEL )    build_libretro_leiradel_makefile $NAME $DIR $SUBDIR $MAKEFILE ${PLATFORM} "${ARGS}"                  ;;
-			* )           :                                                                                                    ;;
+			              build_libretro_generic_makefile $NAME $DIR $SUBDIR $MAKEFILE ${FORMAT_COMPILER_TARGET} "${ARGS}" "${CORES}" ;;
+			GENERIC_JNI ) build_libretro_generic_jni $NAME $DIR $SUBDIR $MAKEFILE ${FORMAT_COMPILER_TARGET_ALT} "${ARGS}"             ;;
+			GENERIC_ALT ) build_libretro_generic_makefile $NAME $DIR $SUBDIR $MAKEFILE ${FORMAT_COMPILER_TARGET_ALT} "${ARGS}"        ;;
+			LEIRADEL )    build_libretro_leiradel_makefile $NAME $DIR $SUBDIR $MAKEFILE ${PLATFORM} "${ARGS}"                         ;;
+			* )           :                                                                                                           ;;
 		esac
 		echo "Cleaning repo state after build $URL..."
 		git --work-tree="${BASE_DIR}/${DIR}" --git-dir="${BASE_DIR}/${DIR}/.git" clean -xdf -e .libretro-core-recipe
