@@ -457,12 +457,13 @@ build_libretro_leiradel_makefile() {
 }
 
 build_libretro_generic_jni() {
-	NAME=$1
-	DIR=$2
-	SUBDIR=$3
-	MAKEFILE=$4
-	PLATFORM=$5
-	ARGS=$6
+	NAME="$1"
+	DIR="$2"
+	SUBDIR="$3"
+	MAKEFILE="$4"
+	PLATFORM="$5"
+	ARGS="$6"
+	CORES="${7:-$NAME}"
 
 	ENTRY_ID=""
 	LIBNAM="libretro"
@@ -471,23 +472,24 @@ build_libretro_generic_jni() {
 		ENTRY_ID=`curl -X POST -d type="start" -d master_log="$MASTER_LOG_ID" -d platform="$jobid" -d name="$NAME" http://buildbot.fiveforty.net/build_entry/`
 	fi
 
-	if [ "${NAME}" = "bsnes" ] || [ "${NAME}" = "bsnes_mercury" ]; then
-		CORE="${CORE:-${NAME}_accuracy ${NAME}_balanced ${NAME}_performance}"
-	else
-		CORE="${NAME}"
-	fi
-
 	cd ${DIR}
 	cd ${SUBDIR}
 
-	eval "set -- $CORE"
-	for core do
-		CORENAM="${core}_libretro${FORMAT}${LIBSUFFIX}.${FORMAT_EXT}"
-		if [ "${NAME}" = "bsnes" ] || [ "${NAME}" = "bsnes_mercury" ]; then
-			CORE_ARGS="profile=${core##*_} ${ARGS}"
-			LIBNAM="libretro_${core}"
+	eval "set -- $CORES"
+	for i do
+		core="${i%:*}"
+		arg="${i##*:}"
+
+		if [ "$arg" != "$core" ]; then
+			CORE_ARGS="${arg} ${ARGS}"
 		else
 			CORE_ARGS="${ARGS}"
+		fi
+
+		CORENAM="${core}_libretro${FORMAT}${LIBSUFFIX}.${FORMAT_EXT}"
+
+		if [ "${NAME}" = "bsnes" ] || [ "${NAME}" = "bsnes_mercury" ]; then
+			LIBNAM="libretro_${core}"
 		fi
 
 		for a in "${ABIS[@]}"; do
@@ -675,7 +677,7 @@ while read line; do
 		case "${COMMAND}" in
 			CMAKE|GENERIC|GENERIC_GL )
 			              build_libretro_generic_makefile $NAME $DIR $SUBDIR $MAKEFILE ${FORMAT_COMPILER_TARGET} "${ARGS}" "${CORES}" ;;
-			GENERIC_JNI ) build_libretro_generic_jni $NAME $DIR $SUBDIR $MAKEFILE ${FORMAT_COMPILER_TARGET_ALT} "${ARGS}"             ;;
+			GENERIC_JNI ) build_libretro_generic_jni $NAME $DIR $SUBDIR $MAKEFILE ${FORMAT_COMPILER_TARGET_ALT} "${ARGS}" "${CORES}"  ;;
 			GENERIC_ALT ) build_libretro_generic_makefile $NAME $DIR $SUBDIR $MAKEFILE ${FORMAT_COMPILER_TARGET_ALT} "${ARGS}"        ;;
 			LEIRADEL )    build_libretro_leiradel_makefile $NAME $DIR $SUBDIR $MAKEFILE ${PLATFORM} "${ARGS}"                         ;;
 			* )           :                                                                                                           ;;
