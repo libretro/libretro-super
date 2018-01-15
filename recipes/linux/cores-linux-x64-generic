@@ -5,9 +5,9 @@
 atari800 libretro-atari800 https://github.com/libretro/libretro-atari800.git master YES GENERIC Makefile .
 bluemsx libretro-bluemsx https://github.com/libretro/blueMSX-libretro.git master YES GENERIC Makefile.libretro .
 bnes libretro-bnes https://github.com/libretro/bnes-libretro.git master YES GENERIC Makefile .
-bsnes libretro-bsnes https://github.com/libretro/bsnes-libretro.git libretro YES GENERIC Makefile .
+bsnes libretro-bsnes https://github.com/libretro/bsnes-libretro.git libretro YES GENERIC Makefile . | bsnes_accuracy:profile=accuracy bsnes_balanced:profile=balanced bsnes_performance:profile=performance
 bsnes_cplusplus98 libretro-bsnes_cplusplus98 https://github.com/libretro/bsnes-libretro-cplusplus98.git master YES GENERIC Makefile .
-bsnes_mercury libretro-bsnes_mercury https://github.com/libretro/bsnes-mercury.git master YES GENERIC Makefile .
+bsnes_mercury libretro-bsnes_mercury https://github.com/libretro/bsnes-mercury.git master YES GENERIC Makefile . | bsnes_mercury_accuracy:profile=accuracy bsnes_mercury_balanced:profile=balanced bsnes_mercury_performance:profile=performance
 cap32 libretro-cap32 https://github.com/libretro/libretro-cap32.git master YES GENERIC Makefile .
 chailove libretro-chailove https://github.com/RobLoach/ChaiLove.git master YES GENERIC Makefile .
 citra libretro-citra https://github.com/libretro/citra.git master YES CMAKE Makefile build -DENABLE_LIBRETRO=1 -DENABLE_SDL2=0 -DENABLE_QT=0 -DDISABLE_LIBPNG=1 -DCMAKE_BUILD_TYPE="Release" -DENABLE_WEB_SERVICE=0 --target citra_libretro
@@ -42,7 +42,7 @@ mame libretro-mame https://github.com/libretro/mame.git master YES GENERIC Makef
 mame2000 libretro-mame2000 https://github.com/libretro/mame2000-libretro.git master YES GENERIC Makefile .
 mame2003 libretro-mame2003 https://github.com/libretro/mame2003-libretro.git master YES GENERIC Makefile .
 mame2010 libretro-mame2010 https://github.com/libretro/mame2010-libretro.git master YES GENERIC Makefile . VRENDER=soft PTR64=1
-mame2014 libretro-mame2014 https://github.com/libretro/mame2014-libretro.git master YES GENERIC Makefile . PTR64=1
+mame2014 libretro-mame2014 https://github.com/libretro/mame2014-libretro.git master YES GENERIC Makefile . PTR64=1 | mame2014:TARGET=mame mess2014:TARGET=mess ume2014:TARGET=ume
 mame2016 libretro-mame2016 https://github.com/libretro/mame2016-libretro.git master YES GENERIC Makefile.libretro . PTR64=1
 mednafen_gba libretro-beetle_gba https://github.com/libretro/beetle-gba-libretro.git master YES GENERIC Makefile .
 mednafen_lynx libretro-beetle_lynx https://github.com/libretro/beetle-lynx-libretro.git master YES GENERIC Makefile .
