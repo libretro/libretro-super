@@ -1,4 +1,5 @@
 /libretro-*
+/libretro64-*
 /retroarch/
 /build-summary.log
 /build-revisions/

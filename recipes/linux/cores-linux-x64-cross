@@ -1,4 +1,1 @@
-emux_nes libretro-emux_nes https://github.com/libretro/emux master YES LEIRADEL Makefile libretro x86_64 MACHINE=nes
-emux_sms libretro-emux_sms https://github.com/libretro/emux master YES LEIRADEL Makefile libretro x86_64 MACHINE=sms
-emux_chip8 libretro-emux_chip8 https://github.com/libretro/emux master YES LEIRADEL Makefile libretro x86_64 MACHINE=chip8
-emux_gb libretro-emux_gb https://github.com/libretro/emux master YES LEIRADEL Makefile libretro x86_64 MACHINE=gb
+emux libretro-emux https://github.com/libretro/emux master YES LEIRADEL Makefile libretro x86_64 | emux_nes:MACHINE=nes emux_sms:MACHINE=sms emux_chip8:MACHINE=chip8 emux_gb:MACHINE=gb
