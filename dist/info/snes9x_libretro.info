@@ -1,6 +1,6 @@
 display_name = "SNES / Super Famicom (Snes9x)"
 authors = "Snes9x Team"
-supported_extensions = "smc|sfc|swc|fig"
+supported_extensions = "smc|sfc|swc|fig|bs"
 corename = "Snes9x"
 manufacturer = "Nintendo"
 categories = "Emulator"
