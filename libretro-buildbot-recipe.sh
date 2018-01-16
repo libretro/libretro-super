@@ -323,13 +323,25 @@ build_libretro_generic_makefile() {
 		arg="${i##*:}"
 
 		if [ "$arg" != "$core" ]; then
-			CORE_ARGS="${arg} ${ARGS}"
+			CORE_ARGS="${ARGS} ${arg}"
 		else
 			CORE_ARGS="${ARGS}"
 		fi
 
+		CORE_ARGS="${CORE_ARGS#"${CORE_ARGS%%[! ]*}"}"
 		CORENAM="${core}_libretro${FORMAT}${LIBSUFFIX}.${FORMAT_EXT}"
-		LOGFILE="$TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${core}_${PLATFORM}.log"
+
+		if [ "${COMMAND}" = "LEIRADEL" ]; then
+			ARG1="${CORE_ARGS%% *}"
+			LOGFILE="$TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${core}_${PLATFORM}_${ARG1}.log"
+			ORIGNAM="${core}_libretro.${PLATFORM}_${ARG1}.${FORMAT_EXT}"
+			OUTPUT="$RARCH_DIST_DIR/${DIST}/${ARG1}/${CORENAM}"
+			mkdir -p -- "$RARCH_DIST_DIR/${DIST}/${ARG1}"
+		else
+			LOGFILE="$TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${core}_${PLATFORM}.log"
+			ORIGNAM="${CORENAM}"
+			OUTPUT="$RARCH_DIST_DIR/${DIST}/${CORENAM}"
+		fi
 
 		echo -------------------------------------------------- | tee "$LOGFILE"
 		cat $TMPDIR/vars | tee -a "$LOGFILE"
@@ -339,6 +351,10 @@ build_libretro_generic_makefile() {
 			if [ "${NAME}" = "higan_sfc" ] || [ "${NAME}" = "higan_sfc_balanced" ]; then
 				rm -fv obj/*.{o,"${FORMAT_EXT}"} 2>&1 | tee -a "$LOGFILE"
 				rm -fv out/*.{o,"${FORMAT_EXT}"} 2>&1 | tee -a "$LOGFILE"
+			elif [ "${COMMAND}" = "LEIRADEL" ]; then
+				eval "set -- ${HELPER} ${MAKE} -f ${MAKEFILE}.${PLATFORM}_${ARG1} platform=${PLATFORM}_${CORE_ARGS} -j${JOBS} clean"
+				echo "CLEANUP CMD: $@" 2>&1 | tee -a "$LOGFILE"
+				"$@" 2>&1 | tee -a "$LOGFILE"
 			else
 				eval "set -- ${HELPER} ${MAKE} -f ${MAKEFILE} platform=${PLATFORM} -j${JOBS} ${CORE_ARGS} clean"
 				echo "CLEANUP CMD: $@" 2>&1 | tee -a "$LOGFILE"
@@ -368,6 +384,10 @@ build_libretro_generic_makefile() {
 			${HELPER} ${MAKE} -f ${MAKEFILE} -j${JOBS} 2>&1 | tee -a "$LOGFILE"
 
 			find . -mindepth 2 -name "${CORENAM}" -exec cp -f "{}" . \;
+		elif [ "${COMMAND}" = "LEIRADEL" ]; then
+			eval "set -- ${HELPER} ${MAKE} -f ${MAKEFILE}.${PLATFORM}_${ARG1} platform=${PLATFORM}_${CORE_ARGS} -j${JOBS}"
+			echo "BUILD CMD: $@" 2>&1 | tee -a "$LOGFILE"
+			"$@" 2>&1 | tee -a "$LOGFILE"
 		elif [ "${NAME}" = "higan_sfc" ] || [ "${NAME}" = "higan_sfc_balanced" ]; then
 			platform=""
 			echo "BUILD CMD: ${HELPER} ${MAKE} -f ${MAKEFILE} -j${JOBS}" ${CORE_ARGS} 2>&1 | tee -a "$LOGFILE"
@@ -387,9 +407,9 @@ build_libretro_generic_makefile() {
 			${STRIP:=strip} -s ${OUT}/${CORENAM}
 		fi
 
-		echo "COPY CMD: cp -v ${OUT}/${CORENAM} $RARCH_DIST_DIR/${DIST}/${CORENAM}" 2>&1 | tee -a "$LOGFILE"
-		cp -v ${OUT}/${CORENAM} $RARCH_DIST_DIR/${DIST}/${CORENAM} 2>&1 | tee -a "$LOGFILE"
-		cp -v ${OUT}/${CORENAM} $RARCH_DIST_DIR/${DIST}/${CORENAM}
+		echo "COPY CMD: cp -v ${OUT}/${ORIGNAM} ${OUTPUT}" 2>&1 | tee -a "$LOGFILE"
+		cp -v "${OUT}/${ORIGNAM}" "${OUTPUT}" 2>&1 | tee -a "$LOGFILE"
+		cp -v "${OUT}/${ORIGNAM}" "${OUTPUT}"
 
 		RET=$?
 		buildbot_handle_message "$RET" "$ENTRY_ID" "$core" "$jobid" "$LOGFILE"
@@ -399,59 +419,6 @@ build_libretro_generic_makefile() {
 		export FORMAT_COMPILER_TARGET=$RESET_FORMAT_COMPILER_TARGET
 		export FORMAT_COMPILER_TARGET_ALT=$RESET_FORMAT_COMPILER_TARGET_ALT
 	fi
-
-	ENTRY_ID=""
-}
-
-build_libretro_leiradel_makefile() {
-	NAME=$1
-	DIR=$2
-	SUBDIR=$3
-	MAKEFILE=$4
-	PLATFORM=$5
-	ARGS=$6
-
-	ENTRY_ID=""
-
-	if [ -n "$LOGURL" ]; then
-		ENTRY_ID=`curl -X POST -d type="start" -d master_log="$MASTER_LOG_ID" -d platform="$jobid" -d name="$NAME" http://buildbot.fiveforty.net/build_entry/`
-	fi
-
-	ARG1="${ARGS%% *}"
-	CORENAM="${NAME}_libretro${LIBSUFFIX}.${FORMAT_EXT}"
-	LOGFILE="$TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}.log"
-	ORIGNAM="${NAME}_libretro.${PLATFORM}_${ARG1}.${FORMAT_EXT}"
-
-	mkdir -p $RARCH_DIST_DIR/${DIST}/${ARG1}
-
-	cd $DIR
-	cd $SUBDIR
-
-	echo -------------------------------------------------- | tee "$LOGFILE"
-	cat $TMPDIR/vars | tee -a "$LOGFILE"
-
-	echo -------------------------------------------------- | tee -a "$LOGFILE"
-	if [ -z "${NOCLEAN}" ]; then
-		echo "CLEANUP CMD: ${HELPER} ${MAKE} -f ${MAKEFILE}.${PLATFORM}_${ARGS} platform=${PLATFORM}_${ARGS} -j${JOBS} clean" 2>&1 | tee -a "$LOGFILE"
-		${HELPER} ${MAKE} -f ${MAKEFILE}.${PLATFORM}_${ARGS} platform=${PLATFORM}_${ARGS} -j${JOBS} clean 2>&1 | tee -a "$LOGFILE"
-
-		if [ $? -eq 0 ]; then
-			echo buildbot job: $jobid ${NAME} cleanup success!
-		else
-			echo buildbot job: $jobid ${NAME} cleanup failed!
-		fi
-	fi
-
-	echo -------------------------------------------------- | tee -a "$LOGFILE"
-	echo "BUILD CMD: ${HELPER} ${MAKE} -f ${MAKEFILE}.${PLATFORM}_${ARGS} platform=${PLATFORM}_${ARGS} -j${JOBS}" 2>&1 | tee -a "$LOGFILE"
-	${HELPER} ${MAKE} -f ${MAKEFILE}.${PLATFORM}_${ARGS} platform=${PLATFORM}_${ARGS} -j${JOBS} 2>&1 | tee -a "$LOGFILE"
-
-	echo "COPY CMD: cp -v ${ORIGNAM} $RARCH_DIST_DIR/${DIST}/${ARG1}/${CORENAM}" 2>&1 | tee -a "$LOGFILE"
-	cp -v ${ORIGNAM} $RARCH_DIST_DIR/${DIST}/${ARG1}/${CORENAM} 2>&1 | tee -a "$LOGFILE"
-	cp -v ${ORIGNAM} $RARCH_DIST_DIR/${DIST}/${ARG1}/${CORENAM}
-
-	RET=$?
-	buildbot_handle_message "$RET" "$ENTRY_ID" "$NAME" "$jobid" "$LOGFILE"
 
 	ENTRY_ID=""
 }
@@ -663,13 +630,6 @@ while read line; do
 		git --work-tree="." --git-dir=".git" -C "$DIR" submodule update --init --recursive
 	fi
 
-	for core in 81 emux_nes emux_sms fuse gw mgba; do
-		if [ "${PREVCORE}" = "$core" ] && [ "${PREVBUILD}" = "YES" ] && [ "${NAME}" = "${PREVCORE}" ]; then
-			FORCE="YES"
-			BUILD="YES"
-		fi
-	done
-
 	if [ "${BUILD}" = "YES" ] || [ "${FORCE}" = "YES" ]; then
 		touch $TMPDIR/built-cores
 		CORES_BUILT=YES
@@ -679,7 +639,7 @@ while read line; do
 			              build_libretro_generic_makefile $NAME $DIR $SUBDIR $MAKEFILE ${FORMAT_COMPILER_TARGET} "${ARGS}" "${CORES}" ;;
 			GENERIC_JNI ) build_libretro_generic_jni $NAME $DIR $SUBDIR $MAKEFILE ${FORMAT_COMPILER_TARGET_ALT} "${ARGS}" "${CORES}"  ;;
 			GENERIC_ALT ) build_libretro_generic_makefile $NAME $DIR $SUBDIR $MAKEFILE ${FORMAT_COMPILER_TARGET_ALT} "${ARGS}"        ;;
-			LEIRADEL )    build_libretro_leiradel_makefile $NAME $DIR $SUBDIR $MAKEFILE ${PLATFORM} "${ARGS}"                         ;;
+			LEIRADEL )    build_libretro_generic_makefile $NAME $DIR $SUBDIR $MAKEFILE ${PLATFORM} "${ARGS}" "${CORES}"               ;;
 			* )           :                                                                                                           ;;
 		esac
 		echo "Cleaning repo state after build $URL..."
