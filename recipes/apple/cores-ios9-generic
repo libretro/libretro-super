@@ -5,6 +5,7 @@ bluemsx libretro-bluemsx https://github.com/libretro/blueMSX-libretro.git master
 bsnes libretro-bsnes https://github.com/libretro/bsnes-libretro.git libretro YES GENERIC Makefile . | bsnes_accuracy:profile=accuracy bsnes_balanced:profile=balanced bsnes_performance:profile=performance
 bsnes_cplusplus98 libretro-bsnes_cplusplus98 https://github.com/libretro/bsnes-libretro-cplusplus98.git master YES GENERIC Makefile .
 bsnes_mercury libretro-bsnes_mercury https://github.com/libretro/bsnes-mercury.git master YES GENERIC Makefile . | bsnes_mercury_accuracy:profile=accuracy bsnes_mercury_balanced:profile=balanced bsnes_mercury_performance:profile=performance
+chailove libretro-chailove https://github.com/RobLoach/ChaiLove.git master NO GENERIC Makefile .
 craft libretro-craft https://github.com/libretro/craft master YES GENERIC Makefile.libretro .
 crocods libretro-crocods https://github.com/libretro/libretro-crocods.git master YES GENERIC Makefile .
 desmume libretro-desmume https://github.com/libretro/desmume.git master YES GENERIC Makefile.libretro desmume
