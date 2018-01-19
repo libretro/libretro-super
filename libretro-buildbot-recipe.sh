@@ -199,28 +199,20 @@ else
 fi
 
 # ----- set jobs  -----
-if [ -z "$JOBS" ]; then
-	JOBS=6
-fi
+JOBS="${JOBS:-6}"
 
 # ----- set forceful rebuild on/off  -----
-if [ -z "$FORCE" ]; then
-	FORCE=NO
-fi
-if [ -z "$FORCE_RETROARCH_BUILD" ]; then
-	FORCE_RETROARCH_BUILD=NO
-fi
+FORCE="${FORCE:-NO}"
+FORCE_RETROARCH_BUILD="${FORCE_RETROARCH_BUILD:-NO}"
 
 # ----- set release on/off  -----
-if [ -z "$RELEASE" ]; then
-	RELEASE=NO
-fi
+RELEASE="${RELEASE:-NO}"
 
 # ----- set cleanup rules -----
 CLEANUP=NO
-DAY=`date '+%d'`
-HOUR=`date '+%H'`
-if [ $DAY == 01 -a $HOUR == 06 ]; then
+DAY=$(date '+%d')
+HOUR=$(date '+%H')
+if [ "${DAY}" = 01 ] && [ "${HOUR}" = 06 ]; then
 	FORCE=YES
 	CLEANUP=NO
 fi
@@ -481,13 +473,6 @@ build_libretro_generic_jni() {
 			echo "BUILD CMD: $@" 2>&1 | tee -a "$LOGFILE"
 			"$@" 2>&1 | tee -a "$LOGFILE"
 
-
-			if [ "${NAME}" == "mupen64plus" ]; then
-				echo "COPY CMD: cp -v ../libs/${a}/libparallel_retro.${FORMAT_EXT} $RARCH_DIST_DIR/${a}/parallel_libretro${FORMAT}${LIBSUFFIX}.${FORMAT_EXT}" 2>&1 | tee -a "$LOGFILE"
-				cp -v ../libs/${a}/libparallel_retro.${FORMAT_EXT} $RARCH_DIST_DIR/${a}/parallel_libretro${FORMAT}${LIBSUFFIX}.${FORMAT_EXT} 2>&1 | tee -a "$LOGFILE"
-				cp -v ../libs/${a}/libparallel_retro.${FORMAT_EXT} $RARCH_DIST_DIR/${a}/parallel_libretro${FORMAT}${LIBSUFFIX}.${FORMAT_EXT}
-			fi
-
 			echo "COPY CMD: cp -v ../libs/${a}/$LIBNAM.${FORMAT_EXT} $RARCH_DIST_DIR/${a}/${CORENAM}" 2>&1 | tee -a "$LOGFILE"
 			cp -v ../libs/${a}/$LIBNAM.${FORMAT_EXT} $RARCH_DIST_DIR/${a}/${CORENAM} 2>&1 | tee -a "$LOGFILE"
 			cp -v ../libs/${a}/$LIBNAM.${FORMAT_EXT} $RARCH_DIST_DIR/${a}/${CORENAM}
@@ -557,8 +542,7 @@ while read line; do
 
 	[ "${ENABLED}" != "YES" ] && { echo "${NAME} is disabled, skipping"; continue; }
 
-	echo -ne "buildbot job started at: "
-	date
+	echo "buildbot job started at: $(date)"
 	echo
 	echo "buildbot job: $jobid processing $NAME"
 	echo --------------------------------------------------
@@ -647,13 +631,11 @@ while read line; do
 	else
 		echo "buildbot job: building $NAME up-to-date"
 	fi
+
 	echo
-	echo -ne "buildbot job finished at: "
-	date
+	echo "buildbot job finished at: $(date)"
 
 	cd "${BASE_DIR}"
-	PREVCORE=$NAME
-	PREVBUILD=$BUILD
 
 	BUILD=$BUILD_ORIG
 	FORCE=$FORCE_ORIG
