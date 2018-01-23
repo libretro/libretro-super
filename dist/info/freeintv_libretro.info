@@ -1,6 +1,6 @@
 display_name = "Mattel - Intellivision (FreeIntv)"
 authors = "David Richardson"
-supported_extensions = "int"
+supported_extensions = "int|bin|rom"
 corename = "FreeIntv"
 manufacturer = "Mattel"
 categories = "Emulator"
