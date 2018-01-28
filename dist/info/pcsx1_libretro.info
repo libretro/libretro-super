@@ -1,4 +1,4 @@
-display_name = "PlayStation (PCSX1)"
+display_name = "Sony - PlayStation (PCSX1)"
 authors = "PCSX Team|notaz|Exophase"
 supported_extensions = "bin|cue|img|mdf|pbp|toc|cbn|m3u"
 corename = "PCSX1"

@@ -1,4 +1,4 @@
-display_name = "GameCube / Wii (Dolphin)"
+display_name = "Nintendo - GameCube / Wii (Dolphin)"
 authors = "Team Dolphin"
 supported_extensions = "gcm|iso|wbfs|ciso|gcz|elf|dol|dff|tgc|wad"
 corename = "Dolphin"

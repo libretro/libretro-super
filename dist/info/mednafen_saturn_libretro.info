@@ -1,4 +1,4 @@
-display_name = "Sega Saturn (Beetle Saturn)"
+display_name = "Sega - Saturn (Beetle Saturn)"
 authors = "Mednafen Team"
 supported_extensions = "cue|toc|m3u|ccd|chd"
 corename = "Beetle Saturn"

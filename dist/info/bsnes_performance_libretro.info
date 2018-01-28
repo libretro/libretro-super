@@ -1,4 +1,4 @@
-display_name = "SNES / Super Famicom (bsnes Performance)"
+display_name = "Nintendo - SNES / Famicom (bsnes Performance)"
 authors = "byuu"
 supported_extensions = "sfc|smc|bml"
 corename = "bsnes/higan Performance"

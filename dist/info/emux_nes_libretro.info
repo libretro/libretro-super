@@ -1,4 +1,4 @@
-display_name = "NES / Famicom (Emux NES)"
+display_name = "Nintendo - NES / Famicom (Emux NES)"
 authors = "Sebastien Ronsse"
 supported_extensions = "nes|bin|rom"
 corename = "Emux NES"

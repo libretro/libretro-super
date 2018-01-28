@@ -1,4 +1,4 @@
-display_name = "NES / Famicom (Mesen)"
+display_name = "Nintendo - NES / Famicom (Mesen)"
 authors = "M. Bibaud (aka Sour)"
 supported_extensions = "nes|fds|unf|unif"
 corename = "Mesen"

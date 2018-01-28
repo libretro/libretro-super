@@ -1,4 +1,4 @@
-display_name = "PlayStation (PCSX ReARMed)"
+display_name = "Sony - PlayStation (PCSX ReARMed)"
 authors = "PCSX Team|notaz|Exophase"
 supported_extensions = "bin|cue|img|mdf|pbp|toc|cbn|m3u"
 corename = "PCSX ReARMed"
