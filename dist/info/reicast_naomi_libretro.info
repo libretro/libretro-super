@@ -1,4 +1,4 @@
-display_name = "Sega NAOMI (Reicast NAOMI)"
+display_name = "Sega - NAOMI (Reicast NAOMI)"
 authors = "skmp"
 supported_extensions = "chd|cdi|iso|elf|bin|cue|gdi"
 corename = "Reicast NAOMI"

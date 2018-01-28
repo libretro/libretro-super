@@ -1,4 +1,4 @@
-display_name = "NEC PC-98 (Neko Project II Kai)"
+display_name = "NEC - PC-98 (Neko Project II Kai)"
 authors = "Neko Project II Team, Tomohiro Yoshidomi"
 supported_extensions = "d98|zip|98d|fdi|fdd|2hd|tfd|d88|88d|hdm|xdf|dup|cmd|hdi|thd|nhd|hdd|hdn"
 corename = "Neko Project II"

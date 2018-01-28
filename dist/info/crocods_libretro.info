@@ -1,4 +1,4 @@
-display_name = "Amstrad CPC (CrocoDS)"
+display_name = "Amstrad - CPC (CrocoDS)"
 authors = "RedBug"
 supported_extensions = "dsk|sna|kcr"
 corename = "CrocoDS"

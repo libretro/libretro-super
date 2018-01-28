@@ -1,4 +1,4 @@
-display_name = "NES / Famicom (FCEUmm)"
+display_name = "Nintendo - NES / Famicom (FCEUmm)"
 authors = "FCEU Team|CaH4e3"
 supported_extensions = "fds|nes|unif|unf"
 corename = "FCEUmm"

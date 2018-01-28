@@ -1,4 +1,4 @@
-display_name = "Game Boy Advance (TempGBA)"
+display_name = "Nintendo - Game Boy Advance (TempGBA)"
 authors = "Exophase|Takka|Nebuleon|Normmatt|BassAceGold"
 supported_extensions = "gba|bin|agb|gbz"
 corename = "TempGBA"

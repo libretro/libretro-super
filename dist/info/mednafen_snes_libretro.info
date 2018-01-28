@@ -1,4 +1,4 @@
-display_name = "SNES / Super Famicom (Beetle bsnes)"
+display_name = "Nintendo - SNES / Famicom (Beetle bsnes)"
 authors = "byuu|Mednafen Team"
 supported_extensions = "smc|fig|bs|st|sfc"
 corename = "Beetle bsnes"

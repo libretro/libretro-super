@@ -1,4 +1,4 @@
-display_name = "PlayStation (PCSX ReARMed) [Interpreter]"
+display_name = "Sony - PlayStation (PCSX ReARMed) [Interpreter]"
 authors = "PCSX Team|notaz|Exophase"
 supported_extensions = "bin|cue|img|mdf|pbp|cbn|toc"
 corename = "PCSX ReARMed [Interpreter]"

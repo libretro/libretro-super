@@ -1,4 +1,4 @@
-display_name = "SNES / Super Famicom (bsnes Balanced)"
+display_name = "Nintendo - SNES / Famicom (bsnes Balanced)"
 authors = "byuu"
 supported_extensions = "sfc|smc|bml"
 corename = "bsnes/higan Balanced"

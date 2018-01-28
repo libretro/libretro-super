@@ -1,4 +1,4 @@
-display_name = "SNES / Super Famicom (nSide Balanced)"
+display_name = "Nintendo - SNES / Famicom (nSide Balanced)"
 authors = "hex-usr"
 supported_extensions = "sfc|smc|gb|gbc|bml|rom"
 corename = "nSide (Super Famicom Balanced)"

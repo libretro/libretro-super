@@ -1,4 +1,4 @@
-display_name = "Sega Master System (Emux SMS)"
+display_name = "Sega - Master System (Emux SMS)"
 authors = "Sebastien Ronsse"
 supported_extensions = "sms|bin|rom"
 corename = "Emux SMS"

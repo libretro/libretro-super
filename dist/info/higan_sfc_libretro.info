@@ -1,4 +1,4 @@
-display_name = "SNES / Super Famicom (higan Accuracy)"
+display_name = "Nintendo - SNES / Famicom (higan Accuracy)"
 authors = "byuu"
 supported_extensions = "sfc|smc|gb|gbc|bml|rom"
 corename = "higan (Super Famicom Accuracy)"

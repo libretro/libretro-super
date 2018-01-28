@@ -1,4 +1,4 @@
-display_name = "PC Engine SuperGrafx (Beetle SGX)"
+display_name = "NEC - PC Engine SuperGrafx (Beetle SGX)"
 authors = "Mednafen Team"
 supported_extensions = "pce|sgx|cue|ccd|chd"
 corename = "Beetle SGX"

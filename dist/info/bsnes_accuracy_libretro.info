@@ -1,4 +1,4 @@
-display_name = "SNES / Super Famicom (bsnes Accuracy)"
+display_name = "Nintendo - SNES / Famicom (bsnes Accuracy)"
 authors = "byuu"
 supported_extensions = "sfc|smc|bml"
 corename = "bsnes/higan Accuracy"
