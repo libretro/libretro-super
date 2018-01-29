@@ -1,4 +1,4 @@
-display_name = "Nintendo - NES (bnes)"
+display_name = "Nintendo - NES / Famicom (bnes)"
 authors = "byuu|Ryphecha"
 supported_extensions = "nes"
 corename = "bnes/higan"
