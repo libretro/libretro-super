@@ -1,4 +1,5 @@
 fceumm libretro-fceumm https://github.com/libretro/libretro-fceumm.git master YES GENERIC Makefile.libretro .
+freeintv libretro-freeintv https://github.com/markwkidd/FreeIntv.git master YES GENERIC Makefile .
 gambatte libretro-gambatte https://github.com/libretro/gambatte-libretro.git master YES GENERIC Makefile .
 nestopia libretro-nestopia https://github.com/libretro/nestopia.git master YES GENERIC Makefile libretro
 snes9x libretro-snes9x https://github.com/libretro/snes9x.git master YES GENERIC Makefile libretro
