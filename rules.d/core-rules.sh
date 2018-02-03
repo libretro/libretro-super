@@ -87,6 +87,13 @@ libretro_xrick_name="XRick"
 libretro_xrick_git_url="https://github.com/libretro/xrick-libretro.git"
 libretro_xrick_build_makefile="Makefile"
 
+include_core_freeintv() {
+	register_module core "freeintv"
+}
+libretro_freeintv_name="FreeIntv"
+libretro_freeintv_git_url="https://github.com/markwkidd/FreeIntv.git"
+libretro_freeintv_build_makefile="Makefile"
+
 include_core_pocketcdg() {
 	register_module core "pocketcdg"
 }
