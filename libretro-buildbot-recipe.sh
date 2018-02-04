@@ -575,12 +575,14 @@ while read line; do
 			{ echo "git directory broken, removing $DIR and skipping $NAME."; \
 			rm -rfv -- "$DIR" && continue; }
 
-		echo "fetching changes from repo $URL..."
-		git --work-tree="$DIR" --git-dir="$DIR/.git" fetch --depth 1 origin "${GIT_BRANCH}"
+		if [ -z "${NOCLEAN}" ]; then
+			echo "fetching changes from repo $URL..."
+			git --work-tree="$DIR" --git-dir="$DIR/.git" fetch --depth 1 origin "${GIT_BRANCH}"
 
-		echo "resetting repo state $URL..."
-		git --work-tree="." --git-dir=".git" -C "$DIR" reset --hard FETCH_HEAD
-		git --work-tree="$DIR" --git-dir="$DIR/.git" clean -xdf -e .libretro-core-recipe
+			echo "resetting repo state $URL..."
+			git --work-tree="." --git-dir=".git" -C "$DIR" reset --hard FETCH_HEAD
+			git --work-tree="$DIR" --git-dir="$DIR/.git" clean -xdf -e .libretro-core-recipe
+		fi
 
 		if [ "$HEAD" = "$(git --work-tree="$DIR" --git-dir="$DIR/.git" rev-parse HEAD)" ] && [ "${BUILD}" != "YES" ]; then
 			BUILD="NO"
