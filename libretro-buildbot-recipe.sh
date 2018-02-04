@@ -628,8 +628,11 @@ while read line; do
 			LEIRADEL )    build_libretro_generic_makefile $NAME $DIR $SUBDIR $MAKEFILE ${PLATFORM} "${ARGS}" "${CORES}"               ;;
 			* )           :                                                                                                           ;;
 		esac
-		echo "Cleaning repo state after build $URL..."
-		git --work-tree="${BASE_DIR}/${DIR}" --git-dir="${BASE_DIR}/${DIR}/.git" clean -xdf -e .libretro-core-recipe
+
+		if [ -z "${NOCLEAN}" ]; then
+			echo "Cleaning repo state after build $URL..."
+			git --work-tree="${BASE_DIR}/${DIR}" --git-dir="${BASE_DIR}/${DIR}/.git" clean -xdf -e .libretro-core-recipe
+		fi
 	else
 		echo "buildbot job: building $NAME up-to-date"
 	fi
