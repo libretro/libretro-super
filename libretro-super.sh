@@ -226,6 +226,12 @@ case "$platform" in
 					FORMAT_COMPILER_TARGET="unix"
 					DIST_DIR="bsd"
 					;;
+				*Haiku*)
+					platform=haiku
+					FORMAT_EXT="so"
+					FORMAT_COMPILER_TARGET="unix"
+					DIST_DIR="haiku"
+					;;
 				osx|*Darwin*)
 					platform=osx
 					FORMAT_EXT="dylib"
