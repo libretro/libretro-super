@@ -91,7 +91,7 @@ include_core_freeintv() {
 	register_module core "freeintv"
 }
 libretro_freeintv_name="FreeIntv"
-libretro_freeintv_git_url="https://github.com/markwkidd/FreeIntv.git"
+libretro_freeintv_git_url="https://github.com/libretro/FreeIntv.git"
 libretro_freeintv_build_makefile="Makefile"
 
 include_core_pocketcdg() {
