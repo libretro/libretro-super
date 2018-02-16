@@ -797,7 +797,7 @@ include_core_chailove() {
 	register_module core "chailove" -theos_ios -ngc -sncps3 -ps3 -psp1 -qnx -wii
 }
 libretro_chailove_name="ChaiLove"
-libretro_chailove_git_url="https://github.com/RobLoach/ChaiLove.git"
+libretro_chailove_git_url="https://github.com/libretro/ChaiLove.git"
 libretro_chailove_git_submodules="yes"
 libretro_chailove_build_makefile="Makefile"
 
