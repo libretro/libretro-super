@@ -93,7 +93,7 @@ build_default_cores_little_endian_only() {
 
 	if [ $platform != "qnx" ]; then
 		if [ $platform != "psp1" ]; then
-			libretro_build_core desmume
+			libretro_build_core desmume2015
 		fi
 		libretro_build_core picodrive
 	fi
