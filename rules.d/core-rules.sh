@@ -346,11 +346,11 @@ libretro_openlara_git_url="https://github.com/libretro/OpenLara.git"
 libretro_openlara_build_subdir="src/platform/libretro"
 libretro_openlara_build_makefile="Makefile"
 
-include_core_desmume() {
-register_module core "desmume" -ngc -ps3 -psp1 -qnx -wii
+include_core_desmume2015() {
+register_module core "desmume2015" -ngc -ps3 -psp1 -qnx -wii
 }
-libretro_desmume_name="DeSmuME"
-libretro_desmume_git_url="https://github.com/libretro/desmume.git"
+libretro_desmume_name="DeSmuME 2015"
+libretro_desmume_git_url="https://github.com/libretro/desmume2015.git"
 libretro_desmume_build_subdir="desmume"
 libretro_desmume_build_makefile="Makefile.libretro"
 
@@ -359,7 +359,7 @@ include_core_quicknes() {
 }
 libretro_quicknes_name="QuickNES"
 libretro_quicknes_git_url="https://github.com/libretro/QuickNES_Core.git"
-libretro_desmume_build_makefile="Makefile"
+libretro_quicknes_build_makefile="Makefile"
 
 include_core_nestopia() {
 	register_module core "nestopia"
