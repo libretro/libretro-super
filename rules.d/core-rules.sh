@@ -713,6 +713,13 @@ libretro_citra_git_url="https://github.com/libretro/citra.git"
 libretro_citra_git_submodules="yes"
 libretro_citra_build_opengl="yes"
 
+include_core_thepowdertoy() {
+	register_module core "thepowdertoy" -ios -theos_ios -ngc -ps3 -psp1 -qnx -wii
+}
+libretro_thepowdertoy_name="The Powder Toy"
+libretro_thepowdertoy_git_url="https://github.com/libretro/ThePowderToy.git"
+libretro_thepowdertoy_git_submodules="yes"
+
 include_core_ppsspp() {
 	register_module core "ppsspp" -ios -theos_ios -ngc -ps3 -psp1 -qnx -wii
 }

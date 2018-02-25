@@ -196,6 +196,7 @@ include_core_stonesoup
 include_core_scummvm
 include_core_chailove
 include_core_atari800
+include_core_thepowdertoy
 
 # --- Miscellaneous cores ---
 include_core_video_processor
