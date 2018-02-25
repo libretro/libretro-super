@@ -1,1 +1,1 @@
-mesen libretro-mesen https://github.com/libretro/Mesen.git master YES GENERIC_JNI Makefile Libretro/jni
+mesen libretro-mesen https://github.com/libretro/Mesen.git master YES GENERIC_JNI Makefile Libretro/jni DEBUG=1
