@@ -83,6 +83,7 @@ snes9x2010 libretro-snes9x2010 https://github.com/libretro/snes9x2010.git master
 snes9x libretro-snes9x https://github.com/libretro/snes9x.git master YES GENERIC Makefile libretro
 stella libretro-stella https://github.com/libretro/stella-libretro.git master YES GENERIC Makefile .
 tgbdual libretro-tgbdual https://github.com/libretro/tgbdual-libretro.git master YES GENERIC Makefile .
+thepowdertoy libretro-thepowdertoy https://github.com/libretro/ThePowderToy.git master YES CMAKE Makefile build -DCMAKE_BUILD_TYPE="Release"
 tyrquake libretro-tyrquake https://github.com/libretro/tyrquake.git master YES GENERIC Makefile .
 vba_next libretro-vba_next https://github.com/libretro/vba-next.git master YES GENERIC Makefile.libretro .
 vbam libretro-vbam https://github.com/libretro/vbam-libretro.git master YES GENERIC Makefile src/libretro
