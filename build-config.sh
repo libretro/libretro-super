@@ -57,6 +57,7 @@ include_core_quicknes
 include_core_bnes
 
 # --- Nintendo DS emulator cores ---
+include_core_desmume
 include_core_desmume2015
 include_core_melonds
 

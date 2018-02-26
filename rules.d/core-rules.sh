@@ -346,6 +346,14 @@ libretro_openlara_git_url="https://github.com/libretro/OpenLara.git"
 libretro_openlara_build_subdir="src/platform/libretro"
 libretro_openlara_build_makefile="Makefile"
 
+include_core_desmume() {
+register_module core "desmume" -ngc -ps3 -psp1 -qnx -wii
+}
+libretro_desmume_name="DeSmuME"
+libretro_desmume_git_url="https://github.com/libretro/desmume.git"
+libretro_desmume_build_subdir="desmume/src/frontend/libretro"
+libretro_desmume_build_makefile="Makefile.libretro"
+
 include_core_desmume2015() {
 register_module core "desmume2015" -ngc -ps3 -psp1 -qnx -wii
 }
