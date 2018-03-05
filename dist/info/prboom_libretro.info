@@ -1,6 +1,6 @@
 display_name = "Doom (PrBoom)"
 authors = "Florian Schulze"
-supported_extensions = "wad|iwad"
+supported_extensions = "wad|iwad|pwad"
 corename = "PrBoom"
 manufacturer = "Id Software"
 categories = "Game"
