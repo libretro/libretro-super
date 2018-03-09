@@ -13,5 +13,5 @@ supports_no_game = "false"
 firmware_count = 1
 firmware0_desc = "bios.min (Pokémon Mini BIOS)"
 firmware0_path = "bios.min"
-firmware0_opt = "false"
+firmware0_opt = "true"
 notes = "Suggested md5sum:|1e4fb124a3a886865acb574f388c803d = bios.min"
