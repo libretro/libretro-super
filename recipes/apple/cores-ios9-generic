@@ -23,6 +23,7 @@ ffmpeg libretro-ffmpeg https://github.com/libretro/FFmpeg.git master YES GENERIC
 fmsx libretro-fmsx https://github.com/libretro/fmsx-libretro.git master YES GENERIC Makefile .
 freeintv libretro-freeintv https://github.com/markwkidd/FreeIntv.git master YES GENERIC Makefile .
 gambatte libretro-gambatte https://github.com/libretro/gambatte-libretro.git master YES GENERIC Makefile .
+gearboy libretro-gearboy https://github.com/libretro/Gearboy.git master YES GENERIC Makefile platforms/libretro
 genesis_plus_gx libretro-genesis_plus_gx https://github.com/libretro/Genesis-Plus-GX.git master YES GENERIC Makefile.libretro .
 gme libretro-gme https://github.com/libretro/libretro-gme.git master YES GENERIC Makefile .
 gpsp libretro-gpsp https://github.com/libretro/gpsp.git master YES GENERIC Makefile .
