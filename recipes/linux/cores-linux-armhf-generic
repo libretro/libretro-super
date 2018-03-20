@@ -56,7 +56,7 @@ o2em libretro-o2em https://github.com/libretro/libretro-o2em.git master YES GENE
 pcsx_rearmed libretro-pcsx_rearmed https://github.com/libretro/pcsx_rearmed.git master YES GENERIC Makefile.libretro . USE_DYNAREC=0
 picodrive libretro-picodrive https://github.com/libretro/picodrive.git master YES GENERIC Makefile.libretro .
 pokemini libretro-pokemini https://github.com/libretro/PokeMini.git master YES GENERIC Makefile .
-ppsspp libretro-ppsspp https://github.com/libretro/ppsspp.git master YES GENERIC_GL Makefile libretro platform=armv7-neon-hardfloat ARCH=arm
+ppsspp libretro-ppsspp https://github.com/libretro/ppsspp.git master YES GENERIC_GL Makefile libretro platform=armv7-neon-hardfloat ARCH=arm CC=arm-linux-gnueabihf-gcc CXX=arm-linux-gnueabihf-g++
 prboom libretro-prboom https://github.com/libretro/libretro-prboom.git master YES GENERIC_ALT Makefile .
 prosystem libretro-prosystem https://github.com/libretro/prosystem-libretro.git master YES GENERIC Makefile .
 puae libretro-uae https://github.com/libretro/libretro-uae.git master YES GENERIC Makefile .
