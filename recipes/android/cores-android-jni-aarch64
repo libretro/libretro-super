@@ -43,6 +43,7 @@ mednafen_wswan libretro64-beetle_wswan https://github.com/libretro/beetle-wswan-
 melonds libretro64-melonds https://github.com/libretro/melonDS.git master YES GENERIC_JNI Makefile jni
 meteor libretro64-meteor https://github.com/libretro/meteor-libretro.git master YES GENERIC_JNI Makefile libretro/jni
 mame2003 libretro64-mame2003 https://github.com/libretro/mame2003-libretro.git master YES GENERIC_JNI Makefile jni
+mame2003-plus libretro64-mame2003-plus https://github.com/arcadez/mame2003-plus-libretro.git master YES GENERIC_JNI Makefile jni
 mame2000 libretro64-mame2000 https://github.com/libretro/mame2000-libretro.git master YES GENERIC_JNI Makefile jni
 mrboom libretro64-mrboom https://github.com/libretro/mrboom-libretro.git master YES GENERIC_JNI Makefile jni
 nekop2 libretro64-nekop2 https://github.com/libretro/libretro-meowPC98.git master YES GENERIC_JNI Makefile.libretro libretro/jni
