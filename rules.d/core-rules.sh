@@ -544,6 +544,13 @@ libretro_mame2003_name="MAME 2003 (0.78)"
 libretro_mame2003_git_url="https://github.com/libretro/mame2003-libretro.git"
 libretro_mame2003_makefile="Makefile"
 
+include_core_mame2003_plus() {
+	register_module core "mame2003-plus" -theos_ios -ngc -psp1 -wii
+}
+libretro_mame2003_plus_name="MAME 2003 Plus (0.78)"
+libretro_mame2003_plus_git_url="https://github.com/libretro-mirrors/mame2003-plus-libretro.git"
+libretro_mame2003_plus_makefile="Makefile"
+
 include_core_mame2003_midway() {
 	register_module core "mame2003_midway" -theos_ios -ngc -psp1 -wii
 }
