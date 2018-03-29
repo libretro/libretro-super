@@ -363,10 +363,9 @@ build_libretro_generic_makefile() {
 		echo -------------------------------------------------- | tee -a "$LOGFILE"
 		if [ "${COMMAND}" = "CMAKE" ]; then
 			if [ "${PLATFORM}" = "android" ]; then
-				EXTRAARGS="-DCMAKE_SYSTEM_NAME=Android \
-					-DCMAKE_SYSTEM_VERSION=${API_LEVEL} \
-					-DCMAKE_ANDROID_ARCH_ABI=${ABI_OVERRIDE} \
-					-DCMAKE_ANDROID_NDK=${NDK_ROOT}"
+				EXTRAARGS="-DANDROID_PLATFORM=android-${API_LEVEL} \
+					-DANDROID_ABI=${ABI_OVERRIDE} \
+					-DCMAKE_TOOLCHAIN_FILE=${NDK_ROOT}/build/cmake/android.toolchain.cmake"
 			fi
 
 			eval "set -- ${EXTRAARGS} \${CORE_ARGS}"
@@ -397,6 +396,8 @@ build_libretro_generic_makefile() {
 
 		if [ "${PLATFORM}" = "windows" ] || [ "${PLATFORM}" = "unix" ]; then
 			${STRIP:=strip} -s ${OUT}/${CORENAM}
+		elif [ "${PLATFORM}" = "android" -a ! -z "${STRIPPATH+x}" ]; then
+			${NDK_ROOT}/${STRIPPATH} -s ${OUT}/${CORENAM}
 		fi
 
 		echo "COPY CMD: cp -v ${OUT}/${ORIGNAM} ${OUTPUT}" 2>&1 | tee -a "$LOGFILE"
