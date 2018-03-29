@@ -396,6 +396,8 @@ build_libretro_generic_makefile() {
 
 		if [ "${PLATFORM}" = "windows" ] || [ "${PLATFORM}" = "unix" ]; then
 			${STRIP:=strip} -s ${OUT}/${CORENAM}
+		elif [ "${PLATFORM}" = "android" -a ! -z "${STRIPPATH+x}" ]; then
+			${NDK_ROOT}/${STRIPPATH} -s ${OUT}/${CORENAM}
 		fi
 
 		echo "COPY CMD: cp -v ${OUT}/${ORIGNAM} ${OUTPUT}" 2>&1 | tee -a "$LOGFILE"
