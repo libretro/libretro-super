@@ -28,7 +28,7 @@ handy libretro-handy https://github.com/libretro/libretro-handy.git master YES G
 lutro libretro-lutro https://github.com/libretro/libretro-lutro.git master YES GENERIC_JNI Makefile jni
 mame2000 libretro-mame2000 https://github.com/libretro/mame2000-libretro.git master YES GENERIC_JNI Makefile jni
 mame2003 libretro-mame2003 https://github.com/libretro/mame2003-libretro.git master YES GENERIC_JNI Makefile jni
-mame2003-plus libretro-mame2003-plus https://github.com/arcades/mame2003-plus-libretro.git master YES GENERIC_JNI Makefile jni
+mame2003-plus libretro-mame2003-plus https://github.com/libretro-mirrors/mame2003-plus-libretro.git master YES GENERIC_JNI Makefile jni
 mednafen_gba libretro-beetle_gba https://github.com/libretro/beetle-gba-libretro.git master YES GENERIC_JNI Makefile jni
 mednafen_lynx libretro-beetle_lynx https://github.com/libretro/beetle-lynx-libretro.git master YES GENERIC_JNI Makefile jni
 mednafen_ngp libretro-beetle_ngp https://github.com/libretro/beetle-ngp-libretro.git master YES GENERIC_JNI Makefile jni
