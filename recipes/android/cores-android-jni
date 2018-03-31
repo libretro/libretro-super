@@ -5,7 +5,7 @@ atari800 libretro-atari800 https://github.com/libretro/libretro-atari800.git mas
 bluemsx libretro-bluemsx https://github.com/libretro/blueMSX-libretro.git master YES GENERIC_JNI Makefile jni
 bsnes libretro-bsnes https://github.com/libretro/bsnes-libretro.git libretro YES GENERIC_JNI Makefile target-libretro/jni | bsnes_accuracy:profile=accuracy bsnes_balanced:profile=balanced bsnes_performance:profile=performance
 bsnes_mercury libretro-bsnes_mercury https://github.com/libretro/bsnes-mercury.git master YES GENERIC_JNI Makefile target-libretro/jni | bsnes_mercury_accuracy:profile=accuracy bsnes_mercury_balanced:profile=balanced bsnes_mercury_performance:profile=performance
-caprice libretro-caprice https://github.com/libretro/libretro-cap32.git YES GENERIC_JNI Makefile.libretro jni
+caprice libretro-caprice https://github.com/libretro/libretro-cap32.git master YES GENERIC_JNI Makefile.libretro jni
 craft libretro-craft https://github.com/libretro/Craft.git master YES GENERIC_JNI Makefile.libretro jni
 crocods libretro-crocods https://github.com/libretro/libretro-crocods.git master YES GENERIC_JNI Makefile jni
 desmume2015 libretro-desmume2015 https://github.com/libretro/desmume2015.git master YES GENERIC_JNI Makefile.libretro desmume/src/libretro/jni
