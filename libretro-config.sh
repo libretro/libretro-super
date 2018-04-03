@@ -43,7 +43,7 @@ export BUILD_LIBRETRO_GL=1
 #ANDROID DEFINES
 #================
 
-export TARGET_ABIS="armeabi armeabi-v7a x86"
+export TARGET_ABIS="armeabi armeabi-v7a arm64-v8a x86"
 
 #uncomment to define NDK standalone toolchain for ARM
 #export NDK_ROOT_DIR_ARM = 

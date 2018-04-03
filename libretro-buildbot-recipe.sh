@@ -949,7 +949,7 @@ EOF
 		android update project --path . --target android-24 | tee -a "$LOGFILE"
 		android update project --path libs/googleplay --target android-24 | tee -a "$LOGFILE"
 		android update project --path libs/appcompat --target android-24 | tee -a "$LOGFILE"
-		ant release | tee -a "$LOGFILE"
+		TARGET_ABIS=${TARGET_ABIS/arm64-v8a /} ant release | tee -a "$LOGFILE"
 		if [ -z "$BRANCH" ]; then
 			cp -rv bin/retroarch-release.apk $RARCH_DIR/retroarch-release.apk | tee -a "$LOGFILE"
 			cp -rv bin/retroarch-release.apk $RARCH_DIR/retroarch-release.apk
