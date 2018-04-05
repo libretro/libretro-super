@@ -55,7 +55,6 @@ o2em libretro-o2em https://github.com/libretro/libretro-o2em.git master YES GENE
 openlara libretro-openlara https://github.com/libretro/OpenLara.git master YES GENERIC_JNI Makefile src/platform/libretro/jni
 parallel_n64 libretro-parallel_n64 https://github.com/libretro/parallel-n64.git master YES GENERIC_JNI Makefile jni
 pcsx_rearmed libretro-pcsx_rearmed https://github.com/libretro/pcsx_rearmed.git master YES GENERIC_JNI Makefile.libretro jni
-pcsx_rearmed_interpreter libretro-pcsx_rearmed_interpreter https://github.com/libretro/pcsx_rearmed.git master YES GENERIC_JNI Makefile.libretro . USE_DYNAREC=0
 picodrive libretro-picodrive https://github.com/libretro/picodrive.git master YES GENERIC_JNI Makefile.libretro jni
 pocketcdg libretro-pocketcdg https://github.com/libretro/libretro-pocketcdg.git master YES GENERIC_JNI Makefile jni
 pokemini libretro-pokemini https://github.com/libretro/PokeMini.git master YES GENERIC_JNI Makefile jni
