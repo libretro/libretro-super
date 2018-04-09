@@ -306,7 +306,7 @@ build_libretro_databases() {
 	build_libretro_database "SNK - Neo Geo CD" "rom.crc"
 	build_libretro_database "SNK - Neo Geo Pocket" "rom.crc"
 	build_libretro_database "SNK - Neo Geo Pocket Color" "rom.crc"
-	build_libretro_database "Sony - PlayStation 2" "rom.crc"
+	build_libretro_database "Sony - PlayStation 2" "rom.serial"
 	build_libretro_database "Sony - PlayStation 3 (DLC)" "rom.crc"
 	build_libretro_database "Sony - PlayStation 3 (Downloadable)" "rom.crc"
 	build_libretro_database "Sony - PlayStation 3 (PSN)" "rom.crc"
