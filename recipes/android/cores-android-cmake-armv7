@@ -1,1 +1,1 @@
-ppsspp libretro-ppsspp-armv7 https://github.com/hrydgard/ppsspp.git master YES CMAKE Makefile build -DLIBRETRO=ON -DANDROID_TOOLCHAIN=clang -DANDROID_STL=c++_static -DANDROID_ARM_NEON=ON -DCMAKE_BUILD_TYPE=Release
+ppsspp libretro-ppsspp-armv7 https://github.com/hrydgard/ppsspp.git master YES CMAKE Makefile build -DLIBRETRO=ON -DANDROID_STL=c++_static -DANDROID_ARM_NEON=ON -DCMAKE_BUILD_TYPE=Release
