@@ -5,6 +5,7 @@ atari800 libretro-atari800 https://github.com/libretro/libretro-atari800.git mas
 bluemsx libretro-bluemsx https://github.com/libretro/blueMSX-libretro.git master YES GENERIC_JNI Makefile jni
 bnes libretro-bnes https://github.com/libretro/bnes-libretro.git master YES GENERIC_JNI Makefile libretro/jni
 bsnes libretro-bsnes https://github.com/libretro/bsnes-libretro.git libretro YES GENERIC_JNI Makefile target-libretro/jni | bsnes_accuracy:profile=accuracy bsnes_balanced:profile=balanced bsnes_performance:profile=performance
+bsnes_cplusplus98 libretro-bsnes_cplusplus98 https://github.com/libretro/bsnes-libretro-cplusplus98.git master YES GENERIC_JNI Makefile jni
 bsnes_mercury libretro-bsnes_mercury https://github.com/libretro/bsnes-mercury.git master YES GENERIC_JNI Makefile target-libretro/jni | bsnes_mercury_accuracy:profile=accuracy bsnes_mercury_balanced:profile=balanced bsnes_mercury_performance:profile=performance
 cap32 libretro-cap32 https://github.com/libretro/libretro-cap32.git master YES GENERIC_JNI Makefile.libretro jni
 chailove libretro-chailove https://github.com/libretro/libretro-chailove.git master YES GENERIC_JNI Makefile jni
@@ -28,6 +29,7 @@ genesis_plus_gx libretro-genesis_plus_gx https://github.com/libretro/Genesis-Plu
 gme libretro-gme https://github.com/libretro/libretro-gme.git master YES GENERIC_JNI Makefile jni
 gpsp libretro-gpsp https://github.com/libretro/gpsp.git master YES GENERIC_JNI Makefile jni
 handy libretro-handy https://github.com/libretro/libretro-handy.git master YES GENERIC_JNI Makefile jni
+hatari libretro-hatari https://github.com/libretro/hatari.git master YES GENERIC_JNI Makefile.libretro libretro/jni
 lutro libretro-lutro https://github.com/libretro/libretro-lutro.git master YES GENERIC_JNI Makefile jni
 mame2000 libretro-mame2000 https://github.com/libretro/mame2000-libretro.git master YES GENERIC_JNI Makefile jni
 mame2003 libretro-mame2003 https://github.com/libretro/mame2003-libretro.git master YES GENERIC_JNI Makefile jni
