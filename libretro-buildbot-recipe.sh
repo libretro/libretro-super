@@ -435,6 +435,13 @@ build_libretro_generic_jni() {
 	cd ${DIR}
 	cd ${SUBDIR}
 
+	ABILIST=$(sed -n 's/APP_ABI *[:?]*= *//p' Application.mk)
+	if [ -z ${ABILIST} -o "${ABILIST}" == "all" ]; then
+		APPABIS=("${ABIS[@]}")
+	else
+		IFS=' ' read -ra APPABIS <<< "${ABILIST}"
+	fi
+
 	eval "set -- $CORES"
 	for i do
 		core="${i%:*}"
@@ -452,36 +459,39 @@ build_libretro_generic_jni() {
 			LIBNAM="libretro_${core}"
 		fi
 
-		for a in "${ABIS[@]}"; do
-			LOGFILE="$TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${core}_${PLATFORM}_${a}.log"
-			echo -------------------------------------------------- | tee "$LOGFILE"
-			cat $TMPDIR/vars | tee -a "$LOGFILE"
+		LOGFILE="$TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${core}_${PLATFORM}.log"
+		echo -------------------------------------------------- | tee "$LOGFILE"
+		cat $TMPDIR/vars | tee -a "$LOGFILE"
 
-			echo -------------------------------------------------- | tee -a "$LOGFILE"
-			if [ -z "${NOCLEAN}" ]; then
-				echo "CLEANUP CMD: ${NDK} -j${JOBS} ${CORE_ARGS} APP_ABI=${a} clean" 2>&1 | tee -a "$LOGFILE"
-				${NDK} -j${JOBS} ${CORE_ARGS} APP_ABI=${a} clean 2>&1 | tee -a "$LOGFILE"
+		echo -------------------------------------------------- | tee -a "$LOGFILE"
+		if [ -z "${NOCLEAN}" ]; then
+			echo "CLEANUP CMD: ${NDK} -j${JOBS} ${CORE_ARGS} clean" 2>&1 | tee -a "$LOGFILE"
+			${NDK} -j${JOBS} ${CORE_ARGS} clean 2>&1 | tee -a "$LOGFILE"
 
-				if [ $? -eq 0 ]; then
-					echo buildbot job: $jobid $a ${core} cleanup success!
-				else
-					echo buildbot job: $jobid $a ${core} cleanup failed!
-				fi
+			if [ $? -eq 0 ]; then
+				echo buildbot job: $jobid $a ${core} cleanup success!
+			else
+				echo buildbot job: $jobid $a ${core} cleanup failed!
 			fi
+		fi
 
-			echo -------------------------------------------------- | tee -a "$LOGFILE"
-			eval "set -- ${NDK} -j${JOBS} APP_ABI=${a} ${CORE_ARGS}"
-			echo "BUILD CMD: $@" 2>&1 | tee -a "$LOGFILE"
-			"$@" 2>&1 | tee -a "$LOGFILE"
+		echo -------------------------------------------------- | tee -a "$LOGFILE"
+		eval "set -- ${NDK} -j${JOBS} ${CORE_ARGS}"
+		echo "BUILD CMD: $@" 2>&1 | tee -a "$LOGFILE"
+		"$@" 2>&1 | tee -a "$LOGFILE"
 
-			echo "COPY CMD: cp -v ../libs/${a}/$LIBNAM.${FORMAT_EXT} $RARCH_DIST_DIR/${a}/${CORENAM}" 2>&1 | tee -a "$LOGFILE"
-			cp -v ../libs/${a}/$LIBNAM.${FORMAT_EXT} $RARCH_DIST_DIR/${a}/${CORENAM} 2>&1 | tee -a "$LOGFILE"
-			cp -v ../libs/${a}/$LIBNAM.${FORMAT_EXT} $RARCH_DIST_DIR/${a}/${CORENAM}
-
-
-			RET=$?
-			buildbot_handle_message "$RET" "$ENTRY_ID" "$core" "$jobid" "$LOGFILE"
+		RET=0
+		for a in "${APPABIS[@]}"; do
+			if [ -f ../libs/${a}/$LIBNAM.${FORMAT_EXT} ]; then
+				echo "COPY CMD: cp -v ../libs/${a}/$LIBNAM.${FORMAT_EXT} $RARCH_DIST_DIR/${a}/${CORENAM}" 2>&1 | tee -a "$LOGFILE"
+				cp -v ../libs/${a}/$LIBNAM.${FORMAT_EXT} $RARCH_DIST_DIR/${a}/${CORENAM} 2>&1 | tee -a "$LOGFILE"
+			else
+				echo "$LIBNAM.${FORMAT_EXT} for ${a} not found" 2>&1 | tee -a "$LOGFILE"
+				RET=1
+			fi
 		done
+
+		buildbot_handle_message "$RET" "$ENTRY_ID" "$core" "$jobid" "$LOGFILE"
 	done
 
 	ENTRY_ID=""
