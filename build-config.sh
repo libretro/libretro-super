@@ -74,6 +74,7 @@ include_core_tgbdual
 include_core_stella
 
 # --- Commodore 64 emulator cores ---
+include_core_frodo
 include_core_vice_x64
 include_core_vice_x128
 include_core_vice_xvic

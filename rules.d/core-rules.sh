@@ -46,6 +46,13 @@ libretro_mrboom_name="Mr.Boom"
 libretro_mrboom_git_url="https://github.com/libretro/mrboom-libretro.git"
 libretro_mrboom_build_makefile="Makefile"
 
+include_core_frodo() {
+	register_module core "frodo"
+}
+libretro_frodo_name="Frodo"
+libretro_frodo_git_url="https://github.com/libretro/frodo-libretro.git"
+libretro_frodo_build_makefile="Makefile"
+
 include_core_vice_x64() {
 	register_module core "vice_x64"
 }
