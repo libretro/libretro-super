@@ -3,4 +3,5 @@ freeintv libretro-freeintv https://github.com/markwkidd/FreeIntv.git master YES 
 gambatte libretro-gambatte https://github.com/libretro/gambatte-libretro.git master YES GENERIC Makefile .
 nestopia libretro-nestopia https://github.com/libretro/nestopia.git master YES GENERIC Makefile libretro
 snes9x libretro-snes9x https://github.com/libretro/snes9x.git master YES GENERIC Makefile libretro
+theodore libretro-theodore https://github.com/Zlika/theodore.git master YES GENERIC Makefile .
 vbam libretro-vbam https://github.com/libretro/vbam-libretro.git master YES GENERIC Makefile src/libretro
