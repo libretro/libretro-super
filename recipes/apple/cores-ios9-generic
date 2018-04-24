@@ -34,7 +34,7 @@ lutro libretro-lutro https://github.com/libretro/libretro-lutro master YES GENER
 mame libretro-mame https://github.com/libretro/mame.git master YES GENERIC makefile . OSD=retro RETRO=1 NOWERROR=1 NOASM=1 TARGETOS=ios-arm CONFIG=libretro USE_BGFX=0 NO_USE_MIDI=1 VERBOSE=1 verbose=1
 mame2000 libretro-mame2000 https://github.com/libretro/mame2000-libretro.git master YES GENERIC Makefile .
 mame2003 libretro-mame2003 https://github.com/libretro/mame2003-libretro.git master YES GENERIC Makefile .
-mame2003-plus libretro-mame2003-plus https://github.com/libretro/mame2003-plus-libretro.git master YES GENERIC Makefile .
+mame2003_plus libretro-mame2003-plus https://github.com/libretro/mame2003-plus-libretro.git master YES GENERIC Makefile .
 mame2010 libretro-mame2010 https://github.com/libretro/mame2010-libretro.git master YES GENERIC Makefile . VRENDER=soft
 mame2014 libretro-mame2014 https://github.com/libretro/mame2014-libretro.git master YES GENERIC Makefile . | mame2014:TARGET=mame mess2014:TARGET=mess ume2014:TARGET=ume
 mednafen_gba libretro-beetle_gba https://github.com/libretro/beetle-gba-libretro.git master YES GENERIC Makefile .
