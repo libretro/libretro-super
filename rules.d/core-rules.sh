@@ -649,6 +649,12 @@ include_core_tgbdual() {
 libretro_tgbdual_name="TGB Dual"
 libretro_tgbdual_git_url="https://github.com/libretro/tgbdual-libretro.git"
 
+include_core_theodore() {
+	register_module core "theodore"
+}
+libretro_theodore_name="Theodore"
+libretro_theodore_git_url="https://github.com/Zlika/theodore.git"
+
 include_core_mupen64plus() {
 	register_module core "mupen64plus" -theos_ios -ngc -ps3 -psp1 -wii
 }
