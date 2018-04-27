@@ -7,6 +7,5 @@ categories = "Emulator"
 systemname = "Thomson TO8D"
 license = "GPLv3"
 permissions = ""
-display_version = "0.9"
+display_version = "Git"
 supports_no_game = "true"
-
