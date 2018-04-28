@@ -1,6 +1,6 @@
 display_name = "Thomson - TO8D (Theodore)"
 authors = "T. Lorblanches"
-supported_extensions = "fd|k7|rom"
+supported_extensions = "fd|sap|k7|m7|rom"
 corename = "Theodore"
 manufacturer = "Thomson"
 categories = "Emulator"
