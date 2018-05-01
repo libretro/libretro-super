@@ -1051,6 +1051,8 @@ if [ "${PLATFORM}" = "MINGW64" ] || [ "${PLATFORM}" = "MINGW32" ] || [ "${PLATFO
 			cp -v *.dll windows/
 			cp -v retroarch.exe windows/retroarch_debug.exe
 
+			(cd windows && windeployqt --release --no-patchqt --no-translations retroarch.exe)
+
 			status=$?
 			ERROR=$TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_DEBUG_${PLATFORM}.log
 			buildbot_handle_message "$status" "$ENTRY_ID" "retroarch" "$jobid" "$ERROR"
