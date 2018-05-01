@@ -1052,6 +1052,7 @@ if [ "${PLATFORM}" = "MINGW64" ] || [ "${PLATFORM}" = "MINGW32" ] || [ "${PLATFO
 			cp -v retroarch.exe windows/retroarch_debug.exe
 
 			(cd windows && windeployqt --release --no-patchqt --no-translations retroarch.exe)
+			(cd windows && for i in $(seq 3); do for bin in $(ntldd -R imageformats/*dll | grep -i mingw | cut -d">" -f2 | cut -d" " -f2); do cp -vu "$bin" . ; done; done)
 
 			status=$?
 			ERROR=$TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_DEBUG_${PLATFORM}.log
