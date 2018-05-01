@@ -1050,6 +1050,9 @@ if [ "${PLATFORM}" = "MINGW64" ] || [ "${PLATFORM}" = "MINGW32" ] || [ "${PLATFO
 			cp -v retroarch.exe windows/retroarch_debug.exe	| tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_DEBUG_${PLATFORM}.log
 			cp -v *.dll windows/
 			cp -v retroarch.exe windows/retroarch_debug.exe
+			
+			# TODO/FIXME: Workaround for a dependency (qt platform plugin) that is not listed by ntldd
+			cp -v /mingw64/share/qt5/plugins/platforms/qwindows.dll windows/ 
 
 			(cd windows && windeployqt --release --no-patchqt --no-translations retroarch.exe)
 			(cd windows && for i in $(seq 3); do for bin in $(ntldd -R imageformats/*dll | grep -i mingw | cut -d">" -f2 | cut -d" " -f2); do cp -vu "$bin" . ; done; done)
