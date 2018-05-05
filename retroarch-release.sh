@@ -6,6 +6,7 @@ PRGNAM=RetroArch
 SRCNAM="$(printf %s $PRGNAM | tr '[:upper:]' '[:lower:]')"
 TMP=${TMP:-/tmp/libretro}
 
+# Exit on errors and unset variables
 set -eu
 
 # Ensure a clean and fully updated repo
@@ -37,3 +38,11 @@ cd -- "$TMP"
 # Create .zip and .tar.xz release tarballs.
 zip -r "$PRGNAM-$VERSION.zip" "$PRGNAM-$VERSION"
 tar cf - "$PRGNAM-$VERSION" | xz -c9 - > "$PRGNAM-$VERSION.tar.xz"
+
+# Test the tarballs
+rm -rf -- "$PRGNAM-$VERSION"
+tar xvf "$PRGNAM-$VERSION.tar.xz"
+rm -rf -- "$PRGNAM-$VERSION"
+unzip -- "$PRGNAM-$VERSION.zip"
+
+exit 0
