@@ -184,6 +184,7 @@ include_core_ffmpeg
 include_core_remotejoy
 
 # --- Game engine cores ---
+include_core_reminiscence
 include_core_easyrpg
 include_core_tyrquake
 include_core_prboom
