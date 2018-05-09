@@ -164,7 +164,8 @@ WANT_CORES=" \
 	xrick \
 	pocketcdg \
 	crocods \
-	puae"
+	puae \
+	scummvm"
 fi
 
 for core in $WANT_CORES; do
@@ -187,6 +188,11 @@ for core in $WANT_CORES; do
 		path="target-libretro/jni"
 		append="_$core"
 	fi
+	
+	if [ $core = "scummvm" ]; then
+		path="backends/platform/libretro/build/jni"
+	fi
+	
 	build_libretro_generic_makefile $core $path $append
    build_libretro_generic_makefile_armv7neon $core $path $append
 done
