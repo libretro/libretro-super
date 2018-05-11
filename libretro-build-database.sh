@@ -334,6 +334,7 @@ build_libretro_databases() {
 	build_libretro_database "Cave Story" "rom.crc"
 	build_libretro_database "Quake1" "rom.crc"
 	build_libretro_database "RPG Maker" "rom.crc"
+	build_libretro_database "Flashback" "rom.crc"
 }
 
 build_libretrodb
