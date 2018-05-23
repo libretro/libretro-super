@@ -73,6 +73,9 @@ include_core_tgbdual
 # --- Atari 2600 emulator cores ---
 include_core_stella
 
+# --- Atari 800 emulator cores ---
+include_core_atari800
+
 # --- Commodore 64 emulator cores ---
 include_core_frodo
 include_core_vice_x64
@@ -184,6 +187,7 @@ include_core_ffmpeg
 include_core_remotejoy
 
 # --- Game engine cores ---
+include_core_cannonball
 include_core_reminiscence
 include_core_easyrpg
 include_core_tyrquake
@@ -199,7 +203,6 @@ include_core_2048
 include_core_stonesoup
 include_core_scummvm
 include_core_chailove
-include_core_atari800
 include_core_thepowdertoy
 
 # --- Miscellaneous cores ---

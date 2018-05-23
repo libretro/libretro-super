@@ -360,6 +360,12 @@ libretro_openlara_git_url="https://github.com/libretro/OpenLara.git"
 libretro_openlara_build_subdir="src/platform/libretro"
 libretro_openlara_build_makefile="Makefile"
 
+include_core_cannonball() {
+	register_module core "cannonball" -ngc -wii
+}
+libretro_cannonball_name="Cannonball"
+libretro_cannonball_git_url="https://github.com/libretro/cannonball.git"
+
 include_core_desmume() {
 register_module core "desmume" -ngc -ps3 -psp1 -qnx -wii
 }
