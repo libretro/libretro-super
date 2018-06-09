@@ -1,7 +1,7 @@
 display_name = "Sega - Dreamcast (Reicast)"
 authors = "skmp|flyinghead"
 supported_extensions = "cdi|gdi|chd|cue"
-corename = "Reicast"
+corename = "Reicast OIT"
 manufacturer = "Sega"
 categories = "Emulator"
 systemname = "Sega Dreamcast"
