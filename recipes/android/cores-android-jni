@@ -3,7 +3,7 @@
 4do libretro-4do https://github.com/libretro/4do-libretro.git master YES GENERIC_JNI Makefile jni
 atari800 libretro-atari800 https://github.com/libretro/libretro-atari800.git master YES GENERIC_JNI Makefile jni
 bluemsx libretro-bluemsx https://github.com/libretro/blueMSX-libretro.git master YES GENERIC_JNI Makefile jni
-bnes libretro-bnes https://github.com/libretro/bnes-libretro.git master YES GENERIC_JNI Makefile libretro/jni
+bnes libretro-bnes https://github.com/libretro/bnes-libretro.git master NO GENERIC_JNI Makefile libretro/jni
 bsnes libretro-bsnes https://github.com/libretro/bsnes-libretro.git libretro YES GENERIC_JNI Makefile target-libretro/jni | bsnes_accuracy:profile=accuracy bsnes_balanced:profile=balanced bsnes_performance:profile=performance
 bsnes_cplusplus98 libretro-bsnes_cplusplus98 https://github.com/libretro/bsnes-libretro-cplusplus98.git master YES GENERIC_JNI Makefile jni
 bsnes_mercury libretro-bsnes_mercury https://github.com/libretro/bsnes-mercury.git master YES GENERIC_JNI Makefile target-libretro/jni | bsnes_mercury_accuracy:profile=accuracy bsnes_mercury_balanced:profile=balanced bsnes_mercury_performance:profile=performance
@@ -53,7 +53,7 @@ mednafen_vb libretro-beetle_vb https://github.com/libretro/beetle-vb-libretro.gi
 mednafen_wswan libretro-beetle_wswan https://github.com/libretro/beetle-wswan-libretro.git master YES GENERIC_JNI Makefile jni
 melonds libretro-melonds https://github.com/libretro/melonDS.git master YES GENERIC_JNI Makefile jni
 mesen libretro-mesen https://github.com/libretro/Mesen.git master YES GENERIC_JNI Makefile Libretro/jni
-meteor libretro-meteor https://github.com/libretro/meteor-libretro.git master YES GENERIC_JNI Makefile libretro/jni
+meteor libretro-meteor https://github.com/libretro/meteor-libretro.git master NO GENERIC_JNI Makefile libretro/jni
 mrboom libretro-mrboom https://github.com/libretro/mrboom-libretro.git master YES GENERIC_JNI Makefile jni
 mupen64plus libretro-mupen64plus https://github.com/libretro/mupen64plus-libretro.git master YES GENERIC_JNI Makefile libretro/jni
 mupen64plus_gles3 libretro-mupen64plus-gles3 https://github.com/libretro/mupen64plus-libretro.git master YES GENERIC_JNI Makefile libretro/jni GLES3=1 APP_PLATFORM=android-18
