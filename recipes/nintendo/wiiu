@@ -59,4 +59,4 @@ vecx libretro-vecx https://github.com/libretro/libretro-vecx.git master YES GENE
 vice_x64 libretro-vice_x64 https://github.com/libretro/vice-libretro.git master YES GENERIC Makefile .
 vice_xvic libretro-vice_xvic https://github.com/libretro/vice-libretro.git master YES GENERIC Makefile . EMUTYPE=xvic
 vice_xplus4 libretro-vice_xplus4 https://github.com/libretro/vice-libretro.git master YES GENERIC Makefile . EMUTYPE=xplus4
-x64sdl libretro-x64sdl https://github.com/r-type/sdlvice-libretro.git master YES GENERIC Makefile.libretro .
+x64sdl libretro-x64sdl https://github.com/r-type/sdlvice-libretro.git master YES GENERIC makefile.libretro .
