@@ -145,7 +145,8 @@ if [ "${CORE_JOB}" == "YES" ]; then
 		STRIP="${HOST_CC}-strip"
 	fi
 
-	if [ -z "${HELPER} ${MAKE}" ]; then
+	TMP_MAKE="${HELPER} ${MAKE}"
+	if [ -z "${TMP_MAKE}" ]; then
 		if uname -s | grep -i MINGW32 > /dev/null 2>&1; then
 			MAKE=mingw32-make
 		else
@@ -345,11 +346,11 @@ build_libretro_generic_makefile() {
 				rm -fv out/*.{o,"${FORMAT_EXT}"} 2>&1 | tee -a "$LOGFILE"
 			elif [ "${COMMAND}" = "LEIRADEL" ]; then
 				eval "set -- ${HELPER} ${MAKE} -f ${MAKEFILE}.${PLATFORM}_${ARG1} platform=${PLATFORM}_${CORE_ARGS} -j${JOBS} clean"
-				echo "CLEANUP CMD: $@" 2>&1 | tee -a "$LOGFILE"
+				echo "CLEANUP CMD: $*" 2>&1 | tee -a "$LOGFILE"
 				"$@" 2>&1 | tee -a "$LOGFILE"
 			else
 				eval "set -- ${HELPER} ${MAKE} -f ${MAKEFILE} platform=${PLATFORM} -j${JOBS} ${CORE_ARGS} clean"
-				echo "CLEANUP CMD: $@" 2>&1 | tee -a "$LOGFILE"
+				echo "CLEANUP CMD: $*" 2>&1 | tee -a "$LOGFILE"
 				"$@" 2>&1 | tee -a "$LOGFILE"
 			fi
 
@@ -369,7 +370,7 @@ build_libretro_generic_makefile() {
 			fi
 
 			eval "set -- ${EXTRAARGS} \${CORE_ARGS}"
-			echo "BUILD CMD: ${CMAKE} $@" 2>&1 | tee -a "$LOGFILE"
+			echo "BUILD CMD: ${CMAKE} $*" 2>&1 | tee -a "$LOGFILE"
 			echo "$@" .. | xargs ${CMAKE} 2>&1 | tee -a "$LOGFILE"
 			echo "BUILD CMD: ${HELPER} ${MAKE} -f ${MAKEFILE} -j${JOBS}" 2>&1 | tee -a "$LOGFILE"
 			${HELPER} ${MAKE} -f ${MAKEFILE} -j${JOBS} 2>&1 | tee -a "$LOGFILE"
@@ -377,7 +378,7 @@ build_libretro_generic_makefile() {
 			find . -mindepth 2 -name "${CORENAM}" -exec cp -f "{}" . \;
 		elif [ "${COMMAND}" = "LEIRADEL" ]; then
 			eval "set -- ${HELPER} ${MAKE} -f ${MAKEFILE}.${PLATFORM}_${ARG1} platform=${PLATFORM}_${CORE_ARGS} -j${JOBS}"
-			echo "BUILD CMD: $@" 2>&1 | tee -a "$LOGFILE"
+			echo "BUILD CMD: $*" 2>&1 | tee -a "$LOGFILE"
 			"$@" 2>&1 | tee -a "$LOGFILE"
 		elif [ "${NAME}" = "higan_sfc" ] || [ "${NAME}" = "higan_sfc_balanced" ]; then
 			platform=""
@@ -385,7 +386,7 @@ build_libretro_generic_makefile() {
 			${HELPER} ${MAKE} -f ${MAKEFILE} -j${JOBS} ${CORE_ARGS} 2>&1 | tee -a "$LOGFILE"
 		else
 			eval "set -- ${HELPER} ${MAKE} -f ${MAKEFILE} platform=${PLATFORM} -j${JOBS} ${CORE_ARGS}"
-			echo "BUILD CMD: $@" 2>&1 | tee -a "$LOGFILE"
+			echo "BUILD CMD: $*" 2>&1 | tee -a "$LOGFILE"
 			"$@" 2>&1 | tee -a "$LOGFILE"
 		fi
 
@@ -477,7 +478,7 @@ build_libretro_generic_jni() {
 
 		echo -------------------------------------------------- | tee -a "$LOGFILE"
 		eval "set -- ${NDK} -j${JOBS} ${CORE_ARGS}"
-		echo "BUILD CMD: $@" 2>&1 | tee -a "$LOGFILE"
+		echo "BUILD CMD: $*" 2>&1 | tee -a "$LOGFILE"
 		"$@" 2>&1 | tee -a "$LOGFILE"
 
 		RET=0
@@ -623,7 +624,7 @@ while read line; do
 		BUILD="YES"
 	fi
 
-	if git config --file "$DIR/.gitmodules" --name-only --get-regexp path 2>&1 >/dev/null; then
+	if git config --file "$DIR/.gitmodules" --name-only --get-regexp path >/dev/null 2>&1; then
 		git --work-tree="." --git-dir=".git" -C "$DIR" submodule update --init --recursive
 	fi
 
@@ -1015,8 +1016,8 @@ if [ "${PLATFORM}" = "MINGW64" ] || [ "${PLATFORM}" = "MINGW32" ] || [ "${PLATFO
 		echo "BUILD CMD: ${HELPER} ${MAKE} -j${JOBS} ${ARGS}"
 		${HELPER} ${MAKE} -j${JOBS} ${ARGS} 2>&1 | tee -a "$LOGFILE"
 
-		if [ -n ${CUSTOM_BUILD} ]; then
-			${CUSTOM_BUILD} 2>&1 | tee -a "$LOGFILE"
+		if [ "${CUSTOM_BUILD}" ]; then
+			"${CUSTOM_BUILD}" 2>&1 | tee -a "$LOGFILE"
 		fi
 
 		strip -s retroarch.exe
@@ -1042,8 +1043,8 @@ if [ "${PLATFORM}" = "MINGW64" ] || [ "${PLATFORM}" = "MINGW32" ] || [ "${PLATFO
 			${HELPER} ${MAKE} -j${JOBS} ${ARGS} DEBUG=1 GL_DEBUG=1 2>&1 | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_DEBUG_${PLATFORM}.log
 			for i in $(seq 3); do for bin in $(ntldd -R *exe | grep -i mingw | cut -d">" -f2 | cut -d" " -f2); do cp -vu "$bin" . ; done; done
 
-			if [ -n ${CUSTOM_BUILD_DEBUG} ]; then
-				${CUSTOM_BUILD_DEBUG} 2>&1 | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_DEBUG_${PLATFORM}.log
+			if [ "${CUSTOM_BUILD_DEBUG}" ]; then
+				"${CUSTOM_BUILD_DEBUG}" 2>&1 | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_DEBUG_${PLATFORM}.log
 			fi
 
 			cp -v retroarch.exe.manifest windows/retroarch_debug.exe.manifest 2>/dev/null
