@@ -605,6 +605,7 @@ while read line; do
 	if [ -f "$DIR/.libretro-core-recipe" ]; then
 		recipe="$(cat "$DIR/.libretro-core-recipe")"
 		if [ "$line" != "$recipe" ]; then
+			rm -f -- "$DIR/.libretro-core-recipe"
 			echo "$line" > "$DIR/.libretro-core-recipe"
 			BUILD="YES"
 		fi
