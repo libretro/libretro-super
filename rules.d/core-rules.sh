@@ -165,7 +165,7 @@ libretro_redream_build_makefile="Makefile"
 libretro_redream_build_subdir="deps/libretro"
 
 include_core_reminiscence() {
-	register_module core "REminiscence"
+	register_module core "reminiscence"
 }
 libretro_reminiscence_name="REminiscence"
 libretro_reminiscence_git_url="https://github.com/libretro/REminiscence.git"
