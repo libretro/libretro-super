@@ -367,13 +367,34 @@ build_libretro_generic_makefile() {
 				EXTRAARGS="-DANDROID_PLATFORM=android-${API_LEVEL} \
 					-DANDROID_ABI=${ABI_OVERRIDE} \
 					-DCMAKE_TOOLCHAIN_FILE=${NDK_ROOT}/build/cmake/android.toolchain.cmake"
+			fi			
+			if [ "${PLATFORM}" = "msvc2017_desktop_x86" ]; then
+				EXTRAARGS="-G\"Visual Studio 15 2017\""
+			fi
+			if [ "${PLATFORM}" = "msvc2017_desktop_x64" ]; then
+				EXTRAARGS="-G\"Visual Studio 15 2017 Win64\""
+			fi
+			if [ "${PLATFORM}" = "msvc2010_x86" ]; then
+				EXTRAARGS="-G\"Visual Studio 10 2010\""
+			fi
+			if [ "${PLATFORM}" = "msvc2010_x64" ]; then
+				EXTRAARGS="-G\"Visual Studio 10 2010 Win64\""
+			fi
+			if [ "${PLATFORM}" = "msvc2005_x86" ]; then
+				EXTRAARGS="-G\"Visual Studio 8 2005\""
+			fi
+			if [ "${PLATFORM}" = "msvc2005_x64" ]; then
+				EXTRAARGS="-G\"Visual Studio 8 2005 Win64\""
+			fi
+			if [ "${PLATFORM}" = "msvc2003_x86" ]; then
+				EXTRAARGS="-G\"Visual Studio 7\""
 			fi
 
-			eval "set -- ${EXTRAARGS} \${CORE_ARGS}"
+			eval "set -- ${EXTRAARGS} \${CORE_ARGS} -DCMAKE_VERBOSE_MAKEFILE=ON"
 			echo "BUILD CMD: ${CMAKE} $*" 2>&1 | tee -a "$LOGFILE"
 			echo "$@" .. | xargs ${CMAKE} 2>&1 | tee -a "$LOGFILE"
-			echo "BUILD CMD: ${HELPER} ${MAKE} -f ${MAKEFILE} -j${JOBS}" 2>&1 | tee -a "$LOGFILE"
-			${HELPER} ${MAKE} -f ${MAKEFILE} -j${JOBS} 2>&1 | tee -a "$LOGFILE"
+			echo "BUILD CMD: ${CMAKE} --build . --target ${core}_libretro --config Release -- -j${JOBS}" 2>&1 | tee -a "$LOGFILE"
+			${CMAKE} --build . --target ${core}_libretro --config Release -- -j${JOBS} 2>&1 | tee -a "$LOGFILE"
 
 			find . -mindepth 2 -name "${CORENAM}" -exec cp -f "{}" . \;
 		elif [ "${COMMAND}" = "LEIRADEL" ]; then
