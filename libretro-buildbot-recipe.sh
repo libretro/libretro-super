@@ -367,28 +367,19 @@ build_libretro_generic_makefile() {
 				EXTRAARGS="-DANDROID_PLATFORM=android-${API_LEVEL} \
 					-DANDROID_ABI=${ABI_OVERRIDE} \
 					-DCMAKE_TOOLCHAIN_FILE=${NDK_ROOT}/build/cmake/android.toolchain.cmake"
+			else
+				case "${platform}" in
+					msvc2017_desktop_x86 ) EXTRAARGS="-G\"Visual Studio 15 2017\"" ;;
+					msvc2017_desktop_x64 ) EXTRAARGS="-G\"Visual Studio 15 2017 Win64\"" ;;
+					msvc2010_x86 ) EXTRAARGS="-G\"Visual Studio 10 2010\"" ;;
+					msvc2010_x64 ) EXTRAARGS="-G\"Visual Studio 10 2010 Win64\"" ;;
+					msvc2005_x86 ) EXTRAARGS="-G\"Visual Studio 8 2005\"" ;;
+					msvc2005_x64 ) EXTRAARGS="-G\"Visual Studio 8 2005 Win64\"" ;;
+					msvc2003_x86 ) EXTRAARGS="-G\"Visual Studio 7\"" ;;
+					* ) EXTRAARGS="" ;;
+				esac
 			fi			
-			if [ "${platform}" = "msvc2017_desktop_x86" ]; then
-				EXTRAARGS="-G\"Visual Studio 15 2017\""
-			fi
-			if [ "${platform}" = "msvc2017_desktop_x64" ]; then
-				EXTRAARGS="-G\"Visual Studio 15 2017 Win64\""
-			fi
-			if [ "${platform}" = "msvc2010_x86" ]; then
-				EXTRAARGS="-G\"Visual Studio 10 2010\""
-			fi
-			if [ "${platform}" = "msvc2010_x64" ]; then
-				EXTRAARGS="-G\"Visual Studio 10 2010 Win64\""
-			fi
-			if [ "${platform}" = "msvc2005_x86" ]; then
-				EXTRAARGS="-G\"Visual Studio 8 2005\""
-			fi
-			if [ "${platform}" = "msvc2005_x64" ]; then
-				EXTRAARGS="-G\"Visual Studio 8 2005 Win64\""
-			fi
-			if [ "${platform}" = "msvc2003_x86" ]; then
-				EXTRAARGS="-G\"Visual Studio 7\""
-			fi
+
 			JOBS_FLAG=-j
 			if [ "${MAKEFILE}" = "sln" ]; then
 				JOBS_FLAG=-maxcpucount:
