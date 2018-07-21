@@ -7,4 +7,3 @@ nestopia libretro-nestopia https://github.com/libretro/nestopia.git master YES G
 snes9x libretro-snes9x https://github.com/libretro/snes9x.git master YES GENERIC Makefile libretro
 theodore libretro-theodore https://github.com/Zlika/theodore.git master YES GENERIC Makefile .
 vbam libretro-vbam https://github.com/libretro/vbam-libretro.git master YES GENERIC Makefile src/libretro
-dolphin libretro-dolphin https://github.com/libretro/dolphin.git master YES CMAKE Makefile build -DLIBRETRO=ON -DCMAKE_BUILD_TYPE=Release
