@@ -1,0 +1,7 @@
+2048 libretro-2048 https://github.com/libretro/libretro-2048.git master YES GENERIC Makefile.libretro .
+dosbox_svn libretro-dosbox_svn https://github.com/fr500/dosbox-svn libretro YES GENERIC Makefile.libretro libretro target=cpi
+fceumm libretro-fceumm https://github.com/libretro/libretro-fceumm.git master YES GENERIC Makefile.libretro .
+gambatte libretro-gambatte https://github.com/libretro/gambatte-libretro.git master YES GENERIC Makefile .
+gpsp libretro-gpsp https://github.com/libretro/gpsp.git master YES GENERIC Makefile . platform=armv|hardfloat
+mgba libretro-mgba https://github.com/libretro/mgba.git master YES GENERIC Makefile.libretro . platform=unix-armv HAVE_NEON=1
+snes9x libretro-snes9x https://github.com/libretro/snes9x.git master YES GENERIC Makefile libretro
