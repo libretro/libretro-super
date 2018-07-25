@@ -142,6 +142,7 @@ include_core_parallel_n64
 
 # --- Nintendo Gamecube/Wii cores ---
 include_core_dolphin
+include_core_ishiiruka
 
 # --- Nintendo Pokemon Mini cores ---
 include_core_pokemini
