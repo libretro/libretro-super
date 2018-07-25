@@ -42,7 +42,7 @@ libretro_dolphin_build_makefile="Makefile"
 include_core_ishiiruka() {
 	register_module core "ishiiruka"
 }
-libretro_ishiiruka_name="Dolphin"
+libretro_ishiiruka_name="Ishiiruka"
 libretro_ishiiruka_git_url="https://github.com/libretro/Ishiiruka.git"
 libretro_ishiiruka_build_subdir="Source/Core/DolphinLibretro"
 libretro_ishiiruka_build_makefile="Makefile"
