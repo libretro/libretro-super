@@ -47,6 +47,13 @@ libretro_ishiiruka_git_url="https://github.com/libretro/Ishiiruka.git"
 libretro_ishiiruka_build_subdir="Source/Core/DolphinLibretro"
 libretro_ishiiruka_build_makefile="Makefile"
 
+include_core_daphne() {
+	register_module core "daphne"
+}
+libretro_daphne_name="Daphne"
+libretro_daphne_git_url="https://github.com/libretro/daphne.git"
+libretro_daphne_build_makefile="Makefile"
+
 include_core_mrboom() {
 	register_module core "mrboom"
 }

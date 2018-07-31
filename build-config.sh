@@ -198,6 +198,7 @@ include_core_openlara
 include_core_nxengine
 include_core_craft
 include_core_mrboom
+include_core_daphne
 include_core_dinothawr
 include_core_3dengine
 include_core_2048
