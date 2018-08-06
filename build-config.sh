@@ -55,6 +55,7 @@ include_core_fceumm
 include_core_nestopia
 include_core_quicknes
 include_core_bnes
+include_core_mesen
 
 # --- Nintendo DS emulator cores ---
 include_core_desmume
