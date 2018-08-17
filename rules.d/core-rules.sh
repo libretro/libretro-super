@@ -325,6 +325,15 @@ libretro_gambatte_git_url="https://github.com/libretro/gambatte-libretro.git"
 libretro_gambatte_build_platform="$FORMAT_COMPILER_TARGET_ALT"
 libretro_gambatte_build_makefile="Makefile.libretro"
 
+include_core_gearboy() {
+	register_module core "gearboy"
+}
+libretro_gearboy_name="Gearboy"
+libretro_gearboy_git_url="https://github.com/drhelius/Gearboy.git"
+libretro_gearboy_build_platform="$FORMAT_COMPILER_TARGET_ALT"
+libretro_gearboy_build_subdir="platforms/libretro"
+libretro_gearboy_build_makefile="Makefile"
+
 include_core_sameboy() {
 	register_module core "sameboy"
 }

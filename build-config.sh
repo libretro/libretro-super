@@ -70,6 +70,7 @@ include_core_citra_canary
 include_core_gambatte
 include_core_sameboy
 include_core_tgbdual
+include_core_gearboy
 
 # --- Atari 2600 emulator cores ---
 include_core_stella
