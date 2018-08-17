@@ -899,65 +899,65 @@ if [ "${PLATFORM}" = "android" ] && [ "${RA}" = "YES" ]; then
 		echo "buildbot job: $jobid processing assets"
 		echo
 
-		rm -rf pkg/android/phoenix/assets/assets
-		rm -rf pkg/android/phoenix/assets/cores
-		rm -rf pkg/android/phoenix/assets/info
-		rm -rf pkg/android/phoenix/assets/overlays
-		rm -rf pkg/android/phoenix/assets/shaders/shaders_glsl/
-		rm -rf pkg/android/phoenix/assets/database
-		rm -rf pkg/android/phoenix/assets/autoconfig
-		rm -rf pkg/android/phoenix/assets/cheats
-		rm -rf pkg/android/phoenix/assets/playlists
-		rm -rf pkg/android/phoenix/assets/dowloads
-		rm -rf pkg/android/phoenix/assets/remaps
-		rm -rf pkg/android/phoenix/assets/system
+		rm -rf pkg/android/phoenix$PKG_EXTRA/assets/assets
+		rm -rf pkg/android/phoenix$PKG_EXTRA/assets/cores
+		rm -rf pkg/android/phoenix$PKG_EXTRA/assets/info
+		rm -rf pkg/android/phoenix$PKG_EXTRA/assets/overlays
+		rm -rf pkg/android/phoenix$PKG_EXTRA/assets/shaders/shaders_glsl/
+		rm -rf pkg/android/phoenix$PKG_EXTRA/assets/database
+		rm -rf pkg/android/phoenix$PKG_EXTRA/assets/autoconfig
+		rm -rf pkg/android/phoenix$PKG_EXTRA/assets/cheats
+		rm -rf pkg/android/phoenix$PKG_EXTRA/assets/playlists
+		rm -rf pkg/android/phoenix$PKG_EXTRA/assets/dowloads
+		rm -rf pkg/android/phoenix$PKG_EXTRA/assets/remaps
+		rm -rf pkg/android/phoenix$PKG_EXTRA/assets/system
 
-		mkdir -p pkg/android/phoenix/assets
-		mkdir -p pkg/android/phoenix/assets/
-		mkdir -p pkg/android/phoenix/assets/assets
-		mkdir -p pkg/android/phoenix/assets/assets/xmb/monochrome
-		mkdir -p pkg/android/phoenix/assets/cores
-		mkdir -p pkg/android/phoenix/assets/info
-		mkdir -p pkg/android/phoenix/assets/overlays
-		mkdir -p pkg/android/phoenix/assets/shaders/shaders_glsl
-		mkdir -p pkg/android/phoenix/assets/database/cursors
-		mkdir -p pkg/android/phoenix/assets/database/rdb
-		mkdir -p pkg/android/phoenix/assets/autoconfig
-		mkdir -p pkg/android/phoenix/assets/cheats
-		mkdir -p pkg/android/phoenix/assets/playlists
-		mkdir -p pkg/android/phoenix/assets/dowloads
-		mkdir -p pkg/android/phoenix/assets/remaps
-		mkdir -p pkg/android/phoenix/assets/saves/
-		mkdir -p pkg/android/phoenix/assets/states/
-		mkdir -p pkg/android/phoenix/assets/system/
-		mkdir -p pkg/android/phoenix/assets/filters/video
-		mkdir -p pkg/android/phoenix/assets/filters/audio
+		mkdir -p pkg/android/phoenix$PKG_EXTRA/assets
+		mkdir -p pkg/android/phoenix$PKG_EXTRA/assets/
+		mkdir -p pkg/android/phoenix$PKG_EXTRA/assets/assets
+		mkdir -p pkg/android/phoenix$PKG_EXTRA/assets/assets/xmb/monochrome
+		mkdir -p pkg/android/phoenix$PKG_EXTRA/assets/cores
+		mkdir -p pkg/android/phoenix$PKG_EXTRA/assets/info
+		mkdir -p pkg/android/phoenix$PKG_EXTRA/assets/overlays
+		mkdir -p pkg/android/phoenix$PKG_EXTRA/assets/shaders/shaders_glsl
+		mkdir -p pkg/android/phoenix$PKG_EXTRA/assets/database/cursors
+		mkdir -p pkg/android/phoenix$PKG_EXTRA/assets/database/rdb
+		mkdir -p pkg/android/phoenix$PKG_EXTRA/assets/autoconfig
+		mkdir -p pkg/android/phoenix$PKG_EXTRA/assets/cheats
+		mkdir -p pkg/android/phoenix$PKG_EXTRA/assets/playlists
+		mkdir -p pkg/android/phoenix$PKG_EXTRA/assets/dowloads
+		mkdir -p pkg/android/phoenix$PKG_EXTRA/assets/remaps
+		mkdir -p pkg/android/phoenix$PKG_EXTRA/assets/saves/
+		mkdir -p pkg/android/phoenix$PKG_EXTRA/assets/states/
+		mkdir -p pkg/android/phoenix$PKG_EXTRA/assets/system/
+		mkdir -p pkg/android/phoenix$PKG_EXTRA/assets/filters/video
+		mkdir -p pkg/android/phoenix$PKG_EXTRA/assets/filters/audio
 
-		cp -rf media/assets/glui pkg/android/phoenix/assets/assets/
-		cp -rf media/assets/xmb/monochrome pkg/android/phoenix/assets/assets/xmb
-		cp -rf media/assets/zarch pkg/android/phoenix/assets/assets/
-		cp -rf media/assets/s* pkg/android/phoenix/assets/assets/
-		cp -rf media/autoconfig/* pkg/android/phoenix/assets/autoconfig/
-		cp -rf media/overlays/* pkg/android/phoenix/assets/overlays/
-		cp -rf media/shaders_glsl/* pkg/android/phoenix/assets/shaders/shaders_glsl/
-		cp -rf media/libretrodb/cursors/* pkg/android/phoenix/assets/database/cursors/
-		cp -rf media/libretrodb/rdb/* pkg/android/phoenix/assets/database/rdb/
-		cp -rf libretro-common/audio/dsp_filters/*.dsp pkg/android/phoenix/assets/filters/audio/
-		cp -rf gfx/video_filters/*.filt pkg/android/phoenix/assets/filters/video/
-		find pkg/android/phoenix/assets/assets/ -type d -name src -exec rm -rf {} \;
+		cp -rf media/assets/glui pkg/android/phoenix$PKG_EXTRA/assets/assets/
+		cp -rf media/assets/xmb/monochrome pkg/android/phoenix$PKG_EXTRA/assets/assets/xmb
+		cp -rf media/assets/zarch pkg/android/phoenix$PKG_EXTRA/assets/assets/
+		cp -rf media/assets/s* pkg/android/phoenix$PKG_EXTRA/assets/assets/
+		cp -rf media/autoconfig/* pkg/android/phoenix$PKG_EXTRA/assets/autoconfig/
+		cp -rf media/overlays/* pkg/android/phoenix$PKG_EXTRA/assets/overlays/
+		cp -rf media/shaders_glsl/* pkg/android/phoenix$PKG_EXTRA/assets/shaders/shaders_glsl/
+		cp -rf media/libretrodb/cursors/* pkg/android/phoenix$PKG_EXTRA/assets/database/cursors/
+		cp -rf media/libretrodb/rdb/* pkg/android/phoenix$PKG_EXTRA/assets/database/rdb/
+		cp -rf libretro-common/audio/dsp_filters/*.dsp pkg/android/phoenix$PKG_EXTRA/assets/filters/audio/
+		cp -rf gfx/video_filters/*.filt pkg/android/phoenix$PKG_EXTRA/assets/filters/video/
+		find pkg/android/phoenix$PKG_EXTRA/assets/assets/ -type d -name src -exec rm -rf {} \;
 
 
 		#cp -rf media/shaders_glsl $TMPDIR/
-		touch pkg/android/phoenix/assets/cheats/.empty-folder
-		touch pkg/android/phoenix/assets/saves/.empty-folder
-		touch pkg/android/phoenix/assets/states/.empty-folder
-		touch pkg/android/phoenix/assets/system/.empty-folder
+		touch pkg/android/phoenix$PKG_EXTRA/assets/cheats/.empty-folder
+		touch pkg/android/phoenix$PKG_EXTRA/assets/saves/.empty-folder
+		touch pkg/android/phoenix$PKG_EXTRA/assets/states/.empty-folder
+		touch pkg/android/phoenix$PKG_EXTRA/assets/system/.empty-folder
 
-		cp -rf $RARCH_DIR/info/* pkg/android/phoenix/assets/info/
+		cp -rf $RARCH_DIR/info/* pkg/android/phoenix$PKG_EXTRA/assets/info/
 
 		echo "buildbot job: $jobid Building"
 		echo
-		cd pkg/android/phoenix
+		cd pkg/android/phoenix$PKG_EXTRA
 		rm bin/*.apk
 
 cat << EOF > local.properties
