@@ -4,6 +4,7 @@ supported_extensions = "mkv|avi|f4v|f4f|3gp|ogm|flv|mp4|mp3|flac|ogg|m4a|webm|3g
 corename = "MPV"
 categories = "Media player"
 systemname = "MPV"
+systemid = "movie"
 license = "LGPLv2, GPLv2"
 permissions = ""
 display_version = "Git"

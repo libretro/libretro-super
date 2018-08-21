@@ -21,6 +21,10 @@
 # Name of the system that the core targets (optional):
 # systemname = "Nintendo Entertainment System"
 
+# ID of the primary platform the core uses. Use other core info files as guidance if possible.
+# If blank or not used, a standard core platform will be used (optional):
+# systemid = "nes"
+
 # Name of the database that the core supports (optional):
 # database = "Nintendo - Nintendo Entertainment System|Nintendo - Famicom Disk System"
 
