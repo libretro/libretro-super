@@ -10,10 +10,9 @@ TMP=${TMP:-/tmp/libretro}
 set -eu
 
 # Ensure a clean and fully updated repo
-if [ -d $SRCNAM ]; then
-	rm -rf -- $SRCNAM
-	./libretro-fetch.sh $SRCNAM
-fi
+[ -d $SRCNAM ] && rm -rf -- $SRCNAM
+
+./libretro-fetch.sh $SRCNAM
 
 COMMIT="$(git --work-tree=$SRCNAM --git-dir=$SRCNAM/.git describe --abbrev=0 \
 	--tags)"
