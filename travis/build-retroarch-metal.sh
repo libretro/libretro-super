@@ -13,5 +13,6 @@ cd ~/libretro-super
 
 rm -fr retroarch
 mv ${TRAVIS_BUILD_DIR} retroarch
+ln -s `pwd`/retroarch ${TRAVIS_BUILD_DIR}
 
 FORCE=YES SINGLE_CORE=retroarch METAL=1 ./libretro-buildbot-recipe.sh "${RECIPE}"
