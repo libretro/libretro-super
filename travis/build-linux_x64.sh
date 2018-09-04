@@ -12,5 +12,5 @@ fi
 
 [ -z "${NAME:-}" ] && NAME="${CORE}"
 
-# only build the one core specified in $CORE
-FORCE=YES SINGLE_CORE="${CORE}" CORE="${NAME}" ./libretro-buildbot-recipe.sh "${RECIPE}"
+# only build the one core specified in $CORE, use NOCLEAN so we don't reset the repo back to master/HEAD in case this is a PR
+NOCLEAN=1 FORCE=YES SINGLE_CORE="${CORE}" CORE="${NAME}" ./libretro-buildbot-recipe.sh "${RECIPE}"

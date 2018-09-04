@@ -15,4 +15,5 @@ rm -fr retroarch
 mv ${TRAVIS_BUILD_DIR} retroarch
 ln -s `pwd`/retroarch ${TRAVIS_BUILD_DIR}
 
-FORCE=YES SINGLE_CORE=retroarch METAL=1 ./libretro-buildbot-recipe.sh "${RECIPE}"
+# only build the one core specified in $SINGLE_CORE, use NOCLEAN so we don't reset the repo back to master/HEAD in case this is a PR
+NOCLEAN=1 FORCE=YES SINGLE_CORE=retroarch METAL=1 ./libretro-buildbot-recipe.sh "${RECIPE}"
