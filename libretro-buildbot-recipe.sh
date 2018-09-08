@@ -820,7 +820,11 @@ if [ "${PLATFORM}" == "osx" ] && [ "${RA}" == "YES" ]; then
 		cd pkg/apple
 
 		if [ "${METAL}" == "1" ]; then
-			xcodebuild -project RetroArch_Metal.xcodeproj -target RetroArch -configuration Release | tee "$LOGFILE"
+			if [ "${METAL_QT}" == "1" ]; then
+				xcodebuild -project RetroArch_Metal.xcodeproj -target RetroArchQT -configuration Release | tee "$LOGFILE"
+			else
+				xcodebuild -project RetroArch_Metal.xcodeproj -target RetroArch -configuration Release | tee "$LOGFILE"
+			fi
 		else
 			xcodebuild -project RetroArch.xcodeproj -target RetroArch -configuration Release | tee "$LOGFILE"
 		fi
