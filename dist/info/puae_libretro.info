@@ -1,6 +1,6 @@
 display_name = "Commodore - Amiga (P-UAE)"
 authors = "GnoStiC"
-supported_extensions = "adf|dms|fdi|ipf|zip|uae"
+supported_extensions = "adf|dms|fdi|ipf|zip|hdf|hdz|m3u|uae"
 corename = "PUAE"
 manufacturer = "Commodore"
 categories = "Emulator"
