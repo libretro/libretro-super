@@ -1,4 +1,4 @@
-display_name = "Sega - Dreamcast (Redream)"
+display_name = "Sega - Dreamcast (Redream GPL)"
 authors = "inolen"
 supported_extensions = "gdi|chd|cdi"
 corename = "Redream"
