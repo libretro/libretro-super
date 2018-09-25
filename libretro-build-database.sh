@@ -38,10 +38,10 @@ die()
 echo $LIBRETRODB_BASE
 
 build_libretrodb() {
-	cd $BASE_DIR
+	cd "$BASE_DIR"
 	if [ -d "$LIBRETRODB_BASE_DIR" ]; then
 		echo "=== Building libretrodb ==="
-		cd ${LIBRETRODB_BASE_DIR}/
+		cd "${LIBRETRODB_BASE_DIR}"
 
 		if [ -z "${NOCLEAN}" ]; then
 			make -j$JOBS clean || die "Failed to clean ${2}"
@@ -53,10 +53,10 @@ build_libretrodb() {
 # $1 is name
 # $2 is match key
 build_libretro_database() {
-	cd $BASE_DIR
+	cd "$BASE_DIR"
 	if [ -d "$LIBRETRODB_BASE_DIR" ]; then
 		DBFILE=${BASE_DIR}/${LIBRETRODB_BASE_DIR}/db.rdb
-		cd ${LIBRETRODB_BASE_DIR}/
+		cd "${LIBRETRODB_BASE_DIR}"
 		echo "=== Building ${1} ==="
 		COMMAND='${BASE_DIR}/${LIBRETRODB_BASE_DIR}/c_converter ${DBFILE} "${2}"'
 
