@@ -582,6 +582,15 @@ case "$platform" in
 
 		;;
 
+	libnx)
+		DIST_DIR="libnx"
+		FORMAT_EXT=a
+		FORMAT_COMPILER_TARGET=libnx
+		FORMAT_COMPILER_TARGET_ALT=libnx
+		FORMAT=_libnx
+
+		;;
+
 	sncps3)
 		DIST_DIR="ps3"
 		FORMAT_EXT=a
