@@ -1154,6 +1154,36 @@ if [ "${PLATFORM}" = "psp1" ] && [ "${RA}" = "YES" ]; then
 	fi
 fi
 
+if [ "${PLATFORM}" == "libnx" ] && [ "${RA}" == "YES" ]; then
+
+	if [ "${BUILD}" == "YES" -o "${FORCE}" == "YES" -o "${FORCE_RETROARCH_BUILD}" == "YES" -o "${CORES_BUILT}" == "YES" ]; then
+
+		touch $TMPDIR/built-frontend
+
+		cd dist-scripts
+		rm *.a
+		cp -v $RARCH_DIST_DIR/*.a .
+
+		time sh ./dist-cores.sh libnx 2>&1 | tee -a "$LOGFILE"
+
+		RET=${PIPESTATUS[0]}
+		buildbot_handle_message "$RET" "$ENTRY_ID" "retroarch" "$jobid" "$LOGFILE"
+
+		ENTRY_ID=""
+
+		echo "Packaging"
+
+		cd $WORK/$RADIR
+		cp retroarch.cfg retroarch.default.cfg
+		mkdir -p pkg/libnx/
+		mkdir -p pkg/libnx/cheats
+		mkdir -p pkg/libnx/remaps
+		mkdir -p pkg/libnx/overlays
+		cp -v $RARCH_DIST_DIR/../info/*.info pkg/
+		cp -rf media/overlays/libnx/* pkg/libnx/overlays
+	fi
+fi
+
 if [ "${PLATFORM}" == "wii" ] && [ "${RA}" == "YES" ]; then
 
 	if [ "${BUILD}" == "YES" -o "${FORCE}" == "YES" -o "${FORCE_RETROARCH_BUILD}" == "YES" -o "${CORES_BUILT}" == "YES" ]; then
