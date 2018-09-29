@@ -1178,15 +1178,16 @@ if [ "${PLATFORM}" == "libnx" ] && [ "${RA}" == "YES" ]; then
 		mkdir -p pkg/libnx/retroarch/assets
 		mkdir -p pkg/libnx/retroarch/autoconfig
 		mkdir -p pkg/libnx/retroarch/cheats
+		mkdir -p pkg/libnx/retroarch/database/rdb
 		mkdir -p pkg/libnx/retroarch/info
 		mkdir -p pkg/libnx/retroarch/overlays
 		mkdir -p pkg/libnx/retroarch/remaps
 		mkdir -p pkg/libnx/retroarch/shaders
 		cp -rf media/assets/* pkg/libnx/retroarch/assets
 		cp -rf media/autoconfig/* pkg/libnx/retroarch/autoconfig
-		cp -rf media/libretrodb/rdb pkg/libnx/retroarch/database
+		cp -rf media/libretrodb/rdb/* pkg/libnx/retroarch/database/rdb
 		cp -rf media/overlays/* pkg/libnx/retroarch/overlays
-		cp -rf media/shaders/* pkg/libnx/retroarch/shaders
+		cp -rf media/shaders_glsl/* pkg/libnx/retroarch/shaders
 		rm -rf pkg/libnx/retroarch/assets/src pkg/libnx/retroarch/assets/nuklear pkg/libnx/retroarch/assets/branding pkg/libnx/retroarch/assets/wallpapers pkg/libnx/retroarch/assets/zarch
 
 		cp -v $RARCH_DIST_DIR/../info/*.info pkg/libnx/retroarch/info
