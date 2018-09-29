@@ -1175,12 +1175,15 @@ if [ "${PLATFORM}" == "libnx" ] && [ "${RA}" == "YES" ]; then
 
 		cd $WORK/$RADIR
 		cp retroarch.cfg retroarch.default.cfg
-		mkdir -p pkg/libnx/
-		mkdir -p pkg/libnx/cheats
-		mkdir -p pkg/libnx/remaps
-		mkdir -p pkg/libnx/overlays
-		cp -v $RARCH_DIST_DIR/../info/*.info pkg/
-		cp -rf media/overlays/libnx/* pkg/libnx/overlays
+		mkdir -p pkg/libnx/retroarch/cheats
+		mkdir -p pkg/libnx/retroarch/remaps
+		mkdir -p pkg/libnx/retroarch/overlays
+		mkdir -p pkg/libnx/retroarch/shaders
+		mkdir -p pkg/libnx/retroarch/info
+		cp -v $RARCH_DIST_DIR/../info/*.info pkg/libnx/retroarch/info
+		cp -rf media/overlays/* pkg/libnx/retroarch/overlays
+		cp -rf media/shaders/* pkg/libnx/retroarch/shaders
+
 	fi
 fi
 
