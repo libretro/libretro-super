@@ -23,3 +23,4 @@ fbalpha libretro-fbalpha https://github.com/libretro/fbalpha.git master YES GENE
 vba_next libretro-vba_next https://github.com/libretro/vba-next.git master YES GENERIC Makefile.libretro .
 vecx libretro-vecx https://github.com/libretro/libretro-vecx.git master YES GENERIC Makefile.libretro .
 vice_x64 libretro-vice_x64 https://github.com/libretro/vice-libretro.git master YES GENERIC Makefile .
+yabause libretro-yabause https://github.com/libretro/yabause.git master YES GENERIC Makefile libretro
