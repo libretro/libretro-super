@@ -1187,7 +1187,8 @@ if [ "${PLATFORM}" == "libnx" ] && [ "${RA}" == "YES" ]; then
 		cp -rf media/libretrodb/rdb pkg/libnx/retroarch/database
 		cp -rf media/overlays/* pkg/libnx/retroarch/overlays
 		cp -rf media/shaders/* pkg/libnx/retroarch/shaders
-		find pkg/libnx/retroarch/assets/ -type d -name src -exec rm -rfv {} \;
+		rm -rf pkg/libnx/retroarch/assets/src pkg/libnx/retroarch/assets/nuklear pkg/libnx/retroarch/assets/branding pkg/libnx/retroarch/assets/wallpapers pkg/libnx/retroarch/assets/zarch
+
 		cp -v $RARCH_DIST_DIR/../info/*.info pkg/libnx/retroarch/info
 
 	fi
