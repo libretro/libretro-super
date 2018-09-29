@@ -1184,7 +1184,7 @@ if [ "${PLATFORM}" == "libnx" ] && [ "${RA}" == "YES" ]; then
 		mkdir -p pkg/libnx/retroarch/shaders
 		cp -rf media/assets/* pkg/libnx/retroarch/assets
 		cp -rf media/autoconfig/* pkg/libnx/retroarch/autoconfig
-		cp -rf media/libretrodb/* pkg/libnx/retroarch/database
+		cp -rf media/libretrodb/rdb pkg/libnx/retroarch/database
 		cp -rf media/overlays/* pkg/libnx/retroarch/overlays
 		cp -rf media/shaders/* pkg/libnx/retroarch/shaders
 		find pkg/libnx/retroarch/assets/ -type d -name src -exec rm {} \;
