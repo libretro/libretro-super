@@ -1,1 +1,2 @@
+pcsx_rearmed libretro-pcsx_rearmed https://github.com/libretro/pcsx_rearmed_switch.git master YES GENERIC Makefile.libretro .
 snes9x libretro-snes9x https://github.com/libretro/snes9x.git master YES GENERIC Makefile libretro
