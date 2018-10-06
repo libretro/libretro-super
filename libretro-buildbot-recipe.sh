@@ -821,7 +821,7 @@ if [ "${PLATFORM}" == "osx" ] && [ "${RA}" == "YES" ]; then
 
 		if [ "${METAL}" == "1" ]; then
 			if [ "${METAL_QT}" == "1" ]; then
-				xcodebuild -project RetroArch_Metal.xcodeproj -target RetroArchQT -configuration Release | tee "$LOGFILE"
+				xcodebuild -project RetroArch_Metal.xcodeproj -target RetroArchQt -configuration Release | tee "$LOGFILE"
 			else
 				xcodebuild -project RetroArch_Metal.xcodeproj -target RetroArch -configuration Release | tee "$LOGFILE"
 			fi
