@@ -44,4 +44,8 @@ tar xvf "$PRGNAM-$VERSION.tar.xz"
 rm -rf -- "$PRGNAM-$VERSION"
 unzip -- "$PRGNAM-$VERSION.zip"
 
+# Create SHA256SUMS and SHA512SUMS, use 'gpg --clearsign' to sign these.
+sha256sum "$PRGNAM-$VERSION.tar.xz" "$PRGNAM-$VERSION.zip" > SHA256SUMS
+sha512sum "$PRGNAM-$VERSION.tar.xz" "$PRGNAM-$VERSION.zip" > SHA512SUMS
+
 exit 0
