@@ -34,6 +34,7 @@ picodrive libretro-picodrive https://github.com/libretro/picodrive.git master NO
 pokemini libretro-pokemini https://github.com/libretro/PokeMini.git master YES GENERIC Makefile .
 prboom libretro-prboom https://github.com/libretro/libretro-prboom.git master YES GENERIC_ALT Makefile .
 prosystem libretro-prosystem https://github.com/libretro/prosystem-libretro.git master YES GENERIC Makefile .
+puae libretro-uae https://github.com/libretro/libretro-uae.git master YES GENERIC Makefile .
 quicknes libretro-quicknes https://github.com/libretro/QuickNES_Core.git master YES GENERIC Makefile .
 snes9x libretro-snes9x https://github.com/libretro/snes9x.git master YES GENERIC Makefile libretro
 snes9x2002 libretro-snes9x2002 https://github.com/libretro/snes9x2002.git master NO GENERIC Makefile .
@@ -49,3 +50,4 @@ vba_next libretro-vba_next https://github.com/libretro/vba-next.git master YES G
 gw libretro-gw https://github.com/libretro/gw-libretro.git master YES GENERIC Makefile .
 81 libretro-81 https://github.com/libretro/81-libretro.git master YES GENERIC Makefile .
 fuse libretro-fuse https://github.com/libretro/fuse-libretro.git master YES GENERIC Makefile .
+vice_x64 libretro-vice_x64 https://github.com/libretro/vice-libretro.git master YES GENERIC Makefile .
