@@ -100,6 +100,7 @@ include_core_puae
 
 # --- Saturn cores ---
 include_core_mednafen_saturn
+include_core_kronos
 include_core_yabause
 
 # --- Atari Lynx emulator cores ---
