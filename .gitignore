@@ -6,4 +6,6 @@
 /dist/unix/
 /dist/win*/
 /dist/osx*/
+/dist/wiiu
 /log/
+.DS_Store
