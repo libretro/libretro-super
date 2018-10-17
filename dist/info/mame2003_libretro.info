@@ -1,7 +1,7 @@
 display_name = "Arcade (MAME 2003)"
 authors = "MAMEdev"
 supported_extensions = "zip"
-corename = "MAME 2003 (0.78)"
+corename = "mame2003"
 manufacturer = "Various"
 categories = "Emulator"
 systemname = "Arcade (various)"
