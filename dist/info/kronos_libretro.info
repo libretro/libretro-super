@@ -13,10 +13,10 @@ display_version = "v1.4.5"
 supports_no_game = "false"
 firmware_count = 2
 firmware0_desc = "saturn_bios.bin (Saturn BIOS)"
-firmware0_path = "Kronos/saturn_bios.bin"
+firmware0_path = "kronos/saturn_bios.bin"
 firmware0_opt = "true"
 firmware1_desc = "stvbios.zip (ST-V BIOS from MAME)"
-firmware1_path = "Kronos/stvbios.zip"
+firmware1_path = "kronos/stvbios.zip"
 firmware1_opt = "true"
 notes = "(!) saturn_bios.bin (md5): af5828fdff51384f99b3c4926be27762|(!) stvbios.zip (md5): f5665438607ccbed46ef2ba9e303638c"
 
