@@ -1,6 +1,6 @@
 display_name = "Sega - Dreamcast/NAOMI (Reicast)"
 authors = "skmp|flyinghead"
-supported_extensions = "chd|cdi|iso|elf|bin|cue|gdi|lst|zip"
+supported_extensions = "chd|cdi|iso|elf|bin|cue|gdi|lst|zip|dat"
 corename = "Reicast"
 manufacturer = "Sega"
 categories = "Emulator"
