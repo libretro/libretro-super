@@ -198,6 +198,7 @@ build_default_cores() {
 	libretro_build_core mednafen_supergrafx
 	libretro_build_core mednafen_vb
 	libretro_build_core mednafen_wswan
+	libretro_build_core mu
 
 	libretro_build_core gw
 	libretro_build_core prosystem
