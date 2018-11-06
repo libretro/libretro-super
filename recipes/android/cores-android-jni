@@ -56,6 +56,7 @@ melonds libretro-melonds https://github.com/libretro/melonDS.git master YES GENE
 mesen libretro-mesen https://github.com/SourMesen/Mesen.git master YES GENERIC_JNI Makefile Libretro/jni
 meteor libretro-meteor https://github.com/libretro/meteor-libretro.git master NO GENERIC_JNI Makefile libretro/jni
 mrboom libretro-mrboom https://github.com/libretro/mrboom-libretro.git master YES GENERIC_JNI Makefile jni
+mu libretro-mu https://github.com/meepingsnesroms/Mu.git master YES GENERIC_JNI Makefile libretroBuildSystem/jni
 mupen64plus libretro-mupen64plus https://github.com/libretro/mupen64plus-libretro.git master YES GENERIC_JNI Makefile libretro/jni
 mupen64plus_gles3 libretro-mupen64plus-gles3 https://github.com/libretro/mupen64plus-libretro.git master YES GENERIC_JNI Makefile libretro/jni GLES3=1 APP_PLATFORM=android-18
 nekop2 libretro-nekop2 https://github.com/libretro/libretro-meowPC98.git master YES GENERIC_JNI Makefile.libretro libretro/jni
