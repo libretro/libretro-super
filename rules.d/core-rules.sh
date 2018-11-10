@@ -959,6 +959,14 @@ libretro_vemulator_name="VEmulator"
 libretro_vemulator_git_url="https://github.com/MJaoune/vemulator-libretro.git"
 libretro_vemulator_build_makefile="Makefile"
 
+include_core_mu() {
+	register_module core "mu" -theos_ios -ngc -sncps3 -ps3 -psp1 -qnx -wii
+}
+libretro_mu_name="Mu"
+libretro_mu_git_url="https://github.com/meepingsnesroms/Mu.git"
+libretro_mu_build_makefile="Makefile"
+libretro_mu_build_subdir="libretroBuildSystem"
+
 
 # CORE RULE VARIABLES
 #

@@ -217,6 +217,7 @@ include_core_gme
 include_core_pocketcdg
 include_core_crocods
 include_core_cap32
+include_core_mu
 
 # -------------------------------------------------------------------------------------------------
 # Devkits
