@@ -26,6 +26,7 @@ np2kai libretro-np2kai https://github.com/libretro/NP2kai.git master YES GENERIC
 nxengine libretro-nxengine https://github.com/libretro/nxengine-libretro.git master YES GENERIC Makefile .
 pcsx_rearmed libretro-pcsx_rearmed https://github.com/libretro/pcsx_rearmed.git master YES GENERIC Makefile.libretro .
 picodrive libretro-picodrive https://github.com/libretro/picodrive.git master YES GENERIC Makefile.libretro .
+pokemini libretro-pokemini https://github.com/libretro/PokeMini.git master YES GENERIC Makefile .
 prboom libretro-prboom https://github.com/libretro/libretro-prboom.git master NO GENERIC Makefile .
 prosystem libretro-prosystem https://github.com/libretro/prosystem-libretro.git master YES GENERIC Makefile .
 quicknes libretro-quicknes https://github.com/libretro/QuickNES_Core.git master YES GENERIC Makefile .
