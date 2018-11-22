@@ -1,4 +1,4 @@
-display_name = "DOS (DOSBox-SVN (Glide))"
+display_name = "DOS (DOSBox-SVN Glide)"
 authors = "DOSBox Team"
 supported_extensions = "exe|com|bat|conf"
 corename = "DOSBox-SVN"
