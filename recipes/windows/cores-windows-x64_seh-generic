@@ -50,7 +50,6 @@ mame2000 libretro-mame2000 https://github.com/libretro/mame2000-libretro.git mas
 mame2003 libretro-mame2003 https://github.com/libretro/mame2003-libretro.git master YES GENERIC Makefile . CCACHE_DISABLE=1
 mame2003_plus libretro-mame2003-plus https://github.com/libretro/mame2003-plus-libretro.git master YES GENERIC Makefile . CCACHE_DISABLE=1
 mame2010 libretro-mame2010 https://github.com/libretro/mame2010-libretro.git master YES GENERIC Makefile . VRENDER=soft PTR64=1
-mame2014 libretro-mame2014 https://github.com/libretro/mame2014-libretro.git master YES GENERIC Makefile . CCACHE_DISABLE=1 PTR64=1 | mame2014:TARGET=mame mess2014:TARGET=mess ume2014:TARGET=ume
 mame2016 libretro-mame2016 https://github.com/libretro/mame2016-libretro.git master YES GENERIC Makefile.libretro . PTR64=1
 mednafen_gba libretro-beetle_gba https://github.com/libretro/beetle-gba-libretro.git master YES GENERIC Makefile .
 mednafen_lynx libretro-beetle_lynx https://github.com/libretro/beetle-lynx-libretro.git master YES GENERIC Makefile .
