@@ -1,4 +1,1 @@
-dosbox libretro-dosbox https://github.com/libretro/dosbox-libretro.git master YES GENERIC_JNI Makefile.libretro jni
-dosbox_svn libretro-dosbox_svn https://github.com/fr500/dosbox-svn libretro YES GENERIC_JNI Makefile.libretro libretro/jni
-dosbox_svn_glide libretro-dosbox_svn_glide https://github.com/fr500/dosbox-svn glide YES GENERIC_JNI Makefile.libretro libretro/jni
 fbalpha libretro-fbalpha https://github.com/libretro/fbalpha.git master YES GENERIC_JNI makefile.libretro jni
