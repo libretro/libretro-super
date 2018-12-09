@@ -20,7 +20,6 @@ dosbox libretro-dosbox https://github.com/libretro/dosbox-libretro.git master YE
 dosbox_svn libretro-dosbox_svn https://github.com/fr500/dosbox-svn libretro YES GENERIC_JNI Makefile.libretro libretro/jni
 dosbox_svn_glide libretro-dosbox_svn_glide https://github.com/fr500/dosbox-svn glide YES GENERIC_JNI Makefile.libretro libretro/jni
 easyrpg libretro-easyrpg https://github.com/libretro/easyrpg-libretro.git master YES GENERIC_JNI Makefile.libretro builds/libretro/jni
-fbalpha libretro-fbalpha https://github.com/libretro/fbalpha.git master YES GENERIC_JNI makefile.libretro jni
 fbalpha2012 libretro-fbalpha2012 https://github.com/libretro/fbalpha2012.git master YES GENERIC_JNI makefile.libretro svn-current/trunk/projectfiles/libretro-android/jni
 fbalpha2012_cps1 libretro-fbalpha2012_cps1 https://github.com/libretro/fbalpha2012_cps1.git master YES GENERIC_JNI makefile.libretro projectfiles/libretro-android/jni
 fbalpha2012_cps2 libretro-fbalpha2012_cps2 https://github.com/libretro/fbalpha2012_cps2.git master YES GENERIC_JNI makefile.libretro projectfiles/libretro-android/jni

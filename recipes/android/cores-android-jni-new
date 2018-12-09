@@ -1,0 +1,1 @@
+fbalpha libretro-fbalpha https://github.com/libretro/fbalpha.git master YES GENERIC_JNI makefile.libretro jni
