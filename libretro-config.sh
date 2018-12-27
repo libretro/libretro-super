@@ -703,6 +703,16 @@ case "$platform" in
 					CXX="cl.exe"
 					CXX11="cl.exe"
 					;;
+				msvc2008_x86)
+					platform=windows_msvc2008_x86
+					FORMAT_EXT="dll"
+					BINARY_EXT=".exe"
+					FORMAT_COMPILER_TARGET="windows_msvc2008_x86"
+					DIST_DIR="msvc2008_x86"
+					CC="cl.exe"
+					CXX="cl.exe"
+					CXX11="cl.exe"
+					;;
 				msvc2010_x86)
 					platform=windows_msvc2010_x86
 					FORMAT_EXT="dll"
