@@ -1,3 +1,4 @@
+desmume libretro-desmume https://github.com/libretro/desmume.git master YES GENERIC Makefile.libretro desmume/src/frontend/libretro
 fceumm libretro-fceumm https://github.com/libretro/libretro-fceumm.git master YES GENERIC Makefile.libretro .
 freeintv libretro-freeintv https://github.com/markwkidd/FreeIntv.git master YES GENERIC Makefile .
 gambatte libretro-gambatte https://github.com/libretro/gambatte-libretro.git master YES GENERIC Makefile .
@@ -8,3 +9,4 @@ quicknes libretro-quicknes https://github.com/libretro/QuickNES_Core.git master 
 snes9x libretro-snes9x https://github.com/libretro/snes9x.git master YES GENERIC Makefile libretro
 theodore libretro-theodore https://github.com/Zlika/theodore.git master YES GENERIC Makefile .
 vbam libretro-vbam https://github.com/libretro/vbam-libretro.git master YES GENERIC Makefile src/libretro
+yabause libretro-yabause https://github.com/libretro/yabause.git master YES GENERIC Makefile libretro
