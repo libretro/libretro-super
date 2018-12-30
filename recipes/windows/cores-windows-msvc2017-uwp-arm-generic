@@ -11,6 +11,7 @@ mednafen_psx libretro-beetle_psx https://github.com/libretro/beetle-psx-libretro
 mednafen_psx_hw libretro-beetle_psx_hw https://github.com/libretro/beetle-psx-libretro.git master YES GENERIC Makefile . HAVE_HW=1
 mednafen_saturn libretro-beetle_saturn https://github.com/libretro/beetle-saturn-libretro.git master YES GENERIC Makefile .
 mednafen_wswan libretro-beetle_wswan https://github.com/libretro/beetle-wswan-libretro.git master YES GENERIC Makefile .
+mesen libretro-mesen https://github.com/SourMesen/Mesen.git master YES GENERIC Makefile Libretro platform=windows_msvc2017_desktop_x64
 nestopia libretro-nestopia https://github.com/libretro/nestopia.git master YES GENERIC Makefile libretro
 picodrive libretro-picodrive https://github.com/libretro/picodrive.git master YES GENERIC Makefile.libretro .
 quicknes libretro-quicknes https://github.com/libretro/QuickNES_Core.git master YES GENERIC Makefile .
