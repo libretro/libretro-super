@@ -773,7 +773,7 @@ libretro_fmsx_name="fMSX"
 libretro_fmsx_git_url="https://github.com/libretro/fmsx-libretro.git"
 
 include_core_2048() {
-	register_module core "2048" -ngc -sncps3 -ps3 -wii
+	register_module core "2048" -ngc -sncps3 -ps2 -ps3 -wii
 }
 libretro_2048_git_url="https://github.com/libretro/libretro-2048.git"
 libretro_2048_build_makefile="Makefile.libretro"

@@ -263,6 +263,12 @@ case "$platform" in
 					FORMAT_COMPILER_TARGET="psp1"
 					DIST_DIR="psp1"
 					;;
+				*ps2*)
+					platform=ps2
+					FORMAT_EXT="a"
+					FORMAT_COMPILER_TARGET="ps2"
+					DIST_DIR="ps2"
+					;;
 				*wii*)
 					platform=wii
 					FORMAT_EXT="a"
