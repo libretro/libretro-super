@@ -72,7 +72,7 @@ download-ps2-packer()
    fi
 }
 
-donwload-libretro()
+donwload-libretro-super()
 {
    cd ~
    if [ ! -d ~/libretro/ps2 ]; then
@@ -126,6 +126,17 @@ install-ps2-packer()
    make clean && make && make install
 }
 
+build-libretro-super()
+{
+   if [ ! -d ~/libretro/ps2 ]; then
+      echo You need to donwload first the libretro-super
+   fi
+
+   cd ~/libretro/ps2
+   git fetch && git pull
+   ./libretro-buildbot-recipe.sh recipes/playstation/ps2   
+}
+
 #!/bin/bash
 platform=ps2
 
@@ -156,7 +167,7 @@ if [ "$1" = "install" ]; then
       download-ps2sdk-ports
       download-gskit
       download-ps2-packer
-      donwload-libretro
+      donwload-libretro-super
 
       #install everything
       install-ps2toolchain
@@ -174,9 +185,7 @@ if [ "$1" = "build" ]; then
       echo Error: PS2 toolchain is not installed.
       echo $platform environment not found, run with install again...
    else
-      cd ~/libretro/ps2
-      git pull
-      ./libretro-buildbot-recipe.sh recipes/playstation/ps2   
+      build-libretro-super 
    fi
 fi;
 
