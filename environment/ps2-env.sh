@@ -1,7 +1,7 @@
 display_usage() { 
    echo -e "\nSetup a RetroArch PS2 build environment on Debian/Ubuntu" 
    echo -e "\nUsage: [install] [build] [export]\n" 
-   echo -e "It will install the toolchain in /home/buildbot/tools\n"
+   echo -e "It will install the toolchain in ~/tools\n"
    echo -e "Arguments:\n"
    echo -e "install:\n install or re(install) the toolchain"
    echo -e "build:\n update the source tree and build everything"
@@ -10,13 +10,11 @@ display_usage() {
 
 update-profile()
 {
-   echo "export PS2DEV=/home/buildbot/tools/ps2dev" >> ~/.profile
-   source ~/.profile
-
-   echo "export PS2SDK=$PS2DEV/ps2sdk" >> ~/.profile
-   source ~/.profile
-
-   echo "export PATH=$PATH:$PS2DEV/bin:$PS2DEV/ee/bin:$PS2DEV/iop/bin:$PS2DEV/dvp/bin:$PS2SDK/bin" >> ~/.profile
+   echo "" >> ~/.profile
+   echo "#### PS2DEV ####" >> ~/.profile
+   echo "export PS2DEV=~/tools/ps2dev" >> ~/.profile
+   echo "export PS2SDK=\$PS2DEV/ps2sdk" >> ~/.profile
+   echo "export PATH=\$PATH:\$PS2DEV/bin:\$PS2DEV/ee/bin:\$PS2DEV/iop/bin:\$PS2DEV/dvp/bin:\$PS2SDK/bin" >> ~/.profile
    source ~/.profile
 }
 
@@ -127,10 +125,11 @@ fi;
 
 if [ "$1" = "install" ]; then
    # Install needed dependencies
-   sudo apt install build-essential git make p7zip tar wget patch
+   sudo apt install -yqqq build-essential git p7zip tar wget patch libucl-dev
+   sudo apt install -yqqq libucl-dev zlib1g-dev
 
-   if [ ! -d /home/buildbot/tools/ps2dev ]; then
-      mkdir -p /home/buildbot/tools/ps2dev
+   if [ ! -d ~/tools/ps2dev ]; then
+      mkdir -p ~/tools/ps2dev
       # Prepare the lbash
       update-profile
    fi
@@ -148,17 +147,11 @@ if [ "$1" = "install" ]; then
    install-gskit
    install-ps2-packer
 
-
-   if [ ! -d "/home/buildbot/tools" ]; then
-      sudo mkdir -p /home/buildbot
-      sudo ln -s ~/tools /home/buildbot/tools
-   fi;
-
    echo $platform environment ready...
 fi;
 
 if [ "$1" = "build" ]; then
-   if [ -d "/home/buildbot/tools/ps2dev/" ]; then
+   if [ -d "~/tools/ps2dev/" ]; then
       cd ~/libretro/ps2
       git pull
       ./libretro-buildbot-recipe.sh recipes/playstation/ps2
