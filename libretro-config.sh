@@ -473,6 +473,17 @@ case "$platform" in
 		CXX="psp-g++${BINARY_EXT}"
 		;;
 
+	ps2)
+		DIST_DIR="ps2"
+		FORMAT_EXT=a
+		FORMAT=_ps2
+		FORMAT_COMPILER_TARGET=ps2
+		FORMAT_COMPILER_TARGET_ALT=ps2
+
+		CC="ee-gcc${BINARY_EXT}"
+		CXX="ee-g++${BINARY_EXT}"
+		;;
+
 	ctr)
 		DIST_DIR="ctr"
 		FORMAT_EXT=a

@@ -1158,6 +1158,37 @@ if [ "${PLATFORM}" = "psp1" ] && [ "${RA}" = "YES" ]; then
 	fi
 fi
 
+if [ "${PLATFORM}" = "ps2" ] && [ "${RA}" = "YES" ]; then
+
+	if [ "${BUILD}" == "YES" -o "${FORCE}" == "YES" -o "${FORCE_RETROARCH_BUILD}" == "YES" -o "${CORES_BUILT}" == "YES" ]; then
+
+		cd dist-scripts
+		rm *.a
+		cp -v $RARCH_DIST_DIR/*.a .
+
+		time sh ./dist-cores.sh ps2 2>&1 | tee -a "$LOGFILE"
+
+		RET=${PIPESTATUS[0]}
+		buildbot_handle_message "$RET" "$ENTRY_ID" "retroarch" "$jobid" "$LOGFILE"
+
+		if [ $RET -eq 0 ]; then
+			touch $TMPDIR/built-frontend
+		fi
+
+		ENTRY_ID=""
+
+		echo "Packaging"
+
+		cd $WORK/$RADIR
+		cp retroarch.cfg retroarch.default.cfg
+
+		mkdir -p pkg/ps2/
+		mkdir -p pkg/ps2/info
+		cp -v $RARCH_DIST_DIR/../info/*.info pkg/ps2/info/
+
+	fi
+fi
+
 if [ "${PLATFORM}" == "libnx" ] && [ "${RA}" == "YES" ]; then
 
 	if [ "${BUILD}" == "YES" -o "${FORCE}" == "YES" -o "${FORCE_RETROARCH_BUILD}" == "YES" -o "${CORES_BUILT}" == "YES" ]; then
