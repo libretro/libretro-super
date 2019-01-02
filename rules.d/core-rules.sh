@@ -179,6 +179,13 @@ libretro_redream_git_url="https://github.com/libretro/redream.git"
 libretro_redream_build_makefile="Makefile"
 libretro_redream_build_subdir="deps/libretro"
 
+include_core_minivmac() {
+	register_module core "minivmac"
+}
+libretro_minivmac_name="Mini Vmac"
+libretro_minivmac_git_url="https://github.com/libretro/libretro-minivmac.git"
+libretro_minivmac_build_makefile="Makefile"
+
 include_core_reminiscence() {
 	register_module core "reminiscence"
 }

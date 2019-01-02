@@ -218,6 +218,7 @@ include_core_pocketcdg
 include_core_crocods
 include_core_cap32
 include_core_mu
+include_core_minivmac
 
 # -------------------------------------------------------------------------------------------------
 # Devkits
