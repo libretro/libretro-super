@@ -18,6 +18,7 @@ prboom libretro-prboom https://github.com/libretro/libretro-prboom.git master YE
 quicknes libretro-quicknes https://github.com/libretro/QuickNES_Core.git master YES GENERIC Makefile .
 snes9x libretro-snes9x https://github.com/libretro/snes9x.git master YES GENERIC Makefile libretro
 theodore libretro-theodore https://github.com/Zlika/theodore.git master YES GENERIC Makefile .
+tyrquake libretro-tyrquake https://github.com/libretro/tyrquake.git master YES GENERIC Makefile .
 vbam libretro-vbam https://github.com/libretro/vbam-libretro.git master YES GENERIC Makefile src/libretro
 virtualjaguar libretro-virtualjaguar https://github.com/libretro/virtualjaguar-libretro.git master YES GENERIC Makefile .
 yabause libretro-yabause https://github.com/libretro/yabause.git master YES GENERIC Makefile libretro
