@@ -1,5 +1,6 @@
 2048 libretro-2048 https://github.com/libretro/libretro-2048.git master YES GENERIC Makefile.libretro .
 4do libretro-4do https://github.com/libretro/4do-libretro.git master YES GENERIC Makefile .
+bluemsx libretro-bluemsx https://github.com/libretro/blueMSX-libretro.git master YES GENERIC Makefile.libretro .
 desmume libretro-desmume https://github.com/libretro/desmume.git master YES GENERIC Makefile.libretro desmume/src/frontend/libretro
 fbalpha libretro-fbalpha https://github.com/libretro/fbalpha.git master YES GENERIC makefile.libretro .
 fceumm libretro-fceumm https://github.com/libretro/libretro-fceumm.git master YES GENERIC Makefile.libretro .
@@ -22,6 +23,7 @@ nxengine libretro-nxengine https://github.com/libretro/nxengine-libretro.git mas
 o2em libretro-o2em https://github.com/libretro/libretro-o2em.git master YES GENERIC Makefile .
 picodrive libretro-picodrive https://github.com/libretro/picodrive.git master YES GENERIC Makefile.libretro .
 pocketcdg libretro-pocketcdg https://github.com/libretro/libretro-pocketcdg.git master YES GENERIC Makefile .
+pokemini libretro-pokemini https://github.com/libretro/PokeMini.git master YES GENERIC Makefile .
 prboom libretro-prboom https://github.com/libretro/libretro-prboom.git master YES GENERIC Makefile .
 prosystem libretro-prosystem https://github.com/libretro/prosystem-libretro.git master YES GENERIC Makefile .
 quicknes libretro-quicknes https://github.com/libretro/QuickNES_Core.git master YES GENERIC Makefile .
