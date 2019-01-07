@@ -1,6 +1,6 @@
 display_name = "Cannonball"
 authors = "Chris White"
-supported_extensions = "88"
+supported_extensions = "game|88"
 corename = "Cannonball"
 categories = "Game"
 systemname = "Outrun Game Engine"
