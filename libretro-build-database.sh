@@ -326,7 +326,6 @@ build_libretro_databases() {
 	build_libretro_database "MAME" "rom.crc"
 	build_libretro_database "MAME 2000" "rom.crc"
 	build_libretro_database "MAME 2003" "rom.crc"
-	build_libretro_database "MAME 2003 (Midway)" "rom.crc"
 	build_libretro_database "MAME 2003-Plus" "rom.crc"
 	build_libretro_database "MAME 2010" "rom.crc"
 	build_libretro_database "MAME 2014" "rom.crc"
