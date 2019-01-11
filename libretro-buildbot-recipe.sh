@@ -677,7 +677,7 @@ while read line; do
 done < $RECIPE
 
 buildbot_pull(){
-	[ ! -f "$RECIPE.ra" ] && return 0
+	[ -f "$RECIPE.ra" ] || return 0
 
 	while read line; do
 		eval "set -- \$line"
@@ -699,7 +699,7 @@ buildbot_pull(){
 		ARGS="${ARGS# }"
 		ARGS="${ARGS%"${ARGS##*[![:space:]]}"}"
 
-		if [ "${ENABLED}" = "YES" ]; then
+		if [ "${ENABLED}" = "YES" ] && [ "${TYPE}" = "PROJECT" ] || [ "${TRAVIS:-0}" = "0" ]; then
 			echo "buildbot job: $jobid Processing $NAME"
 			echo
 			echo NAME: $NAME
@@ -753,10 +753,10 @@ buildbot_pull(){
 				fi
 				cd $WORK
 			fi
+			echo
+			echo RADIR=$RADIR
 		fi
 
-		echo
-		echo RADIR=$RADIR
 	done < $RECIPE.ra
 	cd $WORK
 }
