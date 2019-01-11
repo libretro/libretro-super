@@ -909,6 +909,11 @@ case "$platform" in
 					FORMAT_COMPILER_TARGET="android-armv7"
 					DIST_DIR="android/armeabi-v7a"
 					;;
+                                linux-armv7-neon)
+                                        FORMAT_EXT="so"
+                                        FORMAT_COMPILER_TARGET="unix-armv7-hardfloat-neon"
+                                        DIST_DIR="unix"
+                                       ;;
 				*)
 					BINARY_EXT=""
 					FORMAT_COMPILER_TARGET="unix"
