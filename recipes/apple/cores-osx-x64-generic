@@ -71,7 +71,6 @@ np2kai libretro-np2kai https://github.com/libretro/NP2kai.git master YES GENERIC
 nxengine libretro-nxengine https://github.com/libretro/nxengine-libretro.git master YES GENERIC Makefile .
 o2em libretro-o2em https://github.com/libretro/libretro-o2em.git master YES GENERIC Makefile .
 openlara libretro-openlara https://github.com/libretro/OpenLara.git master YES GENERIC Makefile src/platform/libretro
-pcsx_rearmed libretro-pcsx_rearmed https://github.com/libretro/pcsx_rearmed.git master YES GENERIC Makefile.libretro . USE_DYNAREC=1
 pcsx_rearmed_interpreter libretro-pcsx_rearmed_interpreter https://github.com/libretro/pcsx_rearmed.git master YES GENERIC Makefile.libretro . USE_DYNAREC=0
 picodrive libretro-picodrive https://github.com/libretro/picodrive.git master YES GENERIC Makefile.libretro .
 pocketcdg libretro-pocketcdg https://github.com/libretro/libretro-pocketcdg.git master YES GENERIC Makefile .
