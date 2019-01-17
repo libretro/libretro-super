@@ -821,12 +821,12 @@ if [ "${PLATFORM}" == "osx" ] && [ "${RA}" == "YES" ]; then
 
 		if [ "${METAL}" == "1" ]; then
 			if [ "${METAL_QT}" == "1" ]; then
-				xcodebuild -project RetroArch_Metal.xcodeproj -target RetroArchQt -configuration Release | tee "$LOGFILE"
+				xcodebuild -project RetroArch_Metal.xcodeproj -target RetroArchQt -configuration Release &> "$LOGFILE"
 			else
-				xcodebuild -project RetroArch_Metal.xcodeproj -target RetroArch -configuration Release | tee "$LOGFILE"
+				xcodebuild -project RetroArch_Metal.xcodeproj -target RetroArch -configuration Release &> "$LOGFILE"
 			fi
 		else
-			xcodebuild -project RetroArch.xcodeproj -target RetroArch -configuration Release | tee "$LOGFILE"
+			xcodebuild -project RetroArch.xcodeproj -target RetroArch -configuration Release &> "$LOGFILE"
 		fi
 
 		RET=$?
@@ -837,7 +837,7 @@ if [ "${PLATFORM}" == "osx" ] && [ "${RA}" == "YES" ]; then
 		fi
 
 		if [ "${METAL}" != "1" ]; then
-			xcodebuild -project RetroArch.xcodeproj -target "RetroArch Cg" -configuration Release | tee $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_CG_${PLATFORM}.log
+			xcodebuild -project RetroArch.xcodeproj -target "RetroArch Cg" -configuration Release &> $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_CG_${PLATFORM}.log
 
 			RET=$?
 			ERROR=$TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_CG_${PLATFORM}.log
