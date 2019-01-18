@@ -258,8 +258,16 @@ buildbot_handle_message() {
 				gzip -9fk $ERROR
 				HASTE=`curl -X POST http://p.0bl.net/ --data-binary @${ERROR}.gz`
 			fi
-			MESSAGE="$CORE_NAME: [status: fail] [$jobid] LOG: $HASTE"
+
 			curl -X POST -d type="finish" -d index="$ENTRY_ID" -d status="fail" -d log="$HASTE" http://buildbot.fiveforty.net/build_entry/
+
+			LAST_GOOD_TIME=`curl -f http://buildbot.fiveforty.net/last_good_build_time/$ENTRY_ID/ 2>/dev/null`
+
+			if [ -n "$LAST_GOOD_TIME" ]; then
+				LAST_GOOD_TIME="N/A"
+			fi
+
+			MESSAGE="$CORE_NAME: [status: fail] [$jobid] LOG: $HASTE Last good build: $LAST_GOOD_TIME"
 		else
 			MESSAGE="$CORE_NAME: [status: fail] [$jobid]"
 		fi
