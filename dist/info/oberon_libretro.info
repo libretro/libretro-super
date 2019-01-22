@@ -1,0 +1,7 @@
+display_name = "Oberon RISC Emulator"
+authors = "Peter De Wachter|Emery Hemingway"
+supported_extensions = "dsk"
+corename = "Oberon"
+categories = "Emulator"
+systemname = "Oberon RISC machine"
+supports_no_game = "false"
