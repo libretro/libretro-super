@@ -317,6 +317,7 @@ build_libretro_databases() {
 	build_libretro_database "Sony - PlayStation Portable (UMD Music)" "rom.crc"
 	build_libretro_database "Sony - PlayStation Portable (UMD Video)" "rom.crc"
 	build_libretro_database "Sony - PlayStation Vita" "rom.serial"
+	build_libretro_database "Thomson - MOTO" "rom.crc"
 	build_libretro_database "Tiger - Game.com" "rom.crc"
 	build_libretro_database "Tomb Raider" "rom.crc"
 	build_libretro_database "Uzebox" "rom.crc"
