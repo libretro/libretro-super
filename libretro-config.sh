@@ -254,6 +254,20 @@ case "$platform" in
 		CXX11="clang++ -std=c++11 -stdlib=libc++ -arch arm64 -marm -miphoneos-version-min=8.0 -isysroot $IOSSDK"
 		;;
 
+	tvos)
+	DIST_DIR="tvos"
+	FORMAT_EXT=dylib
+	IOS=1
+	ARCH=arm64
+	FORMAT=_tvos
+	FORMAT_COMPILER_TARGET=tvos
+	FORMAT_COMPILER_TARGET_ALT=tvos
+	export IOSSDK=$(xcodebuild -version -sdk appletvos Path)
+		CC="cc -arch arm64 -marm -mtvos-version-min=9.0 -fembed-bitcode -isysroot $IOSSDK"
+		CXX="c++ -arch arm64 -marm -mtvos-version-min=9.0 -fembed-bitcode -isysroot $IOSSDK"
+		CXX11="clang++ -std=c++11 -stdlib=libc++ -arch arm64 -fembed-bitcode -marm -mtvos-version-min=8.0 -isysroot $IOSSDK"
+		;;
+
    android-x86_64)
 		FORMAT_ABI="x86_64"
 		DIST_DIR="android/${FORMAT_ABI}"
