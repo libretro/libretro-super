@@ -186,6 +186,13 @@ libretro_minivmac_name="Mini Vmac"
 libretro_minivmac_git_url="https://github.com/libretro/libretro-minivmac.git"
 libretro_minivmac_build_makefile="Makefile"
 
+include_core_oberon() {
+	register_module core "oberon"
+}
+libretro_oberon_name="Oberon RISC Emulator"
+libretro_oberon_git_url="https://github.com/pdewacht/oberon-risc-emu"
+libretro_oberon_build_makefile="Makefile.libretro"
+
 include_core_reminiscence() {
 	register_module core "reminiscence"
 }
