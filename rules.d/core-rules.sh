@@ -736,6 +736,38 @@ libretro_mupen64plus_configure() {
 	fi
 }
 
+include_core_mupen64plus_next() {
+	register_module core "mupen64plus_next" -theos_ios -ngc -ps3 -psp1 -wii
+}
+libretro_mupen64plus_next_name="Mupen64 Plus Next"
+libretro_mupen64plus_next_git_url="https://github.com/libretro/mupen64plus-libretro.git"
+libretro_mupen64plus_next_build_platform="$FORMAT_COMPILER_TARGET_ALT"
+libretro_mupen64plus_next_configure() {
+	if iscpu_x86_64 $ARCH; then
+		core_build_args="WITH_DYNAREC=x86_64"
+	elif iscpu_x86 $ARCH; then
+		core_build_args="WITH_DYNAREC=x86"
+	elif [ "${CORTEX_A8}" ] || [ "${CORTEX_A9}" ] || [ "$platform" = "ios" ]; then
+		core_build_args="WITH_DYNAREC=arm"
+	fi
+}
+
+include_core_parallext() {
+	register_module core "parallext" -theos_ios -ngc -ps3 -psp1 -wii
+}
+libretro_parallext_name="paraLLeXT"
+libretro_parallext_git_url="https://github.com/libretro/paraLLeXT.git"
+libretro_parallext_build_platform="$FORMAT_COMPILER_TARGET_ALT"
+libretro_parallext_configure() {
+	if iscpu_x86_64 $ARCH; then
+		core_build_args="WITH_DYNAREC=x86_64"
+	elif iscpu_x86 $ARCH; then
+		core_build_args="WITH_DYNAREC=x86"
+	elif [ "${CORTEX_A8}" ] || [ "${CORTEX_A9}" ] || [ "$platform" = "ios" ]; then
+		core_build_args="WITH_DYNAREC=arm"
+	fi
+}
+
 include_core_parallel_n64() {
 	register_module core "parallel_n64" -theos_ios -ngc -ps3 -psp1 -wii
 }
