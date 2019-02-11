@@ -114,7 +114,7 @@ build_default_cores_cpp11() {
 	libretro_build_core bsnes_mercury_accuracy
 	libretro_build_core bsnes_mercury_balanced
 	libretro_build_core bsnes_mercury_performance
-	libretro_build_core mame2014
+	libretro_build_core mame2015
 	libretro_build_core mame2016
 	libretro_build_core mame
 }

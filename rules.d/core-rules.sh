@@ -630,12 +630,12 @@ libretro_mame2010_name="MAME 2010 (0.139)"
 libretro_mame2010_git_url="https://github.com/libretro/mame2010-libretro.git"
 libretro_mame2010_makefile="Makefile"
 
-include_core_mame2014() {
-	register_module core "mame2014" -theos_ios -ngc -psp1 -wii
+include_core_mame2015() {
+	register_module core "mame2015" -theos_ios -ngc -psp1 -wii
 }
-libretro_mame2014_name="MAME 2014 (0.159)"
-libretro_mame2014_git_url="https://github.com/libretro/mame2014-libretro.git"
-libretro_mame2014_makefile="Makefile"
+libretro_mame2015_name="MAME 2015 (0.160)"
+libretro_mame2015_git_url="https://github.com/libretro/mame2015-libretro.git"
+libretro_mame2015_makefile="Makefile"
 
 include_core_mame2016() {
 	register_module core "mame2016" -theos_ios -ngc -psp1 -wii
