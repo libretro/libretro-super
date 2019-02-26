@@ -74,7 +74,7 @@ mupen64plus libretro-mupen64plus https://github.com/libretro/mupen64plus-libretr
 mupen64plus_next libretro-mupen64plus_next https://github.com/libretro/mupen64plus-libretro-nx.git mupen_next YES GENERIC_GL Makefile . WITH_DYNAREC=x86_64
 nekop2 libretro-nekop2 https://github.com/libretro/libretro-meowPC98.git master YES GENERIC Makefile.libretro libretro
 nestopia libretro-nestopia https://github.com/libretro/nestopia.git master YES GENERIC Makefile libretro
-np2kai libretro-np2kai https://github.com/libretro/NP2kai.git master YES GENERIC Makefile.libretro sdl2
+np2kai libretro-np2kai https://github.com/AZO234/NP2kai.git master YES GENERIC Makefile.libretro sdl2
 nxengine libretro-nxengine https://github.com/libretro/nxengine-libretro.git master YES GENERIC Makefile .
 o2em libretro-o2em https://github.com/libretro/libretro-o2em.git master YES GENERIC Makefile .
 openlara libretro-openlara https://github.com/libretro/OpenLara.git master YES GENERIC Makefile src/platform/libretro
