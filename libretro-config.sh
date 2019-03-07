@@ -305,9 +305,9 @@ case "$platform" in
 				;;
 		esac
 		export NDK_ROOT_DIR
-		CC="$NDK_ROOT_DIR/toolchains/x86-4.8/prebuilt/${HOST_PLATFORM}-x86_64/bin/i686-linux-android-gcc"
-		CXX="$NDK_ROOT_DIR/toolchains/x86-4.8/prebuilt/${HOST_PLATFORM}-x86_64/bin/i686-linux-android-g++"
-		CXX11="$NDK_ROOT_DIR/toolchains/x86-4.8/prebuilt/${HOST_PLATFORM}-x86_64/bin/i686-linux-android-g++"
+		CC="$NDK_ROOT_DIR/toolchains/x86-4.9/prebuilt/${HOST_PLATFORM}-x86_64/bin/i686-linux-android-gcc"
+		CXX="$NDK_ROOT_DIR/toolchains/x86-4.9/prebuilt/${HOST_PLATFORM}-x86_64/bin/i686-linux-android-g++"
+		CXX11="$NDK_ROOT_DIR/toolchains/x86-4.9/prebuilt/${HOST_PLATFORM}-x86_64/bin/i686-linux-android-g++"
 		;;
 
    android-armeabi)
@@ -333,9 +333,9 @@ case "$platform" in
 				;;
 		esac
 		export NDK_ROOT_DIR
-		CC="$NDK_ROOT_DIR/toolchains/arm-linux-androideabi-4.8/prebuilt/${HOST_PLATFORM}-x86_64/bin/arm-linux-androideabi-gcc"
-		CXX="$NDK_ROOT_DIR/toolchains/arm-linux-androideabi-4.8/prebuilt/${HOST_PLATFORM}-x86_64/bin/arm-linux-androideabi-g++"
-		CXX11="$NDK_ROOT_DIR/toolchains/arm-linux-androideabi-4.8/prebuilt/${HOST_PLATFORM}-x86_64/bin/arm-linux-androideabi-g++"
+		CC="$NDK_ROOT_DIR/toolchains/arm-linux-androideabi-4.9/prebuilt/${HOST_PLATFORM}-x86_64/bin/arm-linux-androideabi-gcc"
+		CXX="$NDK_ROOT_DIR/toolchains/arm-linux-androideabi-4.9/prebuilt/${HOST_PLATFORM}-x86_64/bin/arm-linux-androideabi-g++"
+		CXX11="$NDK_ROOT_DIR/toolchains/arm-linux-androideabi-4.9/prebuilt/${HOST_PLATFORM}-x86_64/bin/arm-linux-androideabi-g++"
 		;;
 
    android-armeabi_v7a)
@@ -361,9 +361,9 @@ case "$platform" in
 				;;
 		esac
 		export NDK_ROOT_DIR
-		CC="$NDK_ROOT_DIR/toolchains/arm-linux-androideabi-4.8/prebuilt/${HOST_PLATFORM}-x86_64/bin/arm-linux-androideabi-gcc"
-		CXX="$NDK_ROOT_DIR/toolchains/arm-linux-androideabi-4.8/prebuilt/${HOST_PLATFORM}-x86_64/bin/arm-linux-androideabi-g++"
-		CXX11="$NDK_ROOT_DIR/toolchains/arm-linux-androideabi-4.8/prebuilt/${HOST_PLATFORM}-x86_64/bin/arm-linux-androideabi-g++"
+		CC="$NDK_ROOT_DIR/toolchains/arm-linux-androideabi-4.9/prebuilt/${HOST_PLATFORM}-x86_64/bin/arm-linux-androideabi-gcc"
+		CXX="$NDK_ROOT_DIR/toolchains/arm-linux-androideabi-4.9/prebuilt/${HOST_PLATFORM}-x86_64/bin/arm-linux-androideabi-g++"
+		CXX11="$NDK_ROOT_DIR/toolchains/arm-linux-androideabi-4.9/prebuilt/${HOST_PLATFORM}-x86_64/bin/arm-linux-androideabi-g++"
 		;;
 
    android-arm64_v8a)
@@ -392,62 +392,6 @@ case "$platform" in
 		CC="$NDK_ROOT_DIR/toolchains/aarch64-linux-android-4.9/prebuilt/${HOST_PLATFORM}-x86_64/bin/aarch64-linux-android-gcc"
 		CXX="$NDK_ROOT_DIR/toolchains/aarch64-linux-android-4.9/prebuilt/${HOST_PLATFORM}-x86_64/bin/aarch64-linux-android-g++"
 		CXX11="$NDK_ROOT_DIR/toolchains/aarch64-linux-android-4.9/prebuilt/${HOST_PLATFORM}-x86_64/bin/aarch64-linux-android-g++"
-		;;
-
-   android-mips)
-		FORMAT_ABI="mips"
-		DIST_DIR="android/${FORMAT_ABI}"
-		FORMAT_EXT=so
-		FORMAT=".android_${FORMAT_ABI}"
-		FORMAT_COMPILER_TARGET=android_${FORMAT_ABI}
-		FORMAT_COMPILER_TARGET_ALT=android_${FORMAT_ABI}
-		FORMAT_ABI_ANDROID=yes
-		UNAME_PLATFORM="$(uname)"
-		HOST_PLATFORM="linux"
-
-		case "$UNAME_PLATFORM" in
-			osx|*Darwin*)
-				HOST_PLATFORM="darwin"
-				;;
-			win|*mingw32*|*MINGW32*|*MSYS_NT*)
-				HOST_PLATFORM="windows"
-				;;
-			win64|*mingw64*|*MINGW64*)
-				HOST_PLATFORM="windows"
-				;;
-		esac
-		export NDK_ROOT_DIR
-		CC="$NDK_ROOT_DIR/toolchains/mipsel-linux-android-4.8/prebuilt/${HOST_PLATFORM}-x86_64/bin/mipsel-linux-android-gcc"
-		CXX="$NDK_ROOT_DIR/toolchains/mipsel-linux-android-4.8/prebuilt/${HOST_PLATFORM}-x86_64/bin/mipsel-linux-android-g++"
-		CXX11="$NDK_ROOT_DIR/toolchains/mipsel-linux-android-4.8/prebuilt/${HOST_PLATFORM}-x86_64/bin/mipsel-linux-android-g++"
-		;;
-
-   android-mips64)
-		FORMAT_ABI="mips64"
-		DIST_DIR="android/${FORMAT_ABI}"
-		FORMAT_EXT=so
-		FORMAT=".android_${FORMAT_ABI}"
-		FORMAT_COMPILER_TARGET=android_${FORMAT_ABI}
-		FORMAT_COMPILER_TARGET_ALT=android_${FORMAT_ABI}
-		FORMAT_ABI_ANDROID=yes
-		UNAME_PLATFORM="$(uname)"
-		HOST_PLATFORM="linux"
-
-		case "$UNAME_PLATFORM" in
-			osx|*Darwin*)
-				HOST_PLATFORM="darwin"
-				;;
-			win|*mingw32*|*MINGW32*|*MSYS_NT*)
-				HOST_PLATFORM="windows"
-				;;
-			win64|*mingw64*|*MINGW64*)
-				HOST_PLATFORM="windows"
-				;;
-		esac
-		export NDK_ROOT_DIR
-		CC="$NDK_ROOT_DIR/toolchains/mips64el-linux-android-4.9/prebuilt/${HOST_PLATFORM}-x86_64/bin/mips64el-linux-android-gcc"
-		CXX="$NDK_ROOT_DIR/toolchains/mips64el-linux-android-4.9/prebuilt/${HOST_PLATFORM}-x86_64/bin/mips64el-linux-android-g++"
-		CXX11="$NDK_ROOT_DIR/toolchains/mips64el-linux-android-4.9/prebuilt/${HOST_PLATFORM}-x86_64/bin/mips64el-linux-android-g++"
 		;;
 
 	qnx)
