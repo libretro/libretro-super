@@ -41,6 +41,7 @@ handy libretro-handy https://github.com/libretro/libretro-handy.git master YES G
 hatari libretro-hatari https://github.com/libretro/hatari.git master YES GENERIC Makefile.libretro .
 higan_sfc libretro-higan https://gitlab.com/higan/higan.git libretro YES GENERIC GNUmakefile higan compiler=clang++ target=libretro binary=library
 higan_sfc_balanced libretro-nside https://github.com/libretro/nSide.git master NO GENERIC GNUmakefile nSide compiler=clang++ target=libretro binary=library
+kronos libretro-kronos https://github.com/libretro/yabause.git kronos YES GENERIC Makefile yabause/src/libretro
 lutro libretro-lutro https://github.com/libretro/libretro-lutro master YES GENERIC Makefile .
 mame libretro-mame https://github.com/libretro/mame.git master YES GENERIC Makefile.libretro .
 mame2000 libretro-mame2000 https://github.com/libretro/mame2000-libretro.git master YES GENERIC Makefile .
@@ -107,7 +108,6 @@ vice_xvic libretro-vice_xvic https://github.com/libretro/vice-libretro.git maste
 vice_xplus4 libretro-vice_xplus4 https://github.com/libretro/vice-libretro.git master YES GENERIC Makefile . EMUTYPE=xplus4
 xrick libretro-xrick https://github.com/libretro/xrick-libretro.git master YES GENERIC Makefile .
 yabause libretro-yabause https://github.com/libretro/yabause.git master YES GENERIC Makefile libretro
-kronos libretro-kronos https://github.com/libretro-mirrors/Kronos.git extui-align YES GENERIC Makefile libretro
 mame2015 libretro-mame2015 https://github.com/libretro/mame2015-libretro.git master YES GENERIC Makefile . | mame2015:TARGET=mame mess2015:TARGET=mess ume2015:TARGET=ume
 uzem libretro-uzem https://github.com/libretro/libretro-uzem.git master YES GENERIC Makefile .
 gw libretro-gw https://github.com/libretro/gw-libretro.git master YES GENERIC Makefile .
