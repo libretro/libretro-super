@@ -564,7 +564,7 @@ include_core_kronos() {
 }
 libretro_kronos_name="Kronos"
 libretro_kronos_git_url="https://github.com/libretro-mirrors/Kronos.git"
-libretro_kronos_build_subdir="libretro"
+libretro_kronos_build_subdir="yabause/src/libretro"
 
 include_core_yabause() {
 	register_module core "yabause" -theos_ios -ngc -ps3 -psp1 -qnx -wii
