@@ -19,8 +19,21 @@ fetch_git() {
 		fi
 	else
 		clone_type=
-		[ -n "$SHALLOW_CLONE" ] && depth="--depth 1 "
+		[ -n "$SHALLOW_CLONE" ] && depth="--depth=2 "
 		echo_cmd "git clone $depth\"$1\" \"$WORKDIR/$2\""
+		if [ -n "SHALLOW_CLONE" ]; then
+			# If the repository has no tags, it returns an empty string
+			TAG=$(git ls-remote --quiet --tags --sort="v:refname" | tail -n1 | sed 's/.*\///; s/\^{}//')
+			# Get the current latest tag
+			OLD_TAG=$(git describe --abbrev=0 --tags --always)
+
+			if [ "${TAG}" ] && [ "${TAG}" != "${OLD_TAG}" ]; then
+				# This points to the previous HEAD commit
+				HASH=$(git rev-parse @~)
+
+				git tag -a "$TAG" -m '' "$HASH"
+			fi
+		fi
 		if [[ "$3" = "yes" || "$3" = "clone" ]]; then
 			echo_cmd "cd \"$fetch_dir\""
 			echo_cmd "git submodule update --init"

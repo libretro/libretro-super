@@ -238,6 +238,20 @@ buildbot_log() {
 	fi
 }
 
+buildbot_tag() {
+	# If the repository has no tags, it returns an empty string
+	TAG=$(git ls-remote --quiet --tags --sort="v:refname" | tail -n1 | sed 's/.*\///; s/\^{}//')
+	# Get the current latest tag
+	OLD_TAG=$(git describe --abbrev=0 --tags --always)
+
+	if [ "${TAG}" ] && [ "${TAG}" != "${OLD_TAG}" ]; then
+		# This points to the previous HEAD commit
+		HASH=$(git rev-parse @~)
+
+		git tag -a "$TAG" -m '' "$HASH"
+	fi
+}
+
 buildbot_handle_message() {
 	RET=$1
 	ENTRY_ID=$2
@@ -600,7 +614,7 @@ while read line; do
 	if [ ! -d "${DIR}/.git" ] || [ "${CLEANUP}" = "YES" ]; then
 		rm -rfv -- "$DIR"
 		echo "cloning repo $URL..."
-		git clone --depth=1 -b "$GIT_BRANCH" "$URL" "$DIR"
+		git clone --depth=2 -b "$GIT_BRANCH" "$URL" "$DIR"
 		BUILD="YES"
 	else
 		if [ -f "$DIR/.forcebuild" ]; then
@@ -649,6 +663,9 @@ while read line; do
 		git --work-tree="$DIR" --git-dir="$DIR/.git" branch -D "${CURRENT_BRANCH}"
 		BUILD="YES"
 	fi
+
+	echo "Adding latest tag available remotely (if not present already)..."
+	buildbot_tag
 
 	if git config --file "$DIR/.gitmodules" --name-only --get-regexp path >/dev/null 2>&1; then
 		git --work-tree="." --git-dir=".git" -C "$DIR" submodule update --init --recursive
