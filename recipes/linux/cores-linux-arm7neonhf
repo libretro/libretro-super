@@ -41,7 +41,7 @@ handy libretro-handy https://github.com/libretro/libretro-handy.git master YES G
 hatari libretro-hatari https://github.com/libretro/hatari.git master YES GENERIC Makefile.libretro .
 higan_sfc libretro-higan https://gitlab.com/higan/higan.git libretro YES GENERIC GNUmakefile higan compiler=g++ target=libretro binary=library
 higan_sfc_balanced libretro-nside https://github.com/libretro/nSide.git master YES GENERIC GNUmakefile nSide compiler=g++ target=libretro binary=library
-kronos libretro-kronos https://github.com/libretro/yabause.git kronos YES GENERIC Makefile yabause/src/libretro
+kronos libretro-kronos https://github.com/libretro/yabause.git kronos NO GENERIC Makefile yabause/src/libretro
 lutro libretro-lutro https://github.com/libretro/libretro-lutro master YES GENERIC Makefile .
 mame libretro-mame https://github.com/libretro/mame.git master YES GENERIC Makefile.libretro . PTR64=1
 mame2000 libretro-mame2000 https://github.com/libretro/mame2000-libretro.git master YES GENERIC Makefile .
@@ -65,8 +65,8 @@ meteor libretro-meteor https://github.com/libretro/meteor-libretro.git master NO
 mgba libretro-mgba https://github.com/libretro/mgba.git master YES GENERIC Makefile.libretro .
 mrboom libretro-mrboom https://github.com/libretro/mrboom-libretro.git master YES GENERIC Makefile .
 mu libretro-mu https://github.com/meepingsnesroms/Mu.git master YES GENERIC Makefile libretroBuildSystem
-mupen64plus libretro-mupen64plus https://github.com/libretro/mupen64plus-libretro.git master YES GENERIC_GL Makefile . WITH_DYNAREC=arm
-mupen64plus_next libretro-mupen64plus_next https://github.com/libretro/mupen64plus-libretro-nx.git mupen_next YES GENERIC_GL Makefile . WITH_DYNAREC=arm
+mupen64plus libretro-mupen64plus https://github.com/libretro/mupen64plus-libretro.git master NO GENERIC_GL Makefile . WITH_DYNAREC=arm
+mupen64plus_next libretro-mupen64plus_next https://github.com/libretro/mupen64plus-libretro-nx.git mupen_next NO GENERIC_GL Makefile . WITH_DYNAREC=arm
 nekop2 libretro-nekop2 https://github.com/libretro/libretro-meowPC98.git master YES GENERIC Makefile.libretro libretro
 nestopia libretro-nestopia https://github.com/libretro/nestopia.git master YES GENERIC Makefile libretro
 np2kai libretro-np2kai https://github.com/libretro/NP2kai.git master YES GENERIC Makefile.libretro sdl2
@@ -78,7 +78,7 @@ pcsx_rearmed libretro-pcsx_rearmed https://github.com/libretro/pcsx_rearmed.git 
 picodrive libretro-picodrive https://github.com/libretro/picodrive.git master YES GENERIC Makefile.libretro .
 pocketcdg libretro-pocketcdg https://github.com/libretro/libretro-pocketcdg.git master YES GENERIC Makefile .
 pokemini libretro-pokemini https://github.com/libretro/PokeMini.git master YES GENERIC Makefile .
-ppsspp libretro-ppsspp https://github.com/hrydgard/ppsspp.git master YES CMAKE Makefile build -DLIBRETRO=ON -DCMAKE_BUILD_TYPE=Release
+ppsspp libretro-ppsspp https://github.com/hrydgard/ppsspp.git master NO CMAKE Makefile build -DLIBRETRO=ON -DCMAKE_BUILD_TYPE=Release
 prboom libretro-prboom https://github.com/libretro/libretro-prboom.git master YES GENERIC Makefile .
 prosystem libretro-prosystem https://github.com/libretro/prosystem-libretro.git master YES GENERIC Makefile .
 puae libretro-uae https://github.com/libretro/libretro-uae.git master YES GENERIC Makefile .
@@ -109,5 +109,5 @@ vice_xplus4 libretro-vice_xplus4 https://github.com/libretro/vice-libretro.git m
 vice_xvic libretro-vice_xvic https://github.com/libretro/vice-libretro.git master YES GENERIC Makefile . EMUTYPE=xvic
 virtualjaguar libretro-virtualjaguar https://github.com/libretro/virtualjaguar-libretro.git master YES GENERIC Makefile .
 xrick libretro-xrick https://github.com/libretro/xrick-libretro.git master YES GENERIC Makefile .
-yabasanshiro libretro-yabasanshiro https://github.com/libretro/yabause.git yabasanshiro YES GENERIC Makefile yabause/src/libretro
+yabasanshiro libretro-yabasanshiro https://github.com/libretro/yabause.git yabasanshiro NO GENERIC Makefile yabause/src/libretro
 yabause libretro-yabause https://github.com/libretro/yabause.git master YES GENERIC Makefile libretro
