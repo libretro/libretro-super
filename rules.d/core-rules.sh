@@ -566,6 +566,13 @@ libretro_kronos_name="Kronos"
 libretro_kronos_git_url="https://github.com/libretro/yabause.git"
 libretro_kronos_build_subdir="yabause/src/libretro"
 
+include_core_yabasanshiro() {
+	register_module core "yabasanshiro" -theos_ios -ngc -ps3 -psp1 -qnx -wii
+}
+libretro_yabasanshiro_name="YabaSanshiro"
+libretro_yabasanshiro_git_url="https://github.com/libretro/yabause.git"
+libretro_yabasanshiro_build_subdir="yabause/src/libretro"
+
 include_core_yabause() {
 	register_module core "yabause" -theos_ios -ngc -ps3 -psp1 -qnx -wii
 }
