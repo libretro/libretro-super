@@ -34,6 +34,9 @@ include_core_genesis_plus_gx
 include_core_picodrive
 include_core_blastem
 
+# --- Master System cores ---
+include_core_gearsystem
+
 # --- Arcade emulator cores ---
 include_core_fbalpha
 include_core_fbalpha2012

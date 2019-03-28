@@ -348,6 +348,15 @@ libretro_gearboy_build_platform="$FORMAT_COMPILER_TARGET_ALT"
 libretro_gearboy_build_subdir="platforms/libretro"
 libretro_gearboy_build_makefile="Makefile"
 
+include_core_gearsystem() {
+   register_module core "gearsystem"
+}
+libretro_gearsystem_name="Gearsystem"
+libretro_gearsystem_git_url="https://github.com/drhelius/Gearsystem.git"
+libretro_gearsystem_build_platform="$FORMAT_COMPILER_TARGET_ALT"
+libretro_gearsystem_build_subdir="platforms/libretro"
+libretro_gearsystem_build_makefile="Makefile"
+
 include_core_sameboy() {
 	register_module core "sameboy"
 }
