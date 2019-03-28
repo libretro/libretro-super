@@ -745,14 +745,12 @@ buildbot_pull(){
 			else
 				echo "cloning repo $URL..."
 				cd $PARENTDIR
-				if [ ! -z "$BRANCH" -a "${NAME}" == "retroarch" ]; then
+				if [ "${BRANCH}" ] && [ "${NAME}" = "retroarch" ]; then
 					git clone "$URL" "$DIR"
 					cd $DIR
 					git checkout "$BRANCH"
-				elif [ ! -z "$GIT_BRANCH" ]; then
-					git clone -b "$GIT_BRANCH" "$URL" "$DIR" --depth=1
 				else
-					git clone -b master "$URL" "$DIR" --depth=1
+					git clone -b "${GIT_BRANCH:-master}" "$URL" "$DIR" --depth=1
 				fi
 				cd $WORK
 				if [ "${TYPE}" = "PROJECT" ]; then
