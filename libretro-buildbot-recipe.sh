@@ -1358,13 +1358,14 @@ if [ "${PLATFORM}" == "ctr" ] && [ "${RA}" == "YES" ]; then
 		mkdir -p $WORK/$RADIR/pkg/ctr/build/retroarch/database
 		mkdir -p $WORK/$RADIR/pkg/ctr/build/retroarch/database/rdb
 		mkdir -p $WORK/$RADIR/pkg/ctr/build/retroarch/database/cursors
-
+		mkdir -p $WORK/$RADIR/pkg/ctr/build/retroarch/media
 
 		cp -v $WORK/$RADIR/gfx/video_filters/*.filt $WORK/$RADIR/pkg/ctr/build/retroarch/filters/video/
 		cp -v $WORK/$RADIR/libretro-common/audio/dsp_filters/*.dsp $WORK/$RADIR/pkg/ctr/build/retroarch/filters/audio/
 		cp -v $RARCH_DIST_DIR/../info/*.info $WORK/$RADIR/pkg/ctr/build/retroarch/cores/info/
 		cp -v $WORK/$RADIR/media/libretrodb/rdb/*.rdb $WORK/$RADIR/pkg/ctr/build/retroarch/database/rdb/
 		cp -v $WORK/$RADIR/media/libretrodb/cursors/*.dbc $WORK/$RADIR/pkg/ctr/build/retroarch/database/cursors/
+		cp -rv $WORK/$RADIR/media/assets/rgui $WORK/$RADIR/pkg/ctr/build/retroarch/media/
 
 		convert_xmb_assets $WORK/$RADIR/media/assets/xmb $WORK/$RADIR/pkg/ctr/build/retroarch/media/xmb 64x32! 400x240! 90
 	fi
