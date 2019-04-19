@@ -269,7 +269,7 @@ include_core_blastem() {
 	register_module core "blastem" -psp1
 }
 libretro_blastem_name="BlastEm"
-libretro_blastem_git_url="https://github.com/libretro/blastem-libretro.git"
+libretro_blastem_git_url="https://github.com/libretro/blastem.git"
 libretro_blastem_build_subdir="libretro"
 libretro_blastem_build_makefile="Makefile"
 
