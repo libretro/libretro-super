@@ -612,7 +612,14 @@ while read line; do
 			{ echo "git directory broken, removing $DIR and skipping $NAME."; \
 			rm -rfv -- "$DIR" && continue; }
 
-		if [ -z "${NOCLEAN}" ]; then
+		OLDURL="$(git --work-tree="$DIR" --git-dir="$DIR/.git" config --get remote.origin.url)"
+
+		if [ "$URL" != "$OLDURL" ]; then
+			rm -rvf -- "$DIR"
+			echo "cloning repo $URL..."
+			git clone --depth=1 -b "$GIT_BRANCH" "$URL" "$DIR"
+			BUILD="YES"
+		elif [ -z "${NOCLEAN}" ]; then
 			echo "fetching changes from repo $URL..."
 			git --work-tree="$DIR" --git-dir="$DIR/.git" fetch --depth 1 origin "${GIT_BRANCH}"
 
