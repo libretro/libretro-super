@@ -390,7 +390,7 @@ include_core_stella() {
 	register_module core "stella" -ngc -wii
 }
 libretro_stella_name="Stella"
-libretro_stella_git_url="https://github.com/libretro/stella-libretro.git"
+libretro_stella_git_url="https://github.com/stella-emu/stella.git"
 
 include_core_stella2014() {
 	register_module core "stella2014" -ngc -wii
