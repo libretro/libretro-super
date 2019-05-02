@@ -392,6 +392,12 @@ include_core_stella() {
 libretro_stella_name="Stella"
 libretro_stella_git_url="https://github.com/libretro/stella-libretro.git"
 
+include_core_stella2014() {
+	register_module core "stella2014" -ngc -wii
+}
+libretro_stella2014_name="Stella 2014"
+libretro_stella2014_git_url="https://github.com/libretro/stella2014-libretro.git"
+
 include_core_melonds() {
 register_module core "melonds" -ngc -ps3 -psp1 -qnx -wii
 }

@@ -77,6 +77,7 @@ include_core_gearboy
 
 # --- Atari 2600 emulator cores ---
 include_core_stella
+include_core_stella2014
 
 # --- Atari 800 emulator cores ---
 include_core_atari800
