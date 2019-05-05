@@ -927,6 +927,7 @@ if [ "${PLATFORM}" = "android" ] && [ "${RA}" = "YES" ]; then
 		rm -rf pkg/android/phoenix$PKG_EXTRA/assets/info
 		rm -rf pkg/android/phoenix$PKG_EXTRA/assets/overlays
 		rm -rf pkg/android/phoenix$PKG_EXTRA/assets/shaders/shaders_glsl/
+		rm -rf pkg/android/phoenix$PKG_EXTRA/assets/shaders/shaders_slang/
 		rm -rf pkg/android/phoenix$PKG_EXTRA/assets/database
 		rm -rf pkg/android/phoenix$PKG_EXTRA/assets/autoconfig
 		rm -rf pkg/android/phoenix$PKG_EXTRA/assets/cheats
@@ -943,6 +944,7 @@ if [ "${PLATFORM}" = "android" ] && [ "${RA}" = "YES" ]; then
 		mkdir -p pkg/android/phoenix$PKG_EXTRA/assets/info
 		mkdir -p pkg/android/phoenix$PKG_EXTRA/assets/overlays
 		mkdir -p pkg/android/phoenix$PKG_EXTRA/assets/shaders/shaders_glsl
+		mkdir -p pkg/android/phoenix$PKG_EXTRA/assets/shaders/shaders_slang
 		mkdir -p pkg/android/phoenix$PKG_EXTRA/assets/database/cursors
 		mkdir -p pkg/android/phoenix$PKG_EXTRA/assets/database/rdb
 		mkdir -p pkg/android/phoenix$PKG_EXTRA/assets/autoconfig
@@ -956,13 +958,20 @@ if [ "${PLATFORM}" = "android" ] && [ "${RA}" = "YES" ]; then
 		mkdir -p pkg/android/phoenix$PKG_EXTRA/assets/filters/video
 		mkdir -p pkg/android/phoenix$PKG_EXTRA/assets/filters/audio
 
+		# Copy over fonts manually
+		cp -rf media/assets/ozone/bold.ttf pkg/android/phoenix$PKG_EXTRA/assets/assets/ozone
+		cp -rf media/assets/ozone/regular.ttf pkg/android/phoenix$PKG_EXTRA/assets/assets/ozone
+
 		cp -rf media/assets/glui pkg/android/phoenix$PKG_EXTRA/assets/assets/
 		cp -rf media/assets/xmb/monochrome pkg/android/phoenix$PKG_EXTRA/assets/assets/xmb
-		cp -rf media/assets/zarch pkg/android/phoenix$PKG_EXTRA/assets/assets/
+		cp -rf media/assets/ozone/png pkg/android/phoenix$PKG_EXTRA/assets/assets/ozone
+
+		cp -rf media/assets/menu_widgets pkg/android/phoenix$PKG_EXTRA/assets/assets/
 		cp -rf media/assets/s* pkg/android/phoenix$PKG_EXTRA/assets/assets/
 		cp -rf media/autoconfig/* pkg/android/phoenix$PKG_EXTRA/assets/autoconfig/
 		cp -rf media/overlays/* pkg/android/phoenix$PKG_EXTRA/assets/overlays/
 		cp -rf media/shaders_glsl/* pkg/android/phoenix$PKG_EXTRA/assets/shaders/shaders_glsl/
+		cp -rf media/shaders_slang/* pkg/android/phoenix$PKG_EXTRA/assets/shaders/shaders_slang/
 		cp -rf media/libretrodb/cursors/* pkg/android/phoenix$PKG_EXTRA/assets/database/cursors/
 		cp -rf media/libretrodb/rdb/* pkg/android/phoenix$PKG_EXTRA/assets/database/rdb/
 		cp -rf libretro-common/audio/dsp_filters/*.dsp pkg/android/phoenix$PKG_EXTRA/assets/filters/audio/
