@@ -67,7 +67,7 @@ pcsx_rearmed_interpreter libretro-pcsx_rearmed_interpreter https://github.com/li
 picodrive libretro-picodrive https://github.com/libretro/picodrive.git master YES GENERIC Makefile.libretro .
 pocketcdg libretro-pocketcdg https://github.com/libretro/libretro-pocketcdg.git master YES GENERIC Makefile .
 pokemini libretro-pokemini https://github.com/libretro/PokeMini.git master YES GENERIC Makefile .
-ppsspp libretro-ppsspp https://github.com/hrydgard/ppsspp.git master YES GENERIC_GL Makefile libretro
+ppsspp libretro-ppsspp https://github.com/hrydgard/ppsspp.git master NO GENERIC_GL Makefile libretro
 prboom libretro-prboom https://github.com/libretro/libretro-prboom.git master YES GENERIC_ALT Makefile .
 prosystem libretro-prosystem https://github.com/libretro/prosystem-libretro.git master YES GENERIC Makefile .
 puae libretro-uae https://github.com/libretro/libretro-uae.git master YES GENERIC Makefile .
