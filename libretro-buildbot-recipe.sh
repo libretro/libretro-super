@@ -1136,11 +1136,11 @@ if [ "${PLATFORM}" = "MINGW64" ] || [ "${PLATFORM}" = "MINGW32" ] || [ "${PLATFO
 
 			cp -v retroarch.default.cfg windows/
 			cp -v tools/*.exe windows/
+			echo -e "[Paths]\nPlugins = ./" > windows/qt.conf
 			cp -rf libretro-common/audio/dsp_filters/*.dll windows/filters/audio
 			cp -rf libretro-common/audio/dsp_filters/*.dsp windows/filters/audio
 			cp -rf gfx/video_filters/*.dll windows/filters/video
 			cp -rf gfx/video_filters/*.filt windows/filters/video
-
 		else
 			MESSAGE="retroarch:	[status: fail] [$jobid]"
 			ENTRY_ID=""
