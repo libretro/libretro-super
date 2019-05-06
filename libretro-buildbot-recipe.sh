@@ -1002,10 +1002,9 @@ key.alias.password=buildbot
 
 EOF
 
+		git reset --hard
 		if [ "${RELEASE}" == "NO" ]; then
 			python ./version_increment.py
-		else
-			git reset --hard
 		fi
 		ant clean | tee -a "$LOGFILE"
 		android update project --path . --target android-26 | tee -a "$LOGFILE"
