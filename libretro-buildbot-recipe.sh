@@ -940,6 +940,7 @@ if [ "${PLATFORM}" = "android" ] && [ "${RA}" = "YES" ]; then
 		mkdir -p pkg/android/phoenix$PKG_EXTRA/assets/
 		mkdir -p pkg/android/phoenix$PKG_EXTRA/assets/assets
 		mkdir -p pkg/android/phoenix$PKG_EXTRA/assets/assets/xmb/monochrome
+		mkdir -p pkg/android/phoenix$PKG_EXTRA/assets/assets/ozone
 		mkdir -p pkg/android/phoenix$PKG_EXTRA/assets/cores
 		mkdir -p pkg/android/phoenix$PKG_EXTRA/assets/info
 		mkdir -p pkg/android/phoenix$PKG_EXTRA/assets/overlays
