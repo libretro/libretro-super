@@ -176,6 +176,9 @@ include_core_4do
 include_core_fuse
 include_core_81
 
+# --- NEC PC-88 emulator cores ---
+include_core_quasi88
+
 # --- NEC PC-98 emulator cores ---
 include_core_nekop2
 include_core_np2kai

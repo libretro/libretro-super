@@ -42,6 +42,7 @@ nxengine libretro-nxengine https://github.com/libretro/nxengine-libretro.git mas
 o2em libretro-o2em https://github.com/libretro/libretro-o2em.git master YES GENERIC Makefile .
 pokemini libretro-pokemini https://github.com/libretro/PokeMini.git master YES GENERIC Makefile .
 puae libretro-uae https://github.com/libretro/libretro-uae.git master YES GENERIC Makefile .
+quasi88 libretro-quasi88 https://github.com/celerizer/quasi88-libretro.git master YES GENERIC Makefile .
 quicknes libretro-quicknes https://github.com/libretro/QuickNES_Core.git master YES GENERIC Makefile .
 sameboy libretro-sameboy https://github.com/libretro/SameBoy.git buildbot YES GENERIC Makefile libretro
 snes9x libretro-snes9x https://github.com/libretro/snes9x.git master YES GENERIC Makefile libretro
