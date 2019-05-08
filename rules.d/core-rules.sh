@@ -1038,6 +1038,13 @@ libretro_mu_git_url="https://github.com/meepingsnesroms/Mu.git"
 libretro_mu_build_makefile="Makefile"
 libretro_mu_build_subdir="libretroBuildSystem"
 
+include_core_quasi88() {
+	register_module core "quasi88" -theos_ios -ngc -sncps3 -ps3 -psp1 -qnx -wii
+}
+libretro_quasi88_name="QUASI88"
+libretro_quasi88_git_url="https://github.com/celerizer/quasi88-libretro.git"
+libretro_quasi88_build_makefile="Makefile"
+
 
 # CORE RULE VARIABLES
 #
