@@ -26,7 +26,7 @@ o2em libretro-o2em https://github.com/libretro/libretro-o2em.git master YES GENE
 picodrive libretro-picodrive https://github.com/libretro/picodrive.git master YES GENERIC Makefile.libretro .
 pocketcdg libretro-pocketcdg https://github.com/libretro/libretro-pocketcdg.git master YES GENERIC Makefile .
 pokemini libretro-pokemini https://github.com/libretro/PokeMini.git master YES GENERIC Makefile .
-ppsspp libretro-ppsspp https://github.com/hrydgard/ppsspp.git master NO GENERIC Makefile libretro platform=windows_msvc2017_uwp_x64
+ppsspp libretro-ppsspp https://github.com/hrydgard/ppsspp.git master YES GENERIC Makefile libretro platform=windows_msvc2017_uwp_x64
 prboom libretro-prboom https://github.com/libretro/libretro-prboom.git master YES GENERIC Makefile .
 prosystem libretro-prosystem https://github.com/libretro/prosystem-libretro.git master YES GENERIC Makefile .
 quicknes libretro-quicknes https://github.com/libretro/QuickNES_Core.git master YES GENERIC Makefile .
