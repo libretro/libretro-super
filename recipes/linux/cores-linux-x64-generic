@@ -52,7 +52,7 @@ lutro libretro-lutro https://github.com/libretro/libretro-lutro master YES GENER
 mame libretro-mame https://github.com/libretro/mame.git master YES GENERIC Makefile.libretro . PTR64=1
 mame2000 libretro-mame2000 https://github.com/libretro/mame2000-libretro.git master YES GENERIC Makefile .
 mame2003 libretro-mame2003 https://github.com/libretro/mame2003-libretro.git master YES GENERIC Makefile .
-mame2003_plus libretro-mame2003-plus https://github.com/libretro/mame2003-plus-libretro.git master NO GENERIC Makefile .
+mame2003_plus libretro-mame2003-plus https://github.com/libretro/mame2003-plus-libretro.git master YES GENERIC Makefile .
 mame2010 libretro-mame2010 https://github.com/libretro/mame2010-libretro.git master YES GENERIC Makefile . VRENDER=soft PTR64=1
 mame2015 libretro-mame2015 https://github.com/libretro/mame2015-libretro.git master YES GENERIC Makefile . PTR64=1 | mame2015:TARGET=mame mess2015:TARGET=mess ume2015:TARGET=ume
 mame2016 libretro-mame2016 https://github.com/libretro/mame2016-libretro.git master YES GENERIC Makefile.libretro . PTR64=1
