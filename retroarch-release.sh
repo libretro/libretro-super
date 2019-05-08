@@ -1,6 +1,6 @@
 #!/bin/sh
-# vim: set ts=3 sw=3 noet ft=sh : bash
-# RetroArch packaging script
+# vim: set ts=3 sw=3 noet ft=sh : sh
+# RetroArch packaging script for release tarballs
 
 PRGNAM=RetroArch
 SRCNAM="$(printf %s $PRGNAM | tr '[:upper:]' '[:lower:]')"
@@ -10,7 +10,15 @@ TMP=${TMP:-/tmp/libretro}
 set -eu
 
 # Ensure a clean and fully updated repo
-[ -d $SRCNAM ] && rm -rf -- $SRCNAM
+if [ -d $SRCNAM ]; then
+	printf %s\\n "WARNING: The $PRGNAM directory already exists." \
+		"Remove the $PRGNAM directory and continue? (y/n)" >&2
+	read -r answer
+	case "$answer" in
+		[yY]|[yY][eE][sS] ) rm -rf -- $SRCNAM ;;
+		* ) printf %s\\n 'Exiting ...'; exit 0 ;;
+	esac
+fi
 
 ./libretro-fetch.sh $SRCNAM
 
