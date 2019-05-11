@@ -336,12 +336,12 @@ build_libretro_test() {
 	build_dir="$WORKDIR/retroarch"
 
 	if build_should_skip "test" "$build_dir"; then
-		echo "Core test is already built, skipping..."
+		echo 'Core test is already built, skipping...'
 		return
 	fi
 
 	if [ -d "$build_dir" ]; then
-		echo "=== Building RetroArch test cores ==="
+		echo '=== Building RetroArch test cores ==='
 		if check_opengl; then
 			build_libretro_generic "retroarch" "cores/libretro-test-gl" "Makefile" $FORMAT_COMPILER_TARGET "$build_dir"
 			copy_core_to_dist "testgl"
