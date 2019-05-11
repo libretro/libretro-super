@@ -1,6 +1,7 @@
 #!/bin/bash
 # vim: set ts=3 sw=3 noet ft=sh : bash
 # ----- setup -----
+export LC_ALL=C
 
 # This will use an overridden value from the command-line if provided, otherwise just use the current date
 BOT="${BOT:-.}"
