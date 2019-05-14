@@ -1,6 +1,6 @@
 display_name = "Sony - PlayStation (PCSX ReARMed) [Interpreter]"
 authors = "PCSX Team|notaz|Exophase"
-supported_extensions = "bin|cue|img|mdf|pbp|cbn|toc"
+supported_extensions = "bin|cue|img|mdf|pbp|cbn|toc|chd"
 corename = "PCSX ReARMed [Interpreter]"
 manufacturer = "Sony"
 categories = "Emulator"
