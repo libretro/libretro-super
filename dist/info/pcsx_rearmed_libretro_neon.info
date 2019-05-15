@@ -1,6 +1,6 @@
 display_name = "Sony - PlayStation (PCSX ReARMed) [NEON]"
 authors = "PCSX Team|notaz|Exophase"
-supported_extensions = "bin|cue|img|mdf|pbp|toc|cbn|m3u"
+supported_extensions = "bin|cue|img|mdf|pbp|toc|cbn|m3u|chd"
 corename = "PCSX ReARMed [NEON]"
 manufacturer = "Sony"
 categories = "Emulator"
