@@ -20,7 +20,7 @@ dinothawr libretro-dinothawr https://github.com/libretro/Dinothawr.git master YE
 dosbox libretro-dosbox https://github.com/libretro/dosbox-libretro.git master YES GENERIC Makefile.libretro .
 dosbox_svn libretro-dosbox_svn https://github.com/fr500/dosbox-svn libretro YES GENERIC Makefile.libretro libretro target=x86
 easyrpg libretro-easyrpg https://github.com/libretro/easyrpg-libretro.git master YES GENERIC Makefile.libretro builds/libretro
-fbalpha libretro-fbalpha https://github.com/libretro/fbalpha.git master YES GENERIC makefile.libretro .
+fbalpha libretro-fbalpha https://github.com/libretro/FBAlphaFB.git master YES GENERIC Makefile src/burner/libretro
 fbalpha2012 libretro-fbalpha2012 https://github.com/libretro/fbalpha2012.git master YES GENERIC makefile.libretro svn-current/trunk
 fbalpha2012_cps1 libretro-fbalpha2012_cps1 https://github.com/libretro/fbalpha2012_cps1.git master YES GENERIC makefile.libretro .
 fbalpha2012_cps2 libretro-fbalpha2012_cps2 https://github.com/libretro/fbalpha2012_cps2.git master YES GENERIC makefile.libretro .
@@ -70,7 +70,7 @@ mgba libretro-mgba https://github.com/libretro/mgba.git master YES GENERIC Makef
 mrboom libretro-mrboom https://github.com/libretro/mrboom-libretro.git master YES GENERIC Makefile .
 mu libretro-mu https://github.com/meepingsnesroms/Mu.git master YES GENERIC Makefile libretroBuildSystem
 mupen64plus libretro-mupen64plus https://github.com/libretro/mupen64plus-libretro.git master YES GENERIC_GL Makefile . WITH_DYNAREC=x86
-mupen64plus_next libretro-mupen64plus_next https://github.com/libretro/mupen64plus-libretro-nx.git mupen_next YES GENERIC_GL Makefile . WITH_DYNAREC=x86
+mupen64plus_next libretro-mupen64plus_next https://github.com/libretro/mupen64plus-libretro-nx.git GLideN64 YES GENERIC_GL Makefile . WITH_DYNAREC=x86
 nekop2 libretro-nekop2 https://github.com/libretro/libretro-meowPC98.git master YES GENERIC Makefile.libretro libretro
 nestopia libretro-nestopia https://github.com/libretro/nestopia.git master YES GENERIC Makefile libretro
 np2kai libretro-np2kai https://github.com/libretro/NP2kai.git master YES GENERIC Makefile.libretro sdl2

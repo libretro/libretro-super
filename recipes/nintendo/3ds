@@ -1,4 +1,5 @@
 2048 libretro-2048 https://github.com/libretro/libretro-2048.git master YES GENERIC Makefile.libretro .
+81 libretro-81 https://github.com/libretro/81-libretro.git master YES GENERIC Makefile .
 atari800 libretro-atari800 https://github.com/libretro/libretro-atari800.git master YES GENERIC Makefile .
 cap32 libretro-cap32 https://github.com/libretro/libretro-cap32.git master YES GENERIC Makefile .
 dosbox libretro-dosbox https://github.com/libretro/dosbox-libretro.git master YES GENERIC Makefile.libretro .
@@ -10,9 +11,11 @@ fbalpha2012_cps2 libretro-fbalpha2012_cps2 https://github.com/libretro/fbalpha20
 fbalpha2012_neogeo libretro-fbalpha_neogeo https://github.com/libretro/fbalpha2012_neogeo.git master YES GENERIC Makefile .
 fmsx libretro-fmsx https://github.com/libretro/fmsx-libretro.git master YES GENERIC Makefile .
 freeintv libretro-freeintv https://github.com/markwkidd/FreeIntv.git master YES GENERIC Makefile .
+fuse libretro-fuse https://github.com/libretro/fuse-libretro.git master YES GENERIC Makefile .
 gambatte libretro-gambatte https://github.com/libretro/gambatte-libretro.git master YES GENERIC Makefile .
 genesis_plus_gx libretro-genesis_plus_gx https://github.com/libretro/Genesis-Plus-GX.git master YES GENERIC Makefile.libretro .
 gpsp libretro-gpsp https://github.com/libretro/gpsp.git master YES GENERIC Makefile .
+gw libretro-gw https://github.com/libretro/gw-libretro.git master YES GENERIC Makefile .
 handy libretro-handy https://github.com/libretro/libretro-handy.git master YES GENERIC Makefile .
 mame2000 libretro-mame2000 https://github.com/libretro/mame2000-libretro.git master YES GENERIC Makefile .
 mame2003 libretro-mame2003 https://github.com/libretro/mame2003-libretro.git master YES GENERIC Makefile .
@@ -26,7 +29,7 @@ mu libretro-mu https://github.com/meepingsnesroms/Mu.git master YES GENERIC Make
 nestopia libretro-nestopia https://github.com/libretro/nestopia.git master YES GENERIC Makefile libretro
 np2kai libretro-np2kai https://github.com/libretro/NP2kai.git master YES GENERIC Makefile.libretro sdl2
 nxengine libretro-nxengine https://github.com/libretro/nxengine-libretro.git master YES GENERIC Makefile .
-o2em libretro-o2em https://github.com/libretro/libretro-o2em.git master YES GENERIC Makefile.libretro .
+o2em libretro-o2em https://github.com/libretro/libretro-o2em.git master YES GENERIC Makefile .
 pcsx_rearmed libretro-pcsx_rearmed https://github.com/libretro/pcsx_rearmed.git master YES GENERIC Makefile.libretro .
 picodrive libretro-picodrive https://github.com/libretro/picodrive.git master YES GENERIC Makefile.libretro .
 pokemini libretro-pokemini https://github.com/libretro/PokeMini.git master YES GENERIC Makefile .
@@ -43,6 +46,4 @@ stella libretro-stella https://github.com/stella-emu/stella.git master NO GENERI
 theodore libretro-theodore https://github.com/Zlika/theodore.git master YES GENERIC Makefile .
 tgbdual libretro-tgbdual https://github.com/libretro/tgbdual-libretro.git master NO GENERIC Makefile .
 tyrquake libretro-tyrquake https://github.com/libretro/tyrquake.git master NO GENERIC Makefile .
-gw libretro-gw https://github.com/libretro/gw-libretro.git master YES GENERIC Makefile .
-81 libretro-81 https://github.com/libretro/81-libretro.git master YES GENERIC Makefile .
-fuse libretro-fuse https://github.com/libretro/fuse-libretro.git master YES GENERIC Makefile .
+vecx libretro-vecx https://github.com/libretro/libretro-vecx.git master YES GENERIC Makefile .

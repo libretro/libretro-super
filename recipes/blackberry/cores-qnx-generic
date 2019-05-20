@@ -7,7 +7,7 @@ crocods libretro-crocods https://github.com/libretro/libretro-crocods.git master
 dinothawr libretro-dinothawr https://github.com/libretro/Dinothawr.git master YES GENERIC Makefile .
 dosbox libretro-dosbox https://github.com/libretro/dosbox-libretro.git master YES GENERIC Makefile.libretro .
 emux libretro-emux https://github.com/libretro/emux master YES LEIRADEL Makefile libretro | emux_chip8:MACHINE=chip8 emux_gb:MACHINE=gb emux_nes:MACHINE=nes emux_sms:MACHINE=sms
-fbalpha libretro-fbalpha https://github.com/libretro/fbalpha.git master YES GENERIC makefile.libretro .
+fbalpha libretro-fbalpha https://github.com/libretro/FBAlphaFB.git master YES GENERIC Makefile src/burner/libretro
 fbalpha2012 libretro-fbalpha2012 https://github.com/libretro/fbalpha2012.git master YES GENERIC makefile.libretro svn-current/trunk
 fbalpha2012_cps1 libretro-fbalpha2012_cps1 https://github.com/libretro/fbalpha2012_cps1.git master YES GENERIC makefile.libretro .
 fbalpha2012_cps2 libretro-fbalpha2012_cps2 https://github.com/libretro/fbalpha2012_cps2.git master YES GENERIC makefile.libretro .
