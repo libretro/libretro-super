@@ -764,7 +764,7 @@ include_core_mupen64plus_next() {
 	register_module core "mupen64plus_next" -theos_ios -ngc -ps3 -psp1 -wii
 }
 libretro_mupen64plus_next_name="Mupen64 Plus Next"
-libretro_mupen64plus_next_git_url="https://github.com/libretro/mupen64plus-libretro.git"
+libretro_mupen64plus_next_git_url="https://github.com/libretro/mupen64plus-libretro-nx.git"
 libretro_mupen64plus_next_build_platform="$FORMAT_COMPILER_TARGET_ALT"
 libretro_mupen64plus_next_configure() {
 	if iscpu_x86_64 $ARCH; then
