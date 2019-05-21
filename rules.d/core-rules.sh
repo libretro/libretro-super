@@ -221,12 +221,12 @@ libretro_video_processor_name="Video processor"
 libretro_video_processor_git_url="https://github.com/libretro/libretro-video-processor.git"
 libretro_video_processor_build_makefile="Makefile"
 
-include_core_fbalpha() {
-	register_module core "fbalpha" -psp1
+include_core_fbneo() {
+	register_module core "fbneo" -psp1
 }
-libretro_fbalpha_name="FB Alpha (FB Edition)"
-libretro_fbalpha_git_url="https://github.com/libretro/FBAlphaFB.git"
-libretro_fbalpha_build_subdir="src/burner/libretro"
+libretro_fbneo_name="FinalBurn Neo"
+libretro_fbneo_git_url="https://github.com/libretro/FBNeo.git"
+libretro_fbneo_build_subdir="src/burner/libretro"
 
 include_core_fbalpha2012() {
 	register_module core "fbalpha2012" -psp1
