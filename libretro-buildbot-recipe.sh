@@ -1273,13 +1273,27 @@ if [ "${PLATFORM}" == "wii" ] && [ "${RA}" == "YES" ]; then
 		echo 'Packaging'
 
 		cd $WORK/$RADIR
+
 		cp retroarch.cfg retroarch.default.cfg
-		mkdir -p pkg/wii/
-		mkdir -p pkg/wii/cheats
-		mkdir -p pkg/wii/remaps
-		mkdir -p pkg/wii/overlays
-		cp $RARCH_DIST_DIR/../info/*.info pkg/
-		cp -rf media/overlays/wii/* pkg/wii/overlays
+
+		mkdir -p pkg/wii/build/apps/retroarch-wii
+		mkdir -p pkg/wii/build/apps/retroarch-wii/cheats
+		mkdir -p pkg/wii/build/apps/retroarch-wii/remaps
+		mkdir -p pkg/wii/build/apps/retroarch-wii/overlays
+		mkdir -p pkg/wii/build/apps/retroarch-wii/info
+		mkdir -p pkg/wii/build/apps/retroarch-wii/filters/audio
+		mkdir -p pkg/wii/build/apps/retroarch-wii/filters/video
+
+		cp pkg/wii/icon.png pkg/wii/build/apps/retroarch-wii/
+		cp pkg/wii/meta.xml pkg/wii/build/apps/retroarch-wii/
+		cp pkg/wii/.empty pkg/wii/build/apps/retroarch-wii/
+		cp pkg/wii/*.dol pkg/wii/build/apps/retroarch-wii/
+
+		cp $RARCH_DIST_DIR/../info/*.info pkg/wii/build/apps/retroarch-wii/info/
+		cp -rf media/overlays/wii/* pkg/wii/build/apps/retroarch-wii/overlays/
+		cp $WORK/$RADIR/libretro-common/audio/dsp_filters/*.dsp pkg/wii/build/apps/retroarch-wii/filters/audio/
+		cp $WORK/$RADIR/gfx/video_filters/*.filt pkg/wii/build/apps/retroarch-wii/filters/video/
+
 	fi
 fi
 
