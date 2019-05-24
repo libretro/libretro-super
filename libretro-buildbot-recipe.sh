@@ -992,33 +992,18 @@ if [ "${PLATFORM}" = "android" ] && [ "${RA}" = "YES" ]; then
 		echo "buildbot job: $jobid Building"
 		echo
 		cd pkg/android/phoenix$PKG_EXTRA
-		rm bin/*.apk
-
-cat << EOF > local.properties
-sdk.dir=/home/buildbot/tools/android/android-sdk-linux
-key.store=/home/buildbot/.android/release.keystore
-key.alias=buildbot
-key.store.password=buildbot
-key.alias.password=buildbot
-
-EOF
 
 		git reset --hard
 		if [ "${RELEASE}" == "NO" ]; then
 			python ./version_increment.py
 		fi
-		ant clean | tee -a "$LOGFILE"
-		android update project --path . --target android-26 | tee -a "$LOGFILE"
-		android update project --path libs/googleplay --target android-26 | tee -a "$LOGFILE"
-		android update project --path libs/appcompat --target android-26 | tee -a "$LOGFILE"
-		TARGET_ABIS=${TARGET_ABIS/arm64-v8a /} ant release | tee -a "$LOGFILE"
-		if [ -z "$BRANCH" ]; then
-			cp -r bin/retroarch-release.apk $RARCH_DIR/retroarch-release.apk | tee -a "$LOGFILE"
-			cp -r bin/retroarch-release.apk $RARCH_DIR/retroarch-release.apk
-		else
-			cp -r bin/retroarch-release.apk $RARCH_DIR/retroarch-$BRANCH-release.apk | tee -a "$LOGFILE"
-			cp -r bin/retroarch-release.apk $RARCH_DIR/retroarch-$BRANCH-release.apk
-		fi
+		./gradlew clean assembleRelease
+		cp -r build/outputs/apk/normal/release/phoenix-normal-release.apk $RARCH_DIR/retroarch-release.apk | tee -a "$LOGFILE"
+		cp -r build/outputs/apk/normal/release/phoenix-normal-release.apk $RARCH_DIR/retroarch-release.apk
+		cp -r build/outputs/apk/aarch64/release/phoenix-aarch64-release.apk $RARCH_DIR/retroarch-aarch64-release.apk | tee -a "$LOGFILE"
+		cp -r build/outputs/apk/aarch64/release/phoenix-aarch64-release.apk $RARCH_DIR/retroarch-aarch64-release.apk
+		cp -r build/outputs/apk/ra32/release/phoenix-ra32-release.apk $RARCH_DIR/retroarch-ra32-release.apk | tee -a "$LOGFILE"
+		cp -r build/outputs/apk/ra32/release/phoenix-ra32-release.apk $RARCH_DIR/retroarch-ra32-release.apk
 
 		RET=$?
 		buildbot_handle_message "$RET" "$ENTRY_ID" "retroarch" "$jobid" "$LOGFILE"
