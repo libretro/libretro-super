@@ -59,7 +59,7 @@ nestopia libretro-nestopia https://github.com/libretro/nestopia.git master YES G
 np2kai libretro-np2kai https://github.com/libretro/NP2kai.git master YES GENERIC_JNI Makefile.libretro jni
 nxengine libretro-nxengine https://github.com/libretro/nxengine-libretro.git master YES GENERIC_JNI Makefile jni
 o2em libretro-o2em https://github.com/libretro/libretro-o2em.git master YES GENERIC_JNI Makefile jni
-openlara libretro-openlara https://github.com/libretro/OpenLara.git master YES GENERIC_JNI Makefile src/platform/libretro/jni
+openlara libretro-openlara https://github.com/libretro/OpenLara.git master NO GENERIC_JNI Makefile src/platform/libretro/jni
 pocketcdg libretro-pocketcdg https://github.com/libretro/libretro-pocketcdg.git master YES GENERIC_JNI Makefile jni
 pokemini libretro-pokemini https://github.com/libretro/PokeMini.git master YES GENERIC_JNI Makefile jni
 prboom libretro-prboom https://github.com/libretro/libretro-prboom.git master YES GENERIC_JNI Makefile jni
