@@ -1,4 +1,4 @@
-display_name = "Sega - Dreamcast/NAOMI (Reicast)"
+display_name = "Sega - Dreamcast/NAOMI (BeetleDC)"
 authors = "skmp|flyinghead"
 supported_extensions = "chd|cdi|iso|elf|bin|cue|gdi|lst|zip|dat|7z"
 corename = "Reicast"
