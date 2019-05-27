@@ -11,6 +11,7 @@ genesis_plus_gx libretro-genesis_plus_gx https://github.com/libretro/Genesis-Plu
 gme libretro-gme https://github.com/libretro/libretro-gme.git master YES GENERIC Makefile .
 mame2003 libretro-mame2003 https://github.com/libretro/mame2003-libretro.git master YES GENERIC Makefile . CCACHE_DISABLE=1
 mame2003_plus libretro-mame2003-plus https://github.com/libretro/mame2003-plus-libretro.git master YES GENERIC Makefile . CCACHE_DISABLE=1
+mednafen_lynx libretro-beetle_lynx https://github.com/libretro/beetle-lynx-libretro.git master YES GENERIC Makefile .
 mednafen_ngp libretro-beetle_ngp https://github.com/libretro/beetle-ngp-libretro.git master YES GENERIC Makefile .
 mednafen_pce libretro-beetle_pce https://github.com/libretro/beetle-pce-fast-libretro.git pce YES GENERIC Makefile .
 mednafen_pce_fast libretro-beetle_pce_fast https://github.com/libretro/beetle-pce-fast-libretro.git master YES GENERIC Makefile .
@@ -18,6 +19,7 @@ mednafen_pcfx libretro-beetle_pcfx https://github.com/libretro/beetle-pcfx-libre
 mednafen_psx libretro-beetle_psx https://github.com/libretro/beetle-psx-libretro.git master YES GENERIC Makefile .
 mednafen_psx_hw libretro-beetle_psx_hw https://github.com/libretro/beetle-psx-libretro.git master YES GENERIC Makefile . HAVE_HW=1
 mednafen_saturn libretro-beetle_saturn https://github.com/libretro/beetle-saturn-libretro.git master YES GENERIC Makefile .
+mednafen_vb libretro-beetle_vb https://github.com/libretro/beetle-vb-libretro.git master YES GENERIC Makefile .
 mednafen_wswan libretro-beetle_wswan https://github.com/libretro/beetle-wswan-libretro.git master YES GENERIC Makefile .
 mesen libretro-mesen https://github.com/SourMesen/Mesen.git master YES GENERIC Makefile Libretro platform=windows_msvc2017_desktop_x64
 nestopia libretro-nestopia https://github.com/libretro/nestopia.git master YES GENERIC Makefile libretro
