@@ -84,6 +84,7 @@ stella2014 libretro-stella2014 https://github.com/libretro/stella2014-libretro.g
 stella libretro-stella https://github.com/stella-emu/stella.git master YES GENERIC_JNI Makefile src/libretro/jni
 tgbdual libretro-tgbdual https://github.com/libretro/tgbdual-libretro.git master YES GENERIC_JNI Makefile jni
 theodore libretro-theodore https://github.com/Zlika/theodore.git master YES GENERIC_JNI Makefile jni
+thepowdertoy libretro-thepowdertoy https://github.com/libretro/ThePowderToy.git master YES ANDROID_CMAKE Makefile build
 tyrquake libretro-tyrquake https://github.com/libretro/tyrquake.git master YES GENERIC_JNI Makefile jni
 uzem libretro-uzem https://github.com/libretro/libretro-uzem.git master YES GENERIC_JNI Makefile jni
 vba_next libretro-vba-next https://github.com/libretro/vba-next.git master YES GENERIC_JNI Makefile libretro/jni
