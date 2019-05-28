@@ -1038,6 +1038,14 @@ libretro_mu_git_url="https://github.com/meepingsnesroms/Mu.git"
 libretro_mu_build_makefile="Makefile"
 libretro_mu_build_subdir="libretroBuildSystem"
 
+include_core_squirreljme() {
+	register_module core "squirreljme"
+}
+libretro_squirreljme_name="SquirrelJME"
+libretro_squirreljme_git_url="https://github.com/XerTheSquirrel/SquirrelJME.git"
+libretro_squirreljme_build_makefile="makefilelibretro"
+libretro_squirreljme_build_subdir="ratufacoat"
+
 include_core_quasi88() {
 	register_module core "quasi88" -theos_ios -ngc -sncps3 -ps3 -psp1 -qnx -wii
 }
