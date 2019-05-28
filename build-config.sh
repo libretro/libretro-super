@@ -26,7 +26,7 @@ include_core_bsnes_mercury_performance
 include_core_mednafen_snes
 
 # --- Dreamcast emulator cores ---
-include_core_reicast
+include_core_beetledc
 include_core_redream
 
 # --- Genesis emulator cores ---
