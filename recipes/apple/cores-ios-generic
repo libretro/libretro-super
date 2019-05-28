@@ -101,3 +101,4 @@ uzem libretro-uzem https://github.com/libretro/libretro-uzem.git master YES GENE
 gw libretro-gw https://github.com/libretro/gw-libretro.git master YES GENERIC Makefile .
 81 libretro-81 https://github.com/libretro/81-libretro.git master YES GENERIC Makefile .
 fuse libretro-fuse https://github.com/libretro/fuse-libretro.git master YES GENERIC Makefile .
+test libretro-samples https://github.com/libretro/libretro-samples.git master YES GENERIC Makefile tests/test

@@ -5,6 +5,7 @@ cap32 libretro-cap32 https://github.com/libretro/libretro-cap32.git master YES G
 dosbox libretro-dosbox https://github.com/libretro/dosbox-libretro.git master YES GENERIC Makefile.libretro .
 dosbox_svn libretro-dosbox_svn https://github.com/fr500/dosbox-svn libretro YES GENERIC Makefile.libretro libretro WITH_DYNAREC=oldarm
 fceumm libretro-fceumm https://github.com/libretro/libretro-fceumm.git master YES GENERIC Makefile.libretro .
+fbneo libretro-fbneo https://github.com/libretro/FBNeo.git master YES GENERIC Makefile src/burner/libretro
 fbalpha2012 libretro-fbalpha2012 https://github.com/libretro/fbalpha2012.git master YES GENERIC makefile.libretro svn-current/trunk
 fbalpha2012_cps1 libretro-fbalpha2012_cps1 https://github.com/libretro/fbalpha2012_cps1.git master YES GENERIC makefile.libretro .
 fbalpha2012_cps2 libretro-fbalpha2012_cps2 https://github.com/libretro/fbalpha2012_cps2.git master YES GENERIC makefile.libretro .
