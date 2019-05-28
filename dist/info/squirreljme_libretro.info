@@ -1,5 +1,5 @@
 # Name displayed when the user is selecting the core:
-display_name = "Java ME (SquirrelJME RatufaCoat)"
+display_name = "Java ME (SquirrelJME)"
 
 # Name of the authors who wrote the core:
 authors = "Stephanie Gawroriski (Xer Shadow Tail)"
@@ -8,7 +8,7 @@ authors = "Stephanie Gawroriski (Xer Shadow Tail)"
 supported_extensions = "jar"
 
 # Name of the core:
-corename = "SquirrelJME RatufaCoat"
+corename = "SquirrelJME"
 
 # Name of the manufacturer who produced the emulated system:
 manufacturer = "Oracle Corporation"
