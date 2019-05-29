@@ -1,1 +1,0 @@
-mame2010 libretro-mame2010 https://github.com/libretro/mame2010-libretro.git master YES GENERIC Makefile . VRENDER=soft PTR64=0 CC=arm-linux-androideabi-gcc CXX=arm-linux-androideabi-g++ LD=arm-linux-androideabi-g++ platform=android emulator
