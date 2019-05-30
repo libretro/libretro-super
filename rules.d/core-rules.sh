@@ -604,6 +604,13 @@ libretro_dosbox_name="DOSBox"
 libretro_dosbox_git_url="https://github.com/libretro/dosbox-libretro.git"
 libretro_dosbox_makefile="Makefile.libretro"
 
+include_core_dosbox_svn() {
+	register_module core "dosbox_svn" -ngc -ps3 -psp1 -wii
+}
+libretro_dosbox_svn_name="DOSBox"
+libretro_dosbox_svn_git_url="https://github.com/libretro/dosbox-svn.git"
+libretro_dosbox_svn_makefile="Makefile.libretro"
+
 include_core_basilisk2() {
 	register_module core "basilisk2" -ngc -ps3 -psp1 -wii
 }

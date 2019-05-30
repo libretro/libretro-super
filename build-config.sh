@@ -133,6 +133,7 @@ include_core_virtualjaguar
 # --- DOS/PC/MAC emulator cores ---
 include_core_basilisk2
 include_core_dosbox
+include_core_dosbox_svn
 include_core_pcem
 
 # --- MAME cores ---
