@@ -920,6 +920,13 @@ libretro_stonesoup_git_submodules="clone"
 libretro_stonesoup_build_subdir="crawl-ref"
 libretro_stonesoup_build_makefile="Makefile.libretro"
 
+include_core_freechaf() {
+	register_module core "freechaf" -ngc -ps3 -psp1 -qnx -wii
+}
+libretro_freechaf_name="FreeChaF"
+libretro_freechaf_git_url="https://github.com/libretro/FreeChaF.git"
+libretro_freechaf_build_makefile="Makefile"
+
 include_core_hatari() {
 	register_module core "hatari" -theos_ios -ngc -ps3 -psp1 -qnx -wii
 }
