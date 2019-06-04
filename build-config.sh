@@ -184,6 +184,9 @@ include_core_quasi88
 include_core_nekop2
 include_core_np2kai
 
+# --- Fairchild ChannelF cores ---
+include_core_freechaf
+
 # --- Sharp X-68000 emulator cores ---
 include_core_px68k
 
