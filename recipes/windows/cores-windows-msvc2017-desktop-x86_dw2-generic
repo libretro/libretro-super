@@ -9,6 +9,7 @@ freeintv libretro-freeintv https://github.com/markwkidd/FreeIntv.git master YES 
 gambatte libretro-gambatte https://github.com/libretro/gambatte-libretro.git master YES GENERIC Makefile .
 genesis_plus_gx libretro-genesis_plus_gx https://github.com/libretro/Genesis-Plus-GX.git master YES GENERIC Makefile.libretro .
 gme libretro-gme https://github.com/libretro/libretro-gme.git master YES GENERIC Makefile .
+handy libretro-handy https://github.com/libretro/libretro-handy.git master YES GENERIC Makefile .
 mame2003 libretro-mame2003 https://github.com/libretro/mame2003-libretro.git master YES GENERIC Makefile . CCACHE_DISABLE=1
 mame2003_plus libretro-mame2003-plus https://github.com/libretro/mame2003-plus-libretro.git master YES GENERIC Makefile . CCACHE_DISABLE=1
 mednafen_lynx libretro-beetle_lynx https://github.com/libretro/beetle-lynx-libretro.git master YES GENERIC Makefile .
