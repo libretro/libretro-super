@@ -164,12 +164,12 @@ libretro_snes9x_name="SNES9x"
 libretro_snes9x_git_url="https://github.com/libretro/snes9x.git"
 libretro_snes9x_build_subdir="libretro"
 
-include_core_beetledc() {
-	register_module core "beetledc"
+include_core_flycast() {
+	register_module core "Flycast"
 }
-libretro_beetledc_name="BeetleDC"
-libretro_beetledc_git_url="https://github.com/libretro/beetle-dc.git"
-libretro_beetledc_build_makefile="Makefile"
+libretro_flycast_name="Flycast"
+libretro_flycast_git_url="https://github.com/libretro/flycast.git"
+libretro_flycast_build_makefile="Makefile"
 
 include_core_redream() {
 	register_module core "redream"
