@@ -216,6 +216,7 @@ include_core_stonesoup
 include_core_scummvm
 include_core_chailove
 include_core_thepowdertoy
+include_core_tic80
 
 # --- Miscellaneous cores ---
 include_core_video_processor
