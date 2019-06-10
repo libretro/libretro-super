@@ -165,7 +165,7 @@ libretro_snes9x_git_url="https://github.com/libretro/snes9x.git"
 libretro_snes9x_build_subdir="libretro"
 
 include_core_flycast() {
-	register_module core "Flycast"
+	register_module core "flycast"
 }
 libretro_flycast_name="Flycast"
 libretro_flycast_git_url="https://github.com/libretro/flycast.git"
