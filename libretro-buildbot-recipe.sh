@@ -1278,11 +1278,11 @@ if [ "${PLATFORM}" == "wii" ] && [ "${RA}" == "YES" ]; then
 
 		mkdir -p pkg/wii/build/apps/retroarch-wii
 		mkdir -p pkg/wii/build/apps/retroarch-wii/cheats
-		mkdir -p pkg/wii/build/apps/retroarch-wii/remaps
 		mkdir -p pkg/wii/build/apps/retroarch-wii/overlays
 		mkdir -p pkg/wii/build/apps/retroarch-wii/info
 		mkdir -p pkg/wii/build/apps/retroarch-wii/filters/audio
 		mkdir -p pkg/wii/build/apps/retroarch-wii/filters/video
+		mkdir -p pkg/wii/build/apps/retroarch-wii/assets
 
 		cp pkg/wii/icon.png pkg/wii/build/apps/retroarch-wii/
 		cp pkg/wii/meta.xml pkg/wii/build/apps/retroarch-wii/
@@ -1293,6 +1293,7 @@ if [ "${PLATFORM}" == "wii" ] && [ "${RA}" == "YES" ]; then
 		cp -rf media/overlays/wii/* pkg/wii/build/apps/retroarch-wii/overlays/
 		cp $WORK/$RADIR/libretro-common/audio/dsp_filters/*.dsp pkg/wii/build/apps/retroarch-wii/filters/audio/
 		cp $WORK/$RADIR/gfx/video_filters/*.filt pkg/wii/build/apps/retroarch-wii/filters/video/
+		cp -r $WORK/$RADIR/media/assets/rgui pkg/wii/build/apps/retroarch-wii/assets/
 
 	fi
 fi
