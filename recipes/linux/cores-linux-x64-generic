@@ -25,7 +25,7 @@ dosbox libretro-dosbox https://github.com/libretro/dosbox-libretro.git master YE
 dosbox_svn libretro-dosbox_svn https://github.com/fr500/dosbox-svn libretro YES GENERIC Makefile.libretro libretro WITH_DYNAREC=x86_64
 dosbox_svn_glide libretro-dosbox_svn_glide https://github.com/fr500/dosbox-svn glide YES GENERIC Makefile.libretro libretro WITH_DYNAREC=x86_64
 easyrpg libretro-easyrpg https://github.com/libretro/easyrpg-libretro.git master YES GENERIC Makefile.libretro builds/libretro
-fbalpha libretro-fbalpha https://github.com/libretro/fbalpha.git master YES GENERIC makefile.libretro . USE_X64_DRC=1
+fbneo libretro-fbneo https://github.com/libretro/FBNeo.git master YES GENERIC Makefile src/burner/libretro USE_X64_DRC=1
 fbalpha2012 libretro-fbalpha2012 https://github.com/libretro/fbalpha2012.git master YES GENERIC makefile.libretro svn-current/trunk
 fbalpha2012_cps1 libretro-fbalpha2012_cps1 https://github.com/libretro/fbalpha2012_cps1.git master YES GENERIC makefile.libretro .
 fbalpha2012_cps2 libretro-fbalpha2012_cps2 https://github.com/libretro/fbalpha2012_cps2.git master YES GENERIC makefile.libretro .
@@ -76,7 +76,7 @@ mgba libretro-mgba https://github.com/libretro/mgba.git master YES GENERIC Makef
 mrboom libretro-mrboom https://github.com/libretro/mrboom-libretro.git master YES GENERIC Makefile .
 mu libretro-mu https://github.com/meepingsnesroms/Mu.git master YES GENERIC Makefile libretroBuildSystem
 mupen64plus libretro-mupen64plus https://github.com/libretro/mupen64plus-libretro.git master YES GENERIC_GL Makefile . WITH_DYNAREC=x86_64
-mupen64plus_next libretro-mupen64plus_next https://github.com/libretro/mupen64plus-libretro-nx.git mupen_next YES GENERIC_GL Makefile . WITH_DYNAREC=x86_64
+mupen64plus_next libretro-mupen64plus_next https://github.com/libretro/mupen64plus-libretro-nx.git GLideN64 YES GENERIC_GL Makefile . WITH_DYNAREC=x86_64
 nekop2 libretro-nekop2 https://github.com/libretro/libretro-meowPC98.git master YES GENERIC Makefile.libretro libretro
 nestopia libretro-nestopia https://github.com/libretro/nestopia.git master YES GENERIC Makefile libretro
 np2kai libretro-np2kai https://github.com/libretro/NP2kai.git master YES GENERIC Makefile.libretro sdl2
@@ -93,10 +93,10 @@ prboom libretro-prboom https://github.com/libretro/libretro-prboom.git master YE
 prosystem libretro-prosystem https://github.com/libretro/prosystem-libretro.git master YES GENERIC Makefile .
 puae libretro-uae https://github.com/libretro/libretro-uae.git master YES GENERIC Makefile .
 px68k libretro-px68k https://github.com/libretro/px68k-libretro.git master YES GENERIC Makefile.libretro .
+quasi88 libretro-quasi88 https://github.com/libretro/quasi88-libretro.git master YES GENERIC Makefile .
 quicknes libretro-quicknes https://github.com/libretro/QuickNES_Core.git master YES GENERIC Makefile .
-redream libretro-redream https://github.com/libretro/redream.git master YES GENERIC Makefile deps/libretro
-reicast libretro-reicast https://github.com/libretro/reicast-emulator.git master YES GENERIC Makefile . HAVE_OIT=1
-reicast_wince libretro-reicast_wince https://github.com/libretro/reicast-emulator.git fh/wince YES GENERIC Makefile . HAVE_OIT=1
+flycast libretro-flycast https://github.com/libretro/flycast.git master YES GENERIC Makefile . HAVE_OIT=1
+flycast_wince libretro-flycast_wince https://github.com/libretro/flycast.git fh/wince YES GENERIC Makefile . HAVE_OIT=1
 reminiscence libretro-reminiscence https://github.com/libretro/REminiscence.git master YES GENERIC Makefile .
 remotejoy libretro-remotejoy https://github.com/libretro/libretro-remotejoy.git master YES GENERIC Makefile .
 sameboy libretro-sameboy https://github.com/libretro/SameBoy.git buildbot YES GENERIC Makefile libretro
@@ -106,6 +106,7 @@ snes9x2002 libretro-snes9x2002 https://github.com/libretro/snes9x2002.git master
 snes9x2005 libretro-snes9x2005 https://github.com/libretro/snes9x2005.git master YES GENERIC Makefile .
 snes9x2005_plus libretro-snes9x2005_plus https://github.com/libretro/snes9x2005.git master YES GENERIC Makefile . USE_BLARGG_APU=1
 snes9x2010 libretro-snes9x2010 https://github.com/libretro/snes9x2010.git master YES GENERIC Makefile.libretro .
+squirreljme libretro-squirreljme https://github.com/XerTheSquirrel/SquirrelJME.git trunk YES GENERIC makefilelibretro ratufacoat
 stella2014 libretro-stella2014 https://github.com/libretro/stella2014-libretro.git master YES GENERIC Makefile .
 stella libretro-stella https://github.com/stella-emu/stella.git master YES GENERIC Makefile src/libretro
 tgbdual libretro-tgbdual https://github.com/libretro/tgbdual-libretro.git master YES GENERIC Makefile .
@@ -126,3 +127,4 @@ virtualjaguar libretro-virtualjaguar https://github.com/libretro/virtualjaguar-l
 xrick libretro-xrick https://github.com/libretro/xrick-libretro.git master YES GENERIC Makefile .
 yabasanshiro libretro-yabasanshiro https://github.com/libretro/yabause.git yabasanshiro YES GENERIC Makefile yabause/src/libretro
 yabause libretro-yabause https://github.com/libretro/yabause.git master YES GENERIC Makefile libretro
+test libretro-samples https://github.com/libretro/libretro-samples.git master YES GENERIC Makefile tests/test

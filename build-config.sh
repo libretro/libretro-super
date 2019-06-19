@@ -26,7 +26,7 @@ include_core_bsnes_mercury_performance
 include_core_mednafen_snes
 
 # --- Dreamcast emulator cores ---
-include_core_reicast
+include_core_flycast
 include_core_redream
 
 # --- Genesis emulator cores ---
@@ -38,7 +38,7 @@ include_core_blastem
 include_core_gearsystem
 
 # --- Arcade emulator cores ---
-include_core_fbalpha
+include_core_fbneo
 include_core_fbalpha2012
 include_core_fbalpha2012_cps1
 include_core_fbalpha2012_cps2
@@ -133,6 +133,7 @@ include_core_virtualjaguar
 # --- DOS/PC/MAC emulator cores ---
 include_core_basilisk2
 include_core_dosbox
+include_core_dosbox_svn
 include_core_pcem
 
 # --- MAME cores ---
@@ -176,9 +177,15 @@ include_core_4do
 include_core_fuse
 include_core_81
 
+# --- NEC PC-88 emulator cores ---
+include_core_quasi88
+
 # --- NEC PC-98 emulator cores ---
 include_core_nekop2
 include_core_np2kai
+
+# --- Fairchild ChannelF cores ---
+include_core_freechaf
 
 # --- Sharp X-68000 emulator cores ---
 include_core_px68k
@@ -225,6 +232,7 @@ include_core_pocketcdg
 include_core_crocods
 include_core_cap32
 include_core_mu
+include_core_squirreljme
 include_core_minivmac
 include_core_oberon
 

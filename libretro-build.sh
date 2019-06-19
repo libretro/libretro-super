@@ -161,7 +161,7 @@ build_default_cores() {
 	libretro_build_core snes9x2005
 	if [ $platform != "psp1" ]; then
 		# Excluded for binary size reasons
-		libretro_build_core fbalpha
+		libretro_build_core fbneo
 	fi
 	libretro_build_core fceumm
 	libretro_build_core fmsx

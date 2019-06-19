@@ -240,15 +240,33 @@ case "$platform" in
 		CXX11="clang++ -std=c++11 -stdlib=libc++ -arch armv7 -marm -miphoneos-version-min=8.0 -isysroot $IOSSDK"
 		;;
 
+	ios10)
+		DIST_DIR="ios10"
+		FORMAT_EXT=dylib
+		IOS=1
+		ARCH=armv7 arm64
+		FORMAT=_ios
+		FORMAT_COMPILER_TARGET=ios10
+		FORMAT_COMPILER_TARGET_ALT=ios10
+		export IOSSDK=$(xcodebuild -version -sdk iphoneos Path)
+
+		# Use generic names rather than gcc/clang to better support both
+		CC="cc -arch armv7 -arch arm64 -marm -miphoneos-version-min=8.0 -isysroot $IOSSDK"
+		CXX="c++ -arch armv7 -arch arm64 -marm -miphoneos-version-min=8.0 -isysroot $IOSSDK"
+		CXX11="clang++ -std=c++11 -stdlib=libc++ -arch armv7 -arch arm64 -marm -miphoneos-version-min=8.0 -isysroot $IOSSDK"
+		;;
+
 	ios-arm64)
-    DIST_DIR="ios-arm64"
-    FORMAT_EXT=dylib
-    IOS=1
-    ARCH=arm64
-    FORMAT=_ios
-    FORMAT_COMPILER_TARGET=ios-arm64
-    FORMAT_COMPILER_TARGET_ALT=ios-arm64
-    export IOSSDK=$(xcodebuild -version -sdk iphoneos Path)
+		DIST_DIR="ios-arm64"
+		FORMAT_EXT=dylib
+		IOS=1
+		ARCH=arm64
+		FORMAT=_ios
+		FORMAT_COMPILER_TARGET=ios-arm64
+		FORMAT_COMPILER_TARGET_ALT=ios-arm64
+		export IOSSDK=$(xcodebuild -version -sdk iphoneos Path)
+
+		# Use generic names rather than gcc/clang to better support both
 		CC="cc -arch arm64 -marm -miphoneos-version-min=8.0 -isysroot $IOSSDK"
 		CXX="c++ -arch arm64 -marm -miphoneos-version-min=8.0 -isysroot $IOSSDK"
 		CXX11="clang++ -std=c++11 -stdlib=libc++ -arch arm64 -marm -miphoneos-version-min=8.0 -isysroot $IOSSDK"

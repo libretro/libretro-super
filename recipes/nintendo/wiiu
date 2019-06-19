@@ -4,8 +4,8 @@ hatari libretro-hatari https://github.com/libretro/hatari.git master YES GENERIC
 atari800 libretro-atari800 https://github.com/libretro/libretro-atari800.git master YES GENERIC Makefile .
 bluemsx libretro-bluemsx https://github.com/libretro/blueMSX-libretro.git master YES GENERIC Makefile .
 stella2014 libretro-stella2014 https://github.com/libretro/stella2014-libretro.git master YES GENERIC Makefile .
-stella libretro-stella https://github.com/stella-emu/stella.git master YES GENERIC Makefile src/libretro
-fbalpha libretro-fbalpha https://github.com/libretro/fbalpha.git master YES GENERIC makefile.libretro .
+stella libretro-stella https://github.com/stella-emu/stella.git master NO GENERIC Makefile src/libretro
+fbneo libretro-fbneo https://github.com/libretro/FBNeo.git master YES GENERIC Makefile src/burner/libretro
 fbalpha2012 libretro-fbalpha2012 https://github.com/libretro/fbalpha2012.git master YES GENERIC makefile.libretro svn-current/trunk
 fbalpha2012_cps1 libretro-fbalpha2012_cps1 https://github.com/libretro/fbalpha2012_cps1.git master YES GENERIC makefile.libretro .
 fbalpha2012_cps2 libretro-fbalpha2012_cps2 https://github.com/libretro/fbalpha2012_cps2.git master YES GENERIC makefile.libretro .
@@ -42,6 +42,7 @@ nxengine libretro-nxengine https://github.com/libretro/nxengine-libretro.git mas
 o2em libretro-o2em https://github.com/libretro/libretro-o2em.git master YES GENERIC Makefile .
 pokemini libretro-pokemini https://github.com/libretro/PokeMini.git master YES GENERIC Makefile .
 puae libretro-uae https://github.com/libretro/libretro-uae.git master YES GENERIC Makefile .
+quasi88 libretro-quasi88 https://github.com/libretro/quasi88-libretro.git master YES GENERIC Makefile .
 quicknes libretro-quicknes https://github.com/libretro/QuickNES_Core.git master YES GENERIC Makefile .
 sameboy libretro-sameboy https://github.com/libretro/SameBoy.git buildbot YES GENERIC Makefile libretro
 snes9x libretro-snes9x https://github.com/libretro/snes9x.git master YES GENERIC Makefile libretro
@@ -51,6 +52,7 @@ snes9x2005_plus libretro-snes9x2005_plus https://github.com/libretro/snes9x2005.
 snes9x2010 libretro-snes9x2010 https://github.com/libretro/snes9x2010.git master YES GENERIC Makefile.libretro .
 mame2003_midway libretro-mame2003_midway https://github.com/libretro/mame2003_midway.git master YES GENERIC Makefile .
 scummvm libretro-scummvm https://github.com/libretro/scummvm.git master YES GENERIC Makefile backends/platform/libretro/build
+squirreljme libretro-squirreljme https://github.com/XerTheSquirrel/SquirrelJME.git trunk YES GENERIC makefilelibretro ratufacoat
 tgbdual libretro-tgbdual https://github.com/libretro/tgbdual-libretro.git master YES GENERIC Makefile .
 theodore libretro-theodore https://github.com/Zlika/theodore.git master YES GENERIC Makefile .
 tyrquake libretro-tyrquake https://github.com/libretro/tyrquake.git master YES GENERIC Makefile .

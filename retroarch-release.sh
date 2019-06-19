@@ -1,44 +1,25 @@
 #!/bin/sh
-# vim: set ts=3 sw=3 noet ft=sh : bash
-# RetroArch packaging script
+# vim: set ts=3 sw=3 noet ft=sh : sh
+# RetroArch packaging script for release tarballs
 
 PRGNAM=RetroArch
 SRCNAM="$(printf %s $PRGNAM | tr '[:upper:]' '[:lower:]')"
 TMP=${TMP:-/tmp/libretro}
-FORCE=0
-CLEAN=0
-
-for x in $@; do
-	if [ "$x" == "--force" ]; then
-        FORCE=1
-	fi
-	if [ "$x" == "--clean" ]; then
-        CLEAN=1
-	fi
-done
 
 # Exit on errors and unset variables
 set -eu
 
 # Ensure a clean and fully updated repo
 if [ -d $SRCNAM ]; then
-    if [ $CLEAN -gt 0 ]; then
-		rm -rf -- $SRCNAM
-	elif [ $FORCE -gt 0 ]; then
-		echo "Using existing state of $SRCNAM. If build fails, use --clean to delete and re-clone."
-	else
-		echo "FATAL: $SRCNAM/ exists."
-		echo ""
-		echo " - To build with existing sources: $0 --force"
-		echo " - To delete existing sources and re-clone: $0 --clean"
-		echo ""
-		echo "WARNING: The --clean option does not preserve forks. That is,"
-		echo "the original libretro/$PRGNAM repository will be cloned, not"
-		echo "your personal fork. To build a release build from a fork,"
-		echo "use --force."
-		exit 1
-	fi
+	printf %s\\n "WARNING: The $PRGNAM directory already exists." \
+		"Remove the $PRGNAM directory and continue? (y/n)" >&2
+	read -r answer
+	case "$answer" in
+		[yY]|[yY][eE][sS] ) rm -rf -- $SRCNAM ;;
+		* ) printf %s\\n 'Exiting ...'; exit 0 ;;
+	esac
 fi
+
 ./libretro-fetch.sh $SRCNAM
 
 COMMIT="$(git --work-tree=$SRCNAM --git-dir=$SRCNAM/.git describe --abbrev=0 \

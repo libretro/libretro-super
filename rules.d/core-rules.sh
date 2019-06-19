@@ -164,12 +164,12 @@ libretro_snes9x_name="SNES9x"
 libretro_snes9x_git_url="https://github.com/libretro/snes9x.git"
 libretro_snes9x_build_subdir="libretro"
 
-include_core_reicast() {
-	register_module core "reicast"
+include_core_flycast() {
+	register_module core "flycast"
 }
-libretro_reicast_name="Reicast"
-libretro_reicast_git_url="https://github.com/libretro/reicast-emulator.git"
-libretro_reicast_build_makefile="Makefile"
+libretro_flycast_name="Flycast"
+libretro_flycast_git_url="https://github.com/libretro/flycast.git"
+libretro_flycast_build_makefile="Makefile"
 
 include_core_redream() {
 	register_module core "redream"
@@ -221,12 +221,12 @@ libretro_video_processor_name="Video processor"
 libretro_video_processor_git_url="https://github.com/libretro/libretro-video-processor.git"
 libretro_video_processor_build_makefile="Makefile"
 
-include_core_fbalpha() {
-	register_module core "fbalpha" -psp1
+include_core_fbneo() {
+	register_module core "fbneo" -psp1
 }
-libretro_fbalpha_name="Final Burn Alpha"
-libretro_fbalpha_git_url="https://github.com/libretro/fbalpha.git"
-libretro_fbalpha_build_makefile="makefile.libretro"
+libretro_fbneo_name="FinalBurn Neo"
+libretro_fbneo_git_url="https://github.com/libretro/FBNeo.git"
+libretro_fbneo_build_subdir="src/burner/libretro"
 
 include_core_fbalpha2012() {
 	register_module core "fbalpha2012" -psp1
@@ -604,6 +604,13 @@ libretro_dosbox_name="DOSBox"
 libretro_dosbox_git_url="https://github.com/libretro/dosbox-libretro.git"
 libretro_dosbox_makefile="Makefile.libretro"
 
+include_core_dosbox_svn() {
+	register_module core "dosbox_svn" -ngc -ps3 -psp1 -wii
+}
+libretro_dosbox_svn_name="DOSBox"
+libretro_dosbox_svn_git_url="https://github.com/libretro/dosbox-svn.git"
+libretro_dosbox_svn_makefile="Makefile.libretro"
+
 include_core_basilisk2() {
 	register_module core "basilisk2" -ngc -ps3 -psp1 -wii
 }
@@ -764,7 +771,7 @@ include_core_mupen64plus_next() {
 	register_module core "mupen64plus_next" -theos_ios -ngc -ps3 -psp1 -wii
 }
 libretro_mupen64plus_next_name="Mupen64 Plus Next"
-libretro_mupen64plus_next_git_url="https://github.com/libretro/mupen64plus-libretro.git"
+libretro_mupen64plus_next_git_url="https://github.com/libretro/mupen64plus-libretro-nx.git"
 libretro_mupen64plus_next_build_platform="$FORMAT_COMPILER_TARGET_ALT"
 libretro_mupen64plus_next_configure() {
 	if iscpu_x86_64 $ARCH; then
@@ -913,6 +920,13 @@ libretro_stonesoup_git_submodules="clone"
 libretro_stonesoup_build_subdir="crawl-ref"
 libretro_stonesoup_build_makefile="Makefile.libretro"
 
+include_core_freechaf() {
+	register_module core "freechaf" -ngc -ps3 -psp1 -qnx -wii
+}
+libretro_freechaf_name="FreeChaF"
+libretro_freechaf_git_url="https://github.com/libretro/FreeChaF.git"
+libretro_freechaf_build_makefile="Makefile"
+
 include_core_hatari() {
 	register_module core "hatari" -theos_ios -ngc -ps3 -psp1 -qnx -wii
 }
@@ -1046,6 +1060,21 @@ libretro_tic80_git_url="https://github.com/RobLoach/TIC-80.git"
 libretro_tic80_git_submodules="yes"
 libretro_tic80_build_makefile="Makefile"
 libretro_tic80_build_subdir="examples/libretro"
+
+include_core_squirreljme() {
+	register_module core "squirreljme"
+}
+libretro_squirreljme_name="SquirrelJME"
+libretro_squirreljme_git_url="https://github.com/XerTheSquirrel/SquirrelJME.git"
+libretro_squirreljme_build_makefile="makefilelibretro"
+libretro_squirreljme_build_subdir="ratufacoat"
+
+include_core_quasi88() {
+	register_module core "quasi88" -theos_ios -ngc -sncps3 -ps3 -psp1 -qnx -wii
+}
+libretro_quasi88_name="QUASI88"
+libretro_quasi88_git_url="https://github.com/libretro/quasi88-libretro.git"
+libretro_quasi88_build_makefile="Makefile"
 
 # CORE RULE VARIABLES
 #

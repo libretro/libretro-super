@@ -1,6 +1,7 @@
 #!/bin/bash
 # vim: set ts=3 sw=3 noet ft=sh : bash
 # ----- setup -----
+export LC_ALL=C
 
 # This will use an overridden value from the command-line if provided, otherwise just use the current date
 BOT="${BOT:-.}"
@@ -48,7 +49,7 @@ read_link()
 	done
 	PHYS_DIR=$(pwd -P)
 	RESULT="$PHYS_DIR/$TARGET_FILE"
-	echo $RESULT
+	echo "$RESULT"
 }
 
 convert_xmb_assets()
@@ -121,11 +122,11 @@ if [ "${CORE_JOB}" == "YES" ]; then
 
 	if [ "${PLATFORM}" = "android" ]; then
 		if [ -n "$ABI_OVERRIDE" ]; then
-			echo ABIS-pre: $TARGET_ABIS
-			echo OVERRIDE: ${ABI_OVERRIDE}
+			echo "ABIS-pre: $TARGET_ABIS"
+			echo "OVERRIDE: ${ABI_OVERRIDE}"
 			TARGET_ABIS=${ABI_OVERRIDE}
 			export TARGET_ABIS=${ABI_OVERRIDE}
-			echo ABIS-post: $TARGET_ABIS
+			echo "ABIS-post: $TARGET_ABIS"
 		fi
 		IFS=' ' read -ra ABIS <<< "$TARGET_ABIS"
 		for a in "${ABIS[@]}"; do
@@ -229,7 +230,7 @@ cd "${BASE_DIR}"
 
 buildbot_log() {
 
-	echo buildbot message: $MESSAGE
+	echo "buildbot message: $MESSAGE"
 	MESSAGE=`echo -e $1`
 
 	if  [ -n "$LOGURL" ]; then
@@ -273,7 +274,7 @@ buildbot_handle_message() {
 		fi
 	fi
 
-	echo buildbot job: $MESSAGE
+	echo "buildbot job: $MESSAGE"
 	buildbot_log "$MESSAGE"
 
 	# used by Travis-CI to exit immediately if a core build fails, instead of trying to build RA anyways (for static/console builds)
@@ -345,14 +346,14 @@ build_libretro_generic_makefile() {
 			OUTPUT="$RARCH_DIST_DIR/${DIST}/${CORENAM}"
 		fi
 
-		echo -------------------------------------------------- | tee "$LOGFILE"
+		echo '--------------------------------------------------' | tee "$LOGFILE"
 		cat $TMPDIR/vars | tee -a "$LOGFILE"
 
-		echo -------------------------------------------------- | tee -a "$LOGFILE"
+		echo '--------------------------------------------------' | tee -a "$LOGFILE"
 		if [ -z "${NOCLEAN}" ] && [ -f "${MAKEFILE}" ] && [ "${COMMAND}" != "CMAKE" ]; then
 			if [ "${NAME}" = "higan_sfc" ] || [ "${NAME}" = "higan_sfc_balanced" ]; then
-				rm -fv obj/*.{o,"${FORMAT_EXT}"} 2>&1 | tee -a "$LOGFILE"
-				rm -fv out/*.{o,"${FORMAT_EXT}"} 2>&1 | tee -a "$LOGFILE"
+				rm -f obj/*.{o,"${FORMAT_EXT}"} 2>&1 | tee -a "$LOGFILE"
+				rm -f out/*.{o,"${FORMAT_EXT}"} 2>&1 | tee -a "$LOGFILE"
 			elif [ "${COMMAND}" = "LEIRADEL" ]; then
 				eval "set -- ${HELPER} ${MAKE} -f ${MAKEFILE}.${PLATFORM}_${ARG1} platform=${PLATFORM}_${CORE_ARGS} -j${JOBS} clean"
 				echo "CLEANUP CMD: $*" 2>&1 | tee -a "$LOGFILE"
@@ -364,13 +365,13 @@ build_libretro_generic_makefile() {
 			fi
 
 			if [ $? -eq 0 ]; then
-				echo buildbot job: $jobid ${core} cleanup success!
+				echo "buildbot job: $jobid ${core} cleanup success!"
 			else
-				echo buildbot job: $jobid ${core} cleanup failed!
+				echo "buildbot job: $jobid ${core} cleanup failed!"
 			fi
 		fi
 
-		echo -------------------------------------------------- | tee -a "$LOGFILE"
+		echo '--------------------------------------------------' | tee -a "$LOGFILE"
 		if [ "${COMMAND}" = "CMAKE" ]; then
 			if [ "${PLATFORM}" = "android" ]; then
 				EXTRAARGS="-DANDROID_PLATFORM=android-${API_LEVEL} \
@@ -426,9 +427,9 @@ build_libretro_generic_makefile() {
 			${NDK_ROOT}/${STRIPPATH} -s ${OUT}/${CORENAM}
 		fi
 
-		echo "COPY CMD: cp -v ${OUT}/${ORIGNAM} ${OUTPUT}" 2>&1 | tee -a "$LOGFILE"
-		cp -v "${OUT}/${ORIGNAM}" "${OUTPUT}" 2>&1 | tee -a "$LOGFILE"
-		cp -v "${OUT}/${ORIGNAM}" "${OUTPUT}"
+		echo "COPY CMD: cp ${OUT}/${ORIGNAM} ${OUTPUT}" 2>&1 | tee -a "$LOGFILE"
+		cp "${OUT}/${ORIGNAM}" "${OUTPUT}" 2>&1 | tee -a "$LOGFILE"
+		cp "${OUT}/${ORIGNAM}" "${OUTPUT}"
 
 		RET=$?
 		buildbot_handle_message "$RET" "$ENTRY_ID" "$core" "$jobid" "$LOGFILE"
@@ -486,22 +487,22 @@ build_libretro_generic_jni() {
 		fi
 
 		LOGFILE="$TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${core}_${PLATFORM}.log"
-		echo -------------------------------------------------- | tee "$LOGFILE"
+		echo '--------------------------------------------------' | tee "$LOGFILE"
 		cat $TMPDIR/vars | tee -a "$LOGFILE"
 
-		echo -------------------------------------------------- | tee -a "$LOGFILE"
+		echo '--------------------------------------------------' | tee -a "$LOGFILE"
 		if [ -z "${NOCLEAN}" ]; then
 			echo "CLEANUP CMD: ${NDK} -j${JOBS} ${CORE_ARGS} clean" 2>&1 | tee -a "$LOGFILE"
 			${NDK} -j${JOBS} ${CORE_ARGS} clean 2>&1 | tee -a "$LOGFILE"
 
 			if [ $? -eq 0 ]; then
-				echo buildbot job: $jobid $a ${core} cleanup success!
+				echo "buildbot job: $jobid $a ${core} cleanup success!"
 			else
-				echo buildbot job: $jobid $a ${core} cleanup failed!
+				echo "buildbot job: $jobid $a ${core} cleanup failed!"
 			fi
 		fi
 
-		echo -------------------------------------------------- | tee -a "$LOGFILE"
+		echo '--------------------------------------------------' | tee -a "$LOGFILE"
 		eval "set -- ${NDK} -j${JOBS} ${CORE_ARGS}"
 		echo "BUILD CMD: $*" 2>&1 | tee -a "$LOGFILE"
 		"$@" 2>&1 | tee -a "$LOGFILE"
@@ -509,8 +510,8 @@ build_libretro_generic_jni() {
 		RET=0
 		for a in "${APPABIS[@]}"; do
 			if [ -f ../libs/${a}/$LIBNAM.${FORMAT_EXT} ]; then
-				echo "COPY CMD: cp -v ../libs/${a}/$LIBNAM.${FORMAT_EXT} $RARCH_DIST_DIR/${a}/${CORENAM}" 2>&1 | tee -a "$LOGFILE"
-				cp -v ../libs/${a}/$LIBNAM.${FORMAT_EXT} $RARCH_DIST_DIR/${a}/${CORENAM} 2>&1 | tee -a "$LOGFILE"
+				echo "COPY CMD: cp ../libs/${a}/$LIBNAM.${FORMAT_EXT} $RARCH_DIST_DIR/${a}/${CORENAM}" 2>&1 | tee -a "$LOGFILE"
+				cp ../libs/${a}/$LIBNAM.${FORMAT_EXT} $RARCH_DIST_DIR/${a}/${CORENAM} 2>&1 | tee -a "$LOGFILE"
 			else
 				echo "$LIBNAM.${FORMAT_EXT} for ${a} not found" 2>&1 | tee -a "$LOGFILE"
 				RET=1
@@ -525,14 +526,14 @@ build_libretro_generic_jni() {
 
 # ----- buildbot -----
 
-echo buildbot starting
-echo --------------------------------------------------
-echo Variables:
-echo CC		$CC
-echo CXX	  $CXX
-echo STRIP	$STRIP
-echo DISTDIR $RARCH_DIST_DIR
-echo JOBS	 $JOBS
+echo 'buildbot starting'
+echo '--------------------------------------------------'
+echo 'Variables:'
+echo "CC		$CC"
+echo "CXX	  $CXX"
+echo "STRIP	$STRIP"
+echo "DISTDIR $RARCH_DIST_DIR"
+echo "JOBS	 $JOBS"
 echo
 echo
 
@@ -582,14 +583,14 @@ while read line; do
 	echo "buildbot job started at: $(date)"
 	echo
 	echo "buildbot job: $jobid processing $NAME"
-	echo --------------------------------------------------
-	echo Variables:
-	echo URL		  $URL
-	echo ENABLED	 $ENABLED
-	echo COMMAND	 $COMMAND
-	echo MAKEFILE	$MAKEFILE
-	echo DIR		  $DIR
-	echo SUBDIR	  $SUBDIR
+	echo '--------------------------------------------------'
+	echo 'Variables:'
+	echo "URL		  $URL"
+	echo "ENABLED	 $ENABLED"
+	echo "COMMAND	 $COMMAND"
+	echo "MAKEFILE	$MAKEFILE"
+	echo "DIR		  $DIR"
+	echo "SUBDIR	  $SUBDIR"
 	echo
 	echo
 
@@ -598,7 +599,7 @@ while read line; do
 	FORCE_ORIG=$FORCE
 
 	if [ ! -d "${DIR}/.git" ] || [ "${CLEANUP}" = "YES" ]; then
-		rm -rfv -- "$DIR"
+		rm -rf -- "$DIR"
 		echo "cloning repo $URL..."
 		git clone --depth=1 -b "$GIT_BRANCH" "$URL" "$DIR"
 		BUILD="YES"
@@ -610,12 +611,12 @@ while read line; do
 
 		HEAD="$(git --work-tree="$DIR" --git-dir="$DIR/.git" rev-parse HEAD)" || \
 			{ echo "git directory broken, removing $DIR and skipping $NAME."; \
-			rm -rfv -- "$DIR" && continue; }
+			rm -rf -- "$DIR" && continue; }
 
 		OLDURL="$(git --work-tree="$DIR" --git-dir="$DIR/.git" config --get remote.origin.url)"
 
 		if [ "$URL" != "$OLDURL" ]; then
-			rm -rvf -- "$DIR"
+			rm -rf -- "$DIR"
 			echo "cloning repo $URL..."
 			git clone --depth=1 -b "$GIT_BRANCH" "$URL" "$DIR"
 			BUILD="YES"
@@ -717,12 +718,12 @@ buildbot_pull(){
 		if [ "${ENABLED}" = "YES" ] && [ "${TYPE}" = "PROJECT" ] || [ "${TRAVIS:-0}" = "0" ]; then
 			echo "buildbot job: $jobid Processing $NAME"
 			echo
-			echo NAME: $NAME
-			echo DIR: $DIR
-			echo PARENT: $PARENTDIR
-			echo URL: $URL
-			echo REPO TYPE: $TYPE
-			echo ENABLED: $ENABLED
+			echo "NAME: $NAME"
+			echo "DIR: $DIR"
+			echo "PARENT: $PARENTDIR"
+			echo "URL: $URL"
+			echo "REPO TYPE: $TYPE"
+			echo "ENABLED: $ENABLED"
 
 			if [ -d "${PARENTDIR}/${DIR}/.git" ]; then
 				cd $PARENTDIR
@@ -767,7 +768,7 @@ buildbot_pull(){
 				cd $WORK
 			fi
 			echo
-			echo RADIR=$RADIR
+			echo "RADIR=$RADIR"
 		fi
 
 	done < $RECIPE.ra
@@ -797,23 +798,23 @@ compile_filters()
 
 if [ "${RA}" = "YES" ]; then
 	echo "buildbot job: $jobid Building Retroarch-$PLATFORM"
-	echo --------------------------------------------------
+	echo '--------------------------------------------------'
 	echo
 	BUILD=""
 
-	echo WORKINGDIR=$PWD
-	echo RELEASE=$RELEASE
-	echo FORCE=$FORCE_RETROARCH_BUILD
-	echo RADIR=$RADIR
-	echo BRANCH=$BRANCH
+	echo "WORKINGDIR=$PWD"
+	echo "RELEASE=$RELEASE"
+	echo "FORCE=$FORCE_RETROARCH_BUILD"
+	echo "RADIR=$RADIR"
+	echo "BRANCH=$BRANCH"
 
 	buildbot_pull
 
 	if [ "${BUILD}" = "YES" ] || [ "${FORCE}" = "YES" ] || [ "${FORCE_RETROARCH_BUILD}" = "YES" ] || [ "${CORES_BUILT}" = "YES" ]; then
 		cd "$RADIR"
 		git clean -xdf
-		echo WORKINGDIR=$PWD
-		echo RADIR=$RADIR
+		echo "WORKINGDIR=$PWD"
+		echo "RADIR=$RADIR"
 
 		echo "buildbot job: $jobid Building"
 		echo
@@ -859,7 +860,7 @@ if [ "${PLATFORM}" == "osx" ] && [ "${RA}" == "YES" ]; then
 
 		cd $WORK/$RADIR
 
-		echo "Packaging"
+		echo 'Packaging'
 
 	fi
 fi
@@ -880,7 +881,7 @@ if [ "${PLATFORM}" == "ios" ] && [ "${RA}" == "YES" ]; then
 		ENTRY_ID=""
 		cd $WORK/$RADIR
 
-		echo "Packaging"
+		echo 'Packaging'
 
 	fi
 fi
@@ -907,7 +908,7 @@ if [ "${PLATFORM}" == "ios9" ] && [ "${RA}" == "YES" ]; then
 		ENTRY_ID=""
 		cd $WORK/$RADIR
 
-		echo "Packaging"
+		echo 'Packaging'
 
 	fi
 fi
@@ -1012,11 +1013,11 @@ EOF
 		android update project --path libs/appcompat --target android-26 | tee -a "$LOGFILE"
 		TARGET_ABIS=${TARGET_ABIS/arm64-v8a /} ant release | tee -a "$LOGFILE"
 		if [ -z "$BRANCH" ]; then
-			cp -rv bin/retroarch-release.apk $RARCH_DIR/retroarch-release.apk | tee -a "$LOGFILE"
-			cp -rv bin/retroarch-release.apk $RARCH_DIR/retroarch-release.apk
+			cp -r bin/retroarch-release.apk $RARCH_DIR/retroarch-release.apk | tee -a "$LOGFILE"
+			cp -r bin/retroarch-release.apk $RARCH_DIR/retroarch-release.apk
 		else
-			cp -rv bin/retroarch-release.apk $RARCH_DIR/retroarch-$BRANCH-release.apk | tee -a "$LOGFILE"
-			cp -rv bin/retroarch-release.apk $RARCH_DIR/retroarch-$BRANCH-release.apk
+			cp -r bin/retroarch-release.apk $RARCH_DIR/retroarch-$BRANCH-release.apk | tee -a "$LOGFILE"
+			cp -r bin/retroarch-release.apk $RARCH_DIR/retroarch-$BRANCH-release.apk
 		fi
 
 		RET=$?
@@ -1037,12 +1038,12 @@ if [ "${PLATFORM}" = "MINGW64" ] || [ "${PLATFORM}" = "MINGW32" ] || [ "${PLATFO
 		compile_filters audio ${HELPER} ${MAKE}
 		compile_filters video ${HELPER} ${MAKE}
 
-		echo "configuring..."
+		echo 'configuring...'
 		echo "configure command: $CONFIGURE"
 		${CONFIGURE}
 
 
-		echo "cleaning up..."
+		echo 'cleaning up...'
 		echo "CLEANUP CMD: ${HELPER} ${MAKE} ${ARGS} clean"
 		${HELPER} ${MAKE} ${ARGS} clean
 
@@ -1050,19 +1051,19 @@ if [ "${PLATFORM}" = "MINGW64" ] || [ "${PLATFORM}" = "MINGW32" ] || [ "${PLATFO
 		mkdir -p windows
 
 		if [ $? -eq 0 ]; then
-			echo buildbot job: $jobid retroarch cleanup success!
+			echo "buildbot job: $jobid retroarch cleanup success!"
 		else
-			echo buildbot job: $jobid retroarch cleanup failed!
+			echo "buildbot job: $jobid retroarch cleanup failed!"
 		fi
 
 
 		if [ $? -eq 0 ]; then
-			echo buildbot job: $jobid retroarch configure success!
+			echo "buildbot job: $jobid retroarch configure success!"
 		else
-			echo buildbot job: $jobid retroarch configure failed!
+			echo "buildbot job: $jobid retroarch configure failed!"
 		fi
 
-		echo "building..."
+		echo 'building...'
 		echo "BUILD CMD: ${HELPER} ${MAKE} -j${JOBS} ${ARGS}"
 		${HELPER} ${MAKE} -j${JOBS} ${ARGS} 2>&1 | tee -a "$LOGFILE"
 
@@ -1071,12 +1072,12 @@ if [ "${PLATFORM}" = "MINGW64" ] || [ "${PLATFORM}" = "MINGW32" ] || [ "${PLATFO
 		fi
 
 		strip -s retroarch.exe
-		cp -v retroarch.exe.manifest windows/retroarch.exe.manifest 2>/dev/null
-		cp -v retroarch.exe windows/retroarch.exe | tee -a "$LOGFILE"
-		cp -v retroarch.exe windows/retroarch.exe
+		cp retroarch.exe.manifest windows/retroarch.exe.manifest 2>/dev/null
+		cp retroarch.exe windows/retroarch.exe | tee -a "$LOGFILE"
+		cp retroarch.exe windows/retroarch.exe
 
 		status=$?
-		echo $status
+		echo "$status"
 
 		buildbot_handle_message "$status" "$ENTRY_ID" "retroarch" "$jobid" "$LOGFILE"
 
@@ -1090,24 +1091,24 @@ if [ "${PLATFORM}" = "MINGW64" ] || [ "${PLATFORM}" = "MINGW32" ] || [ "${PLATFO
 				ENTRY_ID=`curl -X POST -d type="start" -d master_log="$MASTER_LOG_ID" -d platform="$jobid" -d name="retroarch-debug" http://buildbot.fiveforty.net/build_entry/`
 			fi
 
-			echo "configuring..."
+			echo 'configuring...'
 			echo "configure command: $CONFIGURE"
 			${CONFIGURE} --enable-drmingw
 
 			${HELPER} ${MAKE} -j${JOBS} ${ARGS} DEBUG=1 GL_DEBUG=1 2>&1 | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_DEBUG_${PLATFORM}.log
-			for i in $(seq 3); do for bin in $(ntldd -R *exe | grep -i mingw | cut -d">" -f2 | cut -d" " -f2); do cp -vu "$bin" . ; done; done
+			for i in $(seq 3); do for bin in $(ntldd -R *exe | grep -i mingw | cut -d">" -f2 | cut -d" " -f2); do cp -u "$bin" . ; done; done
 
 			if [ "${CUSTOM_BUILD_DEBUG}" ]; then
 				"${CUSTOM_BUILD_DEBUG}" 2>&1 | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_DEBUG_${PLATFORM}.log
 			fi
 
-			cp -v retroarch.exe.manifest windows/retroarch_debug.exe.manifest 2>/dev/null
-			cp -v retroarch.exe windows/retroarch_debug.exe	| tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_DEBUG_${PLATFORM}.log
-			cp -v *.dll windows/
-			cp -v retroarch.exe windows/retroarch_debug.exe
+			cp retroarch.exe.manifest windows/retroarch_debug.exe.manifest 2>/dev/null
+			cp retroarch.exe windows/retroarch_debug.exe	| tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_DEBUG_${PLATFORM}.log
+			cp *.dll windows/
+			cp retroarch.exe windows/retroarch_debug.exe
 
 			(cd windows && windeployqt --release --no-patchqt --no-translations retroarch.exe)
-			(cd windows && for i in $(seq 3); do for bin in $(ntldd -R imageformats/*dll | grep -i mingw | cut -d">" -f2 | cut -d" " -f2); do cp -vu "$bin" . ; done; done)
+			(cd windows && for i in $(seq 3); do for bin in $(ntldd -R imageformats/*dll | grep -i mingw | cut -d">" -f2 | cut -d" " -f2); do cp -u "$bin" . ; done; done)
 
 			status=$?
 			ERROR=$TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_DEBUG_${PLATFORM}.log
@@ -1124,7 +1125,7 @@ if [ "${PLATFORM}" = "MINGW64" ] || [ "${PLATFORM}" = "MINGW32" ] || [ "${PLATFO
 
 			ENTRY_ID=""
 
-			echo "Packaging"
+			echo 'Packaging'
 			cp retroarch.cfg retroarch.default.cfg
 			mkdir -p windows/filters
 			mkdir -p windows/filters/video
@@ -1134,8 +1135,8 @@ if [ "${PLATFORM}" = "MINGW64" ] || [ "${PLATFORM}" = "MINGW32" ] || [ "${PLATFO
 			mkdir -p windows/system
 			mkdir -p windows/screenshots
 
-			cp -v retroarch.default.cfg windows/
-			cp -v tools/*.exe windows/
+			cp retroarch.default.cfg windows/
+			cp tools/*.exe windows/
 			echo -e "[Paths]\nPlugins = ./" > windows/qt.conf
 			cp -rf libretro-common/audio/dsp_filters/*.dll windows/filters/audio
 			cp -rf libretro-common/audio/dsp_filters/*.dsp windows/filters/audio
@@ -1155,7 +1156,7 @@ if [ "${PLATFORM}" = "psp1" ] && [ "${RA}" = "YES" ]; then
 
 		cd dist-scripts
 		rm *.a
-		cp -v $RARCH_DIST_DIR/*.a .
+		cp $RARCH_DIST_DIR/*.a .
 
 		time sh ./dist-cores.sh psp1 2>&1 | tee -a "$LOGFILE"
 
@@ -1168,14 +1169,14 @@ if [ "${PLATFORM}" = "psp1" ] && [ "${RA}" = "YES" ]; then
 
 		ENTRY_ID=""
 
-		echo "Packaging"
+		echo 'Packaging'
 
 		cd $WORK/$RADIR
 		cp retroarch.cfg retroarch.default.cfg
 
 		mkdir -p pkg/psp1/
 		mkdir -p pkg/psp1/info
-		cp -v $RARCH_DIST_DIR/../info/*.info pkg/psp1/info/
+		cp $RARCH_DIST_DIR/../info/*.info pkg/psp1/info/
 
 	fi
 fi
@@ -1186,7 +1187,7 @@ if [ "${PLATFORM}" = "ps2" ] && [ "${RA}" = "YES" ]; then
 
 		cd dist-scripts
 		rm *.a
-		cp -v $RARCH_DIST_DIR/*.a .
+		cp $RARCH_DIST_DIR/*.a .
 
 		time sh ./dist-cores.sh ps2 2>&1 | tee -a "$LOGFILE"
 
@@ -1199,14 +1200,14 @@ if [ "${PLATFORM}" = "ps2" ] && [ "${RA}" = "YES" ]; then
 
 		ENTRY_ID=""
 
-		echo "Packaging"
+		echo 'Packaging'
 
 		cd $WORK/$RADIR
 		cp retroarch.cfg retroarch.default.cfg
 
 		mkdir -p pkg/ps2/
 		mkdir -p pkg/ps2/info
-		cp -v $RARCH_DIST_DIR/../info/*.info pkg/ps2/info/
+		cp $RARCH_DIST_DIR/../info/*.info pkg/ps2/info/
 
 	fi
 fi
@@ -1219,7 +1220,7 @@ if [ "${PLATFORM}" == "libnx" ] && [ "${RA}" == "YES" ]; then
 
 		cd dist-scripts
 		rm *.a
-		cp -v $RARCH_DIST_DIR/*.a .
+		cp $RARCH_DIST_DIR/*.a .
 
 		time sh ./dist-cores.sh libnx 2>&1 | tee -a "$LOGFILE"
 
@@ -1228,7 +1229,7 @@ if [ "${PLATFORM}" == "libnx" ] && [ "${RA}" == "YES" ]; then
 
 		ENTRY_ID=""
 
-		echo "Packaging"
+		echo 'Packaging'
 
 		cd $WORK/$RADIR
 		cp retroarch.cfg retroarch.default.cfg
@@ -1247,7 +1248,7 @@ if [ "${PLATFORM}" == "libnx" ] && [ "${RA}" == "YES" ]; then
 		cp -rf media/shaders_glsl/* pkg/libnx/retroarch/shaders
 		rm -rf pkg/libnx/retroarch/assets/src pkg/libnx/retroarch/assets/nuklear pkg/libnx/retroarch/assets/branding pkg/libnx/retroarch/assets/wallpapers pkg/libnx/retroarch/assets/zarch
 
-		cp -v $RARCH_DIST_DIR/../info/*.info pkg/libnx/retroarch/info
+		cp $RARCH_DIST_DIR/../info/*.info pkg/libnx/retroarch/info
 
 	fi
 fi
@@ -1260,7 +1261,7 @@ if [ "${PLATFORM}" == "wii" ] && [ "${RA}" == "YES" ]; then
 
 		cd dist-scripts
 		rm *.a
-		cp -v $RARCH_DIST_DIR/*.a .
+		cp $RARCH_DIST_DIR/*.a .
 
 		time sh ./dist-cores.sh wii 2>&1 | tee -a "$LOGFILE"
 
@@ -1269,16 +1270,31 @@ if [ "${PLATFORM}" == "wii" ] && [ "${RA}" == "YES" ]; then
 
 		ENTRY_ID=""
 
-		echo "Packaging"
+		echo 'Packaging'
 
 		cd $WORK/$RADIR
+
 		cp retroarch.cfg retroarch.default.cfg
-		mkdir -p pkg/wii/
-		mkdir -p pkg/wii/cheats
-		mkdir -p pkg/wii/remaps
-		mkdir -p pkg/wii/overlays
-		cp -v $RARCH_DIST_DIR/../info/*.info pkg/
-		cp -rf media/overlays/wii/* pkg/wii/overlays
+
+		mkdir -p pkg/wii/build/apps/retroarch-wii
+		mkdir -p pkg/wii/build/apps/retroarch-wii/cheats
+		mkdir -p pkg/wii/build/apps/retroarch-wii/overlays
+		mkdir -p pkg/wii/build/apps/retroarch-wii/info
+		mkdir -p pkg/wii/build/apps/retroarch-wii/filters/audio
+		mkdir -p pkg/wii/build/apps/retroarch-wii/filters/video
+		mkdir -p pkg/wii/build/apps/retroarch-wii/assets
+
+		cp pkg/wii/icon.png pkg/wii/build/apps/retroarch-wii/
+		cp pkg/wii/meta.xml pkg/wii/build/apps/retroarch-wii/
+		cp pkg/wii/.empty pkg/wii/build/apps/retroarch-wii/
+		cp pkg/wii/*.dol pkg/wii/build/apps/retroarch-wii/
+
+		cp $RARCH_DIST_DIR/../info/*.info pkg/wii/build/apps/retroarch-wii/info/
+		cp -rf media/overlays/wii/* pkg/wii/build/apps/retroarch-wii/overlays/
+		cp $WORK/$RADIR/libretro-common/audio/dsp_filters/*.dsp pkg/wii/build/apps/retroarch-wii/filters/audio/
+		cp $WORK/$RADIR/gfx/video_filters/*.filt pkg/wii/build/apps/retroarch-wii/filters/video/
+		cp -r $WORK/$RADIR/media/assets/rgui pkg/wii/build/apps/retroarch-wii/assets/
+
 	fi
 fi
 
@@ -1290,9 +1306,9 @@ if [ "${PLATFORM}" == "wiiu" ] && [ "${RA}" == "YES" ]; then
 
 		cd dist-scripts
 		rm *.a
-		cp -v $RARCH_DIST_DIR/*.a .
-		cp -v $RARCH_DIST_DIR/../info/*.info .
-		cp -v ../media/assets/pkg/wiiu/*.png .
+		cp $RARCH_DIST_DIR/*.a .
+		cp $RARCH_DIST_DIR/../info/*.info .
+		cp ../media/assets/pkg/wiiu/*.png .
 
 		time sh ./wiiu-cores.sh 2>&1 | tee -a "$LOGFILE"
 
@@ -1301,7 +1317,7 @@ if [ "${PLATFORM}" == "wiiu" ] && [ "${RA}" == "YES" ]; then
 
 		ENTRY_ID=""
 
-		echo "Packaging"
+		echo 'Packaging'
 
 		cd $WORK/$RADIR
 	fi
@@ -1315,7 +1331,7 @@ if [ "${PLATFORM}" == "ngc" ] && [ "${RA}" == "YES" ]; then
 
 		cd dist-scripts
 		rm *.a
-		cp -v $RARCH_DIST_DIR/*.a .
+		cp $RARCH_DIST_DIR/*.a .
 
 		time sh ./dist-cores.sh ngc 2>&1 | tee -a "$LOGFILE"
 
@@ -1324,7 +1340,7 @@ if [ "${PLATFORM}" == "ngc" ] && [ "${RA}" == "YES" ]; then
 
 		ENTRY_ID=""
 
-		echo "Packaging"
+		echo 'Packaging'
 
 		cd $WORK/$RADIR
 		cp retroarch.cfg retroarch.default.cfg
@@ -1332,7 +1348,7 @@ if [ "${PLATFORM}" == "ngc" ] && [ "${RA}" == "YES" ]; then
 		mkdir -p pkg/ngc/cheats
 		mkdir -p pkg/ngc/remaps
 		mkdir -p pkg/ngc/overlays
-		cp -v $RARCH_DIST_DIR/../info/*.info pkg/
+		cp $RARCH_DIST_DIR/../info/*.info pkg/
 		cp -rf media/overlays/ngc/* pkg/ngc/overlays
 	fi
 fi
@@ -1345,7 +1361,7 @@ if [ "${PLATFORM}" == "ctr" ] && [ "${RA}" == "YES" ]; then
 
 		cd dist-scripts
 		rm *.a
-		cp -v $RARCH_DIST_DIR/*.a .
+		cp $RARCH_DIST_DIR/*.a .
 
 		time sh ./dist-cores.sh ctr 2>&1 | tee -a "$LOGFILE"
 
@@ -1355,9 +1371,9 @@ if [ "${PLATFORM}" == "ctr" ] && [ "${RA}" == "YES" ]; then
 		ENTRY_ID=""
 
 		cd $WORK/$RADIR
-		echo $PWD
+		echo "$PWD"
 
-		echo "Packaging"
+		echo 'Packaging'
 
 		cp retroarch.cfg retroarch.default.cfg
 
@@ -1374,12 +1390,12 @@ if [ "${PLATFORM}" == "ctr" ] && [ "${RA}" == "YES" ]; then
 		mkdir -p $WORK/$RADIR/pkg/ctr/build/retroarch/database/cursors
 		mkdir -p $WORK/$RADIR/pkg/ctr/build/retroarch/media
 
-		cp -v $WORK/$RADIR/gfx/video_filters/*.filt $WORK/$RADIR/pkg/ctr/build/retroarch/filters/video/
-		cp -v $WORK/$RADIR/libretro-common/audio/dsp_filters/*.dsp $WORK/$RADIR/pkg/ctr/build/retroarch/filters/audio/
-		cp -v $RARCH_DIST_DIR/../info/*.info $WORK/$RADIR/pkg/ctr/build/retroarch/cores/info/
-		cp -v $WORK/$RADIR/media/libretrodb/rdb/*.rdb $WORK/$RADIR/pkg/ctr/build/retroarch/database/rdb/
-		cp -v $WORK/$RADIR/media/libretrodb/cursors/*.dbc $WORK/$RADIR/pkg/ctr/build/retroarch/database/cursors/
-		cp -rv $WORK/$RADIR/media/assets/rgui $WORK/$RADIR/pkg/ctr/build/retroarch/media/
+		cp $WORK/$RADIR/gfx/video_filters/*.filt $WORK/$RADIR/pkg/ctr/build/retroarch/filters/video/
+		cp $WORK/$RADIR/libretro-common/audio/dsp_filters/*.dsp $WORK/$RADIR/pkg/ctr/build/retroarch/filters/audio/
+		cp $RARCH_DIST_DIR/../info/*.info $WORK/$RADIR/pkg/ctr/build/retroarch/cores/info/
+		cp $WORK/$RADIR/media/libretrodb/rdb/*.rdb $WORK/$RADIR/pkg/ctr/build/retroarch/database/rdb/
+		cp $WORK/$RADIR/media/libretrodb/cursors/*.dbc $WORK/$RADIR/pkg/ctr/build/retroarch/database/cursors/
+		cp -r $WORK/$RADIR/media/assets/rgui $WORK/$RADIR/pkg/ctr/build/retroarch/media/
 
 		convert_xmb_assets $WORK/$RADIR/media/assets/xmb $WORK/$RADIR/pkg/ctr/build/retroarch/media/xmb 64x32! 400x240! 90
 	fi
@@ -1393,8 +1409,8 @@ if [ "${PLATFORM}" == "vita" ] && [ "${RA}" == "YES" ]; then
 
 		cd dist-scripts
 		rm *.a
-		cp -v $RARCH_DIST_DIR/*.a .
-		cp -v $RARCH_DIST_DIR/arm/*.a .
+		cp $RARCH_DIST_DIR/*.a .
+		cp $RARCH_DIST_DIR/arm/*.a .
 
 		time sh ./dist-cores.sh vita 2>&1 | tee -a "$LOGFILE"
 
@@ -1403,7 +1419,7 @@ if [ "${PLATFORM}" == "vita" ] && [ "${RA}" == "YES" ]; then
 
 		ENTRY_ID=""
 
-		echo "Packaging"
+		echo 'Packaging'
 
 		cd $WORK/$RADIR
 		cp retroarch.cfg retroarch.default.cfg
@@ -1421,12 +1437,12 @@ if [ "${PLATFORM}" == "vita" ] && [ "${RA}" == "YES" ]; then
 		mkdir -p $WORK/$RADIR/pkg/vita/retroarch/assets/glui
 
 
-		cp -v $WORK/$RADIR/gfx/video_filters/*.filt $WORK/$RADIR/pkg/vita/retroarch/filters/video/
-		cp -v $WORK/$RADIR/libretro-common/audio/dsp_filters/*.dsp $WORK/$RADIR/pkg/vita/retroarch/filters/audio/
-		cp -v $RARCH_DIST_DIR/../info/*.info $WORK/$RADIR/pkg/vita/retroarch/info/
-		cp -v $WORK/$RADIR/media/libretrodb/rdb/*.rdb $WORK/$RADIR/pkg/vita/retroarch/database/rdb/
-		cp -v $WORK/$RADIR/media/libretrodb/cursors/*.dbc $WORK/$RADIR/pkg/vita/retroarch/database/cursors/
-		cp -v $WORK/$RADIR/media/libretrodb/cursors/*.dbc $WORK/$RADIR/pkg/vita/retroarch/database/cursors/
+		cp $WORK/$RADIR/gfx/video_filters/*.filt $WORK/$RADIR/pkg/vita/retroarch/filters/video/
+		cp $WORK/$RADIR/libretro-common/audio/dsp_filters/*.dsp $WORK/$RADIR/pkg/vita/retroarch/filters/audio/
+		cp $RARCH_DIST_DIR/../info/*.info $WORK/$RADIR/pkg/vita/retroarch/info/
+		cp $WORK/$RADIR/media/libretrodb/rdb/*.rdb $WORK/$RADIR/pkg/vita/retroarch/database/rdb/
+		cp $WORK/$RADIR/media/libretrodb/cursors/*.dbc $WORK/$RADIR/pkg/vita/retroarch/database/cursors/
+		cp  $WORK/$RADIR/media/libretrodb/cursors/*.dbc $WORK/$RADIR/pkg/vita/retroarch/database/cursors/
 		cp -r $WORK/$RADIR/media/assets/glui $WORK/$RADIR/pkg/vita/retroarch/assets
 		
 		convert_xmb_assets $WORK/$RADIR/media/assets/xmb $WORK/$RADIR/pkg/vita/retroarch/assets/xmb 64x64! 960x544! 90
@@ -1442,7 +1458,7 @@ if [ "${PLATFORM}" == "ps3" ] && [ "${RA}" == "YES" ]; then
 
 		cd dist-scripts
 		rm *.a
-		cp -v $RARCH_DIST_DIR/*.a .
+		cp $RARCH_DIST_DIR/*.a .
 
 		time sh ./dist-cores.sh dex-ps3 2>&1 | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_${PLATFORM}_dex.log
 
@@ -1482,7 +1498,7 @@ if [ "${PLATFORM}" = "emscripten" ] && [ "${RA}" = "YES" ]; then
 
 		cd dist-scripts
 		rm *.a
-		cp -v $RARCH_DIST_DIR/*.bc .
+		cp $RARCH_DIST_DIR/*.bc .
 
 		echo "BUILD CMD $HELPER ./dist-cores.sh emscripten" &> "$LOGFILE"
 		$HELPER ./dist-cores.sh emscripten 2>&1 | tee -a "$LOGFILE"
@@ -1491,7 +1507,7 @@ if [ "${PLATFORM}" = "emscripten" ] && [ "${RA}" = "YES" ]; then
 		buildbot_handle_message "$RET" "$ENTRY_ID" "retroarch" "$jobid" "$LOGFILE"
 		ENTRY_ID=""
 
-		echo "Packaging"
+		echo 'Packaging'
 
 		cd $WORK/$RADIR
 	fi
@@ -1506,26 +1522,26 @@ if [ "${PLATFORM}" = "unix" ] && [ "${RA}" = "YES" ]; then
 		compile_filters audio ${HELPER} ${MAKE}
 		compile_filters video ${HELPER} ${MAKE}
 
-		echo "configuring..."
+		echo 'configuring...'
 		echo "configure command: $CONFIGURE $ARGS"
 		${CONFIGURE} ${ARGS}
 
-		echo "cleaning up..."
+		echo 'cleaning up...'
 		echo "CLEANUP CMD: ${HELPER} ${MAKE} clean"
 		${HELPER} ${MAKE} clean
 
 		if [ $? -eq 0 ]; then
-			echo buildbot job: $jobid retroarch cleanup success!
+			echo "buildbot job: $jobid retroarch cleanup success!"
 		else
-			echo buildbot job: $jobid retroarch cleanup failed!
+			echo "buildbot job: $jobid retroarch cleanup failed!"
 		fi
 
-		echo "building..."
+		echo 'building...'
 		echo "BUILD CMD: ${HELPER} ${MAKE} -j${JOBS}"
 		${HELPER} ${MAKE} -j${JOBS} 2>&1 | tee -a "$LOGFILE"
 
 		status=$?
-		echo $status
+		echo "$status"
 
 		buildbot_handle_message "$status" "$ENTRY_ID" "retroarch" "$jobid" "$LOGFILE"
 

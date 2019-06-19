@@ -57,7 +57,7 @@ meteor libretro-meteor https://github.com/libretro/meteor-libretro.git master NO
 mrboom libretro-mrboom https://github.com/libretro/mrboom-libretro.git master YES GENERIC_JNI Makefile jni
 mu libretro-mu https://github.com/meepingsnesroms/Mu.git master YES GENERIC_JNI Makefile libretroBuildSystem/jni
 mupen64plus libretro-mupen64plus https://github.com/libretro/mupen64plus-libretro.git master YES GENERIC_JNI Makefile libretro/jni
-mupen64plus_next libretro-mupen64plus_next https://github.com/libretro/mupen64plus-libretro-nx.git mupen_next YES GENERIC_JNI Makefile libretro/jni
+mupen64plus_next libretro-mupen64plus_next https://github.com/libretro/mupen64plus-libretro-nx.git GLideN64 YES GENERIC_JNI Makefile libretro/jni
 mupen64plus_gles3 libretro-mupen64plus-gles3 https://github.com/libretro/mupen64plus-libretro.git master YES GENERIC_JNI Makefile libretro/jni GLES3=1 APP_PLATFORM=android-18
 nekop2 libretro-nekop2 https://github.com/libretro/libretro-meowPC98.git master YES GENERIC_JNI Makefile.libretro libretro/jni
 nestopia libretro-nestopia https://github.com/libretro/nestopia.git master YES GENERIC_JNI Makefile libretro/jni
@@ -74,8 +74,9 @@ prboom libretro-prboom https://github.com/libretro/libretro-prboom.git master YE
 prosystem libretro-prosystem https://github.com/libretro/prosystem-libretro.git master YES GENERIC_JNI Makefile jni
 puae libretro-puae https://github.com/libretro/libretro-uae.git master YES GENERIC_JNI Makefile jni
 px68k libretro-px68k https://github.com/libretro/px68k-libretro.git master YES GENERIC_JNI Makefile.libretro libretro/jni
+quasi88 libretro-quasi88 https://github.com/libretro/quasi88-libretro.git master YES GENERIC_JNI Makefile src/LIBRETRO/jni
 quicknes libretro-quicknes https://github.com/libretro/QuickNES_Core.git master YES GENERIC_JNI Makefile jni
-reicast libretro-reicast https://github.com/libretro/reicast-emulator.git master YES GENERIC_JNI Makefile jni
+flycast libretro-flycast https://github.com/libretro/flycast.git master YES GENERIC_JNI Makefile jni
 reminiscence libretro-reminiscence https://github.com/libretro/REminiscence.git master YES GENERIC_JNI Makefile jni
 sameboy libretro-sameboy https://github.com/libretro/SameBoy.git buildbot YES GENERIC_JNI Makefile libretro/jni
 scummvm libretro-scummvm https://github.com/libretro/scummvm.git master YES GENERIC_JNI Makefile backends/platform/libretro/build/jni
@@ -84,6 +85,7 @@ snes9x2002 libretro-snes9x2002 https://github.com/libretro/snes9x2002.git master
 snes9x2005 libretro-snes9x2005 https://github.com/libretro/snes9x2005.git master YES GENERIC_JNI Makefile jni
 snes9x2005_plus libretro-snes9x2005_plus https://github.com/libretro/snes9x2005.git master YES GENERIC_JNI Makefile jni USE_BLARGG_APU=1
 snes9x2010 libretro-snes9x2010 https://github.com/libretro/snes9x2010.git master YES GENERIC_JNI Makefile jni
+squirreljme libretro-squirreljme https://github.com/XerTheSquirrel/SquirrelJME.git trunk YES GENERIC_JNI makefilelibretro ratufacoat/libretro/jni
 stella2014 libretro-stella2014 https://github.com/libretro/stella2014-libretro.git master YES GENERIC_JNI Makefile jni
 stella libretro-stella https://github.com/stella-emu/stella.git master YES GENERIC_JNI Makefile src/libretro/jni
 tgbdual libretro-tgbdual https://github.com/libretro/tgbdual-libretro.git master YES GENERIC_JNI Makefile jni
