@@ -23,7 +23,7 @@ fetch_git() {
 		echo_cmd "git clone $depth\"$1\" \"$WORKDIR/$2\""
 		if [[ "$3" = "yes" || "$3" = "clone" ]]; then
 			echo_cmd "cd \"$fetch_dir\""
-			echo_cmd "git submodule update --init"
+			echo_cmd "git submodule update --init --recursive"
 		fi
 	fi
 }
