@@ -1,4 +1,0 @@
-retroarch retroarch-staging https://github.com/fr500/Retroarch.git PROJECT YES .
-overlays overlays https://github.com/libretro/common-overlays.git ASSETS YES retroarch/media
-libretrodb libretrodb https://github.com/libretro/libretro-database.git ASSETS YES retroarch/media
-assets assets https://github.com/libretro/retroarch-assets.git ASSETS YES retroarch/media
