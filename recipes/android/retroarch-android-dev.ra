@@ -1,7 +1,0 @@
-retroarch retroarch-dev git@github.com:libretro/RetroArchPro.git PROJECT YES .
-overlays overlays https://github.com/libretro/common-overlays.git ASSETS YES retroarch-dev/media
-shaders shaders_cg https://github.com/libretro/common-shaders.git ASSETS YES retroarch-dev/media
-autoconfig autoconfig https://github.com/libretro/retroarch-joypad-autoconfig.git ASSETS YES retroarch-dev/media
-assets assets git@github.com:libretro/retroarch-assets-pro.git ASSETS YES retroarch-dev/media
-libretrodb libretrodb https://github.com/libretro/libretro-database.git ASSETS YES retroarch-dev/media
-
