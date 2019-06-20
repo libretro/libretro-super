@@ -20,8 +20,8 @@ desmume2015 libretro-desmume2015 https://github.com/libretro/desmume2015.git mas
 dinothawr libretro-dinothawr https://github.com/libretro/Dinothawr.git master YES GENERIC Makefile .
 dolphin libretro-dolphin https://github.com/libretro/dolphin.git master YES CMAKE sln build -DLIBRETRO=ON -DCMAKE_BUILD_TYPE=Release -G\"Visual Studio 15 2017 Win64\"
 dosbox libretro-dosbox https://github.com/libretro/dosbox-libretro.git master YES GENERIC Makefile.libretro .
-dosbox_svn libretro-dosbox_svn https://github.com/fr500/dosbox-svn libretro YES GENERIC Makefile.libretro libretro
-dosbox_svn_glide libretro-dosbox_svn_glide https://github.com/fr500/dosbox-svn glide YES GENERIC Makefile.libretro libretro
+dosbox_svn libretro-dosbox_svn https://github.com/libretro/dosbox-svn libretro YES GENERIC Makefile.libretro libretro
+dosbox_svn_glide libretro-dosbox_svn_glide https://github.com/libretro/dosbox-svn glide YES GENERIC Makefile.libretro libretro
 easyrpg libretro-easyrpg https://github.com/libretro/easyrpg-libretro.git master YES GENERIC Makefile.libretro builds/libretro
 fbneo libretro-fbneo https://github.com/libretro/FBNeo.git master YES GENERIC Makefile src/burner/libretro USE_X64_DRC=1
 fbalpha2012 libretro-fbalpha2012 https://github.com/libretro/fbalpha2012.git master YES GENERIC makefile.libretro svn-current/trunk

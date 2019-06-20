@@ -9,7 +9,7 @@ craft libretro-craft https://github.com/libretro/craft master YES GENERIC Makefi
 desmume libretro-desmume https://github.com/libretro/desmume.git master NO GENERIC Makefile.libretro desmume/src/frontend/libretro
 desmume2015 libretro-desmume2015 https://github.com/libretro/desmume2015.git master NO GENERIC Makefile.libretro desmume
 dosbox libretro-dosbox https://github.com/libretro/dosbox-libretro.git master YES GENERIC Makefile.libretro .
-dosbox_svn libretro-dosbox_svn https://github.com/fr500/dosbox-svn libretro YES GENERIC Makefile.libretro libretro
+dosbox_svn libretro-dosbox_svn https://github.com/libretro/dosbox-svn libretro YES GENERIC Makefile.libretro libretro
 fbalpha2012 libretro-fbalpha2012 https://github.com/libretro/fbalpha2012.git master YES GENERIC makefile.libretro svn-current/trunk
 fbalpha2012_cps1 libretro-fbalpha2012_cps1 https://github.com/libretro/fbalpha2012_cps1.git master YES GENERIC makefile.libretro .
 fbalpha2012_cps2 libretro-fbalpha2012_cps2 https://github.com/libretro/fbalpha2012_cps2.git master YES GENERIC makefile.libretro .
