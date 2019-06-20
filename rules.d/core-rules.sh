@@ -1059,7 +1059,7 @@ libretro_tic80_name="TIC-80"
 libretro_tic80_git_url="https://github.com/RobLoach/TIC-80.git"
 libretro_tic80_git_submodules="yes"
 libretro_tic80_build_makefile="Makefile"
-libretro_tic80_build_subdir="examples/libretro"
+libretro_tic80_build_subdir="src/system/libretro"
 
 include_core_squirreljme() {
 	register_module core "squirreljme"
