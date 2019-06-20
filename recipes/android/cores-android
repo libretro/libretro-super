@@ -36,6 +36,7 @@ gme libretro-gme https://github.com/libretro/libretro-gme.git master YES GENERIC
 gw libretro-gw https://github.com/libretro/gw-libretro.git master YES GENERIC_JNI Makefile build/jni
 handy libretro-handy https://github.com/libretro/libretro-handy.git master YES GENERIC_JNI Makefile jni
 hatari libretro-hatari https://github.com/libretro/hatari.git master YES GENERIC_JNI Makefile.libretro libretro/jni
+kronos libretro-kronos https://github.com/libretro/yabause.git kronos YES GENERIC_JNI Makefile yabause/src/libretro/jni
 lutro libretro-lutro https://github.com/libretro/libretro-lutro.git master YES GENERIC_JNI Makefile jni
 mame2000 libretro-mame2000 https://github.com/libretro/mame2000-libretro.git master YES GENERIC_JNI Makefile jni
 mame2003 libretro-mame2003 https://github.com/libretro/mame2003-libretro.git master YES GENERIC_JNI Makefile jni
