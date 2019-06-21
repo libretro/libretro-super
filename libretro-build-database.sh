@@ -229,6 +229,7 @@ build_libretro_databases() {
 	build_libretro_database "DOS" "rom.crc"
 	build_libretro_database "Lutro" "rom.name"
 	build_libretro_database "ChaiLove" "rom.crc"
+	build_libretro_database "TIC-80" "rom.crc"
 	build_libretro_database "MrBoom" "rom.crc"
 	build_libretro_database "Cannonball" "rom.crc"
 	build_libretro_database "Nintendo - Super Nintendo Entertainment System" "rom.crc"
