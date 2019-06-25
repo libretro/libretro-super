@@ -57,7 +57,7 @@ build_libretro_database() {
 	if [ -d "$LIBRETRODB_BASE_DIR" ]; then
 		DBFILE=${BASE_DIR}/${LIBRETRODB_BASE_DIR}/db.rdb
 		cd "${LIBRETRODB_BASE_DIR}"
-		echo "=== Building ${1} ==="
+		echo "${1}.rdb"
 		COMMAND='${BASE_DIR}/${LIBRETRODB_BASE_DIR}/c_converter ${DBFILE} "${2}"'
 
 		#Check if meta DAT is there
