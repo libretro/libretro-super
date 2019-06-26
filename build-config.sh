@@ -94,6 +94,9 @@ include_core_pcsx_rearmed
 include_core_pcsx1
 include_core_rustation
 
+# --- PlayStation2 emulator cores ---
+#include_core_play
+
 # --- MSX emulator cores ---
 include_core_bluemsx
 include_core_fmsx
