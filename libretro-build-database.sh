@@ -57,7 +57,7 @@ build_libretro_database() {
 	if [ -d "$LIBRETRODB_BASE_DIR" ]; then
 		DBFILE=${BASE_DIR}/${LIBRETRODB_BASE_DIR}/db.rdb
 		cd "${LIBRETRODB_BASE_DIR}"
-		echo "=== Building ${1} ==="
+		echo "${1}.rdb"
 		COMMAND='${BASE_DIR}/${LIBRETRODB_BASE_DIR}/c_converter ${DBFILE} "${2}"'
 
 		#Check if meta DAT is there
@@ -229,6 +229,7 @@ build_libretro_databases() {
 	build_libretro_database "DOS" "rom.crc"
 	build_libretro_database "Lutro" "rom.name"
 	build_libretro_database "ChaiLove" "rom.crc"
+	build_libretro_database "TIC-80" "rom.crc"
 	build_libretro_database "MrBoom" "rom.crc"
 	build_libretro_database "Cannonball" "rom.crc"
 	build_libretro_database "Nintendo - Super Nintendo Entertainment System" "rom.crc"
@@ -332,7 +333,7 @@ build_libretro_databases() {
 	build_libretro_database "MAME 2010" "rom.crc"
 	build_libretro_database "MAME 2015" "rom.crc"
 	build_libretro_database "MAME 2016" "rom.crc"
-	build_libretro_database "FB Alpha - Arcade Games" "rom.crc"
+	build_libretro_database "FBNeo - Arcade Games" "rom.crc"
 	build_libretro_database "DOOM" "rom.crc"
 	build_libretro_database "Cave Story" "rom.crc"
 	build_libretro_database "Quake1" "rom.crc"
