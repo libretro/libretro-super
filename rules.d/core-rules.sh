@@ -900,6 +900,8 @@ libretro_play_name="Play!"
 libretro_play_git_url="https://github.com/libretro/Play-.git"
 libretro_play_git_submodules="yes"
 libretro_play_build_opengl="yes"
+libretro_play_post_fetch_cmd="cd .. && git clone https://github.com/jpd002/Play-Build.git Play_tmp && cd Play_tmp && git submodule update -q --init --recursive && git submodule foreach \"git checkout -q master\" && cd Dependencies && git submodule update --init && cd ../.. && rm -rf Play_tmp/Play && mv libretro-play/ Play_tmp/Play && mv Play_tmp libretro-play"
+libretro_play_subdir="libretro-play/Play/build_retro"
 
 include_core_prosystem() {
 	register_module core "prosystem" -ngc -ps3 -wii
