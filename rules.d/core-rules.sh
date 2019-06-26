@@ -893,6 +893,14 @@ libretro_ppsspp_git_submodules="yes"
 libretro_ppsspp_build_subdir="libretro"
 libretro_ppsspp_build_opengl="yes"
 
+include_core_play() {
+	register_module core "play" -ios -theos_ios -ngc -ps3 -psp1 -qnx -wii
+}
+libretro_play_name="Play!"
+libretro_play_git_url="https://github.com/libretro/Play-.git"
+libretro_play_git_submodules="yes"
+libretro_play_build_opengl="yes"
+
 include_core_prosystem() {
 	register_module core "prosystem" -ngc -ps3 -wii
 }
