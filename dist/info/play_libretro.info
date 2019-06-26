@@ -1,4 +1,4 @@
-display_name = Play!"
+display_name = "Play!"
 authors = "Jean-Philip Desjardins"
 supported_extensions = "iso|isz|cso|bin|elf"
 corename = "Play!"
