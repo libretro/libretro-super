@@ -1,2 +1,0 @@
-dolphin libretro-dolphin-aarch64 https://github.com/libretro/dolphin.git master YES CMAKE Makefile build -DLIBRETRO=ON
-ishiiruka libretro-ishiiruka-aarch64 https://github.com/libretro/Ishiiruka.git master YES CMAKE Makefile build -DLIBRETRO=ON

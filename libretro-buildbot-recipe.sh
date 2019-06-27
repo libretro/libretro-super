@@ -373,19 +373,22 @@ build_libretro_generic_makefile() {
 
 		echo '--------------------------------------------------' | tee -a "$LOGFILE"
 		if [ "${COMMAND}" = "CMAKE" ]; then
-			case "${platform}" in
-				msvc2017_desktop_x86 ) EXTRAARGS="-G\"Visual Studio 15 2017\"" ;;
-				msvc2017_desktop_x64 ) EXTRAARGS="-G\"Visual Studio 15 2017 Win64\"" ;;
-				msvc2010_x86 ) EXTRAARGS="-G\"Visual Studio 10 2010\"" ;;
-				msvc2010_x64 ) EXTRAARGS="-G\"Visual Studio 10 2010 Win64\"" ;;
-				msvc2005_x86 ) EXTRAARGS="-G\"Visual Studio 8 2005\"" ;;
-				msvc2005_x64 ) EXTRAARGS="-G\"Visual Studio 8 2005 Win64\"" ;;
-				msvc2003_x86 ) EXTRAARGS="-G\"Visual Studio 7\"" ;;
-				android ) EXTRAARGS="-DANDROID_PLATFORM=android-${API_LEVEL} \
-								-DANDROID_ABI=${ABI_OVERRIDE} \
-								-DCMAKE_TOOLCHAIN_FILE=${NDK_ROOT}/build/cmake/android.toolchain.cmake" ;;
-				* ) EXTRAARGS="" ;;
-			esac
+			if [ "${PLATFORM}" = "android" ]; then
+				EXTRAARGS="-DANDROID_PLATFORM=android-${API_LEVEL} \
+					-DANDROID_ABI=${ABI_OVERRIDE} \
+					-DCMAKE_TOOLCHAIN_FILE=${NDK_ROOT}/build/cmake/android.toolchain.cmake"
+			else
+				case "${platform}" in
+					msvc2017_desktop_x86 ) EXTRAARGS="-G\"Visual Studio 15 2017\"" ;;
+					msvc2017_desktop_x64 ) EXTRAARGS="-G\"Visual Studio 15 2017 Win64\"" ;;
+					msvc2010_x86 ) EXTRAARGS="-G\"Visual Studio 10 2010\"" ;;
+					msvc2010_x64 ) EXTRAARGS="-G\"Visual Studio 10 2010 Win64\"" ;;
+					msvc2005_x86 ) EXTRAARGS="-G\"Visual Studio 8 2005\"" ;;
+					msvc2005_x64 ) EXTRAARGS="-G\"Visual Studio 8 2005 Win64\"" ;;
+					msvc2003_x86 ) EXTRAARGS="-G\"Visual Studio 7\"" ;;
+					* ) EXTRAARGS="" ;;
+				esac
+			fi			
 
 			JOBS_FLAG=-j
 			if [ "${MAKEFILE}" = "sln" ]; then
@@ -436,71 +439,6 @@ build_libretro_generic_makefile() {
 		export FORMAT_COMPILER_TARGET=$RESET_FORMAT_COMPILER_TARGET
 		export FORMAT_COMPILER_TARGET_ALT=$RESET_FORMAT_COMPILER_TARGET_ALT
 	fi
-
-	ENTRY_ID=""
-}
-
-build_libretro_android_cmake() {
-	NAME="$1"
-	DIR="$2"
-	SUBDIR="$3"
-	MAKEFILE="$4"
-	PLATFORM="$5"
-	ARGS="$6"
-
-	JOBS_FLAG=-j
-	EXTRAARGS="-DANDROID_PLATFORM=android-${API_LEVEL} -DCMAKE_TOOLCHAIN_FILE=${NDK_ROOT}/build/cmake/android.toolchain.cmake -DANDROID_STL=c++_static"
-
-	if [ -n "NDK_CCACHE" ]; then
-		EXTRAARGS="$EXTRAARGS -DCMAKE_C_COMPILER_LAUNCHER=${NDK_CCACHE} -DCMAKE_CXX_COMPILER_LAUNCHER=${NDK_CCACHE}"
-	fi
-
-	ENTRY_ID=""
-	if [ -n "$LOGURL" ]; then
-		ENTRY_ID=`curl -X POST -d type="start" -d master_log="$MASTER_LOG_ID" -d platform="$jobid" -d name="$NAME" http://buildbot.fiveforty.net/build_entry/`
-	fi
-
-	cd ${DIR}
-	mkdir -p ${SUBDIR}
-	cd ${SUBDIR}
-
-	CORENAM="${NAME}_libretro${FORMAT}${LIBSUFFIX}.${FORMAT_EXT}"
-
-	LOGFILE="$TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_${NAME}_${PLATFORM}.log"
-	echo '--------------------------------------------------' | tee "$LOGFILE"
-	cat $TMPDIR/vars | tee -a "$LOGFILE"
-
-	echo '--------------------------------------------------' | tee -a "$LOGFILE"
-	RET=0
-	for ABI in ${TARGET_ABIS}; do
-		rm -rf ${ABI}
-		mkdir	${ABI}
-		pushd ${ABI}
-
-		eval "set -- ${EXTRAARGS} \${ARGS} -DCMAKE_VERBOSE_MAKEFILE=OFF -DANDROID_ABI=${ABI}"
-		echo "BUILD CMD: ${CMAKE} $*" 2>&1 | tee -a "$LOGFILE"
-		echo "$@" ../.. | xargs ${CMAKE} 2>&1 | tee -a "$LOGFILE"
-
-		echo "BUILD CMD: ${CMAKE} --build . --target ${NAME}_libretro --config Release -- ${JOBS_FLAG}${JOBS}" 2>&1 | tee -a "$LOGFILE"
-		${CMAKE} --build . --target ${NAME}_libretro --config Release -- ${JOBS_FLAG}${JOBS} 2>&1 | tee -a "$LOGFILE"
-
-		COREPATH=$(find . -type f -name ${CORENAM})
-		if [ -n "${COREPATH}" ]; then
-			echo "COPY CMD: cp ${COREPATH} $RARCH_DIST_DIR/${ABI}/${CORENAM}" 2>&1 | tee -a "$LOGFILE"
-			cp ${COREPATH} $RARCH_DIST_DIR/${ABI}/${CORENAM} 2>&1 | tee -a "$LOGFILE"
-
-			if [ ! -z "${STRIPPATH+x}" ]; then
-				${NDK_ROOT}/${STRIPPATH} -s $RARCH_DIST_DIR/${ABI}/${CORENAM}
-			fi
-		else
-			echo "${CORENAM} for ${ABI} not found" 2>&1 | tee -a "$LOGFILE"
-			RET=1
-		fi
-
-		popd
-	done
-
-	buildbot_handle_message "$RET" "$ENTRY_ID" "$NAME" "$jobid" "$LOGFILE"
 
 	ENTRY_ID=""
 }
@@ -729,7 +667,6 @@ while read line; do
 		CORES_BUILT=YES
 		echo "buildbot job: building $NAME"
 		case "${COMMAND}" in
-			ANDROID_CMAKE ) build_libretro_android_cmake $NAME $DIR $SUBDIR $MAKEFILE ${FORMAT_COMPILER_TARGET} "${ARGS}" ;;
 			CMAKE|GENERIC|GENERIC_GL )
 			              build_libretro_generic_makefile $NAME $DIR $SUBDIR $MAKEFILE ${FORMAT_COMPILER_TARGET} "${ARGS}" "${CORES}" ;;
 			GENERIC_JNI ) build_libretro_generic_jni $NAME $DIR $SUBDIR $MAKEFILE ${FORMAT_COMPILER_TARGET_ALT} "${ARGS}" "${CORES}"  ;;
@@ -1055,18 +992,33 @@ if [ "${PLATFORM}" = "android" ] && [ "${RA}" = "YES" ]; then
 		echo "buildbot job: $jobid Building"
 		echo
 		cd pkg/android/phoenix$PKG_EXTRA
+		rm bin/*.apk
+
+cat << EOF > local.properties
+sdk.dir=/home/buildbot/tools/android/android-sdk-linux
+key.store=/home/buildbot/.android/release.keystore
+key.alias=buildbot
+key.store.password=buildbot
+key.alias.password=buildbot
+
+EOF
 
 		git reset --hard
 		if [ "${RELEASE}" == "NO" ]; then
 			python ./version_increment.py
 		fi
-		./gradlew clean assembleRelease
-		cp -r build/outputs/apk/normal/release/phoenix-normal-release.apk $RARCH_DIR/retroarch-release.apk | tee -a "$LOGFILE"
-		cp -r build/outputs/apk/normal/release/phoenix-normal-release.apk $RARCH_DIR/retroarch-release.apk
-		cp -r build/outputs/apk/aarch64/release/phoenix-aarch64-release.apk $RARCH_DIR/retroarch-aarch64-release.apk | tee -a "$LOGFILE"
-		cp -r build/outputs/apk/aarch64/release/phoenix-aarch64-release.apk $RARCH_DIR/retroarch-aarch64-release.apk
-		cp -r build/outputs/apk/ra32/release/phoenix-ra32-release.apk $RARCH_DIR/retroarch-ra32-release.apk | tee -a "$LOGFILE"
-		cp -r build/outputs/apk/ra32/release/phoenix-ra32-release.apk $RARCH_DIR/retroarch-ra32-release.apk
+		ant clean | tee -a "$LOGFILE"
+		android update project --path . --target android-26 | tee -a "$LOGFILE"
+		android update project --path libs/googleplay --target android-26 | tee -a "$LOGFILE"
+		android update project --path libs/appcompat --target android-26 | tee -a "$LOGFILE"
+		TARGET_ABIS=${TARGET_ABIS/arm64-v8a /} ant release | tee -a "$LOGFILE"
+		if [ -z "$BRANCH" ]; then
+			cp -r bin/retroarch-release.apk $RARCH_DIR/retroarch-release.apk | tee -a "$LOGFILE"
+			cp -r bin/retroarch-release.apk $RARCH_DIR/retroarch-release.apk
+		else
+			cp -r bin/retroarch-release.apk $RARCH_DIR/retroarch-$BRANCH-release.apk | tee -a "$LOGFILE"
+			cp -r bin/retroarch-release.apk $RARCH_DIR/retroarch-$BRANCH-release.apk
+		fi
 
 		RET=$?
 		buildbot_handle_message "$RET" "$ENTRY_ID" "retroarch" "$jobid" "$LOGFILE"

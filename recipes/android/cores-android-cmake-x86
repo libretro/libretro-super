@@ -1,0 +1,2 @@
+ppsspp libretro-ppsspp-x86 https://github.com/hrydgard/ppsspp.git master YES CMAKE Makefile build -DLIBRETRO=ON -DANDROID_STL=c++_static -DCMAKE_BUILD_TYPE=Release
+thepowdertoy libretro-thepowdertoy-x86 https://github.com/libretro/ThePowderToy.git master YES CMAKE Makefile build -DANDROID_STL=c++_static -DCMAKE_BUILD_TYPE=Release

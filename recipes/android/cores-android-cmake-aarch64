@@ -1,0 +1,4 @@
+dolphin libretro-dolphin-aarch64 https://github.com/libretro/dolphin.git master YES CMAKE Makefile build -DLIBRETRO=ON -DANDROID_STL=c++_static -DCMAKE_BUILD_TYPE=Release
+ishiiruka libretro-ishiiruka-aarch64 https://github.com/libretro/Ishiiruka.git master YES CMAKE Makefile build -DLIBRETRO=ON -DANDROID_STL=c++_static -DCMAKE_BUILD_TYPE=Release
+ppsspp libretro-ppsspp-aarch64 https://github.com/hrydgard/ppsspp.git master YES CMAKE Makefile build -DLIBRETRO=ON -DANDROID_STL=c++_static -DCMAKE_BUILD_TYPE=Release
+thepowdertoy libretro-thepowdertoy-aarch64 https://github.com/libretro/ThePowderToy.git master YES CMAKE Makefile build -DANDROID_STL=c++_static -DCMAKE_BUILD_TYPE=Release
