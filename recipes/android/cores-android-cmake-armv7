@@ -1,0 +1,2 @@
+ppsspp libretro-ppsspp-armv7 https://github.com/hrydgard/ppsspp.git master YES CMAKE Makefile build -DLIBRETRO=ON -DANDROID_STL=c++_static -DANDROID_ARM_NEON=ON -DANDROID_ARM_MODE=arm -DCMAKE_BUILD_TYPE=Release
+thepowdertoy libretro-thepowdertoy-armv7 https://github.com/libretro/ThePowderToy.git master YES CMAKE Makefile build -DANDROID_STL=c++_static -DANDROID_ARM_NEON=ON -DCMAKE_BUILD_TYPE=Release
