@@ -1,4 +1,4 @@
-display_name = "Sony - PlayStation2 (Play!)"
+display_name = "Sony - PlayStation 2 (Play!)"
 authors = "Jean-Philip Desjardins"
 supported_extensions = "iso|isz|cso|bin|elf"
 corename = "Play!"
