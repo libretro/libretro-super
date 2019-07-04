@@ -751,6 +751,13 @@ libretro_mesen_name="Mesen"
 libretro_mesen_git_url="https://github.com/SourMesen/Mesen.git"
 libretro_mesen_build_subdir="Libretro"
 
+include_core_mesens() {
+	register_module core "mesens"
+}
+libretro_mesens_name="Mesen-S"
+libretro_mesens_git_url="https://github.com/SourMesen/Mesen-S.git"
+libretro_mesens_build_subdir="Libretro"
+
 include_core_mupen64plus() {
 	register_module core "mupen64plus" -theos_ios -ngc -ps3 -psp1 -wii
 }

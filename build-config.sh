@@ -12,6 +12,7 @@
 # -------------------------------------------------------------------------------------------------
 
 # --- SNES emulator cores ---
+include_core_mesens
 include_core_snes9x2002
 include_core_snes9x2005
 include_core_snes9x2010
