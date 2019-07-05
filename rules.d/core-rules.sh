@@ -758,22 +758,6 @@ libretro_mesens_name="Mesen-S"
 libretro_mesens_git_url="https://github.com/SourMesen/Mesen-S.git"
 libretro_mesens_build_subdir="Libretro"
 
-include_core_mupen64plus() {
-	register_module core "mupen64plus" -theos_ios -ngc -ps3 -psp1 -wii
-}
-libretro_mupen64plus_name="Mupen64 Plus"
-libretro_mupen64plus_git_url="https://github.com/libretro/mupen64plus-libretro.git"
-libretro_mupen64plus_build_platform="$FORMAT_COMPILER_TARGET_ALT"
-libretro_mupen64plus_configure() {
-	if iscpu_x86_64 $ARCH; then
-		core_build_args="WITH_DYNAREC=x86_64"
-	elif iscpu_x86 $ARCH; then
-		core_build_args="WITH_DYNAREC=x86"
-	elif [ "${CORTEX_A8}" ] || [ "${CORTEX_A9}" ] || [ "$platform" = "ios" ]; then
-		core_build_args="WITH_DYNAREC=arm"
-	fi
-}
-
 include_core_mupen64plus_next() {
 	register_module core "mupen64plus_next" -theos_ios -ngc -ps3 -psp1 -wii
 }
