@@ -79,6 +79,7 @@ openlara libretro-openlara https://github.com/libretro/OpenLara.git master YES G
 parallel_n64 libretro-parallel_n64 https://github.com/libretro/parallel-n64.git master YES GENERIC_GL Makefile . WITH_DYNAREC=x86
 pcsx_rearmed libretro-pcsx_rearmed https://github.com/libretro/pcsx_rearmed.git master YES GENERIC Makefile.libretro . USE_DYNAREC=0
 picodrive libretro-picodrive https://github.com/libretro/picodrive.git master YES GENERIC Makefile.libretro .
+play libretro-play https://github.com/libretro/Play-.git master YES CMAKE Makefile build -DBUILD_LIBRETRO_CORE=yes -DBUILD_PLAY=off -DBUILD_TESTS=no -DENABLE_AMAZON_S3=no -DCMAKE_BUILD_TYPE="Release" --target play_libretro
 pocketcdg libretro-pocketcdg https://github.com/libretro/libretro-pocketcdg.git master YES GENERIC Makefile .
 pokemini libretro-pokemini https://github.com/libretro/PokeMini.git master YES GENERIC Makefile .
 ppsspp libretro-ppsspp https://github.com/hrydgard/ppsspp.git master YES CMAKE Makefile build -DLIBRETRO=ON -DCMAKE_BUILD_TYPE=Release
