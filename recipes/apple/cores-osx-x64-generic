@@ -32,7 +32,6 @@ freeintv libretro-freeintv https://github.com/markwkidd/FreeIntv.git master YES 
 gambatte libretro-gambatte https://github.com/libretro/gambatte-libretro.git master YES GENERIC Makefile .
 genesis_plus_gx libretro-genesis_plus_gx https://github.com/libretro/Genesis-Plus-GX.git master YES GENERIC Makefile.libretro .
 ishiiruka libretro-ishiiruka https://github.com/libretro/Ishiiruka.git master YES CMAKE Makefile build -DLIBRETRO=ON -DCMAKE_BUILD_TYPE=Release
-mupen64plus libretro-mupen64plus https://github.com/libretro/mupen64plus-libretro.git master YES GENERIC_GL Makefile . WITH_DYNAREC=x86_64
 gearboy libretro-gearboy https://github.com/drhelius/Gearboy.git master YES GENERIC Makefile platforms/libretro
 gearsystem libretro-gearsystem https://github.com/drhelius/Gearsystem.git master YES GENERIC Makefile platforms/libretro
 gme libretro-gme https://github.com/libretro/libretro-gme.git master YES GENERIC Makefile .
