@@ -936,11 +936,10 @@ libretro_hatari_git_url="https://github.com/libretro/hatari.git"
 libretro_hatari_build_makefile="Makefile.libretro"
 
 include_core_tempgba() {
-	register_module core "tempgba" none
+	register_module core "tempgba" -psp1
 }
 libretro_tempgba_name="TempGBA"
 libretro_tempgba_git_url="https://github.com/libretro/TempGBA-libretro.git"
-libretro_tempgba_build_rule=none # NEED A BUILD RULE
 
 include_core_gpsp() {
 	register_module core "gpsp" -ngc -sncps3 -ps3 -psp1 -wii
