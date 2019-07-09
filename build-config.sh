@@ -150,7 +150,6 @@ include_core_mame2016
 include_core_mame
 
 # --- N64 emulator cores ---
-include_core_mupen64plus
 include_core_mupen64plus_next
 include_core_parallext
 include_core_parallel_n64
