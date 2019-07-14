@@ -37,7 +37,7 @@ mrboom libretro-mrboom https://github.com/libretro/mrboom-libretro.git master YE
 mu libretro-mu https://github.com/meepingsnesroms/Mu.git master YES GENERIC Makefile libretroBuildSystem
 nestopia libretro-nestopia https://github.com/libretro/nestopia.git master YES GENERIC Makefile libretro
 nekop2 libretro-nekop2 https://github.com/libretro/libretro-meowPC98.git master YES GENERIC Makefile.libretro libretro
-np2kai libretro-np2kai https://github.com/libretro/NP2kai.git master YES GENERIC Makefile.libretro sdl2
+np2kai libretro-np2kai https://github.com/libretro/NP2kai.git master NO GENERIC Makefile.libretro sdl2
 nxengine libretro-nxengine https://github.com/libretro/nxengine-libretro.git master YES GENERIC Makefile .
 o2em libretro-o2em https://github.com/libretro/libretro-o2em.git master YES GENERIC Makefile .
 pokemini libretro-pokemini https://github.com/libretro/PokeMini.git master YES GENERIC Makefile .
