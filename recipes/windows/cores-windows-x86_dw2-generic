@@ -108,7 +108,7 @@ squirreljme libretro-squirreljme https://github.com/XerTheSquirrel/SquirrelJME.g
 tgbdual libretro-tgbdual https://github.com/libretro/tgbdual-libretro.git master YES GENERIC Makefile .
 theodore libretro-theodore https://github.com/Zlika/theodore.git master YES GENERIC Makefile .
 thepowdertoy libretro-thepowdertoy https://github.com/libretro/ThePowderToy.git master YES CMAKE Makefile build -DCMAKE_BUILD_TYPE="Release"
-tic80 libretro-tic80 https://github.com/nesbox/TIC-80.git libretro YES CMAKE Makefile build -G\"Unix Makefiles\" -DBUILD_SOKOL=OFF -DBUILD_SDL=OFF -DBUILD_DEMO_CARTS=OFF
+tic80 libretro-tic80 https://github.com/nesbox/TIC-80.git master YES CMAKE Makefile build -G\"Unix Makefiles\" -DBUILD_SOKOL=OFF -DBUILD_SDL=OFF -DBUILD_DEMO_CARTS=OFF
 tyrquake libretro-tyrquake https://github.com/libretro/tyrquake.git master YES GENERIC Makefile .
 uzem libretro-uzem https://github.com/libretro/libretro-uzem.git master YES GENERIC Makefile .
 vba_next libretro-vba_next https://github.com/libretro/vba-next.git master YES GENERIC Makefile.libretro .
