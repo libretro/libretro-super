@@ -53,3 +53,6 @@
 
 # Additional notes:
 #notes = "(!) hash|(!) game rom|(^) continue|[1] notes|[^] continue|[*] list"
+
+# Graphics API(s) supported by the core... only use for cores that *require* hardware acceleration
+# required_hw_api = "OpenGL Core >= 3.3 | OpenGL ES >= 2.0 | Vulkan >= 1.0"
