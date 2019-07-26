@@ -5,6 +5,7 @@ dosbox_svn libretro-dosbox_svn https://github.com/libretro/dosbox-svn libretro Y
 fbalpha2012 libretro-fbalpha2012 https://github.com/libretro/fbalpha2012.git master YES GENERIC makefile.libretro svn-current/trunk
 fbalpha2012_cps1 libretro-fbalpha2012_cps1 https://github.com/libretro/fbalpha2012_cps1.git master YES GENERIC makefile.libretro .
 fbalpha2012_cps2 libretro-fbalpha2012_cps2 https://github.com/libretro/fbalpha2012_cps2.git master YES GENERIC makefile.libretro .
+fbalpha2012_cps3 libretro-fbalpha2012_cps3 https://github.com/libretro/fbalpha2012_cps3.git master YES GENERIC makefile.libretro svn-current/trunk
 fbalpha2012_neogeo libretro-fbalpha_neogeo https://github.com/libretro/fbalpha2012_neogeo.git master YES GENERIC Makefile .
 fceumm libretro-fceumm https://github.com/libretro/libretro-fceumm.git master YES GENERIC Makefile.libretro .
 fixgb libretro-fixgb https://github.com/FIX94/fixGB.git master YES GENERIC Makefile libretro
