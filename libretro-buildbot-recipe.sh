@@ -1060,7 +1060,7 @@ if [ "${PLATFORM}" = "android" ] && [ "${RA}" = "YES" ]; then
 		if [ "${RELEASE}" == "NO" ]; then
 			python ./version_increment.py
 		fi
-		./gradlew clean assembleRelease
+		./gradlew clean assembleRelease | tee -a "$LOGFILE"
 		cp -r build/outputs/apk/normal/release/phoenix-normal-release.apk $RARCH_DIR/retroarch-release.apk | tee -a "$LOGFILE"
 		cp -r build/outputs/apk/normal/release/phoenix-normal-release.apk $RARCH_DIR/retroarch-release.apk
 		cp -r build/outputs/apk/aarch64/release/phoenix-aarch64-release.apk $RARCH_DIR/retroarch-aarch64-release.apk | tee -a "$LOGFILE"
