@@ -20,6 +20,7 @@ scummvm libretro-scummvm https://github.com/libretro/scummvm.git master YES GENE
 gambatte libretro-gambatte https://github.com/libretro/gambatte-libretro.git master YES GENERIC Makefile .
 gearboy libretro-gearboy https://github.com/drhelius/Gearboy.git master YES GENERIC Makefile platforms/libretro
 gearsystem libretro-gearsystem https://github.com/drhelius/Gearsystem.git master YES GENERIC Makefile platforms/libretro
+mednafen_lynx libretro-beetle_lynx https://github.com/libretro/beetle-lynx-libretro.git master YES GENERIC Makefile .
 mednafen_ngp libretro-beetle_ngp https://github.com/libretro/beetle-ngp-libretro.git master YES GENERIC Makefile .
 mednafen_pce_fast libretro-beetle_pce_fast https://github.com/libretro/beetle-pce-fast-libretro.git master YES GENERIC Makefile .
 mednafen_supergrafx libretro-beetle_supergrafx https://github.com/libretro/beetle-supergrafx-libretro.git master YES GENERIC Makefile .
@@ -59,7 +60,11 @@ uzem libretro-uzem https://github.com/libretro/libretro-uzem.git master NO  GENE
 fuse libretro-fuse https://github.com/libretro/fuse-libretro.git master YES GENERIC Makefile .
 vba_next libretro-vba_next https://github.com/libretro/vba-next.git master YES GENERIC Makefile.libretro .
 vecx libretro-vecx https://github.com/libretro/libretro-vecx.git master YES GENERIC Makefile.libretro .
+vice_x128 libretro-vice_x128 https://github.com/libretro/vice-libretro.git master YES GENERIC Makefile . EMUTYPE=x128
 vice_x64 libretro-vice_x64 https://github.com/libretro/vice-libretro.git master YES GENERIC Makefile .
+vice_x64sc libretro-vice_x64sc https://github.com/libretro/vice-libretro.git master YES GENERIC Makefile . EMUTYPE=x64sc
+vice_xplus4 libretro-vice_xplus4 https://github.com/libretro/vice-libretro.git master YES GENERIC Makefile . EMUTYPE=xplus4
+vice_xvic libretro-vice_xvic https://github.com/libretro/vice-libretro.git master YES GENERIC Makefile . EMUTYPE=xvic
 virtualjaguar libretro-virtualjaguar https://github.com/libretro/virtualjaguar-libretro.git master YES GENERIC Makefile .
 xrick libretro-xrick https://github.com/libretro/xrick-libretro.git master YES GENERIC Makefile .
 yabause libretro-yabause https://github.com/libretro/yabause.git master YES GENERIC Makefile libretro
