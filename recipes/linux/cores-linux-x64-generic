@@ -29,6 +29,7 @@ fbneo libretro-fbneo https://github.com/libretro/FBNeo.git master YES GENERIC Ma
 fbalpha2012 libretro-fbalpha2012 https://github.com/libretro/fbalpha2012.git master YES GENERIC makefile.libretro svn-current/trunk
 fbalpha2012_cps1 libretro-fbalpha2012_cps1 https://github.com/libretro/fbalpha2012_cps1.git master YES GENERIC makefile.libretro .
 fbalpha2012_cps2 libretro-fbalpha2012_cps2 https://github.com/libretro/fbalpha2012_cps2.git master YES GENERIC makefile.libretro .
+fbalpha2012_cps3 libretro-fbalpha2012_cps3 https://github.com/libretro/fbalpha2012_cps3.git master YES GENERIC makefile.libretro svn-current/trunk
 fbalpha2012_neogeo libretro-fbalpha_neogeo https://github.com/libretro/fbalpha2012_neogeo.git master YES GENERIC Makefile .
 fceumm libretro-fceumm https://github.com/libretro/libretro-fceumm.git master YES GENERIC Makefile.libretro .
 ffmpeg libretro-ffmpeg https://github.com/libretro/FFmpeg.git master YES GENERIC_GL Makefile libretro
@@ -123,6 +124,8 @@ vecx libretro-vecx https://github.com/libretro/libretro-vecx.git master YES GENE
 vemulator libretro-vemulator https://github.com/MJaoune/vemulator-libretro.git master YES GENERIC Makefile .
 vice_x128 libretro-vice_x128 https://github.com/libretro/vice-libretro.git master YES GENERIC Makefile . EMUTYPE=x128
 vice_x64 libretro-vice_x64 https://github.com/libretro/vice-libretro.git master YES GENERIC Makefile .
+vice_x64sc libretro-vice_x64 https://github.com/libretro/vice-libretro.git master YES GENERIC Makefile . EMUTYPE=x64sc
+vice_xpet libretro-vice_xplus4 https://github.com/libretro/vice-libretro.git master YES GENERIC Makefile . EMUTYPE=xpet
 vice_xplus4 libretro-vice_xplus4 https://github.com/libretro/vice-libretro.git master YES GENERIC Makefile . EMUTYPE=xplus4
 vice_xvic libretro-vice_xvic https://github.com/libretro/vice-libretro.git master YES GENERIC Makefile . EMUTYPE=xvic
 virtualjaguar libretro-virtualjaguar https://github.com/libretro/virtualjaguar-libretro.git master YES GENERIC Makefile .
