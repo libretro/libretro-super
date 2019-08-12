@@ -33,7 +33,7 @@ mednafen_pce_fast libretro-beetle_pce_fast https://github.com/libretro/beetle-pc
 mednafen_pcfx libretro-beetle_pcfx https://github.com/libretro/beetle-pcfx-libretro.git master YES GENERIC Makefile .
 mednafen_psx libretro-beetle_psx https://github.com/libretro/beetle-psx-libretro.git master NO GENERIC Makefile .
 mednafen_saturn libretro-beetle_saturn https://github.com/libretro/beetle-saturn-libretro.git master NO GENERIC Makefile .
-mednafen_snes libretro-beetle_snes https://github.com/libretro/beetle-bsnes-libretro.git master YES GENERIC Makefile .
+mednafen_snes libretro-beetle_snes https://github.com/libretro/beetle-bsnes-libretro.git master NO GENERIC Makefile .
 mednafen_vb libretro-beetle_vb https://github.com/libretro/beetle-vb-libretro.git master YES GENERIC Makefile .
 mednafen_wswan libretro-beetle_wswan https://github.com/libretro/beetle-wswan-libretro.git master YES GENERIC Makefile .
 mu libretro-mu https://github.com/meepingsnesroms/Mu.git master YES GENERIC Makefile libretroBuildSystem
