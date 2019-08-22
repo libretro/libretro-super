@@ -1,6 +1,6 @@
 display_name = "Sega - Saturn (Yabause)"
 authors = "Guillaume Duhammel|Theo Berkau|Anders Montonen"
-supported_extensions = "cue|iso|mds|ccd|chd"
+supported_extensions = "cue|iso|mds|ccd|zip|chd"
 corename = "Yabause"
 manufacturer = "Sega"
 categories = "Emulator"
