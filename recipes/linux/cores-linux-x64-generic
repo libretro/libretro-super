@@ -132,5 +132,5 @@ vice_xvic libretro-vice_xvic https://github.com/libretro/vice-libretro.git maste
 virtualjaguar libretro-virtualjaguar https://github.com/libretro/virtualjaguar-libretro.git master YES GENERIC Makefile .
 xrick libretro-xrick https://github.com/libretro/xrick-libretro.git master YES GENERIC Makefile .
 yabasanshiro libretro-yabasanshiro https://github.com/libretro/yabause.git yabasanshiro YES GENERIC Makefile yabause/src/libretro
-yabause libretro-yabause https://github.com/libretro/yabause.git master YES GENERIC Makefile libretro
+yabause libretro-yabause https://github.com/libretro/yabause.git master YES GENERIC Makefile yabause/src/libretro
 test libretro-samples https://github.com/libretro/libretro-samples.git master YES GENERIC Makefile tests/test
