@@ -58,7 +58,7 @@ vice_xplus4 libretro-vice_xplus4 https://github.com/libretro/vice-libretro.git m
 vice_xvic libretro-vice_xvic https://github.com/libretro/vice-libretro.git master YES GENERIC Makefile . EMUTYPE=xvic
 vecx libretro-vecx https://github.com/libretro/libretro-vecx.git master YES GENERIC Makefile.libretro .
 vba_next libretro-vba_next https://github.com/libretro/vba-next.git master YES GENERIC Makefile.libretro .
-yabause libretro-yabause https://github.com/libretro/yabause.git master YES GENERIC Makefile libretro
+yabause libretro-yabause https://github.com/libretro/yabause.git master YES GENERIC Makefile yabause/src/libretro
 gw libretro-gw https://github.com/libretro/gw-libretro.git master YES GENERIC Makefile .
 81 libretro-81 https://github.com/libretro/81-libretro.git master YES GENERIC Makefile .
 fuse libretro-fuse https://github.com/libretro/fuse-libretro.git master YES GENERIC Makefile .

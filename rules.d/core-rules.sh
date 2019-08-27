@@ -595,7 +595,7 @@ include_core_yabause() {
 }
 libretro_yabause_name="Yabause"
 libretro_yabause_git_url="https://github.com/libretro/yabause.git"
-libretro_yabause_build_subdir="libretro"
+libretro_yabause_build_subdir="yabause/src/libretro"
 
 include_core_dosbox() {
 	register_module core "dosbox" -ngc -ps3 -psp1 -wii
