@@ -1,4 +1,4 @@
-display_name = "Quake 1 (TyrQuake)"
+display_name = "Quake (TyrQuake)"
 authors = "Kevin Shanahan (Tyrann)"
 supported_extensions = "pak"
 corename = "TyrQuake"
