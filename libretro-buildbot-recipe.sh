@@ -1057,6 +1057,7 @@ if [ "${PLATFORM}" = "android" ] && [ "${RA}" = "YES" ]; then
 		cd pkg/android/phoenix$PKG_EXTRA
 
 		git reset --hard
+		python ./version_increment.py
 		./gradlew clean assembleRelease | tee -a "$LOGFILE"
 		cp -r build/outputs/apk/normal/release/phoenix-normal-release.apk $RARCH_DIR/retroarch-release.apk | tee -a "$LOGFILE"
 		cp -r build/outputs/apk/normal/release/phoenix-normal-release.apk $RARCH_DIR/retroarch-release.apk
