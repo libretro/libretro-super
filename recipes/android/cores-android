@@ -40,7 +40,7 @@ lutro libretro-lutro https://github.com/libretro/libretro-lutro.git master YES G
 mame2000 libretro-mame2000 https://github.com/libretro/mame2000-libretro.git master YES GENERIC_JNI Makefile jni
 mame2003 libretro-mame2003 https://github.com/libretro/mame2003-libretro.git master YES GENERIC_JNI Makefile jni
 mame2003_plus libretro-mame2003-plus https://github.com/libretro/mame2003-plus-libretro.git master YES GENERIC_JNI Makefile jni
-mame2010 libretro-mame2010 https://github.com/libretro/mame2010-libretro.git master YES GENERIC_JNI Makefile jni
+mame2010 libretro-mame2010 https://github.com/libretro/mame2010-libretro.git master NO GENERIC_JNI Makefile jni
 mednafen_gba libretro-beetle_gba https://github.com/libretro/beetle-gba-libretro.git master YES GENERIC_JNI Makefile jni
 mednafen_lynx libretro-beetle_lynx https://github.com/libretro/beetle-lynx-libretro.git master YES GENERIC_JNI Makefile jni
 mednafen_ngp libretro-beetle_ngp https://github.com/libretro/beetle-ngp-libretro.git master YES GENERIC_JNI Makefile jni
