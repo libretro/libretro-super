@@ -270,6 +270,7 @@ case "$platform" in
 		CC="cc -arch arm64 -marm -miphoneos-version-min=8.0 -isysroot $IOSSDK"
 		CXX="c++ -arch arm64 -marm -miphoneos-version-min=8.0 -isysroot $IOSSDK"
 		CXX11="clang++ -std=c++11 -stdlib=libc++ -arch arm64 -marm -miphoneos-version-min=8.0 -isysroot $IOSSDK"
+		CXX17="clang++ -std=c++17 -stdlib=libc++ -arch arm64 -isysroot $IOSSDK"
 		;;
 
         tvos-arm64)
@@ -286,6 +287,7 @@ case "$platform" in
 		CC="cc -arch arm64 -marm -mtvos-version-min=9.0 -isysroot $IOSSDK"
 		CXX="c++ -arch arm64 -marm -mtvos-version-min=9.0 -isysroot $IOSSDK"
 		CXX11="clang++ -std=c++11 -stdlib=libc++ -arch arm64 -marm -mtvos-version-min=9.0 -isysroot $IOSSDK"
+		CXX17="clang++ -std=c++17 -stdlib=libc++ -arch arm64 -isysroot $IOSSDK"
 		;;
 
 
