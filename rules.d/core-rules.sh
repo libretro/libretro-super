@@ -1,5 +1,16 @@
 # vim: set ts=3 sw=3 noet ft=sh : bash
 
+include_core_bsnes_hd() {
+	register_module core "bsnes_hd" -theos_ios -ngc -sncps3 -ps3 -psp1 -qnx -wii
+}
+
+libretro_bsnes_hd_name="bsnes HD"
+libretro_bsnes_hd_git_url="https://github.com/libretro/bsnes.git"
+libretro_bsnes_hd_build_args="compiler=\"${CXX17}\" target=\"libretro\""
+libretro_bsnes_hd_build_subdir="bsnes"
+libretro_bsnes_hd_build_makefile="GNUmakefile"
+libretro_bsnes_hd_build_products="out"
+
 include_core_bsnes_accuracy() {
 	register_module core "bsnes_accuracy" -theos_ios -ngc -sncps3 -ps3 -psp1 -qnx -wii
 }
@@ -1056,7 +1067,7 @@ include_core_tic80() {
 	register_module core "tic80" -theos_ios -ngc -sncps3 -ps3 -psp1 -qnx -wii
 }
 libretro_tic80_name="TIC-80"
-libretro_tic80_git_url="https://github.com/nesbox/TIC-80.git"
+libretro_tic80_git_url="https://github.com/libretro/TIC-80.git"
 libretro_tic80_git_submodules="yes"
 libretro_tic80_build_makefile="Makefile"
 libretro_tic80_build_subdir="build"

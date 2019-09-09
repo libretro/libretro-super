@@ -6,6 +6,7 @@ atari800 libretro-atari800 https://github.com/libretro/libretro-atari800.git mas
 blastem libretro-blastem https://github.com/libretro/blastem.git master YES GENERIC Makefile.libretro .
 bluemsx libretro-bluemsx https://github.com/libretro/blueMSX-libretro.git master YES GENERIC Makefile.libretro .
 bnes libretro-bnes https://github.com/libretro/bnes-libretro.git master NO GENERIC Makefile .
+bsnes_hd libretro-bsnes_hd https://github.com/libretro/bsnes.git master YES GENERIC GNUmakefile bsnes compiler=g++ target=libretro binary=library
 bsnes libretro-bsnes https://github.com/libretro/bsnes-libretro.git libretro YES GENERIC Makefile . | bsnes_accuracy:profile=accuracy bsnes_balanced:profile=balanced bsnes_performance:profile=performance
 bsnes_cplusplus98 libretro-bsnes_cplusplus98 https://github.com/libretro/bsnes-libretro-cplusplus98.git master YES GENERIC Makefile .
 bsnes_mercury libretro-bsnes_mercury https://github.com/libretro/bsnes-mercury.git master YES GENERIC Makefile . | bsnes_mercury_accuracy:profile=accuracy bsnes_mercury_balanced:profile=balanced bsnes_mercury_performance:profile=performance
@@ -109,7 +110,7 @@ squirreljme libretro-squirreljme https://github.com/XerTheSquirrel/SquirrelJME.g
 tgbdual libretro-tgbdual https://github.com/libretro/tgbdual-libretro.git master YES GENERIC Makefile .
 theodore libretro-theodore https://github.com/Zlika/theodore.git master YES GENERIC Makefile .
 thepowdertoy libretro-thepowdertoy https://github.com/libretro/ThePowderToy.git master YES CMAKE Makefile build -DCMAKE_BUILD_TYPE="Release"
-tic80 libretro-tic80 https://github.com/nesbox/TIC-80.git master YES CMAKE Makefile build -G\"Unix Makefiles\" -DBUILD_SOKOL=OFF -DBUILD_SDL=OFF -DBUILD_LIBRETRO=ON
+tic80 libretro-tic80 https://github.com/libretro/TIC-80.git master YES CMAKE Makefile build -G\"Unix Makefiles\" -DBUILD_SOKOL=OFF -DBUILD_SDL=OFF -BUILD_DEMO_CARTS=OFF -DBUILD_LIBRETRO=ON
 tyrquake libretro-tyrquake https://github.com/libretro/tyrquake.git master YES GENERIC Makefile .
 uzem libretro-uzem https://github.com/libretro/libretro-uzem.git master YES GENERIC Makefile .
 vba_next libretro-vba_next https://github.com/libretro/vba-next.git master YES GENERIC Makefile.libretro .

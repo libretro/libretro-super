@@ -25,6 +25,7 @@ if [ "$HOST_CC" ]; then
 	CC="${HOST_CC}-gcc"
 	CXX="${HOST_CC}-g++"
 	CXX11="${HOST_CC}-g++"
+	CXX17="${HOST_CC}-g++"
 	STRIP="${HOST_CC}-strip"
 fi
 
@@ -56,18 +57,22 @@ if [ -z "$CXX" ]; then
 	if [ $FORMAT_COMPILER_TARGET = "osx" ]; then
 		CXX=c++
 		CXX11="clang++ -std=c++11 -stdlib=libc++"
+		CXX17="clang++ -std=c++17 -stdlib=libc++"
 		# FIXME: Do this right later.
 		if [ "$ARCH" = "i386" ]; then
 			CC="cc -arch i386"
 			CXX="c++ -arch i386"
 			CXX11="clang++ -arch i386 -std=c++11 -stdlib=libc++"
+			CXX17="clang++ -arch i386 -std=c++17 -stdlib=libc++"
 		fi
 	elif uname -s | grep -i MINGW32 > /dev/null 2>&1; then
 		CXX=mingw32-g++
 		CXX11=mingw32-g++
+		CXX17=mingw32-g++
 	else
 		CXX=g++
 		CXX11=g++
+		CXX17=g++
 	fi
 fi
 
@@ -76,6 +81,7 @@ FORMAT_COMPILER_TARGET_ALT=$FORMAT_COMPILER_TARGET
 echo "CC = $CC"
 echo "CXX = $CXX"
 echo "CXX11 = $CXX11"
+echo "CXX17 = $CXX17"
 echo "STRIP = $STRIP"
 
 . "$BASE_DIR/libretro-build-common.sh"

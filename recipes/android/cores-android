@@ -4,6 +4,7 @@
 atari800 libretro-atari800 https://github.com/libretro/libretro-atari800.git master YES GENERIC_JNI Makefile jni
 bluemsx libretro-bluemsx https://github.com/libretro/blueMSX-libretro.git master YES GENERIC_JNI Makefile jni
 bnes libretro-bnes https://github.com/libretro/bnes-libretro.git master NO GENERIC_JNI Makefile libretro/jni
+bsnes_hd libretro-bsnes_hd https://github.com/libretro/bsnes.git master YES GENERIC_JNI Makefile bsnes/target-libretro/jni
 bsnes libretro-bsnes https://github.com/libretro/bsnes-libretro.git libretro YES GENERIC_JNI Makefile target-libretro/jni | bsnes_accuracy:profile=accuracy bsnes_balanced:profile=balanced bsnes_performance:profile=performance
 bsnes_mercury libretro-bsnes_mercury https://github.com/libretro/bsnes-mercury.git master YES GENERIC_JNI Makefile target-libretro/jni | bsnes_mercury_accuracy:profile=accuracy bsnes_mercury_balanced:profile=balanced bsnes_mercury_performance:profile=performance
 cannonball libretro-cannonball https://github.com/libretro/cannonball.git master YES GENERIC_JNI Makefile jni
@@ -79,6 +80,7 @@ px68k libretro-px68k https://github.com/libretro/px68k-libretro.git master YES G
 quasi88 libretro-quasi88 https://github.com/libretro/quasi88-libretro.git master YES GENERIC_JNI Makefile src/LIBRETRO/jni
 quicknes libretro-quicknes https://github.com/libretro/QuickNES_Core.git master YES GENERIC_JNI Makefile jni
 flycast libretro-flycast https://github.com/libretro/flycast.git master YES GENERIC_JNI Makefile jni
+flycast_wince libretro-flycast_wince https://github.com/libretro/flycast.git fh/wince YES GENERIC_JNI Makefile jni
 reminiscence libretro-reminiscence https://github.com/libretro/REminiscence.git master YES GENERIC_JNI Makefile jni
 sameboy libretro-sameboy https://github.com/libretro/SameBoy.git buildbot YES GENERIC_JNI Makefile libretro/jni
 scummvm libretro-scummvm https://github.com/libretro/scummvm.git master YES GENERIC_JNI Makefile backends/platform/libretro/build/jni
@@ -92,7 +94,7 @@ stella libretro-stella https://github.com/stella-emu/stella.git master YES GENER
 tgbdual libretro-tgbdual https://github.com/libretro/tgbdual-libretro.git master YES GENERIC_JNI Makefile jni
 theodore libretro-theodore https://github.com/Zlika/theodore.git master YES GENERIC_JNI Makefile jni
 thepowdertoy libretro-thepowdertoy https://github.com/libretro/ThePowderToy.git master YES ANDROID_CMAKE Makefile build
-tic80 libretro-tic80 https://github.com/nesbox/TIC-80.git master YES ANDROID_CMAKE Makefile builddir -DBUILD_SOKOL=OFF -DBUILD_SDL=OFF -DBUILD_LIBRETRO=ON
+tic80 libretro-tic80 https://github.com/libretro/TIC-80.git master YES ANDROID_CMAKE Makefile builddir -DBUILD_SOKOL=OFF -DBUILD_SDL=OFF -BUILD_DEMO_CARTS=OFF -DBUILD_LIBRETRO=ON
 tyrquake libretro-tyrquake https://github.com/libretro/tyrquake.git master YES GENERIC_JNI Makefile jni
 uzem libretro-uzem https://github.com/libretro/libretro-uzem.git master YES GENERIC_JNI Makefile jni
 vba_next libretro-vba-next https://github.com/libretro/vba-next.git master YES GENERIC_JNI Makefile libretro/jni
