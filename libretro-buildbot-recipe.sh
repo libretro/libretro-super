@@ -248,7 +248,7 @@ buildbot_handle_message() {
 
 	if [ $RET -eq 0 ]; then
 		if [ -n "$LOGURL" ]; then
-			curl -X POST -d type="finish" -d index="$ENTRY_ID" -d status="done" http://buildbot.fiveforty.net/build_entry/
+			curl -X POST -d type="finish" -d index="$ENTRY_ID" -d status="done" http://buildserver.libretro.com/build_entry/
 		fi
 		MESSAGE="$CORE_NAME: [status: done] [$jobid]"
 	else
@@ -257,12 +257,12 @@ buildbot_handle_message() {
 
 			if [ -n "$ERROR" ]; then
 				gzip -9fk $ERROR
-				HASTE=`curl -X POST http://p.0bl.net/ --data-binary @${ERROR}.gz`
+				HASTE=`curl -X POST http://paste.libretro.com/ --data-binary @${ERROR}.gz`
 			fi
 
-			curl -X POST -d type="finish" -d index="$ENTRY_ID" -d status="fail" -d log="$HASTE" http://buildbot.fiveforty.net/build_entry/
+			curl -X POST -d type="finish" -d index="$ENTRY_ID" -d status="fail" -d log="$HASTE" http://buildserver.libretro.com/build_entry/
 
-			LAST_GOOD_TIME=`curl -f http://buildbot.fiveforty.net/last_good_build_time/$ENTRY_ID/ 2>/dev/null`
+			LAST_GOOD_TIME=`curl -f http://buildserver.libretro.com/last_good_build_time/$ENTRY_ID/ 2>/dev/null`
 
 			if [ -n "$LAST_GOOD_TIME" ]; then
 				LAST_GOOD_TIME="N/A"
@@ -295,7 +295,7 @@ build_libretro_generic_makefile() {
 	ENTRY_ID=""
 
 	if [ -n "$LOGURL" ]; then
-		ENTRY_ID=`curl -X POST -d type="start" -d master_log="$MASTER_LOG_ID" -d platform="$jobid" -d name="$NAME" http://buildbot.fiveforty.net/build_entry/`
+		ENTRY_ID=`curl -X POST -d type="start" -d master_log="$MASTER_LOG_ID" -d platform="$jobid" -d name="$NAME" http://buildserver.libretro.com/build_entry/`
 	fi
 
 	cd "${DIR}"
@@ -457,7 +457,7 @@ build_libretro_android_cmake() {
 
 	ENTRY_ID=""
 	if [ -n "$LOGURL" ]; then
-		ENTRY_ID=`curl -X POST -d type="start" -d master_log="$MASTER_LOG_ID" -d platform="$jobid" -d name="$NAME" http://buildbot.fiveforty.net/build_entry/`
+		ENTRY_ID=`curl -X POST -d type="start" -d master_log="$MASTER_LOG_ID" -d platform="$jobid" -d name="$NAME" http://buildserver.libretro.com/build_entry/`
 	fi
 
 	cd ${DIR}
@@ -518,7 +518,7 @@ build_libretro_generic_jni() {
 	LIBNAM="libretro"
 
 	if [ -n "$LOGURL" ]; then
-		ENTRY_ID=`curl -X POST -d type="start" -d master_log="$MASTER_LOG_ID" -d platform="$jobid" -d name="$NAME" http://buildbot.fiveforty.net/build_entry/`
+		ENTRY_ID=`curl -X POST -d type="start" -d master_log="$MASTER_LOG_ID" -d platform="$jobid" -d name="$NAME" http://buildserver.libretro.com/build_entry/`
 	fi
 
 	cd ${DIR}
@@ -883,7 +883,7 @@ if [ "${RA}" = "YES" ]; then
 		echo
 
 		if [ -n "${LOGURL}" ]; then
-			ENTRY_ID="$(curl -X POST -d type="start" -d master_log="$MASTER_LOG_ID" -d platform="$jobid" -d name="retroarch" http://buildbot.fiveforty.net/build_entry/)"
+			ENTRY_ID="$(curl -X POST -d type="start" -d master_log="$MASTER_LOG_ID" -d platform="$jobid" -d name="retroarch" http://buildserver.libretro.com/build_entry/)"
 		fi
 
 		LOGFILE="$TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_${RECIPE##*/}.log"
@@ -910,7 +910,7 @@ if [ "${PLATFORM}" == "osx" ] && [ "${RA}" == "YES" ]; then
 		buildbot_handle_message "$RET" "$ENTRY_ID" "retroarch" "$jobid" "$LOGFILE"
 
 		if [ -n "$LOGURL" ]; then
-			ENTRY_ID=`curl -X POST -d type="start" -d master_log="$MASTER_LOG_ID" -d platform="$jobid" -d name="retroarch" http://buildbot.fiveforty.net/build_entry/`
+			ENTRY_ID=`curl -X POST -d type="start" -d master_log="$MASTER_LOG_ID" -d platform="$jobid" -d name="retroarch" http://buildserver.libretro.com/build_entry/`
 		fi
 
 		if [ "${METAL}" != "1" ]; then
@@ -1134,7 +1134,7 @@ if [ "${PLATFORM}" = "MINGW64" ] || [ "${PLATFORM}" = "MINGW32" ] || [ "${PLATFO
 			${HELPER} ${MAKE} ${ARGS} clean
 
 			if [ -n "$LOGURL" ]; then
-				ENTRY_ID=`curl -X POST -d type="start" -d master_log="$MASTER_LOG_ID" -d platform="$jobid" -d name="retroarch-debug" http://buildbot.fiveforty.net/build_entry/`
+				ENTRY_ID=`curl -X POST -d type="start" -d master_log="$MASTER_LOG_ID" -d platform="$jobid" -d name="retroarch-debug" http://buildserver.libretro.com/build_entry/`
 			fi
 
 			echo 'configuring...'
@@ -1514,7 +1514,7 @@ if [ "${PLATFORM}" == "ps3" ] && [ "${RA}" == "YES" ]; then
 
 
 		if [ -n "$LOGURL" ]; then
-			ENTRY_ID=`curl -X POST -d type="start" -d master_log="$MASTER_LOG_ID" -d platform="$jobid" -d name="retroarch" http://buildbot.fiveforty.net/build_entry/`
+			ENTRY_ID=`curl -X POST -d type="start" -d master_log="$MASTER_LOG_ID" -d platform="$jobid" -d name="retroarch" http://buildserver.libretro.com/build_entry/`
 		fi
 
 		time sh ./dist-cores.sh cex-ps3 2>&1 | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_${PLATFORM}_cex.log
@@ -1524,7 +1524,7 @@ if [ "${PLATFORM}" == "ps3" ] && [ "${RA}" == "YES" ]; then
 		buildbot_handle_message "$RET" "$ENTRY_ID" "retroarch-cex" "$jobid" "$ERROR"
 
 		if [ -n "$LOGURL" ]; then
-			ENTRY_ID=`curl -X POST -d type="start" -d master_log="$MASTER_LOG_ID" -d platform="$jobid" -d name="retroarch" http://buildbot.fiveforty.net/build_entry/`
+			ENTRY_ID=`curl -X POST -d type="start" -d master_log="$MASTER_LOG_ID" -d platform="$jobid" -d name="retroarch" http://buildserver.libretro.com/build_entry/`
 		fi
 
 		time sh ./dist-cores.sh ode-ps3 2>&1 | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_${PLATFORM}_ode.log
