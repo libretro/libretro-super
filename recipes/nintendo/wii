@@ -1,3 +1,4 @@
+2048 libretro-2048 https://github.com/libretro/libretro-2048.git master YES GENERIC Makefile.libretro .
 atari800 libretro-atari800 https://github.com/libretro/libretro-atari800.git master YES GENERIC Makefile .
 cannonball libretro-cannonball https://github.com/libretro/cannonball.git master YES GENERIC Makefile .
 cap32 libretro-cap32 https://github.com/libretro/libretro-cap32.git master YES GENERIC Makefile .
