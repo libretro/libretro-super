@@ -2,8 +2,8 @@
 4do libretro-4do https://github.com/libretro/4do-libretro.git master YES GENERIC Makefile .
 atari800 libretro-atari800 https://github.com/libretro/libretro-atari800.git master YES GENERIC Makefile .
 bluemsx libretro-bluemsx https://github.com/libretro/blueMSX-libretro.git master YES GENERIC Makefile.libretro .
-bsnes_trunk libretro-bsnes_trunk https://github.com/libretro/bsnes.git master YES GENERIC GNUmakefile bsnes target=libretro binary=library local=false openmp=false
-bsnes libretro-bsnes https://github.com/libretro/bsnes-libretro.git libretro YES GENERIC Makefile . | bsnes_accuracy:profile=accuracy bsnes_balanced:profile=balanced bsnes_performance:profile=performance
+bsnes libretro-bsnes https://github.com/libretro/bsnes.git master YES GENERIC GNUmakefile bsnes target=libretro binary=library local=false openmp=false
+bsnes2014 libretro-bsnes2014 https://github.com/libretro/bsnes-libretro.git libretro YES GENERIC Makefile . | bsnes2014_accuracy:profile=accuracy bsnes2014_balanced:profile=balanced bsnes2014_performance:profile=performance
 bsnes_cplusplus98 libretro-bsnes_cplusplus98 https://github.com/libretro/bsnes-libretro-cplusplus98.git master YES GENERIC Makefile .
 bsnes_mercury libretro-bsnes_mercury https://github.com/libretro/bsnes-mercury.git master YES GENERIC Makefile . | bsnes_mercury_accuracy:profile=accuracy bsnes_mercury_balanced:profile=balanced bsnes_mercury_performance:profile=performance
 cannonball libretro-cannonball https://github.com/libretro/cannonball.git master YES GENERIC Makefile .
