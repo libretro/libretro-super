@@ -4,7 +4,7 @@
 atari800 libretro-atari800 https://github.com/libretro/libretro-atari800.git master YES GENERIC_JNI Makefile jni
 bluemsx libretro-bluemsx https://github.com/libretro/blueMSX-libretro.git master YES GENERIC_JNI Makefile jni
 bnes libretro-bnes https://github.com/libretro/bnes-libretro.git master NO GENERIC_JNI Makefile libretro/jni
-bsnes_hd libretro-bsnes_hd https://github.com/libretro/bsnes.git master YES GENERIC_JNI Makefile bsnes/target-libretro/jni
+bsnes_trunk libretro-bsnes_trunk https://github.com/libretro/bsnes.git master YES GENERIC_JNI Makefile bsnes/target-libretro/jni
 bsnes libretro-bsnes https://github.com/libretro/bsnes-libretro.git libretro YES GENERIC_JNI Makefile target-libretro/jni | bsnes_accuracy:profile=accuracy bsnes_balanced:profile=balanced bsnes_performance:profile=performance
 bsnes_mercury libretro-bsnes_mercury https://github.com/libretro/bsnes-mercury.git master YES GENERIC_JNI Makefile target-libretro/jni | bsnes_mercury_accuracy:profile=accuracy bsnes_mercury_balanced:profile=balanced bsnes_mercury_performance:profile=performance
 cannonball libretro-cannonball https://github.com/libretro/cannonball.git master YES GENERIC_JNI Makefile jni
