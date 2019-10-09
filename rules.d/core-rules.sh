@@ -484,6 +484,13 @@ libretro_tyrquake_name="TyrQuake"
 libretro_tyrquake_git_url="https://github.com/libretro/tyrquake.git"
 libretro_tyrquake_build_makefile="Makefile"
 
+include_core_vitaquake2() {
+	register_module core "vitaquake2"
+}
+libretro_vitaquake2_name="vitaQuake2"
+libretro_vitaquake2_git_url="https://github.com/libretro/vitaquake2.git"
+libretro_vitaquake2_build_makefile="Makefile"
+
 include_core_pcsx_rearmed() {
 	register_module core "pcsx_rearmed" -theos_ios -ngc -ps3 -psp1 -wii
 }
