@@ -2,8 +2,8 @@
 4do libretro-4do https://github.com/libretro/4do-libretro.git master YES GENERIC Makefile .
 atari800 libretro-atari800 https://github.com/libretro/libretro-atari800.git master YES GENERIC Makefile .
 bluemsx libretro-bluemsx https://github.com/libretro/blueMSX-libretro.git master YES GENERIC Makefile.libretro .
-bsnes_hd libretro-bsnes_hd https://github.com/libretro/bsnes.git master YES GENERIC GNUmakefile bsnes target=libretro binary=library local=false
-bsnes libretro-bsnes https://github.com/libretro/bsnes-libretro.git libretro YES GENERIC Makefile . | bsnes_accuracy:profile=accuracy bsnes_balanced:profile=balanced bsnes_performance:profile=performance
+bsnes libretro-bsnes https://github.com/libretro/bsnes.git master YES GENERIC GNUmakefile bsnes target=libretro binary=library local=false platform=macos
+bsnes2014 libretro-bsnes2014 https://github.com/libretro/bsnes-libretro.git libretro YES GENERIC Makefile . | bsnes2014_accuracy:profile=accuracy bsnes2014_balanced:profile=balanced bsnes2014_performance:profile=performance
 bsnes_cplusplus98 libretro-bsnes_cplusplus98 https://github.com/libretro/bsnes-libretro-cplusplus98.git master YES GENERIC Makefile .
 bsnes_mercury libretro-bsnes_mercury https://github.com/libretro/bsnes-mercury.git master YES GENERIC Makefile . | bsnes_mercury_accuracy:profile=accuracy bsnes_mercury_balanced:profile=balanced bsnes_mercury_performance:profile=performance
 cannonball libretro-cannonball https://github.com/libretro/cannonball.git master YES GENERIC Makefile .
@@ -102,6 +102,7 @@ stella libretro-stella https://github.com/stella-emu/stella.git master YES GENER
 tgbdual libretro-tgbdual https://github.com/libretro/tgbdual-libretro.git master YES GENERIC Makefile .
 theodore libretro-theodore https://github.com/Zlika/theodore.git master YES GENERIC Makefile .
 thepowdertoy libretro-thepowdertoy https://github.com/libretro/ThePowderToy.git master YES CMAKE Makefile build -DCMAKE_BUILD_TYPE="Release"
+tic80 libretro-tic80 https://github.com/libretro/TIC-80.git master YES CMAKE Makefile builddir -DBUILD_SOKOL=OFF -DBUILD_SDL=OFF -BUILD_DEMO_CARTS=OFF -DBUILD_LIBRETRO=ON
 tyrquake libretro-tyrquake https://github.com/libretro/tyrquake.git master YES GENERIC Makefile .
 vitaquake2 libretro-vitaquake2 https://github.com/libretro/vitaQuakeII.git libretro YES GENERIC Makefile .
 vba_next libretro-vba_next https://github.com/libretro/vba-next.git master YES GENERIC Makefile.libretro .

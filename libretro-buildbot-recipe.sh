@@ -544,7 +544,7 @@ build_libretro_generic_jni() {
 
 		CORENAM="${core}_libretro${FORMAT}${LIBSUFFIX}.${FORMAT_EXT}"
 
-		if [ "${NAME}" = "bsnes" ] || [ "${NAME}" = "bsnes_mercury" ]; then
+		if [ "${NAME}" = "bsnes2014" ] || [ "${NAME}" = "bsnes_mercury" ]; then
 			LIBNAM="libretro_${core}"
 		fi
 
