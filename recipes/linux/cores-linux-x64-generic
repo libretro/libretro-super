@@ -3,7 +3,7 @@
 4do libretro-4do https://github.com/libretro/4do-libretro.git master YES GENERIC Makefile .
 81 libretro-81 https://github.com/libretro/81-libretro.git master YES GENERIC Makefile .
 atari800 libretro-atari800 https://github.com/libretro/libretro-atari800.git master YES GENERIC Makefile .
-blastem libretro-blastem https://github.com/libretro/blastem.git master YES GENERIC Makefile.libretro .
+blastem libretro-blastem https://github.com/libretro/blastem.git libretro YES GENERIC Makefile.libretro .
 bluemsx libretro-bluemsx https://github.com/libretro/blueMSX-libretro.git master YES GENERIC Makefile.libretro .
 bnes libretro-bnes https://github.com/libretro/bnes-libretro.git master NO GENERIC Makefile .
 bsnes_hd libretro-bsnes_hd https://github.com/libretro/bsnes.git master YES GENERIC GNUmakefile bsnes compiler=g++-7 target=libretro
