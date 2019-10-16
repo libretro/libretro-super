@@ -67,8 +67,8 @@ convert_xmb_assets()
 	for theme in `ls $src_dir`; do
 		if [ -d $src_dir/$theme ] ; then
 			theme=`basename "$theme"`
-			cp $src_dir/$theme/*.* $dst_dir/$theme/
 			mkdir -p "$dst_dir/$theme/png"
+			cp $src_dir/$theme/*.* $dst_dir/$theme/
 			for png in `ls $src_dir/$theme/png/*.png -d`; do
 				local name=`basename "$png" .png`
 				local src_file="$src_dir/$theme/src/$name.svg"
