@@ -214,6 +214,7 @@ include_core_reminiscence
 include_core_easyrpg
 include_core_tyrquake
 include_core_vitaquake2
+include_core_vitaquake3
 include_core_prboom
 include_core_xrick
 include_core_openlara
