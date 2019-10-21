@@ -1,6 +1,6 @@
 display_name = "Quake III: Arena (vitaQuake 3)"
 authors = "Rinnegatamante"
-supported_extensions = "pk3|pak"
+supported_extensions = "pk3"
 corename = "vitaQuake 3"
 manufacturer = "Id Software"
 categories = "Game"
