@@ -1490,7 +1490,9 @@ if [ "${PLATFORM}" == "vita" ] && [ "${RA}" == "YES" ]; then
 		cp $WORK/$RADIR/media/libretrodb/rdb/*.rdb $WORK/$RADIR/pkg/vita/retroarch/database/rdb/
 		cp $WORK/$RADIR/media/libretrodb/cursors/*.dbc $WORK/$RADIR/pkg/vita/retroarch/database/cursors/
 		cp  $WORK/$RADIR/media/libretrodb/cursors/*.dbc $WORK/$RADIR/pkg/vita/retroarch/database/cursors/
-		cp -r $WORK/$RADIR/media/assets/glui $WORK/$RADIR/pkg/vita/retroarch/assets
+		cp -r $WORK/$RADIR/media/assets/rgui  $WORK/$RADIR/pkg/vita/retroarch/assets
+		cp -r $WORK/$RADIR/media/assets/glui  $WORK/$RADIR/pkg/vita/retroarch/assets
+		cp -r $WORK/$RADIR/media/assets/ozone $WORK/$RADIR/pkg/vita/retroarch/assets
 		
 		convert_xmb_assets $WORK/$RADIR/media/assets/xmb $WORK/$RADIR/pkg/vita/retroarch/assets/xmb 64x64! 960x544! 90
 		
