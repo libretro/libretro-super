@@ -47,7 +47,7 @@ higan_sfc libretro-higan https://gitlab.com/higan/higan.git libretro YES GENERIC
 higan_sfc_balanced libretro-nside https://github.com/libretro/nSide.git master NO GENERIC GNUmakefile nSide compiler=g++ target=libretro binary=library
 ishiiruka libretro-ishiiruka https://github.com/libretro/Ishiiruka.git master YES CMAKE sln build -DLIBRETRO=ON -DCMAKE_BUILD_TYPE=Release -G\"Visual Studio 15 2017 Win64\"
 kronos libretro-kronos https://github.com/libretro/yabause.git kronos YES GENERIC Makefile yabause/src/libretro
-libneocd libretro-libneocd https://github.com/libretro/neocd_libretro.git master YES CMAKE Makefile build -G "MSYS Makefiles"
+libneocd libretro-libneocd https://github.com/libretro/neocd_libretro.git master YES GENERIC Makefile .
 lutro libretro-lutro https://github.com/libretro/libretro-lutro master YES GENERIC Makefile .
 mame libretro-mame https://github.com/libretro/mame.git master YES GENERIC Makefile.libretro . PTR64=1
 mame2000 libretro-mame2000 https://github.com/libretro/mame2000-libretro.git master YES GENERIC Makefile .
