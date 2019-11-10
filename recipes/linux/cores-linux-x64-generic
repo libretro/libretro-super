@@ -20,6 +20,7 @@ crocods libretro-crocods https://github.com/libretro/libretro-crocods.git master
 daphne libretro-daphne https://github.com/libretro/daphne.git master YES GENERIC Makefile .
 desmume libretro-desmume https://github.com/libretro/desmume.git master YES GENERIC Makefile.libretro desmume/src/frontend/libretro
 desmume2015 libretro-desmume2015 https://github.com/libretro/desmume2015.git master YES GENERIC Makefile.libretro desmume
+dhewm3 libretro-dhewm3 https://github.com/libretro/dhewm3-libretro.git libretro YES GENERIC Makefile neo
 dinothawr libretro-dinothawr https://github.com/libretro/Dinothawr.git master YES GENERIC Makefile .
 dolphin libretro-dolphin https://github.com/libretro/dolphin.git master YES CMAKE Makefile build -DLIBRETRO=ON -DLIBRETRO_STATIC=1 -DCMAKE_BUILD_TYPE=Release -DCMAKE_CXX_COMPILER=g++-7 -DCMAKE_C_COMPILER=gcc-7
 dosbox_svn libretro-dosbox_svn https://github.com/libretro/dosbox-svn libretro YES GENERIC Makefile.libretro libretro WITH_DYNAREC=x86_64
