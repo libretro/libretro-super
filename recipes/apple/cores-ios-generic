@@ -15,7 +15,6 @@ daphne libretro-daphne https://github.com/libretro/daphne.git master YES GENERIC
 desmume libretro-desmume https://github.com/libretro/desmume.git master YES GENERIC Makefile.libretro desmume/src/frontend/libretro
 desmume2015 libretro-desmume2015 https://github.com/libretro/desmume2015.git master YES GENERIC Makefile.libretro desmume
 dinothawr libretro-dinothawr https://github.com/libretro/Dinothawr.git master YES GENERIC Makefile .
-dosbox libretro-dosbox https://github.com/libretro/dosbox-libretro.git master YES GENERIC Makefile.libretro .
 easyrpg libretro-easyrpg https://github.com/libretro/easyrpg-libretro.git master YES GENERIC Makefile.libretro builds/libretro
 fbneo libretro-fbneo https://github.com/libretro/FBNeo.git master YES GENERIC Makefile src/burner/libretro
 fbalpha2012 libretro-fbalpha2012 https://github.com/libretro/fbalpha2012.git master YES GENERIC makefile.libretro svn-current/trunk
@@ -59,6 +58,7 @@ mesen-s libretro-mesen-s https://github.com/SourMesen/Mesen-S.git master YES GEN
 meteor libretro-meteor https://github.com/libretro/meteor-libretro.git master NO GENERIC Makefile libretro
 mgba libretro-mgba https://github.com/libretro/mgba.git master YES GENERIC Makefile.libretro .
 mu libretro-mu https://github.com/meepingsnesroms/Mu.git master YES GENERIC Makefile libretroBuildSystem
+mupen64plus_next libretro-mupen64plus_next https://github.com/libretro/mupen64plus-libretro-nx.git ios NO GENERIC_GL Makefile . WITH_DYNAREC=x86_64
 parallel_n64 libretro-parallel_n64 https://github.com/libretro/parallel-n64.git master YES GENERIC_GL Makefile . WITH_DYNAREC=arm
 mrboom libretro-mrboom https://github.com/libretro/mrboom-libretro.git master YES GENERIC Makefile .
 nekop2 libretro-nekop2 https://github.com/libretro/libretro-meowPC98.git master YES GENERIC Makefile.libretro libretro

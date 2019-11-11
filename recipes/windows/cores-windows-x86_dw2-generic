@@ -18,10 +18,10 @@ crocods libretro-crocods https://github.com/libretro/libretro-crocods.git master
 daphne libretro-daphne https://github.com/libretro/daphne.git master YES GENERIC Makefile .
 desmume libretro-desmume https://github.com/libretro/desmume.git master YES GENERIC Makefile.libretro desmume/src/frontend/libretro
 desmume2015 libretro-desmume2015 https://github.com/libretro/desmume2015.git master YES GENERIC Makefile.libretro desmume
+dhewm3 libretro-dhewm3 https://github.com/libretro/dhewm3-libretro.git master YES GENERIC Makefile neo
 dinothawr libretro-dinothawr https://github.com/libretro/Dinothawr.git master YES GENERIC Makefile .
-dosbox libretro-dosbox https://github.com/libretro/dosbox-libretro.git master YES GENERIC Makefile.libretro .
 dosbox_svn libretro-dosbox_svn https://github.com/libretro/dosbox-svn libretro YES GENERIC Makefile.libretro libretro
-dosbox_svn_glide libretro-dosbox_svn_glide https://github.com/libretro/dosbox-svn glide YES GENERIC Makefile.libretro libretro
+dosbox_svn_ce libretro-dosbox_svn_ce https://github.com/libretro/dosbox-svn community-patches YES GENERIC Makefile.libretro libretro
 easyrpg libretro-easyrpg https://github.com/libretro/easyrpg-libretro.git master YES GENERIC Makefile.libretro builds/libretro
 fbneo libretro-fbneo https://github.com/libretro/FBNeo.git master YES GENERIC Makefile src/burner/libretro
 fbalpha2012 libretro-fbalpha2012 https://github.com/libretro/fbalpha2012.git master YES GENERIC makefile.libretro svn-current/trunk
@@ -45,7 +45,7 @@ hatari libretro-hatari https://github.com/libretro/hatari.git master YES GENERIC
 higan_sfc libretro-higan https://gitlab.com/higan/higan.git libretro YES GENERIC GNUmakefile higan compiler=g++ target=libretro binary=library
 higan_sfc_balanced libretro-nside https://github.com/libretro/nSide.git master YES GENERIC GNUmakefile nSide compiler=g++ target=libretro binary=library
 kronos libretro-kronos https://github.com/libretro/yabause.git kronos NO GENERIC Makefile yabause/src/libretro
-libneocd libretro-libneocd https://github.com/libretro/neocd_libretro.git master YES CMAKE Makefile build -G "MSYS Makefiles"
+neocd libretro-neocd https://github.com/libretro/neocd_libretro.git master YES GENERIC Makefile .
 lutro libretro-lutro https://github.com/libretro/libretro-lutro master YES GENERIC Makefile .
 mame libretro-mame https://github.com/libretro/mame.git master YES GENERIC Makefile.libretro . PTR64=0
 mame2000 libretro-mame2000 https://github.com/libretro/mame2000-libretro.git master YES GENERIC Makefile .

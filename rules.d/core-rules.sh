@@ -484,6 +484,14 @@ libretro_tyrquake_name="TyrQuake"
 libretro_tyrquake_git_url="https://github.com/libretro/tyrquake.git"
 libretro_tyrquake_build_makefile="Makefile"
 
+include_core_dhewm3() {
+	register_module core "dhewm3"
+}
+libretro_dhewm3_name="dhewm3"
+libretro_dhewm3_git_url="https://github.com/libretro/dhewm3-libretro.git"
+libretro_dhewm3_build_makefile="Makefile"
+libretro_dhewm3_build_subdir="neo"
+
 include_core_vitaquake2() {
 	register_module core "vitaquake2"
 }
