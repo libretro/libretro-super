@@ -1,4 +1,4 @@
-display_name = "DOS (DOSBox-SVN)"
+display_name = "DOS (DOSBox-SVN CE)"
 authors = "DOSBox Team|radius"
 supported_extensions = "exe|com|bat|conf|cue|iso"
 corename = "DOSBox-SVN CE"
