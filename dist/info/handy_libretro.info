@@ -1,6 +1,6 @@
 display_name = "Atari - Lynx (Handy)"
 authors = "K. Wilkins"
-supported_extensions = "lnx"
+supported_extensions = "lnx|o"
 corename = "Handy"
 manufacturer = "Atari"
 categories = "Emulator"
