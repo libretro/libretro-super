@@ -22,3 +22,4 @@ theodore libretro-theodore https://github.com/Zlika/theodore.git master NO GENER
 gw libretro-gw https://github.com/libretro/gw-libretro.git master YES GENERIC Makefile .
 81 libretro-81 https://github.com/libretro/81-libretro.git master YES GENERIC Makefile .
 fuse libretro-fuse https://github.com/libretro/fuse-libretro.git master YES GENERIC Makefile .
+gpsp libretro-gpsp https://github.com/libretro/gpsp.git master YES GENERIC Makefile .
