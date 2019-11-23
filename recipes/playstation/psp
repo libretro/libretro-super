@@ -7,6 +7,7 @@ fmsx libretro-fmsx https://github.com/libretro/fmsx-libretro.git master YES GENE
 freeintv libretro-freeintv https://github.com/markwkidd/FreeIntv.git master NO GENERIC Makefile .
 gambatte libretro-gambatte https://github.com/libretro/gambatte-libretro.git master YES GENERIC Makefile .
 mednafen_pce_fast libretro-beetle_pce_fast https://github.com/aliaspider/beetle-pce-fast-libretro.git psp_hw_render YES GENERIC Makefile .
+gpsp libretro-gpsp https://github.com/libretro/gpsp.git master YES GENERIC Makefile .
 mgba libretro-mgba https://github.com/libretro/mgba.git master YES GENERIC Makefile.libretro .
 mu libretro-mu https://github.com/meepingsnesroms/Mu.git master YES GENERIC Makefile libretroBuildSystem
 njemu_cps2 libretro-njemu https://github.com/aliaspider/NJEMU-libretro.git master YES GENERIC Makefile .
