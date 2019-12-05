@@ -184,15 +184,15 @@ build_libretro_database() {
 			COMMAND+=' "${LIBRETRODATABASE_META_DAT_DIR}/mame/${1}.dat"'
 		fi
 
-		#Check for Final Burn Alpha folders
-		if [ -f "${LIBRETRODATABASE_META_DAT_DIR}/fba-merged/${1}.dat" ]; then
-			COMMAND+=' "${LIBRETRODATABASE_META_DAT_DIR}/fba-merged/${1}.dat"'
+		#Check for Final Burn Neo folders
+		if [ -f "${LIBRETRODATABASE_META_DAT_DIR}/fbneo-merged/${1}.dat" ]; then
+			COMMAND+=' "${LIBRETRODATABASE_META_DAT_DIR}/fbneo-merged/${1}.dat"'
 		fi
-		if [ -f "${LIBRETRODATABASE_META_DAT_DIR}/fba-split/${1}.dat" ]; then
-			COMMAND+=' "${LIBRETRODATABASE_META_DAT_DIR}/fba-split/${1}.dat"'
+		if [ -f "${LIBRETRODATABASE_META_DAT_DIR}/fbneo-split/${1}.dat" ]; then
+			COMMAND+=' "${LIBRETRODATABASE_META_DAT_DIR}/fbneo-split/${1}.dat"'
 		fi
-		if [ -f "${LIBRETRODATABASE_META_DAT_DIR}/fba-member/${1}.dat" ]; then
-			COMMAND+=' "${LIBRETRODATABASE_META_DAT_DIR}/fba-member/${1}.dat"'
+		if [ -f "${LIBRETRODATABASE_META_DAT_DIR}/fbneo-member/${1}.dat" ]; then
+			COMMAND+=' "${LIBRETRODATABASE_META_DAT_DIR}/fbneo-member/${1}.dat"'
 		fi
 
 		#Check if meta libretro-dats folder is there
