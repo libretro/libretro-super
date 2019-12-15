@@ -64,6 +64,7 @@ mu libretro-mu https://github.com/meepingsnesroms/Mu.git master YES GENERIC_JNI 
 mupen64plus_next libretro-mupen64plus_next https://github.com/libretro/mupen64plus-libretro-nx.git develop YES GENERIC_JNI Makefile libretro/jni
 mupen64plus_next_gles3 libretro-mupen64plus_next-gles3 https://github.com/libretro/mupen64plus-libretro-nx.git develop YES GENERIC_JNI Makefile libretro/jni GLES3=1
 nekop2 libretro-nekop2 https://github.com/libretro/libretro-meowPC98.git master YES GENERIC_JNI Makefile.libretro libretro/jni
+neocd libretro-neocd https://github.com/libretro/neocd_libretro.git master YES GENERIC_JNI Makefile jni
 nestopia libretro-nestopia https://github.com/libretro/nestopia.git master YES GENERIC_JNI Makefile libretro/jni
 np2kai libretro-np2kai https://github.com/libretro/NP2kai.git master YES GENERIC_JNI Makefile.libretro jni
 nxengine libretro-nxengine https://github.com/libretro/nxengine-libretro.git master YES GENERIC_JNI Makefile jni
