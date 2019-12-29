@@ -548,6 +548,12 @@ include_core_mednafen_ngp() {
 libretro_mednafen_ngp_name="Mednafen/Beetle NeoPop"
 libretro_mednafen_ngp_git_url="https://github.com/libretro/beetle-ngp-libretro.git"
 
+include_core_race() {
+	register_module core "race" -theos_ios -qnx
+}
+libretro_race_name="RACE"
+libretro_race_git_url="https://github.com/libretro/RACE.git"
+
 include_core_mednafen_pce_fast() {
 	register_module core "mednafen_pce_fast" -theos_ios
 }

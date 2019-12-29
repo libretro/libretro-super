@@ -118,6 +118,7 @@ include_core_handy
 
 # --- SNK Neo Geo Pocket/Color ---
 include_core_mednafen_ngp
+include_core_race
 
 # --- NEC PC-Engine emulator cores ---
 include_core_mednafen_pce_fast
