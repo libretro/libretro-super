@@ -29,6 +29,7 @@ hw_render = "false"
 needs_fullpath = "true"
 disk_control = "false"
 is_experimental = "false"
+needs_kbd_mouse_focus = "true"
 
 # BIOS/Firmware
 firmware_count = 1

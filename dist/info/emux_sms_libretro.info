@@ -1,16 +1,37 @@
+# Software Information
 display_name = "Sega - Master System (Emux SMS)"
 authors = "Sebastien Ronsse"
 supported_extensions = "sms|bin|rom"
 corename = "Emux SMS"
-manufacturer = "Sega"
-categories = "Emulator"
-systemname = "Sega Master System"
-systemid = "master_system"
-database = "Sega - Master System - Mark III"
 license = "GPLv2"
 permissions = ""
-display_version = "Git"
+display_version = "0.1"
+categories = "Emulator"
+
+# Hardware Information
+manufacturer = "Sega"
+systemname = "Sega Master System"
+systemid = "master_system"
+
+# Libretro Features
 supports_no_game = "false"
+database = "Sega - Master System - Mark III"
+savestate = "false"
+savestate_features = "null"
+libretro_saves = "false"
+cheats = "false"
+input_descriptors = "false"
+memory_descriptors = "false"
+core_options = "false"
+core_options_version = "null"
+load_subsystem = "false"
+hw_render = "false"
+needs_fullpath = "true"
+disk_control = "false"
+needs_kbd_mouse_focus = "false"
+is_experimental = "true"
+
+# BIOS/Firmware
 firmware_count = 1
 firmware0_desc = "bios.sms (Master System BIOS)"
 firmware0_path = "bios.sms"

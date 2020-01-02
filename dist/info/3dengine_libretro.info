@@ -12,7 +12,7 @@ display_version = "v1"
 
 # Libretro Features
 hw_render = true
-required_hw_api = "OpenGL Core >= 2.0 | OpenGL ES >= 2.0"
+required_hw_api = "OpenGL >= 2.0 | OpenGL ES >= 2.0"
 savestate = "false"
 savestate_features = "null"
 cheats = "false"
