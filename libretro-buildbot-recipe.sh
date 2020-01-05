@@ -1167,6 +1167,54 @@ if [ "${PLATFORM}" = "MINGW64" ] || [ "${PLATFORM}" = "MINGW32" ] || [ "${PLATFO
 				MESSAGE="retroarch debug:	[status: done] [$jobid]"
 				echo buildbot job: $MESSAGE >>$TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_DEBUG_${PLATFORM}.log
 				buildbot_log "$MESSAGE"
+
+				case "$(uname -s)" in
+					MINGW32*)
+						;;
+					MINGW64*)
+						echo buildbot job: $MESSAGE >> "$LOGFILE"
+
+						${HELPER} ${MAKE} ${ARGS} clean
+
+						if [ -n "$LOGURL" ]; then
+							ENTRY_ID=`curl -X POST -d type="start" -d master_log="$MASTER_LOG_ID" -d platform="$jobid" -d name="retroarch-angle" http://buildserver.libretro.com/build_entry/`
+						fi
+
+						echo 'configuring...'
+						echo "configure command: $CONFIGURE"
+						${CONFIGURE} --enable-angle --enable-dynamic_egl
+
+						${HELPER} ${MAKE} -j${JOBS} ${ARGS} 2>&1 | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_ANGLE_${PLATFORM}.log
+						for i in $(seq 3); do for bin in $(ntldd -R *exe | grep -i mingw | cut -d">" -f2 | cut -d" " -f2); do cp -u "$bin" . ; done; done
+
+						strip -s retroarch_angle.exe
+						cp retroarch.exe.manifest windows/retroarch_angle.exe.manifest 2>/dev/null
+						cp retroarch_angle.exe windows/retroarch_angle.exe	| tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_ANGLE_${PLATFORM}.log
+
+						cp pkg/windows/x86_64/libEGL.dll windows/
+						cp pkg/windows/x86_64/libGLESv2.dll windows/
+						cp *.dll windows/
+						cp retroarch_angle.exe windows/retroarch_angle.exe
+
+						(cd windows && windeployqt --release --no-patchqt --no-translations retroarch_angle.exe)
+						(cd windows && for i in $(seq 3); do for bin in $(ntldd -R imageformats/*dll | grep -i mingw | cut -d">" -f2 | cut -d" " -f2); do cp -u "$bin" . ; done; done)
+
+						status=$?
+						ERROR=$TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_ANGLE_${PLATFORM}.log
+						buildbot_handle_message "$status" "$ENTRY_ID" "retroarch" "$jobid" "$ERROR"
+
+						if [ $status -eq 0 ]; then
+							MESSAGE="retroarch ANGLE:	[status: done] [$jobid]"
+							echo buildbot job: $MESSAGE >>$TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_ANGLE_${PLATFORM}.log
+							buildbot_log "$MESSAGE"
+						else
+							MESSAGE="retroarch ANGLE:	[status: fail] [$jobid]"
+							echo buildbot job: $MESSAGE >>$TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_ANGLE_${PLATFORM}.log
+						fi
+						;;
+					*)
+						;;
+				esac
 			else
 				MESSAGE="retroarch-debug:	[status: fail] [$jobid]"
 				echo buildbot job: $MESSAGE >>$TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_DEBUG_${PLATFORM}.log
