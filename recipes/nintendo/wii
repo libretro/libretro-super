@@ -11,7 +11,7 @@ fbalpha2012_neogeo libretro-fbalpha_neogeo https://github.com/libretro/fbalpha20
 fceumm libretro-fceumm https://github.com/libretro/libretro-fceumm.git master YES GENERIC Makefile.libretro .
 fixgb libretro-fixgb https://github.com/FIX94/fixGB.git master YES GENERIC Makefile libretro
 fixnes libretro-fixnes https://github.com/FIX94/fixNES.git master YES GENERIC Makefile libretro
-freeintv libretro-freeintv https://github.com/markwkidd/FreeIntv.git master YES GENERIC Makefile .
+freeintv libretro-freeintv https://github.com/libretro/FreeIntv.git master YES GENERIC Makefile .
 gambatte libretro-gambatte https://github.com/libretro/gambatte-libretro.git master YES GENERIC Makefile .
 genesis_plus_gx libretro-genesis_plus_gx https://github.com/libretro/Genesis-Plus-GX.git master YES GENERIC Makefile.libretro .
 lutro libretro-lutro https://github.com/libretro/libretro-lutro master YES GENERIC Makefile .

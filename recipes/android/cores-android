@@ -25,7 +25,7 @@ fbalpha2012_neogeo libretro-fbalpha2012_neogeo https://github.com/libretro/fbalp
 fbneo libretro-fbneo https://github.com/libretro/FBNeo.git master YES GENERIC_JNI Makefile src/burner/libretro/jni
 fceumm libretro-fceumm https://github.com/libretro/libretro-fceumm.git master YES GENERIC_JNI Makefile.libretro jni
 fmsx libretro-fmsx https://github.com/libretro/fmsx-libretro.git master YES GENERIC_JNI Makefile jni
-freeintv libretro-freeintv https://github.com/markwkidd/FreeIntv.git master YES GENERIC_JNI Makefile jni
+freeintv libretro-freeintv https://github.com/libretro/FreeIntv.git master YES GENERIC_JNI Makefile jni
 frodo libretro-frodo https://github.com/libretro/frodo-libretro.git  master NO GENERIC_JNI Makefile jni
 fuse libretro-fuse https://github.com/libretro/fuse-libretro.git master YES GENERIC_JNI Makefile build/jni
 gambatte libretro-gambatte https://github.com/libretro/gambatte-libretro.git master YES GENERIC_JNI Makefile libgambatte/libretro/jni
