@@ -17,7 +17,7 @@ include_core_snes9x2002
 include_core_snes9x2005
 include_core_snes9x2010
 include_core_snes9x
-include_core_bsnes_hd
+include_core_bsnes
 include_core_bsnes_accuracy
 include_core_bsnes_balanced
 include_core_bsnes_performance
