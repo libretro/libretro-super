@@ -78,7 +78,7 @@ o2em libretro-o2em https://github.com/libretro/libretro-o2em.git master YES GENE
 openlara libretro-openlara https://github.com/libretro/OpenLara.git master YES GENERIC Makefile src/platform/libretro
 pcsx_rearmed_interpreter libretro-pcsx_rearmed_interpreter https://github.com/libretro/pcsx_rearmed.git master YES GENERIC Makefile.libretro . USE_DYNAREC=0
 picodrive libretro-picodrive https://github.com/libretro/picodrive.git master YES GENERIC Makefile.libretro .
-play libretro-play https://github.com/libretro/Play-.git master YES CMAKE Makefile build -DBUILD_LIBRETRO_CORE=yes -DBUILD_PLAY=off -DBUILD_TESTS=no -DENABLE_AMAZON_S3=no -DCMAKE_BUILD_TYPE="Release" --target play_libretro
+play libretro-play https://github.com/jpd002/Play-.git master YES CMAKE Makefile build -DBUILD_LIBRETRO_CORE=yes -DBUILD_PLAY=off -DBUILD_TESTS=no -DENABLE_AMAZON_S3=no -DCMAKE_BUILD_TYPE="Release" --target play_libretro
 pocketcdg libretro-pocketcdg https://github.com/libretro/libretro-pocketcdg.git master YES GENERIC Makefile .
 pokemini libretro-pokemini https://github.com/libretro/PokeMini.git master YES GENERIC Makefile .
 ppsspp libretro-ppsspp https://github.com/hrydgard/ppsspp.git master YES GENERIC_GL Makefile libretro
