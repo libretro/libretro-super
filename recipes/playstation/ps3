@@ -24,7 +24,7 @@ hatari libretro-hatari https://github.com/libretro/hatari.git master YES GENERIC
 lutro libretro-lutro https://github.com/libretro/libretro-lutro master NO GENERIC Makefile .
 mame2000 libretro-mame2000 https://github.com/libretro/mame2000-libretro.git master YES GENERIC Makefile .
 mame2003 libretro-mame2003 https://github.com/libretro/mame2003-libretro.git master YES GENERIC Makefile .
-mame2003_plus libretro-mame2003-plus https://github.com/libretro/mame2003-plus-libretro.git master NO GENERIC Makefile .
+mame2003_plus libretro-mame2003-plus https://github.com/libretro/mame2003-plus-libretro.git master YES GENERIC Makefile .
 mednafen_lynx libretro-beetle_lynx https://github.com/libretro/beetle-lynx-libretro.git master YES GENERIC Makefile .
 mednafen_ngp libretro-beetle_ngp https://github.com/libretro/beetle-ngp-libretro.git master YES GENERIC Makefile .
 mednafen_pce_fast libretro-beetle_pce_fast https://github.com/libretro/beetle-pce-fast-libretro.git master YES GENERIC Makefile .
