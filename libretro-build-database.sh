@@ -170,6 +170,11 @@ build_libretro_database() {
 			COMMAND+=' "${LIBRETRODATABASE_META_DAT_DIR}/hacks/${1}.dat"'
 		fi
 
+		#Check if meta homebrew is there
+		if [ -f "${LIBRETRODATABASE_META_DAT_DIR}/homebrew/${1}.dat" ]; then
+			COMMAND+=' "${LIBRETRODATABASE_META_DAT_DIR}/homebrew/${1}.dat"'
+		fi
+
 		#Check for the MAME folders
 		if [ -f "${LIBRETRODATABASE_META_DAT_DIR}/mame-nonmerged/${1}.dat" ]; then
 			COMMAND+=' "${LIBRETRODATABASE_META_DAT_DIR}/mame-nonmerged/${1}.dat"'
