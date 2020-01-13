@@ -11,16 +11,16 @@ libretro_bsnes_build_subdir="bsnes"
 libretro_bsnes_build_makefile="GNUmakefile"
 libretro_bsnes_build_products="out"
 
-include_core_bsnes_hd() {
-	register_module core "bsnes_hd" -theos_ios -ngc -sncps3 -ps3 -psp1 -qnx -wii
+include_core_bsnes_hd_beta() {
+	register_module core "bsnes_hd_beta" -theos_ios -ngc -sncps3 -ps3 -psp1 -qnx -wii
 }
 
-libretro_bsnes_hd_name="bsnes HD"
-libretro_bsnes_hd_git_url="https://github.com/DerKoun/bsnes-hd.git"
-libretro_bsnes_hd_build_args="compiler=\"${CXX17}\" target=\"libretro\""
-libretro_bsnes_hd_build_subdir="bsnes"
-libretro_bsnes_hd_build_makefile="GNUmakefile"
-libretro_bsnes_hd_build_products="out"
+libretro_bsnes_hd_beta_name="bsnes HD"
+libretro_bsnes_hd_beta_git_url="https://github.com/DerKoun/bsnes-hd.git"
+libretro_bsnes_hd_beta_build_args="compiler=\"${CXX17}\" target=\"libretro\""
+libretro_bsnes_hd_beta_build_subdir="bsnes"
+libretro_bsnes_hd_beta_build_makefile="GNUmakefile"
+libretro_bsnes_hd_beta_build_products="out"
 
 include_core_bsnes_accuracy() {
 	register_module core "bsnes_accuracy" -theos_ios -ngc -sncps3 -ps3 -psp1 -qnx -wii
