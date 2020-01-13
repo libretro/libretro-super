@@ -48,7 +48,7 @@ squirreljme libretro-squirreljme https://github.com/XerTheSquirrel/SquirrelJME.g
 stella2014 libretro-stella2014 https://github.com/libretro/stella2014-libretro.git master YES GENERIC Makefile .
 stella libretro-stella https://github.com/stella-emu/stella.git master NO GENERIC Makefile src/libretro
 tgbdual libretro-tgbdual https://github.com/libretro/tgbdual-libretro.git master YES GENERIC Makefile .
-theodore libretro-theodore https://github.com/Zlika/theodore.git master NO GENERIC Makefile .
+theodore libretro-theodore https://github.com/Zlika/theodore.git master YES GENERIC Makefile .
 tyrquake libretro-tyrquake https://github.com/libretro/tyrquake.git master YES GENERIC Makefile .
 vice_x128 libretro-vice_x128 https://github.com/libretro/vice-libretro.git master YES GENERIC Makefile . EMUTYPE=x128
 vice_x64 libretro-vice_x64 https://github.com/libretro/vice-libretro.git master YES GENERIC Makefile .
