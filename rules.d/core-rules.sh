@@ -15,7 +15,7 @@ include_core_bsnes_hd_beta() {
 	register_module core "bsnes_hd_beta" -theos_ios -ngc -sncps3 -ps3 -psp1 -qnx -wii
 }
 
-libretro_bsnes_hd_beta_name="bsnes HD"
+libretro_bsnes_hd_beta_name="bsnes-hd beta"
 libretro_bsnes_hd_beta_git_url="https://github.com/DerKoun/bsnes-hd.git"
 libretro_bsnes_hd_beta_build_args="compiler=\"${CXX17}\" target=\"libretro\""
 libretro_bsnes_hd_beta_build_subdir="bsnes"
