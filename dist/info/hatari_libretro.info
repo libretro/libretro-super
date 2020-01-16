@@ -14,4 +14,4 @@ firmware_count = 1
 firmware0_desc = "tos.img (TOS Boot Image)"
 firmware0_path = "tos.img"
 firmware0_opt = "false"
-notes = "(!) tos.img (md5): c1c57ce48e8ee4135885cee9e63a68a2"
+notes = "(!) tos.img / TOS 1.02 US aka Mega TOS (md5): c1c57ce48e8ee4135885cee9e63a68a2"
