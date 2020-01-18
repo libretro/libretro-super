@@ -774,6 +774,13 @@ libretro_bsnes_mercury_performance_git_url="https://github.com/libretro/bsnes-me
 libretro_bsnes_mercury_performance_build_args="compiler=\"${CXX11}\" profile=\"performance\""
 libretro_bsnes_mercury_performance_build_products="out"
 
+include_core_smsplus() {
+	register_module core "smsplus" -theos_ios -ngc -ps3 -wii
+}
+libretro_smsplus_name="SMSPlus GX"
+libretro_smsplus_git_url="https://github.com/negativeExponent/smsplus-gx.git"
+libretro_smsplus_build_makefile="Makefile.libretro"
+
 include_core_picodrive() {
 	register_module core "picodrive" -theos_ios -ngc -ps3 -wii
 }
