@@ -85,7 +85,7 @@ race libretro-race https://github.com/libretro/RACE.git master YES GENERIC_JNI M
 reminiscence libretro-reminiscence https://github.com/libretro/REminiscence.git master YES GENERIC_JNI Makefile jni
 sameboy libretro-sameboy https://github.com/libretro/SameBoy.git buildbot YES GENERIC_JNI Makefile libretro/jni
 scummvm libretro-scummvm https://github.com/libretro/scummvm.git master YES GENERIC_JNI Makefile backends/platform/libretro/build/jni
-smsplus libretro-smsplus https://github.com/negativeExponent/smsplus-gx.git master YES GENERIC_JNI Makefile jni
+smsplus libretro-smsplus https://github.com/libretro/smsplus-gx.git master YES GENERIC_JNI Makefile jni
 snes9x libretro-snes9x https://github.com/libretro/snes9x.git master YES GENERIC_JNI Makefile libretro/jni
 snes9x2005 libretro-snes9x2005 https://github.com/libretro/snes9x2005.git master YES GENERIC_JNI Makefile jni
 snes9x2005_plus libretro-snes9x2005_plus https://github.com/libretro/snes9x2005.git master YES GENERIC_JNI Makefile jni USE_BLARGG_APU=1
