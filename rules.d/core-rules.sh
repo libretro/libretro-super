@@ -565,6 +565,12 @@ include_core_race() {
 libretro_race_name="RACE"
 libretro_race_git_url="https://github.com/libretro/RACE.git"
 
+include_core_mednafen_pce() {
+	register_module core "mednafen_pce" -theos_ios
+}
+libretro_mednafen_pce_name="Mednafen/Beetle PCE"
+libretro_mednafen_pce_git_url="https://github.com/libretro/beetle-pce-libretro.git"
+
 include_core_mednafen_pce_fast() {
 	register_module core "mednafen_pce_fast" -theos_ios
 }
