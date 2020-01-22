@@ -171,7 +171,7 @@ fi
 for core in $WANT_CORES; do
 	path="jni"
 	append=""
-	if [ $core = "snes9x" ] || [ $core = "genesis_plus_gx" ] || [ $core = "meteor" ] || [ $core = "nestopia" ] || [ $core = "yabause" ] || [ $core = "vbam" ] || [ $core = "vba_next" ] || [ $core = "ppsspp" ]; then
+	if [ $core = "snes9x" ] || [ $core = "genesis_plus_gx" ] || [ $core = "meteor" ] || [ $core = "nestopia" ] || [ $core = "yabause" ] || [ $core = "vbam" ] || [ $core = "vba_next" ] || [ $core = "ppsspp" ] || [ $core = "px68k" ]; then
 		path="libretro/jni"
 	fi
 	if [ $core = "gambatte" ]; then
