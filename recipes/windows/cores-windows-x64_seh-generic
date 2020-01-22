@@ -65,8 +65,8 @@ mednafen_ngp libretro-beetle_ngp https://github.com/libretro/beetle-ngp-libretro
 mednafen_pce libretro-beetle_pce https://github.com/libretro/beetle-pce-libretro.git master YES GENERIC Makefile .
 mednafen_pce_fast libretro-beetle_pce_fast https://github.com/libretro/beetle-pce-fast-libretro.git master YES GENERIC Makefile .
 mednafen_pcfx libretro-beetle_pcfx https://github.com/libretro/beetle-pcfx-libretro.git master YES GENERIC Makefile .
-mednafen_psx libretro-beetle_psx https://github.com/libretro/beetle-psx-libretro.git master YES GENERIC Makefile .
-mednafen_psx_hw libretro-beetle_psx_hw https://github.com/libretro/beetle-psx-libretro.git master YES GENERIC Makefile . HAVE_HW=1
+mednafen_psx libretro-beetle_psx https://github.com/libretro/beetle-psx-libretro.git master YES GENERIC Makefile . HAVE_LIGHTREC=1
+mednafen_psx_hw libretro-beetle_psx_hw https://github.com/libretro/beetle-psx-libretro.git master YES GENERIC Makefile . HAVE_LIGHTREC=1 HAVE_HW=1
 mednafen_saturn libretro-beetle_saturn https://github.com/libretro/beetle-saturn-libretro.git master YES GENERIC Makefile .
 mednafen_snes libretro-beetle_snes https://github.com/libretro/beetle-bsnes-libretro.git master YES GENERIC Makefile .
 mednafen_supergrafx libretro-beetle_supergrafx https://github.com/libretro/beetle-supergrafx-libretro.git master YES GENERIC Makefile .
