@@ -1,3 +1,4 @@
+<<<<<<< 79851c6120c425ef7edbb30eb55af6a2946a08ad:dist/info/boom3_libretro.info
 display_name = "Doom 3 (boom3)"
 authors = "Rinnegatamante|dhewm3"
 supported_extensions = "pk4"
@@ -6,8 +7,37 @@ manufacturer = "Id Software"
 categories = "Game"
 systemname = "Doom 3 Game Engine"
 systemid = "doom_3"
+=======
+# Software Information
+display_name = "Doom 3 (dhewm 3)"
+authors = "Rinnegatamante and dhewm 3 team"
+supported_extensions = "pk4"
+corename = "dhewm3"
+>>>>>>> more libretro features updates D-F:dist/info/dhewm3_libretro.info
 license = "GPLv2"
 permissions = ""
 display_version = "git"
+
+# Hardware Information
+manufacturer = "Id Software"
+categories = "Game engine"
+systemname = "Doom 3 Game Engine"
+systemid = "doom_3"
+
+# Libretro Features
 supports_no_game = "false"
+savestate = "false"
+savestate_features = "null"
+cheats = "false"
+input_descriptors = "true"
+memory_descriptors = "false"
+libretro_saves = "true"
+core_options = "true"
+core_options_version = "2.0"
+load_subsystem = "false"
+hw_render = "true"
+required_hw_api = "OpenGL >= 2.0 | OpenGL ES >= 2.0"
+needs_fullpath = "true"
+disk_control = "false"
+is_experimental = "false"
 database = "Doom 3"

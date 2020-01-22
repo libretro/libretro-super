@@ -1,13 +1,35 @@
+# Software Information
 display_name = "Nintendo - GameCube / Wii (Ishiiruka)"
 authors = "Team Ishiiruka"
 supported_extensions = "gcm|iso|wbfs|ciso|gcz|elf|dol|dff|tgc|wad"
 corename = "Ishiiruka"
-manufacturer = "Nintendo"
 categories = "Emulator"
-systemname = "GameCube / Wii"
-systemid = "gamecube"
-database = "Nintendo - GameCube|Nintendo - Wii"
 license = "GPLv2+"
 permissions = ""
 display_version = "Git"
+
+# Hardware Information
+manufacturer = "Nintendo"
+systemname = "GameCube / Wii"
+systemid = "gamecube"
+
+# Libretro Features
+database = "Nintendo - GameCube|Nintendo - Wii|Nintendo - Wii (Digital)"
 supports_no_game = "false"
+savestate = "true"
+savestate_features = "basic"
+libretro_saves = "true"
+cheats = "false"
+input_descriptors = "true"
+memory_descriptors = "false"
+core_options = "true"
+core_options_version = "1.0"
+load_subsystem = "false"
+hw_render = "true"
+required_hw_api = "OpenGL Core >= 3.3 | OpenGL ES >= 3.0 | Vulkan >= 1.0 | Direct3D >= 10.0"
+needs_fullpath = "true"
+disk_control = "false"
+is_experimental = "false"
+
+# BIOS/Firmware
+notes = "(!) You need to have Dolphin Sys folder in system/dolphin-emu/Sys.|(!) See: https://docs.libretro.com/library/dolphin/#setup"

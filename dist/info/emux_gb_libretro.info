@@ -1,16 +1,37 @@
+# Software Information
 display_name = "Nintendo - Game Boy / Color (Emux GB)"
 authors = "Sebastien Ronsse"
 supported_extensions = "gb|bin|rom"
 corename = "Emux GB"
-manufacturer = "Nintendo"
-categories = "Emulator"
-systemname = "Game Boy/Game Boy Color"
-systemid = "game_boy"
-database = "Nintendo - Game Boy|Nintendo - Game Boy Color"
 license = "GPLv2"
 permissions = ""
-display_version = "Git"
+display_version = "0.1"
+categories = "Emulator"
+
+# Hardware Information
+manufacturer = "Nintendo"
+systemname = "Game Boy/Game Boy Color"
+systemid = "game_boy"
+
+# Libretro Features
+database = "Nintendo - Game Boy|Nintendo - Game Boy Color"
 supports_no_game = "false"
+savestate = "false"
+savestate_features = "null"
+libretro_saves = "false"
+cheats = "false"
+input_descriptors = "false"
+memory_descriptors = "false"
+core_options = "false"
+core_options_version = "null"
+load_subsystem = "false"
+hw_render = "false"
+needs_fullpath = "true"
+disk_control = "false"
+needs_kbd_mouse_focus = "false"
+is_experimental = "true"
+
+# BIOS/Firmware
 firmware_count = 1
 firmware0_desc = "dmg_boot.bin (Game Boy Boot ROM)"
 firmware0_path = "dmg_boot.bin"
