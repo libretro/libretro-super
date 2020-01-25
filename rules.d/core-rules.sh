@@ -780,6 +780,14 @@ libretro_bsnes_mercury_performance_git_url="https://github.com/libretro/bsnes-me
 libretro_bsnes_mercury_performance_build_args="compiler=\"${CXX11}\" profile=\"performance\""
 libretro_bsnes_mercury_performance_build_products="out"
 
+include_core_neocd() {
+	register_module core "neocd" -theos_ios -ngc -ps3 -wii
+}
+libretro_neocd_name="NeoCD"
+libretro_neocd_git_url="https://github.com/libretro/neocd_libretro.git"
+libretro_neocd_git_submodules="yes"
+libretro_neocd_build_makefile="Makefile"
+
 include_core_smsplus() {
 	register_module core "smsplus" -theos_ios -ngc -ps3 -wii
 }

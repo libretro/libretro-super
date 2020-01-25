@@ -48,6 +48,9 @@ include_core_fbalpha2012_cps1
 include_core_fbalpha2012_cps2
 include_core_fbalpha2012_neogeo
 
+# --- Neo Geo cores ---
+include_core_neocd
+
 # --- GBA emulator cores ---
 include_core_vba_next
 include_core_vbam
