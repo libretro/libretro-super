@@ -4,6 +4,5 @@ easyrpg libretro-easyrpg https://github.com/libretro/easyrpg-libretro.git master
 gpsp libretro-gpsp https://github.com/libretro/gpsp.git master YES GENERIC_JNI Makefile jni
 pcsx_rearmed libretro-pcsx_rearmed https://github.com/libretro/pcsx_rearmed.git master YES GENERIC_JNI Makefile.libretro jni
 picodrive libretro-picodrive https://github.com/libretro/picodrive.git master YES GENERIC_JNI Makefile.libretro jni
-parallel_n64 libretro-parallel_n64 https://github.com/libretro/parallel-n64.git master YES GENERIC_JNI Makefile jni
 ppsspp libretro-ppsspp https://github.com/hrydgard/ppsspp.git master YES ANDROID_CMAKE Makefile build -DLIBRETRO=ON
 snes9x2002 libretro-snes9x2002 https://github.com/libretro/snes9x2002.git master YES GENERIC_JNI Makefile jni
