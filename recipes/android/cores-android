@@ -94,7 +94,7 @@ snes9x2005_plus libretro-snes9x2005_plus https://github.com/libretro/snes9x2005.
 snes9x2010 libretro-snes9x2010 https://github.com/libretro/snes9x2010.git master YES GENERIC_JNI Makefile jni
 squirreljme libretro-squirreljme https://github.com/XerTheSquirrel/SquirrelJME.git trunk YES GENERIC_JNI makefilelibretro ratufacoat/libretro/jni
 stella2014 libretro-stella2014 https://github.com/libretro/stella2014-libretro.git master YES GENERIC_JNI Makefile jni
-stella libretro-stella https://github.com/libretro/stella.git master YES GENERIC_JNI Makefile src/libretro/jni
+stella libretro-stella https://github.com/stella-emu/stella.git master YES GENERIC_JNI Makefile src/libretro/jni
 tgbdual libretro-tgbdual https://github.com/libretro/tgbdual-libretro.git master YES GENERIC_JNI Makefile jni
 theodore libretro-theodore https://github.com/Zlika/theodore.git master YES GENERIC_JNI Makefile jni
 thepowdertoy libretro-thepowdertoy https://github.com/libretro/ThePowderToy.git master YES ANDROID_CMAKE Makefile build
