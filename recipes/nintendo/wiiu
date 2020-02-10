@@ -4,7 +4,6 @@ hatari libretro-hatari https://github.com/libretro/hatari.git master YES GENERIC
 atari800 libretro-atari800 https://github.com/libretro/libretro-atari800.git master YES GENERIC Makefile .
 bluemsx libretro-bluemsx https://github.com/libretro/blueMSX-libretro.git master YES GENERIC Makefile .
 stella2014 libretro-stella2014 https://github.com/libretro/stella2014-libretro.git master YES GENERIC Makefile .
-stella libretro-stella https://github.com/stella-emu/stella.git master NO GENERIC Makefile src/libretro
 fbneo libretro-fbneo https://github.com/libretro/FBNeo.git master YES GENERIC Makefile src/burner/libretro
 fbalpha2012 libretro-fbalpha2012 https://github.com/libretro/fbalpha2012.git master YES GENERIC makefile.libretro svn-current/trunk
 fbalpha2012_cps1 libretro-fbalpha2012_cps1 https://github.com/libretro/fbalpha2012_cps1.git master YES GENERIC makefile.libretro .

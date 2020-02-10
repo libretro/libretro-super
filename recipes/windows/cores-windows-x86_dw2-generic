@@ -110,7 +110,7 @@ snes9x2005 libretro-snes9x2005 https://github.com/libretro/snes9x2005.git master
 snes9x2005_plus libretro-snes9x2005_plus https://github.com/libretro/snes9x2005.git master YES GENERIC Makefile . USE_BLARGG_APU=1
 snes9x2010 libretro-snes9x2010 https://github.com/libretro/snes9x2010.git master YES GENERIC Makefile.libretro .
 stella2014 libretro-stella2014 https://github.com/libretro/stella2014-libretro.git master YES GENERIC Makefile .
-stella libretro-stella https://github.com/stella-emu/stella.git master YES GENERIC Makefile src/libretro
+stella libretro-stella https://github.com/libretro/stella.git master YES GENERIC Makefile src/libretro
 squirreljme libretro-squirreljme https://github.com/XerTheSquirrel/SquirrelJME.git trunk YES GENERIC makefilelibretro ratufacoat
 tgbdual libretro-tgbdual https://github.com/libretro/tgbdual-libretro.git master YES GENERIC Makefile .
 theodore libretro-theodore https://github.com/Zlika/theodore.git master YES GENERIC Makefile .
