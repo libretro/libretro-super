@@ -37,7 +37,7 @@ nestopia libretro-nestopia https://github.com/libretro/nestopia.git master YES G
 np2kai libretro-np2kai https://github.com/libretro/NP2kai.git master NO GENERIC Makefile.libretro sdl2
 nxengine libretro-nxengine https://github.com/libretro/nxengine-libretro.git master YES GENERIC Makefile .
 o2em libretro-o2em https://github.com/libretro/libretro-o2em.git master YES GENERIC Makefile .
-pcsx_rearmed libretro-pcsx_rearmed https://github.com/libretro/pcsx_rearmed.git master NO GENERIC Makefile.libretro . USE_DYNAREC=1
+pcsx_rearmed libretro-pcsx_rearmed https://github.com/libretro/pcsx_rearmed.git master NO GENERIC Makefile.libretro .
 picodrive libretro-picodrive https://github.com/libretro/picodrive.git master NO GENERIC Makefile.libretro .
 pokemini libretro-pokemini https://github.com/libretro/PokeMini.git master YES GENERIC Makefile .
 prboom libretro-prboom https://github.com/libretro/libretro-prboom.git master YES GENERIC_ALT Makefile .

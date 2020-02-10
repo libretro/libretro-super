@@ -68,8 +68,8 @@ nestopia libretro-nestopia https://github.com/libretro/nestopia.git master YES G
 np2kai libretro-np2kai https://github.com/libretro/NP2kai.git master YES GENERIC Makefile.libretro sdl2
 nxengine libretro-nxengine https://github.com/libretro/nxengine-libretro.git master YES GENERIC Makefile .
 o2em libretro-o2em https://github.com/libretro/libretro-o2em.git master YES GENERIC Makefile .
-pcsx_rearmed libretro-pcsx_rearmed https://github.com/libretro/pcsx_rearmed.git master YES GENERIC Makefile.libretro . USE_DYNAREC=1
-pcsx_rearmed_interpreter libretro-pcsx_rearmed_interpreter https://github.com/libretro/pcsx_rearmed.git master YES GENERIC Makefile.libretro . USE_DYNAREC=0
+pcsx_rearmed libretro-pcsx_rearmed https://github.com/libretro/pcsx_rearmed.git master YES GENERIC Makefile.libretro . DYNAREC=ari64
+pcsx_rearmed_interpreter libretro-pcsx_rearmed_interpreter https://github.com/libretro/pcsx_rearmed.git master YES GENERIC Makefile.libretro .
 picodrive libretro-picodrive https://github.com/libretro/picodrive.git master YES GENERIC Makefile.libretro .
 play libretro-play https://github.com/jpd002/Play-.git master YES CMAKE Makefile build -DBUILD_LIBRETRO_CORE=yes -DBUILD_PLAY=off -DBUILD_TESTS=no -DENABLE_AMAZON_S3=no -DCMAKE_TOOLCHAIN_FILE=../deps/Dependencies/cmake-ios/ios.cmake -DTARGET_IOS=ON -DCMAKE_BUILD_TYPE="Release" --target play_libretro
 pocketcdg libretro-pocketcdg https://github.com/libretro/libretro-pocketcdg.git master YES GENERIC Makefile .
