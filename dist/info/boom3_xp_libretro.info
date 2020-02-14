@@ -1,8 +1,8 @@
 # Software Information
-display_name = "Doom 3: Resurrection of Evil (dhewm 3 xp)"
+display_name = "Doom 3: Resurrection of Evil (boom 3 xp)"
 authors = "Rinnegatamante and dhewm 3 team"
 supported_extensions = "pk4"
-corename = "dhewm3_xp"
+corename = "boom3_xp"
 license = "GPLv2"
 permissions = ""
 display_version = "git"
