@@ -112,9 +112,9 @@ if [ $1 ]; then
 else
 WANT_CORES=" \
 	2048 \
-   4do \
 	bluemsx \
 	fmsx \
+        opera \
 	mednafen_lynx \
 	mednafen_ngp \
 	mednafen_pce_fast \
