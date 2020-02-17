@@ -182,7 +182,7 @@ include_core_prosystem
 include_core_o2em
 
 # --- 3DO emulator cores ---
-include_core_4do
+include_core_opera
 
 # --- ZX Spectrum emulator cores ---
 include_core_fuse
