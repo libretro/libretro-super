@@ -1,6 +1,6 @@
 display_name = "ScummVM"
 authors = "SCUMMVMdev"
-supported_extensions = "scummvm"
+supported_extensions = "0|1|2|3|5|6|8|16|25|99|101|102|418|455|512|scummvm|scumm|gam|z5|dat|blb|z6|RAW|ROM|taf|zblorb|dcp|(a)|cup|HE0|(A)|D$$|STK|z8|hex|VMD|TGA|ITK|SCN|INF|pic|Z5|z3|blorb|ulx|DAT|cas|PIC|acd|006|SYS|alr|t3|gblorb|tab|AP|CRC|EXE|z4|W32|MAC|mac|WIN|001|003|000|bin|exe|asl|AVD|INI|SND|cat|ANG|CUP|SYS16|img|LB|TLK|MIX|VQA|RLB|FNT|win|HE1|DMU|FON|SCR|TEX|HEP|DIR|DRV|MAP|a3c|GRV|CUR|OPT|gfx|ASK|LNG|ini|RSC|SPP|CC|BND|LA0|TRS|add|HRS|DFW|DR1|ALD|004|002|005|R02|R00|C00|D00|GAM|IDX|ogg|TXT|GRA|BMV|H$$|MSG|VGA|PKD|OUT|99 (PG)|SAV|PAK|BIN|CPS|SHP|DXR|dxr|gmp|SNG|C35|C06|WAV|SMK|wav|CAB|game|Z6|(b)|slg|he2|he1|HE2|SYN|PAT|NUT|nl|PRC|V56|SEQ|P56|AUD|FKR|EX1|rom|LIC|$00|ALL|LTK|txt|acx|VXD|ACX|mpc|msd|ADF|nib|HELLO|dsk|xfd|woz|d$$|SET|SOL|Pat|CFG|BSF|RES|IMD|LFL|SQU|rsc|BBM|2 US|OVL|OVR|007|PNT|pat|CHK|MDT|EMC|ADV|FDT|GMC|FMC|info|HPF|hpf|INE|RBT|CSC|HEB|MID|lfl|LEC|HNM|QA|009|PRF|EGA|MHK|d64|prg|LZC|flac|IMS|REC|MOR|doc|HAG|AGA|BLB|TABLE|PAL|PRG|CLG|ORB|BRO|bro|PH1|DEF|IN|jpg|TOC|j2|Text|CEL|he0|AVI|1C|1c|BAK|L9|CGA|HRC|mhk|RED|SM0|SM1|SOU|RRM|LIB| Seuss's  ABC|CNV|VOC|OGG|GME|GERMAN|SHR|FRENCH|DNR|DSK|dnr|CAT|V16|cab|CLU|b25c|RL|mp3|FRM|SOG|HEX|mma|st|MPC|IMG|ENC|SPR|AD|C|CON|PGM|Z|RL2|MMM|OBJ|ZFS|zfs|STR|z2|z1"
 corename = "ScummVM"
 manufacturer = "LucasArts"
 categories = "Game"
