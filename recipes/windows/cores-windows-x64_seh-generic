@@ -1,6 +1,6 @@
 2048 libretro-2048 https://github.com/libretro/libretro-2048.git master YES GENERIC Makefile.libretro .
 3dengine libretro-3dengine https://github.com/libretro/libretro-3dengine.git master YES GENERIC_GL Makefile .
-4do libretro-4do https://github.com/libretro/4do-libretro.git master YES GENERIC Makefile .
+opera libretro-opera https://github.com/libretro/opera-libretro.git master YES GENERIC Makefile .
 81 libretro-81 https://github.com/libretro/81-libretro.git master YES GENERIC Makefile .
 atari800 libretro-atari800 https://github.com/libretro/libretro-atari800.git master YES GENERIC Makefile .
 blastem libretro-blastem https://github.com/libretro/blastem.git libretro YES GENERIC Makefile.libretro .
@@ -79,7 +79,7 @@ meteor libretro-meteor https://github.com/libretro/meteor-libretro.git master NO
 mgba libretro-mgba https://github.com/libretro/mgba.git master YES GENERIC Makefile.libretro .
 mrboom libretro-mrboom https://github.com/libretro/mrboom-libretro.git master YES GENERIC Makefile .
 mu libretro-mu https://github.com/meepingsnesroms/Mu.git master YES GENERIC Makefile libretroBuildSystem
-mupen64plus_next libretro-mupen64plus_next https://github.com/libretro/mupen64plus-libretro-nx.git develop YES GENERIC_GL Makefile . WITH_DYNAREC=x86_64
+mupen64plus_next libretro-mupen64plus_next https://github.com/libretro/mupen64plus-libretro-nx.git develop YES GENERIC_GL Makefile . WITH_DYNAREC=x86_64 HAVE_PARALLEL_RSP=1 HAVE_THR_AL=1
 nekop2 libretro-nekop2 https://github.com/libretro/libretro-meowPC98.git master YES GENERIC Makefile.libretro libretro
 nestopia libretro-nestopia https://github.com/libretro/nestopia.git master YES GENERIC Makefile libretro
 np2kai libretro-np2kai https://github.com/libretro/NP2kai.git master YES GENERIC Makefile.libretro sdl2

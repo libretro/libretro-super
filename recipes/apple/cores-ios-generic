@@ -1,5 +1,5 @@
 2048 libretro-2048 https://github.com/libretro/libretro-2048.git master YES GENERIC Makefile.libretro .
-4do libretro-4do https://github.com/libretro/4do-libretro.git master YES GENERIC Makefile .
+opera libretro-opera https://github.com/libretro/opera-libretro.git master YES GENERIC Makefile .
 atari800 libretro-atari800 https://github.com/libretro/libretro-atari800.git master YES GENERIC Makefile .
 bluemsx libretro-bluemsx https://github.com/libretro/blueMSX-libretro.git master YES GENERIC Makefile.libretro .
 bsnes libretro-bsnes https://github.com/libretro/bsnes.git master YES GENERIC GNUmakefile bsnes target=libretro binary=library local=false openmp=false

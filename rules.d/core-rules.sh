@@ -977,11 +977,11 @@ include_core_o2em() {
 libretro_o2em_name="O2EM"
 libretro_o2em_git_url="https://github.com/libretro/libretro-o2em.git"
 
-include_core_4do() {
-	register_module core "4do" -ngc -sncps3 -ps3 -psp1 -wii
+include_core_opera() {
+	register_module core "opera" -ngc -sncps3 -ps3 -psp1 -wii
 }
-libretro_4do_name="4DO"
-libretro_4do_git_url="https://github.com/libretro/4do-libretro.git"
+libretro_opera_name="Opera"
+libretro_opera_git_url="https://github.com/libretro/opera-libretro.git"
 
 include_core_stonesoup() {
 	register_module core "stonesoup" -ngc -ps3 -psp1 -qnx -wii

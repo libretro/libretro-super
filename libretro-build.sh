@@ -95,7 +95,7 @@ build_default_cores_little_endian_only() {
 		libretro_build_core gpsp
 		libretro_build_core o2em
 	fi
-	libretro_build_core 4do
+	libretro_build_core opera
 
 	if [ $platform != "qnx" ]; then
 		if [ $platform != "psp1" ]; then
