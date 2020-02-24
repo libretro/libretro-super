@@ -1,0 +1,13 @@
+display_name = "Wolfenstein 3D (ECWolf)"
+authors = "Braden Obrzut"
+supported_extensions = "wl6|n3d|sod|sdm|wl1|pk3"
+corename = "ECWolf"
+manufacturer = "Id Software"
+categories = "Game"
+systemname = "Wolfenstein 3D Game Engine"
+systemid = "wolfenstein3d"
+database = "Wolfenstein3D"
+license = "BSD|LGPL"
+permissions = ""
+supports_no_game = "false"
+notes = "(!) ECWolf requires data ROM 'ecwolf.pk3' inside the System directory.
