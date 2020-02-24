@@ -224,6 +224,7 @@ include_core_vitaquake2
 include_core_vitaquake3
 include_core_boom3
 include_core_prboom
+include_core_ecwolf
 include_core_xrick
 include_core_openlara
 include_core_nxengine

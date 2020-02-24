@@ -401,6 +401,13 @@ include_core_nxengine() {
 libretro_nxengine_name="NXEngine"
 libretro_nxengine_git_url="https://github.com/libretro/nxengine-libretro.git"
 
+include_core_ecwolf() {
+	register_module core "ecwolf"
+}
+libretro_ecwolf_name="ECWolf"
+libretro_ecwolf_git_url="https://github.com/libretro/ecwolf.git"
+libretro_ecwolf_build_platform="$FORMAT_COMPILER_TARGET_ALT"
+
 include_core_prboom() {
 	register_module core "prboom"
 }
