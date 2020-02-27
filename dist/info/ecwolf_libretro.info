@@ -10,4 +10,8 @@ database = "Wolfenstein 3D"
 license = "BSD|LGPL"
 permissions = ""
 supports_no_game = "false"
-notes = "(!) ECWolf requires data ROM 'ecwolf.pk3' inside the System directory."
+notes = "(!) ecwolf.pk3 (md5): c011b428819eea4a80b455c245a5a04d"
+
+firmware_count = 1
+firmware0_desc = "ecwolf.pk3 (ECWolf System File)"
+firmware0_path = "ecwolf.pk3"
