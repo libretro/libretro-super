@@ -144,6 +144,11 @@ build_libretro_database() {
 		if [ -f "${LIBRETRODATABASE_META_DAT_DIR}/releaseyear/${1}.dat" ]; then
 			COMMAND+=' "${LIBRETRODATABASE_META_DAT_DIR}/releaseyear/${1}.dat"'
 		fi
+		
+		#Check if meta genre DAT is there
+		if [ -f "${LIBRETRODATABASE_META_DAT_DIR}/genre/${1}.dat" ]; then
+			COMMAND+=' "${LIBRETRODATABASE_META_DAT_DIR}/genre/${1}.dat"'
+		fi
 
 		#Check if meta rumble DAT is there
 		if [ -f "${LIBRETRODATABASE_META_DAT_DIR}/rumble/${1}.dat" ]; then
