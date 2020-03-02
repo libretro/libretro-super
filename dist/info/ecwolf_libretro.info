@@ -10,7 +10,7 @@ database = "Wolfenstein 3D"
 license = "BSD|LGPL"
 permissions = ""
 supports_no_game = "false"
-notes = "(!) ecwolf.pk3 (md5): c011b428819eea4a80b455c245a5a04d"
+notes = "(!) ecwolf.pk3 (md5): d68107770b3ba230d10aa27472a7617b"
 
 firmware_count = 1
 firmware0_desc = "ecwolf.pk3 (ECWolf System File)"
