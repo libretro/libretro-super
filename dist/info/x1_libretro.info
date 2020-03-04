@@ -1,0 +1,13 @@
+display_name = "X Millennium Sharp X1 emulator"
+authors = "yui"
+supported_extensions = "dx1|zip|2d|2hd|tfd|d88|88d|hdm|xdf|dup|tap|cmd"
+corename = "x1"
+categories = "Computer"
+database = "Sharp X1"
+systemname = "Sharp X1 emulator"
+license = "BSD"
+permissions = ""
+display_version = "0.60"
+supports_no_game = "false"
+notes = "(!) xmil/IPLROM.X1 (md5): eeeea1cd29c6e0e8b094790ae969bfa7|(!) xmil/IPLROM.X1T (md5): 851e4a5936f17d13f8c39a980cf00d77"
+
