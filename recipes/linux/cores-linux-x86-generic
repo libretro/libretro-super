@@ -22,6 +22,7 @@ boom3 libretro-boom3 https://github.com/libretro/boom3.git master YES GENERIC Ma
 dinothawr libretro-dinothawr https://github.com/libretro/Dinothawr.git master YES GENERIC Makefile .
 dosbox_svn libretro-dosbox_svn https://github.com/libretro/dosbox-svn libretro YES GENERIC Makefile.libretro libretro target=x86
 dosbox_svn_ce libretro-dosbox_svn_ce https://github.com/libretro/dosbox-svn community-patches YES GENERIC Makefile.libretro libretro target=x86
+ecwolf libretro-ecwolf https://github.com/libretro/ecwolf.git master YES GENERIC Makefile src/libretro
 easyrpg libretro-easyrpg https://github.com/libretro/easyrpg-libretro.git master YES GENERIC Makefile.libretro builds/libretro
 fbneo libretro-fbneo https://github.com/libretro/FBNeo.git master YES GENERIC Makefile src/burner/libretro
 fbalpha2012 libretro-fbalpha2012 https://github.com/libretro/fbalpha2012.git master YES GENERIC makefile.libretro svn-current/trunk
