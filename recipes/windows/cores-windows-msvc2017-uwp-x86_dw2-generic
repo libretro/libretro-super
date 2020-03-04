@@ -45,4 +45,5 @@ tyrquake libretro-tyrquake https://github.com/libretro/tyrquake.git master YES G
 vbam libretro-vbam https://github.com/libretro/vbam-libretro.git master YES GENERIC Makefile src/libretro
 vecx libretro-vecx https://github.com/libretro/libretro-vecx.git master YES GENERIC Makefile.libretro .
 virtualjaguar libretro-virtualjaguar https://github.com/libretro/virtualjaguar-libretro.git master YES GENERIC Makefile .
+x1 libretro-xmil https://github.com/libretro/xmil-libretro.git master YES GENERIC Makefile.libretro libretro
 yabause libretro-yabause https://github.com/libretro/yabause.git master YES GENERIC Makefile yabause/src/libretro
