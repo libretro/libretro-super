@@ -117,6 +117,7 @@ vice_xpet libretro-vice_xpet https://github.com/libretro/vice-libretro.git maste
 vice_xplus4 libretro-vice_xplus4 https://github.com/libretro/vice-libretro.git master YES GENERIC Makefile . EMUTYPE=xplus4
 vice_xvic libretro-vice_xvic https://github.com/libretro/vice-libretro.git master YES GENERIC Makefile . EMUTYPE=xvic
 virtualjaguar libretro-virtualjaguar https://github.com/libretro/virtualjaguar-libretro.git master YES GENERIC Makefile .
+x1 libretro-xmil https://github.com/libretro/xmil-libretro.git master YES GENERIC Makefile.libretro libretro
 xrick libretro-xrick https://github.com/libretro/xrick-libretro.git master YES GENERIC Makefile .
 yabasanshiro libretro-yabasanshiro https://github.com/libretro/yabause.git yabasanshiro NO GENERIC Makefile yabause/src/libretro
 yabause libretro-yabause https://github.com/libretro/yabause.git master YES GENERIC Makefile yabause/src/libretro
