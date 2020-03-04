@@ -54,3 +54,4 @@ tgbdual libretro-tgbdual https://github.com/libretro/tgbdual-libretro.git master
 tyrquake libretro-tyrquake https://github.com/libretro/tyrquake.git master NO GENERIC Makefile .
 vitaquake2 libretro-vitaquake2 https://github.com/libretro/vitaquake2.git libretro YES GENERIC Makefile .
 vecx libretro-vecx https://github.com/libretro/libretro-vecx.git master YES GENERIC Makefile .
+x1 libretro-xmil https://github.com/libretro/xmil-libretro.git master YES GENERIC Makefile.libretro libretro
