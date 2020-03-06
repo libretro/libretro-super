@@ -62,6 +62,7 @@ tyrquake libretro-tyrquake https://github.com/libretro/tyrquake.git master YES G
 vba_next libretro-vba_next https://github.com/libretro/vba-next.git master YES GENERIC_ALT Makefile.libretro .
 vecx libretro-vecx https://github.com/libretro/libretro-vecx.git master YES GENERIC Makefile.libretro .
 virtualjaguar libretro-virtualjaguar https://github.com/libretro/virtualjaguar-libretro.git master YES GENERIC Makefile .
+vitaquake2 libretro-vitaquake2 https://github.com/libretro/vitaquake2.git libretro YES GENERIC Makefile .
 yabause libretro-yabause https://github.com/libretro/yabause.git master NO GENERIC Makefile yabause/src/libretro
 gw libretro-gw https://github.com/libretro/gw-libretro.git master YES GENERIC Makefile .
 81 libretro-81 https://github.com/libretro/81-libretro.git master YES GENERIC Makefile .
