@@ -2,6 +2,7 @@
 opera libretro-opera https://github.com/libretro/opera-libretro.git master YES GENERIC_JNI Makefile jni
 81 libretro-81 https://github.com/libretro/81-libretro.git master YES GENERIC_JNI Makefile build/jni
 atari800 libretro-atari800 https://github.com/libretro/libretro-atari800.git master YES GENERIC_JNI Makefile jni
+bk libretro-bk https://github.com/libretro/bk-emulator.git master YES GENERIC_JNI Makefile.libretro jni
 bluemsx libretro-bluemsx https://github.com/libretro/blueMSX-libretro.git master YES GENERIC_JNI Makefile jni
 bnes libretro-bnes https://github.com/libretro/bnes-libretro.git master NO GENERIC_JNI Makefile libretro/jni
 bsnes libretro-bsnes https://github.com/libretro/bsnes.git master YES GENERIC_JNI Makefile bsnes/target-libretro/jni
