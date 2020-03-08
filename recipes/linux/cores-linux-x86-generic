@@ -119,7 +119,6 @@ tic80 libretro-tic80 https://github.com/libretro/TIC-80.git master YES CMAKE Mak
 tyrquake libretro-tyrquake https://github.com/libretro/tyrquake.git master YES GENERIC Makefile .
 vitaquake2 libretro-vitaquake2 https://github.com/libretro/vitaquake2.git libretro YES GENERIC Makefile .
 vitaquake3 libretro-vitaquake3 https://github.com/libretro/vitaquake3.git libretro YES GENERIC Makefile .
-vitaquake3-oa libretro-vitaquake3-oa https://github.com/libretro/vitaquake3.git libretro YES GENERIC Makefile.oa .
 vitavoyager libretro-vitavoyager https://github.com/libretro/vitaVoyager.git libretro YES GENERIC Makefile .
 uzem libretro-uzem https://github.com/libretro/libretro-uzem.git master YES GENERIC Makefile .
 vba_next libretro-vba_next https://github.com/libretro/vba-next.git master YES GENERIC Makefile.libretro .
