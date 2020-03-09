@@ -15,6 +15,7 @@ ecwolf libretro-ecwolf https://github.com/libretro/ecwolf.git master YES GENERIC
 easyrpg libretro-easyrpg https://github.com/libretro/easyrpg-libretro.git master YES GENERIC Makefile.libretro builds/libretro
 fceumm libretro-fceumm https://github.com/libretro/libretro-fceumm.git master YES GENERIC Makefile.libretro .
 fmsx libretro-fmsx https://github.com/libretro/fmsx-libretro.git master YES GENERIC Makefile .
+freechaf libretro-freechaf https://github.com/libretro/FreeChaF.git master YES GENERIC Makefile .
 freeintv libretro-freeintv https://github.com/libretro/FreeIntv.git master YES GENERIC Makefile .
 genesis_plus_gx libretro-genesis_plus_gx https://github.com/libretro/Genesis-Plus-GX.git master YES GENERIC Makefile.libretro .
 gme libretro-gme https://github.com/libretro/libretro-gme.git master YES GENERIC Makefile .
