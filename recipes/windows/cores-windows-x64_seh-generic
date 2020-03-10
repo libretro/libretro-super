@@ -123,7 +123,6 @@ tyrquake libretro-tyrquake https://github.com/libretro/tyrquake.git master YES G
 vitaquake2 libretro-vitaquake2 https://github.com/libretro/vitaquake2.git libretro YES GENERIC Makefile .
 vitaquake3 libretro-vitaquake3 https://github.com/libretro/vitaquake3.git libretro YES GENERIC Makefile .
 vitavoyager libretro-vitavoyager https://github.com/libretro/vitaVoyager.git libretro YES GENERIC Makefile .
-dosbox_svn libretro-dosbox_svn https://github.com/libretro/dosbox-svn libretro YES GENERIC Makefile.libretro libretro
 uzem libretro-uzem https://github.com/libretro/libretro-uzem.git master YES GENERIC Makefile .
 vba_next libretro-vba_next https://github.com/libretro/vba-next.git master YES GENERIC Makefile.libretro .
 vbam libretro-vbam https://github.com/libretro/vbam-libretro.git master YES GENERIC Makefile src/libretro
