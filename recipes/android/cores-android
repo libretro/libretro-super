@@ -27,6 +27,7 @@ fbalpha2012_cps2 libretro-fbalpha2012_cps2 https://github.com/libretro/fbalpha20
 fbalpha2012_neogeo libretro-fbalpha2012_neogeo https://github.com/libretro/fbalpha2012_neogeo.git master YES GENERIC_JNI makefile.libretro projectfiles/libretro-android/jni
 fbneo libretro-fbneo https://github.com/libretro/FBNeo.git master YES GENERIC_JNI Makefile src/burner/libretro/jni
 fceumm libretro-fceumm https://github.com/libretro/libretro-fceumm.git master YES GENERIC_JNI Makefile.libretro jni
+ffmpeg libretro-ffmpeg https://github.com/libretro/FFmpeg.git master YES GENERIC_JNI Makefile libretro/jni
 fmsx libretro-fmsx https://github.com/libretro/fmsx-libretro.git master YES GENERIC_JNI Makefile jni
 freechaf libretro-freechaf https://github.com/libretro/FreeChaF.git master YES GENERIC_JNI Makefile jni
 freeintv libretro-freeintv https://github.com/libretro/FreeIntv.git master YES GENERIC_JNI Makefile jni
