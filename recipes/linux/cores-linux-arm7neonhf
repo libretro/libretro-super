@@ -68,7 +68,7 @@ mesen libretro-mesen https://github.com/SourMesen/Mesen.git master YES GENERIC M
 meteor libretro-meteor https://github.com/libretro/meteor-libretro.git master NO GENERIC Makefile libretro
 mgba libretro-mgba https://github.com/libretro/mgba.git master YES GENERIC Makefile.libretro .
 mrboom libretro-mrboom https://github.com/libretro/mrboom-libretro.git master YES GENERIC Makefile .
-mu libretro-mu https://github.com/meepingsnesroms/Mu.git master YES GENERIC Makefile libretroBuildSystem
+mu libretro-mu https://github.com/libretro/Mu.git master YES GENERIC Makefile libretroBuildSystem
 mupen64plus_next libretro-mupen64plus_next https://github.com/libretro/mupen64plus-libretro-nx.git mupen_next NO GENERIC_GL Makefile . WITH_DYNAREC=arm
 nekop2 libretro-nekop2 https://github.com/libretro/libretro-meowPC98.git master YES GENERIC Makefile.libretro libretro
 neocd libretro-neocd https://github.com/libretro/neocd_libretro.git master YES GENERIC Makefile .
