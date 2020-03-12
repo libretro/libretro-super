@@ -102,6 +102,7 @@ snes9x2010 libretro-snes9x2010 https://github.com/libretro/snes9x2010.git master
 squirreljme libretro-squirreljme https://github.com/XerTheSquirrel/SquirrelJME.git trunk YES GENERIC makefilelibretro ratufacoat
 stella2014 libretro-stella2014 https://github.com/libretro/stella2014-libretro.git master YES GENERIC Makefile .
 stella libretro-stella https://github.com/stella-emu/stella.git master YES GENERIC Makefile src/libretro
+test libretro-samples https://github.com/libretro/libretro-samples.git master YES GENERIC Makefile tests/test
 tgbdual libretro-tgbdual https://github.com/libretro/tgbdual-libretro.git master YES GENERIC Makefile .
 theodore libretro-theodore https://github.com/Zlika/theodore.git master YES GENERIC Makefile .
 thepowdertoy libretro-thepowdertoy https://github.com/libretro/ThePowderToy.git master YES CMAKE Makefile build -DCMAKE_BUILD_TYPE=Release
