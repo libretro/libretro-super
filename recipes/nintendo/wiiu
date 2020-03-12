@@ -68,3 +68,4 @@ vice_xcbm2 libretro-vice_xcbm2 https://github.com/libretro/vice-libretro.git mas
 vice_xpet libretro-vice_xpet https://github.com/libretro/vice-libretro.git master YES GENERIC Makefile . EMUTYPE=xpet
 vice_xplus4 libretro-vice_xplus4 https://github.com/libretro/vice-libretro.git master YES GENERIC Makefile . EMUTYPE=xplus4
 vice_xvic libretro-vice_xvic https://github.com/libretro/vice-libretro.git master YES GENERIC Makefile . EMUTYPE=xvic
+test libretro-samples https://github.com/libretro/libretro-samples.git master YES GENERIC Makefile tests/test
