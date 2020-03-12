@@ -30,7 +30,7 @@ mednafen_pce_fast libretro-beetle_pce_fast https://github.com/aliaspider/beetle-
 mednafen_vb libretro-beetle_vb https://github.com/libretro/beetle-vb-libretro.git master YES GENERIC Makefile .
 mednafen_wswan libretro-beetle_wswan https://github.com/libretro/beetle-wswan-libretro.git master YES GENERIC Makefile .
 mgba libretro-mgba https://github.com/libretro/mgba.git master YES GENERIC Makefile.libretro .
-mu libretro-mu https://github.com/meepingsnesroms/Mu.git master YES GENERIC Makefile libretroBuildSystem
+mu libretro-mu https://github.com/libretro/Mu.git master YES GENERIC Makefile libretroBuildSystem
 nestopia libretro-nestopia https://github.com/libretro/nestopia.git master YES GENERIC Makefile libretro
 np2kai libretro-np2kai https://github.com/libretro/NP2kai.git master NO GENERIC Makefile.libretro sdl2
 nxengine libretro-nxengine https://github.com/libretro/nxengine-libretro.git master YES GENERIC Makefile .

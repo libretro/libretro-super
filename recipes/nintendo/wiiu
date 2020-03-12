@@ -33,7 +33,7 @@ mednafen_wswan libretro-beetle_wswan https://github.com/libretro/beetle-wswan-li
 mednafen_lynx libretro-beetle_lynx https://github.com/libretro/beetle-lynx-libretro.git master YES GENERIC Makefile .
 mgba libretro-mgba https://github.com/libretro/mgba.git master YES GENERIC Makefile.libretro .
 mrboom libretro-mrboom https://github.com/libretro/mrboom-libretro.git master YES GENERIC Makefile .
-mu libretro-mu https://github.com/meepingsnesroms/Mu.git master YES GENERIC Makefile libretroBuildSystem
+mu libretro-mu https://github.com/libretro/Mu.git master YES GENERIC Makefile libretroBuildSystem
 nestopia libretro-nestopia https://github.com/libretro/nestopia.git master YES GENERIC Makefile libretro
 nekop2 libretro-nekop2 https://github.com/libretro/libretro-meowPC98.git master YES GENERIC Makefile.libretro libretro
 np2kai libretro-np2kai https://github.com/libretro/NP2kai.git master NO GENERIC Makefile.libretro sdl2
