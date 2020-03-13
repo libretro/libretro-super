@@ -14,6 +14,7 @@ fbalpha2012_cps1 libretro-fbalpha2012_cps1 https://github.com/libretro/fbalpha20
 fbalpha2012_cps2 libretro-fbalpha2012_cps2 https://github.com/libretro/fbalpha2012_cps2.git master YES GENERIC makefile.libretro .
 fbalpha2012_cps3 libretro-fbalpha2012_cps3 https://github.com/libretro/fbalpha2012_cps3.git master YES GENERIC makefile.libretro svn-current/trunk
 fbalpha2012_neogeo libretro-fbalpha_neogeo https://github.com/libretro/fbalpha2012_neogeo.git master YES GENERIC Makefile .
+ffmpeg libretro-ffmpeg https://github.com/libretro/FFmpeg.git master YES GENERIC Makefile libretro
 fmsx libretro-fmsx https://github.com/libretro/fmsx-libretro.git master YES GENERIC Makefile .
 freeintv libretro-freeintv https://github.com/libretro/FreeIntv.git master YES GENERIC Makefile .
 fuse libretro-fuse https://github.com/libretro/fuse-libretro.git master YES GENERIC Makefile .
