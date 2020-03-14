@@ -20,6 +20,7 @@ freeintv libretro-freeintv https://github.com/libretro/FreeIntv.git master YES G
 fuse libretro-fuse https://github.com/libretro/fuse-libretro.git master YES GENERIC Makefile .
 gambatte libretro-gambatte https://github.com/libretro/gambatte-libretro.git master YES GENERIC Makefile .
 genesis_plus_gx libretro-genesis_plus_gx https://github.com/libretro/Genesis-Plus-GX.git master YES GENERIC Makefile.libretro .
+gme libretro-gme https://github.com/libretro/libretro-gme.git master YES GENERIC Makefile .
 gpsp libretro-gpsp https://github.com/libretro/gpsp.git master YES GENERIC Makefile .
 gw libretro-gw https://github.com/libretro/gw-libretro.git master YES GENERIC Makefile .
 handy libretro-handy https://github.com/libretro/libretro-handy.git master YES GENERIC Makefile .
