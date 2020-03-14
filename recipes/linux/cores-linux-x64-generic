@@ -26,7 +26,7 @@ boom3 libretro-boom3 https://github.com/libretro/boom3.git master YES GENERIC Ma
 boom3_xp libretro-boom3_xp https://github.com/libretro/boom3.git master YES GENERIC Makefile neo D3XP=ON
 dinothawr libretro-dinothawr https://github.com/libretro/Dinothawr.git master YES GENERIC Makefile .
 dolphin libretro-dolphin https://github.com/libretro/dolphin.git master YES CMAKE Makefile build -DLIBRETRO=ON -DLIBRETRO_STATIC=1 -DCMAKE_BUILD_TYPE=Release -DCMAKE_CXX_COMPILER=g++-7 -DCMAKE_C_COMPILER=gcc-7
-dosbox_core libretro-dosbox_core https://github.com/libretro/dosbox-core libretro YES GENERIC Makefile.libretro libretro CC=gcc-9 CXX=g++-9 WITH_DYNAREC=x86_64
+dosbox_core libretro-dosbox_core https://github.com/libretro/dosbox-core libretro YES GENERIC Makefile.libretro libretro CC=gcc-9 CXX=g++-9 STATIC_LIBCXX=1 WITH_DYNAREC=x86_64
 dosbox_svn libretro-dosbox_svn https://github.com/libretro/dosbox-svn libretro YES GENERIC Makefile.libretro libretro WITH_DYNAREC=x86_64
 dosbox_svn_ce libretro-dosbox_svn_ce https://github.com/libretro/dosbox-svn community-patches YES GENERIC Makefile.libretro libretro WITH_DYNAREC=x86_64
 ecwolf libretro-ecwolf https://github.com/libretro/ecwolf.git master YES GENERIC Makefile src/libretro
