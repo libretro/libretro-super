@@ -43,7 +43,7 @@ pcsx_rearmed libretro-pcsx_rearmed https://github.com/libretro/pcsx_rearmed.git 
 picodrive libretro-picodrive https://github.com/libretro/picodrive.git master YES GENERIC Makefile.libretro .
 pocketcdg libretro-pocketcdg https://github.com/libretro/libretro-pocketcdg.git master YES GENERIC Makefile .
 pokemini libretro-pokemini https://github.com/libretro/PokeMini.git master YES GENERIC Makefile .
-prboom libretro-prboom https://github.com/libretro/libretro-prboom.git master NO GENERIC Makefile .
+prboom libretro-prboom https://github.com/libretro/libretro-prboom.git master YES GENERIC Makefile .
 prosystem libretro-prosystem https://github.com/libretro/prosystem-libretro.git master YES GENERIC Makefile .
 quasi88 libretro-quasi88 https://github.com/libretro/quasi88-libretro.git master YES GENERIC Makefile .
 quicknes libretro-quicknes https://github.com/libretro/QuickNES_Core.git master YES GENERIC Makefile .
