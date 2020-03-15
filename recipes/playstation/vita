@@ -28,6 +28,7 @@ mednafen_pce_fast libretro-beetle_pce_fast https://github.com/libretro/beetle-pc
 mednafen_vb libretro-beetle_vb https://github.com/libretro/beetle-vb-libretro.git master YES GENERIC Makefile .
 mednafen_wswan libretro-beetle_wswan https://github.com/libretro/beetle-wswan-libretro.git master YES GENERIC Makefile .
 mgba libretro-mgba https://github.com/libretro/mgba.git master NO GENERIC Makefile.libretro .
+mrboom libretro-mrboom https://github.com/libretro/mrboom-libretro.git master YES GENERIC Makefile .
 mu libretro-mu https://github.com/libretro/Mu.git master YES GENERIC Makefile libretroBuildSystem
 parallel_n64 libretro-parallel_n64 https://github.com/libretro/parallel-n64.git master YES Makefile . WITH_DYNAREC=arm
 nestopia libretro-nestopia https://github.com/libretro/nestopia.git master YES GENERIC Makefile libretro
