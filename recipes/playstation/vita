@@ -41,6 +41,7 @@ picodrive libretro-picodrive https://github.com/libretro/picodrive.git master YE
 pokemini libretro-pokemini https://github.com/libretro/PokeMini.git master YES GENERIC Makefile .
 prboom libretro-prboom https://github.com/libretro/libretro-prboom.git master YES GENERIC_ALT Makefile .
 prosystem libretro-prosystem https://github.com/libretro/prosystem-libretro.git master YES GENERIC Makefile .
+puae libretro-uae https://github.com/libretro/libretro-uae.git master YES GENERIC Makefile .
 quasi88 libretro-quasi88 https://github.com/libretro/quasi88-libretro.git master YES GENERIC Makefile .
 quicknes libretro-quicknes https://github.com/libretro/QuickNES_Core.git master YES GENERIC Makefile .
 race libretro-race https://github.com/libretro/RACE.git master YES GENERIC Makefile .
