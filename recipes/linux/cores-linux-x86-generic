@@ -5,7 +5,6 @@ opera libretro-opera https://github.com/libretro/opera-libretro.git master YES G
 atari800 libretro-atari800 https://github.com/libretro/libretro-atari800.git master YES GENERIC Makefile .
 bk libretro-bk https://github.com/libretro/bk-emulator.git master YES GENERIC Makefile.libretro .
 bluemsx libretro-bluemsx https://github.com/libretro/blueMSX-libretro.git master YES GENERIC Makefile.libretro .
-bnes libretro-bnes https://github.com/libretro/bnes-libretro.git master NO GENERIC Makefile .
 bsnes libretro-bsnes https://github.com/libretro/bsnes.git master YES GENERIC GNUmakefile bsnes target=libretro binary=library local=false platform=linux
 bsnes_hd_beta libretro-bsnes_hd_beta https://github.com/DerKoun/bsnes-hd.git master YES GENERIC GNUmakefile bsnes compiler=g++-7 target=libretro binary=library local=false platform=linux
 bsnes2014 libretro-bsnes2014 https://github.com/libretro/bsnes-libretro.git libretro YES GENERIC Makefile . | bsnes2014_accuracy:profile=accuracy bsnes2014_balanced:profile=balanced bsnes2014_performance:profile=performance
