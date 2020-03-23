@@ -384,6 +384,7 @@ build_libretro_generic_makefile() {
 				android ) EXTRAARGS="-DANDROID_PLATFORM=android-${API_LEVEL} \
 								-DANDROID_ABI=${ABI_OVERRIDE} \
 								-DCMAKE_TOOLCHAIN_FILE=${NDK_ROOT}/build/cmake/android.toolchain.cmake" ;;
+				3ds|ctr ) EXTRAARGS="-DCMAKE_TOOLCHAIN_FILE=${WORK}/cmake/ctr.cmake" ;;
 				* ) EXTRAARGS="" ;;
 			esac
 
