@@ -385,6 +385,9 @@ build_libretro_generic_makefile() {
 								-DANDROID_ABI=${ABI_OVERRIDE} \
 								-DCMAKE_TOOLCHAIN_FILE=${NDK_ROOT}/build/cmake/android.toolchain.cmake" ;;
 				3ds|ctr ) EXTRAARGS="-DCMAKE_TOOLCHAIN_FILE=${WORK}/cmake/ctr.cmake" ;;
+				vita ) EXTRAARGS="-DCMAKE_TOOLCHAIN_FILE=${WORK}/cmake/vita.cmake" ;;
+				psp|psp1 ) EXTRAARGS="-DCMAKE_TOOLCHAIN_FILE=${WORK}/cmake/psp1.cmake" ;;
+
 				* ) EXTRAARGS="" ;;
 			esac
 
