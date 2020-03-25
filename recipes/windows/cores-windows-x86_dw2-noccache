@@ -1,1 +1,1 @@
-dosbox_core libretro-dosbox_core https://github.com/libretro/dosbox-core libretro YES GENERIC Makefile.libretro libretro STATIC_LIBCXX=1 BUNDLED_AUDIO_CODECS=0 BUNDLED_LIBSNDFILE=0 STATIC_PACKAGES=1 EXTRA_PACKAGES="ogg iconv" CMAKE_GENERATOR="MSYS Makefiles" WITH_DYNAREC=x86
+
