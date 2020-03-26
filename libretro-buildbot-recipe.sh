@@ -398,10 +398,10 @@ build_libretro_generic_makefile() {
 			fi
 
 			eval "set -- ${EXTRAARGS} \${CORE_ARGS} -DCMAKE_VERBOSE_MAKEFILE=ON"
-			echo "BUILD CMD: ${CMAKE} $*" 2>&1 | tee -a "$LOGFILE"
+			echo "BUILD CMD: ${HELPER} ${CMAKE} $*" 2>&1 | tee -a "$LOGFILE"
 			echo "$@" .. | xargs ${CMAKE} 2>&1 | tee -a "$LOGFILE"
-			echo "BUILD CMD: ${CMAKE} --build . --target ${core}_libretro --config Release -- ${JOBS_FLAG}${JOBS}" 2>&1 | tee -a "$LOGFILE"
-			${CMAKE} --build . --target ${core}_libretro --config Release -- ${JOBS_FLAG}${JOBS} 2>&1 | tee -a "$LOGFILE"
+			echo "BUILD CMD: ${HELPER} ${CMAKE} --build . --target ${core}_libretro --config Release -- ${JOBS_FLAG}${JOBS}" 2>&1 | tee -a "$LOGFILE"
+			${HELPER} ${CMAKE} --build . --target ${core}_libretro --config Release -- ${JOBS_FLAG}${JOBS} 2>&1 | tee -a "$LOGFILE"
 
 			find . -mindepth 2 -name "${CORENAM}" -exec cp -f "{}" . \;
 		elif [ "${COMMAND}" = "LEIRADEL" ]; then
