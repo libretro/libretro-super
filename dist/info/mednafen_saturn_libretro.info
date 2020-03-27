@@ -1,6 +1,6 @@
 display_name = "Sega - Saturn (Beetle Saturn)"
 authors = "Mednafen Team"
-supported_extensions = "bin|ccd|chd|cue|toc|m3u"
+supported_extensions = "ccd|chd|cue|toc|m3u"
 corename = "Beetle Saturn"
 manufacturer = "Sega"
 categories = "Emulator"
