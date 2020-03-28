@@ -27,7 +27,7 @@ firmware2_opt = "true"
 firmware3_desc = "CM32L_PCM.ROM (CM-32L/CM-64/LAPC-I PCM ROM)"
 firmware3_path = "CM32L_PCM.ROM"
 firmware3_opt = "true"
-notes = "(!) This core requires libsdl1.2 and libsdl-net1.2.|(!) MT32_CONTROL.ROM (md5): 5626206284b22c2734f3e9efefcd2675|(!) MT32_PCM.ROM (md5): 89e42e386e82e0cacb4a2704a03706ca|(!) CM32L_CONTROL.ROM (md5): bfff32b6144c1d706109accb6e6b1113|(!) CM32L_PCM.ROM (md5): 08cdcfa0ed93e9cb16afa76e6ac5f0a4"
+notes = "(!) MT32_CONTROL.ROM (md5): 5626206284b22c2734f3e9efefcd2675|(!) MT32_PCM.ROM (md5): 89e42e386e82e0cacb4a2704a03706ca|(!) CM32L_CONTROL.ROM (md5): bfff32b6144c1d706109accb6e6b1113|(!) CM32L_PCM.ROM (md5): 08cdcfa0ed93e9cb16afa76e6ac5f0a4"
 
 # Libretro Features
 database = "DOS"
