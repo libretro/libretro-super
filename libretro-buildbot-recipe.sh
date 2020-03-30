@@ -1593,6 +1593,30 @@ if [ "${PLATFORM}" == "ps3" ] && [ "${RA}" == "YES" ]; then
 	fi
 fi
 
+if [ "${PLATFORM}" == "psl1ght" ] && [ "${RA}" == "YES" ]; then
+
+	if [ "${BUILD}" == "YES" -o "${FORCE}" == "YES" -o "${FORCE_RETROARCH_BUILD}" == "YES" -o "${CORES_BUILT}" == "YES" ]; then
+
+		touch $TMPDIR/built-frontend
+
+		cd dist-scripts
+		rm *.a
+		cp $RARCH_DIST_DIR/*.a .
+
+		time sh ./dist-cores.sh psl1ght 2>&1 | tee -a $TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_${PLATFORM}.log
+
+		RET=${PIPESTATUS[0]}
+		ERROR=$TMPDIR/log/${BOT}/${LOGDATE}/${LOGDATE}_RetroArch_${PLATFORM}.log
+		buildbot_handle_message "$RET" "$ENTRY_ID" "retroarch-psl1ght" "$jobid" "$ERROR"
+
+		if [ -n "$LOGURL" ]; then
+			ENTRY_ID=`curl -X POST -d type="start" -d master_log="$MASTER_LOG_ID" -d platform="$jobid" -d name="retroarch" http://buildserver.libretro.com/build_entry/`
+		fi
+
+		ENTRY_ID=""
+	fi
+fi
+
 if [ "${PLATFORM}" = "emscripten" ] && [ "${RA}" = "YES" ]; then
 
 	if [ "${BUILD}" == "YES" -o "${FORCE}" == "YES" -o "${FORCE_RETROARCH_BUILD}" == "YES" -o "${CORES_BUILT}" == "YES" ]; then
