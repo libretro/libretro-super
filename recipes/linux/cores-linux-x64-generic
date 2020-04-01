@@ -52,6 +52,7 @@ gpsp libretro-gpsp https://github.com/libretro/gpsp.git master YES GENERIC Makef
 gw libretro-gw https://github.com/libretro/gw-libretro.git master YES GENERIC Makefile .
 handy libretro-handy https://github.com/libretro/libretro-handy.git master YES GENERIC Makefile .
 hatari libretro-hatari https://github.com/libretro/hatari.git master YES GENERIC Makefile.libretro .
+hbmame libretro-hbmame https://github.com/libretro/hbmame-libretro.git master YES GENERIC Makefile.libretro . PTR64=1
 higan_sfc libretro-higan https://gitlab.com/higan/higan.git libretro YES GENERIC GNUmakefile higan compiler=g++ target=libretro binary=library
 higan_sfc_balanced libretro-nside https://github.com/libretro/nSide.git master YES GENERIC GNUmakefile nSide compiler=g++ target=libretro binary=library
 ishiiruka libretro-ishiiruka https://github.com/libretro/Ishiiruka.git master YES CMAKE Makefile build -DLIBRETRO=ON -DCMAKE_BUILD_TYPE=Release -DCMAKE_CXX_COMPILER=g++-7 -DCMAKE_C_COMPILER=gcc-7
