@@ -343,6 +343,7 @@ build_libretro_databases() {
 	build_libretro_database "MAME 2010" "rom.crc"
 	build_libretro_database "MAME 2015" "rom.crc"
 	build_libretro_database "MAME 2016" "rom.crc"
+	build_libretro_database "HBMAME" "rom.crc"
 	build_libretro_database "FBNeo - Arcade Games" "rom.crc"
 	build_libretro_database "DOOM" "rom.crc"
 	build_libretro_database "Cave Story" "rom.crc"
