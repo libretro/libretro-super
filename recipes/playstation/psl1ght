@@ -71,3 +71,4 @@ vice_xpet libretro-vice_xpet https://github.com/libretro/vice-libretro.git maste
 vice_xplus4 libretro-vice_xplus4 https://github.com/libretro/vice-libretro.git master NO GENERIC Makefile . EMUTYPE=xplus4
 vice_xvic libretro-vice_xvic https://github.com/libretro/vice-libretro.git master NO GENERIC Makefile . EMUTYPE=xvic
 virtualjaguar libretro-virtualjaguar https://github.com/libretro/virtualjaguar-libretro.git master NO GENERIC Makefile .
+vitaquake2 libretro-vitaquake2 https://github.com/libretro/vitaquake2.git libretro YES GENERIC Makefile .
