@@ -22,6 +22,7 @@ gearsystem libretro-gearsystem https://github.com/drhelius/Gearsystem.git master
 genesis_plus_gx libretro-genesis_plus_gx https://github.com/libretro/Genesis-Plus-GX.git master YES GENERIC Makefile.libretro .
 gpsp libretro-gpsp https://github.com/libretro/gpsp.git master YES GENERIC Makefile .
 handy libretro-handy https://github.com/libretro/libretro-handy.git master YES GENERIC Makefile .
+hatari libretro-hatari https://github.com/libretro/hatari.git master YES GENERIC Makefile.libretro .
 lutro libretro-lutro https://github.com/libretro/libretro-lutro master NO GENERIC Makefile .
 mame2000 libretro-mame2000 https://github.com/libretro/mame2000-libretro.git master YES GENERIC Makefile .
 mame2003 libretro-mame2003 https://github.com/libretro/mame2003-libretro.git master YES GENERIC Makefile .
