@@ -292,8 +292,7 @@ include_core_blastem() {
 }
 libretro_blastem_name="BlastEm"
 libretro_blastem_git_url="https://github.com/libretro/blastem.git"
-libretro_blastem_build_subdir="libretro"
-libretro_blastem_build_makefile="Makefile"
+libretro_blastem_build_makefile="Makefile.libretro"
 
 include_core_vba_next() {
 	register_module core "vba_next"
