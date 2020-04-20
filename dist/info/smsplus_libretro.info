@@ -11,8 +11,14 @@ license = "GPLv2"
 permissions = ""
 display_version = "1.8"
 supports_no_game = "false"
-firmware_count = 1
+
+# BIOS/Firmware
+firmware_count = 2
+
 firmware0_desc = "bios.sms (Master System BIOS)"
 firmware0_path = "bios.sms"
 firmware0_opt = "true"
-notes = "(!) bios.sms (md5): missing"
+
+firmware1_desc = "BIOS.col (Colecovision BIOS)"
+firmware1_path = "BIOS.col"
+firmware1_opt = "true"
