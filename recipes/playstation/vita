@@ -36,6 +36,7 @@ mgba libretro-mgba https://github.com/libretro/mgba.git master NO GENERIC Makefi
 mrboom libretro-mrboom https://github.com/libretro/mrboom-libretro.git master YES GENERIC Makefile .
 mu libretro-mu https://github.com/libretro/Mu.git master YES GENERIC Makefile libretroBuildSystem
 parallel_n64 libretro-parallel_n64 https://github.com/libretro/parallel-n64.git master YES Makefile . WITH_DYNAREC=arm
+neocd libretro-neocd https://github.com/libretro/neocd_libretro.git master YES GENERIC Makefile .
 nestopia libretro-nestopia https://github.com/libretro/nestopia.git master YES GENERIC Makefile libretro
 np2kai libretro-np2kai https://github.com/libretro/NP2kai.git master YES GENERIC Makefile.libretro sdl2
 nxengine libretro-nxengine https://github.com/libretro/nxengine-libretro.git master YES GENERIC Makefile .
