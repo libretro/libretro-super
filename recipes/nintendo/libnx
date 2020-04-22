@@ -73,7 +73,7 @@ theodore libretro-theodore https://github.com/Zlika/theodore.git master YES GENE
 tic80 libretro-tic80 https://github.com/nesbox/TIC-80.git master YES CMAKE Makefile builddir -DBUILD_PLAYER=OFF -DBUILD_SOKOL=OFF -DBUILD_SDL=OFF -DBUILD_DEMO_CARTS=OFF -DBUILD_LIBRETRO=ON -DDISABLE_NETWORKING=ON -DLIBRETRO_STATIC=ON -DLIBRETRO_SUFFIX=_libnx
 tyrquake libretro-tyrquake https://github.com/libretro/tyrquake.git master YES GENERIC Makefile .
 fbneo libretro-fbneo https://github.com/libretro/FBNeo.git master YES GENERIC Makefile src/burner/libretro
-uzem libretro-uzem https://github.com/libretro/libretro-uzem.git master NO  GENERIC Makefile .
+uzem libretro-uzem https://github.com/libretro/libretro-uzem.git master YES GENERIC Makefile .
 fuse libretro-fuse https://github.com/libretro/fuse-libretro.git master YES GENERIC Makefile .
 vba_next libretro-vba_next https://github.com/libretro/vba-next.git master YES GENERIC Makefile.libretro .
 vecx libretro-vecx https://github.com/libretro/libretro-vecx.git master YES GENERIC Makefile.libretro .
