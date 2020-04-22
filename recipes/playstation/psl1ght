@@ -64,6 +64,7 @@ test libretro-samples https://github.com/libretro/libretro-samples.git master YE
 tgbdual libretro-tgbdual https://github.com/libretro/tgbdual-libretro.git master NO GENERIC Makefile .
 theodore libretro-theodore https://github.com/Zlika/theodore.git master YES GENERIC Makefile .
 tyrquake libretro-tyrquake https://github.com/libretro/tyrquake.git master YES GENERIC Makefile .
+uzem libretro-uzem https://github.com/libretro/libretro-uzem.git master YES GENERIC Makefile .
 vba_next libretro-vba_next https://github.com/libretro/vba-next.git master YES GENERIC Makefile.libretro .
 vecx libretro-vecx https://github.com/libretro/libretro-vecx.git master YES GENERIC Makefile.libretro .
 vice_x128 libretro-vice_x128 https://github.com/libretro/vice-libretro.git master YES GENERIC Makefile . EMUTYPE=x128
