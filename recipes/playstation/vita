@@ -3,8 +3,7 @@ atari800 libretro-atari800 https://github.com/libretro/libretro-atari800.git mas
 bk libretro-bk https://github.com/libretro/bk-emulator.git master YES GENERIC Makefile.libretro .
 bluemsx libretro-bluemsx https://github.com/libretro/blueMSX-libretro.git master YES GENERIC Makefile.libretro .
 desmume libretro-desmume https://github.com/libretro/desmume.git master NO GENERIC Makefile.libretro desmume
-dosbox libretro-dosbox https://github.com/libretro/dosbox-libretro.git master YES GENERIC Makefile.libretro .
-dosbox_svn libretro-dosbox_svn https://github.com/libretro/dosbox-svn vita NO GENERIC Makefile.libretro libretro WITH_DYNAREC=arm
+dosbox_svn libretro-dosbox_svn https://github.com/libretro/dosbox-svn libretro YES GENERIC Makefile.libretro libretro
 ecwolf libretro-ecwolf https://github.com/libretro/ecwolf.git master YES GENERIC Makefile src/libretro
 easyrpg libretro-easyrpg https://github.com/libretro/easyrpg-libretro.git master YES GENERIC Makefile.libretro builds/libretro
 fbneo libretro-fbneo https://github.com/libretro/FBNeo.git master YES GENERIC Makefile src/burner/libretro
