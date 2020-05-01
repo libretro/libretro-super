@@ -1,6 +1,7 @@
 2048 libretro-2048 https://github.com/libretro/libretro-2048.git master YES GENERIC Makefile.libretro .
 81 libretro-81 https://github.com/libretro/81-libretro.git master YES GENERIC Makefile .
 atari800 libretro-atari800 https://github.com/libretro/libretro-atari800.git master YES GENERIC Makefile .
+bk libretro-bk https://github.com/libretro/bk-emulator.git master YES GENERIC Makefile.libretro .
 cannonball libretro-cannonball https://github.com/libretro/cannonball.git master YES GENERIC Makefile .
 cap32 libretro-cap32 https://github.com/libretro/libretro-cap32.git master YES GENERIC Makefile .
 dosbox_svn libretro-dosbox_svn https://github.com/libretro/dosbox-svn libretro YES GENERIC Makefile.libretro libretro
@@ -48,3 +49,4 @@ test libretro-samples https://github.com/libretro/libretro-samples.git master YE
 theodore libretro-theodore https://github.com/Zlika/theodore.git master YES GENERIC Makefile .
 tyrquake libretro-tyrquake https://github.com/libretro/tyrquake.git master YES GENERIC Makefile .
 vba_next libretro-vba_next https://github.com/libretro/vba-next.git master YES GENERIC Makefile.libretro .
+x1 libretro-xmil https://github.com/libretro/xmil-libretro.git master YES GENERIC Makefile.libretro libretro
