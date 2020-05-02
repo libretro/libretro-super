@@ -21,6 +21,7 @@ frodo libretro-frodo https://github.com/libretro/frodo-libretro.git  master YES 
 fuse libretro-fuse https://github.com/libretro/fuse-libretro.git master YES GENERIC Makefile.libretro .
 gambatte libretro-gambatte https://github.com/libretro/gambatte-libretro.git master YES GENERIC Makefile .
 genesis_plus_gx libretro-genesis_plus_gx https://github.com/libretro/Genesis-Plus-GX.git master YES GENERIC Makefile.libretro .
+gme libretro-gme https://github.com/libretro/libretro-gme.git master YES GENERIC Makefile .
 gpsp libretro-gpsp https://github.com/libretro/gpsp.git master YES GENERIC Makefile .
 handy libretro-handy https://github.com/libretro/libretro-handy.git master YES GENERIC Makefile .
 hatari libretro-hatari https://github.com/libretro/hatari.git master YES GENERIC Makefile.libretro .
