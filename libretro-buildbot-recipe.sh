@@ -388,6 +388,7 @@ build_libretro_generic_makefile() {
 				vita ) EXTRAARGS="-DCMAKE_TOOLCHAIN_FILE=${WORK}/cmake/vita.cmake" ;;
 				psp|psp1 ) EXTRAARGS="-DCMAKE_TOOLCHAIN_FILE=${WORK}/cmake/psp1.cmake" ;;
 				libnx ) EXTRAARGS="-DCMAKE_TOOLCHAIN_FILE=${WORK}/cmake/libnx.cmake" ;;
+				qnx ) EXTRAARGS="-DCMAKE_TOOLCHAIN_FILE=${WORK}/cmake/blackberry.cmake" ;;
 
 				* ) EXTRAARGS="" ;;
 			esac
