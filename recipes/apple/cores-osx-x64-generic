@@ -1,6 +1,7 @@
 2048 libretro-2048 https://github.com/libretro/libretro-2048.git master YES GENERIC Makefile.libretro .
 opera libretro-opera https://github.com/libretro/opera-libretro.git master YES GENERIC Makefile .
 atari800 libretro-atari800 https://github.com/libretro/libretro-atari800.git master YES GENERIC Makefile .
+bk libretro-bk https://github.com/libretro/bk-emulator.git master YES GENERIC Makefile.libretro .
 blastem libretro-blastem https://github.com/libretro/blastem.git libretro YES GENERIC Makefile.libretro .
 bluemsx libretro-bluemsx https://github.com/libretro/blueMSX-libretro.git master YES GENERIC Makefile.libretro .
 bsnes libretro-bsnes https://github.com/libretro/bsnes.git master YES GENERIC GNUmakefile bsnes target=libretro binary=library local=false platform=macos
@@ -35,6 +36,7 @@ ffmpeg libretro-ffmpeg https://github.com/libretro/FFmpeg.git master YES GENERIC
 fmsx libretro-fmsx https://github.com/libretro/fmsx-libretro.git master YES GENERIC Makefile .
 freechaf libretro-freechaf https://github.com/libretro/FreeChaF.git master YES GENERIC Makefile .
 freeintv libretro-freeintv https://github.com/libretro/FreeIntv.git master YES GENERIC Makefile .
+frodo libretro-frodo https://github.com/libretro/frodo-libretro.git  master YES GENERIC Makefile .
 gambatte libretro-gambatte https://github.com/libretro/gambatte-libretro.git master YES GENERIC Makefile .
 genesis_plus_gx libretro-genesis_plus_gx https://github.com/libretro/Genesis-Plus-GX.git master YES GENERIC Makefile.libretro .
 ishiiruka libretro-ishiiruka https://github.com/libretro/Ishiiruka.git master YES CMAKE Makefile build -DLIBRETRO=ON -DCMAKE_BUILD_TYPE=Release
