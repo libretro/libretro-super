@@ -5,6 +5,8 @@ hatari libretro-hatari https://github.com/libretro/hatari.git master YES GENERIC
 atari800 libretro-atari800 https://github.com/libretro/libretro-atari800.git master YES GENERIC Makefile .
 bk libretro-bk https://github.com/libretro/bk-emulator.git master YES GENERIC Makefile.libretro .
 bluemsx libretro-bluemsx https://github.com/libretro/blueMSX-libretro.git master YES GENERIC Makefile .
+cap32 libretro-cap32 https://github.com/libretro/libretro-cap32.git master YES GENERIC Makefile .
+crocods libretro-crocods https://github.com/libretro/libretro-crocods.git master YES GENERIC Makefile .
 stella2014 libretro-stella2014 https://github.com/libretro/stella2014-libretro.git master YES GENERIC Makefile .
 stella libretro-stella https://github.com/stella-emu/stella.git master NO GENERIC Makefile src/libretro
 ecwolf libretro-ecwolf https://github.com/libretro/ecwolf.git master YES GENERIC Makefile src/libretro
