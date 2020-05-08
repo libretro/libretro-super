@@ -8,6 +8,7 @@ cannonball libretro-cannonball https://github.com/libretro/cannonball.git master
 cap32 libretro-cap32 https://github.com/libretro/libretro-cap32.git master YES GENERIC Makefile .
 crocods libretro-crocods https://github.com/libretro/libretro-crocods.git master YES GENERIC Makefile .
 dinothawr libretro-dinothawr https://github.com/libretro/Dinothawr.git master YES GENERIC Makefile .
+dosbox_svn libretro-dosbox_svn https://github.com/libretro/dosbox-svn libretro YES GENERIC Makefile.libretro libretro WITH_DYNAREC=arm
 ecwolf libretro-ecwolf https://github.com/libretro/ecwolf.git master YES GENERIC Makefile src/libretro
 emux libretro-emux https://github.com/libretro/emux master YES LEIRADEL Makefile libretro | emux_chip8:MACHINE=chip8 emux_gb:MACHINE=gb emux_nes:MACHINE=nes emux_sms:MACHINE=sms
 fbneo libretro-fbneo https://github.com/libretro/FBNeo.git master YES GENERIC Makefile src/burner/libretro
