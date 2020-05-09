@@ -39,6 +39,7 @@ fmsx libretro-fmsx https://github.com/libretro/fmsx-libretro.git master YES GENE
 fuse libretro-fuse https://github.com/libretro/fuse-libretro.git master YES GENERIC Makefile .
 freechaf libretro-freechaf https://github.com/libretro/FreeChaF.git master YES GENERIC Makefile .
 freeintv libretro-freeintv https://github.com/libretro/FreeIntv.git master YES GENERIC Makefile .
+frodo libretro-frodo https://github.com/libretro/frodo-libretro.git  master YES GENERIC Makefile .
 gambatte libretro-gambatte https://github.com/libretro/gambatte-libretro.git master YES GENERIC Makefile .
 gearboy libretro-gearboy https://github.com/drhelius/Gearboy.git master YES GENERIC Makefile platforms/libretro
 gearsystem libretro-gearsystem https://github.com/drhelius/Gearsystem.git master YES GENERIC Makefile platforms/libretro
