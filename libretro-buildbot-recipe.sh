@@ -400,7 +400,7 @@ build_libretro_generic_makefile() {
 
 			eval "set -- ${EXTRAARGS} \${CORE_ARGS} -DCMAKE_VERBOSE_MAKEFILE=ON"
 			echo "BUILD CMD: ${HELPER} ${CMAKE} $*" 2>&1 | tee -a "$LOGFILE"
-			echo "$@" .. | xargs ${CMAKE} 2>&1 | tee -a "$LOGFILE"
+			echo "$@" .. | xargs ${HELPER} ${CMAKE} 2>&1 | tee -a "$LOGFILE"
 			echo "BUILD CMD: ${HELPER} ${CMAKE} --build . --target ${core}_libretro --config Release -- ${JOBS_FLAG}${JOBS}" 2>&1 | tee -a "$LOGFILE"
 			${HELPER} ${CMAKE} --build . --target ${core}_libretro --config Release -- ${JOBS_FLAG}${JOBS} 2>&1 | tee -a "$LOGFILE"
 
