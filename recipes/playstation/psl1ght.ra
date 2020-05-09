@@ -1,0 +1,2 @@
+retroarch retroarch https://github.com/libretro/Retroarch.git PROJECT YES .
+libretrodb libretrodb https://github.com/libretro/libretro-database.git ASSETS YES retroarch/media
