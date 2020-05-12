@@ -81,7 +81,6 @@ features_cores = {
     'craft': ['gfxaccel'],
     'dolphin': ['cpu64', 'jit'],
     'dosbox_svn': ['libco'],
-    'dosbox_svn_ce': ['libco'],
     'dosbox_core': ['threads'],
     'ffmpeg': ['threads'],
     'flycast': ['gfxaccel'],
