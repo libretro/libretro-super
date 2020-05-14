@@ -47,6 +47,7 @@ nekop2 libretro-nekop2 https://github.com/libretro/libretro-meowPC98.git master 
 np2kai libretro-np2kai https://github.com/libretro/NP2kai.git master NO GENERIC Makefile.libretro sdl2
 nxengine libretro-nxengine https://github.com/libretro/nxengine-libretro.git master YES GENERIC Makefile .
 o2em libretro-o2em https://github.com/libretro/libretro-o2em.git master YES GENERIC Makefile .
+pocketcdg libretro-pocketcdg https://github.com/libretro/libretro-pocketcdg.git master YES GENERIC Makefile .
 pokemini libretro-pokemini https://github.com/libretro/PokeMini.git master YES GENERIC Makefile .
 puae libretro-uae https://github.com/libretro/libretro-uae.git master YES GENERIC Makefile .
 quasi88 libretro-quasi88 https://github.com/libretro/quasi88-libretro.git master YES GENERIC Makefile .
