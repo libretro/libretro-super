@@ -4,3 +4,4 @@ fceumm libretro-fceumm https://github.com/libretro/libretro-fceumm.git master YE
 picodrive libretro-picodrive https://github.com/libretro/picodrive.git master YES GENERIC Makefile.libretro .
 mgba libretro-mgba https://github.com/libretro/mgba.git master YES GENERIC Makefile.libretro .
 test libretro-samples https://github.com/libretro/libretro-samples.git master YES GENERIC Makefile tests/test
+theodore libretro-theodore https://github.com/Zlika/theodore.git master YES GENERIC Makefile .
