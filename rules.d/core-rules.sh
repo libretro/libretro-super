@@ -1090,7 +1090,7 @@ include_core_np2kai() {
 }
 libretro_np2kai_name="Neko Project II"
 libretro_np2kai_git_url="https://github.com/libretro/NP2kai.git"
-libretro_np2kai_build_subdir="sdl2"
+libretro_np2kai_build_subdir="sdl"
 libretro_np2kai_build_makefile="Makefile.libretro"
 
 include_core_px68k() {
