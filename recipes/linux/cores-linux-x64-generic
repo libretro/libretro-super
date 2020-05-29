@@ -139,8 +139,10 @@ vice_x128 libretro-vice_x128 https://github.com/libretro/vice-libretro.git maste
 vice_x64 libretro-vice_x64 https://github.com/libretro/vice-libretro.git master YES GENERIC Makefile .
 vice_x64sc libretro-vice_x64sc https://github.com/libretro/vice-libretro.git master YES GENERIC Makefile . EMUTYPE=x64sc
 vice_xcbm2 libretro-vice_xcbm2 https://github.com/libretro/vice-libretro.git master YES GENERIC Makefile . EMUTYPE=xcbm2
+vice_xcbm5x0 libretro-vice_xcbm5x0 https://github.com/libretro/vice-libretro.git master YES GENERIC Makefile . EMUTYPE=xcbm5x0
 vice_xpet libretro-vice_xpet https://github.com/libretro/vice-libretro.git master YES GENERIC Makefile . EMUTYPE=xpet
 vice_xplus4 libretro-vice_xplus4 https://github.com/libretro/vice-libretro.git master YES GENERIC Makefile . EMUTYPE=xplus4
+vice_xscpu64 libretro-vice_xscpu64 https://github.com/libretro/vice-libretro.git master YES GENERIC Makefile . EMUTYPE=xscpu64
 vice_xvic libretro-vice_xvic https://github.com/libretro/vice-libretro.git master YES GENERIC Makefile . EMUTYPE=xvic
 virtualjaguar libretro-virtualjaguar https://github.com/libretro/virtualjaguar-libretro.git master YES GENERIC Makefile .
 xrick libretro-xrick https://github.com/libretro/xrick-libretro.git master YES GENERIC Makefile .
