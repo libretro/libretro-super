@@ -28,3 +28,5 @@ database = "Nintendo - Super Nintendo Entertainment System|Nintendo - Super Nint
 hw_render = "false"
 needs_fullpath = "false"
 disk_control = "false"
+
+description = "Snes9x 2010 is a fork of the classic and popular SNES emulator Snes9x from circa 2010, with some additional hacks and fixes backported. It was originally created and tuned specifically for maintaining full speed on Playstation 3 hardware, but it can also be useful for any device that is not quite full speed with the up-to-date Snes9x core, such as budget mobile devices. Users who cannot maintain full speed with this core, either, should fall back to Snes9x 2005."
