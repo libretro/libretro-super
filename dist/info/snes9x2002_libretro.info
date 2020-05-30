@@ -28,3 +28,5 @@ database = "Nintendo - Super Nintendo Entertainment System|Nintendo - Super Nint
 hw_render = "false"
 needs_fullpath = "false"
 disk_control = "false"
+
+description = "Snes9x 2002 is a fork of the classic and popular SNES emulator Snes9x from circa 2002. This is the fastest of the Snes9x cores, but it also has the lowest accuracy and worst compatibility. Nevertheless, this core works well with most popular games and is a good choice for the weakest mobile and embedded devices, though it should be considered a last resort."

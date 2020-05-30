@@ -292,8 +292,7 @@ include_core_blastem() {
 }
 libretro_blastem_name="BlastEm"
 libretro_blastem_git_url="https://github.com/libretro/blastem.git"
-libretro_blastem_build_subdir="libretro"
-libretro_blastem_build_makefile="Makefile"
+libretro_blastem_build_makefile="Makefile.libretro"
 
 include_core_vba_next() {
 	register_module core "vba_next"
@@ -969,7 +968,7 @@ libretro_play_name="Play!"
 libretro_play_git_url="https://github.com/libretro/Play-.git"
 libretro_play_git_submodules="yes"
 libretro_play_build_opengl="yes"
-libretro_play_post_fetch_cmd="cd .. && git clone https://github.com/jpd002/Play-Build.git Play_tmp && cd Play_tmp && git submodule update -q --init --recursive && git submodule foreach \"git checkout -q master\" && cd Dependencies && git submodule update --init && cd ../.. && rm -rf Play_tmp/Play && mv libretro-play/ Play_tmp/Play && mv Play_tmp libretro-play"
+libretro_play_post_fetch_cmd="cd .. && git clone https://github.com/jpd002/Play-.git Play_tmp && cd Play_tmp && git submodule update -q --init --recursive && git submodule foreach \"git checkout -q master\" && cd deps && git submodule update --init && cd ../.. && rm -rf Play_tmp/Play && mv libretro-play/ Play_tmp/Play && mv Play_tmp libretro-play"
 libretro_play_subdir="libretro-play/Play/build_retro"
 
 include_core_prosystem() {
@@ -1091,7 +1090,7 @@ include_core_np2kai() {
 }
 libretro_np2kai_name="Neko Project II"
 libretro_np2kai_git_url="https://github.com/libretro/NP2kai.git"
-libretro_np2kai_build_subdir="sdl2"
+libretro_np2kai_build_subdir="sdl"
 libretro_np2kai_build_makefile="Makefile.libretro"
 
 include_core_px68k() {
@@ -1134,7 +1133,7 @@ include_core_tic80() {
 	register_module core "tic80" -theos_ios -ngc -sncps3 -ps3 -psp1 -qnx -wii
 }
 libretro_tic80_name="TIC-80"
-libretro_tic80_git_url="https://github.com/libretro/TIC-80.git"
+libretro_tic80_git_url="https://github.com/nesbox/TIC-80.git"
 libretro_tic80_git_submodules="yes"
 libretro_tic80_build_makefile="Makefile"
 libretro_tic80_build_subdir="build"

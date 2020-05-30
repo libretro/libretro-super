@@ -4,7 +4,6 @@ opera libretro-opera https://github.com/libretro/opera-libretro.git master YES G
 atari800 libretro-atari800 https://github.com/libretro/libretro-atari800.git master YES GENERIC_JNI Makefile jni
 bk libretro-bk https://github.com/libretro/bk-emulator.git master YES GENERIC_JNI Makefile.libretro jni
 bluemsx libretro-bluemsx https://github.com/libretro/blueMSX-libretro.git master YES GENERIC_JNI Makefile jni
-bnes libretro-bnes https://github.com/libretro/bnes-libretro.git master NO GENERIC_JNI Makefile libretro/jni
 bsnes libretro-bsnes https://github.com/libretro/bsnes.git master YES GENERIC_JNI Makefile bsnes/target-libretro/jni
 bsnes_hd_beta libretro-bsnes_hd_beta https://github.com/DerKoun/bsnes-hd.git master YES GENERIC_JNI Makefile bsnes/target-libretro/jni
 bsnes2014 libretro-bsnes2014 https://github.com/libretro/bsnes-libretro.git libretro YES GENERIC_JNI Makefile target-libretro/jni | bsnes2014_accuracy:profile=accuracy bsnes2014_balanced:profile=balanced bsnes2014_performance:profile=performance
@@ -102,7 +101,7 @@ test libretro-samples https://github.com/libretro/libretro-samples.git master YE
 tgbdual libretro-tgbdual https://github.com/libretro/tgbdual-libretro.git master YES GENERIC_JNI Makefile jni
 theodore libretro-theodore https://github.com/Zlika/theodore.git master YES GENERIC_JNI Makefile jni
 thepowdertoy libretro-thepowdertoy https://github.com/libretro/ThePowderToy.git master YES ANDROID_CMAKE Makefile build
-tic80 libretro-tic80 https://github.com/libretro/TIC-80.git master YES ANDROID_CMAKE Makefile builddir -DBUILD_PLAYER=OFF -DBUILD_SOKOL=OFF -DBUILD_SDL=OFF -DBUILD_DEMO_CARTS=OFF -DBUILD_LIBRETRO=ON
+tic80 libretro-tic80 https://github.com/nesbox/TIC-80.git master YES ANDROID_CMAKE Makefile builddir -DBUILD_PLAYER=OFF -DBUILD_SOKOL=OFF -DBUILD_SDL=OFF -DBUILD_DEMO_CARTS=OFF -DBUILD_LIBRETRO=ON
 tyrquake libretro-tyrquake https://github.com/libretro/tyrquake.git master YES GENERIC_JNI Makefile jni
 uzem libretro-uzem https://github.com/libretro/libretro-uzem.git master YES GENERIC_JNI Makefile jni
 vba_next libretro-vba-next https://github.com/libretro/vba-next.git master YES GENERIC_JNI Makefile libretro/jni

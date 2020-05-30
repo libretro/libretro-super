@@ -38,3 +38,5 @@ database = "Nintendo - Super Nintendo Entertainment System|Nintendo - Super Nint
 hw_render = "false"
 needs_fullpath = "false"
 disk_control = "false"
+
+description = "Snes9x is a classic and popular SNES emulator that is very fast while still maintaining solid accuracy and high compatibility. It is perfect for use on desktop and laptop PCs of all ages, as well as many reasonably powerful mobile devices. This core is based on the latest up-to-date Snes9x sources and is the one most users should try first, only falling back to the year-marked snapshots if this one can't maintain full speed on their device."

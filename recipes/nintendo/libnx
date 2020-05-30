@@ -7,6 +7,7 @@ bsnes_hd_beta libretro-bsnes_hd_beta https://github.com/DerKoun/bsnes-hd.git mas
 cannonball libretro-cannonball https://github.com/libretro/cannonball.git master YES GENERIC Makefile .
 cap32 libretro-cap32 https://github.com/libretro/libretro-cap32.git master YES GENERIC Makefile .
 crocods libretro-crocods https://github.com/libretro/libretro-crocods.git master YES GENERIC Makefile .
+dosbox_core libretro-dosbox_core https://github.com/libretro/dosbox-core.git libretro YES GENERIC Makefile.libretro libretro CMAKE_GENERATOR="Unix Makefiles"
 dosbox_svn libretro-dosbox_svn https://github.com/libretro/dosbox-svn.git libretro YES GENERIC Makefile.libretro libretro
 desmume libretro-desmume https://github.com/libretro/desmume.git master YES GENERIC Makefile.libretro desmume/src/frontend/libretro
 boom3 libretro-boom3 https://github.com/libretro/boom3.git master YES GENERIC Makefile neo
@@ -42,10 +43,10 @@ mu libretro-mu https://github.com/libretro/Mu.git master YES GENERIC Makefile li
 mupen64plus_next libretro-mupen64plus_next https://github.com/libretro/mupen64plus-libretro-nx.git develop YES GENERIC_GL Makefile .
 neocd libretro-neocd https://github.com/libretro/neocd_libretro.git master YES GENERIC Makefile libretro
 nestopia libretro-nestopia https://github.com/libretro/nestopia.git master YES GENERIC Makefile libretro
-np2kai libretro-np2kai https://github.com/libretro/NP2kai.git master YES GENERIC Makefile.libretro sdl2
+np2kai libretro-np2kai https://github.com/libretro/NP2kai.git master YES GENERIC Makefile.libretro sdl
 nxengine libretro-nxengine https://github.com/libretro/nxengine-libretro.git master YES GENERIC Makefile .
 o2em libretro-o2em https://github.com/libretro/libretro-o2em.git master YES GENERIC Makefile .
-pcsx_rearmed libretro-pcsx_rearmed https://github.com/libretro/pcsx_rearmed_switch.git master YES GENERIC Makefile.libretro .
+pcsx_rearmed libretro-pcsx_rearmed https://github.com/libretro/pcsx_rearmed.git master YES GENERIC Makefile.libretro . DYNAREC=0
 picodrive libretro-picodrive https://github.com/libretro/picodrive.git master YES GENERIC Makefile.libretro .
 pocketcdg libretro-pocketcdg https://github.com/libretro/libretro-pocketcdg.git master YES GENERIC Makefile .
 pokemini libretro-pokemini https://github.com/libretro/PokeMini.git master YES GENERIC Makefile .
@@ -59,7 +60,7 @@ px68k libretro-px68k https://github.com/libretro/px68k-libretro.git master YES G
 quasi88 libretro-quasi88 https://github.com/libretro/quasi88-libretro.git master YES GENERIC Makefile .
 quicknes libretro-quicknes https://github.com/libretro/QuickNES_Core.git master YES GENERIC Makefile .
 race libretro-race https://github.com/libretro/RACE.git master YES GENERIC Makefile .
-flycast libretro-flycast https://github.com/m4xw/flycast.git master YES GENERIC Makefile .
+flycast libretro-flycast https://github.com/libretro/flycast.git master YES GENERIC Makefile .
 reminiscence libretro-reminiscence https://github.com/libretro/REminiscence.git master YES GENERIC Makefile .
 sameboy libretro-sameboy https://github.com/libretro/SameBoy.git buildbot YES GENERIC Makefile libretro
 snes9x libretro-snes9x https://github.com/libretro/snes9x.git master YES GENERIC Makefile libretro
@@ -70,9 +71,10 @@ stella libretro-stella https://github.com/stella-emu/stella.git master YES GENER
 test libretro-samples https://github.com/libretro/libretro-samples.git master YES GENERIC Makefile tests/test
 tgbdual libretro-tgbdual https://github.com/libretro/tgbdual-libretro.git master YES GENERIC Makefile .
 theodore libretro-theodore https://github.com/Zlika/theodore.git master YES GENERIC Makefile .
+tic80 libretro-tic80 https://github.com/nesbox/TIC-80.git master YES CMAKE Makefile builddir -DBUILD_PLAYER=OFF -DBUILD_SOKOL=OFF -DBUILD_SDL=OFF -DBUILD_DEMO_CARTS=OFF -DBUILD_LIBRETRO=ON -DDISABLE_NETWORKING=ON -DLIBRETRO_STATIC=ON -DLIBRETRO_SUFFIX=_libnx
 tyrquake libretro-tyrquake https://github.com/libretro/tyrquake.git master YES GENERIC Makefile .
 fbneo libretro-fbneo https://github.com/libretro/FBNeo.git master YES GENERIC Makefile src/burner/libretro
-uzem libretro-uzem https://github.com/libretro/libretro-uzem.git master NO  GENERIC Makefile .
+uzem libretro-uzem https://github.com/libretro/libretro-uzem.git master YES GENERIC Makefile .
 fuse libretro-fuse https://github.com/libretro/fuse-libretro.git master YES GENERIC Makefile .
 vba_next libretro-vba_next https://github.com/libretro/vba-next.git master YES GENERIC Makefile.libretro .
 vecx libretro-vecx https://github.com/libretro/libretro-vecx.git master YES GENERIC Makefile.libretro .

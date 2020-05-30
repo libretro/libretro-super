@@ -28,3 +28,5 @@ database = "Nintendo - Super Nintendo Entertainment System|Nintendo - Super Nint
 hw_render = "false"
 needs_fullpath = "false"
 disk_control = "false"
+
+description = "Snes9x 2005 Plus is a fork of the classic and popular SNES emulator Snes9x from circa 2005, but with a more accurate sound core backported from later versions. This avoids the biggest problem with the regular Snes9x 2005 core (that is, poor audio quality) at the expense of being somewhat slower. Nevertheless, this core is ideal for very weak devices, such as New 3DS and single-board computers. Users who cannot maintain full speed with this core--much less any of the newer Snes9x cores--should fall back to Snes9x 2002 as a last resort."
