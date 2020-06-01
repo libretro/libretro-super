@@ -170,6 +170,11 @@ build_libretro_database() {
 			COMMAND+=' "${LIBRETRODATABASE_META_DAT_DIR}/tgdb/${1}.dat"'
 		fi
 
+		#Check if meta headered is there
+		if [ -f "${LIBRETRODATABASE_META_DAT_DIR}/headered/${1}.dat" ]; then
+			COMMAND+=' "${LIBRETRODATABASE_META_DAT_DIR}/headered/${1}.dat"'
+		fi
+
 		#Check if meta hacks is there
 		if [ -f "${LIBRETRODATABASE_META_DAT_DIR}/hacks/${1}.dat" ]; then
 			COMMAND+=' "${LIBRETRODATABASE_META_DAT_DIR}/hacks/${1}.dat"'
