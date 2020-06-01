@@ -1,6 +1,6 @@
 display_name = "Star Trek: Voyager - Elite Force (vitaVoyager)"
 authors = "Rinnegatamante"
-supported_extensions = "pak"
+supported_extensions = "pk3"
 corename = "vitaVoyager"
 manufacturer = "Id Software"
 categories = "Game"
