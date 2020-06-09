@@ -86,3 +86,5 @@ database = "Nintendo - Super Nintendo Entertainment System|Nintendo - Super Nint
 hw_render = "false"
 needs_fullpath = "false"
 disk_control = "false"
+
+description = "bsnes Mercury Accuracy is based on version 094 of the bsnes emulator with some accuracy improvements backported from later versions. It also has some optimizations that do not reduce accuracy and some core options that can reduce accuracy (such as overclocking and HLE for the add-on chips used in many carts). It is built from the 'accuracy' profile, which includes bsnes' more-demanding dot-based PPU (as opposed to the faster scanline-precision PPU used in the 'balanced' profile), though the only commercial game that requires this level of precision is the notorious Air Strike Patrol (A.S.P.). The up-to-date bsnes core is a better choice for most users who are seeking the highest accuracy, except for those who require access to cheats and retro-achievements, for whom these older forks may be preferable."

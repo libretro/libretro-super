@@ -89,3 +89,5 @@ database = "Nintendo - Super Nintendo Entertainment System|Nintendo - Super Nint
 hw_render = "false"
 needs_fullpath = "false"
 disk_control = "false"
+
+description = "bsnes HD Beta is based on the latest code from the bsnes emulator, but it serves as a test-bed for some additional features that are not considered stable enough for inclusion in the standard bsnes core. These features include true widescreen support and increased color depth (i.e., without dithering), among others. Aside from these additional experimental features, this core is identical to the standard bsnes core in both accuracy and performance."

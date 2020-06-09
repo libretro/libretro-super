@@ -85,3 +85,5 @@ database = "Nintendo - Super Nintendo Entertainment System|Nintendo - Super Nint
 hw_render = "false"
 needs_fullpath = "false"
 disk_control = "false"
+
+description = "bsnes 2014 Balanced is based on version 094 of the bsnes emulator with some accuracy improvements backported from later versions. It is built from the 'balanced' profile, which includes bsnes' less-demanding scanline-precision PPU (as opposed to the slower dot-based PPU used in the 'accuracy' profile), though the only commercial game that is affected by this is the notorious Air Strike Patrol (A.S.P.). Unlike the 'Mercury' cores, the '2014' cores are based on the unchanged bsnes source without any major additions. The up-to-date bsnes core is a better choice for most users who are seeking the highest accuracy, except for those who require access to cheats and retro-achievements, for whom these older forks may be preferable."

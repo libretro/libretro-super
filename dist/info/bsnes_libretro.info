@@ -89,3 +89,5 @@ database = "Nintendo - Super Nintendo Entertainment System|Nintendo - Super Nint
 hw_render = "false"
 needs_fullpath = "false"
 disk_control = "false"
+
+description = "bsnes libretro core is based on the latest source code from the bsnes emulator, which is known for its high accuracy and faithful reproduction of the SNES/SFC console. In addition to high accuracy, this version also includes a number of enhancements, such as mode 7 upscaling and overclocking for the Super FX add-on chip used in Star Fox and other games. This core is a good option for users on desktop platforms (Windows, Mac and Linux) with a relatively fast CPU. While it lacks support for libretro cheats and retro-achievements, it does have its own runahead implementation that is accessible from the core options."

@@ -28,3 +28,5 @@ hw_render = "false"
 needs_fullpath = "false"
 disk_control = "false"
 is_experimental = "true"
+
+description = "bsnes C++98 is based on version 085 of the bsnes emulator, but with the codebase downgraded to be compatible with the older C++98 standard. It is built from the 'performance' profile, which includes bsnes' fastest (but least-accurate) PPU. This core is really only useful for platforms that are stuck on old compilers (such as certain consoles) that are also powerful enough for bsnes. For most users, though, Snes9x-Current is a better option for speed and newer bsnes flavors are better for accuracy. So, unless you have a specific need for this core, you are probably better off with a different choice."

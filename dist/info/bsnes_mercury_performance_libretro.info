@@ -83,3 +83,5 @@ database = "Nintendo - Super Nintendo Entertainment System|Nintendo - Super Nint
 hw_render = "false"
 needs_fullpath = "false"
 disk_control = "false"
+
+description = "bsnes Mercury Accuracy is based on version 094 of the bsnes emulator with some accuracy improvements backported from later versions. It is built from the 'performance' profile, which includes bsnes' fastest (but least-accurate) PPU. The biggest problem with the 'performance' profile is that it does not support the CX4 add-on chip used by Capcom's Mega Man X2 and X3 games, but most other games should run fine. For most users, though, Snes9x-Current is a better option for higher performance on low-spec devices and the up-to-date bsnes core is better for accuracy."
