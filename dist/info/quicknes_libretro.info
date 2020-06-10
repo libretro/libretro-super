@@ -11,3 +11,5 @@ license = "LGPLv2.1+"
 permissions = ""
 display_version = "Git"
 supports_no_game = "false"
+
+description = "QuickNES is the fastest NES emulator available via libretro, though this speed comes at the cost of some accuracy. This core should be used only when performance is of the utmost concern and even FCEUmm is too demanding."
