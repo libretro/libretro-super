@@ -74,7 +74,7 @@ nestopia libretro-nestopia https://github.com/libretro/nestopia.git master YES G
 np2kai libretro-np2kai https://github.com/libretro/NP2kai.git master YES GENERIC Makefile.libretro sdl
 nxengine libretro-nxengine https://github.com/libretro/nxengine-libretro.git master YES GENERIC Makefile .
 o2em libretro-o2em https://github.com/libretro/libretro-o2em.git master YES GENERIC Makefile .
-oberon-risc-emu libretro-oberon-risc-emu https://github.com/libretro/oberon-risc-emu.git master YES GENERIC Makefile.libretro .
+oberon libretro-oberon https://github.com/libretro/oberon-risc-emu.git master YES GENERIC Makefile.libretro .
 openlara libretro-openlara https://github.com/libretro/OpenLara.git master YES GENERIC Makefile src/platform/libretro
 parallel_n64 libretro-parallel_n64 https://github.com/libretro/parallel-n64.git master YES GENERIC_GL Makefile . WITH_DYNAREC=arm
 pcsx_rearmed libretro-pcsx_rearmed https://github.com/libretro/pcsx_rearmed.git master YES GENERIC Makefile.libretro . DYNAREC=lightrec
