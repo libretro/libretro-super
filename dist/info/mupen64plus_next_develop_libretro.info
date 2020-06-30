@@ -1,7 +1,7 @@
 display_name = "Nintendo - Nintendo 64 (Mupen64Plus-Next Develop)"
 authors = "m4xw|Hacktarux|gonetz|GLideN64 Contributors|Mupen64Plus Team"
 supported_extensions = "n64|v64|z64|bin|u1"
-corename = "Mupen64Plus-Next (Develop)"
+corename = "Mupen64Plus-Next"
 manufacturer = "Nintendo"
 categories = "Emulator"
 systemname = "Nintendo 64"
