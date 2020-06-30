@@ -65,7 +65,7 @@ meteor libretro-meteor https://github.com/libretro/meteor-libretro.git master NO
 mgba libretro-mgba https://github.com/libretro/mgba.git master YES GENERIC_JNI Makefile libretro-build/jni
 mrboom libretro-mrboom https://github.com/libretro/mrboom-libretro.git master YES GENERIC_JNI Makefile jni
 mu libretro-mu https://github.com/libretro/Mu.git master YES GENERIC_JNI Makefile libretroBuildSystem/jni
-mupen64plus_next libretro-mupen64plus_next https://github.com/libretro/mupen64plus-libretro-nx.git develop YES GENERIC_JNI Makefile libretro/jni
+mupen64plus_next_gles2 libretro-mupen64plus_next-gles2 https://github.com/libretro/mupen64plus-libretro-nx.git develop YES GENERIC_JNI Makefile libretro/jni
 mupen64plus_next_gles3 libretro-mupen64plus_next-gles3 https://github.com/libretro/mupen64plus-libretro-nx.git develop YES GENERIC_JNI Makefile libretro/jni GLES3=1
 nekop2 libretro-nekop2 https://github.com/libretro/libretro-meowPC98.git master YES GENERIC_JNI Makefile.libretro libretro/jni
 neocd libretro-neocd https://github.com/libretro/neocd_libretro.git master YES GENERIC_JNI Makefile jni
