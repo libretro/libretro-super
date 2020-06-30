@@ -92,6 +92,7 @@ features_cores = {
     'kronos': ['gl3'],
     'mednafen_psx_hw': ['gfxaccel'],
     'mupen64plus_next': ['gfxaccel', 'libco'],
+    'mupen64plus_next_gles2': ['gles2', 'libco'],
     'mupen64plus_next_gles3': ['gles3', 'libco'],
     'openlara': ['gfxaccel'],
     'parallel_n64': ['gfxaccel', 'libco'],
