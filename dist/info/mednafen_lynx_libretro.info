@@ -1,4 +1,4 @@
-display_name = "Atari - Lynx (Beetle Handy)"
+display_name = "Atari - Lynx (Beetle Lynx)"
 authors = "K. Wilkins|Mednafen Team"
 supported_extensions = "lnx|o"
 corename = "Beetle Lynx"
