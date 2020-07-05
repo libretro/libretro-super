@@ -100,6 +100,7 @@ include_core_mednafen_psx
 include_core_pcsx_rearmed
 include_core_pcsx1
 include_core_rustation
+include_core_duckstation
 
 # --- PlayStation2 emulator cores ---
 #include_core_play
