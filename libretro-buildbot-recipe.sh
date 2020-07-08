@@ -488,7 +488,7 @@ build_libretro_android_cmake() {
 		echo "$@" ../.. | xargs ${CMAKE} 2>&1 | tee -a "$LOGFILE"
 
 		echo "BUILD CMD: ${CMAKE} --build . ${JOBS_FLAG}${JOBS} --target ${NAME}_libretro --config Release --" 2>&1 | tee -a "$LOGFILE"
-		${CMAKE} --build . --target ${NAME}_libretro --config Release -- ${JOBS_FLAG}${JOBS} 2>&1 | tee -a "$LOGFILE"
+		${CMAKE} --build . ${JOBS_FLAG}${JOBS} --target ${NAME}_libretro --config Release -- 2>&1 | tee -a "$LOGFILE"
 
 		COREPATH=$(find . -type f -name ${CORENAM})
 		if [ -n "${COREPATH}" ]; then
