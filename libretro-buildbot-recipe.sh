@@ -402,7 +402,7 @@ build_libretro_generic_makefile() {
 			echo "BUILD CMD: ${HELPER} ${CMAKE} $*" 2>&1 | tee -a "$LOGFILE"
 			echo "$@" .. | xargs ${HELPER} ${CMAKE} 2>&1 | tee -a "$LOGFILE"
 			echo "BUILD CMD: ${HELPER} ${CMAKE} --build . --target ${core}_libretro --config Release -- ${JOBS_FLAG}${JOBS}" 2>&1 | tee -a "$LOGFILE"
-			${HELPER} ${CMAKE} --build . --target ${core}_libretro --config Release -- ${JOBS_FLAG}${JOBS} 2>&1 | tee -a "$LOGFILE"
+			${HELPER} ${CMAKE} --build . ${JOBS_FLAG}${JOBS} --target ${core}_libretro --config Release -- 2>&1 | tee -a "$LOGFILE"
 
 			find . -mindepth 2 -name "${CORENAM}" -exec cp -f "{}" . \;
 		elif [ "${COMMAND}" = "LEIRADEL" ]; then
@@ -487,7 +487,7 @@ build_libretro_android_cmake() {
 		echo "BUILD CMD: ${CMAKE} $*" 2>&1 | tee -a "$LOGFILE"
 		echo "$@" ../.. | xargs ${CMAKE} 2>&1 | tee -a "$LOGFILE"
 
-		echo "BUILD CMD: ${CMAKE} --build . --target ${NAME}_libretro --config Release -- ${JOBS_FLAG}${JOBS}" 2>&1 | tee -a "$LOGFILE"
+		echo "BUILD CMD: ${CMAKE} --build . ${JOBS_FLAG}${JOBS} --target ${NAME}_libretro --config Release --" 2>&1 | tee -a "$LOGFILE"
 		${CMAKE} --build . --target ${NAME}_libretro --config Release -- ${JOBS_FLAG}${JOBS} 2>&1 | tee -a "$LOGFILE"
 
 		COREPATH=$(find . -type f -name ${CORENAM})
