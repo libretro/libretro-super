@@ -393,7 +393,7 @@ build_libretro_generic_makefile() {
 				* ) EXTRAARGS="" ;;
 			esac
 
-			JOBS_FLAG=-j
+			JOBS_FLAG=--parallel
 			if [ "${MAKEFILE}" = "sln" ]; then
 				JOBS_FLAG=-maxcpucount:
 			fi
@@ -454,7 +454,7 @@ build_libretro_android_cmake() {
 	PLATFORM="$5"
 	ARGS="$6"
 
-	JOBS_FLAG=-j
+	JOBS_FLAG=--parallel
 	EXTRAARGS="-DANDROID_PLATFORM=android-${API_LEVEL} -DCMAKE_TOOLCHAIN_FILE=${NDK_ROOT}/build/cmake/android.toolchain.cmake -DANDROID_STL=c++_static"
 
 	if [ -n "NDK_CCACHE" ]; then
