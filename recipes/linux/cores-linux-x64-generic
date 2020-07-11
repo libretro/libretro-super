@@ -101,7 +101,7 @@ play libretro-play https://github.com/jpd002/Play-.git master YES CMAKE Makefile
 picodrive libretro-picodrive https://github.com/libretro/picodrive.git master YES GENERIC Makefile.libretro .
 pocketcdg libretro-pocketcdg https://github.com/libretro/libretro-pocketcdg.git master YES GENERIC Makefile .
 pokemini libretro-pokemini https://github.com/libretro/PokeMini.git master YES GENERIC Makefile .
-ppsspp libretro-ppsspp https://github.com/hrydgard/ppsspp.git master YES GENERIC_GL Makefile libretro .
+ppsspp libretro-ppsspp https://github.com/hrydgard/ppsspp.git master YES GENERIC_GL Makefile libretro
 prboom libretro-prboom https://github.com/libretro/libretro-prboom.git master YES GENERIC Makefile .
 prosystem libretro-prosystem https://github.com/libretro/prosystem-libretro.git master YES GENERIC Makefile .
 puae libretro-uae https://github.com/libretro/libretro-uae.git master YES GENERIC Makefile .
