@@ -84,7 +84,7 @@ picodrive libretro-picodrive https://github.com/libretro/picodrive.git master YE
 play libretro-play https://github.com/jpd002/Play-.git master YES CMAKE Makefile build -DBUILD_LIBRETRO_CORE=yes -DBUILD_PLAY=off -DBUILD_TESTS=no -DENABLE_AMAZON_S3=no -DUSE_GLES=yes -DCMAKE_BUILD_TYPE="Release" --target play_libretro
 pocketcdg libretro-pocketcdg https://github.com/libretro/libretro-pocketcdg.git master YES GENERIC Makefile .
 pokemini libretro-pokemini https://github.com/libretro/PokeMini.git master YES GENERIC Makefile .
-ppsspp libretro-ppsspp https://github.com/hrydgard/ppsspp.git master YES GENERIC_GL Makefile libretro
+ppsspp libretro-ppsspp https://github.com/hrydgard/ppsspp.git master YES GENERIC_GL Makefile libretro .
 prboom libretro-prboom https://github.com/libretro/libretro-prboom.git master YES GENERIC Makefile .
 prosystem libretro-prosystem https://github.com/libretro/prosystem-libretro.git master YES GENERIC Makefile .
 puae libretro-uae https://github.com/libretro/libretro-uae.git master YES GENERIC Makefile .
