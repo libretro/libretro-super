@@ -963,7 +963,7 @@ include_core_ppsspp() {
 	register_module core "ppsspp" -ios -theos_ios -ngc -ps3 -psp1 -qnx -wii
 }
 libretro_ppsspp_name="PPSSPP"
-libretro_ppsspp_git_url="https://github.com/libretro/ppsspp.git"
+libretro_ppsspp_git_url="https://github.com/hrydgard/ppsspp.git"
 libretro_ppsspp_git_submodules="yes"
 libretro_ppsspp_build_subdir="libretro"
 libretro_ppsspp_build_opengl="yes"
