@@ -27,6 +27,7 @@ include_core_bsnes_mercury_accuracy
 include_core_bsnes_mercury_balanced
 include_core_bsnes_mercury_performance
 include_core_mednafen_snes
+include_core_mednafen_supafaust
 
 # --- Dreamcast emulator cores ---
 include_core_flycast

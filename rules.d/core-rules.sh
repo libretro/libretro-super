@@ -620,6 +620,12 @@ include_core_mednafen_snes() {
 libretro_mednafen_snes_name="Mednafen/Beetle bsnes"
 libretro_mednafen_snes_git_url="https://github.com/libretro/beetle-bsnes-libretro.git"
 
+include_core_mednafen_supafaust() {
+	register_module core "mednafen_supafaust" -theos_ios
+}
+libretro_mednafen_supafaust_name="Mednafen/Beetle Faust"
+libretro_mednafen_supafaust_git_url="https://github.com/libretro/supafaust.git"
+
 include_core_mednafen_vb() {
 	register_module core "mednafen_vb" -theos_ios
 }
