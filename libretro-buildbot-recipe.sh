@@ -454,7 +454,7 @@ build_libretro_android_cmake() {
 	PLATFORM="$5"
 	ARGS="$6"
 
-	JOBS_FLAG=--parallel
+	JOBS_FLAG=-j
 	EXTRAARGS="-DANDROID_PLATFORM=android-${API_LEVEL} -DCMAKE_TOOLCHAIN_FILE=${NDK_ROOT}/build/cmake/android.toolchain.cmake -DANDROID_STL=c++_static"
 
 	if [ -n "NDK_CCACHE" ]; then
@@ -487,8 +487,8 @@ build_libretro_android_cmake() {
 		echo "BUILD CMD: ${CMAKE} $*" 2>&1 | tee -a "$LOGFILE"
 		echo "$@" ../.. | xargs ${CMAKE} 2>&1 | tee -a "$LOGFILE"
 
-		echo "BUILD CMD: ${CMAKE} --build . ${JOBS_FLAG} ${JOBS} --target ${NAME}_libretro --config Release --" 2>&1 | tee -a "$LOGFILE"
-		${CMAKE} --build . ${JOBS_FLAG} ${JOBS} --target ${NAME}_libretro --config Release -- 2>&1 | tee -a "$LOGFILE"
+		echo "BUILD CMD: ${CMAKE} --build . --target ${NAME}_libretro --config Release -- ${JOBS_FLAG} ${JOBS} " 2>&1 | tee -a "$LOGFILE"
+		${CMAKE} --build . --target ${NAME}_libretro --config Release -- ${JOBS_FLAG} ${JOBS} 2>&1 | tee -a "$LOGFILE"
 
 		COREPATH=$(find . -type f -name ${CORENAM})
 		if [ -n "${COREPATH}" ]; then
