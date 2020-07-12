@@ -76,7 +76,7 @@ mednafen_pcfx libretro-beetle_pcfx https://github.com/libretro/beetle-pcfx-libre
 mednafen_psx libretro-beetle_psx https://github.com/libretro/beetle-psx-libretro.git master YES GENERIC Makefile . HAVE_LIGHTREC=1
 mednafen_psx_hw libretro-beetle_psx_hw https://github.com/libretro/beetle-psx-libretro.git master YES GENERIC Makefile . HAVE_HW=1 HAVE_LIGHTREC=1
 mednafen_saturn libretro-beetle_saturn https://github.com/libretro/beetle-saturn-libretro.git master YES GENERIC Makefile .
-mednafen_snes libretro-beetle_snes https://github.com/libretro/beetle-bsnes-libretro.git master YES GENERIC Makefile .
+mednafen_supafaust libretro-mednafen_supafaust https://github.com/libretro/supafaust.git master YES GENERIC Makefile .
 mednafen_supergrafx libretro-beetle_supergrafx https://github.com/libretro/beetle-supergrafx-libretro.git master YES GENERIC Makefile .
 mednafen_vb libretro-beetle_vb https://github.com/libretro/beetle-vb-libretro.git master YES GENERIC Makefile .
 mednafen_wswan libretro-beetle_wswan https://github.com/libretro/beetle-wswan-libretro.git master YES GENERIC Makefile .

@@ -1,8 +1,8 @@
 # Software Information
-display_name = "Nintendo - SNES / SFC (Supafaust)"
+display_name = "Nintendo - SNES / SFC (Beetle Supafaust)"
 categories = "Emulator"
 authors = "Mednafen team"
-corename = "Supafaust"
+corename = "Beetle Supafaust"
 supported_extensions = "smc|fig|sfc|gd3|gd7|dx2|bsx|swc"
 license = "GPLv2+"
 permissions = ""
