@@ -6,3 +6,4 @@ picodrive libretro-picodrive https://github.com/libretro/picodrive.git master YE
 mgba libretro-mgba https://github.com/libretro/mgba.git master YES GENERIC Makefile.libretro .
 test libretro-samples https://github.com/libretro/libretro-samples.git master YES GENERIC Makefile tests/test
 theodore libretro-theodore https://github.com/Zlika/theodore.git master YES GENERIC Makefile .
+tgbdual libretro-tgbdual https://github.com/libretro/tgbdual-libretro.git master YES GENERIC Makefile .
