@@ -1,6 +1,6 @@
 display_name = "Sony - PlayStation (DuckStation)"
 authors = "stenzek"
-supported_extensions = "cue|bin|img|chd"
+supported_extensions = "cue|bin|img|chd|m3u"
 corename = "DuckStation"
 manufacturer = "Sony"
 categories = "Emulator"
