@@ -57,7 +57,7 @@ ishiiruka libretro-ishiiruka https://github.com/libretro/Ishiiruka.git master YE
 kronos libretro-kronos https://github.com/libretro/yabause.git kronos YES GENERIC Makefile yabause/src/libretro
 neocd libretro-neocd https://github.com/libretro/neocd_libretro.git master YES GENERIC Makefile .
 lutro libretro-lutro https://github.com/libretro/libretro-lutro master YES GENERIC Makefile .
-mame libretro-mame https://github.com/libretro/mame.git master YES GENERIC Makefile.libretro . PTR64=1
+mame libretro-mame https://github.com/libretro/mame.git master NO GENERIC Makefile.libretro . download_github_windows_x64
 mame2000 libretro-mame2000 https://github.com/libretro/mame2000-libretro.git master YES GENERIC Makefile .
 mame2003 libretro-mame2003 https://github.com/libretro/mame2003-libretro.git master YES GENERIC Makefile . CCACHE_DISABLE=1
 mame2003_plus libretro-mame2003-plus https://github.com/libretro/mame2003-plus-libretro.git master YES GENERIC Makefile . CCACHE_DISABLE=1

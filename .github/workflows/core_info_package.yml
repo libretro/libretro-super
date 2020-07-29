@@ -1,0 +1,27 @@
+name: libretro Core Info Package
+
+on:
+  # Trigger the workflow on push, but only for the master branch
+  push:
+    branches:
+      - master
+  watch: # this is a hack that lets repo owners trigger a build by starring
+    types: [started]
+    if: github.actor == github.event.repository.owner.login
+
+jobs:
+  Assets:
+    name: Bundle Core Info Files
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+    - run: cd dist/info && 7z a -mx=9 info.7z *
+    - name: Upload core info bundle
+      uses: svenstaro/upload-release-action@v2
+      with:
+        repo_token: ${{ secrets.GITHUB_TOKEN }}
+        file: dist/info/info.7z
+        tag: Latest
+        asset_name: info.7z
+        overwrite: true
