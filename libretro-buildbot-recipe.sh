@@ -1043,6 +1043,22 @@ if [ "${PLATFORM}" = "android" ] && [ "${RA}" = "YES" ]; then
 		cp -rf media/overlays/* pkg/android/phoenix$PKG_EXTRA/assets/overlays/
 		cp -rf media/shaders_glsl/* pkg/android/phoenix$PKG_EXTRA/assets/shaders/shaders_glsl/
 		cp -rf media/shaders_slang/* pkg/android/phoenix$PKG_EXTRA/assets/shaders/shaders_slang/
+
+		# We need to keep our APK under 100MB, have to remove some assets
+		rm -rf pkg/android/phoenix$PKG_EXTRA/assets/shaders/shaders_glsl/procedural
+		rm -rf pkg/android/phoenix$PKG_EXTRA/assets/shaders/shaders_glsl/crt/shaders/crt-royale
+		rm -rf pkg/android/phoenix$PKG_EXTRA/assets/shaders/shaders_glsl/crt/crt-royale*
+		rm -rf pkg/android/phoenix$PKG_EXTRA/assets/shaders/shaders_glsl/crt/crt-yo6*
+		rm -rf pkg/android/phoenix$PKG_EXTRA/assets/shaders/shaders_glsl/crt/shaders/yo6
+		rm -rf pkg/android/phoenix$PKG_EXTRA/assets/shaders/shaders_glsl/handheld
+		rm -rf pkg/android/phoenix$PKG_EXTRA/assets/shaders/shaders_glsl/reshade
+		rm -rf pkg/android/phoenix$PKG_EXTRA/assets/shaders/shaders_slang/border
+		rm -rf pkg/android/phoenix$PKG_EXTRA/assets/shaders/shaders_slang/crt/crt-yo6*
+		rm -rf pkg/android/phoenix$PKG_EXTRA/assets/shaders/shaders_slang/crt/shaders/yo6
+		rm -rf pkg/android/phoenix$PKG_EXTRA/assets/shaders/shaders_slang/handheld
+		rm -rf pkg/android/phoenix$PKG_EXTRA/assets/shaders/shaders_slang/procedural
+		rm -rf pkg/android/phoenix$PKG_EXTRA/assets/shaders/shaders_slang/reshade
+
 		cp -rf media/libretrodb/cursors/* pkg/android/phoenix$PKG_EXTRA/assets/database/cursors/
 		cp -rf media/libretrodb/rdb/* pkg/android/phoenix$PKG_EXTRA/assets/database/rdb/
 		cp -rf libretro-common/audio/dsp_filters/*.dsp pkg/android/phoenix$PKG_EXTRA/assets/filters/audio/
