@@ -108,7 +108,7 @@ uzem libretro-uzem https://github.com/libretro/libretro-uzem.git master YES GENE
 vba_next libretro-vba-next https://github.com/libretro/vba-next.git master YES GENERIC_JNI Makefile libretro/jni
 vbam libretro-vbam https://github.com/libretro/vbam-libretro.git master YES GENERIC_JNI Makefile src/libretro/jni
 vecx libretro-vecx https://github.com/libretro/libretro-vecx.git master YES GENERIC_JNI Makefile.libretro jni
-vemulator libretro-vemulator https://github.com/MJaoune/vemulator-libretro.git master YES GENERIC_JNI Makefile jni
+vemulator libretro-vemulator https://github.com/libretro/vemulator-libretro.git master YES GENERIC_JNI Makefile jni
 vice_x128 libretro-vice_x128 https://github.com/libretro/vice-libretro.git master YES GENERIC_JNI Makefile jni EMUTYPE=x128
 vice_x64 libretro-vice_x64 https://github.com/libretro/vice-libretro.git master YES GENERIC_JNI Makefile jni
 vice_x64sc libretro-vice_x64sc https://github.com/libretro/vice-libretro.git master YES GENERIC_JNI Makefile jni EMUTYPE=x64sc
