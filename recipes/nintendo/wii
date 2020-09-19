@@ -22,6 +22,7 @@ gambatte libretro-gambatte https://github.com/libretro/gambatte-libretro.git mas
 genesis_plus_gx libretro-genesis_plus_gx https://github.com/libretro/Genesis-Plus-GX.git master YES GENERIC Makefile.libretro .
 gme libretro-gme https://github.com/libretro/libretro-gme.git master YES GENERIC Makefile .
 gw libretro-gw https://github.com/libretro/gw-libretro.git master YES GENERIC Makefile .
+handy libretro-handy https://github.com/libretro/libretro-handy.git master YES GENERIC Makefile .
 lutro libretro-lutro https://github.com/libretro/libretro-lutro master YES GENERIC Makefile .
 mame2000 libretro-mame2000 https://github.com/libretro/mame2000-libretro.git master YES GENERIC Makefile .
 mednafen_lynx libretro-beetle_lynx https://github.com/libretro/beetle-lynx-libretro.git master YES GENERIC Makefile .
