@@ -1,0 +1,17 @@
+# Software Information
+display_name = "Microsoft - Xbox (DirectXbox)"
+authors = "Libretro"
+supported_extensions = "iso"
+corename = "DirectXBox"
+license = "GPLv2+"
+permissions = ""
+display_version = "alpha"
+categories = "Emulator"
+
+# Hardware Information
+manufacturer = "Microsoft"
+systemname = "Xbox"
+systemid = "xbox"
+
+# Libretro Features
+database = "Microsoft - Xbox"
