@@ -1,16 +1,24 @@
+# Software Information
 display_name = "Commodore - C128 (VICE x128)"
-authors = "VICE Core Team Members"
-supported_extensions = "d64|d71|d80|d81|d82|g64|g41|x64|t64|tap|prg|p00|crt|bin|zip|gz|d6z|d7z|d8z|g6z|g4z|x6z|cmd|m3u|vsf|nib|nbz"
-corename = "VICE x128"
-manufacturer = "Commodore"
 categories = "Emulator"
-systemname = "C128"
-systemid = "commodore_128"
-database = "Commodore - C128"
+authors = "VICE Team"
+corename = "VICE x128"
+supported_extensions = "d64|d71|d80|d81|d82|g64|g41|x64|t64|tap|prg|p00|crt|bin|zip|gz|d6z|d7z|d8z|g6z|g4z|x6z|cmd|m3u|vfl|vsf|nib|nbz"
 license = "GPLv2"
 permissions = ""
 display_version = "v3.3"
-supports_no_game = "false"
+description = "Versatile Commodore Emulator - C128"
+
+# Hardware Information
+manufacturer = "Commodore"
+systemname = "C128"
+systemid = "commodore_c128"
+
+# Libretro Features
+database = "Commodore - 64"
+supports_no_game = "true"
+
+# Firmware
 firmware_count = 5
 firmware0_desc = "vice/JiffyDOS_C128.bin (JiffyDOS C128 Kernal)"
 firmware0_path = "vice/JiffyDOS_C128.bin"
