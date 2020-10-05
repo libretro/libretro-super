@@ -59,8 +59,8 @@ mednafen_supergrafx libretro-beetle_supergrafx https://github.com/libretro/beetl
 mednafen_vb libretro-beetle_vb https://github.com/libretro/beetle-vb-libretro.git master YES GENERIC_JNI Makefile jni
 mednafen_wswan libretro-beetle_wswan https://github.com/libretro/beetle-wswan-libretro.git master YES GENERIC_JNI Makefile jni
 melonds libretro-melonds https://github.com/libretro/melonDS.git master YES GENERIC_JNI Makefile jni
-mesen libretro-mesen https://github.com/SourMesen/Mesen.git master YES GENERIC_JNI Makefile Libretro/jni
-mesen-s libretro-mesen-s https://github.com/SourMesen/Mesen-S.git master YES GENERIC_JNI Makefile Libretro/jni
+mesen libretro-mesen https://github.com/libretro/Mesen.git master YES GENERIC_JNI Makefile Libretro/jni
+mesen-s libretro-mesen-s https://github.com/libretro/Mesen-S.git master YES GENERIC_JNI Makefile Libretro/jni
 meteor libretro-meteor https://github.com/libretro/meteor-libretro.git master NO GENERIC_JNI Makefile libretro/jni
 mgba libretro-mgba https://github.com/libretro/mgba.git master YES GENERIC_JNI Makefile libretro-build/jni
 mrboom libretro-mrboom https://github.com/libretro/mrboom-libretro.git master YES GENERIC_JNI Makefile jni

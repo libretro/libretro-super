@@ -73,8 +73,8 @@ mednafen_supergrafx libretro-beetle_supergrafx https://github.com/libretro/beetl
 mednafen_vb libretro-beetle_vb https://github.com/libretro/beetle-vb-libretro.git master YES GENERIC Makefile .
 mednafen_wswan libretro-beetle_wswan https://github.com/libretro/beetle-wswan-libretro.git master YES GENERIC Makefile .
 melonds libretro-melonds https://github.com/libretro/melonDS.git master YES GENERIC Makefile .
-mesen libretro-mesen https://github.com/SourMesen/Mesen.git master YES GENERIC Makefile Libretro
-mesen-s libretro-mesen-s https://github.com/SourMesen/Mesen-S.git master YES GENERIC Makefile Libretro
+mesen libretro-mesen https://github.com/libretro/Mesen.git master YES GENERIC Makefile Libretro
+mesen-s libretro-mesen-s https://github.com/libretro/Mesen-S.git master YES GENERIC Makefile Libretro
 meteor libretro-meteor https://github.com/libretro/meteor-libretro.git master NO GENERIC Makefile libretro
 mgba libretro-mgba https://github.com/libretro/mgba.git master YES GENERIC Makefile.libretro .
 mrboom libretro-mrboom https://github.com/libretro/mrboom-libretro.git master YES GENERIC Makefile .
