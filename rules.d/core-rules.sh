@@ -167,6 +167,12 @@ include_core_gme() {
 libretro_gme_name="Game Music Emu"
 libretro_gme_git_url="https://github.com/libretro/libretro-gme.git"
 
+include_core_fixnes() {
+	register_module core "fixnes" -ngc -ps3 -psp1 -wii
+}
+libretro_fixnes_name="fixNES"
+libretro_fixnes_git_url="https://github.com/libretro/fixNES.git"
+
 include_core_snes9x2002() {
 	register_module core "snes9x2002" -ngc -ps3 -psp1 -wii
 }
