@@ -88,6 +88,7 @@ include_core_mrboom() {
 }
 libretro_mrboom_name="Mr.Boom"
 libretro_mrboom_git_url="https://github.com/libretro/mrboom-libretro.git"
+libretro_mrboom_git_submodules="yes"
 libretro_mrboom_build_makefile="Makefile"
 
 include_core_frodo() {
