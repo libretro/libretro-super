@@ -173,6 +173,12 @@ include_core_fixnes() {
 libretro_fixnes_name="fixNES"
 libretro_fixnes_git_url="https://github.com/libretro/fixNES.git"
 
+include_core_fixgb() {
+	register_module core "fixgb" -ngc -ps3 -psp1 -wii
+}
+libretro_fixgb_name="fixGB"
+libretro_fixgb_git_url="https://github.com/libretro/fixGB.git"
+
 include_core_snes9x2002() {
 	register_module core "snes9x2002" -ngc -ps3 -psp1 -wii
 }

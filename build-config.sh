@@ -83,6 +83,7 @@ include_core_gambatte
 include_core_sameboy
 include_core_tgbdual
 include_core_gearboy
+include_core_fixgb
 
 # --- Atari 2600 emulator cores ---
 include_core_stella
