@@ -1131,7 +1131,7 @@ include_core_vemulator() {
 	register_module core "vemulator" -theos_ios -ngc -sncps3 -ps3 -psp1 -qnx -wii
 }
 libretro_vemulator_name="VEmulator"
-libretro_vemulator_git_url="https://github.com/MJaoune/vemulator-libretro.git"
+libretro_vemulator_git_url="https://github.com/libretro/vemulator-libretro.git"
 libretro_vemulator_build_makefile="Makefile"
 
 include_core_mu() {
