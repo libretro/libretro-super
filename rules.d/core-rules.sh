@@ -697,6 +697,7 @@ include_core_dosbox_svn() {
 }
 libretro_dosbox_svn_name="DOSBox"
 libretro_dosbox_svn_git_url="https://github.com/libretro/dosbox-svn.git"
+libretro_dosbox_svn_submodules="yes"
 libretro_dosbox_svn_makefile="Makefile.libretro"
 
 include_core_basilisk2() {
