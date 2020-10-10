@@ -846,7 +846,7 @@ include_core_theodore() {
 	register_module core "theodore"
 }
 libretro_theodore_name="Theodore"
-libretro_theodore_git_url="https://github.com/Zlika/theodore.git"
+libretro_theodore_git_url="https://github.com/libretro/theodore.git"
 
 include_core_mesen() {
 	register_module core "mesen"
