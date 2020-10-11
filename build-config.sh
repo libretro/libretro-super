@@ -44,6 +44,7 @@ include_core_gearsystem
 
 # --- Arcade emulator cores ---
 include_core_fbneo
+include_core_fbalpha
 include_core_fbalpha2012
 include_core_fbalpha2012_cps1
 include_core_fbalpha2012_cps2

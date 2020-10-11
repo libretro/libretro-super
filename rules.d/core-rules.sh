@@ -278,6 +278,13 @@ libretro_fbneo_name="FinalBurn Neo"
 libretro_fbneo_git_url="https://github.com/libretro/FBNeo.git"
 libretro_fbneo_build_subdir="src/burner/libretro"
 
+include_core_fbalpha() {
+	register_module core "fbalpha" -psp1
+}
+libretro_fbalpha_name="Final Burn Alpha"
+libretro_fbalpha_git_url="https://github.com/libretro/fbalpha.git"
+libretro_fbalpha_build_makefile="makefile.libretro"
+
 include_core_fbalpha2012() {
 	register_module core "fbalpha2012" -psp1
 }
