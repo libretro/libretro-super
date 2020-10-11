@@ -98,6 +98,14 @@ libretro_frodo_name="Frodo"
 libretro_frodo_git_url="https://github.com/libretro/frodo-libretro.git"
 libretro_frodo_build_makefile="Makefile"
 
+include_core_x1() {
+	register_module core "x1"
+}
+libretro_x1_name="X Millennium Sharp 1"
+libretro_x1_git_url="https://github.com/libretro/xmil-libretro.git"
+libretro_x1_build_subdir="libretro"
+libretro_x1_build_makefile="Makefile.libretro"
+
 include_core_vice_x64() {
 	register_module core "vice_x64"
 }
@@ -697,7 +705,7 @@ include_core_dosbox_svn() {
 }
 libretro_dosbox_svn_name="DOSBox"
 libretro_dosbox_svn_git_url="https://github.com/libretro/dosbox-svn.git"
-libretro_dosbox_svn_submodules="yes"
+libretro_dosbox_svn_git_submodules="yes"
 libretro_dosbox_svn_makefile="Makefile.libretro"
 
 include_core_basilisk2() {

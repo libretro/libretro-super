@@ -254,6 +254,7 @@ include_core_mu
 include_core_squirreljme
 include_core_minivmac
 include_core_oberon
+include_core_x1
 
 # -------------------------------------------------------------------------------------------------
 # Devkits
