@@ -802,7 +802,6 @@ include_core_bsnes_cplusplus98() {
 }
 libretro_bsnes_cplusplus98_name="bsnes C++98 (v0.85)"
 libretro_bsnes_cplusplus98_git_url="https://github.com/libretro/bsnes-libretro-cplusplus98.git"
-libretro_bsnes_cplusplus98_build_products="out"
 
 include_core_bsnes_mercury_accuracy() {
 	register_module core "bsnes_mercury_accuracy" -theos_ios -ngc -sncps3 -ps3 -psp1 -qnx -wii
