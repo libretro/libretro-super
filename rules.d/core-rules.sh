@@ -582,6 +582,14 @@ libretro_pcsx1_configure() {
 	fi
 }
 
+include_core_pcsx2() {
+	register_module core "pcsx2" -theos_ios -ngc -ps3 -psp1 -wii
+}
+libretro_pcsx2_name="PCSX2"
+libretro_pcsx2_git_url="https://github.com/libretro/pcsx2.git"
+libretro_pcsx2_build_subdir="libretro"
+libretro_pcsx2_build_makefile="Makefile"
+
 include_core_mednafen_gba() {
 	register_module core "mednafen_gba" -theos_ios
 }

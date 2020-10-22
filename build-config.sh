@@ -103,6 +103,7 @@ include_core_vice_xplus4
 include_core_mednafen_psx
 include_core_pcsx_rearmed
 include_core_pcsx1
+include_core_pcsx2
 include_core_rustation
 include_core_duckstation
 
