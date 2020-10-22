@@ -1,15 +1,24 @@
-display_name = "Commodore - Amiga (P-UAE)"
-authors = "GnoStiC"
-supported_extensions = "adf|adz|dms|fdi|ipf|hdf|hdz|lha|cue|ccd|nrg|mds|iso|uae|m3u|zip"
-corename = "PUAE"
-manufacturer = "Commodore"
+# Software Information
+display_name = "Commodore - Amiga (PUAE)"
 categories = "Emulator"
-systemname = "Commodore Amiga"
-systemid = "amiga"
+authors = "UAE Team"
+corename = "PUAE"
+supported_extensions = "adf|adz|dms|fdi|ipf|hdf|hdz|lha|slave|info|cue|ccd|nrg|mds|iso|uae|m3u|zip"
 license = "GPLv2"
 permissions = ""
 display_version = "v2.6.1"
-supports_no_game = "false"
+description = "Portable Universal Amiga Emulator"
+
+# Hardware Information
+manufacturer = "Commodore"
+systemname = "Amiga"
+systemid = "commodore_amiga"
+
+# Libretro Features
+database = "Commodore - Amiga"
+supports_no_game = "true"
+
+# Firmware
 firmware_count = 6
 firmware0_desc = "kick34005.A500 (Amiga 500 BIOS, Kickstart v1.3 Rev. 34.005)"
 firmware0_path = "kick34005.A500"
