@@ -1,7 +1,7 @@
 # Software Information
 display_name = "Amstrad - CPC (Caprice32)"
 authors = "Ulrich Doewich|dantoine"
-supported_extensions = "dsk|sna|zip|tap|cdt|voc|m3u"
+supported_extensions = "dsk|sna|zip|tap|cdt|voc|cpr|m3u"
 corename = "Caprice32"
 license = "GPLv2"
 permissions = ""
