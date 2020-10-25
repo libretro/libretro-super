@@ -32,4 +32,8 @@ disk_control = "false"
 is_experimental = "false"
 
 # BIOS/Firmware
-notes = "(!) You need to have Dolphin Sys folder in system/dolphin-emu/Sys.|(!) See: https://docs.libretro.com/library/dolphin/#setup"
+firmware_count = 1
+firmware0_desc = "Dolphin 'Sys' folder"
+firmware0_path = "dolphin-emu/Sys/codehandler.bin"
+firmware0_opt = "false"
+notes = "(!) You need the Dolphin 'Sys' folder in 'system/dolphin-emu'.|(!) Check https://docs.libretro.com/library/dolphin/#setup for more details."
