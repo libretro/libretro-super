@@ -587,6 +587,7 @@ include_core_pcsx2() {
 }
 libretro_pcsx2_name="PCSX2"
 libretro_pcsx2_git_url="https://github.com/libretro/pcsx2.git"
+libretro_pcsx2_git_submodules="yes"
 libretro_pcsx2_build_subdir="libretro"
 libretro_pcsx2_build_makefile="Makefile"
 
