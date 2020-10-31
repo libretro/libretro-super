@@ -14,4 +14,4 @@ else
 	fi
 fi
 
-platform=switch ${BASE_DIR}/libretro-build.sh $@
+platform=libnx ${BASE_DIR}/libretro-build.sh $@
