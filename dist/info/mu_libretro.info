@@ -16,6 +16,6 @@ firmware_count = 1
 
 firmware1_desc = "palmos41-en-m515.rom (Palm OS 4.1)"
 firmware1_path = "palmos41-en-m515.rom"
-firmware1_opt = "true"
+firmware1_opt = "false"
 
 notes = "(!) palmos41-en-m515.rom (md5): 83cb1d1c76e568b916dc2e7c0bf669f6"
