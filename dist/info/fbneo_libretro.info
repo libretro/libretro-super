@@ -1,6 +1,6 @@
 display_name = "Arcade (FinalBurn Neo)"
 authors = "Team FBNeo"
-supported_extensions = "zip|7z|cue"
+supported_extensions = "zip|7z|cue|ccd"
 corename = "FinalBurn Neo"
 manufacturer = "Various"
 categories = "Emulator"
