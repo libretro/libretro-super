@@ -4,7 +4,7 @@ upgrade:
 	@./libretro-upgrade.sh
 
 fetch:
-	@./libretro-fetch.sh retroarch $(grep -Eo '^[^ ]+' ${BASE_DIR}/recipes/nintendo/libnx)
+	@./libretro-fetch.sh retroarch $(grep -Eo '^[^ ]+' ./recipes/nintendo/libnx)
 
 build:
 	@./libretro-build-libnx.sh
