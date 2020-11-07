@@ -1,5 +1,4 @@
 2048 libretro-2048 https://github.com/libretro/libretro-2048.git master YES GENERIC Makefile.libretro .
-opera libretro-opera https://github.com/libretro/opera-libretro.git master YES GENERIC Makefile .
 bluemsx libretro-bluemsx https://github.com/libretro/blueMSX-libretro.git master YES GENERIC Makefile.libretro .
 fbalpha2012 libretro-fbalpha2012 https://github.com/libretro/fbalpha2012.git master YES GENERIC makefile.libretro svn-current/trunk
 fbalpha2012_cps1 libretro-fbalpha2012_cps1 https://github.com/libretro/fbalpha2012_cps1.git master YES GENERIC makefile.libretro .
@@ -15,11 +14,13 @@ mednafen_ngp libretro-beetle_ngp https://github.com/libretro/beetle-ngp-libretro
 mednafen_pce_fast libretro-beetle_pce_fast https://github.com/libretro/beetle-pce-fast-libretro.git master YES GENERIC Makefile .
 mednafen_vb libretro-beetle_vb https://github.com/libretro/beetle-vb-libretro.git master YES GENERIC Makefile .
 mednafen_wswan libretro-beetle_wswan https://github.com/libretro/beetle-wswan-libretro.git master YES GENERIC Makefile .
+mrboom libretro-mrboom https://github.com/libretro/mrboom-libretro.git master YES GENERIC Makefile .
 mu libretro-mu https://github.com/libretro/Mu.git master YES GENERIC Makefile libretroBuildSystem
 nestopia libretro-nestopia https://github.com/libretro/nestopia.git master YES GENERIC Makefile libretro
 np2kai libretro-np2kai https://github.com/libretro/NP2kai.git master NO GENERIC Makefile.libretro sdl
 nxengine libretro-nxengine https://github.com/libretro/nxengine-libretro.git master YES GENERIC Makefile .
 o2em libretro-o2em https://github.com/libretro/libretro-o2em.git master YES GENERIC Makefile .
+opera libretro-opera https://github.com/libretro/opera-libretro.git master YES GENERIC Makefile .
 prboom libretro-prboom https://github.com/libretro/libretro-prboom.git master YES GENERIC_ALT Makefile .
 prosystem libretro-prosystem https://github.com/libretro/prosystem-libretro.git master YES GENERIC Makefile .
 pocketcdg libretro-pocketcdg https://github.com/libretro/libretro-pocketcdg.git master YES GENERIC Makefile .

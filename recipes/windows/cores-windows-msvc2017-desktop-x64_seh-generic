@@ -1,5 +1,4 @@
 2048 libretro-2048 https://github.com/libretro/libretro-2048.git master YES GENERIC Makefile.libretro .
-opera libretro-opera https://github.com/libretro/opera-libretro.git master YES GENERIC Makefile .
 bluemsx libretro-bluemsx https://github.com/libretro/blueMSX-libretro.git master YES GENERIC Makefile.libretro .
 desmume libretro-desmume https://github.com/libretro/desmume.git master YES GENERIC Makefile.libretro desmume/src/frontend/libretro
 fbneo libretro-fbneo https://github.com/libretro/FBNeo.git master YES GENERIC Makefile src/burner/libretro
@@ -23,10 +22,12 @@ mednafen_saturn libretro-beetle_saturn https://github.com/libretro/beetle-saturn
 mednafen_vb libretro-beetle_vb https://github.com/libretro/beetle-vb-libretro.git master YES GENERIC Makefile .
 mednafen_wswan libretro-beetle_wswan https://github.com/libretro/beetle-wswan-libretro.git master YES GENERIC Makefile .
 mesen libretro-mesen https://github.com/libretro/Mesen.git master YES GENERIC Makefile Libretro platform=windows_msvc2017_desktop_x64
+mrboom libretro-mrboom https://github.com/libretro/mrboom-libretro.git master YES GENERIC Makefile .
 nestopia libretro-nestopia https://github.com/libretro/nestopia.git master YES GENERIC Makefile libretro
 np2kai libretro-np2kai https://github.com/libretro/NP2kai.git master YES GENERIC Makefile.libretro sdl
 nxengine libretro-nxengine https://github.com/libretro/nxengine-libretro.git master YES GENERIC Makefile .
 o2em libretro-o2em https://github.com/libretro/libretro-o2em.git master YES GENERIC Makefile .
+opera libretro-opera https://github.com/libretro/opera-libretro.git master YES GENERIC Makefile .
 picodrive libretro-picodrive https://github.com/libretro/picodrive.git master YES GENERIC Makefile.libretro .
 pocketcdg libretro-pocketcdg https://github.com/libretro/libretro-pocketcdg.git master YES GENERIC Makefile .
 pokemini libretro-pokemini https://github.com/libretro/PokeMini.git master YES GENERIC Makefile .
