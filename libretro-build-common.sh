@@ -221,6 +221,11 @@ build_makefile() {
 			$core_build_preclean
 			echo_cmd "$make_cmdline $core_build_args clean"
 		fi
+		
+		if [ "$platform" = "libnx" ]; then
+			COMPILER="CC=aarch64-none-elf-gcc"
+		fi
+		
 		make_cmdline="$make_cmdline $COMPILER"
 
 		$core_build_prebuild
@@ -235,56 +240,6 @@ build_makefile() {
 		echo "$1 not fetched, skipping ..."
 	fi
 }
-
-# build_makefile_libnx: Remove compiler setting from regular makefile
-build_makefile_libnx() {
-	[ -n "$core_build_subdir" ] && core_build_subdir="/$core_build_subdir"
-
-	make_cmdline="$MAKE"
-	if [ -n "$core_build_makefile" ]; then
-		make_cmdline="$make_cmdline -f $core_build_makefile"
-	fi
-
-	# TODO: Do $platform type stuff better (requires modding each core)
-	make_cmdline="$make_cmdline platform=\"$core_build_platform\""
-
-	[ -n "$STATIC_LINKING" ] && make_cmdline="$make_cmdline STATIC_LINKING=1"
-
-	[ -n "$JOBS" ] && make_cmdline="$make_cmdline -j$JOBS"
-	[ -n "$DEBUG" ] && make_cmdline="$make_cmdline DEBUG=$DEBUG"
-
-	build_dir="$WORKDIR/$core_dir$core_build_subdir"
-
-	if build_should_skip $1 "$build_dir"; then
-		echo "Core $1 is already built, skipping..."
-		return
-	fi
-
-
-	if [ -d "$build_dir" ]; then
-		echo_cmd "cd \"$build_dir\""
-
-		$core_build_configure
-
-		if [ -z "$NOCLEAN" ]; then
-			$core_build_preclean
-			echo_cmd "$make_cmdline $core_build_args clean"
-		fi
-		#make_cmdline="$make_cmdline $COMPILER" removed to work with libnx compilation
-
-		$core_build_prebuild
-		echo_cmd "$make_cmdline $core_build_args"
-
-		# TODO: Make this a separate stage/package rule
-		$core_build_prepkg
-		for a in $core_build_cores; do
-			copy_core_to_dist ${core_build_products:+$core_build_products/}$a $a
-		done
-	else
-		echo "$1 not fetched, skipping ..."
-	fi
-}
-
 
 # libretro_build_core: Build the given core using its build rules
 #
@@ -356,11 +311,7 @@ libretro_build_core() {
 
 			eval "core_build_cores=\${libretro_${1}_build_cores:-$1}"
 			eval "core_build_products=\$libretro_${1}_build_products"
-			if [ "$platform" = "libnx" ]; then
-				build_makefile_libnx $1 2>&1
-			else
-				build_makefile $1 2>&1
-			fi
+			build_makefile $1 2>&1
 			;;
 
 		legacy)
