@@ -647,6 +647,10 @@ case "$platform" in
 		FORMAT_COMPILER_TARGET=libnx
 		FORMAT_COMPILER_TARGET_ALT=libnx
 		FORMAT=_libnx
+		
+		CC="$DEVKITPRO/devkitA64/bin/aarch64-none-elf-gcc$BINARY_EXT"
+		CXX="$DEVKITPRO/devkitA64/bin/aarch64-none-elf-g++$BINARY_EXT"
+		AR="$DEVKITPRO/devkitA64/bin/aarch64-none-elf-ar$BINARY_EXT"
 
 		;;
 

@@ -221,11 +221,6 @@ build_makefile() {
 			$core_build_preclean
 			echo_cmd "$make_cmdline $core_build_args clean"
 		fi
-		
-		if [ "$platform" = "libnx" ]; then
-			COMPILER="CC=aarch64-none-elf-gcc"
-		fi
-		
 		make_cmdline="$make_cmdline $COMPILER"
 
 		$core_build_prebuild
