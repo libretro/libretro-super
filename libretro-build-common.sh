@@ -241,6 +241,7 @@ build_makefile() {
 	fi
 }
 
+
 # libretro_build_core: Build the given core using its build rules
 #
 # $1	Name of the core to build
