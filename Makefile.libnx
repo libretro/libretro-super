@@ -7,6 +7,6 @@ fetch:
 	@./libretro-fetch.sh $(echo "retroarch"; grep -Eo '^[^ ]+' ./recipes/nintendo/libnx)
 
 build:
-	@./libretro-build-libnx.sh
+	@platform=libnx ./libretro-build.sh $(grep -Eo '^[^ ]+' ./recipes/nintendo/libnx)
 
 .PHONY: default
