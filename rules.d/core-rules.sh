@@ -80,7 +80,7 @@ include_core_duckstation() {
 	register_module core "duckstation"
 }
 libretro_duckstation_name="Duckstation"
-libretro_duckstation_git_url="https://github.com/stenzek/duckstation.git"
+libretro_duckstation_git_url="https://github.com/libretro/duckstation.git"
 libretro_duckstation_build_products="bin"
 
 include_core_mrboom() {
