@@ -209,8 +209,6 @@ include_core_px68k
 
 include_core_hatari
 include_core_emux
-include_core_lutro
-include_core_uzem
 
 # --- Vectrex emulator cores ---
 include_core_vecx
@@ -245,6 +243,9 @@ include_core_scummvm
 include_core_chailove
 include_core_thepowdertoy
 include_core_tic80
+include_core_lutro
+include_core_retro8
+include_core_uzem
 
 # --- Miscellaneous cores ---
 include_core_video_processor

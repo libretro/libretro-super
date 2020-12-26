@@ -91,6 +91,13 @@ libretro_mrboom_git_url="https://github.com/libretro/mrboom-libretro.git"
 libretro_mrboom_git_submodules="yes"
 libretro_mrboom_build_makefile="Makefile"
 
+include_core_retro8() {
+	register_module core "retro8"
+}
+libretro_retro8_name="Retro8"
+libretro_retro8_git_url="https://github.com/libretro/retro8.git"
+libretro_retro8_build_makefile="Makefile"
+
 include_core_frodo() {
 	register_module core "frodo"
 }
