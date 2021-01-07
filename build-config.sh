@@ -152,6 +152,7 @@ include_core_virtualjaguar
 include_core_basilisk2
 include_core_dosbox
 include_core_dosbox_svn
+include_core_dosbox_pure
 include_core_pcem
 
 # --- MAME cores ---
