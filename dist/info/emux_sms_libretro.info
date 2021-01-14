@@ -1,7 +1,7 @@
 # Software Information
 display_name = "Sega - Master System (Emux SMS)"
 authors = "Sebastien Ronsse"
-supported_extensions = "sms|bin|rom"
+supported_extensions = "sms|bms|bin|rom"
 corename = "Emux SMS"
 license = "GPLv2"
 permissions = ""
