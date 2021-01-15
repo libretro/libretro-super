@@ -1,4 +1,4 @@
-display_name = "Sharp X1 (X Millenium)"
+display_name = "Sharp X1 (X Millennium)"
 authors = "yui"
 supported_extensions = "dx1|zip|2d|2hd|tfd|d88|88d|hdm|xdf|dup|tap|cmd"
 corename = "x1"
