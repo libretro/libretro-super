@@ -92,7 +92,7 @@ openlara libretro-openlara https://github.com/libretro/OpenLara.git master YES G
 parallel_n64 libretro-parallel_n64 https://github.com/libretro/parallel-n64.git master YES GENERIC_GL Makefile . WITH_DYNAREC=x86 HAVE_THR_AL=1 HAVE_PARALLEL=1 HAVE_PARALLEL_RSP=1
 pcsx_rearmed libretro-pcsx_rearmed https://github.com/libretro/pcsx_rearmed.git master YES GENERIC Makefile.libretro . DYNAREC=lightrec
 picodrive libretro-picodrive https://github.com/libretro/picodrive.git master YES GENERIC Makefile.libretro .
-play libretro-play https://github.com/jpd002/Play-.git master YES CMAKE sln build -DBUILD_LIBRETRO_CORE=yes -DBUILD_PLAY=off -DBUILD_TESTS=no -DCMAKE_BUILD_TYPE="Release" -G"Visual Studio 15 2017" --target play_libretro
+play libretro-play https://github.com/jpd002/Play-.git master YES CMAKE sln build -DBUILD_LIBRETRO_CORE=yes -DBUILD_PLAY=off -DBUILD_TESTS=no -DCMAKE_BUILD_TYPE="Release" -G"Visual Studio 15 2017"
 pocketcdg libretro-pocketcdg https://github.com/libretro/libretro-pocketcdg.git master YES GENERIC Makefile .
 pokemini libretro-pokemini https://github.com/libretro/PokeMini.git master YES GENERIC Makefile .
 ppsspp libretro-ppsspp https://github.com/hrydgard/ppsspp.git master YES GENERIC_GL Makefile libretro platform=windows_msvc2017_desktop_x86
