@@ -1,6 +1,6 @@
 display_name = "Sega - MS/GG/MD/CD (Genesis Plus GX)"
 authors = "Charles McDonald|Eke-Eke"
-supported_extensions = "mdx|md|smd|gen|bin|cue|iso|sms|gg|sg|68k|chd"
+supported_extensions = "mdx|md|smd|gen|bin|cue|iso|sms|bms|gg|sg|68k|chd"
 corename = "Genesis Plus GX"
 manufacturer = "Sega"
 categories = "Emulator"
