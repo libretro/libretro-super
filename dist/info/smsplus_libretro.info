@@ -1,6 +1,6 @@
 display_name = "Sega - MS/GG (SMS Plus GX)"
 authors = "Charles MacDonald|gameblabla"
-supported_extensions = "sms|bin|rom|col|gg"
+supported_extensions = "sms|bin|rom|col|gg|sg"
 corename = "SMS Plus GX"
 manufacturer = "Sega"
 categories = "Emulator"
