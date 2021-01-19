@@ -29,6 +29,7 @@ gw libretro-gw https://github.com/libretro/gw-libretro.git master YES GENERIC Ma
 handy libretro-handy https://github.com/libretro/libretro-handy.git master NO GENERIC Makefile .
 hatari libretro-hatari https://github.com/libretro/hatari.git master NO GENERIC Makefile.libretro .
 lutro libretro-lutro https://github.com/libretro/libretro-lutro master NO GENERIC Makefile .
+lowresnx libretro-lowresnx https://github.com/timoinutilis/lowres-nx/tree/retroarch retroarch YES GENERIC_JNI Makefile plateform/LibRetro/jni
 mame2000 libretro-mame2000 https://github.com/libretro/mame2000-libretro.git master NO GENERIC Makefile .
 mame2003 libretro-mame2003 https://github.com/libretro/mame2003-libretro.git master NO GENERIC Makefile .
 mame2003_plus libretro-mame2003-plus https://github.com/libretro/mame2003-plus-libretro.git master NO GENERIC Makefile .

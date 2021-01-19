@@ -115,6 +115,7 @@ WANT_CORES=" \
 	bluemsx \
 	fmsx \
         opera \
+	lowresnx\
 	mednafen_lynx \
 	mednafen_ngp \
 	mednafen_pce_fast \
@@ -192,7 +193,9 @@ for core in $WANT_CORES; do
 	if [ $core = "scummvm" ]; then
 		path="backends/platform/libretro/build/jni"
 	fi
-	
+	if [ $core = "lowresnx" ]; then
+		path="platform/LibRetro/jni"
+	fi
 	build_libretro_generic_makefile $core $path $append
    build_libretro_generic_makefile_armv7neon $core $path $append
 done

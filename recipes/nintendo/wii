@@ -27,6 +27,7 @@ gme libretro-gme https://github.com/libretro/libretro-gme.git master YES GENERIC
 gw libretro-gw https://github.com/libretro/gw-libretro.git master YES GENERIC Makefile .
 handy libretro-handy https://github.com/libretro/libretro-handy.git master YES GENERIC Makefile .
 lutro libretro-lutro https://github.com/libretro/libretro-lutro master YES GENERIC Makefile .
+lowresnx libretro-lowresnx https://github.com/timoinutilis/lowres-nx/tree/retroarch retroarch YES GENERIC_JNI Makefile plateform/LibRetro/jni
 mame2000 libretro-mame2000 https://github.com/libretro/mame2000-libretro.git master YES GENERIC Makefile .
 mednafen_lynx libretro-beetle_lynx https://github.com/libretro/beetle-lynx-libretro.git master YES GENERIC Makefile .
 mednafen_ngp libretro-beetle_ngp https://github.com/libretro/beetle-ngp-libretro.git master YES GENERIC Makefile .
