@@ -1,7 +1,7 @@
 display_name = "Sony - PlayStation (SwanStation)"
 authors = "stenzek"
 supported_extensions = "cue|bin|img|chd|m3u"
-corename = "DuckStation"
+corename = "SwanStation"
 manufacturer = "Sony"
 categories = "Emulator"
 systemname = "PlayStation"
