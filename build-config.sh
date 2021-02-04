@@ -243,6 +243,7 @@ include_core_stonesoup
 include_core_scummvm
 include_core_chailove
 include_core_thepowdertoy
+include_core_lowresnx
 include_core_tic80
 include_core_lutro
 include_core_retro8

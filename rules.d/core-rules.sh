@@ -1203,6 +1203,14 @@ libretro_tic80_git_submodules="yes"
 libretro_tic80_build_makefile="Makefile"
 libretro_tic80_build_subdir="build"
 
+include_core_lowresnx() {
+	register_module core "lowresnx" -theos_ios -ngc -sncps3 -ps3 -psp1 -qnx -wii
+}
+libretro_lowresnx_name="LowRes NX"
+libretro_lowresnx_git_url="https://github.com/timoinutilis/lowres-nx/tree/retroarch"
+libretro_lowresnx_build_makefile="Makefile"
+libretro_lowresnx_build_subdir="platform/LibRetro"
+
 include_core_squirreljme() {
 	register_module core "squirreljme"
 }
