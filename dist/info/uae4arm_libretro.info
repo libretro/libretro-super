@@ -2,7 +2,7 @@
 display_name = "Commodore - Amiga (UAE4ARM)"
 categories = "Emulator"
 authors = "TomB/Chips-fr"
-supported_extensions = "adf|dms|zip|ipf|adz|uae|cue|ccd|iso|hdf"
+supported_extensions = "adf|dms|zip|ipf|adz|uae|lha|cue|ccd|iso|hdf"
 corename = "UAE4ARM"
 categories = "Emulator"
 license = "GPLv2"
