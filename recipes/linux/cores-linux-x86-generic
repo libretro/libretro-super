@@ -52,7 +52,7 @@ higan_sfc_balanced libretro-nside https://github.com/libretro/nSide.git master Y
 kronos libretro-kronos https://github.com/libretro/yabause.git kronos YES GENERIC Makefile yabause/src/libretro
 neocd libretro-neocd https://github.com/libretro/neocd_libretro.git master YES GENERIC Makefile .
 lutro libretro-lutro https://github.com/libretro/libretro-lutro master YES GENERIC Makefile .
-lowresnx libretro-lowresnx https://github.com/timoinutilis/lowres-nx/tree/retroarch retroarch YES GENERIC_JNI Makefile plateform/LibRetro/jni
+lowresnx libretro-lowresnx https://github.com/timoinutilis/lowres-nx.git retroarch YES GENERIC Makefile platform/LibRetro
 mame libretro-mame https://github.com/libretro/mame.git master NO GENERIC Makefile.libretro . 
 mame2000 libretro-mame2000 https://github.com/libretro/mame2000-libretro.git master YES GENERIC Makefile .
 mame2003 libretro-mame2003 https://github.com/libretro/mame2003-libretro.git master YES GENERIC Makefile .
