@@ -1,10 +1,30 @@
+# Software Information
 display_name = "LowRes NX"
 authors = "timoinutilis"
 supported_extensions = "nx"
 corename = "lowresnx"
 categories = "Game engine"
-systemname = "LowRes NX"
 license = "zlib"
 permissions = ""
 display_version = "v1.2"
-supports_no_game = "true"
+
+# Hardware Information
+manufacturer = "inutilis"
+systemname = "LowRes NX"
+systemid = "lowresnx"
+
+# Libretro Features
+database = "LowRes NX"
+supports_no_game = "false"
+savestate = "false"
+cheats = "false"
+input_descriptors = "true"
+memory_descriptors = "true"
+libretro_saves = "false"
+core_options = "false"
+core_options_version = "1.0"
+load_subsystem = "false"
+hw_render = "false"
+needs_fullpath = "false"
+disk_control = "false"
+is_experimental = "false"
