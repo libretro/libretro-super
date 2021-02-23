@@ -9,6 +9,7 @@ fmsx libretro-fmsx https://github.com/libretro/fmsx-libretro.git master YES GENE
 freeintv libretro-freeintv https://github.com/libretro/FreeIntv.git master YES GENERIC Makefile .
 gme libretro-gme https://github.com/libretro/libretro-gme.git master YES GENERIC Makefile .
 genesis_plus_gx libretro-genesis_plus_gx https://github.com/libretro/Genesis-Plus-GX.git master YES GENERIC Makefile.libretro .
+genesis_plus_gx_wide libretro-genesis_plus_gx_wide https://github.com/libretro/Genesis-Plus-GX-Wide.git main YES GENERIC Makefile.libretro .
 handy libretro-handy https://github.com/libretro/libretro-handy.git master YES GENERIC Makefile .
 mednafen_ngp libretro-beetle_ngp https://github.com/libretro/beetle-ngp-libretro.git master YES GENERIC Makefile .
 mednafen_pce_fast libretro-beetle_pce_fast https://github.com/libretro/beetle-pce-fast-libretro.git master YES GENERIC Makefile .
