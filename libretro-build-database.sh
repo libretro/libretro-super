@@ -242,6 +242,7 @@ build_libretro_databases() {
 	build_libretro_database "Mattel - Intellivision" "rom.crc"
 	build_libretro_database "ScummVM" "rom.crc"
 	build_libretro_database "DOS" "rom.crc"
+	build_libretro_database "LowRes NX" "rom.crc"
 	build_libretro_database "Lutro" "rom.name"
 	build_libretro_database "ChaiLove" "rom.crc"
 	build_libretro_database "TIC-80" "rom.crc"
