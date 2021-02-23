@@ -36,6 +36,7 @@ gambatte libretro-gambatte https://github.com/libretro/gambatte-libretro.git mas
 gearboy libretro-gearboy https://github.com/drhelius/Gearboy.git master YES GENERIC_JNI Makefile platforms/libretro/jni
 gearsystem libretro-gearsystem https://github.com/drhelius/Gearsystem.git master YES GENERIC_JNI Makefile platforms/libretro/jni
 genesis_plus_gx libretro-genesis_plus_gx https://github.com/libretro/Genesis-Plus-GX.git master YES GENERIC_JNI Makefile.libretro libretro/jni
+genesis_plus_gx_wide libretro-genesis_plus_gx_wide https://github.com/libretro/Genesis-Plus-GX-Wide.git main YES GENERIC_JNI Makefile.libretro libretro/jni
 gme libretro-gme https://github.com/libretro/libretro-gme.git master YES GENERIC_JNI Makefile jni
 gw libretro-gw https://github.com/libretro/gw-libretro.git master YES GENERIC_JNI Makefile build/jni
 handy libretro-handy https://github.com/libretro/libretro-handy.git master YES GENERIC_JNI Makefile jni
