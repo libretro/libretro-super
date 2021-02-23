@@ -45,7 +45,7 @@ hatari libretro-hatari https://github.com/libretro/hatari.git master YES GENERIC
 higan_sfc libretro-higan https://gitlab.com/higan/higan.git libretro YES GENERIC GNUmakefile higan compiler=g++ target=libretro binary=library
 higan_sfc_balanced libretro-nside https://github.com/libretro/nSide.git master YES GENERIC GNUmakefile nSide compiler=g++ target=libretro binary=library
 lutro libretro-lutro https://github.com/libretro/libretro-lutro master YES GENERIC Makefile .
-lowresnx libretro-lowresnx https://github.com/timoinutilis/lowres-nx/tree/retroarch retroarch YES GENERIC_JNI Makefile plateform/LibRetro/jni
+lowresnx libretro-lowresnx https://github.com/timoinutilis/lowres-nx.git retroarch YES GENERIC Makefile platform/LibRetro
 mame libretro-mame https://github.com/libretro/mame.git master NO GENERIC Makefile.libretro . PTR64=1
 mame2000 libretro-mame2000 https://github.com/libretro/mame2000-libretro.git master YES GENERIC Makefile .
 mame2003 libretro-mame2003 https://github.com/libretro/mame2003-libretro.git master YES GENERIC Makefile .
