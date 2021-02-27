@@ -264,6 +264,13 @@ libretro_genesis_plus_gx_name="Genesis Plus GX"
 libretro_genesis_plus_gx_git_url="https://github.com/libretro/Genesis-Plus-GX.git"
 libretro_genesis_plus_gx_build_makefile="Makefile.libretro"
 
+include_core_genesis_plus_gx_wide() {
+	register_module core "genesis_plus_gx_wide" -theos_ios
+}
+libretro_genesis_plus_gx_wide_name="Genesis Plus GX"
+libretro_genesis_plus_gx_wide_git_url="https://github.com/libretro/Genesis-Plus-GX-Wide.git"
+libretro_genesis_plus_gx_wide_build_makefile="Makefile.libretro"
+
 include_core_mgba() {
 	register_module core "mgba"
 }
