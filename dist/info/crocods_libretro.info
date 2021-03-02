@@ -30,3 +30,5 @@ needs_fullpath = "false"
 disk_control = "false"
 is_experimental = "false"
 needs_kbd_mouse_focus = "true"
+
+description = "A port of the CrocoDS Amstrad CPC emulator to libretro. This emulator was originally written for use on the Nintendo DS console via homebrew, and, as such, runs well even on very weak hardware."

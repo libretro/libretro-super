@@ -64,3 +64,5 @@ needs_fullpath = "true"
 disk_control = "false"
 is_experimental = "false"
 needs_kbd_mouse_focus = "true"
+
+description = "A port of the mature and well-known DOSBox emulator to libretro. This core is kept up-to-date with the latest sources from DOSBox's SVN trunk and provides some improvements over the DOSBox-SVN core, including native MIDI support (as well as Soundfont-based MIDI support via FluidSynth and BASSMIDI), cycle-accurate OPL3 (YMF262) emulation courtesy of Nuked OPL3, MT-32 emulation courtesy of MUNT and experimental 3dfx Voodoo support. This is a good core for users who want a more traditional DOSBox experience vs the DOSBox-Pure core, which is focused on providing a turnkey, game-focused libretro experience."

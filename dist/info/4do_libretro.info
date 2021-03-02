@@ -81,3 +81,5 @@ firmware9_desc = "panafz10ja-anvil-kanji.bin (Panasonic FZ-10JA Kanji Font ROM)"
 firmware9_path = "panafz10ja-anvil-kanji.bin"
 firmware9_opt = "true"
 notes = "(!) panafz10ja-anvil-kanji.bin (md5): 428577250f43edc902ea239c50d2240d"
+
+description = "A port of 4DO, itself a fork of FreeDO, to libretro. One of several BIOS ROMs must be placed into your RetroArch / libretro "System Directory" folder. "norsa" versions have the RSA encryption check disabled which should allow unsigned software to run. This core is very demanding and is still in development, so many games have varying levels of compatibility and/or bugs."

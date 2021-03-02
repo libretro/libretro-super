@@ -30,3 +30,5 @@ required_hw_api = "OpenGL Core >= 3.3"
 needs_fullpath = "true"
 disk_control = "false"
 is_experimental = "false"
+
+description = "A port of the Citra 3DS emulator to libretro. This core is based on the 'Canary' branch, which includes some experimental changes/features that are not considered ready for inclusion in the main branch. The core requires decrypted ROMs to function, and some games require Mii data to be dumped from your own 3DS console."

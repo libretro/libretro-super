@@ -31,3 +31,5 @@ disk_control = "false"
 is_experimental = "false"
 needs_kbd_mouse_focus = "true"
 notes = "(!) This core requires libsdl1.2 and libsdl-net1.2.|"
+
+description = "A port of 'SVN' fork of the mature and well-known DOSBox emulator to libretro. This core is up-to-date with the latest DOSBox-SVN trunk and allows on-the-fly configuration and different sync methods (including the potential for perfect sync without tearing on VRR monitors). This core provides a more traditional DOSBox experience vs the DOSBox-Pure core, which is focused on providing a turnkey, game-focused libretro experience."

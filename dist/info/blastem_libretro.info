@@ -38,3 +38,5 @@ firmware0_path = "rom.db"
 firmware0_opt = "true"
 
 notes = "(!) rom.db (md5): ff4a3572475236e859e3e9ac5c87d1f1"
+
+description = "A port of the BlastEm Sega Genesis/Mega Drive emulator to libretro. This emulator is focused on being both extremely accurate and extremely fast. While it is not as mature as Genesis Plus GX, its extreme accuracy makes it capable of running many demos and test ROMs that choke other emulators, including the notoriously complex Titan Overdrive I and II demos."

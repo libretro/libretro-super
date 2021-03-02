@@ -1,7 +1,7 @@
 # Software Information
 display_name = "Nintendo - SNES / SFC (bsnes-mercury Performance)"
 categories = "Emulator"
-authors = "byuu|Alcaro"
+authors = "Near|Alcaro"
 corename = "bsnes-mercury Performance"
 supported_extensions = "sfc|smc|bml"
 license = "GPLv3"
