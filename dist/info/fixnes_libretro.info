@@ -1,15 +1,20 @@
+# Software Information
 display_name = "Nintendo - NES / Famicom (fixNES)"
 authors = "FIX94"
 supported_extensions = "nes|fds|qd|nsf"
 corename = "fixNES"
-manufacturer = "Nintendo"
 categories = "Emulator"
-systemname = "Nintendo Entertainment System"
-systemid = "nes"
-database = "Nintendo - Nintendo Entertainment System|Nintendo - Family Computer Disk System"
 license = "MIT"
 permissions = ""
 display_version = "Alpha v1.1"
+
+# Hardware Information
+manufacturer = "Nintendo"
+systemname = "Nintendo Entertainment System"
+systemid = "nes"
+
+# Libretro Information
+database = "Nintendo - Nintendo Entertainment System|Nintendo - Family Computer Disk System"
 supports_no_game = "false"
 firmware_count = 1
 firmware0_desc = "disksys.rom (Family Computer Disk System BIOS)"
