@@ -33,3 +33,5 @@ is_experimental = "false"
 
 # BIOS/Firmware
 notes = "(!) You need to have Dolphin Sys folder in system/dolphin-emu/Sys.|(!) See: https://docs.libretro.com/library/dolphin/#setup"
+
+description = "A port of the Ishiiruka fork of the Dolphin Gamecube/Wii emulator to libretro. Ishiiruka is a performance-focused fork of the Dolphin emulator that makes some sacrifices for a faster/smoother experience, and is/was notable for including asynchronous shader compilation--to reduce stuttering--before mainline Dolphin released its 'ubershaders' solution. While the normal Dolphin core is probably a better option for most users, this core may be helpful for squeezing out a bit more performance or getting smoother scrolling in some cases."
