@@ -1,7 +1,7 @@
 # Software Information
 display_name = "Nintendo - NES / Famicom (bnes)"
 categories = "Emulator"
-authors = "byuu|Ryphecha"
+authors = "Near|Ryphecha"
 corename = "bnes/higan"
 supported_extensions = "nes"
 license = "GPLv3"
@@ -29,3 +29,5 @@ hw_render = "false"
 needs_fullpath = "false"
 disk_control = "false"
 is_experimental = "true"
+
+description = "An initial and long-out-of-date port of Near's bnes emulator to libretro. This core was based on Near's first foray into NES/Famicom emulation and was not kept up-to-date with later improvements, and, as such, it is broken in many ways. No one should use this core to actually play games and it is only here for historical and research purposes."

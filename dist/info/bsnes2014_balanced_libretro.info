@@ -1,7 +1,7 @@
 # Software Information
 display_name = "Nintendo - SNES / SFC (bsnes 2014 Balanced)"
 categories = "Emulator"
-authors = "byuu"
+authors = "Near"
 corename = "bsnes 2014 Balanced"
 supported_extensions = "sfc|smc|bml"
 license = "GPLv3"

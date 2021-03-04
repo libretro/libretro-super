@@ -1,13 +1,20 @@
+# Software Information
 display_name = "Commodore - Amiga (FS-UAE)"
 authors = "FrodeSolheim"
 supported_extensions = "adf|ipf|fs-uae"
 corename = "FS-UAE"
-manufacturer = "Commodore"
 categories = "Emulator"
-systemname = "Commodore Amiga"
-systemid = "amiga"
-database = "Commodore - Amiga"
 license = "GPLv2"
 permissions = ""
 display_version = "v2.7.15"
+
+# Hardware Information
+manufacturer = "Commodore"
+systemname = "Commodore Amiga"
+systemid = "amiga"
+
+# Libretro Information
 supports_no_game = "false"
+database = "Commodore - Amiga"
+
+description = "A port of the FS-UAE Amiga emulator to libretro. The core expects a kickstart to be located in the user's 'saves' directory, in a subdirectory named fsue/Kickstarts. Most users will be better served by the PUAE core, which has received more work to integrate it with libretro and to make it usable with just a gamepad."

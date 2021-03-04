@@ -30,3 +30,5 @@ needs_fullpath = "false"
 disk_control = "false"
 is_experimental = "false"
 notes = "(!) This core launches an external Dolphin Emulator installation, which runs outside of the libretro frontend."
+
+description = "A basic skeleton core which has the sole purpose of launching an external instance of the popular Dolphin emulator. This allows users to launch Gamecube and/or Wii games from a libretro frontend while using the external Dolphin emulator, which will then run outside of the libretro frontend (that is, features of the frontend will not be available). Many/most users will be better served by using the libretro-native dolphin-libretro core, which provides a normal libretro experience, but this core may be useful to access features that are not exposed to the native libretro core."

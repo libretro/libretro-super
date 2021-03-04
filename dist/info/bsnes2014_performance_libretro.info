@@ -1,7 +1,7 @@
 # Software Information
 display_name = "Nintendo - SNES / SFC (bsnes 2014 Performance)"
 categories = "Emulator"
-authors = "byuu"
+authors = "Near"
 corename = "bsnes 2014 Performance"
 supported_extensions = "sfc|smc|bml"
 license = "GPLv3"

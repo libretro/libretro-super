@@ -28,3 +28,5 @@ needs_fullpath = "true"
 disk_control = "false"
 needs_kbd_mouse_focus = "true"
 is_experimental = "false"
+
+description = "A port of the EasyRPG game engine to libretro. This core is compatible with many RPG Maker homebrew games, primarily those created with the 2000 and 2003 flavors of the program."

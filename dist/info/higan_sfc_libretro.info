@@ -1,16 +1,35 @@
+# Software Information
 display_name = "Nintendo - SNES / Famicom (higan Accuracy)"
-authors = "byuu"
+authors = "Near"
 supported_extensions = "sfc|smc|gb|gbc|bml|rom"
-corename = "higan (Super Famicom Accuracy)"
-manufacturer = "Nintendo"
-categories = "Emulator"
-systemname = "Super Nintendo Entertainment System"
-systemid = "super_nes"
-database = "Nintendo - Super Nintendo Entertainment System|Nintendo - Super Nintendo Entertainment System Hacks|Nintendo - Game Boy|Nintendo - Game Boy Color"
+corename = "nSide (Super Famicom Accuracy)"
 license = "GPLv3"
 permissions = ""
+categories = "Emulator"
 display_version = "v105 (Super Famicom Accuracy)"
+
+# Hardware Information
+manufacturer = "Nintendo"
+systemname = "Super Nintendo Entertainment System"
+systemid = "super_nes"
+
+# Libretro Information
 supports_no_game = "false"
+database = "Nintendo - Super Nintendo Entertainment System|Nintendo - Super Nintendo Entertainment System Hacks|Nintendo - Game Boy|Nintendo - Game Boy Color"
+savestate = "true"
+savestate_features = "serialized"
+cheats = "false"
+input_descriptors = "true"
+memory_descriptors = "false"
+libretro_saves = "true"
+core_options = "true"
+core_options_version = "1.0"
+load_subsystem = "true"
+hw_render = "false"
+needs_fullpath = "false"
+disk_control = "false"
+
+# Firmware / BIOS
 firmware_count = 21
 firmware0_desc = "dsp1.data.rom"
 firmware0_path = "dsp1.data.rom"

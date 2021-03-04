@@ -29,3 +29,5 @@ needs_fullpath = "true"
 disk_control = "false"
 needs_kbd_mouse_focus = "false"
 is_experimental = "true"
+
+description = "Emux is a cross-platform emulator project with a goal of emulating multiple kinds of machines related to gaming, such as consoles or arcades. Its philosophy is very much inspired by the Linux kernel (hence the name), which  brilliantly manages to support multiple machines while keeping drivers entirely platform-independent. Emux is designed in the same way, keeping a code base of CPUs and controllers separate from machines. This emulator was never fully developed and remains here for historical purposes or in case someone wishes to contribute to its development."

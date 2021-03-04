@@ -29,3 +29,5 @@ needs_fullpath = "true"
 disk_control = "false"
 is_experimental = "false"
 notes = "(!) You need to have a dummy file with the extension .game inside your MAME rom outrun folder."
+
+description = "A port of the Cannonball enhanced OutRun engine to libretro. This core includes support for increased framerate (true 60 fps, some 120 fps content), true widescreen, new game modes and many more enhancements. To run the core/game, you will need to extract the contents of an OutRun Revision B ROM archive alongside a dummy file that ends in the *.game file extension (the frontend will load this 'game' file)."

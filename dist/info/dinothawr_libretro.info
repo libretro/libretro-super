@@ -30,3 +30,5 @@ needs_fullpath = "true"
 disk_control = "false"
 is_experimental = "false"
 notes = "(!) Dinothawr requires data ROM 'Dinothawr.zip'.|(!) Load Content 'dinothawr.game'."
+
+description = "A clever and cute push-the-block-in-a-straight-line puzzle game in the spirit of Kickle Cubicle written from the ground up for libretro. The core includes the puzzle game engine, while the game content (artwork and puzzle layouts) are included in the separate content package."

@@ -1,7 +1,7 @@
 # Software Information
 display_name = "Nintendo - SNES / SFC (bsnes C++98 (v085))"
 categories = "Emulator"
-authors = "byuu|Themaister|Ver GreenEyes"
+authors = "Near|Themaister|Ver GreenEyes"
 corename = "bsnes C++98 (v085)"
 supported_extensions = "sfc|smc"
 license = "GPLv3"

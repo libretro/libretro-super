@@ -37,3 +37,5 @@ firmware0_desc = "Dolphin 'Sys' folder"
 firmware0_path = "dolphin-emu/Sys/codehandler.bin"
 firmware0_opt = "false"
 notes = "(!) You need the Dolphin 'Sys' folder in 'system/dolphin-emu'.|(!) Check https://docs.libretro.com/library/dolphin/#setup for more details."
+
+description = "A port of the popular Dolphin Gamecube/Wii emulator to libretro. This core exposes only a subset of the many features included in the standalone Dolphin emulator, but it can provide a simplified and libretro-native experience for playing these games. The core needs the 'Sys' directory copied from the standalone emulator's files into the frontend's system directory, as this is where the emulator looks to apply per-game settings/hacks for better compatibility and performance. For Dolphin power-users, the reduced functionality of the core may be stifling, in which case the dolphin-launcher core may be a better fit."

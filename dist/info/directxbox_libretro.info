@@ -15,3 +15,6 @@ systemid = "xbox"
 
 # Libretro Features
 database = "Microsoft - Xbox"
+is_experimental = "true"
+
+description = "A very preliminary and WIP emulator for Microsoft's original Xbox console. This emulator does not play any games and is only of interest to developers who wish to work on it."

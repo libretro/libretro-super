@@ -28,3 +28,5 @@ hw_render = "false"
 needs_fullpath = "false"
 disk_control = "false"
 is_experimental = "false"
+
+description = "A port of the LowRes NX fantasy console to libretro. This core represents an imaginary handheld game console inspired by real 8- and 16-bit systems that is intended for simple games that can be programmed in second-generation, structured BASIC. It supports a d-pad, two action buttons and a keyboard for input. The LowRes NX platform comes with a variety of development tools including a Character Designer for editing sprites tile sand fonts, a Background Designer for tile maps and screen layouts and a Sound Composer for music and sound effects."
