@@ -1,15 +1,20 @@
+# Software Information
 display_name = "J2ME (FreeJ2ME)"
 authors = "David Richardson|Saket Dandawate"
 supported_extensions = "jar"
 corename = "FreeJ2ME"
-manufacturer = "Java"
 categories = "Emulator"
-systemname = "J2ME"
-database = "J2ME"
 license = "GPLv3"
 permissions = ""
 display_version = "GIT"
+
+# Hardware Information
+manufacturer = "Java"
+systemname = "J2ME"
+
+# Libretro Information
 supports_no_game = "false"
+database = "J2ME"
 firmware_count = 3
 firmware0_desc = "freej2me-fx.jar"
 firmware0_path = "freej2me-fx.jar"
