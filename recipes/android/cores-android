@@ -4,7 +4,7 @@ opera libretro-opera https://github.com/libretro/opera-libretro.git master YES G
 atari800 libretro-atari800 https://github.com/libretro/libretro-atari800.git master YES GENERIC_JNI Makefile jni
 bk libretro-bk https://github.com/libretro/bk-emulator.git master YES GENERIC_JNI Makefile.libretro jni
 bluemsx libretro-bluemsx https://github.com/libretro/blueMSX-libretro.git master YES GENERIC_JNI Makefile jni
-bsnes libretro-bsnes https://github.com/libretro/bsnes.git master YES GENERIC_JNI Makefile bsnes/target-libretro/jni
+bsnes libretro-bsnes https://github.com/libretro/bsnes-libretro.git master YES GENERIC_JNI Makefile bsnes/target-libretro/jni
 bsnes_hd_beta libretro-bsnes_hd_beta https://github.com/DerKoun/bsnes-hd.git master YES GENERIC_JNI Makefile bsnes/target-libretro/jni
 bsnes2014 libretro-bsnes2014 https://github.com/libretro/bsnes-libretro.git libretro YES GENERIC_JNI Makefile target-libretro/jni | bsnes2014_accuracy:profile=accuracy bsnes2014_balanced:profile=balanced bsnes2014_performance:profile=performance
 bsnes_mercury libretro-bsnes_mercury https://github.com/libretro/bsnes-mercury.git master YES GENERIC_JNI Makefile target-libretro/jni | bsnes_mercury_accuracy:profile=accuracy bsnes_mercury_balanced:profile=balanced bsnes_mercury_performance:profile=performance
