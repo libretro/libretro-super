@@ -5,7 +5,7 @@ include_core_bsnes() {
 }
 
 libretro_bsnes_name="bsnes"
-libretro_bsnes_git_url="https://github.com/libretro/bsnes.git"
+libretro_bsnes_git_url="https://github.com/libretro/bsnes-libretro.git"
 libretro_bsnes_build_args="compiler=\"${CXX17}\" target=\"libretro\""
 libretro_bsnes_build_subdir="bsnes"
 libretro_bsnes_build_makefile="GNUmakefile"
