@@ -168,6 +168,14 @@ libretro_pocketcdg_name="PocketCDG"
 libretro_pocketcdg_git_url="https://github.com/libretro/libretro-pocketcdg.git"
 libretro_pocketcdg_build_makefile="Makefile"
 
+include_core_potator() {
+	register_module core "potator"
+}
+libretro_potator_name="Potator"
+libretro_potator_git_url="https://github.com/libretro/potator.git"
+libretro_potator_build_subdir="platform/libretro"
+libretro_potator_build_makefile="Makefile"
+
 include_core_easyrpg() {
 	register_module core "easyrpg" -ngc -ps3 -psp1 -wii
 }

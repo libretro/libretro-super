@@ -253,6 +253,7 @@ include_core_uzem
 # --- Miscellaneous cores ---
 include_core_video_processor
 include_core_gme
+include_core_potator
 include_core_pocketcdg
 include_core_crocods
 include_core_cap32
