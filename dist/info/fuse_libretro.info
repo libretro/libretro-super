@@ -13,7 +13,7 @@ manufacturer = "Sinclair|Amstrad"
 systemname = "ZX Spectrum (various)"
 systemid = "zx_spectrum"
 
-# Libretro Information
+# Libretro Features
 supports_no_game = "false"
 database = "Sinclair - ZX Spectrum +3|Sinclair - ZX Spectrum"
 

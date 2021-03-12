@@ -13,9 +13,11 @@ manufacturer = "Nintendo"
 systemname = "Nintendo Entertainment System"
 systemid = "nes"
 
-# Libretro Information
+# Libretro Features
 database = "Nintendo - Nintendo Entertainment System|Nintendo - Family Computer Disk System"
 supports_no_game = "false"
+
+# BIOS / Firmware
 firmware_count = 1
 firmware0_desc = "disksys.rom (Family Computer Disk System BIOS)"
 firmware0_path = "disksys.rom"

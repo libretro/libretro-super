@@ -12,7 +12,7 @@ display_version = "Git"
 manufacturer = "Various"
 systemname = "Handheld Electronic"
 
-# Libretro Information
+# Libretro Features
 supports_no_game = "false"
 database = "Handheld Electronic Game"
 

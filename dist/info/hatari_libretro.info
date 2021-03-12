@@ -13,7 +13,7 @@ manufacturer = "Atari"
 systemname = "Atari ST/STE/TT/Falcon"
 systemid = "atari_st"
 
-# Libretro Information
+# Libretro Features
 supports_no_game = "false"
 savestate = "false"
 savestate_features = "null"

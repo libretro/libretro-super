@@ -13,7 +13,7 @@ manufacturer = "Various"
 systemname = "Arcade (various)"
 systemid = "mame"
 
-# Libretro Information
+# Libretro Features
 supports_no_game = "false"
 database = "MAME 2000"
 savestate = "true"

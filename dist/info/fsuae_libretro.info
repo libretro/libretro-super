@@ -13,7 +13,7 @@ manufacturer = "Commodore"
 systemname = "Commodore Amiga"
 systemid = "amiga"
 
-# Libretro Information
+# Libretro Features
 supports_no_game = "false"
 database = "Commodore - Amiga"
 

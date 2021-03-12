@@ -13,7 +13,7 @@ manufacturer = "Sega"
 systemname = "Sega 8/16-bit (Various)"
 systemid = "mega_drive"
 
-# Libretro Information
+# Libretro Features
 supports_no_game = "false"
 savestate = "true"
 savestate_features = "serialized"

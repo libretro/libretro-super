@@ -13,7 +13,7 @@ manufacturer = "Nintendo"
 systemname = "Game Boy Advance"
 systemid = "game_boy_advance"
 
-# Libretro Information
+# Libretro Features
 database = "Nintendo - Game Boy Advance|Nintendo - Game Boy Advance (e-Cards)"
 supports_no_game = "false"
 savestate = "true"

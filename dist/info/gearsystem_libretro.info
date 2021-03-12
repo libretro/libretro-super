@@ -13,7 +13,7 @@ manufacturer = "Sega"
 systemname = "Sega 8-bit (MS/GG/SG-1000)"
 systemid = "master_system"
 
-# Libretro Information
+# Libretro Features
 supports_no_game = "false"
 database = "Sega - Game Gear|Sega - Master System - Mark III|Sega - SG-1000"
 

@@ -13,9 +13,11 @@ manufacturer = "Various"
 systemname = "MSX"
 systemid = "msx"
 
-# Libretro Information
+# Libretro Features
 database = "Microsoft - MSX|Microsoft - MSX2"
 supports_no_game = "false"
+
+# BIOS / Firmware
 firmware_count = 10
 firmware0_desc = "MSX.ROM (MSX BIOS)"
 firmware0_path = "MSX.ROM"
