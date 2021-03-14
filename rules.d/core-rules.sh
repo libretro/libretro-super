@@ -5,7 +5,7 @@ include_core_bsnes() {
 }
 
 libretro_bsnes_name="bsnes"
-libretro_bsnes_git_url="https://github.com/libretro/bsnes.git"
+libretro_bsnes_git_url="https://github.com/libretro/bsnes-libretro.git"
 libretro_bsnes_build_args="compiler=\"${CXX17}\" target=\"libretro\""
 libretro_bsnes_build_subdir="bsnes"
 libretro_bsnes_build_makefile="GNUmakefile"
@@ -25,24 +25,24 @@ libretro_bsnes_hd_beta_build_products="out"
 include_core_bsnes_accuracy() {
 	register_module core "bsnes_accuracy" -theos_ios -ngc -sncps3 -ps3 -psp1 -qnx -wii
 }
-libretro_bsnes_accuracy_name="bsnes/higan (Accuracy)"
-libretro_bsnes_accuracy_git_url="https://github.com/libretro/bsnes-libretro.git"
+libretro_bsnes_accuracy_name="bsnes/higan 2014 (Accuracy)"
+libretro_bsnes_accuracy_git_url="https://github.com/libretro/bsnes2014.git"
 libretro_bsnes_accuracy_build_args="compiler=\"${CXX11}\" profile=\"accuracy\""
 libretro_bsnes_accuracy_build_products="out"
 
 include_core_bsnes_balanced() {
 	register_module core "bsnes_balanced" -theos_ios -ngc -sncps3 -ps3 -psp1 -qnx -wii
 }
-libretro_bsnes_balanced_name="bsnes/higan (Balanced)"
-libretro_bsnes_balanced_git_url="https://github.com/libretro/bsnes-libretro.git"
+libretro_bsnes_balanced_name="bsnes/higan 2014 (Balanced)"
+libretro_bsnes_balanced_git_url="https://github.com/libretro/bsnes2014.git"
 libretro_bsnes_balanced_build_args="compiler=\"${CXX11}\" profile=\"balanced\""
 libretro_bsnes_balanced_build_products="out"
 
 include_core_bsnes_performance() {
 	register_module core "bsnes_performance" -theos_ios -ngc -sncps3 -ps3 -psp1 -qnx -wii
 }
-libretro_bsnes_performance_name="bsnes/higan (Performance)"
-libretro_bsnes_performance_git_url="https://github.com/libretro/bsnes-libretro.git"
+libretro_bsnes_performance_name="bsnes/higan 2014 (Performance)"
+libretro_bsnes_performance_git_url="https://github.com/libretro/bsnes2014.git"
 libretro_bsnes_performance_build_args="compiler=\"${CXX11}\" profile=\"performance\""
 libretro_bsnes_performance_build_products="out"
 
@@ -899,7 +899,7 @@ include_core_theodore() {
 	register_module core "theodore"
 }
 libretro_theodore_name="Theodore"
-libretro_theodore_git_url="https://github.com/libretro/theodore.git"
+libretro_theodore_git_url="https://github.com/Zlika/theodore.git"
 
 include_core_mesen() {
 	register_module core "mesen"
