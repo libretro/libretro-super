@@ -78,6 +78,7 @@ include_core_melonds
 
 # --- Nintendo 3DS emulator cores ---
 include_core_citra
+include_core_citra2018
 include_core_citra_canary
 
 # --- Game Boy/Color emulator cores ---

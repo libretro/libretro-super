@@ -1017,6 +1017,14 @@ libretro_citra_git_url="https://github.com/libretro/citra.git"
 libretro_citra_git_submodules="yes"
 libretro_citra_build_opengl="yes"
 
+include_core_citra2018() {
+	register_module core "citra2018" -ios -theos_ios -ngc -ps3 -psp1 -qnx -wii
+}
+libretro_citra2018_name="Citra 2018"
+libretro_citra2018_git_url="https://github.com/libretro/citra2018.git"
+libretro_citra2018_git_submodules="yes"
+libretro_citra2018_build_opengl="yes"
+
 include_core_citra_canary() {
 	register_module core "citra_canary" -ios -theos_ios -ngc -ps3 -psp1 -qnx -wii
 }
