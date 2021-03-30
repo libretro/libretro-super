@@ -13,7 +13,7 @@ manufacturer = "Nintendo"
 systemname = "Super Nintendo Entertainment System"
 systemid = "super_nes"
 
-# BIOS / Firmware
+# Firmware / BIOS
 firmware_count = 2
 firmware0_desc = "BS-X.bin (BS-X - Sore wa Namae o Nusumareta Machi no Monogatari (Japan) (Rev 1))"
 firmware0_path = "BS-X.bin"
