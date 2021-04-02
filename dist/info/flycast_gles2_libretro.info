@@ -14,9 +14,11 @@ manufacturer = "Sega"
 systemname = "Sega Dreamcast"
 systemid = "dreamcast"
 
-# Libretro Information
+# Libretro Features
 database = "Sega - Dreamcast|Sega - NAOMI"
 supports_no_game = "false"
+
+# BIOS / Firmware
 firmware_count = 8
 firmware0_desc = "dc/dc_boot.bin (Dreamcast BIOS)"
 firmware0_path = "dc/dc_boot.bin"

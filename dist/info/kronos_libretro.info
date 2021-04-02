@@ -13,7 +13,7 @@ manufacturer = "Sega"
 systemname = "Saturn"
 systemid = "sega_saturn"
 
-# Libretro Information
+# Libretro Features
 supports_no_game = "false"
 database = "Sega - Saturn|Sega - ST-V"
 hw_render = "true"

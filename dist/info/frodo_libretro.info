@@ -13,6 +13,6 @@ manufacturer = "Commodore"
 systemid = "commodore_64"
 systemname = "C64"
 
-# Libretro Information
+# Libretro Features
 supports_no_game = "false"
 database = "Commodore - 64"

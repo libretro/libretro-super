@@ -13,9 +13,11 @@ manufacturer = "Mattel"
 systemname = "Intellivision"
 systemid = "intellivision"
 
-# Libretro Information
+# Libretro Features
 database = "Mattel - Intellivision"
 supports_no_game = "false"
+
+# BIOS / Firmware
 firmware_count = 2
 firmware0_desc = "exec.bin"
 firmware0_path = "exec.bin"

@@ -12,7 +12,7 @@ manufacturer = "Sony"
 systemname = "PlayStation"
 systemid = "playstation"
 
-# Libretro Information
+# Libretro Features
 database = "Sony - PlayStation"
 display_version = "v0.1"
 supports_no_game = "false"
@@ -23,6 +23,8 @@ savestate = "true"
 savestate_features = "serialized"
 input_descriptors = "true"
 disk_control = "true"
+
+# BIOS / Firmware
 firmware_count = 3
 firmware0_desc = "scph5500.bin (PS1 JP BIOS)"
 firmware0_path = "scph5500.bin"

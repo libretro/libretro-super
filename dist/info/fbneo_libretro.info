@@ -1,17 +1,36 @@
+# Software Information
 display_name = "Arcade (FinalBurn Neo)"
 authors = "Team FBNeo"
 supported_extensions = "zip|7z|cue|ccd"
 corename = "FinalBurn Neo"
-manufacturer = "Various"
-categories = "Emulator"
-systemname = "Arcade (various)"
-systemid = "fb_alpha"
-database = "FBNeo - Arcade Games"
-database_match_archive_member = "false"
 license = "Non-commercial"
 permissions = ""
 display_version = "v1.0.0.01"
+categories = "Emulator"
+
+# Hardware Information
+manufacturer = "Various"
+systemname = "Arcade (various)"
+systemid = "fb_alpha"
+
+# Libretro Features
+savestate = "true"
+savestate_features = "deterministic"
+cheats = "true"
+input_descriptors = "true"
+memory_descriptors = "true"
+libretro_saves = "true"
+core_options = "true"
+core_options_version = "1.0"
+load_subsystem = "true"
 supports_no_game = "false"
+hw_render = "false"
+needs_fullpath = "false"
+disk_control = "false"
+database_match_archive_member = "false"
+database = "FBNeo - Arcade Games"
+
+# BIOS / Firmware
 firmware_count = 18
 firmware0_desc = "fbneo/neogeo.zip (Neo Geo BIOS)"
 firmware0_path = "fbneo/neogeo.zip"
@@ -68,4 +87,5 @@ firmware17_desc = "fbneo/hiscore.dat (High Score support database)"
 firmware17_path = "fbneo/hiscore.dat"
 firmware17_opt = "true"
 notes = "(!) The BIOS files can also be inside the ROM directory or the root of SYSTEM directory.|(!) Homepage : https://neo-source.com/"
+
 description = "Based on the latest up-to-date source, 'FinalBurn Neo' is compatible with FinalBurn Neo latest ROM sets. This core should be the first choice for most users who want to run arcade games via libretro. MAME runs more games, so if FBN is incompatible with a game, those are the next ones to try. The FBA2012 cores should only be used if a device cannot run FBN at full speed. Formerly known as 'FB Alpha'."

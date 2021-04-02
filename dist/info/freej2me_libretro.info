@@ -12,9 +12,11 @@ display_version = "GIT"
 manufacturer = "Java"
 systemname = "J2ME"
 
-# Libretro Information
+# Libretro Features
 supports_no_game = "false"
 database = "J2ME"
+
+# BIOS / Firmware
 firmware_count = 3
 firmware0_desc = "freej2me-fx.jar"
 firmware0_path = "freej2me-fx.jar"

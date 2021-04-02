@@ -8,7 +8,7 @@ permissions = ""
 
 # Hardware Information
 
-# Libretro Information
+# Libretro Features
 supports_no_game = "false"
 
 description = "A basic core for viewing still images in a libretro frontend. This core can load basic, non-animated images in a variety of formats."

@@ -13,10 +13,12 @@ manufacturer = "Nintendo"
 systemname = "Game Boy/Game Boy Color"
 systemid = "game_boy"
 
-# Libretro Information
+# Libretro Features
 database = "Nintendo - Game Boy|Nintendo - Game Boy Color"
 supports_no_game = "false"
 is_experimental = "true"
+
+# BIOS / Firmware
 firmware_count = 1
 firmware0_desc = "gbc_bios.bin (Game Boy Color BIOS)"
 firmware0_path = "gbc_bios.bin"

@@ -28,3 +28,6 @@ database = "Nintendo - Super Nintendo Entertainment System|Nintendo - Super Nint
 hw_render = "false"
 needs_fullpath = "false"
 disk_control = "false"
+is_experimental = "false"
+
+description = "A port of Mednafen's Supafaust SNES emulator to libretro. This core is designed to be very fast and reasonably accurate. It is fastest on ARM hardware but should be quite speedy on typical x86 machines, as well. It is a very complete port, with support for many libretro features, including frontend features that depend on stable, deterministic savestates."
