@@ -6,7 +6,7 @@ atari800 libretro-atari800 https://github.com/libretro/libretro-atari800.git mas
 bk libretro-bk https://github.com/libretro/bk-emulator.git master YES GENERIC Makefile.libretro .
 blastem libretro-blastem https://github.com/libretro/blastem.git libretro YES GENERIC Makefile.libretro .
 bluemsx libretro-bluemsx https://github.com/libretro/blueMSX-libretro.git master YES GENERIC Makefile.libretro .
-bsnes libretro-bsnes https://github.com/libretro/bsnes-libretro.git master YES GENERIC GNUmakefile bsnes compiler=g++-7 target=libretro binary=library local=false platform=linux
+bsnes libretro-bsnes https://github.com/libretro/bsnes-libretro.git master YES GENERIC GNUmakefile bsnes target=libretro binary=library local=false platform=linux
 bsnes_hd_beta libretro-bsnes_hd_beta https://github.com/DerKoun/bsnes-hd.git master YES GENERIC GNUmakefile bsnes compiler=g++-7 target=libretro binary=library local=false platform=linux
 bsnes2014 libretro-bsnes2014 https://github.com/libretro/bsnes2014.git libretro YES GENERIC Makefile . | bsnes2014_accuracy:profile=accuracy bsnes2014_balanced:profile=balanced bsnes2014_performance:profile=performance
 bsnes_cplusplus98 libretro-bsnes_cplusplus98 https://github.com/libretro/bsnes-libretro-cplusplus98.git master YES GENERIC Makefile .
@@ -62,7 +62,7 @@ kronos libretro-kronos https://github.com/libretro/yabause.git kronos YES GENERI
 neocd libretro-neocd https://github.com/libretro/neocd_libretro.git master YES GENERIC Makefile .
 lutro libretro-lutro https://github.com/libretro/libretro-lutro master YES GENERIC Makefile .
 lowresnx libretro-lowresnx https://github.com/timoinutilis/lowres-nx.git retroarch YES GENERIC Makefile platform/LibRetro
-mame libretro-mame https://github.com/libretro/mame.git master NO GENERIC Makefile.libretro . PTR64=1 download_github_linux_x64
+mame libretro-mame https://github.com/libretro/mame.git master YES GENERIC Makefile.libretro . PTR64=1
 mame2000 libretro-mame2000 https://github.com/libretro/mame2000-libretro.git master YES GENERIC Makefile .
 mame2003 libretro-mame2003 https://github.com/libretro/mame2003-libretro.git master YES GENERIC Makefile .
 mame2003_plus libretro-mame2003-plus https://github.com/libretro/mame2003-plus-libretro.git master YES GENERIC Makefile .
