@@ -14,8 +14,8 @@ bsnes_mercury libretro-bsnes_mercury https://github.com/libretro/bsnes-mercury.g
 cannonball libretro-cannonball https://github.com/libretro/cannonball.git master YES GENERIC Makefile .
 cap32 libretro-cap32 https://github.com/libretro/libretro-cap32.git master YES GENERIC Makefile .
 chailove libretro-chailove https://github.com/libretro/libretro-chailove.git master YES GENERIC Makefile .
-citra libretro-citra https://github.com/libretro/citra.git master YES CMAKE Makefile build -DCMAKE_CXX_COMPILER=g++-7 -DCMAKE_C_COMPILER=gcc-7 -DENABLE_LIBRETRO=1 -DLIBRETRO_STATIC=1 -DENABLE_SDL2=0 -DENABLE_QT=0 -DCMAKE_BUILD_TYPE="Release" -DENABLE_WEB_SERVICE=0
-citra_canary libretro-citra_canary https://github.com/libretro/citra.git canary YES CMAKE Makefile build -DCMAKE_CXX_COMPILER=g++-7 -DCMAKE_C_COMPILER=gcc-7 -DENABLE_LIBRETRO=1 -DLIBRETRO_STATIC=1 -DENABLE_SDL2=0 -DENABLE_QT=0 -DCMAKE_BUILD_TYPE="Release" -DENABLE_WEB_SERVICE=0
+citra libretro-citra https://github.com/libretro/citra.git master YES CMAKE Makefile build -DENABLE_LIBRETRO=1 -DLIBRETRO_STATIC=1 -DENABLE_SDL2=0 -DENABLE_QT=0 -DCMAKE_BUILD_TYPE="Release" -DENABLE_WEB_SERVICE=0
+citra_canary libretro-citra_canary https://github.com/libretro/citra.git canary YES CMAKE Makefile build -DENABLE_LIBRETRO=1 -DLIBRETRO_STATIC=1 -DENABLE_SDL2=0 -DENABLE_QT=0 -DCMAKE_BUILD_TYPE="Release" -DENABLE_WEB_SERVICE=0
 craft libretro-craft https://github.com/libretro/craft master YES GENERIC Makefile.libretro .
 crocods libretro-crocods https://github.com/libretro/libretro-crocods.git master YES GENERIC Makefile .
 daphne libretro-daphne https://github.com/libretro/daphne.git master YES GENERIC Makefile .
@@ -24,7 +24,7 @@ desmume2015 libretro-desmume2015 https://github.com/libretro/desmume2015.git mas
 boom3 libretro-boom3 https://github.com/libretro/boom3.git master YES GENERIC Makefile neo
 boom3_xp libretro-boom3_xp https://github.com/libretro/boom3.git master YES GENERIC Makefile neo D3XP=ON
 dinothawr libretro-dinothawr https://github.com/libretro/Dinothawr.git master YES GENERIC Makefile .
-dolphin libretro-dolphin https://github.com/libretro/dolphin.git master YES CMAKE Makefile build -DLIBRETRO=ON -DLIBRETRO_STATIC=1 -DENABLE_QT=0 -DCMAKE_BUILD_TYPE=Release -DCMAKE_CXX_COMPILER=g++-7 -DCMAKE_C_COMPILER=gcc-7
+dolphin libretro-dolphin https://github.com/libretro/dolphin.git master YES CMAKE Makefile build -DLIBRETRO=ON -DLIBRETRO_STATIC=1 -DENABLE_QT=0 -DCMAKE_BUILD_TYPE=Release
 dosbox_core libretro-dosbox_core https://github.com/libretro/dosbox-core.git libretro YES GENERIC Makefile.libretro libretro download_github_linux64
 dosbox_svn libretro-dosbox_svn https://github.com/libretro/dosbox-svn libretro YES GENERIC Makefile.libretro libretro WITH_DYNAREC=x86_64
 dosbox_svn_ce libretro-dosbox_svn_ce https://github.com/libretro/dosbox-svn community-patches YES GENERIC Makefile.libretro libretro WITH_DYNAREC=x86_64
