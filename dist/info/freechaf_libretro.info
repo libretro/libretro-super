@@ -12,9 +12,11 @@ categories = "Emulator"
 manufacturer = "Fairchild"
 systemname = "FreeChaF"
 
-# Libretro Information
+# Libretro Features
 database = "FreeChaF"
 supports_no_game = "false"
+
+# BIOS / Firmware
 firmware_count = 3
 firmware0_desc = "sl31253.bin"
 firmware0_path = "sl31253.bin"

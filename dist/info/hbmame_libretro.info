@@ -13,7 +13,7 @@ manufacturer = "Various"
 systemname = "Arcade (various)"
 systemid = "hbmame"
 
-# Libretro Information
+# Libretro Features
 supports_no_game = "false"
 database_match_archive_member = "true"
 database = "HBMAME"

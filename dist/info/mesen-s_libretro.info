@@ -1,17 +1,21 @@
+# Software Information
 display_name = "Nintendo - SNES / SFC / Game Boy / Color (Mesen-S)"
 authors = "M. Bibaud (aka Sour)"
 supported_extensions = "sfc|smc|fig|swc|bs|gb|gbc"
 corename = "Mesen-S"
-description = "Mesen-S is a high-accuracy SNES/GB/GBC core with full SGB and achievement support."
-manufacturer = "Nintendo"
-categories = "Emulator"
-systemname = "Super Nintendo Entertainment System / Game Boy / Game Boy Color"
-systemid = "super_nes"
-database = "Nintendo - Super Nintendo Entertainment System|Nintendo - Super Nintendo Entertainment System Hacks|Nintendo - Satellaview|Nintendo - Game Boy|Nintendo - Game Boy Color"
 license = "GPLv3"
 permissions = ""
 display_version = "git"
+categories = "Emulator"
+
+# Hardware Information
+manufacturer = "Nintendo"
+systemname = "Super Nintendo Entertainment System / Game Boy / Game Boy Color"
+systemid = "super_nes"
+
+# Libretro Features
 supports_no_game = "false"
+database = "Nintendo - Super Nintendo Entertainment System|Nintendo - Super Nintendo Entertainment System Hacks|Nintendo - Satellaview|Nintendo - Game Boy|Nintendo - Game Boy Color"
 
 # BIOS / Firmware
 firmware_count = 21
@@ -78,3 +82,5 @@ firmware19_opt = "true"
 firmware20_desc = "BS-X.bin (Satellaview Boot ROM)"
 firmware20_path = "BS-X.bin"
 firmware20_opt = "true"
+
+description = "Mesen-S is a high-accuracy SNES/GB/GBC core with full SGB and achievement support. While quite accurate, this core is also pretty fast, making it a good, general-purpose SNES core. Along with bsnes/hd-beta and up-to-date Snes9x, this core is a great first choice for most users."

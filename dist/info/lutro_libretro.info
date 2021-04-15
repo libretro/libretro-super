@@ -11,7 +11,7 @@ display_version = "v1"
 # Hardware Information
 systemname = "Lutro"
 
-# Libretro Information
+# Libretro Features
 supports_no_game = "false"
 database = "Lutro"
 savestate = "false"

@@ -1,16 +1,23 @@
+# Software Information
 display_name = "Nintendo - NES / Famicom (Mesen)"
 authors = "M. Bibaud (aka Sour)"
 supported_extensions = "nes|fds|unf|unif"
 corename = "Mesen"
-manufacturer = "Nintendo"
-categories = "Emulator"
-systemname = "Nintendo Entertainment System"
-systemid = "nes"
-database = "Nintendo - Nintendo Entertainment System|Nintendo - Family Computer Disk System"
 license = "GPLv3"
 permissions = ""
 display_version = "0.9.4"
+categories = "Emulator"
+
+# Hardware Information
+manufacturer = "Nintendo"
+systemname = "Nintendo Entertainment System"
+systemid = "nes"
+
+# Libretro Features
 supports_no_game = "false"
+database = "Nintendo - Nintendo Entertainment System|Nintendo - Family Computer Disk System"
+
+# Firmware / BIOS
 firmware_count = 1
 firmware0_desc = "disksys.rom (Family Computer Disk System BIOS)"
 firmware0_path = "disksys.rom"

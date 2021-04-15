@@ -9,7 +9,7 @@ license = "LGPLv2, GPLv2"
 permissions = ""
 display_version = "Git"
 
-# Libretro Information
+# Libretro Features
 supports_no_game = "false"
 hw_render = "true"
 required_hw_api = "OpenGL Core >= 3.3"
