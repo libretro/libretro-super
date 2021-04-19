@@ -28,3 +28,5 @@ hw_render = "false"
 needs_fullpath = "false"
 disk_control = "false"
 is_experimental = "false"
+
+description = "A port of the FREE and OPEN SOURCE fantasy computer TIC-80 to libretro. This core is intended for playing small, retro-styled games created through the TIC-80 SDK."
