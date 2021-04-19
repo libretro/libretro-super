@@ -1,7 +1,7 @@
 # Software Information
 display_name = "Sony - PlayStation (SwanStation)"
 authors = "stenzek"
-supported_extensions = "cue|bin|img|chd|m3u"
+supported_extensions = "cue|bin|img|chd|pbp|m3u"
 corename = "SwanStation"
 categories = "Emulator"
 license = "GPLv3"

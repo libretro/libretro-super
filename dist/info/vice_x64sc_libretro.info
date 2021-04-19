@@ -3,10 +3,10 @@ display_name = "Commodore - C64 (VICE x64sc, accurate)"
 categories = "Emulator"
 authors = "VICE Team"
 corename = "VICE x64sc"
-supported_extensions = "d64|d71|d80|d81|d82|g64|g41|x64|t64|tap|prg|p00|crt|bin|zip|gz|d6z|d7z|d8z|g6z|g4z|x6z|cmd|m3u|vfl|vsf|nib|nbz"
+supported_extensions = "d64|d71|d80|d81|d82|g64|g41|x64|t64|tap|prg|p00|crt|bin|zip|gz|d6z|d7z|d8z|g6z|g4z|x6z|cmd|m3u|vfl|vsf|nib|nbz|d2m|d4m"
 license = "GPLv2"
 permissions = ""
-display_version = "v3.3"
+display_version = "3.5"
 description = "Versatile Commodore Emulator - C64 (accurate)"
 
 # Hardware Information

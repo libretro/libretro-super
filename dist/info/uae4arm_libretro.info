@@ -15,7 +15,7 @@ manufacturer = "Commodore"
 systemname = "Amiga"
 systemid = "commodore_amiga"
 
-# Firmware
+# Firmware / BIOS
 firmware_count = 5
 firmware0_desc = "kick34005.A500 (Amiga 500 BIOS, Kickstart v1.3 Rev. 34.005)"
 firmware0_path = "kick34005.A500"
@@ -32,3 +32,5 @@ firmware3_opt = "false"
 firmware4_desc = "kick40060.CD32.ext (Amiga CD32 Extended BIOS, CD32 Extended ROM Rev. 40.060)"
 firmware4_path = "kick40060.CD32.ext"
 firmware4_opt = "false"
+
+description = "An old fork of the uae4arm Amiga emulator, ported to libretro. This core is intended only for use on very weak, low-powered hardware and should only be used in cases where the P-UAE core is not available or cannot maintain full speed."

@@ -7,7 +7,6 @@ supported_extensions = "adf|adz|dms|fdi|ipf|hdf|hdz|lha|slave|info|cue|ccd|nrg|m
 license = "GPLv2"
 permissions = ""
 display_version = "v2.6.1"
-description = "Portable Universal Amiga Emulator"
 
 # Hardware Information
 manufacturer = "Commodore"
