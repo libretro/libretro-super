@@ -661,6 +661,14 @@ include_core_mednafen_psx() {
 libretro_mednafen_psx_name="Mednafen/Beetle PSX"
 libretro_mednafen_psx_git_url="https://github.com/libretro/beetle-psx-libretro.git"
 
+include_core_mednafen_psx_hw() {
+	register_module core "mednafen_psx_hw" -theos_ios -ngc -psp1
+}
+libretro_mednafen_psx_hw_name="Mednafen/Beetle PSX HW"
+libretro_mednafen_psx_hw_git_url="https://github.com/libretro/beetle-psx-libretro.git"
+libretro_mednafen_psx_hw_dir=libretro-beetle_psx
+libretro_mednafen_psx_hw_build_args="HAVE_HW=1 HAVE_LIGHTREC=1 $libretro_mednafen_psx_hw_build_args"
+
 include_core_mednafen_saturn() {
 	register_module core "mednafen_saturn" -theos_ios -ngc -psp1
 }

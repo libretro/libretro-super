@@ -233,6 +233,7 @@ build_default_cores() {
 			# Excluded for performance reasons
 			libretro_build_core mednafen_pcfx
 			libretro_build_core mednafen_psx
+			libretro_build_core mednafen_psx_hw
 			if [ $platform != "qnx" ]; then
 				libretro_build_core mednafen_snes
 			fi

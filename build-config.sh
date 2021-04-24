@@ -103,6 +103,7 @@ include_core_vice_xvic
 include_core_vice_xplus4
 # --- PlayStation1 emulator cores ---
 include_core_mednafen_psx
+include_core_mednafen_psx_hw
 include_core_pcsx_rearmed
 include_core_pcsx1
 include_core_pcsx2
@@ -286,4 +287,3 @@ include_lutro_tetris
 include_lutro_snake
 include_lutro_iyfct
 include_lutro_game_of_life
-
