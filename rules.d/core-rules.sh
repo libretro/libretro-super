@@ -660,6 +660,7 @@ include_core_mednafen_psx() {
 }
 libretro_mednafen_psx_name="Mednafen/Beetle PSX"
 libretro_mednafen_psx_git_url="https://github.com/libretro/beetle-psx-libretro.git"
+libretro_mednafen_psx_dir=libretro-beetle_psx
 
 include_core_mednafen_saturn() {
 	register_module core "mednafen_saturn" -theos_ios -ngc -psp1
