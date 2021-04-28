@@ -1505,16 +1505,20 @@ if [ "${PLATFORM}" == "ctr" ] && [ "${RA}" == "YES" ]; then
 		mkdir -p $WORK/$RADIR/pkg/ctr/build/retroarch/database
 		mkdir -p $WORK/$RADIR/pkg/ctr/build/retroarch/database/rdb
 		mkdir -p $WORK/$RADIR/pkg/ctr/build/retroarch/database/cursors
-		mkdir -p $WORK/$RADIR/pkg/ctr/build/retroarch/media
+		mkdir -p $WORK/$RADIR/pkg/ctr/build/retroarch/assets
+		mkdir -p $WORK/$RADIR/pkg/ctr/build/retroarch/overlays
+		mkdir -p $WORK/$RADIR/pkg/ctr/build/retroarch/overlays/ctr
 
 		cp $WORK/$RADIR/gfx/video_filters/*.filt $WORK/$RADIR/pkg/ctr/build/retroarch/filters/video/
 		cp $WORK/$RADIR/libretro-common/audio/dsp_filters/*.dsp $WORK/$RADIR/pkg/ctr/build/retroarch/filters/audio/
 		cp $RARCH_DIST_DIR/../info/*.info $WORK/$RADIR/pkg/ctr/build/retroarch/cores/info/
 		cp $WORK/$RADIR/media/libretrodb/rdb/*.rdb $WORK/$RADIR/pkg/ctr/build/retroarch/database/rdb/
 		cp $WORK/$RADIR/media/libretrodb/cursors/*.dbc $WORK/$RADIR/pkg/ctr/build/retroarch/database/cursors/
-		cp -r $WORK/$RADIR/media/assets/rgui $WORK/$RADIR/pkg/ctr/build/retroarch/media/
+		cp -r $WORK/$RADIR/media/assets/rgui $WORK/$RADIR/pkg/ctr/build/retroarch/assets/
+		cp -r $WORK/$RADIR/media/assets/menu_widgets $WORK/$RADIR/pkg/ctr/build/retroarch/assets/
+		cp -rf $WORK/$RADIR/media/overlays/ctr/* $WORK/$RADIR/pkg/ctr/build/retroarch/overlays/ctr/
 
-		convert_xmb_assets $WORK/$RADIR/media/assets/xmb $WORK/$RADIR/pkg/ctr/build/retroarch/media/xmb 64x32! 400x240! 90
+		convert_xmb_assets $WORK/$RADIR/media/assets/xmb $WORK/$RADIR/pkg/ctr/build/retroarch/assets/xmb 64x32! 400x240! 90
 	fi
 fi
 
