@@ -1,7 +1,7 @@
 # Software Information
 display_name = "Lua Engine (Lutro)"
 authors = "Higor Euripedes/Jean-Andre Santoni"
-supported_extensions = "lutro|lua"
+supported_extensions = "lutro|love|lua"
 corename = "Lutro"
 categories = "Game engine"
 license = "MIT"
