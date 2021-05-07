@@ -19,7 +19,7 @@ database = "Sinclair - ZX Spectrum +3|Sinclair - ZX Spectrum"
 
 # BIOS / Firmware
 firmware_count = 8
-firmware0_desc = "128p-0.rom (Pentagon)"
+firmware0_desc = "128p-0.rom (Pentagon machines)"
 firmware0_path = "fuse/128p-0.rom"
 firmware0_opt = "true"
 firmware1_desc = "128p-1.rom (Pentagon machines)"
@@ -28,7 +28,7 @@ firmware1_opt = "true"
 firmware2_desc = "trdos.rom (Pentagon machines)"
 firmware2_path = "fuse/trdos.rom"
 firmware2_opt = "true"
-firmware3_desc = "gluck.rom (Pentagon 128K / 1024)"
+firmware3_desc = "gluck.rom (Pentagon 512K / 1024)"
 firmware3_path = "fuse/gluck.rom"
 firmware3_opt = "true"
 firmware4_desc = "256s-0.rom (Scorpion 256K)"
