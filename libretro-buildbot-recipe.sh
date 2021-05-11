@@ -24,15 +24,16 @@ ENTRY_ID=""
 # ----- read variables from recipe config -----
 while read line; do
 	[ -z "${line}" ] && continue
-	KEY="${line% *}"
+	KEY="${line%% *}"
 	VALUE="${line#* }"
 	rm -f -- "$TMPDIR/vars"
+
 	if [ "${KEY}" = "PATH" ]; then
 		export PATH=${VALUE}:${ORIGPATH}
 		echo PATH=${VALUE}:${ORIGPATH} >> $TMPDIR/vars
 	else
-		export ${KEY}=${VALUE}
-		echo ${KEY}=${VALUE} >> $TMPDIR/vars
+		export ${KEY}="${VALUE}"
+		echo ${KEY}="${VALUE}" >> $TMPDIR/vars
 	fi
 	echo "Setting: ${KEY} ${VALUE}"
 done < $RECIPE.conf
