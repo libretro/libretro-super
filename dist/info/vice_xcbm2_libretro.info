@@ -17,3 +17,5 @@ systemid = "commodore_cbm2"
 # Libretro Features
 database = "Commodore - CBM-II"
 supports_no_game = "true"
+
+description = "The VICE xCBM-II emulator, isolated and ported to libretro. This core emulates several types of CBM-II models that were marketed under different names in the USA and Europe, including B128 and B256, and CBM 610, CBM 620, CBM 710 and CBM 720, respectively."

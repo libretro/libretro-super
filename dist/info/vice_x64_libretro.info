@@ -33,3 +33,5 @@ firmware3_desc = "vice/JiffyDOS_1581.bin (JiffyDOS 1581 drive BIOS)"
 firmware3_path = "vice/JiffyDOS_1581.bin"
 firmware3_opt = "true"
 notes = "(!) JiffyDOS_C64.bin (md5): be09394f0576cf81fa8bacf634daf9a2|(!) JiffyDOS_1541-II.bin (md5): 1b1e985ea5325a1f46eb7fd9681707bf|(!) JiffyDOS_1571_repl310654.bin (md5): 41c6cc528e9515ffd0ed9b180f8467c0|(!) JiffyDOS_1581.bin (md5): 20b6885c6dc2d42c38754a365b043d71"
+
+description = "The VICE x64 (fast) Commodore 64 emulator, isolated and ported to libretro. This core features a fairly complete emulation of the VIC-II video chip, with all sprites, registers and video modes emulated in a fully cycle-accurate manner. However, the 'x64sc' core's VIC-II emulation is both cycle-based and pixel-accurate, making it a better choice for devices powerful enough to run it. Both cores include options to switch between the original 'fastSID' sound chip emulation and the slower but much more accurate 'reSID' module."

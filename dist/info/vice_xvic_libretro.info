@@ -17,3 +17,5 @@ systemid = "commodore_vic20"
 # Libretro Features
 database = "Commodore - VIC-20"
 supports_no_game = "true"
+
+description = "The VICE VIC-20 emulator, isolated and ported to libretro. This core emulates all of the internal hardware, including the VIA chips. The VIC-I video chip is fully emulated except for NTSC interlace mode."
