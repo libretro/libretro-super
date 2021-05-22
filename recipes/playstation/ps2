@@ -6,6 +6,7 @@ handy libretro-handy https://github.com/libretro/libretro-handy.git master YES G
 mednafen_lynx libretro-beetle_lynx https://github.com/libretro/beetle-lynx-libretro.git master YES GENERIC Makefile .
 o2em libretro-o2em https://github.com/libretro/libretro-o2em.git master YES GENERIC Makefile .
 picodrive libretro-picodrive https://github.com/libretro/picodrive.git master YES GENERIC Makefile.libretro .
+mame2003_plus libretro-mame2003-plus https://github.com/libretro/mame2003-plus-libretro.git master YES GENERIC Makefile .
 mgba libretro-mgba https://github.com/libretro/mgba.git master YES GENERIC Makefile.libretro .
 race libretro-race https://github.com/libretro/RACE.git master YES GENERIC Makefile .
 smsplus libretro-smsplus https://github.com/libretro/smsplus-gx.git master YES GENERIC Makefile.libretro .
