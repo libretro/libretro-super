@@ -36,3 +36,5 @@ firmware4_desc = "vice/JiffyDOS_1581.bin (JiffyDOS 1581 drive BIOS)"
 firmware4_path = "vice/JiffyDOS_1581.bin"
 firmware4_opt = "true"
 notes = "(!) JiffyDOS_C128.bin (md5): cbbd1bbcb5e4fd8046b6030ab71fc021|(!) JiffyDOS_C64.bin (md5): be09394f0576cf81fa8bacf634daf9a2|(!) JiffyDOS_1541-II.bin (md5): 1b1e985ea5325a1f46eb7fd9681707bf|(!) JiffyDOS_1571_repl310654.bin (md5): 41c6cc528e9515ffd0ed9b180f8467c0|(!) JiffyDOS_1581.bin (md5): 20b6885c6dc2d42c38754a365b043d71"
+
+description = "The VICE x128 Commodore 64 emulator, isolated and ported to libretro. This core features a complete emulation of the internal MMU (Memory Management Unit), 80 column VDC screen, fast IEC bust emulation, 2 HMz mode, Z80 emulation plus all the features of the other VICE C64 emulation."

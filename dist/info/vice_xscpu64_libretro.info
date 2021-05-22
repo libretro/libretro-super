@@ -33,3 +33,5 @@ firmware3_desc = "vice/JiffyDOS_1581.bin (JiffyDOS 1581 drive BIOS)"
 firmware3_path = "vice/JiffyDOS_1581.bin"
 firmware3_opt = "true"
 notes = "(!) JiffyDOS_C64.bin (md5): be09394f0576cf81fa8bacf634daf9a2|(!) JiffyDOS_1541-II.bin (md5): 1b1e985ea5325a1f46eb7fd9681707bf|(!) JiffyDOS_1571_repl310654.bin (md5): 41c6cc528e9515ffd0ed9b180f8467c0|(!) JiffyDOS_1581.bin (md5): 20b6885c6dc2d42c38754a365b043d71"
+
+description = "The VICE xscpu64 emulator, isolated and ported to libretro. This core simulates a Commodore 64 equipped with a SuperCPU64 V2B, which provides a 20 MHz asynchronous single-cycle 65816 CPU core, 128 KiB static RAM, 0-16 MiB SIMM RAM and 64-512 KiB EPROM."
