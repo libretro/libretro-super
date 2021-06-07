@@ -4,6 +4,7 @@ authors = "Peter De Wachter|Emery Hemingway"
 supported_extensions = "dsk"
 corename = "Oberon"
 categories = "Emulator"
+license = "ISC"
 
 # Hardware Information
 systemname = "Oberon RISC machine"
