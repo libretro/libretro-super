@@ -26,10 +26,10 @@ memory_descriptors = "false"
 # Firmware / BIOS
 firmware_count = 2
 firmware0_desc = "Encrypted DVD Player software"
-firmware0_path = "PCSX2/bios/EROM.BIN"
+firmware0_path = "pcsx2/bios/EROM.BIN"
 firmware0_opt = "false"
 firmware1_desc = "BIOS Additions"
-firmware1_path = "PCSX2/bios/rom1.bin"
+firmware1_path = "pcsx2/bios/rom1.bin"
 firmware1_opt = "false"
 
 notes = "(!) EROM.BIN (md5): 9a9e8ed7668e6adfc8f7766c08ab9cd0|(!) rom1.bin (md5): 44552702b05697a14ccbe2ca22ee7139"
