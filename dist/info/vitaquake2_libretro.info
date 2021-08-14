@@ -16,6 +16,5 @@ systemid = "quake_2"
 # Libretro Features
 database = "Quake II"
 supports_no_game = "false"
-database = "Quake II"
 
 description = "A port of the VitaQuake 2 source port of iD's Quake 2 engine to libretro. There is a separate core for each of the Quake 2 mission packs, 'Rogue', 'Zaero' and 'Xatrix'. This core is for the main game. This core loads games in the *.pak format."
