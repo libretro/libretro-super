@@ -1,5 +1,5 @@
 # Software Information
-display_name = "PICO8 (Retro8)"
+display_name = "PICO-8 (Retro8)"
 authors = "jakz"
 supported_extensions = "p8|png"
 corename = "Retro8"
