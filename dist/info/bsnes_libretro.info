@@ -80,7 +80,7 @@ notes = "[1] bsnes uses split ROMS for special chip games.|[*] Notable DSP1/DSP1
 # Libretro Features
 savestate = "true"
 savestate_features = "serialized"
-cheats = "false"
+cheats = "true"
 input_descriptors = "true"
 memory_descriptors = "false"
 libretro_saves = "true"
