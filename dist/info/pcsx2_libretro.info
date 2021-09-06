@@ -1,7 +1,7 @@
 # Software Information
 display_name = "Sony - PlayStation 2 (PCSX2)"
 authors = "PCSX2 Team"
-supported_extensions = "elf|iso|ciso|chd|cso|cue|bin|mdf|nrg|dump|gz|img|m3u"
+supported_extensions = "elf|iso|ciso|chd|cso|bin|mdf|nrg|dump|gz|img|m3u"
 corename = "PCSX2"
 license = "GPL"
 permissions = ""
@@ -24,14 +24,10 @@ savestate = "false"
 memory_descriptors = "false"
 
 # Firmware / BIOS
-firmware_count = 2
-firmware0_desc = "Encrypted DVD Player software"
-firmware0_path = "pcsx2/bios/EROM.BIN"
+firmware_count = 1
+firmware0_desc = "'pcsx2/bios' folder"
+firmware0_path = "pcsx2/bios"
 firmware0_opt = "false"
-firmware1_desc = "BIOS Additions"
-firmware1_path = "pcsx2/bios/rom1.bin"
-firmware1_opt = "false"
-
-notes = "(!) EROM.BIN (md5): 9a9e8ed7668e6adfc8f7766c08ab9cd0|(!) rom1.bin (md5): 44552702b05697a14ccbe2ca22ee7139"
+notes = "[1] This only checks if the PCSX2 'bios' folder exists and is in the correct location.|[2] Because the core doesn't require any specific filename for the BIOS files,|[^] this info file cannot tell you if the content of your 'bios' folder is correct or not.|[3] Please check https://docs.libretro.com/library/pcsx2/#bios for more details."
 
 description = "A port of the mature and highly-compatible PCSX2 Playstation 2 emulator to libretro. This core is a good first choice for most users as compared with the Play! core, which has lower compatibility with the PS2 library. Required BIOS files include EROM.BIN, rom1.bin, and at least one set of scph*.bin/.mec/.nvm dumps that match each region of games you wish to run. A newer BIOS than scph10000 is recommended, as this original BIOS has problems in memory card emulation and other sections."
