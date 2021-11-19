@@ -14,7 +14,7 @@ systemname = "Sega 8/16-bit + 32X (Various)"
 systemid = "mega_drive"
 
 # Libretro Features
-database = "Sega - Master System - Mark III|Sega - Mega-CD - Sega CD|Sega - Mega Drive - Genesis|Sega - PICO|Sega - 32X"
+database = "Sega - Master System - Mark III|Sega - Game Gear|Sega - Mega-CD - Sega CD|Sega - Mega Drive - Genesis|Sega - PICO|Sega - 32X"
 supports_no_game = "false"
 savestate = "true"
 savestate_features = "deterministic"
