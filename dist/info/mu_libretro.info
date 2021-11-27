@@ -1,7 +1,7 @@
 # Software Information  
 display_name = "Palm OS (Mu)"
 authors = "guicrith / meepingsnesroms"
-supported_extensions = "prc|pqa|img"
+supported_extensions = "prc|pqa|img|pdb"
 corename = "Mu"
 license = "Non-commercial"
 permissions = ""
