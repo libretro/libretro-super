@@ -1,0 +1,42 @@
+# Software Information
+display_name = "Macintosh Plus (minivmac)"
+authors = "r-type|swingflip"
+supported_extensions = "zip"
+corename = "minivmac"
+license = "GPL"
+permissions = ""
+display_version = ""
+categories = "Emulator"
+
+# Hardware Information
+manufacturer = "Apple"
+systemname = "Macintosh Plus"
+systemid = "macintosh_plus"
+
+# Libretro Features
+supports_no_game = "true"
+hw_render = "false"
+needs_fullpath = "true"
+is_experimental = "true"
+
+# BIOS/Firmware
+firmware_count = 3
+firmware0_desc = "vMac.ROM (Macintosh Plus BIOS)"
+firmware0_path = "vMac.ROM"
+firmware0_opt = "false"
+firmware1_desc = "System Startup (1 of 4)"
+firmware1_path = "SSW_6.0.8-800k_Disk1of4.sea.bin"
+firmware1_opt = "false"
+firmware2_desc = "System Startup (2 of 4)"
+firmware2_path = "SSW_6.0.8-800k_Disk2of4.sea.bin"
+firmware2_opt = "false"
+firmware3_desc = "System Startup (3 of 4)"
+firmware3_path = "SSW_6.0.8-800k_Disk3of4.sea.bin"
+firmware3_opt = "false"
+firmware4_desc = "System Startup (4 of 4)"
+firmware4_path = "SSW_6.0.8-800k_Disk4of4.sea.bin"
+firmware4_opt = "false"
+
+notes = "(!) vMac.ROM (md5): tbd|(!) SSW_6.0.8-800k_Disk1of4.sea.bin (md5): tbd|(!) SSW_6.0.8-800k_Disk2of4.sea.bin (md5): tbd|(!) SSW_6.0.8-800k_Disk3of4.sea.bin (md5): tbd|(!) SSW_6.0.8-800k_Disk4of4.sea.bin (md5): tbd"
+
+description = "This core a port of the Mini vMac emulator collection, allows running of software made for early Macintosh computers. Mini vMac is part of the Gryphel Project."
