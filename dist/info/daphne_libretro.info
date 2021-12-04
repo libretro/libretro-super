@@ -14,7 +14,6 @@ systemname = "Arcade (various)"
 systemid = "daphne"
 
 # Libretro Features
-database = "Daphne"
 database_match_archive_member = "true"
 supports_no_game = "false"
 savestate = "false"

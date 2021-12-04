@@ -15,7 +15,7 @@ systemid = "super_nes"
 
 # Libretro Features
 supports_no_game = "false"
-database = "Nintendo - Super Nintendo Entertainment System|Nintendo - Super Nintendo Entertainment System Hacks|Nintendo - Satellaview|Nintendo - Game Boy|Nintendo - Game Boy Color"
+database = "Nintendo - Super Nintendo Entertainment System|Nintendo - Satellaview|Nintendo - Game Boy|Nintendo - Game Boy Color"
 
 # BIOS / Firmware
 firmware_count = 21

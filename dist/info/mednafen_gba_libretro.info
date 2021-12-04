@@ -14,7 +14,7 @@ systemname = "Game Boy Advance"
 systemid = "game_boy_advance"
 
 # Libretro Features
-database = "Nintendo - Game Boy Advance|Nintendo - Game Boy Advance (e-Cards)"
+database = "Nintendo - Game Boy Advance"
 supports_no_game = "false"
 
 # Firmware / BIOS
