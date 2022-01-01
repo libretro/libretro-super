@@ -1,0 +1,13 @@
+display_name = "CHIP-8/SuperChip8/XO-CHIP"
+authors = "Kurtis Dinelle"
+supported_extensions = "ch8"
+corename = "JAXE"
+manufacturer = "RCA"
+categories = "Emulator"
+systemname = "SuperChip8"
+database = "SuperChip8"
+license = "MIT"
+permissions = ""
+display_version = "GIT"
+supports_no_game = "false"
+firmware_count = 0
