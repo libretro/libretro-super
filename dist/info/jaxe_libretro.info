@@ -11,3 +11,4 @@ permissions = ""
 display_version = "GIT"
 supports_no_game = "false"
 firmware_count = 0
+description = "JAXE is a fully-featured, cross platform XO-CHIP/S-CHIP/CHIP-8 emulator written in C"
