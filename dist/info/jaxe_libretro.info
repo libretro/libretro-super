@@ -1,5 +1,5 @@
 # Software Information
-display_name = "CHIP-8 (JAXE)"
+display_name = "CHIP-8/S-CHIP/XO-CHIP (JAXE)"
 authors = "Kurtis Dinelle"
 supported_extensions = "ch8"
 corename = "JAXE"
