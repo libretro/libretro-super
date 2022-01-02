@@ -4,8 +4,11 @@ supported_extensions = "ch8"
 corename = "JAXE"
 manufacturer = "RCA"
 categories = "Emulator"
-systemname = "SuperChip8"
-database = "SuperChip8"
+
+# Hardware Information
+systemname = "CHIP-8"
+database = "CHIP-8"
+system_id = "chip_8"
 license = "MIT"
 permissions = ""
 display_version = "GIT"
