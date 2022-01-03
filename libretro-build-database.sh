@@ -266,6 +266,7 @@ build_libretro_databases() {
 	build_libretro_database "Bandai - WonderSwan Color" "rom.crc"
 	build_libretro_database "Casio - Loopy" "rom.crc"
 	build_libretro_database "Casio - PV-1000" "rom.crc"
+	build_libretro_database "CHIP-8" "rom.crc"
 	build_libretro_database "Coleco - ColecoVision" "rom.crc"
 	build_libretro_database "Commodore - 64" "rom.crc"
 	build_libretro_database "Commodore - Amiga" "rom.crc"
