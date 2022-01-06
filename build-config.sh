@@ -61,7 +61,6 @@ include_core_gpsp
 include_core_meteor
 include_core_mgba
 include_core_mednafen_gba
-include_core_tempgba
 
 # --- NES emulator cores ---
 include_core_fceumm
