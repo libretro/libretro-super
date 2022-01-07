@@ -45,7 +45,6 @@ handy libretro-handy https://github.com/libretro/libretro-handy.git master YES G
 hatari libretro-hatari https://github.com/libretro/hatari.git master YES GENERIC Makefile.libretro .
 higan_sfc libretro-higan https://gitlab.com/higan/higan.git libretro YES GENERIC GNUmakefile higan compiler=g++ target=libretro binary=library
 higan_sfc_balanced libretro-nside https://github.com/libretro/nSide.git master YES GENERIC GNUmakefile nSide compiler=g++ target=libretro binary=library
-jaxe libretro-jaxe https://github.com/kurtjd/jaxe.git main YES GENERIC Makefile.libretro .
 kronos libretro-kronos https://github.com/libretro/yabause.git kronos NO GENERIC Makefile yabause/src/libretro
 lutro libretro-lutro https://github.com/libretro/libretro-lutro master YES GENERIC Makefile .
 lowresnx libretro-lowresnx https://github.com/timoinutilis/lowres-nx.git retroarch YES GENERIC Makefile platform/LibRetro

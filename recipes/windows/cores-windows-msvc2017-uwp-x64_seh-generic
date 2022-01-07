@@ -12,7 +12,6 @@ genesis_plus_gx libretro-genesis_plus_gx https://github.com/libretro/Genesis-Plu
 genesis_plus_gx_wide libretro-genesis_plus_gx_wide https://github.com/libretro/Genesis-Plus-GX-Wide.git main YES GENERIC Makefile.libretro .
 gme libretro-gme https://github.com/libretro/libretro-gme.git master YES GENERIC Makefile .
 handy libretro-handy https://github.com/libretro/libretro-handy.git master YES GENERIC Makefile .
-jaxe libretro-jaxe https://github.com/kurtjd/jaxe.git main YES GENERIC Makefile.libretro .
 mame2003 libretro-mame2003 https://github.com/libretro/mame2003-libretro.git master YES GENERIC Makefile . CCACHE_DISABLE=1
 mame2003_plus libretro-mame2003-plus https://github.com/libretro/mame2003-plus-libretro.git master YES GENERIC Makefile . CCACHE_DISABLE=1
 mednafen_lynx libretro-beetle_lynx https://github.com/libretro/beetle-lynx-libretro.git master YES GENERIC Makefile .

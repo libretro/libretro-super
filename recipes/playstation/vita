@@ -27,7 +27,6 @@ gme libretro-gme https://github.com/libretro/libretro-gme.git master YES GENERIC
 gpsp libretro-gpsp https://github.com/libretro/gpsp.git master YES GENERIC Makefile .
 handy libretro-handy https://github.com/libretro/libretro-handy.git master YES GENERIC Makefile .
 hatari libretro-hatari https://github.com/libretro/hatari.git master YES GENERIC Makefile.libretro .
-jaxe libretro-jaxe https://github.com/kurtjd/jaxe.git main YES GENERIC Makefile.libretro .
 lutro libretro-lutro https://github.com/libretro/libretro-lutro master YES GENERIC Makefile .
 lowresnx libretro-lowresnx https://github.com/timoinutilis/lowres-nx.git retroarch YES GENERIC Makefile platform/LibRetro
 mame2000 libretro-mame2000 https://github.com/libretro/mame2000-libretro.git master YES GENERIC Makefile .
