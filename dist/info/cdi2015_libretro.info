@@ -1,8 +1,8 @@
 # Software Information
-display_name = "Philips CDi (CDi 2016)"
+display_name = "Philips CDi (CDi 2015)"
 authors = "MAMEdev"
 supported_extensions = "chd"
-corename = "Philips CDi 2016"
+corename = "Philips CDi 2015"
 license = "GPLv2+"
 permissions = ""
 display_version = "0.174"
@@ -11,7 +11,7 @@ categories = "Emulator"
 # Hardware Information
 manufacturer = "Philips"
 systemname = "CDi"
-systemid = "cdi2016"
+systemid = "cdi2015"
 
 # Firmware / BIOS
 firmware_count = 1
@@ -33,4 +33,4 @@ core_options_version = "1.0"
 hw_render = "false"
 disk_control = "false"
 
-description = "Based on the MAME codebase's Philips CDi emulation circa 2016, 'CDi2016' is compatible with CDi games in CHD format from any MAME set. This core is designed to make it very easy to load these games. Names are irrelevant, hash lists aren't needed, just put the BIOS (again, from any MAME set) into the system directory, then load the file."
+description = "Based on the MAME codebase's Philips CDi emulation circa 2015, 'CDi 2015' is compatible with CDi games in CHD format from any MAME set. This core is designed to make it very easy to load these games. Names are irrelevant, hash lists aren't needed, just put the BIOS (again, from any MAME set) into the system directory, then load the game."
