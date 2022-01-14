@@ -5,7 +5,7 @@ supported_extensions = "chd"
 corename = "Philips CDi 2015"
 license = "GPLv2+"
 permissions = ""
-display_version = "0.174"
+display_version = "0.160"
 categories = "Emulator"
 
 # Hardware Information
