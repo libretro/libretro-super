@@ -4,7 +4,7 @@ authors = "Brad Parker"
 supported_extensions = ""
 corename = "Gong"
 categories = "Game"
-license = "Public Domain"
+license = "GPL v3"
 permissions = ""
 display_version = "1.0"
 
