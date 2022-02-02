@@ -16,6 +16,8 @@ systemid = "commodore_c64_supercpu"
 # Libretro Features
 database = "Commodore - 64"
 supports_no_game = "true"
+savestate = "true"
+savestate_features = "serialized"
 
 # Firmware
 firmware_count = 4

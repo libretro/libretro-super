@@ -15,6 +15,7 @@ systemid = "xrick"
 # Libretro Features
 database = "Rick Dangerous"
 supports_no_game = "false"
+savestate = "false"
 
 notes = "(!) XRick requires data ROM 'data.zip'.|(!) Load Content 'data.zip'"
 

@@ -16,6 +16,8 @@ systemid = "atari_5200"
 # Libretro Features
 supports_no_game = "false"
 database = "Atari - 5200"
+savestate = "true"
+savestate_features = "deterministic"
 
 # Firmware / BIOS
 firmware_count = 1

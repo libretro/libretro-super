@@ -16,5 +16,6 @@ systemid = "quake_3"
 # Libretro Features
 supports_no_game = "false"
 database = "Quake 3"
+savestate = "false"
 
 description = "A port of the VitaQuake 3 source port of iD's ioquake3 engine to libretro. This core loads games in the *.pk3 format."

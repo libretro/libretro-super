@@ -16,5 +16,7 @@ systemid = "commodore_pet"
 # Libretro Features
 database = "Commodore - PET"
 supports_no_game = "true"
+savestate = "true"
+savestate_features = "serialized"
 
 description = "The VICE PET emulator, isolated and ported to libretro. This core emulates the 2001, 3032, 4032, 8032, 8096, 8296 and SuperPET (MicroMainFrame 9000) models, covering the whole series. Both the 40- and 80-column CRTC video chips are emulated (from the 4032 onward), but a few of the features that are not very important for average applications are not implemented yet, such as numbers of rasterlines per char and lines per screen."
