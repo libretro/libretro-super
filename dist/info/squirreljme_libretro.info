@@ -39,6 +39,9 @@ display_version = "0.4.0"
 # Whether or not the core requires an external file to work:
 supports_no_game = "true"
 
+# Does the core support savestates
+savestate = "false"
+
 # The number of mandatory/optional firmware files the core needs:
 firmware_count = 1
 firmware0_desc = "squirreljme.sqc (SquirrelJME ROM)"

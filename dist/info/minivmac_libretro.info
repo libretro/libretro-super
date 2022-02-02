@@ -13,9 +13,10 @@ system_id = "mac68k"
 license = "GPLv2"
 permissions = ""
 display_version = "GIT"
+
+# Libretro Features
 supports_no_game = "false"
-firmware_count = 1
-description = "MacII variant of minivmac emulator"
+savestate = "false"
 
 # BIOS/Firmware
 firmware_count = 1
@@ -25,3 +26,5 @@ firmware0_path = "MacII.ROM"
 firmware0_opt = "false"
 
 notes = "(!) MacII.ROM (md5): 66223be1497460f1e60885eeb35e03cc"
+
+description = "MacII variant of minivmac emulator"

@@ -8,12 +8,16 @@ categories = "Emulator"
 license = "GPLv2"
 permissions = ""
 display_version = "v0.5"
-supports_no_game = "false"
 
 # Hardware Information
 manufacturer = "Commodore"
 systemname = "Amiga"
 systemid = "commodore_amiga"
+
+# Libretro Features
+supports_no_game = "false"
+savestate = "true"
+savestate_features = "serialized"
 
 # Firmware / BIOS
 firmware_count = 6

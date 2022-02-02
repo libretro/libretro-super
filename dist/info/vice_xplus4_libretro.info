@@ -16,5 +16,7 @@ systemid = "commodore_plus4"
 # Libretro Features
 database = "Commodore - PLUS-4"
 supports_no_game = "true"
+savestate = "true"
+savestate_features = "serialized"
 
 description = "The VICE Plus/4 emulator, isolated and ported to libretro. This core provides experimental emulation for the bsuiness-focused Plus/4 model, the name for which refers to its built-in four-application ROM resident office suite (word processor, database, spreadsheet and graphing). Internally, the Plus/4 has the same basic architecture as the Commodore 16 and 116 models and can run software designed for those models, though it is incompatible with the Commodore 64's software."
