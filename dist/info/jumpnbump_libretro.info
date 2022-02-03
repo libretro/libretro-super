@@ -8,6 +8,8 @@ display_version = "v0.1"
 manufacturer = "Brainchild Design"
 systemid = "jumpnbump"
 
+# Libretro Features
+database = "Jump 'n Bump"
 savestate = "false"
 cheats = "false"
 input_descriptors = "true"
