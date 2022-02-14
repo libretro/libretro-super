@@ -300,7 +300,6 @@ build_libretro_databases() {
 	build_libretro_database "Nintendo - GameCube" "rom.serial"
 	build_libretro_database "Nintendo - Nintendo 3DS" "rom.crc"
 	build_libretro_database "Nintendo - Nintendo DS" "rom.crc"
-	build_libretro_database "Nintendo - Nintendo DS (Download Play)" "rom.crc"
 	build_libretro_database "Nintendo - Nintendo DSi" "rom.crc"
 	build_libretro_database "Nintendo - Nintendo Entertainment System" "rom.crc"
 	build_libretro_database "Nintendo - Pokemon Mini" "rom.crc"
