@@ -330,6 +330,7 @@ build_libretro_databases() {
 	build_libretro_database "Sony - PlayStation 2" "rom.serial"
 	build_libretro_database "Sony - PlayStation 3 (PSN)" "rom.crc"
 	build_libretro_database "Sony - PlayStation Portable" "rom.serial"
+	build_libretro_database "Sony - PlayStation Portable (PSN)" "rom.crc"
 	build_libretro_database "Sony - PlayStation Vita" "rom.serial"
 	build_libretro_database "Thomson - MOTO" "rom.crc"
 	build_libretro_database "Tiger - Game.com" "rom.crc"
