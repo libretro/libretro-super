@@ -210,6 +210,11 @@ build_libretro_database() {
 			COMMAND+=' "${LIBRETRODATABASE_META_DAT_DIR}/fbneo-member/${1}.dat"'
 		fi
 
+		#Check if meta tosec is there
+		if [ -f "${LIBRETRODATABASE_META_DAT_DIR}/tosec/${1}.dat" ]; then
+			COMMAND+=' "${LIBRETRODATABASE_META_DAT_DIR}/tosec/${1}.dat"'
+		fi
+
 		#Check if meta libretro-dats folder is there
 		if [ -f "${LIBRETRODATABASE_META_DAT_DIR}/libretro-dats/${1}.dat" ]; then
 			COMMAND+=' "${LIBRETRODATABASE_META_DAT_DIR}/libretro-dats/${1}.dat"'
