@@ -12,7 +12,7 @@ display_version = "0.7.0.0"
 systemname = "RPG Maker 2000/2003 Game Engine"
 
 # Libretro Features
-database = "RPG Maker 2000|RPG Maker 2003|RPG Maker"
+database = "RPG Maker"
 supports_no_game = "false"
 savestate = "false"
 savestate_features = "null"

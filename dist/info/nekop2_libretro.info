@@ -15,7 +15,7 @@ systemid = "pc_98"
 
 # Libretro Features
 supports_no_game = "false"
-database = "PC-98"
+database = "NEC - PC-98"
 savestate = "true"
 savestate_features = "serialized"
 cheats = "false"

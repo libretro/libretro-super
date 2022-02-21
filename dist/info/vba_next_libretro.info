@@ -15,7 +15,7 @@ systemid = "game_boy_advance"
 
 # Libretro Features
 supports_no_game = "false"
-database = "Nintendo - Game Boy Advance|Nintendo - Game Boy Advance (e-Cards)"
+database = "Nintendo - Game Boy Advance"
 savestate = "true"
 savestate_features = "deterministic"
 cheats = "false"

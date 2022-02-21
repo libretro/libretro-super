@@ -15,7 +15,7 @@ systemid = "super_nes"
 
 # Libretro Features
 supports_no_game = "false"
-database = "Nintendo - Super Nintendo Entertainment System|Nintendo - Super Nintendo Entertainment System Hacks|Nintendo - Game Boy|Nintendo - Game Boy Color"
+database = "Nintendo - Super Nintendo Entertainment System|Nintendo - Game Boy|Nintendo - Game Boy Color"
 savestate = "true"
 savestate_features = "serialized"
 cheats = "false"
