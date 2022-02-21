@@ -16,3 +16,4 @@ systemname = "C64"
 # Libretro Features
 supports_no_game = "false"
 database = "Commodore - 64"
+savestate = "false"

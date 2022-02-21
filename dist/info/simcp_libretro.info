@@ -16,5 +16,6 @@ systemname = "SAM coupe"
 supports_no_game = "false"
 is_experimental = "true"
 database = "SAM coupe"
+savestate = "false"
 
 description = "A port of the SimCoupe emulator to libretro. SimCoupe emulates the SAM Coupe hardware, which is a British 8-bit home computer released in 1989. It had partial compatibility with Sinclair's ZX Spectrum and was marketed as an upgrade from the Spectrum."

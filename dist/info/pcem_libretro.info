@@ -15,5 +15,6 @@ systemname = "PC"
 # Libretro Features
 supports_no_game = "true"
 is_experimental = "true"
+savestate = "false"
 
 description = "A port of the PCem IBM/PC emulator to libretro. This core is still very preliminary and most users will have better luck with the DOSBox-SVN/Pure cores in most cases."
