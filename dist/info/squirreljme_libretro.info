@@ -5,7 +5,7 @@ display_name = "Java ME (SquirrelJME)"
 authors = "Stephanie Gawroriski (Xer Shadow Tail)"
 
 # List of extensions the core supports:
-supported_extensions = "jar"
+supported_extensions = "jar|sqc|jam|jad|kjx"
 
 # Name of the core:
 corename = "SquirrelJME"
@@ -39,11 +39,14 @@ display_version = "0.4.0"
 # Whether or not the core requires an external file to work:
 supports_no_game = "true"
 
+# Does the core support savestates
+savestate = "false"
+
 # The number of mandatory/optional firmware files the core needs:
 firmware_count = 1
-firmware0_desc = "squirreljme.sqc (SquirrelJME Compiled SummerCoat ROM)"
+firmware0_desc = "squirreljme.sqc (SquirrelJME ROM)"
 firmware0_path = "squirreljme.sqc"
-firmware0_opt = "false"
+firmware0_opt = "true"
 
 # Additional notes:
 #notes = "(!) hash|(!) game rom|(^) continue|[1] notes|[^] continue|[*] list"

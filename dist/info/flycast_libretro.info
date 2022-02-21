@@ -16,6 +16,8 @@ systemid = "dreamcast"
 # Libretro Features
 database = "Sega - Dreamcast|Sega - NAOMI"
 supports_no_game = "false"
+savestate = "true"
+savestate_features = "basic"
 
 # BIOS / Firmware
 firmware_count = 7

@@ -16,5 +16,6 @@ systemid = "amiga"
 # Libretro Features
 supports_no_game = "false"
 database = "Commodore - Amiga"
+savestate = "false"
 
 description = "A port of the FS-UAE Amiga emulator to libretro. The core expects a kickstart to be located in the user's 'saves' directory, in a subdirectory named fsue/Kickstarts. Most users will be better served by the PUAE core, which has received more work to integrate it with libretro and to make it usable with just a gamepad."
