@@ -14,7 +14,8 @@ systemname = "Outrun Game Engine"
 
 # Libretro Features
 database = "Cannonball"
-supports_no_game = "false"
+supports_no_game = "true"
+single_purpose = "true"
 savestate = "false"
 savestate_features = "null"
 cheats = "false"
