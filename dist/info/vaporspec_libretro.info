@@ -1,0 +1,18 @@
+# Software Information
+display_name = "VaporSpec (VaporSpec)"
+authors = "Will Smith|Vladimir Serbinenko"
+supported_extensions = "vaporbin"
+corename = "VaporSpec"
+manufacturer = "VaporSpec"
+categories = "Emulator"
+
+# Hardware Information
+systemname = "VaporSpec"
+database = "VaporSpec"
+system_id = "vaporspec"
+license = "MIT"
+permissions = ""
+display_version = "GIT"
+supports_no_game = "false"
+firmware_count = 0
+description = "A virtual game platform with capabilities similar to 80s game consoles."
