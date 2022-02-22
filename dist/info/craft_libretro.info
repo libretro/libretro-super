@@ -14,7 +14,9 @@ systemname = "Minecraft Game Clone"
 systemid = "craft"
 
 # Libretro Features
+database = "Minecraft"
 supports_no_game = "true"
+single_purpose = "true"
 savestate = "false"
 savestate_features = "null"
 cheats = "false"
