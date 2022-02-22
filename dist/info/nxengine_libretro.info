@@ -14,7 +14,8 @@ systemid = "nxengine"
 
 # Libretro Features
 database = "Cave Story"
-supports_no_game = "false"
+supports_no_game = "true"
+single_purpose = "true"
 savestate = "false"
 cheats = "false"
 input_descriptors = "true"

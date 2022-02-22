@@ -15,7 +15,8 @@ systemid = "dinothawr"
 
 # Libretro Features
 database = "Dinothawr"
-supports_no_game = "false"
+supports_no_game = "true"
+single_purpose = "true"
 savestate = "false"
 savestate_features = "null"
 libretro_saves = "true"

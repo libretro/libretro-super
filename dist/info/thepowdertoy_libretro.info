@@ -13,6 +13,7 @@ systemname = "Physics Toy"
 
 # Libretro Features
 supports_no_game = "true"
+single_purpose = "true"
 savestate = "true"
 savestate_features = "serialized"
 cheats = "false"

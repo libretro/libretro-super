@@ -71,12 +71,14 @@
 # load_subsystem = "false"
 # Whether or not the core requires an external file to work:
 # supports_no_game = "false"
+# Does the core have a single purpose? Does it represent one game or application, requiring predetermined support files or no external data? Used to indicate to a frontend that the core may be presented/handled independently from 'regular' cores that run a variety of content.
+# single_purpose = "false"
 # Name of the database that the core supports (optional):
 # database = "Nintendo - Nintendo Entertainment System|Nintendo - Famicom Disk System"
 # Does the core support/require support for libretro-gl or other hardware-acceleration in the frontend?
 # hw_render = "false"
 # Which hardware-rendering APIs does the core support? Delimited by pipe characters.
-required_hw_api = "Vulkan >= 1.0 | Direct3D >= 10.0 | OpenGL Core >= 3.3 | OpenGL ES >= 3.0"
+# required_hw_api = "Vulkan >= 1.0 | Direct3D >= 10.0 | OpenGL Core >= 3.3 | OpenGL ES >= 3.0"
 # Does the core require ongoing access to the file after loading? Mostly used for softpatching and streaming of data
 # needs_fullpath = "false"
 # Does the core support the libretro disk control interface for swapping disks on the fly?
