@@ -10,6 +10,19 @@ permissions = ""
 display_version = "1.00"
 supports_no_game = "true"
 
+# Libretro Features
+savestate = "false"
+cheats = "false"
+memory_descriptors = "false"
+libretro_saves = "false"
+core_options = "true"
+core_options_version = "1.0"
+load_subsystem = "true"
+supports_no_game = "false"
+hw_render = "false"
+needs_fullpath = "false"
+disk_control = "false"
+
 # BIOS/Firmware
 firmware_count = 8
 
