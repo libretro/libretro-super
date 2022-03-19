@@ -1,5 +1,5 @@
 # Software Information
-display_name = "VaporSpec (VaporSpec)"
+display_name = "VaporSpec"
 authors = "Will Smith|Vladimir Serbinenko"
 supported_extensions = "vaporbin"
 corename = "VaporSpec"
