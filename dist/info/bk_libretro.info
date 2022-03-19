@@ -11,7 +11,7 @@ display_version = "1.00"
 supports_no_game = "true"
 
 # Libretro Features
-savestate = "false"
+savestate = "serialized"
 cheats = "false"
 memory_descriptors = "false"
 libretro_saves = "false"
