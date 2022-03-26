@@ -6,7 +6,7 @@ corename = "Kronos"
 categories = "Emulator"
 license = "GPLv2"
 permissions = ""
-display_version = "v2.1.2"
+display_version = "v2.3.1"
 
 # Hardware Information
 manufacturer = "Sega"
@@ -22,12 +22,12 @@ savestate = "true"
 savestate_features = "basic"
 cheats = "true"
 input_descriptors = "true"
-memory_descriptors = "false"
+memory_descriptors = "true"
 libretro_saves = "true"
 core_options = "true"
 load_subsystem = "false"
 needs_fullpath = "true"
-disk_control = "false"
+disk_control = "true"
 is_experimental = "false"
 
 # Firmware / BIOS
