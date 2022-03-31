@@ -1,12 +1,12 @@
 # Software Information
-display_name = "Commodore - Amiga (PUAE)"
+display_name = "Commodore - Amiga (PUAE 2021)"
 categories = "Emulator"
 authors = "UAE Team"
-corename = "PUAE"
+corename = "PUAE 2021"
 supported_extensions = "adf|adz|dms|fdi|ipf|hdf|hdz|lha|slave|info|cue|ccd|nrg|mds|iso|chd|uae|m3u|zip|7z|rp9"
 license = "GPLv2"
 permissions = ""
-display_version = "v4.5.0"
+display_version = "v2.6.1"
 
 # Hardware Information
 manufacturer = "Commodore"
