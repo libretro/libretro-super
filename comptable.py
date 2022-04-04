@@ -45,32 +45,34 @@ SUBCORE_SUFFIXES = [
 GFX_FEATS = ['gfxaccel', 'gl1', 'gl2', 'gl3', 'gles2', 'gles3']
 CPU_FEATS = ['x86_any', 'libco', 'cpu64', 'threads', 'thread-local', 'jit', 'little_endian']
 PERIPHERAL_FEATS = ['cdrom', 'usb']
-LANG_FEATS = ['c++14']
-MISC_FEATS = ['physfs']
+LANG_FEATS = ['c++14', 'c++11']
+MISC_FEATS = ['physfs', 'jvm']
 ALL_FEATS = GFX_FEATS + CPU_FEATS + PERIPHERAL_FEATS + MISC_FEATS + LANG_FEATS
 DESKTOP_COMMON = list(set(ALL_FEATS) - set(['gles2', 'gles3', 'cpu64', 'x86_any', 'little_endian']))
 DESKTOP_X64 = DESKTOP_COMMON + ['x86_any', 'cpu64', 'little_endian']
 DESKTOP_X86 = DESKTOP_COMMON + ['x86_any', 'little_endian']
+DESKTOP_X64_NO_CXX11 = list(set(DESKTOP_X64) - set(['c++14', 'c++11']))
+DESKTOP_X86_NO_CXX11 = list(set(DESKTOP_X86) - set(['c++14', 'c++11']))
 DESKTOP_ARM32LE = DESKTOP_COMMON + ['little_endian']
 DESKTOP_PPC = DESKTOP_COMMON
-UWP = ['gfxaccel', 'gles2', 'threads', 'thread-local', 'libco'] + ['cdrom', 'usb', 'physfs', 'c++14'] # unsure about second part
+UWP = ['gfxaccel', 'gles2', 'threads', 'thread-local', 'libco'] + ['cdrom', 'usb', 'physfs', 'c++14', 'c++11', 'jvm'] # unsure about second part
 MOBILE_LE = ['gfxaccel', 'gles2', 'gles3', 'threads', 'libco', 'little_endian']
-ANDROID = MOBILE_LE + ['jit', 'physfs', 'thread-local', 'c++14']
+ANDROID = MOBILE_LE + ['jit', 'physfs', 'thread-local', 'c++14', 'c++11', 'jvm']
 features_platforms = {
     # Misc
-    'emscripten': ['gfxaccel', 'gles2', 'little_endian', 'physfs', 'c++14'],
+    'emscripten': ['gfxaccel', 'gles2', 'little_endian', 'physfs', 'c++14', 'c++11'],
 
     # consoles
-    'ctr': ['threads', 'thread-local', 'libco', 'jit', 'little_endian', 'c++14'],
-    'psl1ght': ['cpu64'] + ['libco', 'cdrom', 'usb', 'jit', 'c++14'], # unsure about second part
-    'ngc': ['threads', 'thread-local', 'libco'] + ['cdrom', 'jit', 'c++14'], # unsure about second part
-    'wii': ['threads', 'thread-local', 'libco'] + ['cdrom', 'usb', 'jit', 'c++14'], # unsure about second part
-    'ps2': ['little_endian'] + ['libco', 'cpu64', 'threads', 'thread-local', 'cdrom', 'usb', 'jit', 'c++14'],  # unsure about second part
-    'ps3': ['threads', 'thread-local', 'cpu64'] + ['libco', 'cdrom', 'usb', 'jit', 'c++14'],  # unsure about second part
-    'psp': ['libco', 'threads', 'thread-local', 'little_endian'] + ['jit', 'c++14'],  # unsure about second part
-    'libnx-aarch64': ['gfxaccel', 'gl1', 'gl2', 'gl3', 'libco', 'cpu64', 'threads', 'thread-local', 'jit', 'little_endian'] + ['usb', 'c++14'],  # unsure about second part
-    'wiiu': ['libco'] + ['cdrom', 'usb', 'jit', 'c++14'],  # unsure about second part
-    'vita': ['gfxaccel', 'gl1', 'gl2', 'threads', 'thread-local', 'libco', 'jit', 'little_endian', 'c++14'], # 'gl3', 'gles2', 'gles3'?
+    'ctr': ['threads', 'thread-local', 'libco', 'jit', 'little_endian', 'c++14', 'c++11'],
+    'psl1ght': ['cpu64'] + ['libco', 'cdrom', 'usb', 'jit', 'c++14', 'c++11'], # unsure about second part
+    'ngc': ['threads', 'thread-local', 'libco'] + ['cdrom', 'jit', 'c++14', 'c++11'], # unsure about second part
+    'wii': ['threads', 'thread-local', 'libco'] + ['cdrom', 'usb', 'jit', 'c++14', 'c++11'], # unsure about second part
+    'ps2': ['little_endian'] + ['libco', 'cpu64', 'threads', 'thread-local', 'cdrom', 'usb', 'jit', 'c++14', 'c++11'],  # unsure about second part
+    'ps3': ['threads', 'thread-local', 'cpu64'] + ['libco', 'cdrom', 'usb', 'jit', 'c++14', 'c++11'],  # unsure about second part
+    'psp': ['libco', 'threads', 'thread-local', 'little_endian'] + ['jit', 'c++14', 'c++11'],  # unsure about second part
+    'libnx-aarch64': ['gfxaccel', 'gl1', 'gl2', 'gl3', 'libco', 'cpu64', 'threads', 'thread-local', 'jit', 'little_endian'] + ['usb', 'c++14', 'c++11'],  # unsure about second part
+    'wiiu': ['libco'] + ['cdrom', 'usb', 'jit', 'c++14', 'c++11'] + ['threads'],  # unsure about second part. Threads are present in OS but not in rthreads yet
+    'vita': ['gfxaccel', 'gl1', 'gl2', 'threads', 'thread-local', 'libco', 'jit', 'little_endian', 'c++14', 'c++11'], # 'gl3', 'gles2', 'gles3'?
 
     # UWP
     'windows-uwp-arm': UWP + ['little_endian'],
@@ -82,11 +84,11 @@ features_platforms = {
     'android-armeabi-v7a': ANDROID,
     'android-x86': ANDROID + ['x86_any'],
     'android-x86_64': ANDROID + ['x86_any', 'cpu64'],
-    'ios': MOBILE_LE + ['physfs', 'c++14'],
-    'ios9': MOBILE_LE + ['physfs', 'c++14'],
-    'ios-arm64': MOBILE_LE + ['cpu64', 'physfs', 'thread-local', 'c++14'],
-    'tvos-arm64': MOBILE_LE + ['cpu64', 'physfs', 'thread-local', 'c++14'],
-    'qnx': MOBILE_LE + ['physfs', 'thread-local', 'c++14'], # Unsure about usb and thread-local
+    'ios': MOBILE_LE + ['physfs', 'c++14', 'c++11'],
+    'ios9': MOBILE_LE + ['physfs', 'c++14', 'c++11'],
+    'ios-arm64': MOBILE_LE + ['cpu64', 'physfs', 'thread-local', 'c++14', 'c++11'],
+    'tvos-arm64': MOBILE_LE + ['cpu64', 'physfs', 'thread-local', 'c++14', 'c++11'],
+    'qnx': MOBILE_LE + ['physfs', 'thread-local', 'c++14', 'c++11', 'jvm'], # Unsure about usb and thread-local
 
     # Desktop
     'linux-x64': DESKTOP_X64,
@@ -97,7 +99,10 @@ features_platforms = {
     'linux-arm7neonhf': DESKTOP_ARM32LE,
     'linux-armhf': DESKTOP_ARM32LE,
     'xbox-x86': DESKTOP_X86,
-    'osx-ppc': [x for x in DESKTOP_PPC if x != 'c++14']
+    'windows-msvc05-i686': DESKTOP_X86_NO_CXX11,
+    'windows-msvc10-i686': DESKTOP_X86_NO_CXX11,
+    'windows-msvc10-x64': DESKTOP_X64_NO_CXX11,
+    'osx-ppc': [x for x in DESKTOP_PPC if x != 'c++14' and x != 'c++11']
 }
 features_cores = {
     '3dengine': ['gl2'], # Should be gl2 or gles2 but current bugs prevent operating with gles2
@@ -118,6 +123,7 @@ features_cores = {
     'dolphin': ['cpu64', 'jit'],
     'dosbox-svn': ['libco'],
     'dosbox-core': ['threads'],
+    'dosbox-pure': ['c++11', 'threads'],
     'ffmpeg': ['threads'],
     'flycast': ['gfxaccel'],
     'flycast-upstream': ['gfxaccel'],
@@ -127,16 +133,20 @@ features_cores = {
     'ishiiruka': ['cpu64'],
     'kronos': ['gl3'],
     'mupen64plus': ['gfxaccel', 'libco'],
+    'neocd': ['c++11'],
+    'Omicron': ['gfxaccel', 'jvm'],
     'OpenLara': ['gfxaccel'],
     'parallel-n64': ['gfxaccel', 'libco'],
+    'pcem': ['threads'],
     'play': ['gfxaccel'],
     'redbook': ['cdrom'],
     'remotejoy': ['usb'],
-    'retro8': ['c++14'],
+    'retro8': ['c++11'],
     'REminiscence': ['libco'],
     'scummvm': ['libco'],
     'ThePowderToy': ['threads'],
     'tic80': ['little_endian'],
+    'uae': ['threads'],
     'vitaquake3': ['gl1'],
     'vitavoyager': ['gl1'],
     'yabasanshiro': ['gfxaccel']
@@ -176,7 +186,14 @@ def file_to_platform(fname):
                            "retroarch-", "dummy-", "deps:", "test:"])
 #    for infix in ["msvc05", "msvc10"]:
 #        s = s.replace("-" + infix + "-", "-")
-    mp = {'code_quality': None, 'ios-9': 'ios9', 'trigger_static-cores': None, "switch": "libnx-aarch64", "android": None, 'osx': None, 'dingux-arm32': 'miyoo-arm32', 'dingux': 'dingux-mips32', 'linux-x86': 'linux-i686'}
+    mp = {
+        'code_quality': None,
+        'ios-9': 'ios9',
+        'trigger_static-cores': None,
+        "android": None,
+        'osx': None,
+        'switch': None
+    }
     if s in mp:
         s = mp[s]
     subcore = list(filter(lambda x: "-" + x + "-" in fname
@@ -184,7 +201,7 @@ def file_to_platform(fname):
     return (s, "-".join(subcore))
 
 def repo_to_core(repname):
-    s = strip_suffixes(repname, ["-nx", "-libretro"])
+    s = strip_suffixes(repname, ["-nx", "-libretro", "_libretro"])
     s = strip_prefixes(s, ["libretro-"])
     return s
 
