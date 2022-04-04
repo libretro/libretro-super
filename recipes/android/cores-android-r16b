@@ -1,8 +1,0 @@
-3dengine libretro-3dengine https://github.com/libretro/libretro-3dengine.git master YES GENERIC_JNI Makefile jni
-bsnes_cplusplus98 libretro-bsnes_cplusplus98 https://github.com/libretro/bsnes-libretro-cplusplus98.git master YES GENERIC_JNI Makefile jni
-easyrpg libretro-easyrpg https://github.com/EasyRPG/Player.git master YES GENERIC_JNI Makefile.libretro builds/libretro/jni
-gpsp libretro-gpsp https://github.com/libretro/gpsp.git master YES GENERIC_JNI Makefile jni
-parallel_n64 libretro-parallel_n64 https://github.com/libretro/parallel-n64.git master YES GENERIC_JNI Makefile jni
-picodrive libretro-picodrive https://github.com/libretro/picodrive.git master YES GENERIC_JNI Makefile.libretro jni
-ppsspp libretro-ppsspp https://github.com/hrydgard/ppsspp.git master YES GENERIC_JNI Makefile libretro/jni
-snes9x2002 libretro-snes9x2002 https://github.com/libretro/snes9x2002.git master YES GENERIC_JNI Makefile jni
