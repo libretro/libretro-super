@@ -29,4 +29,4 @@ core_options = "false"
 load_subsystem = "false"
 is_experimental = true
 
-description = "An older fork of Mednafen's original SNES emulator, which is itself based on an old fork of bsnes circa v059, this core does not have any compelling uses as compared with the other SNES cores that are available. It is not as fast as Snes9x nor as accurate as later bsnes forks or Mesen-S, and most users would be better off trying one of those cores instead. This core only exists for completionist's sake."
+description = "An older fork of Mednafen's original SNES emulator, which is itself based on an old fork of bsnes circa v059, this core does not have any compelling uses as compared with the other SNES cores that are available. It is not as fast as Snes9x or Supafaust nor as accurate as later bsnes forks or Mesen-S, and most users would be better off trying one of those cores instead. This core only exists for completionist's sake."

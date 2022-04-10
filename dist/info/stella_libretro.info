@@ -4,7 +4,7 @@ supported_extensions = "a26|bin"
 corename = "Stella"
 license = "GPLv2"
 permissions = ""
-display_version = "6.0"
+display_version = "6.6"
 categories = "Emulator"
 
 # Hardware Information

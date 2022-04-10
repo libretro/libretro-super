@@ -5,7 +5,7 @@ supported_extensions = "nes|fds|unf|unif"
 corename = "Mesen"
 license = "GPLv3"
 permissions = ""
-display_version = "0.9.4"
+display_version = "0.9.9"
 categories = "Emulator"
 
 # Hardware Information

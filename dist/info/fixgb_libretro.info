@@ -6,7 +6,7 @@ corename = "fixGB"
 categories = "Emulator"
 license = "MIT"
 permissions = ""
-display_version = "Alpha v0.8.1"
+display_version = "Alpha v0.8.2"
 
 # Hardware Information
 manufacturer = "Nintendo"
