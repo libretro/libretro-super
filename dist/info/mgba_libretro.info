@@ -6,6 +6,7 @@ corename = "mGBA"
 license = "MPLv2.0"
 permissions = ""
 categories = "Emulator"
+display_version = "0.10-dev"
 
 # Hardware Information
 manufacturer = "Nintendo"

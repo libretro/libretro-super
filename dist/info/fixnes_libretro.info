@@ -6,7 +6,7 @@ corename = "fixNES"
 categories = "Emulator"
 license = "MIT"
 permissions = ""
-display_version = "Alpha v1.1"
+display_version = "Alpha v1.3.1"
 
 # Hardware Information
 manufacturer = "Nintendo"

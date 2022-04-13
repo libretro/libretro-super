@@ -5,7 +5,7 @@ supported_extensions = "dmg|gb|gbc|cgb|sgb|gba"
 corename = "VBA-M"
 license = "GPLv2"
 permissions = ""
-display_version = "2.1.0"
+display_version = "2.1.4"
 
 # Hardware Information
 manufacturer = "Nintendo"

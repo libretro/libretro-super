@@ -6,7 +6,7 @@ corename = "ChaiLove"
 categories = "Game engine"
 license = "MIT"
 permissions = ""
-display_version = "0.32.0"
+display_version = "1.2.1"
 
 # Hardware Information
 manufacturer = "N/A"
