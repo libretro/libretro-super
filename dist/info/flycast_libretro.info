@@ -1,5 +1,5 @@
 # Software Information
-display_name = "Sega - Dreamcast/NAOMI (Flycast)"
+display_name = "Sega - Dreamcast/Naomi (Flycast)"
 authors = "flyinghead"
 supported_extensions = "chd|cdi|elf|bin|cue|gdi|lst|zip|dat|7z|m3u"
 corename = "Flycast"
@@ -14,7 +14,7 @@ systemname = "Sega Dreamcast"
 systemid = "dreamcast"
 
 # Libretro Features
-database = "Sega - Dreamcast|Sega - NAOMI"
+database = "Sega - Dreamcast|Sega - Naomi"
 supports_no_game = "false"
 savestate = "true"
 savestate_features = "basic"
