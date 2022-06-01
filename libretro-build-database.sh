@@ -243,6 +243,7 @@ build_libretro_database() {
 }
 
 build_libretro_databases() {
+	build_libretro_database "Atomiswave" "rom.crc"
 	build_libretro_database "Amstrad - CPC" "rom.crc"
 	build_libretro_database "Amstrad - GX4000" "rom.crc"
 	build_libretro_database "Mattel - Intellivision" "rom.crc"
@@ -365,6 +366,7 @@ build_libretro_databases() {
 	build_libretro_database "Flashback" "rom.crc"
 	build_libretro_database "WASM-4" "rom.crc"
 	build_libretro_database "Wolfenstein 3D" "rom.crc"
+	build_libretro_database "Atomiswave" "rom.crc"
 }
 
 build_libretrodb
