@@ -119,7 +119,7 @@ firmware17_desc = "cpc664.rom (Amstrad CPC 664 BIOS)"
 firmware17_path = "cpc664.rom";
 firmware17_opt = "true"
 
-firmware18_desc = "cpc4128.rom (Amstrad CPC 6128 BIOS)"
+firmware18_desc = "cpc6128.rom (Amstrad CPC 6128 BIOS)"
 firmware18_path = "cpc6128.rom";
 firmware18_opt = "true"
 
