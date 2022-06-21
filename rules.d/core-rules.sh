@@ -1213,6 +1213,20 @@ libretro_atari800_name="Atari800"
 libretro_atari800_git_url="https://github.com/libretro/libretro-atari800.git"
 libretro_atari800_build_makefile="Makefile"
 
+include_core_a5200() {
+	register_module core "a5200" -theos_ios -ngc -sncps3 -ps3 -psp1 -qnx -wii
+}
+libretro_a5200_name="A5200"
+libretro_a5200_git_url="https://github.com/libretro/a5200.git"
+libretro_a5200_build_makefile="Makefile"
+
+include_core_samecdi() {
+	register_module core "samecdi" -theos_ios -ngc -sncps3 -ps3 -psp1 -qnx -wii
+}
+libretro_samecdi_name="SameCDi"
+libretro_samecdi_git_url="https://github.com/libretro/same_cdi.git"
+libretro_samecdi_build_makefile="Makefile.libretro"
+
 include_core_vemulator() {
 	register_module core "vemulator" -theos_ios -ngc -sncps3 -ps3 -psp1 -qnx -wii
 }

@@ -95,6 +95,9 @@ include_core_stella2014
 # --- Atari 800 emulator cores ---
 include_core_atari800
 
+# --- Atari 5200 emulator cores ---
+include_core_a5200
+
 # --- Commodore 64 emulator cores ---
 include_core_frodo
 include_core_vice_x64
@@ -109,6 +112,9 @@ include_core_pcsx1
 include_core_pcsx2
 include_core_rustation
 include_core_duckstation
+
+# --- Philips CDi emulator cores ---
+include_core_samecdi
 
 # --- PlayStation2 emulator cores ---
 #include_core_play
