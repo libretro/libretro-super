@@ -76,12 +76,12 @@ libretro_daphne_name="Daphne"
 libretro_daphne_git_url="https://github.com/libretro/daphne.git"
 libretro_daphne_build_makefile="Makefile"
 
-include_core_duckstation() {
-	register_module core "duckstation"
+include_core_swanstation() {
+	register_module core "swanstation"
 }
-libretro_duckstation_name="Duckstation"
-libretro_duckstation_git_url="https://github.com/libretro/duckstation.git"
-libretro_duckstation_build_products="bin"
+libretro_swanstation_name="Duckstation"
+libretro_swanstation_git_url="https://github.com/libretro/swanstation.git"
+libretro_swanstation_build_products="bin"
 
 include_core_mrboom() {
 	register_module core "mrboom"

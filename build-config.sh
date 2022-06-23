@@ -111,7 +111,7 @@ include_core_pcsx_rearmed
 include_core_pcsx1
 include_core_pcsx2
 include_core_rustation
-include_core_duckstation
+include_core_swanstation
 
 # --- Philips CDi emulator cores ---
 include_core_samecdi
