@@ -23,7 +23,7 @@ license = "GPLv2"
 permissions = ""
 
 # Version of the core:
-display_version = "v1.0.0"
+display_version = "v1.0.1"
 
 # Hardware Information - Information about the hardware the core supports (when applicable)
 # Name of the manufacturer who produced the emulated system:
@@ -172,7 +172,7 @@ needs_fullpath = "true"
 # Does the core support the libretro disk control interface for swapping disks on the fly?
 disk_control = "false"
 # Is the core currently suitable for general use? That is, will regular users find it useful or is it for development/testing only (subject to change over time)?
-is_experimental = "true"
+is_experimental = "false"
 
 # Descriptive text, useful for tooltips, etc.
 description = "Emulate the Z80 based home computers that the original ep128emu supports - that is, Enterprise 64/128, Videoton TVC, Amstrad CPC and ZX Spectrum. Focus is on Enterprise and TVC."
