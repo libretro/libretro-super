@@ -397,6 +397,13 @@ libretro_puae_name="PUAE"
 libretro_puae_git_url="https://github.com/libretro/libretro-uae.git"
 libretro_puae_build_makefile="Makefile"
 
+include_core_galaxy() {
+	register_module core "galaxy"
+}
+libretro_galaxy_name="Galaxy"
+libretro_galaxy_git_url="https://github.com/libretro/galaxy-libretro.git"
+libretro_galaxy_build_makefile="Makefile"
+
 include_core_bnes() {
 	register_module core "bnes" -ios -theos_ios -ngc -ps3 -psp1 -qnx -wii
 }
