@@ -197,12 +197,14 @@ include_core_fixnes() {
 }
 libretro_fixnes_name="fixNES"
 libretro_fixnes_git_url="https://github.com/libretro/fixNES.git"
+libretro_fixnes_build_subdir="libretro"
 
 include_core_fixgb() {
 	register_module core "fixgb" -ngc -ps3 -psp1 -wii
 }
 libretro_fixgb_name="fixGB"
 libretro_fixgb_git_url="https://github.com/libretro/fixGB.git"
+libretro_fixgb_build_subdir="libretro"
 
 include_core_snes9x2002() {
 	register_module core "snes9x2002" -ngc -ps3 -psp1 -wii
@@ -252,6 +254,7 @@ include_core_minivmac() {
 libretro_minivmac_name="Mini Vmac"
 libretro_minivmac_git_url="https://github.com/libretro/libretro-minivmac.git"
 libretro_minivmac_build_makefile="Makefile"
+libretro_minivmac_git_submodules="yes"
 
 include_core_oberon() {
 	register_module core "oberon"
@@ -388,7 +391,7 @@ include_core_fsuae() {
 }
 libretro_fsuae_name="FS-UAE"
 libretro_fsuae_git_url="https://github.com/libretro/libretro-fsuae.git"
-libretro_fsuae_build_makefile="Makefile.in"
+libretro_fsuae_build_makefile="Makefile.libretro"
 
 include_core_puae() {
 	register_module core "puae" -ngc -ps3 -psp1 -qnx -wii
@@ -472,6 +475,9 @@ include_core_ecwolf() {
 libretro_ecwolf_name="ECWolf"
 libretro_ecwolf_git_url="https://github.com/libretro/ecwolf.git"
 libretro_ecwolf_build_platform="$FORMAT_COMPILER_TARGET_ALT"
+libretro_ecwolf_build_subdir="src/libretro"
+libretro_ecwolf_build_makefile="Makefile"
+libretro_ecwolf_git_submodules="yes"
 
 include_core_prboom() {
 	register_module core "prboom"
@@ -763,6 +769,7 @@ libretro_dosbox_svn_name="DOSBox"
 libretro_dosbox_svn_git_url="https://github.com/libretro/dosbox-svn.git"
 libretro_dosbox_svn_git_submodules="yes"
 libretro_dosbox_svn_makefile="Makefile.libretro"
+libretro_dosbox_svn_build_subdir="libretro"
 
 include_core_dosbox_pure() {
 	register_module core "dosbox_pure" -ngc -ps3 -psp1 -wii
