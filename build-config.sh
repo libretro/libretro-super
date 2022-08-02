@@ -15,6 +15,7 @@
 include_core_mesens
 include_core_snes9x2002
 include_core_snes9x2005
+include_core_snes9x2005_plus
 include_core_snes9x2010
 include_core_snes9x
 include_core_bsnes
@@ -31,7 +32,8 @@ include_core_mednafen_supafaust
 
 # --- Dreamcast emulator cores ---
 include_core_flycast
-include_core_redream
+# include_core_redream
+include_core_vemulator
 
 # --- Genesis emulator cores ---
 include_core_smsplus
@@ -48,6 +50,7 @@ include_core_fbneo
 include_core_fbalpha2012
 include_core_fbalpha2012_cps1
 include_core_fbalpha2012_cps2
+include_core_fbalpha2012_cps3
 include_core_fbalpha2012_neogeo
 
 # --- Neo Geo cores ---
@@ -97,12 +100,18 @@ include_core_atari800
 # --- Atari 5200 emulator cores ---
 include_core_a5200
 
-# --- Commodore 64 emulator cores ---
+# --- Commodore emulator cores ---
 include_core_frodo
 include_core_vice_x64
+include_core_vice_x64sc
 include_core_vice_x128
 include_core_vice_xvic
 include_core_vice_xplus4
+include_core_vice_xcbm2
+include_core_vice_xcbm5x0
+include_core_vice_xpet
+include_core_vice_xscpu64
+
 # --- PlayStation1 emulator cores ---
 include_core_mednafen_psx
 include_core_mednafen_psx_hw
@@ -157,8 +166,9 @@ include_core_mednafen_vb
 include_core_virtualjaguar
 
 # --- DOS/PC/MAC emulator cores ---
-include_core_basilisk2
+# include_core_basilisk2
 include_core_dosbox
+include_core_dosbox_core
 include_core_dosbox_svn
 include_core_dosbox_pure
 include_core_pcem
@@ -167,9 +177,11 @@ include_core_pcem
 include_core_mame2000
 include_core_mame2003
 include_core_mame2003_plus
+include_core_mame2003_midway
 include_core_mame2010
 include_core_mame2015
 include_core_mame2016
+include_core_hbmame
 include_core_mame
 
 # --- N64 emulator cores ---
@@ -179,6 +191,7 @@ include_core_parallel_n64
 
 # --- Nintendo Gamecube/Wii cores ---
 include_core_dolphin
+include_core_dolphin_launcher
 include_core_ishiiruka
 
 # --- Nintendo Pokemon Mini cores ---
@@ -222,6 +235,9 @@ include_core_emux
 # --- Vectrex emulator cores ---
 include_core_vecx
 
+# --- ColecoVision emulator cores .--
+include_core_gearcoleco
+
 # --- Media player ---
 include_core_ffmpeg
 
@@ -234,7 +250,11 @@ include_core_reminiscence
 include_core_easyrpg
 include_core_tyrquake
 include_core_vitaquake2
+include_core_vitaquake2_rogue
+include_core_vitaquake2_xatrix
+include_core_vitaquake2_zaero
 include_core_vitaquake3
+include_core_vitavoyager
 include_core_boom3
 include_core_prboom
 include_core_ecwolf
@@ -256,6 +276,10 @@ include_core_tic80
 include_core_lutro
 include_core_retro8
 include_core_uzem
+include_core_gong
+include_core_jumpnbump
+# include_core_pascal_pong
+include_core_superbroswar
 
 # --- Miscellaneous cores ---
 include_core_video_processor
@@ -264,13 +288,17 @@ include_core_potator
 include_core_pocketcdg
 include_core_crocods
 include_core_cap32
+include_core_ep128emu_core
+include_core_freeintv
 include_core_mu
 include_core_squirreljme
 include_core_minivmac
 include_core_oberon
 include_core_x1
 include_core_galaxy
-
+include_core_jaxe
+include_core_theodore
+include_core_vaporspec
 
 # -------------------------------------------------------------------------------------------------
 # Devkits
