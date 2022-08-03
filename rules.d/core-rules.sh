@@ -61,6 +61,12 @@ libretro_dolphin_git_url="https://github.com/libretro/dolphin.git"
 libretro_dolphin_build_subdir="Source/Core/DolphinLibretro"
 libretro_dolphin_build_makefile="Makefile"
 
+include_core_dolphin_launcher() {
+	register_module core "dolphin_launcher"
+}
+libretro_dolphin_launcher_name="Dolphin Launcher"
+libretro_dolphin_launcher_git_url="https://github.com/RobLoach/libretro-dolphin-launcher"
+
 include_core_ishiiruka() {
 	register_module core "ishiiruka"
 }
@@ -120,6 +126,42 @@ libretro_vice_x64_name="VICE x64"
 libretro_vice_x64_git_url="https://github.com/libretro/vice-libretro.git"
 libretro_vice_x64_build_makefile="Makefile"
 
+include_core_vice_x64sc() {
+	register_module core "vice_x64sc"
+}
+libretro_vice_x64sc_name="VICE x64sc"
+libretro_vice_x64sc_git_url="https://github.com/libretro/vice-libretro.git"
+libretro_vice_x64sc_build_makefile="Makefile"
+libretro_vice_x64sc_build_args="EMUTYPE=\"x64sc\""
+libretro_vice_x64sc_build_cores="vice_x64sc"
+
+include_core_vice_xscpu64() {
+	register_module core "vice_xscpu64"
+}
+libretro_vice_xscpu64_name="VICE xscpu64"
+libretro_vice_xscpu64_git_url="https://github.com/libretro/vice-libretro.git"
+libretro_vice_xscpu64_build_makefile="Makefile"
+libretro_vice_xscpu64_build_args="EMUTYPE=\"xscpu64\""
+libretro_vice_xscpu64_build_cores="vice_xscpu64"
+
+include_core_vice_xcbm2() {
+	register_module core "vice_xcbm2"
+}
+libretro_vice_xcbm2_name="VICE xcbm2"
+libretro_vice_xcbm2_git_url="https://github.com/libretro/vice-libretro.git"
+libretro_vice_xcbm2_build_makefile="Makefile"
+libretro_vice_xcbm2_build_args="EMUTYPE=\"xcbm2\""
+libretro_vice_xcbm2_build_cores="vice_xcbm2"
+
+include_core_vice_xcbm5x0() {
+	register_module core "vice_xcbm5x0"
+}
+libretro_vice_xcbm5x0_name="VICE xcbm5x0"
+libretro_vice_xcbm5x0_git_url="https://github.com/libretro/vice-libretro.git"
+libretro_vice_xcbm5x0_build_makefile="Makefile"
+libretro_vice_xcbm5x0_build_args="EMUTYPE=\"xcbm5x0\""
+libretro_vice_xcbm5x0_build_cores="vice_xcbm5x0"
+
 include_core_vice_x128() {
 	register_module core "vice_x128"
 }
@@ -128,6 +170,15 @@ libretro_vice_x128_git_url="https://github.com/libretro/vice-libretro.git"
 libretro_vice_x128_build_makefile="Makefile"
 libretro_vice_x128_build_args="EMUTYPE=\"x128\""
 libretro_vice_x128_build_cores="vice_x128"
+
+include_core_vice_xpet() {
+	register_module core "vice_xpet"
+}
+libretro_vice_xpet_name="VICE xpet"
+libretro_vice_xpet_git_url="https://github.com/libretro/vice-libretro.git"
+libretro_vice_xpet_build_makefile="Makefile"
+libretro_vice_xpet_build_args="EMUTYPE=\"xpet\""
+libretro_vice_xpet_build_cores="vice_xpet"
 
 include_core_vice_xplus4() {
 	register_module core "vice_xplus4"
@@ -217,6 +268,13 @@ include_core_snes9x2005() {
 }
 libretro_snes9x2005_name="SNES9x 2005"
 libretro_snes9x2005_git_url="https://github.com/libretro/snes9x2005.git"
+
+include_core_snes9x2005_plus() {
+	register_module core "snes9x2005_plus" -ngc -ps3 -psp1 -wii
+}
+libretro_snes9x2005_plus_name="SNES9x 2005 Plus"
+libretro_snes9x2005_plus_git_url="https://github.com/libretro/snes9x2005.git"
+libretro_snes9x2005_plus_build_args="USE_BLARGG_APU=\"1\""
 
 include_core_snes9x2010() {
 	register_module core "snes9x2010" -ps3
@@ -588,6 +646,39 @@ libretro_vitaquake2_name="vitaQuake2"
 libretro_vitaquake2_git_url="https://github.com/libretro/vitaquake2.git"
 libretro_vitaquake2_build_makefile="Makefile"
 
+include_core_vitaquake2_rogue() {
+	register_module core "vitaquake2_rogue"
+}
+libretro_vitaquake2_rogue_name="vitaQuake 2 [Rogue]"
+libretro_vitaquake2_rogue_git_url="https://github.com/libretro/vitaquake2.git"
+libretro_vitaquake2_rogue_build_makefile="Makefile"
+libretro_vitaquake2_rogue_build_args="basegame=\"rogue\""
+libretro_vitaquake2_rogue_build_cores="vitaquake2-rogue"
+
+include_core_vitaquake2_xatrix() {
+	register_module core "vitaquake2_xatrix"
+}
+libretro_vitaquake2_xatrix_name="vitaQuake 2 [Xatrix]"
+libretro_vitaquake2_xatrix_git_url="https://github.com/libretro/vitaquake2.git"
+libretro_vitaquake2_xatrix_build_makefile="Makefile"
+libretro_vitaquake2_xatrix_build_args="basegame=\"xatrix\""
+libretro_vitaquake2_xatrix_build_cores="vitaquake2-xatrix"
+
+include_core_vitaquake2_zaero() {
+	register_module core "vitaquake2_zaero"
+}
+libretro_vitaquake2_zaero_name="vitaQuake 2 [Zaero]"
+libretro_vitaquake2_zaero_git_url="https://github.com/libretro/vitaquake2.git"
+libretro_vitaquake2_zaero_build_makefile="Makefile"
+libretro_vitaquake2_zaero_build_args="basegame=\"zaero\""
+libretro_vitaquake2_zaero_build_cores="vitaquake2-zaero"
+
+include_core_vitavoyager() {
+	register_module core "vitavoyager"
+}
+libretro_vitavoyager_name="Lilium Voyager"
+libretro_vitavoyager_git_url="https://github.com/libretro/vitaVoyager.git"
+
 include_core_vitaquake3() {
 	register_module core "vitaquake3"
 }
@@ -762,10 +853,18 @@ libretro_dosbox_name="DOSBox"
 libretro_dosbox_git_url="https://github.com/libretro/dosbox-libretro.git"
 libretro_dosbox_makefile="Makefile.libretro"
 
+include_core_dosbox_core() {
+	register_module core "dosbox_core" -ngc -ps3 -psp1 -wii
+}
+libretro_dosbox_core_name="DOSBox Core"
+libretro_dosbox_core_git_url="https://github.com/libretro/dosbox-core.git"
+libretro_dosbox_core_build_subdir="libretro"
+libretro_dosbox_core_makefile="Makefile.libretro"
+
 include_core_dosbox_svn() {
 	register_module core "dosbox_svn" -ngc -ps3 -psp1 -wii
 }
-libretro_dosbox_svn_name="DOSBox"
+libretro_dosbox_svn_name="DOSBox SVN"
 libretro_dosbox_svn_git_url="https://github.com/libretro/dosbox-svn.git"
 libretro_dosbox_svn_git_submodules="yes"
 libretro_dosbox_svn_makefile="Makefile.libretro"
@@ -842,6 +941,13 @@ include_core_mame2016() {
 libretro_mame2016_name="MAME 2016 (0.174)"
 libretro_mame2016_git_url="https://github.com/libretro/mame2016-libretro.git"
 libretro_mame2016_makefile="Makefile"
+
+include_core_hbmame() {
+	register_module core "hbmame"
+}
+libretro_hbmame_name="Home Brew MAME"
+libretro_hbmame_git_url="https://github.com/libretro/hbmame-libretro.git"
+libretro_hbmame_makefile="Makefile.libretro"
 
 include_core_mame() {
 	register_module core "mame" -theos_ios -ngc -ps3 -psp1 -qnx -wii
@@ -1287,6 +1393,77 @@ include_core_quasi88() {
 libretro_quasi88_name="QUASI88"
 libretro_quasi88_git_url="https://github.com/libretro/quasi88-libretro.git"
 libretro_quasi88_build_makefile="Makefile"
+
+include_core_ep128emu_core() {
+	register_module core "ep128emu_core"
+}
+libretro_ep128emu_core_name="ep128emu"
+libretro_ep128emu_core_git_url="https://github.com/libretro/ep128emu-core.git"
+
+include_core_freej2me() {
+	register_module core "freej2me"
+}
+libretro_freej2me_name="freej2me"
+libretro_freej2me_git_url="https://github.com/hex007/freej2me.git"
+libretro_freej2me_build_subdir="src/libretro"
+
+include_core_gearcoleco() {
+	register_module core "gearcoleco"
+}
+libretro_gearcoleco_name="Gearcoleco"
+libretro_gearcoleco_git_url="https://github.com/drhelius/Gearcoleco.git"
+libretro_gearcoleco_build_subdir="platforms/libretro"
+
+include_core_gong() {
+	register_module core "gong"
+}
+libretro_gong_name="Gong"
+libretro_gong_git_url="https://github.com/libretro/gong.git"
+libretro_gong_build_makefile="Makefile.libretro"
+
+include_core_jaxe() {
+	register_module core "jaxe"
+}
+libretro_jaxe_name="JAXE"
+libretro_jaxe_git_url="https://github.com/kurtjd/jaxe.git"
+libretro_jaxe_build_makefile="Makefile.libretro"
+libretro_jaxe_git_submodules="yes"
+
+include_core_jumpnbump() {
+	register_module core "jumpnbump"
+}
+libretro_jumpnbump_name="Jump n Bump"
+libretro_jumpnbump_git_url="https://github.com/libretro/jumpnbump-libretro.git"
+
+include_core_redbook() {
+	register_module core "redbook"
+}
+libretro_redbook_name="redbook"
+libretro_redbook_git_url="https://github.com/libretro/redbook.git"
+
+include_core_pascal_pong() {
+	register_module core "pascal_pong"
+}
+libretro_pascal_pong_name="pascal_pong"
+libretro_pascal_pong_git_url="https://github.com/libretro/pascal-pong-libretro.git"
+
+include_core_superbroswar() {
+	register_module core "superbroswar"
+}
+libretro_superbroswar_name="superbroswar"
+libretro_superbroswar_git_url="https://github.com/libretro/superbroswar-libretro.git"
+libretro_superbroswar_build_makefile="Makefile.libretro"
+libretro_superbroswar_git_submodules="yes"
+
+include_core_vaporspec() {
+	register_module core "vaporspec"
+}
+libretro_vaporspec_name="Vapor Spec"
+libretro_vaporspec_git_url="https://github.com/minkcv/vm.git"
+libretro_vaporspec_build_subdir="machine"
+libretro_vaporspec_build_makefile="Makefile.libretro"
+libretro_vaporspec_git_submodules="yes"
+
 
 # CORE RULE VARIABLES
 #
