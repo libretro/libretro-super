@@ -464,6 +464,7 @@ include_core_galaxy() {
 libretro_galaxy_name="Galaxy"
 libretro_galaxy_git_url="https://github.com/libretro/galaxy-libretro.git"
 libretro_galaxy_build_makefile="Makefile"
+libretro_galaxy_build_cores="galaksija"
 
 include_core_bnes() {
 	register_module core "bnes" -ios -theos_ios -ngc -ps3 -psp1 -qnx -wii
@@ -869,6 +870,7 @@ libretro_dosbox_svn_git_url="https://github.com/libretro/dosbox-svn.git"
 libretro_dosbox_svn_git_submodules="yes"
 libretro_dosbox_svn_makefile="Makefile.libretro"
 libretro_dosbox_svn_build_subdir="libretro"
+libretro_dosbox_svn_build_args="WITH_FAKE_SDL=1"
 
 include_core_dosbox_pure() {
 	register_module core "dosbox_pure" -ngc -ps3 -psp1 -wii
@@ -1223,6 +1225,7 @@ include_core_freechaf() {
 libretro_freechaf_name="FreeChaF"
 libretro_freechaf_git_url="https://github.com/libretro/FreeChaF.git"
 libretro_freechaf_build_makefile="Makefile"
+libretro_freechaf_git_submodules="yes"
 
 include_core_hatari() {
 	register_module core "hatari" -theos_ios -ngc -ps3 -psp1 -qnx -wii
