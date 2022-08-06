@@ -134,11 +134,13 @@ include_core_fmsx
 # --- UAE ---
 include_core_fsuae
 include_core_puae
+include_core_puae2021
 
 # --- Saturn cores ---
 include_core_mednafen_saturn
 include_core_kronos
 include_core_yabause
+include_core_yabasanshiro
 
 # --- Atari Lynx emulator cores ---
 include_core_mednafen_lynx
@@ -170,6 +172,7 @@ include_core_virtualjaguar
 include_core_dosbox
 include_core_dosbox_core
 include_core_dosbox_svn
+# include_core_dosbox_svn_ce
 include_core_dosbox_pure
 include_core_pcem
 

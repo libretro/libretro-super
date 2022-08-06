@@ -458,6 +458,14 @@ libretro_puae_name="PUAE"
 libretro_puae_git_url="https://github.com/libretro/libretro-uae.git"
 libretro_puae_build_makefile="Makefile"
 
+include_core_puae2021() {
+	register_module core "puae2021" -ngc -ps3 -psp1 -qnx -wii
+}
+libretro_puae2021_name="PUAE 2021"
+libretro_puae2021_git_url="https://github.com/libretro/libretro-uae.git"
+libretro_puae2021_build_makefile="Makefile"
+libretro_puae2021_post_fetch_cmd="git checkout 2.6.1"
+
 include_core_galaxy() {
 	register_module core "galaxy"
 }
@@ -832,6 +840,7 @@ include_core_kronos() {
 libretro_kronos_name="Kronos"
 libretro_kronos_git_url="https://github.com/libretro/yabause.git"
 libretro_kronos_build_subdir="yabause/src/libretro"
+libretro_kronos_post_fetch_cmd="git checkout kronos"
 
 include_core_yabasanshiro() {
 	register_module core "yabasanshiro" -theos_ios -ngc -ps3 -psp1 -qnx -wii
@@ -839,6 +848,7 @@ include_core_yabasanshiro() {
 libretro_yabasanshiro_name="YabaSanshiro"
 libretro_yabasanshiro_git_url="https://github.com/libretro/yabause.git"
 libretro_yabasanshiro_build_subdir="yabause/src/libretro"
+libretro_yabasanshiro_post_fetch_cmd="git checkout yabasanshiro"
 
 include_core_yabause() {
 	register_module core "yabause" -theos_ios -ngc -ps3 -psp1 -qnx -wii
@@ -871,6 +881,18 @@ libretro_dosbox_svn_git_submodules="yes"
 libretro_dosbox_svn_makefile="Makefile.libretro"
 libretro_dosbox_svn_build_subdir="libretro"
 libretro_dosbox_svn_build_args="WITH_FAKE_SDL=1"
+
+include_core_dosbox_svn_ce() {
+	register_module core "dosbox_svn_ce" -ngc -ps3 -psp1 -wii
+}
+libretro_dosbox_svn_ce_name="DOSBox SVN CE"
+libretro_dosbox_svn_ce_git_url="https://github.com/libretro/dosbox-svn.git"
+libretro_dosbox_svn_ce_git_submodules="yes"
+libretro_dosbox_svn_ce_makefile="Makefile.libretro"
+libretro_dosbox_svn_ce_build_subdir="libretro"
+libretro_dosbox_svn_ce_build_args="WITH_FAKE_SDL=1"
+libretro_dosbox_svn_ce_post_fetch_cmd="git checkout community-patches"
+
 
 include_core_dosbox_pure() {
 	register_module core "dosbox_pure" -ngc -ps3 -psp1 -wii
@@ -1349,6 +1371,7 @@ include_core_samecdi() {
 libretro_samecdi_name="SameCDi"
 libretro_samecdi_git_url="https://github.com/libretro/same_cdi.git"
 libretro_samecdi_build_makefile="Makefile.libretro"
+libretro_samecdi_build_cores="same_cdi"
 
 include_core_vemulator() {
 	register_module core "vemulator" -theos_ios -ngc -sncps3 -ps3 -psp1 -qnx -wii
