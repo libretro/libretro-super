@@ -6,7 +6,7 @@ include_core_bsnes() {
 
 libretro_bsnes_name="bsnes"
 libretro_bsnes_git_url="https://github.com/libretro/bsnes-libretro.git"
-libretro_bsnes_build_args="compiler=\"${CXX17}\" target=\"libretro\""
+libretro_bsnes_build_args="local=\"portable\" binary=\"library\" compiler=\"${CXX17}\" target=\"libretro\""
 libretro_bsnes_build_subdir="bsnes"
 libretro_bsnes_build_makefile="GNUmakefile"
 libretro_bsnes_build_products="out"
@@ -17,7 +17,7 @@ include_core_bsnes_hd_beta() {
 
 libretro_bsnes_hd_beta_name="bsnes-hd beta"
 libretro_bsnes_hd_beta_git_url="https://github.com/DerKoun/bsnes-hd.git"
-libretro_bsnes_hd_beta_build_args="compiler=\"${CXX17}\" target=\"libretro\""
+libretro_bsnes_hd_beta_build_args="binary=\"library\" compiler=\"${CXX17}\" target=\"libretro\""
 libretro_bsnes_hd_beta_build_subdir="bsnes"
 libretro_bsnes_hd_beta_build_makefile="GNUmakefile"
 libretro_bsnes_hd_beta_build_products="out"
@@ -27,24 +27,24 @@ include_core_bsnes_accuracy() {
 }
 libretro_bsnes_accuracy_name="bsnes/higan 2014 (Accuracy)"
 libretro_bsnes_accuracy_git_url="https://github.com/libretro/bsnes2014.git"
-libretro_bsnes_accuracy_build_args="compiler=\"${CXX11}\" profile=\"accuracy\""
-libretro_bsnes_accuracy_build_products="out"
+libretro_bsnes_accuracy_build_args="compiler=\"${CXX11}\" PROFILE=\"accuracy\""
+libretro_bsnes_accuracy_build_cores="bsnes2014_accuracy"
 
 include_core_bsnes_balanced() {
 	register_module core "bsnes_balanced" -theos_ios -ngc -sncps3 -ps3 -psp1 -qnx -wii
 }
 libretro_bsnes_balanced_name="bsnes/higan 2014 (Balanced)"
 libretro_bsnes_balanced_git_url="https://github.com/libretro/bsnes2014.git"
-libretro_bsnes_balanced_build_args="compiler=\"${CXX11}\" profile=\"balanced\""
-libretro_bsnes_balanced_build_products="out"
+libretro_bsnes_balanced_build_args="compiler=\"${CXX11}\" PROFILE=\"balanced\""
+libretro_bsnes_balanced_build_cores="bsnes2014_balanced"
 
 include_core_bsnes_performance() {
 	register_module core "bsnes_performance" -theos_ios -ngc -sncps3 -ps3 -psp1 -qnx -wii
 }
 libretro_bsnes_performance_name="bsnes/higan 2014 (Performance)"
 libretro_bsnes_performance_git_url="https://github.com/libretro/bsnes2014.git"
-libretro_bsnes_performance_build_args="compiler=\"${CXX11}\" profile=\"performance\""
-libretro_bsnes_performance_build_products="out"
+libretro_bsnes_performance_build_args="compiler=\"${CXX11}\" PROFILE=\"performance\""
+libretro_bsnes_performance_build_cores="bsnes2014_performance"
 
 include_core_crocods() {
 	register_module core "crocods"
@@ -1002,24 +1002,21 @@ include_core_bsnes_mercury_accuracy() {
 }
 libretro_bsnes_mercury_accuracy_name="bsnes/higan Mercury (Accuracy)"
 libretro_bsnes_mercury_accuracy_git_url="https://github.com/libretro/bsnes-mercury.git"
-libretro_bsnes_mercury_accuracy_build_args="compiler=\"${CXX11}\" profile=\"accuracy\""
-libretro_bsnes_mercury_accuracy_build_products="out"
+libretro_bsnes_mercury_accuracy_build_args="compiler=\"${CXX11}\" PROFILE=\"accuracy\""
 
 include_core_bsnes_mercury_balanced() {
 	register_module core "bsnes_mercury_balanced" -theos_ios -ngc -sncps3 -ps3 -psp1 -qnx -wii
 }
 libretro_bsnes_mercury_balanced_name="bsnes/higan Mercury (Balanced)"
 libretro_bsnes_mercury_balanced_git_url="https://github.com/libretro/bsnes-mercury.git"
-libretro_bsnes_mercury_balanced_build_args="compiler=\"${CXX11}\" profile=\"balanced\""
-libretro_bsnes_mercury_balanced_build_products="out"
+libretro_bsnes_mercury_balanced_build_args="compiler=\"${CXX11}\" PROFILE=\"balanced\""
 
 include_core_bsnes_mercury_performance() {
 	register_module core "bsnes_mercury_performance" -theos_ios -ngc -sncps3 -ps3 -psp1 -qnx -wii
 }
 libretro_bsnes_mercury_performance_name="bsnes/higan Mercury (Performance)"
 libretro_bsnes_mercury_performance_git_url="https://github.com/libretro/bsnes-mercury.git"
-libretro_bsnes_mercury_performance_build_args="compiler=\"${CXX11}\" profile=\"performance\""
-libretro_bsnes_mercury_performance_build_products="out"
+libretro_bsnes_mercury_performance_build_args="compiler=\"${CXX11}\" PROFILE=\"performance\""
 
 include_core_neocd() {
 	register_module core "neocd" -theos_ios -ngc -ps3 -wii
