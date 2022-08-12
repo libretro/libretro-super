@@ -302,6 +302,8 @@ include_core_galaxy
 include_core_jaxe
 include_core_theodore
 include_core_vaporspec
+include_core_bk
+include_core_sameduck
 
 # -------------------------------------------------------------------------------------------------
 # Devkits
