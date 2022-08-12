@@ -295,7 +295,7 @@ include_core_flycast() {
 	register_module core "flycast"
 }
 libretro_flycast_name="Flycast"
-libretro_flycast_git_url="https://github.com/libretro/flycast.git"
+libretro_flycast_git_url="https://github.com/flyinghead/flycast"
 libretro_flycast_build_makefile="Makefile"
 
 include_core_redream() {
@@ -523,6 +523,16 @@ libretro_sameboy_build_platform="$FORMAT_COMPILER_TARGET_ALT"
 libretro_sameboy_build_subdir="libretro"
 libretro_sameboy_build_makefile="Makefile"
 
+include_core_sameduck() {
+	register_module core "sameduck"
+}
+libretro_sameduck_name="SameDuck"
+libretro_sameduck_git_url="https://github.com/LIJI32/SameBoy.git"
+libretro_sameduck_build_platform="$FORMAT_COMPILER_TARGET_ALT"
+libretro_sameduck_build_subdir="libretro"
+libretro_sameduck_build_makefile="Makefile"
+libretro_sameduck_post_fetch_cmd="git checkout SameDuck"
+
 include_core_meteor() {
 	register_module core "meteor" -ngc -ps3 -psp1 -qnx -wii
 }
@@ -663,6 +673,7 @@ libretro_vitaquake2_rogue_git_url="https://github.com/libretro/vitaquake2.git"
 libretro_vitaquake2_rogue_build_makefile="Makefile"
 libretro_vitaquake2_rogue_build_args="basegame=\"rogue\""
 libretro_vitaquake2_rogue_build_cores="vitaquake2-rogue"
+libretro_vitaquake2_rogue_dir=libretro-vitaquake2
 
 include_core_vitaquake2_xatrix() {
 	register_module core "vitaquake2_xatrix"
@@ -672,6 +683,7 @@ libretro_vitaquake2_xatrix_git_url="https://github.com/libretro/vitaquake2.git"
 libretro_vitaquake2_xatrix_build_makefile="Makefile"
 libretro_vitaquake2_xatrix_build_args="basegame=\"xatrix\""
 libretro_vitaquake2_xatrix_build_cores="vitaquake2-xatrix"
+libretro_vitaquake2_xatrix_dir=libretro-vitaquake2
 
 include_core_vitaquake2_zaero() {
 	register_module core "vitaquake2_zaero"
@@ -681,6 +693,7 @@ libretro_vitaquake2_zaero_git_url="https://github.com/libretro/vitaquake2.git"
 libretro_vitaquake2_zaero_build_makefile="Makefile"
 libretro_vitaquake2_zaero_build_args="basegame=\"zaero\""
 libretro_vitaquake2_zaero_build_cores="vitaquake2-zaero"
+libretro_vitaquake2_zaero_dir=libretro-vitaquake2
 
 include_core_vitavoyager() {
 	register_module core "vitavoyager"
@@ -1486,6 +1499,14 @@ libretro_vaporspec_git_url="https://github.com/minkcv/vm.git"
 libretro_vaporspec_build_subdir="machine"
 libretro_vaporspec_build_makefile="Makefile.libretro"
 libretro_vaporspec_git_submodules="yes"
+
+include_core_bk() {
+	register_module core "bk"
+}
+libretro_bk_name="bk"
+libretro_bk_git_url="https://github.com/libretro/bk-emulator.git"
+libretro_bk_build_makefile="Makefile.libretro"
+
 
 
 # CORE RULE VARIABLES
