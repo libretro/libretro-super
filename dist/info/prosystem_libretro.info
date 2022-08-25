@@ -1,7 +1,7 @@
 # Software Information
 display_name = "Atari - 7800 (ProSystem)"
 authors = "Greg Stanton|Brian Berlin|Leonis|Greg DeMent"
-supported_extensions = "a78|bin"
+supported_extensions = "a78|bin|cdf"
 corename = "ProSystem"
 license = "GPLv2"
 permissions = ""
