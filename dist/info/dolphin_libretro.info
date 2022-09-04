@@ -1,7 +1,7 @@
 # Software Information
 display_name = "Nintendo - GameCube / Wii (Dolphin)"
 authors = "Team Dolphin"
-supported_extensions = "gcm|iso|wbfs|ciso|gcz|elf|dol|dff|tgc|wad|rvz|m3u"
+supported_extensions = "gcm|iso|wbfs|ciso|gcz|elf|dol|dff|tgc|wad|rvz|m3u|wia"
 corename = "Dolphin"
 categories = "Emulator"
 license = "GPLv2+"
