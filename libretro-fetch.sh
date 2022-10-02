@@ -54,7 +54,11 @@ libretro_fetch() {
 			eval "git_url=\$libretro_${1}_git_url"
 			if [ -z "$git_url" ]; then
 				echo "libretro_fetch:No URL set to fetch $1 via git."
-				exit 1
+				if [[ "$SKIP_UNKNOWN_URL_FETCH" -ne 1 ]]; then
+					exit 1
+				else
+					echo "libretro_fetch:Skipping core $1"
+				fi
 			fi
 
 			eval "git_submodules=\$libretro_${1}_git_submodules"
