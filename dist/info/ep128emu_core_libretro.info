@@ -14,7 +14,7 @@ authors = "Istvan Varga|Zoltan Balogh"
 corename = "ep128emu-core"
 
 # List of extensions the core supports:
-supported_extensions = "img|dsk|tap|dtf|com|trn|128|bas|cas|cdt|tzx|."
+supported_extensions = "img|dsk|tap|dtf|com|trn|128|bas|cas|cdt|tzx|tvcwav|."
 
 # License of the cores source code:
 license = "GPLv2"
@@ -23,7 +23,7 @@ license = "GPLv2"
 permissions = ""
 
 # Version of the core:
-display_version = "v1.0.1"
+display_version = "v1.1.0"
 
 # Hardware Information - Information about the hardware the core supports (when applicable)
 # Name of the manufacturer who produced the emulated system:
@@ -49,15 +49,15 @@ firmware_count = 22
 
 firmware0_desc = "exos21.rom (Enterprise 128 Expandible OS 2.1)"
 firmware0_path = "ep128emu/roms/exos21.rom";
-firmware0_opt = "false"
+firmware0_opt = "true"
 
 firmware1_desc = "basic21.rom (Enterprise 128 BASIC Interpreter v2.1)"
 firmware1_path = "ep128emu/roms/basic21.rom";
-firmware1_opt = "false"
+firmware1_opt = "true"
 
 firmware2_desc = "exdos13.rom (Enterprise 128 Disk Controller v1.3)"
 firmware2_path = "ep128emu/roms/exdos13.rom";
-firmware2_opt = "false"
+firmware2_opt = "true"
 
 firmware3_desc = "exos20.rom (Enterprise 64 Expandible OS 2.0)"
 firmware3_path = "ep128emu/roms/exos20.rom";
