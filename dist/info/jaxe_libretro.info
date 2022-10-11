@@ -9,7 +9,7 @@ categories = "Emulator"
 # Hardware Information
 systemname = "CHIP-8"
 database = "CHIP-8"
-system_id = "chip_8"
+systemid = "chip_8"
 license = "MIT"
 permissions = ""
 display_version = "GIT"
