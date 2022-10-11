@@ -10,7 +10,7 @@ categories = "Emulator"
 # Hardware Information
 systemname = "VaporSpec"
 database = "VaporSpec"
-system_id = "vaporspec"
+systemid = "vaporspec"
 permissions = ""
 display_version = "GIT"
 supports_no_game = "false"

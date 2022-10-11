@@ -9,7 +9,7 @@ categories = "Emulator"
 
 # Hardware Information
 systemname = "Mac68k"
-system_id = "mac68k"
+systemid = "mac68k"
 license = "GPLv2"
 permissions = ""
 display_version = "GIT"
