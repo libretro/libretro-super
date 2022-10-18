@@ -14,7 +14,7 @@ authors = "Istvan Varga|Zoltan Balogh"
 corename = "ep128emu-core"
 
 # List of extensions the core supports:
-supported_extensions = "img|dsk|tap|dtf|com|trn|128|bas|cas|cdt|tzx|tvcwav|."
+supported_extensions = "img|dsk|tap|dtf|com|trn|128|bas|cas|cdt|tzx|wav|tvcwav|."
 
 # License of the cores source code:
 license = "GPLv2"
@@ -23,7 +23,7 @@ license = "GPLv2"
 permissions = ""
 
 # Version of the core:
-display_version = "v1.1.0"
+display_version = "v1.2.1"
 
 # Hardware Information - Information about the hardware the core supports (when applicable)
 # Name of the manufacturer who produced the emulated system:
@@ -145,11 +145,11 @@ savestate = "true"
 # If true, how complete is the savestate support? basic, serialized (rewind), deterministic (netplay/runahead)
 savestate_features = "serialized"
 # Does the core support the libretro cheat interface?
-cheats = "false"
+cheats = "true"
 # Does the core support libretro input descriptors
 input_descriptors = "true"
 # Does the core support memory descriptors commonly used for achievements
-memory_descriptors = "false"
+memory_descriptors = "true"
 # Does the core use the libretro save interface or does it do its own thing (like with shared memory cards)?
 libretro_saves = "true"
 # Does the core support the core options interface?
@@ -171,7 +171,7 @@ hw_render = "false"
 # Does the core require ongoing access to the file after loading? Mostly used for softpatching and streaming of data
 needs_fullpath = "true"
 # Does the core support the libretro disk control interface for swapping disks on the fly?
-disk_control = "false"
+disk_control = "true"
 # Is the core currently suitable for general use? That is, will regular users find it useful or is it for development/testing only (subject to change over time)?
 is_experimental = "false"
 
