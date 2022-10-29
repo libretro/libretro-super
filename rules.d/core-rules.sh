@@ -466,6 +466,13 @@ libretro_puae2021_git_url="https://github.com/libretro/libretro-uae.git"
 libretro_puae2021_build_makefile="Makefile"
 libretro_puae2021_post_fetch_cmd="git checkout 2.6.1"
 
+include_core_uae4arm() {
+	register_module core "uae4arm"
+}
+libretro_uae4arm_name="uae4arm"
+libretro_uae4arm_git_url="https://github.com/libretro/uae4arm-libretro.git"
+libretro_uae4arm_build_makefile="Makefile"
+
 include_core_galaxy() {
 	register_module core "galaxy"
 }
