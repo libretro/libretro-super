@@ -1,7 +1,7 @@
 # Software Information
 display_name = "Philips - CDi (SAME CDi)"
 authors = "MAMEdev"
-supported_extensions = "chd|iso"
+supported_extensions = "chd|iso|cue"
 corename = "SAME CDi (Git)"
 license = "GPLv2+"
 permissions = ""
