@@ -70,6 +70,7 @@ quicknes libretro-quicknes https://github.com/libretro/QuickNES_Core.git master 
 race libretro-race https://github.com/libretro/RACE.git master YES GENERIC Makefile .
 scummvm libretro-scummvm https://github.com/libretro/scummvm.git master YES GENERIC Makefile backends/platform/libretro/build
 snes9x2005 libretro-snes9x2005 https://github.com/libretro/snes9x2005.git master YES GENERIC Makefile .
+chimerasnes libretro-chimerasnes https://github.com/jamsilva/chimerasnes.git master YES GENERIC Makefile .
 snes9x2010 libretro-snes9x2010 https://github.com/libretro/snes9x2010.git master YES GENERIC_ALT Makefile.libretro .
 snes9x libretro-snes9x https://github.com/libretro/snes9x.git master YES GENERIC Makefile libretro
 squirreljme libretro-squirreljme https://github.com/XerTheSquirrel/SquirrelJME.git trunk YES GENERIC makefilelibretro ratufacoat

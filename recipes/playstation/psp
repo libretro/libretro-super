@@ -35,6 +35,7 @@ race libretro-race https://github.com/libretro/RACE.git master YES GENERIC Makef
 smsplus libretro-smsplus https://github.com/libretro/smsplus-gx.git master YES GENERIC Makefile.libretro .
 snes9x2002 libretro-snes9x2002 https://github.com/libretro/snes9x2002.git master NO GENERIC Makefile .
 snes9x2005 libretro-snes9x2005 https://github.com/libretro/snes9x2005.git master YES GENERIC Makefile .
+chimerasnes libretro-chimerasnes https://github.com/jamsilva/chimerasnes.git master YES GENERIC Makefile .
 snes9x2005_plus libretro-snes9x2005_plus https://github.com/libretro/snes9x2005.git master YES GENERIC Makefile . USE_BLARGG_APU=1
 squirreljme libretro-squirreljme https://github.com/XerTheSquirrel/SquirrelJME.git trunk YES GENERIC makefilelibretro ratufacoat
 tempgba libretro-tempgba https://github.com/libretro/TempGBA-libretro.git master NO GENERIC Makefile .
