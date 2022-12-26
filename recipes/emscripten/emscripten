@@ -44,6 +44,7 @@ mednafen_vb libretro-beetle_vb https://github.com/libretro/beetle-vb-libretro.gi
 mednafen_wswan libretro-beetle_wswan https://github.com/libretro/beetle-wswan-libretro.git master YES GENERIC Makefile .
 mrboom libretro-mrboom https://github.com/libretro/mrboom-libretro.git master YES GENERIC Makefile .
 mu libretro-mu https://github.com/libretro/Mu.git master YES GENERIC Makefile libretroBuildSystem
+numero libretro-numero https://github.com/nbarkhina/numero.git master YES GENERIC Makefile .
 parallel_n64 libretro-parallel_n64 https://github.com/libretro/parallel-n64.git master NO GENERIC_GL Makefile .
 nekop2 libretro-nekop2 https://github.com/libretro/libretro-meowPC98.git master YES GENERIC Makefile.libretro libretro
 neocd libretro-neocd https://github.com/libretro/neocd_libretro.git master YES GENERIC Makefile .

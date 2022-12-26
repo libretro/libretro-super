@@ -18,6 +18,7 @@ if [[ -z "$1" ]]; then
 WANT_CORES=" \
 	2048 \
 	gambatte \
+	numero \
 	snes9x2010 \
 	vecx"
 else

@@ -148,6 +148,7 @@ WANT_CORES=" \
 	quicknes \
 	handy \
    gambatte \
+    numero \
 	prboom \
 	tyrquake \
 	vba_next \
@@ -177,6 +178,9 @@ for core in $WANT_CORES; do
 	fi
 	if [ $core = "gambatte" ]; then
 		path="libgambatte/libretro/jni"
+	fi
+		if [ $core = "numero" ]; then
+		path="libnumero/libretro/jni"
 	fi
 	if [ $core = "desmume" ]; then
 		path="desmume/src/libretro/jni"

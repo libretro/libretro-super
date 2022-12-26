@@ -26,6 +26,7 @@ mesen libretro-mesen https://github.com/libretro/Mesen.git master YES GENERIC Ma
 mrboom libretro-mrboom https://github.com/libretro/mrboom-libretro.git master YES GENERIC Makefile .
 nestopia libretro-nestopia https://github.com/libretro/nestopia.git master YES GENERIC Makefile libretro
 np2kai libretro-np2kai https://github.com/libretro/NP2kai.git master YES GENERIC Makefile.libretro sdl
+numero libretro-numero https://github.com/nbarkhina/numero.git master YES GENERIC Makefile .
 nxengine libretro-nxengine https://github.com/libretro/nxengine-libretro.git master YES GENERIC Makefile .
 o2em libretro-o2em https://github.com/libretro/libretro-o2em.git master YES GENERIC Makefile .
 opera libretro-opera https://github.com/libretro/opera-libretro.git master YES GENERIC Makefile .

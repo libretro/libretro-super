@@ -73,6 +73,7 @@ nekop2 libretro-nekop2 https://github.com/libretro/libretro-meowPC98.git master 
 neocd libretro-neocd https://github.com/libretro/neocd_libretro.git master YES GENERIC_JNI Makefile jni
 nestopia libretro-nestopia https://github.com/libretro/nestopia.git master YES GENERIC_JNI Makefile libretro/jni
 np2kai libretro-np2kai https://github.com/libretro/NP2kai.git master YES GENERIC_JNI Makefile.libretro jni
+numero libretro-numero https://github.com/nbarkhina/numero.git master YES GENERIC_JNI Makefile libnumero/libretro/jni
 nxengine libretro-nxengine https://github.com/libretro/nxengine-libretro.git master YES GENERIC_JNI Makefile jni
 o2em libretro-o2em https://github.com/libretro/libretro-o2em.git master YES GENERIC_JNI Makefile jni
 oberon libretro-oberon https://github.com/libretro/oberon-risc-emu.git master YES GENERIC_JNI Makefile Libretro/jni

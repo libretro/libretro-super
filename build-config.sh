@@ -241,6 +241,9 @@ include_core_vecx
 # --- ColecoVision emulator cores .--
 include_core_gearcoleco
 
+# --- Texas Instruments emulator cores .--
+include_core_numero
+
 # --- Media player ---
 include_core_ffmpeg
 

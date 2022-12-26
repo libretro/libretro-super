@@ -52,6 +52,7 @@ meteor libretro-meteor https://github.com/libretro/meteor-libretro.git master NO
 mgba libretro-mgba https://github.com/libretro/mgba.git master YES GENERIC Makefile.libretro .
 mrboom libretro-mrboom https://github.com/libretro/mrboom-libretro.git master YES GENERIC Makefile .
 mu libretro-mu https://github.com/libretro/Mu.git master YES GENERIC Makefile libretroBuildSystem
+numero libretro-numero https://github.com/nbarkhina/numero.git master YES GENERIC Makefile .
 parallel_n64 libretro-parallel_n64 https://github.com/libretro/parallel-n64.git master YES GENERIC_GL Makefile . WITH_DYNAREC=x86_64
 nekop2 libretro-nekop2 https://github.com/libretro/libretro-meowPC98.git master YES GENERIC Makefile.libretro libretro
 nestopia libretro-nestopia https://github.com/libretro/nestopia.git master YES GENERIC Makefile libretro
