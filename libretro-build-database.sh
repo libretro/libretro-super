@@ -287,6 +287,7 @@ build_libretro_databases() {
 	build_libretro_database "GamePark - GP32" "rom.crc"
 	build_libretro_database "GCE - Vectrex" "rom.crc"
 	build_libretro_database "Hartung - Game Master" "rom.crc"
+	build_libretro_database "Infocom - Z-Machine" "rom.crc"
 	build_libretro_database "LeapFrog - Leapster Learning Game System" "rom.crc"
 	build_libretro_database "Magnavox - Odyssey2" "rom.crc"
 	build_libretro_database "Microsoft - MSX" "rom.crc"
