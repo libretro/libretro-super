@@ -635,6 +635,14 @@ libretro_nestopia_name="Nestopia"
 libretro_nestopia_git_url="https://github.com/libretro/nestopia.git"
 libretro_nestopia_build_subdir="libretro"
 
+include_core_numero() {
+	register_module core "numero"
+}
+libretro_numero_name="Numero"
+libretro_numero_git_url="https://github.com/nbarkhina/numero.git"
+libretro_numero_build_platform="$FORMAT_COMPILER_TARGET_ALT"
+libretro_numero_build_makefile="Makefile.libretro"
+
 include_core_craft() {
 	register_module core "craft"
 }

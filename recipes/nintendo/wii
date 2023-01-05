@@ -42,6 +42,7 @@ mrboom libretro-mrboom https://github.com/libretro/mrboom-libretro.git master YE
 mu libretro-mu https://github.com/libretro/Mu.git master YES GENERIC Makefile libretroBuildSystem
 nestopia libretro-nestopia https://github.com/libretro/nestopia.git master YES GENERIC Makefile libretro
 np2kai libretro-np2kai https://github.com/libretro/NP2kai.git master NO GENERIC Makefile.libretro sdl
+numero libretro-numero https://github.com/nbarkhina/numero.git master YES GENERIC Makefile .
 nxengine libretro-nxengine https://github.com/libretro/nxengine-libretro.git master YES GENERIC Makefile .
 pocketcdg libretro-pocketcdg https://github.com/libretro/libretro-pocketcdg.git master YES GENERIC Makefile .
 pokemini libretro-pokemini https://github.com/libretro/PokeMini.git master YES GENERIC Makefile .

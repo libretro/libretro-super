@@ -85,6 +85,7 @@ mupen64plus_next libretro-mupen64plus_next https://github.com/libretro/mupen64pl
 nekop2 libretro-nekop2 https://github.com/libretro/libretro-meowPC98.git master YES GENERIC Makefile.libretro libretro
 nestopia libretro-nestopia https://github.com/libretro/nestopia.git master YES GENERIC Makefile libretro
 np2kai libretro-np2kai https://github.com/libretro/NP2kai.git master YES GENERIC Makefile.libretro sdl
+numero libretro-numero https://github.com/nbarkhina/numero.git master YES GENERIC Makefile .
 nxengine libretro-nxengine https://github.com/libretro/nxengine-libretro.git master YES GENERIC Makefile .
 o2em libretro-o2em https://github.com/libretro/libretro-o2em.git master YES GENERIC Makefile .
 oberon libretro-oberon https://github.com/libretro/oberon-risc-emu.git master YES GENERIC Makefile.libretro .

@@ -123,6 +123,7 @@ build_default_cores() {
 	libretro_build_core handy
 	libretro_build_core stella
 	libretro_build_core nestopia
+	libretro_build_core numero
 	libretro_build_core nxengine
 	libretro_build_core prboom
 	libretro_build_core quicknes
