@@ -860,7 +860,7 @@ include_core_scummvm() {
 }
 libretro_scummvm_name="ScummVM"
 libretro_scummvm_git_url="https://github.com/libretro/scummvm.git"
-libretro_scummvm_build_subdir="backends/platform/libretro/build"
+libretro_scummvm_build_subdir="."
 
 include_core_kronos() {
 	register_module core "kronos" -theos_ios -ngc -ps3 -psp1 -qnx -wii
