@@ -54,7 +54,7 @@ kronos libretro-kronos https://github.com/libretro/yabause.git kronos YES GENERI
 neocd libretro-neocd https://github.com/libretro/neocd_libretro.git master YES GENERIC Makefile .
 lutro libretro-lutro https://github.com/libretro/libretro-lutro master YES GENERIC Makefile .
 lowresnx libretro-lowresnx https://github.com/timoinutilis/lowres-nx.git retroarch YES GENERIC Makefile platform/LibRetro
-mame libretro-mame https://github.com/libretro/mame.git master NO GENERIC Makefile.libretro . 
+mame libretro-mame https://github.com/libretro/mame.git master NO GENERIC Makefile.libretro .
 mame2000 libretro-mame2000 https://github.com/libretro/mame2000-libretro.git master YES GENERIC Makefile .
 mame2003 libretro-mame2003 https://github.com/libretro/mame2003-libretro.git master YES GENERIC Makefile .
 mame2003_plus libretro-mame2003-plus https://github.com/libretro/mame2003-plus-libretro.git master YES GENERIC Makefile .
@@ -114,6 +114,7 @@ snes9x libretro-snes9x https://github.com/libretro/snes9x.git master YES GENERIC
 snes9x2002 libretro-snes9x2002 https://github.com/libretro/snes9x2002.git master YES GENERIC Makefile .
 snes9x2005 libretro-snes9x2005 https://github.com/libretro/snes9x2005.git master YES GENERIC Makefile .
 snes9x2005_plus libretro-snes9x2005_plus https://github.com/libretro/snes9x2005.git master YES GENERIC Makefile . USE_BLARGG_APU=1
+chimerasnes libretro-chimerasnes https://github.com/jamsilva/chimerasnes.git master YES GENERIC Makefile .
 snes9x2010 libretro-snes9x2010 https://github.com/libretro/snes9x2010.git master YES GENERIC Makefile.libretro .
 squirreljme libretro-squirreljme https://github.com/XerTheSquirrel/SquirrelJME.git trunk YES GENERIC makefilelibretro ratufacoat
 stella2014 libretro-stella2014 https://github.com/libretro/stella2014-libretro.git master YES GENERIC Makefile .

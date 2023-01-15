@@ -236,7 +236,7 @@ libretro_easyrpg_build_subdir="build"
 libretro_easyrpg_git_submodules="yes"
 libretro_easyrpg_post_fetch_cmd="cmake . -DPLAYER_TARGET_PLATFORM=libretro -t build"
 libretro_easyrpg_build_makefile="Makefile"
- 
+
 include_core_gme() {
 	register_module core "gme" -ngc -ps3 -psp1 -wii
 }
@@ -262,7 +262,7 @@ include_core_snes9x2002() {
 }
 libretro_snes9x2002_name="SNES9x 2002"
 libretro_snes9x2002_git_url="https://github.com/libretro/snes9x2002.git"
- 
+
 include_core_snes9x2005() {
 	register_module core "snes9x2005" -ngc -ps3 -psp1 -wii
 }
@@ -275,6 +275,12 @@ include_core_snes9x2005_plus() {
 libretro_snes9x2005_plus_name="SNES9x 2005 Plus"
 libretro_snes9x2005_plus_git_url="https://github.com/libretro/snes9x2005.git"
 libretro_snes9x2005_plus_build_args="USE_BLARGG_APU=\"1\""
+
+include_core_chimerasnes() {
+	register_module core "chimerasnes" -ngc -ps3 -psp1 -wii
+}
+libretro_chimerasnes_name="ChimeraSNES"
+libretro_chimerasnes_git_url="https://github.com/jamsilva/chimerasnes.git"
 
 include_core_snes9x2010() {
 	register_module core "snes9x2010" -ps3
