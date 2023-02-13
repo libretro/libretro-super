@@ -1528,6 +1528,14 @@ libretro_bk_name="bk"
 libretro_bk_git_url="https://github.com/libretro/bk-emulator.git"
 libretro_bk_build_makefile="Makefile.libretro"
 
+include_core_onscripter() {
+	register_module core "onscripter"
+}
+libretro_onscripter_name="ONScripter"
+libretro_onscripter_git_url="https://github.com/iyzsong/onscripter-libretro.git"
+libretro_onscripter_git_submodules="yes"
+libretro_onscripter_post_fetch_cmd="./update-deps.sh"
+libretro_onscripter_build_makefile="Makefile"
 
 
 # CORE RULE VARIABLES
