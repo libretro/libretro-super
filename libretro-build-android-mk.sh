@@ -195,7 +195,7 @@ for core in $WANT_CORES; do
 	fi
 	
 	if [ $core = "scummvm" ]; then
-		path="./jni"
+		path="backends/platform/libretro/build/jni"
 	fi
 	if [ $core = "lowresnx" ]; then
 		path="platform/LibRetro/jni"
