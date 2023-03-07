@@ -69,7 +69,7 @@ px68k libretro-px68k https://github.com/libretro/px68k-libretro.git master YES G
 quasi88 libretro-quasi88 https://github.com/libretro/quasi88-libretro.git master YES GENERIC Makefile .
 quicknes libretro-quicknes https://github.com/libretro/QuickNES_Core.git master YES GENERIC Makefile .
 race libretro-race https://github.com/libretro/RACE.git master YES GENERIC Makefile .
-scummvm libretro-scummvm https://github.com/libretro/scummvm.git master YES GENERIC Makefile .
+scummvm libretro-scummvm https://github.com/libretro/scummvm.git master YES GENERIC Makefile backends/platform/libretro/build
 snes9x2005 libretro-snes9x2005 https://github.com/libretro/snes9x2005.git master YES GENERIC Makefile .
 chimerasnes libretro-chimerasnes https://github.com/jamsilva/chimerasnes.git master YES GENERIC Makefile .
 snes9x2010 libretro-snes9x2010 https://github.com/libretro/snes9x2010.git master YES GENERIC_ALT Makefile.libretro .

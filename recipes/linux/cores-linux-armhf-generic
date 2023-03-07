@@ -96,7 +96,7 @@ reminiscence libretro-reminiscence https://github.com/libretro/REminiscence.git 
 remotejoy libretro-remotejoy https://github.com/libretro/libretro-remotejoy.git master YES GENERIC Makefile .
 same_cdi libretro-same_cdi https://github.com/libretro/same_cdi.git master NO GENERIC Makefile.libretro . PTR64=1
 sameboy libretro-sameboy https://github.com/libretro/SameBoy.git buildbot YES GENERIC Makefile libretro
-scummvm libretro-scummvm https://github.com/libretro/scummvm.git master YES GENERIC Makefile .
+scummvm libretro-scummvm https://github.com/libretro/scummvm.git master YES GENERIC Makefile backends/platform/libretro/build
 snes9x libretro-snes9x https://github.com/libretro/snes9x.git master YES GENERIC Makefile libretro
 snes9x2002 libretro-snes9x2002 https://github.com/libretro/snes9x2002.git master YES GENERIC Makefile .
 snes9x2005 libretro-snes9x2005 https://github.com/libretro/snes9x2005.git master YES GENERIC Makefile .
