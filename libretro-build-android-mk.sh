@@ -93,7 +93,7 @@ create_dist_dir()
 	else
 		mkdir $RARCH_DIST_DIR
 	fi
-	
+
 	for a in "${ABIS[@]}"; do
 		if [ -d $RARCH_DIST_DIR/${a} ]; then
 			echo "Directory $RARCH_DIST_DIR/${a} already exists, skipping creation..."
@@ -128,6 +128,7 @@ WANT_CORES=" \
 	snes9x \
 	snes9x2002 \
 	snes9x2005 \
+	chimerasnes \
 	snes9x2010 \
 	genesis_plus_gx \
 	virtualjaguar \
@@ -193,7 +194,7 @@ for core in $WANT_CORES; do
 		path="target-libretro/jni"
 		append="_$core"
 	fi
-	
+
 	if [ $core = "scummvm" ]; then
 		path="backends/platform/libretro/build/jni"
 	fi

@@ -16,6 +16,7 @@ include_core_mesens
 include_core_snes9x2002
 include_core_snes9x2005
 include_core_snes9x2005_plus
+include_core_chimerasnes
 include_core_snes9x2010
 include_core_snes9x
 include_core_bsnes

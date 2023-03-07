@@ -97,6 +97,7 @@ smsplus libretro-smsplus https://github.com/libretro/smsplus-gx.git master YES G
 snes9x libretro-snes9x https://github.com/libretro/snes9x.git master YES GENERIC_JNI Makefile libretro/jni
 snes9x2005 libretro-snes9x2005 https://github.com/libretro/snes9x2005.git master YES GENERIC_JNI Makefile jni
 snes9x2005_plus libretro-snes9x2005_plus https://github.com/libretro/snes9x2005.git master YES GENERIC_JNI Makefile jni USE_BLARGG_APU=1
+chimerasnes libretro-chimerasnes https://github.com/jamsilva/chimerasnes.git master YES GENERIC_JNI Makefile jni
 snes9x2010 libretro-snes9x2010 https://github.com/libretro/snes9x2010.git master YES GENERIC_JNI Makefile jni
 squirreljme libretro-squirreljme https://github.com/XerTheSquirrel/SquirrelJME.git trunk YES GENERIC_JNI makefilelibretro ratufacoat/libretro/jni
 stella2014 libretro-stella2014 https://github.com/libretro/stella2014-libretro.git master YES GENERIC_JNI Makefile jni
