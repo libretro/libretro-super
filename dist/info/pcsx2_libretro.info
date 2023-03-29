@@ -20,7 +20,7 @@ needs_fullpath = "true"
 load_subsystem = "false"
 hw_render = "true"
 required_hw_api = "Direct3D >= 11.0 | OpenGL Core >= 3.3 | OpenGL >= 3.0"
-savestate = "false"
+savestate = "true"
 memory_descriptors = "false"
 
 # Firmware / BIOS
