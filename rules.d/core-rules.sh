@@ -1375,6 +1375,14 @@ libretro_px68k_name="PX68K"
 libretro_px68k_git_url="https://github.com/libretro/px68k-libretro.git"
 libretro_px68k_build_makefile="Makefile.libretro"
 
+include_core_uw8() {
+	register_module core "uw8" -theos_ios -ngc -sncps3 -ps3 -psp1 -qnx -wii
+}
+libretro_uw8_name="MicroW8"
+libretro_uw8_git_url="https://github.com/libretro/uw8-libretro.git"
+libretro_uw8_git_submodules="yes"
+libretro_uw8_build_makefile="Makefile"
+
 include_core_uzem() {
 	register_module core "uzem" -theos_ios -ngc -ps3 -psp1 -qnx -wii
 }

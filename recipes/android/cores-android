@@ -108,6 +108,7 @@ theodore libretro-theodore https://github.com/Zlika/theodore.git master YES GENE
 thepowdertoy libretro-thepowdertoy https://github.com/libretro/ThePowderToy.git master YES ANDROID_CMAKE Makefile build
 tic80 libretro-tic80 https://github.com/nesbox/TIC-80.git master YES ANDROID_CMAKE Makefile builddir -DBUILD_PLAYER=OFF -DBUILD_SOKOL=OFF -DBUILD_SDL=OFF -DBUILD_DEMO_CARTS=OFF -DBUILD_LIBRETRO=ON
 tyrquake libretro-tyrquake https://github.com/libretro/tyrquake.git master YES GENERIC_JNI Makefile jni
+uw8 libretro-uw8 https://github.com/libretro/uw8-libretro.git main YES GENERIC_JNI Makefile jni
 uzem libretro-uzem https://github.com/libretro/libretro-uzem.git master YES GENERIC_JNI Makefile jni
 vba_next libretro-vba-next https://github.com/libretro/vba-next.git master YES GENERIC_JNI Makefile libretro/jni
 vbam libretro-vbam https://github.com/libretro/vbam-libretro.git master YES GENERIC_JNI Makefile src/libretro/jni

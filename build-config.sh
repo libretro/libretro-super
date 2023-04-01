@@ -282,6 +282,7 @@ include_core_lowresnx
 include_core_tic80
 include_core_lutro
 include_core_retro8
+include_core_uw8
 include_core_uzem
 include_core_gong
 include_core_jumpnbump

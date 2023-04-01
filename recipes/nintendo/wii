@@ -60,6 +60,7 @@ stella2014 libretro-stella2014 https://github.com/libretro/stella2014-libretro.g
 test libretro-samples https://github.com/libretro/libretro-samples.git master YES GENERIC Makefile tests/test
 theodore libretro-theodore https://github.com/Zlika/theodore.git master YES GENERIC Makefile .
 tyrquake libretro-tyrquake https://github.com/libretro/tyrquake.git master YES GENERIC Makefile .
+uw8 libretro-uw8 https://github.com/libretro/uw8-libretro.git main YES GENERIC Makefile .
 uzem libretro-uzem https://github.com/libretro/libretro-uzem.git master YES GENERIC Makefile .
 vba_next libretro-vba_next https://github.com/libretro/vba-next.git master YES GENERIC Makefile.libretro .
 x1 libretro-xmil https://github.com/libretro/xmil-libretro.git master YES GENERIC Makefile.libretro libretro

@@ -44,5 +44,6 @@ test libretro-samples https://github.com/libretro/libretro-samples.git master YE
 theodore libretro-theodore https://github.com/Zlika/theodore.git master YES GENERIC Makefile .
 tgbdual libretro-tgbdual https://github.com/libretro/tgbdual-libretro.git master YES GENERIC Makefile .
 tic80 libretro-tic80 https://github.com/nesbox/TIC-80.git master YES CMAKE Makefile builddir -DBUILD_PLAYER=OFF -DBUILD_SOKOL=OFF -DBUILD_SDL=OFF -DBUILD_DEMO_CARTS=OFF -DBUILD_LIBRETRO=ON -DDISABLE_NETWORKING=ON -DLIBRETRO_STATIC=ON -DLIBRETRO_SUFFIX=_psp1
+uw8 libretro-uw8 https://github.com/libretro/uw8-libretro.git main YES GENERIC Makefile .
 uzem libretro-uzem https://github.com/libretro/libretro-uzem.git master YES GENERIC Makefile .
 x1 libretro-xmil https://github.com/libretro/xmil-libretro.git master YES GENERIC Makefile.libretro libretro
