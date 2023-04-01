@@ -1,6 +1,6 @@
 # Software Information
 display_name = "MicroW8"
-authors = "exoticorn"
+authors = "Dennis Ranke"
 supported_extensions = "uw8|wasm"
 corename = "MicroW8"
 license = "The Unlicense"
