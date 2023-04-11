@@ -1,7 +1,7 @@
 # Software Information
 display_name = "VirtualXT"
 authors = "Andreas T Jonsson"
-supported_extensions = "img"
+supported_extensions = "img|zip"
 corename = "virtualxt"
 license = "zlib-acknowledgement"
 permissions = ""
