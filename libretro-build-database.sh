@@ -368,6 +368,7 @@ build_libretro_databases() {
 	build_libretro_database "Wolfenstein 3D" "rom.crc"
 	build_libretro_database "Atomiswave" "rom.crc"
 	build_libretro_database "PuzzleScript" "rom.crc"
+	build_libretro_database "MicroW8" "rom.crc"
 }
 
 build_libretrodb
