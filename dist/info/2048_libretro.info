@@ -11,7 +11,6 @@ display_version = "1.0"
 # Hardware Information
 systemname = "2048 Game Clone"
 systemid = "2048"
-manufacturer = "N/A"
 
 # Libretro Features
 database = "2048"

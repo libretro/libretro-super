@@ -1,5 +1,5 @@
 # Software Information
-display_name = "Sinclair - ZX 81 (EightyOne)"
+display_name = "Sinclair - ZX81 (EightyOne)"
 authors = "Michael D Wynne"
 supported_extensions = "p|tzx|t81"
 corename = "81"
@@ -9,7 +9,8 @@ permissions = ""
 display_version = "1.0a"
 
 # Hardware Information
-manufacturer = "Sinclair"
+developer = "Sinclair"
+manufacturer = "Timex"
 systemname = "ZX81"
 systemid = "zx81"
 

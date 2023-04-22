@@ -1,5 +1,5 @@
 # Software Information
-display_name = "Coleco - ColecoVision (Gearcoleco)"
+display_name = "Coleco - CV (Gearcoleco)"
 authors = "Ignacio Sanchez"
 supported_extensions = "col|cv|bin|rom"
 corename = "Gearcoleco"
@@ -19,7 +19,7 @@ supports_no_game = "false"
 
 # Firmware / BIOS
 firmware_count = 1
-firmware0_desc = "colecovision.rom (ColecoVision BIOS)"
+firmware0_desc = "colecovision.rom (ColecoVision ROM)"
 firmware0_path = "colecovision.rom"
 firmware0_opt = "false"
 notes = "(!) colecovision.rom (md5): 2c66f5911e5b42b8ebe113403548eee7"

@@ -1,5 +1,5 @@
 # Software Information
-display_name = "Atari - 5200 (Atari800)"
+display_name = "Atari - 5200/8bit (Atari800)"
 authors = "Petr Stehlik"
 supported_extensions = "xfd|atr|cdm|cas|bin|a52|zip|atx|car|rom|com|xex"
 corename = "Atari800"
@@ -33,7 +33,7 @@ needs_kbd_mouse_focus = "true"
 
 # BIOS/Firmware
 firmware_count = 5
-firmware0_desc = "5200.rom (Atari 5200 BIOS)"
+firmware0_desc = "5200.rom"
 firmware0_path = "5200.rom"
 firmware0_opt = "false"
 firmware1_desc = "ATARIBAS.ROM (Atari BASIC)"

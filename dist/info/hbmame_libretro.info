@@ -1,5 +1,5 @@
 # Software Information
-display_name = "Arcade (HBMAME)"
+display_name = "Arcade - Homebrew (HBMAME)"
 authors = "Robbbert,MAMEdev"
 supported_extensions = "zip|chd|7z|cmd"
 corename = "HBMAME (Git)"

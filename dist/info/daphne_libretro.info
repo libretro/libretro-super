@@ -1,5 +1,5 @@
 # Software Information
-display_name = "Arcade (Daphne)"
+display_name = "Arcade - LD (Daphne)"
 authors = "Matt Ownby"
 supported_extensions = "zip"
 corename = "Daphne"

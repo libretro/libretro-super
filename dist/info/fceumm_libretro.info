@@ -1,5 +1,5 @@
 # Software Information
-display_name = "Nintendo - NES / Famicom (FCEUmm)"
+display_name = "Nintendo - FC/NES/FDS (FCEUmm)"
 authors = "FCEU Team|CaH4e3"
 supported_extensions = "fds|nes|unif|unf"
 corename = "FCEUmm"
@@ -31,13 +31,13 @@ database = "Nintendo - Nintendo Entertainment System|Nintendo - Family Computer 
 
 # BIOS / Firmware
 firmware_count = 3
-firmware0_desc = "disksys.rom (Family Computer Disk System BIOS)"
+firmware0_desc = "disksys.rom (Disk System ROM)"
 firmware0_path = "disksys.rom"
 firmware0_opt = "true"
-firmware1_desc = "nes.pal (custom NES Palette)"
+firmware1_desc = "nes.pal (NES palette)"
 firmware1_path = "nes.pal"
 firmware1_opt = "true"
-firmware2_desc = "gamegenie.nes (Game Genie add-on cartridge)"
+firmware2_desc = "gamegenie.nes (Game Genie)"
 firmware2_path = "gamegenie.nes"
 firmware2_opt = "true"
 notes = "(!) disksys.rom (md5): ca30b50f880eb660a320674ed365ef7a|(!) gamegenie.nes (md5): 7f98d77d7a094ad7d069b74bd553ec98|(!) nes.pal must be located in system directory."

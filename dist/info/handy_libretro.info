@@ -5,6 +5,7 @@ supported_extensions = "lnx|o"
 corename = "Handy"
 
 # Hardware Information
+developer = "Epyx"
 manufacturer = "Atari"
 categories = "Emulator"
 systemname = "Lynx"
@@ -31,7 +32,7 @@ disk_control = "false"
 
 # BIOS / Firmware
 firmware_count = 1
-firmware0_desc = "lynxboot.img (Lynx Boot Image)"
+firmware0_desc = "lynxboot.img (Lynx boot image)"
 firmware0_path = "lynxboot.img"
 firmware0_opt = "true"
 notes = "(!) lynxboot.img (md5): fcd403db69f54290b51035d82f835e7b"

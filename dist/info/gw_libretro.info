@@ -1,5 +1,5 @@
 # Software Information
-display_name = "Handheld Electronic (GW)"
+display_name = "Handheld Simulator (GW)"
 authors = "Andre Leiradella"
 supported_extensions = "mgw"
 corename = "GW"
@@ -9,7 +9,7 @@ permissions = ""
 display_version = "Git"
 
 # Hardware Information
-manufacturer = "Various"
+manufacturer = "Mattel|VTech|Nintendo|Epoch|Bandai|Tomy|Gakken|Coleco|Polistil|Elektronika|Queentex"
 systemname = "Handheld Electronic"
 
 # Libretro Features

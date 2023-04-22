@@ -1,5 +1,5 @@
 # Software Information
-display_name = "Nintendo - NES / Famicom (bnes)"
+display_name = "Nintendo - FC/NES (bnes)"
 categories = "Emulator"
 authors = "Near|Ryphecha"
 corename = "bnes/higan"

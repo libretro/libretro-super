@@ -1,5 +1,5 @@
 # Software Information
-display_name = "Nintendo - Game Boy / Color (Gambatte)"
+display_name = "Nintendo - GBC (Gambatte)"
 authors = "Sinamas"
 supported_extensions = "gb|gbc|dmg"
 corename = "Gambatte"

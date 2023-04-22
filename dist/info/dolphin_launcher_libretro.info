@@ -1,5 +1,5 @@
 #  Software Information
-display_name = "Nintendo - GameCube / Wii (Dolphin Launcher)"
+display_name = "Nintendo - GC/Wii (Dolphin Launcher)"
 authors = "RobLoach"
 supported_extensions = "elf|dol|gcm|iso|wbfs|ciso|gcz|wad"
 corename = "Dolphin Launcher"
@@ -9,7 +9,8 @@ display_version = "1.2.0"
 categories = "Launcher"
 
 # Hardware Information
-manufacturer = "Nintendo"
+developer = "Nintendo"
+manufacturer = "Foxconn"
 systemname = "GameCube / Wii"
 systemid = "gamecube"
 

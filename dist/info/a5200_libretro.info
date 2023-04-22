@@ -21,7 +21,7 @@ savestate_features = "deterministic"
 
 # Firmware / BIOS
 firmware_count = 1
-firmware0_desc = "5200.rom (5200 BIOS)"
+firmware0_desc = "5200.rom"
 firmware0_path = "5200.rom"
 firmware0_opt = "true"
 notes = "(!) 5200.rom (md5): 281f20ea4320404ec820fb7ec0693b38"

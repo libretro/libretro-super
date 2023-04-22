@@ -1,5 +1,5 @@
 # Software Information
-display_name = "Commodore - C64 (Frodo)"
+display_name = "Commodore - 64 (Frodo)"
 authors = "Frodo Team Members"
 supported_extensions = "d64|t64|x64|p00|lnx|zip"
 corename = "Frodo"

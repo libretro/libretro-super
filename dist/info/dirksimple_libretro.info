@@ -1,5 +1,5 @@
 # Software Information
-display_name = "Laserdisc arcade game (DirkSimple)"
+display_name = "Arcade - LD (DirkSimple)"
 authors = "Ryan C. Gordon"
 supported_extensions = "ogv|dirksimple"
 corename = "DirkSimple"

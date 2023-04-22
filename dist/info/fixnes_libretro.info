@@ -1,5 +1,5 @@
 # Software Information
-display_name = "Nintendo - NES / Famicom (fixNES)"
+display_name = "Nintendo - FC/NES/FDS (fixNES)"
 authors = "FIX94"
 supported_extensions = "nes|fds|qd|nsf"
 corename = "fixNES"
@@ -19,7 +19,7 @@ supports_no_game = "false"
 
 # BIOS / Firmware
 firmware_count = 1
-firmware0_desc = "disksys.rom (Family Computer Disk System BIOS)"
+firmware0_desc = "disksys.rom (Disk System ROM)"
 firmware0_path = "disksys.rom"
 firmware0_opt = "true"
 notes = "(!) disksys.rom (md5): ca30b50f880eb660a320674ed365ef7a"

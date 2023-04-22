@@ -9,7 +9,8 @@ display_version = "alpha"
 categories = "Emulator"
 
 # Hardware Information
-manufacturer = "Microsoft"
+developer = "Microsoft"
+manufacturer = "Flex"
 systemname = "Xbox"
 systemid = "xbox"
 

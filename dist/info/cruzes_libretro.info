@@ -9,7 +9,6 @@ permissions = ""
 display_version = "v1.0"
 
 # Hardware Information
-manufacturer = "N/A"
 systemname = "Cruzes"
 systemid = "cruzes"
 

@@ -1,5 +1,5 @@
 # Software Information
-display_name = "DOS (DOSBox-core)"
+display_name = "PC - DOS (DOSBox-core)"
 authors = "DOSBox Team|radius|Nikos Chantziaras"
 supported_extensions = "exe|com|bat|conf|cue|iso"
 corename = "DOSBox-core"
@@ -9,7 +9,7 @@ permissions = ""
 display_version = "SVN"
 
 # Hardware Information
-manufacturer = "Microsoft"
+manufacturer = "Various"
 systemname = "DOS"
 systemid = "dos"
 

@@ -1,5 +1,5 @@
 # Software Information
-display_name = "Mattel - Intellivision (FreeIntv)"
+display_name = "Mattel - INTV (FreeIntv)"
 authors = "David Richardson"
 supported_extensions = "int|bin|rom"
 corename = "FreeIntv"
