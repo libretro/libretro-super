@@ -1,5 +1,5 @@
 # Software Information
-display_name = "Lexaloffle - Pico8 (FAKE-08)"
+display_name = "Lexaloffle - P8 (FAKE-08)"
 authors = "jtothebell"
 supported_extensions = "p8|png"
 corename = "FAKE-08"
