@@ -1,4 +1,4 @@
-display_name = "TestAudio Callback"
+display_name = "Libretro - TestAudio Callback"
 authors = "Team Libretro"
 corename = "TestAudio Callback"
 categories = "Tech demo"

@@ -1,5 +1,5 @@
 # Software Information
-display_name = "Commodore - C64DTV (VICE x64dtv)"
+display_name = "Commodore - 64DTV (VICE x64dtv)"
 categories = "Emulator"
 authors = "VICE Team"
 corename = "VICE x64dtv"
@@ -9,7 +9,6 @@ permissions = ""
 display_version = "3.7"
 
 # Hardware Information
-manufacturer = "Commodore"
 systemname = "C64DTV"
 systemid = "commodore_c64dtv"
 

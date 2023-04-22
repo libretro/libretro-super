@@ -1,5 +1,5 @@
 # Software Information
-display_name = "Quake II - The Reckoning (vitaQuake 2 [Xatrix])"
+display_name = "Quake II Mission Pack: The Reckoning (vitaQuake 2 [Xatrix])"
 authors = "Rinnegatamante"
 supported_extensions = "pak"
 corename = "vitaQuake 2 [Xatrix]"
@@ -9,7 +9,7 @@ display_version = "git"
 categories = "Game"
 
 # Hardware Information
-manufacturer = "Id Software"
+developer = "Xatrix"
 systemname = "Quake II Game Engine"
 systemid = "quake_2"
 

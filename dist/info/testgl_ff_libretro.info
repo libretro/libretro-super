@@ -1,4 +1,4 @@
-display_name = "TestGL (FF)"
+display_name = "Libretro - TestGL (FF)"
 authors = "Team Libretro"
 corename = "TestGL (FF)"
 categories = "Tech demo"

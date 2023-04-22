@@ -1,5 +1,5 @@
 # Software Information
-display_name = "Commodore - PLUS/4 (VICE xplus4)"
+display_name = "Commodore - Plus/4 (VICE xplus4)"
 categories = "Emulator"
 authors = "VICE Team"
 corename = "VICE xplus4"

@@ -9,8 +9,6 @@ permissions = ""
 display_version = "v92.5.336"
 systemname = "Physics Toy"
 
-# Hardware Information
-
 # Libretro Features
 supports_no_game = "true"
 single_purpose = "true"

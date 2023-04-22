@@ -1,5 +1,5 @@
 # Software Information
-display_name = "Commodore - C64 SuperCPU (VICE xscpu64)"
+display_name = "Commodore - 64 SuperCPU (VICE xscpu64)"
 categories = "Emulator"
 authors = "VICE Team"
 corename = "VICE xscpu64"
@@ -9,7 +9,7 @@ permissions = ""
 display_version = "3.7"
 
 # Hardware Information
-manufacturer = "Commodore"
+developer = "CMD"
 systemname = "C64 SuperCPU"
 systemid = "commodore_c64_supercpu"
 

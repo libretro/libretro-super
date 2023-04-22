@@ -1,5 +1,5 @@
 # Software Information
-display_name = "Nintendo - Game Boy / Color (TGB Dual)"
+display_name = "Nintendo - GBC (TGB Dual)"
 authors = "GIGO|Hii"
 supported_extensions = "cgb|dmg|gb|gbc|sgb"
 corename = "TGB Dual"

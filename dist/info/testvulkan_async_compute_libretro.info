@@ -1,4 +1,4 @@
-display_name = "TestVulkan AsyncCompute"
+display_name = "Libretro - TestVulkan AsyncCompute"
 authors = "Team Libretro"
 corename = "TestVulkan AsyncCompute"
 categories = "Tech demo"

@@ -1,5 +1,5 @@
 # Software Information
-display_name = "Nintendo - Game Boy Advance (VBA Next)"
+display_name = "Nintendo - GBA (VBA Next)"
 authors = "Forgotten|VBA-M Team|Squarepusher"
 supported_extensions = "gba"
 corename = "VBA Next"

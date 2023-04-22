@@ -1,5 +1,5 @@
 # Software Information
-display_name = "Commodore - C128 (VICE x128)"
+display_name = "Commodore - 128 (VICE x128)"
 categories = "Emulator"
 authors = "VICE Team"
 corename = "VICE x128"

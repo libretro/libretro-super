@@ -1,5 +1,5 @@
 # Software Information
-display_name = "WASM-4"
+display_name = "WebAssembly (WASM-4)"
 authors = "Bruno Garcia"
 supported_extensions = "wasm"
 corename = "WASM-4"

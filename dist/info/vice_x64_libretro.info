@@ -1,5 +1,5 @@
 # Software Information
-display_name = "Commodore - C64 (VICE x64, fast)"
+display_name = "Commodore - 64 (VICE x64, fast)"
 categories = "Emulator"
 authors = "VICE Team"
 corename = "VICE x64"

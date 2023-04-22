@@ -1,5 +1,5 @@
 # Software Information
-display_name = "Sharp X1 (X Millennium)"
+display_name = "Sharp - X1 (X Millennium)"
 authors = "yui"
 supported_extensions = "dx1|zip|2d|2hd|tfd|d88|88d|hdm|xdf|dup|tap|cmd"
 corename = "x1"
@@ -9,7 +9,7 @@ permissions = ""
 display_version = "0.60"
 
 # Hardware Information
-manufacturer = "Commodore"
+manufacturer = "Sharp"
 systemname = "Sharp X1"
 systemid = "sharp_x1"
 

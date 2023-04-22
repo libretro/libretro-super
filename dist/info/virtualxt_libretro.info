@@ -1,5 +1,5 @@
 # Software Information
-display_name = "VirtualXT"
+display_name = "IBM - PC/XT (VirtualXT)"
 authors = "Andreas T Jonsson"
 supported_extensions = "img|zip"
 corename = "virtualxt"

@@ -1,5 +1,5 @@
 # Software Information
-display_name = "Quake II (vitaQuake 2)"
+display_name = "id - Quake II (vitaQuake 2)"
 authors = "Rinnegatamante"
 supported_extensions = "pak"
 corename = "vitaQuake 2"
@@ -9,7 +9,7 @@ permissions = ""
 display_version = "git"
 
 # Hardware Information
-manufacturer = "Id Software"
+developer = "id"
 systemname = "Quake II Game Engine"
 systemid = "quake_2"
 

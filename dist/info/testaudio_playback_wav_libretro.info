@@ -1,4 +1,4 @@
-display_name = "TestAudio Playback Wav"
+display_name = "Libretro - TestAudio Playback Wav"
 authors = "Team Libretro"
 corename = "TestAudio Playback Wav"
 categories = "Tech demo"
