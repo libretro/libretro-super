@@ -1,5 +1,5 @@
 # Software Information
-display_name = "Sega - MD/Genesis (BlastEm)"
+display_name = "Sega - MD/Gen (BlastEm)"
 authors = "Mike Pavone"
 supported_extensions = "md|bin|smd|gen|68k|sgd"
 corename = "BlastEm"
