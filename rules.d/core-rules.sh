@@ -1550,7 +1550,7 @@ include_core_virtualxt() {
 }
 libretro_virtualxt_name="VirtualXT"
 libretro_virtualxt_git_url="https://github.com/andreas-jonsson/virtualxt.git"
-libretro_virtualxt_post_fetch_cmd="git checkout edge"
+libretro_virtualxt_post_fetch_cmd="git checkout release"
 libretro_virtualxt_build_subdir="tools/package/libretro"
 
 
