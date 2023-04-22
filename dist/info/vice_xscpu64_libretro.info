@@ -1,5 +1,5 @@
 # Software Information
-display_name = "Commodore - 64 SuperCPU (VICE xscpu64)"
+display_name = "Commodore - SuperCPU64 (VICE xscpu64)"
 categories = "Emulator"
 authors = "VICE Team"
 corename = "VICE xscpu64"

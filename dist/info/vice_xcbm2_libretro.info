@@ -1,5 +1,5 @@
 # Software Information
-display_name = "Commodore - CBM-II 6x0/7x0 (VICE xcbm2)"
+display_name = "CBM2 (VICE xcbm2)"
 categories = "Emulator"
 authors = "VICE Team"
 corename = "VICE xcbm2"
