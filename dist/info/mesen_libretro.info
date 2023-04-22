@@ -1,5 +1,5 @@
 # Software Information
-display_name = "Nintendo - NES / Famicom (Mesen)"
+display_name = "Nintendo - FC/NES/FDS (Mesen)"
 authors = "M. Bibaud (aka Sour)"
 supported_extensions = "nes|fds|unf|unif"
 corename = "Mesen"
@@ -31,7 +31,7 @@ database = "Nintendo - Nintendo Entertainment System|Nintendo - Family Computer 
 
 # Firmware / BIOS
 firmware_count = 1
-firmware0_desc = "disksys.rom (Family Computer Disk System BIOS)"
+firmware0_desc = "disksys.rom (Disk System ROM)"
 firmware0_path = "disksys.rom"
 firmware0_opt = "true"
 notes = "(!) disksys.rom (md5): ca30b50f880eb660a320674ed365ef7a|Press Retropad R1 to switch disk side.|HD Packs go in %system%/HdPacks/%game_name%|Custom palette in %system%/MesenPalette.pal"

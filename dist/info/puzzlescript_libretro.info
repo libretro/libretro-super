@@ -1,5 +1,5 @@
 # Software Information
-display_name = "PuzzleScript (pzretro)"
+display_name = "Increpare - PuzzleScript (pzretro)"
 categories = "Game engine"
 authors = "Nathan Whitehead"
 corename = "puzzlescript"
@@ -8,6 +8,7 @@ license = "MIT"
 permissions = ""
 
 # Hardware Information
+developer = "Increpare"
 systemname = "PuzzleScript"
 systemid = "puzzlescript"
 

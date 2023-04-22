@@ -9,7 +9,7 @@ display_version = "0.78"
 categories = "Emulator"
 
 # Hardware Information
-manufacturer = "Various"
+manufacturer = "Midway"
 systemname = "Arcade (various)"
 systemid = "mame"
 

@@ -1,5 +1,5 @@
 # Software Information
-display_name = "Watara - Supervision (Potator)"
+display_name = "Watara - SV (Potator)"
 authors = "Normmatt|Cal2|infval|Alekmaul"
 supported_extensions = "bin|sv"
 corename = "Potator"

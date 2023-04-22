@@ -1,5 +1,5 @@
 # Software Information
-display_name = "Sony - PlayStation (Rustation)"
+display_name = "Sony - PS (Rustation)"
 authors = "Simias"
 supported_extensions = "cue|toc|m3u|ccd|exe"
 corename = "Rustation"

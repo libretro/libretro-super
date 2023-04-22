@@ -1,5 +1,5 @@
 # Software Information
-display_name = "SNK - Neo Geo Pocket / Color (RACE)"
+display_name = "SNK - NGPC (RACE)"
 authors = "Judge_|Flavor|Akop Karapetyan|theelf|frangarcj|negativeExponent"
 supported_extensions = "ngp|ngc|ngpc|npc"
 corename = "RACE"

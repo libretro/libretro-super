@@ -1,5 +1,5 @@
 # Software Information
-display_name = "Nintendo - SNES / SFC (Beetle Supafaust)"
+display_name = "Nintendo - SFC/SNES (Beetle Supafaust)"
 categories = "Emulator"
 authors = "Mednafen team"
 corename = "Beetle Supafaust"

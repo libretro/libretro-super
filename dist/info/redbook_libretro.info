@@ -1,5 +1,5 @@
 # Software Information
-display_name = "Redbook Audio Player"
+display_name = "Philips/Sony - CDDA (Redbook)"
 authors = "Brad Parker"
 supported_extensions = "cue|bin"
 corename = "Redbook"

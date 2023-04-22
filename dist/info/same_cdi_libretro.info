@@ -9,7 +9,7 @@ display_version = "Git"
 categories = "Emulator"
 
 # Hardware Information
-manufacturer = "Philips"
+developer = "Philips|Sony"
 systemname = "CD-i"
 systemid = "cdi"
 

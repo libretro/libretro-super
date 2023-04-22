@@ -1,5 +1,5 @@
 # Software Information
-display_name = "PocketCDG"
+display_name = "Philips/Sony - CDG (PocketCDG)"
 authors = "RedBug"
 supported_extensions = "cdg"
 corename = "PocketCDG"
@@ -10,6 +10,7 @@ permissions = ""
 display_version = "Git"
 
 # Hardware Information
+developer = "Philips|Sony"
 systemid = "music"
 
 # Libretro Features

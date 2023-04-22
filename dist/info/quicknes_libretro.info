@@ -1,5 +1,5 @@
 # Software Information
-display_name = "Nintendo - NES / Famicom (QuickNES)"
+display_name = "Nintendo - FC/NES (QuickNES)"
 authors = "blargg|kode54"
 supported_extensions = "nes"
 corename = "QuickNES"

@@ -1,5 +1,5 @@
 # Software Information
-display_name = "Dungeon Crawl Stone Soup"
+display_name = "DCSS - Dungeon Crawl Stone Soup"
 authors = "DCSS Team"
 supported_extensions = "crawlrc"
 corename = "Dungeon Crawl Stone Soup"

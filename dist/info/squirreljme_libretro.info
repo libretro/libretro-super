@@ -1,5 +1,5 @@
 # Name displayed when the user is selecting the core:
-display_name = "Java ME (SquirrelJME)"
+display_name = "Sun - J2ME (SquirrelJME)"
 
 # Name of the authors who wrote the core:
 authors = "Stephanie Gawroriski (Xer Shadow Tail)"
@@ -44,7 +44,7 @@ savestate = "false"
 
 # The number of mandatory/optional firmware files the core needs:
 firmware_count = 1
-firmware0_desc = "squirreljme.sqc (SquirrelJME ROM)"
+firmware0_desc = "squirreljme.sqc"
 firmware0_path = "squirreljme.sqc"
 firmware0_opt = "true"
 

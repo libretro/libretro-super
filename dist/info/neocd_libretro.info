@@ -1,5 +1,5 @@
 # Software Information
-display_name = "SNK - Neo Geo CD (NeoCD)"
+display_name = "SNK - NGCD (NeoCD)"
 authors = "Elta"
 supported_extensions = "cue|chd"
 corename = "NeoCD"

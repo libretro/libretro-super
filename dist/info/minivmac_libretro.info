@@ -1,5 +1,5 @@
 # Software Information
-display_name = "Mac II (minivmac)"
+display_name = "Apple - Mac (Mini vMac)"
 authors = "Paul C. Pratt|Philip Cummins|Bernd Schmidt|Weston Pawlowski|Richard F. Bannister|Sam Lantinga|Michael Hanni|Michael Fort|Jesus A. Alvarez|Manuel Alfayate|Christian Bauer|Lazyone"
 
 supported_extensions = "dsk|img|zip|hvf|cmd"

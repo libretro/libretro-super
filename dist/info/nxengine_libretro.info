@@ -1,5 +1,5 @@
 # Software Information
-display_name = "Cave Story (NXEngine)"
+display_name = "Pixel - Cave Story (NXEngine)"
 authors = "Caitlin Shaw"
 supported_extensions = "exe"
 corename = "NXEngine"
@@ -9,6 +9,7 @@ permissions = ""
 display_version = "1.0.0.6"
 
 # Hardware Information
+developer = "Pixel"
 systemname = "Cave Story Game Engine"
 systemid = "nxengine"
 

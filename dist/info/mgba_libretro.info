@@ -1,5 +1,5 @@
 # Software Information
-display_name = "Nintendo - Game Boy Advance (mGBA)"
+display_name = "Nintendo - GBA/GBC (mGBA)"
 authors = "endrift"
 supported_extensions = "gb|gbc|gba"
 corename = "mGBA"
