@@ -1,5 +1,5 @@
 # Software Information
-display_name = "Sega/Coleco - MS2/GG/CV (SMS Plus GX)"
+display_name = "Sega/Coleco - SG/MS2/GG/CV (SMS Plus GX)"
 authors = "Charles MacDonald|gameblabla"
 supported_extensions = "sms|bin|rom|col|gg|sg"
 corename = "SMS Plus GX"

@@ -1,5 +1,5 @@
 # Software Information
-display_name = "Nintendo - GBC (SameBoy)"
+display_name = "Nintendo - GBC/GBA/SGB2 (SameBoy)"
 authors = "LIJI32"
 supported_extensions = "gb|gbc"
 corename = "SameBoy"

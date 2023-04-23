@@ -1,5 +1,5 @@
 # Software Information
-display_name = "Nintendo - SFC/SNES/BS/SGB/GBC (Mesen-S)"
+display_name = "Nintendo - SFC/SNES/BS/SGB2/GBC (Mesen-S)"
 authors = "M. Bibaud (aka Sour)"
 supported_extensions = "sfc|smc|fig|swc|bs|gb|gbc"
 corename = "Mesen-S"

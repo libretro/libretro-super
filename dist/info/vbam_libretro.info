@@ -1,5 +1,5 @@
 # Software Information
-display_name = "Nintendo - GBA/GBC (VBA-M)"
+display_name = "Nintendo - GBA/GBC/SGB2 (VBA-M)"
 authors = "Forgotten|VBA-M Team"
 supported_extensions = "dmg|gb|gbc|cgb|sgb|gba"
 corename = "VBA-M"
