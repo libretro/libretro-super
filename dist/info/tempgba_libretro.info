@@ -10,7 +10,7 @@ categories = "Emulator"
 systemname = "Game Boy Advance"
 systemid = "game_boy_advance"
 database = "Nintendo - Game Boy Advance|Nintendo - Game Boy Advance (e-Cards)"
-license = "GPLv2"
+license = "GPL-2.0"
 permissions = ""
 display_version = "26731013"
 

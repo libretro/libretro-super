@@ -4,7 +4,7 @@ authors = ""
 supported_extensions = "zip"
 corename = "XRick"
 categories = "Game"
-license = "GPLv3"
+license = "GPL-3.0"
 permissions = ""
 display_version = "1.0.0.6"
 

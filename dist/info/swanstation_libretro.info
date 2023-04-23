@@ -4,7 +4,7 @@ authors = "stenzek"
 supported_extensions = "exe|psexe|cue|bin|img|iso|chd|pbp|ecm|mds|psf|m3u"
 corename = "SwanStation"
 categories = "Emulator"
-license = "GPLv3"
+license = "GPL-3.0"
 permissions = ""
 
 # Hardware Information

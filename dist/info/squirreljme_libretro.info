@@ -28,7 +28,7 @@ systemid = "J2ME"
 database = "J2ME"
 
 # License of the cores source code:
-license = "GPLv3"
+license = "GPL-3.0"
 
 # Privacy-specific permissions needed for using the core:
 permissions = ""

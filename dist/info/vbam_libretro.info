@@ -3,7 +3,7 @@ display_name = "Nintendo - GBA/GBC/SGB2 (VBA-M)"
 authors = "Forgotten|VBA-M Team"
 supported_extensions = "dmg|gb|gbc|cgb|sgb|gba"
 corename = "VBA-M"
-license = "GPLv2"
+license = "GPL-2.0"
 permissions = ""
 display_version = "2.1.4"
 

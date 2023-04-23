@@ -4,7 +4,7 @@ authors = "Rinnegatamante"
 supported_extensions = "pak"
 corename = "vitaQuake 2"
 categories = "Game"
-license = "GPLv2"
+license = "GPL-2.0"
 permissions = ""
 display_version = "git"
 

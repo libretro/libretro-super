@@ -4,7 +4,7 @@ categories = "Emulator"
 authors = "Snes9x Team"
 corename = "Snes9x"
 supported_extensions = "smc|sfc|swc|fig|bs|st"
-license = "Non-commercial"
+license = "NC"
 permissions = ""
 display_version = "1.61"
 

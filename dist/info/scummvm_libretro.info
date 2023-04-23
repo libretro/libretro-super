@@ -4,7 +4,7 @@ authors = "SCUMMVMdev"
 supported_extensions = " Seuss's  ABC|#02|$00|(A)|(a)|(b)|0|000|001|002|003|004|005|006|007|009|025|1|101|102|12|1C|1c|2|2 US|25|26|3|34|4|455|5|512|6|8|84|85|86|87|99|99 (PG)|ACX|AD|ADF|ADV|AGA|ALD|ALL|AN|ANG|AP|ASK|AUD|AVD|AVI|BAT|BIN|BLB|BMV|BND|BRO|BSF|BUN|C|C00|C06|C35|CAB|CAT|CC|CD1|CEL|CFG|CG1|CGA|CHK|CIF|CLG|CLT|CLU|CNF|CNV|COD|CPS|CRC|CRF|CSC|CSH|CUP|CUR|D$$|D00|D64|DAT|DEF|DFW|DIR|DMU|DNR|DR1|DRV|DSK|DXR|EGA|EMC|ENC|EX1|EXE|EX_|FDT|FKR|FNT|FON|FRENCH|GAM|GDA|GERMAN|GJD|GME|GR2|GRA|GRP|H$$|HAG|HE0|HE1|HE2|HEB|HELLO|HEP|HEX|HPF|HQR|HRC|IBK|IDX|IMS|IN|INF|INI|ITK|L9|LA0|LAB|LB|LEC|LFL|LIB|LIC|LNG|LZC|M4B|MAC|MAP|MDT|MHK|MID|MIX|MMM|MOR|MPC|MPL|MS0|MSG|MT|NL|NUT|OBJ|OGG|OPT|OUT|OVL|P56|PAK|PAL|PAR|PAT|PCX|PGM|PH1|PIC|PKD|PMV|PRC|PRG|Pat|QA|R00|R02|RAW|RED|RES|RIF|RL2|RLB|ROM|RRM|RSC|SAV|SCN|SCR|SEQ|SET|SHP|SHR|SM0|SM1|SMK|SND|SNG|SOG|SOL|SOU|SOUND|SPP|SQU|STK|STR|SWP|SYN|SYS|SYS16|Sax|T64|TAB|TEX|THF|TLK|TOC|TRS|TXT|Text|V16|V56|VGA|VMD|VMD-ra4j|VOC|VQA|W16|W32|WAV|WIN|Z|Z5|ZFS|a3c|acd|acx|add|ags|alr|apm|asl|avi|b25c|bin|blb|blorb|bro|bwu|cab|cas|cat|cel|cfg|crm|cup|d$$|d64|dat|dcp|dnr|doc|dsk|dta|dxr|exe|fiad|gam|game|gblorb|gfx|gmp|he0|he1|he2|hex|img|info|ini|j2|jac|jpg|lab|lfl|m4b|mac|mhk|mma|mp3|mpc|msd|nbf|nib|nl|ogg|pat|pic|prg|pth|res|rom|rsc|scummvm|sdb|slg|spr|st|str|sub|sym|t3|t64|tab|taf|tra|ttf|txt|ulx|vga|voc|vox|wav|wfn|win|woz|xfd|xnw|z1|z2|z3|z4|z4f|z5|z6|z8|z80|zblorb|zfs|zip|"
 corename = "ScummVM"
 categories = "Game"
-license = "GPLv3"
+license = "GPL-3.0"
 permissions = ""
 display_version = "2.8.0git"
 

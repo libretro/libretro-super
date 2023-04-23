@@ -3,7 +3,7 @@ categories = "Game engine"
 authors = "Philippe Simons"
 corename = "superbroswar"
 supported_extensions = "game"
-license = "GPLv2"
+license = "GPL-2.0"
 display_version = "v0.1"
 systemid = "superbroswar"
 
