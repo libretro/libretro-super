@@ -1,5 +1,5 @@
 # Software Information
-display_name = "Magnavox/Philips - O2/VP/VP+/O3 (O2EM)"
+display_name = "Magnavox/Philips - O2/VP+ (O2EM)"
 authors = "Daniel Boris|Andre de la Rocha|Arlindo M. de Oliveira"
 supported_extensions = "bin"
 corename = "O2EM"

@@ -1,5 +1,5 @@
 # Software Information
-display_name = "Sega - SG/Mk3/MS/GG (Gearsystem)"
+display_name = "Sega - SG/MS/GG (Gearsystem)"
 authors = "Ignacio Sanchez"
 supported_extensions = "sms|gg|sg|bin|rom"
 corename = "Gearsystem"

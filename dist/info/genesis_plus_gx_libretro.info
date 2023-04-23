@@ -1,5 +1,5 @@
 # Software Information
-display_name = "Sega - SG/Mk3/MS/GG/MD/Gen/CD (Genesis Plus GX)"
+display_name = "Sega - SG2/Mk3/MS2/GG/MD/Gen/CD (Genesis Plus GX)"
 authors = "Charles McDonald|Eke-Eke"
 supported_extensions = "mdx|md|smd|gen|bin|cue|iso|sms|bms|gg|sg|68k|sgd|chd|m3u"
 corename = "Genesis Plus GX"

@@ -1,7 +1,7 @@
 # Software Information
-display_name = "Sega - Mk3/MS/GG/MD/Gen/CD/32X/PICO (PicoDrive)"
+display_name = "Sega - SC/MS/GG/MD/Gen/CD/32X/PICO (PicoDrive)"
 authors = "notaz|fdave|irixxxx"
-supported_extensions = "bin|gen|gg|smd|pco|md|32x|chd|cue|iso|sms|68k|sgd|m3u"
+supported_extensions = "bin|gen|gg|smd|pco|md|32x|chd|cue|iso|sms|sg|sc|68k|sgd|m3u"
 corename = "PicoDrive"
 license = "MAME"
 permissions = "dynarec_optional"
