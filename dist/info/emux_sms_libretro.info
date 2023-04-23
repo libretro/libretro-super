@@ -1,5 +1,5 @@
 # Software Information
-display_name = "Sega - Mk3/MS (Emux SMS)"
+display_name = "Sega - MS (Emux SMS)"
 authors = "Sebastien Ronsse"
 supported_extensions = "sms|bms|bin|rom"
 corename = "Emux SMS"

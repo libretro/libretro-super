@@ -1,5 +1,5 @@
 # Software Information
-display_name = "Nintendo - SFC/SNES/GBC (higan Accuracy)"
+display_name = "Nintendo - SFC/SNES/SGB2 (higan Accuracy)"
 authors = "Near"
 supported_extensions = "sfc|smc|gb|gbc|bml|rom"
 corename = "nSide (Super Famicom Accuracy)"
