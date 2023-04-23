@@ -1,5 +1,5 @@
 # Software Information
-display_name = "Nintendo - SFC/SNES/BS/GBC (bsnes)"
+display_name = "Nintendo - SFC/SNES/BS/SGB (bsnes)"
 categories = "Emulator"
 authors = "Near"
 corename = "bsnes"

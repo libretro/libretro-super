@@ -1,5 +1,5 @@
 # Software Information
-display_name = "Nintendo - SFC/SNES/GBC (bsnes-mercury Accuracy)"
+display_name = "Nintendo - SFC/SNES/SGB (bsnes-mercury Accuracy)"
 categories = "Emulator"
 authors = "Near|Alcaro"
 corename = "bsnes-mercury Accuracy"

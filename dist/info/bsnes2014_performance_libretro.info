@@ -1,5 +1,5 @@
 # Software Information
-display_name = "Nintendo - SFC/SNES/GBC (bsnes 2014 Performance)"
+display_name = "Nintendo - SFC/SNES/SGB (bsnes 2014 Performance)"
 categories = "Emulator"
 authors = "Near"
 corename = "bsnes 2014 Performance"

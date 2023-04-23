@@ -1,5 +1,5 @@
 # Software Information
-display_name = "Nintendo - SFC/SNES/GBC (bsnes-mercury Performance)"
+display_name = "Nintendo - SFC/SNES/SGB (bsnes-mercury Performance)"
 categories = "Emulator"
 authors = "Near|Alcaro"
 corename = "bsnes-mercury Performance"

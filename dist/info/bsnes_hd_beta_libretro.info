@@ -1,5 +1,5 @@
 # Software Information
-display_name = "Nintendo - SFC/SNES/GBC (bsnes-hd beta)"
+display_name = "Nintendo - SFC/SNES/SGB (bsnes-hd beta)"
 categories = "Emulator"
 authors = "Near|DerKoun"
 corename = "bsnes-hd beta"
