@@ -4,7 +4,7 @@ categories = "Emulator"
 authors = "Near|Ryphecha"
 corename = "bnes/higan"
 supported_extensions = "nes"
-license = "GPLv3"
+license = "GPL-3.0"
 permissions = ""
 display_version = "v083"
 

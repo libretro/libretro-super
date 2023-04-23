@@ -4,7 +4,7 @@ authors = "stenzek"
 supported_extensions = "exe|psexe|cue|bin|img|iso|chd|pbp|ecm|mds|psf|m3u"
 corename = "DuckStation"
 categories = "Emulator"
-license = "Non-commercial"
+license = "NC"
 permissions = ""
 
 # Hardware Information

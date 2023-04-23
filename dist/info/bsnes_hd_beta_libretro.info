@@ -4,7 +4,7 @@ categories = "Emulator"
 authors = "Near|DerKoun"
 corename = "bsnes-hd beta"
 supported_extensions = "smc|sfc|swc|fig|gb|gbc|bs"
-license = "GPLv3"
+license = "GPL-3.0"
 permissions = ""
 display_version = "v112.v12"
 

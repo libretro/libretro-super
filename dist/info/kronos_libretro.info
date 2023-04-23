@@ -4,7 +4,7 @@ authors = "Guillaume Duhammel|Theo Berkau|Anders Montonen|devmiyax|FCare|barbudr
 supported_extensions = "ccd|chd|cue|iso|mds|zip|m3u"
 corename = "Kronos"
 categories = "Emulator"
-license = "GPLv2"
+license = "GPL-2.0"
 permissions = ""
 display_version = "v2.3.1"
 

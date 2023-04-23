@@ -4,7 +4,7 @@ authors = "Ryan C. Gordon"
 supported_extensions = "ogv|dirksimple"
 corename = "DirkSimple"
 categories = "Emulator"
-license = "zlib"
+license = "Zlib"
 permissions = ""
 display_version = "0.2"
 

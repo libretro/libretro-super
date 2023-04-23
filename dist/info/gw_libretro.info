@@ -4,7 +4,7 @@ authors = "Andre Leiradella"
 supported_extensions = "mgw"
 corename = "GW"
 categories = "Simulator"
-license = "zlib"
+license = "Zlib"
 permissions = ""
 display_version = "Git"
 

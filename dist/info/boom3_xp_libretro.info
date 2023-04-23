@@ -3,7 +3,7 @@ display_name = "id - Doom 3: Resurrection of Evil (boom 3 xp)"
 authors = "Rinnegatamante and dhewm 3 team"
 supported_extensions = "pk4"
 corename = "boom3_xp"
-license = "GPLv2"
+license = "GPL-2.0"
 permissions = ""
 display_version = "git"
 

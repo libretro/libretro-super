@@ -4,7 +4,7 @@ authors = "Ignacio Sanchez"
 supported_extensions = "col|cv|bin|rom"
 corename = "Gearcoleco"
 categories = "Emulator"
-license = "GPLv3"
+license = "GPL-3.0"
 permissions = ""
 display_version = "1.0.0"
 

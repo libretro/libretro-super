@@ -4,7 +4,7 @@ categories = "Emulator"
 authors = "Snes9x Team and its contributors"
 corename = "ChimeraSNES"
 supported_extensions = "smc|fig|sfc|gd3|gd7|dx2|swc"
-license = "Non-commercial"
+license = "NC"
 permissions = ""
 display_version = ""
 

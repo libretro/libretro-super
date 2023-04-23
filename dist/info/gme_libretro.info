@@ -4,7 +4,7 @@ authors = "Blargg"
 supported_extensions = "ay|gbs|gym|hes|kss|nsf|nsfe|sap|spc|vgm|vgz|zip"
 corename = "Game Music Emu"
 categories = "Music player"
-license = "GPLv3"
+license = "GPL-3.0"
 permissions = ""
 display_version = "Git"
 

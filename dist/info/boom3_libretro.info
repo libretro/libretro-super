@@ -3,7 +3,7 @@ display_name = "id - Doom 3 (boom3)"
 authors = "Rinnegatamante|dhewm3"
 supported_extensions = "pk4"
 corename = "boom3"
-license = "GPLv2"
+license = "GPL-2.0"
 permissions = ""
 display_version = "git"
 

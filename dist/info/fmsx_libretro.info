@@ -4,7 +4,7 @@ authors = "Marat Fayzullin"
 supported_extensions = "rom|mx1|mx2|dsk|fdi|cas|m3u"
 corename = "fMSX"
 categories = "Emulator"
-license = "Non-commercial"
+license = "NC"
 permissions = ""
 display_version = "6.0"
 

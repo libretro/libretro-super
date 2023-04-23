@@ -4,7 +4,7 @@ authors = "FrodeSolheim"
 supported_extensions = "adf|ipf|fs-uae"
 corename = "FS-UAE"
 categories = "Emulator"
-license = "GPLv2"
+license = "GPL-2.0"
 permissions = ""
 display_version = "v2.7.15"
 

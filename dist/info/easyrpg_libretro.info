@@ -4,7 +4,7 @@ authors = "EasyRPG team"
 supported_extensions = "ldb|zip|easyrpg"
 corename = "EasyRPG Player"
 categories = "Game engine"
-license = "GPLv3"
+license = "GPL-3.0"
 permissions = ""
 display_version = "0.7.0.0"
 

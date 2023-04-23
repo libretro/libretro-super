@@ -4,7 +4,7 @@ categories = "Emulator"
 authors = "Near"
 corename = "bsnes"
 supported_extensions = "smc|sfc|swc|fig|gb|gbc|bs"
-license = "GPLv3"
+license = "GPL-3.0"
 permissions = ""
 display_version = "115"
 

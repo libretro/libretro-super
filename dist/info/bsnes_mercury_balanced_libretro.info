@@ -4,7 +4,7 @@ categories = "Emulator"
 authors = "Near|Alcaro"
 corename = "bsnes-mercury Balanced"
 supported_extensions = "sfc|smc|bml|gb|gbc|st|bs"
-license = "GPLv3"
+license = "GPL-3.0"
 permissions = ""
 display_version = "v094 (Mercury Balanced)"
 

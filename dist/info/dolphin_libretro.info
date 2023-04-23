@@ -4,7 +4,7 @@ authors = "Team Dolphin"
 supported_extensions = "gcm|iso|wbfs|ciso|gcz|elf|dol|dff|tgc|wad|rvz|m3u|wia"
 corename = "Dolphin"
 categories = "Emulator"
-license = "GPLv2+"
+license = "GPL-2.0+"
 permissions = ""
 display_version = "Git"
 

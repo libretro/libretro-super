@@ -4,7 +4,7 @@ authors = "Matt Ownby"
 supported_extensions = "zip"
 corename = "Daphne"
 categories = "Emulator"
-license = "GPLv2+"
+license = "GPL-2.0+"
 permissions = ""
 display_version = "Git"
 

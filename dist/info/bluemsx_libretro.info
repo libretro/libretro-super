@@ -4,7 +4,7 @@ authors = "Daniel Vik"
 supported_extensions = "rom|ri|mx1|mx2|col|dsk|cas|sg|sc|sf|m3u"
 corename = "blueMSX"
 categories = "Emulator"
-license = "GPLv2"
+license = "GPL-2.0"
 permissions = ""
 display_version = "SVN"
 

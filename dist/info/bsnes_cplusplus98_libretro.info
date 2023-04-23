@@ -4,7 +4,7 @@ categories = "Emulator"
 authors = "Near|Themaister|Ver GreenEyes"
 corename = "bsnes C++98 (v085)"
 supported_extensions = "sfc|smc|gb|gbc|st|bs"
-license = "GPLv3"
+license = "GPL-3.0"
 permissions = ""
 display_version = "v085 (Performance)"
 

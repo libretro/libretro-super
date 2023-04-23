@@ -4,7 +4,7 @@ authors = "Petr Stehlik"
 supported_extensions = "xfd|atr|cdm|cas|bin|a52|zip|atx|car|rom|com|xex"
 corename = "Atari800"
 categories = "Emulator"
-license = "GPLv2"
+license = "GPL-2.0"
 permissions = ""
 
 # Hardware Information

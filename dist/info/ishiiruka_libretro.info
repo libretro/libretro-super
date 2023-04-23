@@ -4,7 +4,7 @@ authors = "Team Ishiiruka"
 supported_extensions = "gcm|iso|wbfs|ciso|gcz|elf|dol|dff|tgc|wad"
 corename = "Ishiiruka"
 categories = "Emulator"
-license = "GPLv2+"
+license = "GPL-2.0+"
 permissions = ""
 display_version = "Git"
 

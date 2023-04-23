@@ -4,7 +4,7 @@ authors = "Charles McDonald|Eke-Eke|heyjoeway"
 supported_extensions = "mdx|md|smd|gen|bin|cue|iso|sms|bms|gg|sg|68k|sgd|chd|m3u"
 corename = "Genesis Plus GX Wide"
 categories = "Emulator"
-license = "Non-commercial"
+license = "NC"
 permissions = ""
 display_version = "v1.7.5"
 

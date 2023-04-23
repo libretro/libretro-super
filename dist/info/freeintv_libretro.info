@@ -4,7 +4,7 @@ authors = "David Richardson"
 supported_extensions = "int|bin|rom"
 corename = "FreeIntv"
 categories = "Emulator"
-license = "GPLv3"
+license = "GPL-3.0"
 permissions = ""
 display_version = "2018.1.5"
 
