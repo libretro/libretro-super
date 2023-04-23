@@ -28,7 +28,7 @@ display_version = "v1.2.1"
 # Hardware Information - Information about the hardware the core supports (when applicable)
 # Name of the manufacturer who produced the emulated system:
 developer = "Intelligent|Videoton|Amstrad|Sinclair"
-manufacturer = "EnterpriseVideoton|Amstrad|Sinclair"
+manufacturer = "Enterprise|Videoton|Amstrad|Sinclair"
 
 # Name of the system that the core targets (optional):
 systemname = "64/128"

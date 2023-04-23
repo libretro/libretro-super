@@ -4,7 +4,7 @@ authors = "JohnnyDude|FreeDO team|trapexit"
 supported_extensions = "iso|bin|chd|cue"
 corename = "4DO"
 categories = "Emulator"
-license = "LGPL/NC"
+license = "LGPL|NC"
 permissions = ""
 display_version = "v1.3.2.4+"
 
