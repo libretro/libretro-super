@@ -4,7 +4,7 @@ categories = "Emulator"
 authors = "UAE Team"
 corename = "PUAE"
 supported_extensions = "adf|adz|dms|fdi|ipf|hdf|hdz|lha|slave|info|cue|ccd|nrg|mds|iso|chd|uae|m3u|zip|7z|rp9"
-license = "GPLv2"
+license = "GPL-2.0"
 permissions = ""
 display_version = "v4.9.1"
 

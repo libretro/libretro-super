@@ -3,7 +3,7 @@ display_name = "SNK - NGCD (NeoCD)"
 authors = "Elta"
 supported_extensions = "cue|chd"
 corename = "NeoCD"
-license = "LGPLv3"
+license = "LGPL-3.0"
 display_version = "2019"
 categories = "Emulator"
 

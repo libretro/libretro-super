@@ -4,7 +4,7 @@ authors = "XProger"
 supported_extensions = "phd|psx|tr2"
 corename = "OpenLara"
 categories = "Game"
-license = "2-clause BSD"
+license = "BSD-2-Clause"
 permissions = ""
 display_version = "v1"
 

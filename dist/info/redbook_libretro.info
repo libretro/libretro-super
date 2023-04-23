@@ -8,7 +8,7 @@ corename = "Redbook"
 categories = "music"
 systemname = "Redbook"
 systemid = "redbook"
-license = "Apache 2.0"
+license = "Apache-2.0"
 permissions = ""
 display_version = "1.0"
 

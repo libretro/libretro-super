@@ -4,7 +4,7 @@ authors = "Caitlin Shaw"
 supported_extensions = "exe"
 corename = "NXEngine"
 categories = "Game"
-license = "GPLv3"
+license = "GPL-3.0"
 permissions = ""
 display_version = "1.0.0.6"
 

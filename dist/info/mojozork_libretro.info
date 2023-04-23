@@ -4,7 +4,7 @@ authors = "Ryan C. Gordon"
 supported_extensions = "dat|z1|z3"
 corename = "mojozork"
 categories = "Emulator"
-license = "zlib"
+license = "Zlib"
 permissions = ""
 display_version = "0.1"
 

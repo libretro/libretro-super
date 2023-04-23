@@ -4,7 +4,7 @@ authors = "trapexit|JohnnyDude|FreeDO team"
 supported_extensions = "iso|bin|chd|cue"
 corename = "Opera"
 categories = "Emulator"
-license = "LGPL/Non-commercial"
+license = "LGPL|NC"
 permissions = ""
 display_version = "1.0.0"
 

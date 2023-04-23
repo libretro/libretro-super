@@ -4,7 +4,7 @@ authors = "Philippe Daouadi"
 supported_extensions = "gba"
 corename = "Meteor"
 categories = "Emulator"
-license = "GPLv3"
+license = "GPL-3.0"
 permissions = ""
 display_version = "v1.4"
 

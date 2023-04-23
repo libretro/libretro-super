@@ -10,7 +10,7 @@ categories = "Emulator"
 systemname = "Super Nintendo Entertainment System"
 systemid = "super_nes"
 database = "Nintendo - Super Nintendo Entertainment System"
-license = "GPLv2"
+license = "GPL-2.0"
 permissions = ""
 display_version = "v0.9.26"
 

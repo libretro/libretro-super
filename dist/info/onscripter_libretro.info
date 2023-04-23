@@ -3,7 +3,7 @@ display_name = "Visual Novel (ONScripter)"
 display_version = "0.1"
 authors = "Studio O.G.A."
 categories = "Game engine"
-license = "GPLv3+"
+license = "GPL-3.0+"
 permissions = ""
 supported_extensions = "txt|dat|___"
 

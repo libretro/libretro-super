@@ -11,7 +11,7 @@ categories = "Emulator"
 systemname = "PC Engine SuperGrafx"
 systemid = "pc_engine"
 database = "NEC - PC Engine SuperGrafx|NEC - PC Engine - TurboGrafx 16|NEC - PC Engine CD - TurboGrafx-CD"
-license = "GPLv2"
+license = "GPL-2.0"
 permissions = ""
 display_version = "v1.29.0"
 

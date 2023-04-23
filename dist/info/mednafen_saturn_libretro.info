@@ -10,7 +10,7 @@ categories = "Emulator"
 systemname = "Saturn"
 systemid = "sega_saturn"
 database = "Sega - Saturn"
-license = "GPLv2"
+license = "GPL-2.0"
 permissions = ""
 display_version = "v1.29.0"
 

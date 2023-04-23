@@ -10,7 +10,7 @@ categories = "Emulator"
 systemname = "PlayStation"
 systemid = "playstation"
 database = "Sony - PlayStation"
-license = "GPLv2"
+license = "GPL-2.0"
 permissions = ""
 display_version = "v0.9.44.1"
 
