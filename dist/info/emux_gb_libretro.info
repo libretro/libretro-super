@@ -1,7 +1,7 @@
 # Software Information
-display_name = "Nintendo - GB (Emux GB)"
+display_name = "Nintendo - GBC (Emux GB)"
 authors = "Sebastien Ronsse"
-supported_extensions = "gb|bin|rom"
+supported_extensions = "gb|gbc|bin|rom"
 corename = "Emux GB"
 license = "GPLv2"
 permissions = ""
@@ -14,7 +14,7 @@ systemname = "Game Boy/Game Boy Color"
 systemid = "game_boy"
 
 # Libretro Features
-database = "Nintendo - Game Boy"
+database = "Nintendo - Game Boy|Nintendo - Game Boy Color"
 supports_no_game = "false"
 savestate = "false"
 savestate_features = "null"
