@@ -6,7 +6,7 @@ corename = "bsnes 2014 Accuracy"
 supported_extensions = "sfc|smc|bml|gb|gbc|st|bs"
 license = "GPL-3.0"
 permissions = ""
-display_version = "v094 (Accuracy)"
+display_version = "v094"
 
 # Hardware Information
 manufacturer = "Nintendo"

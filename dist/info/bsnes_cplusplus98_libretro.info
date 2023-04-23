@@ -6,7 +6,7 @@ corename = "bsnes C++98 (v085)"
 supported_extensions = "sfc|smc|gb|gbc|st|bs"
 license = "GPL-3.0"
 permissions = ""
-display_version = "v085 (Performance)"
+display_version = "v085"
 
 # Hardware Information
 manufacturer = "Nintendo"

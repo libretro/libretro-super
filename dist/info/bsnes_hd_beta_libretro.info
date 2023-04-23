@@ -6,7 +6,7 @@ corename = "bsnes-hd beta"
 supported_extensions = "smc|sfc|swc|fig|gb|gbc|bs"
 license = "GPL-3.0"
 permissions = ""
-display_version = "v112.v12"
+display_version = "v112"
 
 # Hardware Information
 manufacturer = "Nintendo"
