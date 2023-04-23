@@ -15,7 +15,7 @@ systemid = "neo_geo_pocket"
 
 # Libretro Features
 supports_no_game = "false"
-database = "SNK - Neo Geo Pocket|SNK - Neo Geo Pocket Color"
+database = "SNK - NeoGeo Pocket|SNK - NeoGeo Pocket Color"
 savestate = "true"
 savestate_features = "deterministic"
 
