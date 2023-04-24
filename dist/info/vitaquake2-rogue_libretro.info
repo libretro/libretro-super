@@ -1,15 +1,15 @@
 # Software Information
-display_name = "Quake II - Ground Zero (vitaQuake 2 [Rogue])"
+display_name = "Quake II Mission Pack: Ground Zero (vitaQuake 2 [Rogue])"
 authors = "Rinnegatamante"
 supported_extensions = "pak"
 corename = "vitaQuake 2 [Rogue]"
-license = "GPLv2"
+license = "GPL-2.0"
 permissions = ""
 display_version = "git"
 categories = "Game"
 
 # Hardware Information
-manufacturer = "Id Software"
+developer = "Rogue"
 systemname = "Quake II Game Engine"
 systemid = "quake_2"
 

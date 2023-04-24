@@ -1,5 +1,5 @@
 # Software Information
-display_name = "Multi (MESS 2015)"
+display_name = "Non Arcade (MESS 2015)"
 authors = "MAMEdev"
 supported_extensions = "zip|chd|7z"
 corename = "MESS 2015 (0.160)"

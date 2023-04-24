@@ -1,5 +1,5 @@
 # Software Information
-display_name = "Mac II (minivmac)"
+display_name = "Apple - Mac (Mini vMac)"
 authors = "Paul C. Pratt|Philip Cummins|Bernd Schmidt|Weston Pawlowski|Richard F. Bannister|Sam Lantinga|Michael Hanni|Michael Fort|Jesus A. Alvarez|Manuel Alfayate|Christian Bauer|Lazyone"
 
 supported_extensions = "dsk|img|zip|hvf|cmd"
@@ -10,7 +10,7 @@ categories = "Emulator"
 # Hardware Information
 systemname = "Mac68k"
 systemid = "mac68k"
-license = "GPLv2"
+license = "GPL-2.0"
 permissions = ""
 display_version = "GIT"
 

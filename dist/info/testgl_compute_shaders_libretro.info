@@ -1,4 +1,4 @@
-display_name = "TestGL ComputeShaders"
+display_name = "Libretro - TestGL ComputeShaders"
 authors = "Team Libretro"
 corename = "TestGL ComputeShaders"
 categories = "Tech demo"

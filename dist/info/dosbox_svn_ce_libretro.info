@@ -1,15 +1,15 @@
 # Software Information
-display_name = "DOS (DOSBox-SVN CE)"
+display_name = "PC - DOS (DOSBox-SVN CE)"
 authors = "DOSBox Team|radius"
 supported_extensions = "exe|com|bat|conf|cue|iso"
 corename = "DOSBox-SVN CE"
 categories = "Emulator"
-license = "GPLv2"
+license = "GPL-2.0"
 permissions = ""
 display_version = "SVN CE"
 
 # Hardware Information
-manufacturer = "Microsoft"
+manufacturer = "Various"
 systemname = "DOS"
 systemid = "dos"
 

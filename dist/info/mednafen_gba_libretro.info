@@ -1,9 +1,9 @@
 # Software Information
-display_name = "Nintendo - Game Boy Advance (Beetle GBA)"
+display_name = "Nintendo - GBA (Beetle GBA)"
 authors = "Forgotten|Mednafen Team"
 supported_extensions = "gba|agb|bin"
 corename = "Beetle GBA"
-license = "GPLv2"
+license = "GPL-2.0"
 permissions = ""
 display_version = "v0.9.36"
 categories = "Emulator"

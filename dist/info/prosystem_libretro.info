@@ -3,12 +3,13 @@ display_name = "Atari - 7800 (ProSystem)"
 authors = "Greg Stanton|Brian Berlin|Leonis|Greg DeMent"
 supported_extensions = "a78|bin|cdf"
 corename = "ProSystem"
-license = "GPLv2"
+license = "GPL-2.0"
 permissions = ""
 display_version = "1.3e"
 categories = "Emulator"
 
 # Hardware Information
+developer = "GCC"
 manufacturer = "Atari"
 systemname = "Atari 7800"
 systemid = "atari_7800"
@@ -30,10 +31,12 @@ disk_control = "false"
 is_experimental = "false"
 
 # Firmware / BIOS
-firmware_count = 1
-firmware0_desc = "7800 BIOS (U).rom (7800 BIOS)"
+firmware_count = 2
+firmware0_desc = "7800 BIOS (U).rom"
 firmware0_path = "7800 BIOS (U).rom"
 firmware0_opt = "true"
-notes = "(!) 7800 BIOS (U).rom (md5): 0763f1ffb006ddbe32e52d497ee848ae"
+firmware1_desc = "7800 BIOS (E).rom"
+firmware1_path = "7800 BIOS (E).rom"
+firmware1_opt = "true"
 
 description = "A port of the ProSystem Atari 7800 emulator to libretro."

@@ -1,9 +1,9 @@
 # Software Information
-display_name = "Nintendo - NES / Famicom (QuickNES)"
+display_name = "Nintendo - FC/NES (QuickNES)"
 authors = "blargg|kode54"
 supported_extensions = "nes"
 corename = "QuickNES"
-license = "LGPLv2.1+"
+license = "LGPL-2.1+"
 permissions = ""
 display_version = "1.0-WIP"
 categories = "Emulator"

@@ -1,14 +1,15 @@
 # Software Information
-display_name = "PSP RemotePlay (RemoteJoy)"
+display_name = "Sony - Remote Play PSP (RemoteJoy)"
 authors = "Themaister"
 supported_extensions = ""
 corename = "RemoteJoy"
-license = "GPLv2"
+license = "GPL-2.0"
 permissions = ""
 display_version = "v1"
 categories = "Streaming"
 
 # Hardware Information
+developer = "Sony"
 systemid = "playstation_portable"
 
 # Libretro Features

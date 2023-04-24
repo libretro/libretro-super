@@ -1,10 +1,10 @@
 # Software Information
-display_name = "Sony - PlayStation (SwanStation)"
+display_name = "Sony - PS (SwanStation)"
 authors = "stenzek"
 supported_extensions = "exe|psexe|cue|bin|img|iso|chd|pbp|ecm|mds|psf|m3u"
 corename = "SwanStation"
 categories = "Emulator"
-license = "GPLv3"
+license = "GPL-3.0"
 permissions = ""
 
 # Hardware Information
@@ -26,19 +26,19 @@ disk_control = "true"
 
 # BIOS / Firmware
 firmware_count = 5
-firmware0_desc = "psxonpsp660.bin (PSP PS1 BIOS)"
+firmware0_desc = "psxonpsp660.bin (PSP)"
 firmware0_path = "psxonpsp660.bin"
 firmware0_opt = "true"
-firmware1_desc = "scph5500.bin (PS1 JP BIOS)"
+firmware1_desc = "scph5500.bin (JP)"
 firmware1_path = "scph5500.bin"
 firmware1_opt = "true"
-firmware2_desc = "scph5501.bin (PS1 US BIOS)"
+firmware2_desc = "scph5501.bin (NA)"
 firmware2_path = "scph5501.bin"
 firmware2_opt = "true"
-firmware3_desc = "scph5502.bin (PS1 EU BIOS)"
+firmware3_desc = "scph5502.bin (EU)"
 firmware3_path = "scph5502.bin"
 firmware3_opt = "true"
-firmware4_desc = "ps1_rom.bin (PS3 PS1 BIOS)"
+firmware4_desc = "ps1_rom.bin (PS3)"
 firmware4_path = "ps1_rom.bin"
 firmware4_opt = "true"
 notes = "(!) psxonpsp660.bin (md5): c53ca5908936d412331790f4426c6c33|(!) scph5500.bin (md5): 8dd7d5296a650fac7319bce665a6a53c|(!) scph5501.bin (md5): 490f666e1afb15b7362b406ed1cea246|(!) scph5502.bin (md5): 32736f17079d0b2b7024407c39bd3050||(!) ps1_rom.bin (md5): 81bbe60ba7a3d1cea1d48c14cbcc647b| This core also supports No-Intro BIOS images."

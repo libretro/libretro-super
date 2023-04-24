@@ -1,14 +1,15 @@
 # Software Information
-display_name = "PascalPong"
+display_name = "Atari - Pong (PascalPong)"
 authors = "Higor Euripedes"
 supported_extensions = "game"
 corename = "PascalPong"
 categories = "Game"
-license = "2-clause BSD"
+license = "BSD-2-Clause"
 permissions = ""
 display_version = "v1.0"
 
 # Hardware Information
+Manufacturer = "Atari"
 
 # Libretro Features
 supports_no_game = "true"

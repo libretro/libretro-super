@@ -1,13 +1,14 @@
 # Software Information
-display_name = "Flashback (REminiscence)"
+display_name = "Delphine - Flashback (REminiscence)"
 authors = "Gregory Montoir|Stuart Carnie"
 supported_extensions = "map|aba|seq|lev"
 corename = "REminiscence"
-license = "GPLv3"
+license = "GPL-3.0"
 permissions = ""
 display_version = "0.3.6"
 
 # Hardware Information
+developer = "Delphine"
 categories = "Game"
 systemname = "Flashback Game Engine"
 

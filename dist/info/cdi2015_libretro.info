@@ -1,15 +1,15 @@
 # Software Information
-display_name = "Philips CDi (CDi 2015)"
+display_name = "Philips - CDi (CDi 2015)"
 authors = "MAMEdev"
 supported_extensions = "chd"
 corename = "Philips CDi 2015"
-license = "GPLv2+"
+license = "GPL-2.0+"
 permissions = ""
 display_version = "0.160"
 categories = "Emulator"
 
 # Hardware Information
-manufacturer = "Philips"
+developer = "Philips|Sony"
 systemname = "CDi"
 systemid = "cdi2015"
 

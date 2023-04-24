@@ -1,14 +1,14 @@
 # Software Information
-display_name = "Doom 3 (boom3)"
+display_name = "id - Doom 3 (boom3)"
 authors = "Rinnegatamante|dhewm3"
 supported_extensions = "pk4"
 corename = "boom3"
-license = "GPLv2"
+license = "GPL-2.0"
 permissions = ""
 display_version = "git"
 
 # Hardware Information
-manufacturer = "Id Software"
+developer = "id"
 categories = "Game engine"
 systemname = "Doom 3 Game Engine"
 systemid = "doom_3"

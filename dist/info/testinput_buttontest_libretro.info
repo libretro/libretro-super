@@ -1,4 +1,4 @@
-display_name = "Button Test"
+display_name = "Libretro - Button Test"
 authors = "Team Libretro"
 corename = "Button Test"
 categories = "Tech demo"

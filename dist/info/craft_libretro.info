@@ -1,5 +1,5 @@
 # Software Information
-display_name = "Minecraft (Craft)"
+display_name = "Mojang - Minecraft (Craft)"
 authors = "Michael Fogleman"
 supported_extensions = ""
 corename = "Craft"
@@ -9,7 +9,7 @@ permissions = ""
 display_version = "v1"
 
 # Hardware Information
-manufacturer = "Microsoft"
+developer = "Mojang"
 systemname = "Minecraft Game Clone"
 systemid = "craft"
 

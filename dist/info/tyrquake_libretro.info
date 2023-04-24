@@ -1,15 +1,15 @@
 # Software Information
-display_name = "Quake (TyrQuake)"
+display_name = "id - Quake (TyrQuake)"
 authors = "Kevin Shanahan (Tyrann)"
 supported_extensions = "pak"
 corename = "TyrQuake"
-license = "GPLv2"
+license = "GPL-2.0"
 permissions = ""
 display_version = "v0.62"
 categories = "Game"
 
 # Hardware Information
-manufacturer = "Id Software"
+developer = "id"
 systemname = "Quake Game Engine"
 systemid = "quake_1"
 

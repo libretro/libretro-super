@@ -1,5 +1,5 @@
 # Software Information
-display_name = "Nintendo - Game Boy / Color (SameBoy)"
+display_name = "Nintendo - GBC/GBA/SGB2 (SameBoy)"
 authors = "LIJI32"
 supported_extensions = "gb|gbc"
 corename = "SameBoy"
@@ -19,10 +19,10 @@ supports_no_game = "false"
 
 # Firmware / BIOS
 firmware_count = 2
-firmware0_desc = "dmg_boot.bin (Game Boy boot ROM)"
+firmware0_desc = "dmg_boot.bin (Game Boy boot)"
 firmware0_path = "dmg_boot.bin"
 firmware0_opt = "true"
-firmware1_desc = "cgb_boot.bin (Game Boy Color boot ROM)"
+firmware1_desc = "cgb_boot.bin (Game Boy Color boot)"
 firmware1_path = "cgb_boot.bin"
 firmware1_opt = "true"
 notes = "(!) dmg_boot.bin (md5): 32fbbd84168d3482956eb3c5051637f5|(!) cgb_boot.bin (md5): dbfce9db9deaa2567f6a84fde55f9680"

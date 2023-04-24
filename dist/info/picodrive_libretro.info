@@ -1,7 +1,7 @@
 # Software Information
-display_name = "Sega - MS/GG/MD/CD/32X (PicoDrive)"
+display_name = "Sega - SC/MS/GG/MD/Gen/CD/32X/PICO (PicoDrive)"
 authors = "notaz|fdave|irixxxx"
-supported_extensions = "bin|gen|gg|smd|pco|md|32x|chd|cue|iso|sms|68k|sgd|m3u"
+supported_extensions = "bin|gen|smd|md|32x|cue|iso|chd|sms|gg|sg|sc|m3u|68k|sgd|pco"
 corename = "PicoDrive"
 license = "MAME"
 permissions = "dynarec_optional"
@@ -31,13 +31,13 @@ is_experimental = "false"
 
 # Firmware / BIOS
 firmware_count = 3
-firmware0_desc = "bios_CD_E.bin (MegaCD EU BIOS)"
+firmware0_desc = "bios_CD_E.bin (CD EU BIOS)"
 firmware0_path = "bios_CD_E.bin"
 firmware0_opt = "true"
-firmware1_desc = "bios_CD_U.bin (SegaCD US BIOS)"
+firmware1_desc = "bios_CD_U.bin (CD US BIOS)"
 firmware1_path = "bios_CD_U.bin"
 firmware1_opt = "true"
-firmware2_desc = "bios_CD_J.bin (MegaCD JP BIOS)"
+firmware2_desc = "bios_CD_J.bin (CD JP BIOS)"
 firmware2_path = "bios_CD_J.bin"
 firmware2_opt = "true"
 notes = "(!) bios_CD_U.bin (md5): 2efd74e3232ff260e371b99f84024f7f|(!) bios_CD_E.bin (md5): e66fa1dc5820d254611fdcdba0662372|(!) bios_CD_J.bin (md5): 278a9397d192149e84e820ac621a8edd"

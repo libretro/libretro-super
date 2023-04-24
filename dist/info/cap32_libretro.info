@@ -1,9 +1,9 @@
 # Software Information
-display_name = "Amstrad - CPC/GX4000 (Caprice32)"
+display_name = "Amstrad - CPC (Caprice32)"
 authors = "Ulrich Doewich|dantoine"
 supported_extensions = "dsk|sna|zip|tap|cdt|voc|cpr|m3u"
 corename = "Caprice32"
-license = "GPLv2"
+license = "GPL-2.0"
 permissions = ""
 display_version = "v4.2.0"
 categories = "Emulator"

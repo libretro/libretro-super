@@ -1,15 +1,15 @@
 # Software Information
-display_name = "SAM Coupe (SimCoupe)"
+display_name = "MGT - SAM Coupe (SimCoupe)"
 authors = "Simon Owen"
 supported_extensions = "dsk|mgt|sbt|sad"
 corename = "SimCoupe"
-license = "GPLv2"
+license = "GPL-2.0"
 permissions = ""
 display_version = "Git"
 categories = "Emulator"
 
 # Hardware Information
-manufacturer = "Miles Gordon Technology"
+manufacturer = "MGT"
 systemname = "SAM coupe"
 
 # Libretro Features

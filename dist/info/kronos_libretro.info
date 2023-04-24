@@ -1,10 +1,10 @@
 # Software Information
-display_name = "Sega - Saturn/ST-V (Kronos)"
+display_name = "Sega/Arcade - Saturn/Titan (Kronos)"
 authors = "Guillaume Duhammel|Theo Berkau|Anders Montonen|devmiyax|FCare|barbudreadmon"
 supported_extensions = "ccd|chd|cue|iso|mds|zip|m3u"
 corename = "Kronos"
 categories = "Emulator"
-license = "GPLv2"
+license = "GPL-2.0"
 permissions = ""
 display_version = "v2.3.1"
 
@@ -35,7 +35,7 @@ firmware_count = 4
 firmware0_desc = "kronos/saturn_bios.bin (Saturn BIOS)"
 firmware0_path = "kronos/saturn_bios.bin"
 firmware0_opt = "false"
-firmware1_desc = "kronos/stvbios.zip (ST-V BIOS from MAME)"
+firmware1_desc = "kronos/stvbios.zip (Sega Titan-Video BIOS)"
 firmware1_path = "kronos/stvbios.zip"
 firmware1_opt = "false"
 firmware2_desc = "mpr-18811-mx.ic1 (The King of Fighters '95 ROM Cartridge)"

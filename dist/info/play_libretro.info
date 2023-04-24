@@ -1,5 +1,5 @@
 # Software Information
-display_name = "Sony - PlayStation 2 (Play!)"
+display_name = "Sony - PS2 (Play!)"
 authors = "Jean-Philip Desjardins"
 supported_extensions = "chd|cso|cue|elf|iso|isz"
 corename = "Play!"

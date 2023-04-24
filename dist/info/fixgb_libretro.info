@@ -1,5 +1,5 @@
 # Software Information
-display_name = "Nintendo - Game Boy / Color (fixGB)"
+display_name = "Nintendo - GBC (fixGB)"
 authors = "FIX94"
 supported_extensions = "gb|gbc|gbs"
 corename = "fixGB"

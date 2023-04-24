@@ -1,17 +1,17 @@
 # Software Information
-display_name = "Gong"
+display_name = "Atari - Pong (Gong)"
 authors = "Brad Parker"
 supported_extensions = ""
 corename = "Gong"
 categories = "Game"
-license = "GPL v3"
+license = "GPL-3.0"
 permissions = ""
 display_version = "1.0"
 
 # Hardware Information
 systemname = "Pong Game Clone"
 systemid = "gong"
-manufacturer = "N/A"
+manufacturer = "Atari"
 
 # Libretro Features
 supports_no_game = "true"

@@ -1,5 +1,5 @@
 # Software Information
-display_name = "Nintendo - Game Boy Advance (TempGBA)"
+display_name = "Nintendo - GBA (TempGBA)"
 authors = "Exophase|Takka|Nebuleon|Normmatt|BassAceGold"
 supported_extensions = "gba|bin|agb|gbz"
 corename = "TempGBA"
@@ -10,7 +10,7 @@ categories = "Emulator"
 systemname = "Game Boy Advance"
 systemid = "game_boy_advance"
 database = "Nintendo - Game Boy Advance|Nintendo - Game Boy Advance (e-Cards)"
-license = "GPLv2"
+license = "GPL-2.0"
 permissions = ""
 display_version = "26731013"
 

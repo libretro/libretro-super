@@ -1,10 +1,10 @@
 # Software Information
-display_name = "Nintendo - SNES / SFC (Snes9x - Current)"
+display_name = "Nintendo - SFC/SNES/BS/ST (Snes9x)"
 categories = "Emulator"
 authors = "Snes9x Team"
 corename = "Snes9x"
 supported_extensions = "smc|sfc|swc|fig|bs|st"
-license = "Non-commercial"
+license = "NC"
 permissions = ""
 display_version = "1.61"
 
@@ -18,7 +18,7 @@ firmware_count = 2
 firmware0_desc = "BS-X.bin (BS-X - Sore wa Namae o Nusumareta Machi no Monogatari (Japan) (Rev 1))"
 firmware0_path = "BS-X.bin"
 firmware0_opt = "true"
-firmware1_desc = "STBIOS.bin (Sufami Turbo (Japan))"
+firmware1_desc = "STBIOS.bin (Sufami Turbo BIOS)"
 firmware1_path = "STBIOS.bin"
 firmware1_opt = "true"
 notes = "(!) BS-X.bin (md5): fed4d8242cfbed61343d53d48432aced|(!) STBIOS.bin (md5): d3a44ba7d42a74d3ac58cb9c14c6a5ca|(!) To start BS-X games from the RPG-like interface, go back into the house and select the 1st option."

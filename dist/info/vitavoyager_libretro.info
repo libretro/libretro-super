@@ -1,15 +1,15 @@
 # Software Information
-display_name = "Star Trek: Voyager - Elite Force (vitaVoyager)"
+display_name = "Raven - Star Trek: Voyager – Elite Force (vitaVoyager)"
 authors = "Rinnegatamante"
 supported_extensions = "pk3"
 corename = "vitaVoyager"
-license = "GPLv2"
+license = "GPL-2.0"
 permissions = ""
 display_version = "git"
 categories = "Game"
 
 # Hardware Information
-manufacturer = "Id Software"
+developer = "Raven"
 systemname = "Quake 3 Game Engine"
 systemid = "quake_3"
 

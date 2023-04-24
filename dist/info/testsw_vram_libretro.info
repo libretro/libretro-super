@@ -1,4 +1,4 @@
-display_name = "TestSW VRAM"
+display_name = "Libretro - TestSW VRAM"
 authors = "Team Libretro"
 corename = "TestSW VRAM"
 categories = "Tech demo"

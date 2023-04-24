@@ -1,5 +1,5 @@
 # Software Information
-display_name = "Nintendo - NES / Famicom (nes)"
+display_name = "Nintendo - FC/NES (nes)"
 authors = "aiju"
 supported_extensions = "nes"
 corename = "nes"

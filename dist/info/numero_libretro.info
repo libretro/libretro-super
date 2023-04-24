@@ -1,15 +1,15 @@
 # Software Information
-display_name = "Texas Instruments TI-83 (Numero)"
+display_name = "TI83 (Numero)"
 authors = "Neil Barkhina|Wabbitemu"
 supported_extensions = "8xp|8xk|8xg"
 corename = "Numero"
-license = "GPLv2"
+license = "GPL-2.0"
 permissions = ""
 display_version = "v1.0"
 categories = "Emulator"
 
 # Hardware Information
-manufacturer = "Texas Instruments"
+manufacturer = "TI"
 systemname = "TI83"
 systemid = "ti_83"
 

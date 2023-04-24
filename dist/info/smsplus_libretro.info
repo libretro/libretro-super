@@ -1,9 +1,9 @@
 # Software Information
-display_name = "Sega - MS/GG (SMS Plus GX)"
+display_name = "Sega/Coleco - SG/MS2/GG/CV (SMS Plus GX)"
 authors = "Charles MacDonald|gameblabla"
 supported_extensions = "sms|bin|rom|col|gg|sg"
 corename = "SMS Plus GX"
-license = "GPLv2"
+license = "GPL-2.0"
 permissions = ""
 display_version = "1.8"
 categories = "Emulator"
@@ -20,11 +20,11 @@ database = "Sega - Game Gear|Sega - Master System - Mark III"
 # Firmware / BIOS
 firmware_count = 2
 
-firmware0_desc = "bios.sms (Master System BIOS)"
+firmware0_desc = "bios.sms (Sega Master System BIOS)"
 firmware0_path = "bios.sms"
 firmware0_opt = "true"
 
-firmware1_desc = "BIOS.col (Colecovision BIOS)"
+firmware1_desc = "BIOS.col (ColecoVision BIOS)"
 firmware1_path = "BIOS.col"
 firmware1_opt = "true"
 

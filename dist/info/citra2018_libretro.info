@@ -1,15 +1,16 @@
 # Software Information
-display_name = "Nintendo - 3DS (Citra 2018)"
+display_name = "Nintendo - new 3DS (Citra 2018)"
 authors = "Citra Emulation Project"
 supported_extensions = "3ds|3dsx|elf|axf|cci|cxi|app"
 corename = "Citra 2018"
 categories = "Emulator"
-license = "GPLv2+"
+license = "GPL-2.0+"
 permissions = ""
 display_version = "Git"
 
 # Hardware Information
-manufacturer = "Nintendo"
+developer = "Nintendo"
+manufacturer = "Foxconn"
 systemname = "3DS"
 systemid = "3ds"
 
@@ -30,5 +31,64 @@ required_hw_api = "OpenGL Core >= 3.3"
 needs_fullpath = "true"
 disk_control = "false"
 is_experimental = "false"
+
+# BIOS/Firmware
+firmware_count = 14
+
+firmware0_desc = "user_directory/nand/00000000000000000000000000000000/title/000400db/00010302/content/00000000.app.romfs"
+firmware0_path = "user_directory/nand/00000000000000000000000000000000/title/000400db/00010302/content/00000000.app.romfs"
+firmware0_opt = "true"
+
+firmware1_desc = "user_directory/nand/00000000000000000000000000000000/title/0004009b/00010202/content/00000000.app.romfs"
+firmware1_path = "user_directory/nand/00000000000000000000000000000000/title/0004009b/00010202/content/00000000.app.romfs"
+firmware1_opt = "true"
+
+firmware2_desc = "user_directory/nand/00000000000000000000000000000000/title/0004009b/00010402/content/00000000.app.romfs"
+firmware2_path = "user_directory/nand/00000000000000000000000000000000/title/0004009b/00010402/content/00000000.app.romfs"
+firmware2_opt = "true"
+
+firmware3_desc = "user_directory/nand/00000000000000000000000000000000/title/0004009b/00014002/content/00000000.app.romfs"
+firmware3_path = "user_directory/nand/00000000000000000000000000000000/title/0004009b/00014002/content/00000000.app.romfs"
+firmware3_opt = "true"
+
+firmware4_desc = "user_directory/nand/00000000000000000000000000000000/title/0004009b/00014102/content/00000000.app.romfs"
+firmware4_path = "user_directory/nand/00000000000000000000000000000000/title/0004009b/00014102/content/00000000.app.romfs"
+firmware4_opt = "true"
+
+firmware5_desc = "user_directory/nand/00000000000000000000000000000000/title/0004009b/00014202/content/00000000.app.romfs"
+firmware5_path = "user_directory/nand/00000000000000000000000000000000/title/0004009b/00014202/content/00000000.app.romfs"
+firmware5_opt = "true"
+
+firmware6_desc = "user_directory/nand/00000000000000000000000000000000/title/0004009b/00014302/content/00000000.app.romfs"
+firmware6_path = "user_directory/nand/00000000000000000000000000000000/title/0004009b/00014302/content/00000000.app.romfs"
+firmware6_opt = "true"
+
+firmware7_desc = "user_directory/nand/data/00000000000000000000000000000000/sysdata/00010017/00000000/config"
+firmware7_path = "user_directory/nand/data/00000000000000000000000000000000/sysdata/00010017/00000000/config"
+firmware7_opt = "true"
+
+firmware8_desc = "user_directory/sdmc/3ds/dspfirm.cdc"
+firmware8_path = "user_directory/sdmc/3ds/dspfirm.cdc"
+firmware8_opt = "true"
+
+firmware9_desc = "user_directory/sysdata/aes_keys.txt"
+firmware9_path = "user_directory/sysdata/aes_keys.txt"
+firmware9_opt = "true"
+
+firmware10_desc = "user_directory/sysdata/boot9.bin"
+firmware10_path = "user_directory/sysdata/boot9.bin"
+firmware10_opt = "true"
+
+firmware11_desc = "user_directory/sysdata/boot11.bin"
+firmware11_path = "user_directory/sysdata/boot11.bin"
+firmware11_opt = "true"
+
+firmware12_desc = "user_directory/sysdata/seeddb.bin"
+firmware12_path = "user_directory/sysdata/seeddb.bin"
+firmware12_opt = "true"
+
+firmware13_desc = "user_directory/sysdata/shared_font.bin"
+firmware13_path = "user_directory/sysdata/shared_font.bin"
+firmware13_opt = "true"
 
 description = "A port of the Citra 3DS emulator to libretro. The core requires decrypted ROMs to function, and some games require Mii data to be dumped from your own 3DS console."

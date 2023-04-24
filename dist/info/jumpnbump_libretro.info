@@ -1,11 +1,11 @@
-display_name = "Jump 'n Bump"
+display_name = "Brainchild - Jump 'n Bump"
 categories = "Game engine"
 authors = "Philippe Simons"
 corename = "jumpnbump"
 supported_extensions = "dat"
-license = "GPLv2"
+license = "GPL-2.0"
 display_version = "v0.1"
-manufacturer = "Brainchild Design"
+developer = "Brainchild"
 systemid = "jumpnbump"
 
 # Libretro Features

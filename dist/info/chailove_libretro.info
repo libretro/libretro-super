@@ -9,7 +9,6 @@ permissions = ""
 display_version = "1.2.1"
 
 # Hardware Information
-manufacturer = "N/A"
 systemname = "ChaiLove"
 systemid = "chailove"
 

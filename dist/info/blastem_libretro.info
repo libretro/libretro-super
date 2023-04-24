@@ -1,9 +1,9 @@
 # Software Information
-display_name = "Sega - Mega Drive - Genesis (BlastEm)"
+display_name = "Sega - MD/Gen (BlastEm)"
 authors = "Mike Pavone"
 supported_extensions = "md|bin|smd|gen|68k|sgd"
 corename = "BlastEm"
-license = "GPLv3"
+license = "GPL-3.0"
 permissions = ""
 display_version = "v0.6.3-pre"
 categories = "Emulator"
@@ -33,7 +33,7 @@ is_experimental = "false"
 # BIOS/Firmware
 firmware_count = 1
 
-firmware0_desc = "rom.db (ROM feature database)"
+firmware0_desc = "rom.db (ROM database)"
 firmware0_path = "rom.db"
 firmware0_opt = "true"
 

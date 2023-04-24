@@ -3,13 +3,13 @@ display_name = "Philips - CDi (SAME CDi)"
 authors = "MAMEdev"
 supported_extensions = "chd|iso|cue"
 corename = "SAME CDi (Git)"
-license = "GPLv2+"
+license = "GPL-2.0+"
 permissions = ""
 display_version = "Git"
 categories = "Emulator"
 
 # Hardware Information
-manufacturer = "Philips"
+developer = "Philips|Sony"
 systemname = "CD-i"
 systemid = "cdi"
 

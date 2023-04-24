@@ -1,9 +1,9 @@
 # Software Information
-display_name = "Nintendo - NES / Famicom (Nestopia UE)"
+display_name = "Nintendo - FC/NES/FDS (Nestopia UE)"
 authors = "Martin Freij|R. Belmont|R. Danbrook"
 supported_extensions = "nes|fds|unf|unif"
 corename = "Nestopia"
-license = "GPLv2"
+license = "GPL-2.0"
 permissions = ""
 categories = "Emulator"
 display_version = "1.51.1"
@@ -31,7 +31,7 @@ database = "Nintendo - Nintendo Entertainment System|Nintendo - Family Computer 
 
 # Firmware / BIOS
 firmware_count = 1
-firmware0_desc = "disksys.rom (Family Computer Disk System BIOS)"
+firmware0_desc = "disksys.rom (Disk System ROM)"
 firmware0_path = "disksys.rom"
 firmware0_opt = "true"
 notes = "(!) disksys.rom (md5): ca30b50f880eb660a320674ed365ef7a|Press Retropad L1 to switch disk side."

@@ -3,6 +3,7 @@ display_name = "CHIP-8/S-CHIP/XO-CHIP (JAXE)"
 authors = "Kurtis Dinelle"
 supported_extensions = "ch8|sc8|xo8"
 corename = "JAXE"
+developer = "Joseph Weisbecker"
 manufacturer = "RCA"
 categories = "Emulator"
 

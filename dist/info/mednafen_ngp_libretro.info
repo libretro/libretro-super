@@ -1,11 +1,11 @@
 # Software Information
-display_name = "SNK - Neo Geo Pocket / Color (Beetle NeoPop)"
+display_name = "SNK - NGPC (Beetle NeoPop)"
 authors = "neopop_uk|Mednafen Team"
 supported_extensions = "ngp|ngc|ngpc|npc"
 corename = "Beetle NeoPop"
-license = "GPLv2"
+license = "GPL-2.0"
 permissions = ""
-display_version = "v0.9.36.1"
+display_version = "v1.29.0"
 categories = "Emulator"
 
 # Hardware Information
@@ -15,7 +15,7 @@ systemid = "neo_geo_pocket"
 
 # Libretro Features
 supports_no_game = "false"
-database = "SNK - Neo Geo Pocket|SNK - Neo Geo Pocket Color"
+database = "SNK - NeoGeo Pocket|SNK - NeoGeo Pocket Color"
 savestate = "true"
 savestate_features = "deterministic"
 

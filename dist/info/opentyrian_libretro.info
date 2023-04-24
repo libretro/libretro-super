@@ -1,14 +1,15 @@
 # Software Information
-display_name = "Tyrian (OpenTyrian)"
+display_name = "Eclipse - Tyrian (OpenTyrian)"
 authors = ""
 supported_extensions = ""
 corename = "OpenTyrian"
 categories = "Game"
-license = "GPLv3"
+license = "GPL-3.0"
 permissions = ""
 display_version = "1.0.0.6"
 
 # Hardware Information
+developer = "Eclipse"
 systemname = "Tyrian Game Engine"
 
 # Libretro Features

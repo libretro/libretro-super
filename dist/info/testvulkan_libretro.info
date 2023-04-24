@@ -1,4 +1,4 @@
-display_name = "TestVulkan"
+display_name = "Libretro - TestVulkan"
 authors = "Team Libretro"
 corename = "TestVulkan"
 categories = "Tech demo"

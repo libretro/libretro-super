@@ -1,9 +1,9 @@
 # Software Information
-display_name = "VeMUlator"
+display_name = "Sega - VMS/VMU (VeMUlator)"
 authors = "Mahmoud Jaoune"
 supported_extensions = "vms|dci|bin"
 corename = "VeMUlator"
-license = "GPL v3"
+license = "GPL-3.0"
 permissions = ""
 display_version = "0.1"
 

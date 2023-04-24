@@ -1,7 +1,7 @@
 # Software Information
-display_name = "Nintendo - SNES / SFC (Beetle bsnes)"
+display_name = "Nintendo - SFC/SNES (Beetle bsnes)"
 authors = "byuu|Mednafen Team"
-supported_extensions = "smc|fig|bs|st|sfc"
+supported_extensions = "smc|fig|sfc"
 corename = "Beetle bsnes"
 
 # Hardware Information
@@ -9,8 +9,8 @@ manufacturer = "Nintendo"
 categories = "Emulator"
 systemname = "Super Nintendo Entertainment System"
 systemid = "super_nes"
-database = "Nintendo - Super Nintendo Entertainment System|Nintendo - Sufami Turbo"
-license = "GPLv2"
+database = "Nintendo - Super Nintendo Entertainment System"
+license = "GPL-2.0"
 permissions = ""
 display_version = "v0.9.26"
 

@@ -1,5 +1,5 @@
 # Software Information
-display_name = "Mega Duck / Cougar Boy (SameDuck)"
+display_name = "Welback - Mega Duck (SameDuck)"
 authors = "LIJI32"
 supported_extensions = "bin"
 corename = "SameDuck"
@@ -20,8 +20,5 @@ savestate_features = "basic"
 cheats = "false"
 core_options = "true"
 disk_control = "false"
-
-# Firmware / BIOS
-firmware_count = 0
 
 description = "An adaptation of SameBoy to play Mega Duck games."

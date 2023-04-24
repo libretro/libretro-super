@@ -1,10 +1,10 @@
 # Software Information
-display_name = "Dungeon Crawl Stone Soup"
+display_name = "DCSS - Dungeon Crawl Stone Soup"
 authors = "DCSS Team"
 supported_extensions = "crawlrc"
 corename = "Dungeon Crawl Stone Soup"
 categories = "Game"
-license = "GPLv2"
+license = "GPL-2.0"
 permissions = ""
 display_version = "Git"
 

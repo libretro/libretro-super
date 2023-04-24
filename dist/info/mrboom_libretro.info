@@ -1,5 +1,5 @@
 # Software Information
-display_name = "Mr.Boom (Bomberman)"
+display_name = "Hudson - Bomberman (Mr.Boom)"
 authors = "Remdy"
 corename = "Mr.Boom"
 categories = "Game"
@@ -9,6 +9,7 @@ permissions = ""
 display_version = "3.1"
 
 # Hardware Information
+developer = "Hudson"
 systemname = "Mr.Boom"
 systemid = "bomberman"
 

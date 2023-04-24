@@ -1,10 +1,10 @@
 # Software Information
-display_name = "Nintendo - Game Boy Advance (Meteor)"
+display_name = "Nintendo - GBA (Meteor)"
 authors = "Philippe Daouadi"
 supported_extensions = "gba"
 corename = "Meteor"
 categories = "Emulator"
-license = "GPLv3"
+license = "GPL-3.0"
 permissions = ""
 display_version = "v1.4"
 

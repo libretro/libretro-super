@@ -1,13 +1,13 @@
 # Software Information - Information about the core software itself
-display_name = "Moonlight"
+display_name = "NVIDIA - Streaming (Moonlight)"
 categories = "Streaming client"
 authors = "Rock88"
 corename = "Moonlight"
-license = "GPLv3"
+license = "GPL-3.0"
 display_version = "1.0.3"
 
 # Hardware Information - Information about the hardware the core supports (when applicable)
-manufacturer = "NVIDIA"
+developer = "NVIDIA"
 systemname = "Moonlight"
 
 # Libretro Features - The libretro API features the core supports. Useful for sorting cores

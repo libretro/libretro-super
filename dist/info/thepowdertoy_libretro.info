@@ -4,12 +4,10 @@ authors = "jselby|Original TPT Contributors"
 supported_extensions = "cps"
 corename = "ThePowderToy"
 categories = "Game"
-license = "GPLv3"
+license = "GPL-3.0"
 permissions = ""
 display_version = "v92.5.336"
 systemname = "Physics Toy"
-
-# Hardware Information
 
 # Libretro Features
 supports_no_game = "true"

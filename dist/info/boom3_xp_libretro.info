@@ -1,14 +1,14 @@
 # Software Information
-display_name = "Doom 3: Resurrection of Evil (boom 3 xp)"
+display_name = "id - Doom 3: Resurrection of Evil (boom 3 xp)"
 authors = "Rinnegatamante and dhewm 3 team"
 supported_extensions = "pk4"
 corename = "boom3_xp"
-license = "GPLv2"
+license = "GPL-2.0"
 permissions = ""
 display_version = "git"
 
 # Hardware Information
-manufacturer = "Id Software"
+developer = "Nerve"
 categories = "Game engine"
 systemname = "Doom 3 XP Game Engine"
 systemid = "doom_3"

@@ -3,13 +3,14 @@ display_name = "Microsoft - Xbox (DirectXbox)"
 authors = "Libretro"
 supported_extensions = "iso"
 corename = "DirectXBox"
-license = "GPLv2+"
+license = "GPL-2.0+"
 permissions = ""
 display_version = "alpha"
 categories = "Emulator"
 
 # Hardware Information
-manufacturer = "Microsoft"
+developer = "Microsoft"
+manufacturer = "Flex"
 systemname = "Xbox"
 systemid = "xbox"
 

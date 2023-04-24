@@ -5,7 +5,7 @@ authors = "TomB/Chips-fr"
 supported_extensions = "adf|dms|ipf|adz|wrp|zip|uae|lha|cue|ccd|iso|hdf"
 corename = "UAE4ARM"
 categories = "Emulator"
-license = "GPLv2"
+license = "GPL-2.0"
 permissions = ""
 display_version = "v0.5"
 

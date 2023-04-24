@@ -1,9 +1,9 @@
 # Software Information
-display_name = "Nintendo - Game Boy / Color (Gambatte)"
+display_name = "Nintendo - GBC/GBA (Gambatte)"
 authors = "Sinamas"
 supported_extensions = "gb|gbc|dmg"
 corename = "Gambatte"
-license = "GPLv2"
+license = "GPL-2.0"
 permissions = ""
 display_version = "v0.5.0"
 categories = "Emulator"

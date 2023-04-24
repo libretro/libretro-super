@@ -1,9 +1,9 @@
 # Software Information
-display_name = "Nintendo - Game Boy / Color (Emux GB)"
+display_name = "Nintendo - GBC (Emux GB)"
 authors = "Sebastien Ronsse"
-supported_extensions = "gb|bin|rom"
+supported_extensions = "gb|gbc|bin|rom"
 corename = "Emux GB"
-license = "GPLv2"
+license = "GPL-2.0"
 permissions = ""
 display_version = "0.1"
 categories = "Emulator"
@@ -33,7 +33,7 @@ is_experimental = "true"
 
 # BIOS/Firmware
 firmware_count = 1
-firmware0_desc = "dmg_boot.bin (Game Boy Boot ROM)"
+firmware0_desc = "dmg_boot.bin (Game Boy boot ROM)"
 firmware0_path = "dmg_boot.bin"
 firmware0_opt = "false"
 notes = "(!) dmg_boot.bin (md5): 32fbbd84168d3482956eb3c5051637f5"

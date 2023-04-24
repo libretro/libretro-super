@@ -4,12 +4,12 @@ authors = "timoinutilis"
 supported_extensions = "nx"
 corename = "lowresnx"
 categories = "Game engine"
-license = "zlib"
+license = "Zlib"
 permissions = ""
 display_version = "v1.2"
 
 # Hardware Information
-manufacturer = "inutilis"
+developer = "Timo Kloss"
 systemname = "LowRes NX"
 systemid = "lowresnx"
 

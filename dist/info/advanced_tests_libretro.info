@@ -1,5 +1,5 @@
 # Software Information
-display_name = "Test Core - Advanced Test"
+display_name = "Libretro - Advanced Test"
 authors = "Team Libretro"
 corename = "Advanced Test"
 categories = "Tech demo"
@@ -8,7 +8,6 @@ permissions = ""
 display_version = "v1"
 
 # Hardware Information
-manufacturer = "N/A"
 systemname = "Advanced Test Core"
 systemid = "adv_test_core"
 

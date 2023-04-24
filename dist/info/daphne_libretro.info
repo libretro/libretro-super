@@ -1,10 +1,10 @@
 # Software Information
-display_name = "Arcade (Daphne)"
+display_name = "Arcade - LD (Daphne)"
 authors = "Matt Ownby"
 supported_extensions = "zip"
 corename = "Daphne"
 categories = "Emulator"
-license = "GPLv2+"
+license = "GPL-2.0+"
 permissions = ""
 display_version = "Git"
 

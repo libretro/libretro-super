@@ -1,9 +1,9 @@
 # Software Information
-display_name = "Nintendo - Pokemon Mini (PokeMini)"
+display_name = "Nintendo - Pokemon mini (PokeMini)"
 authors = "JustBurn"
 supported_extensions = "min"
 corename = "PokeMini"
-license = "GPLv3"
+license = "GPL-3.0"
 permissions = ""
 display_version = "v0.60"
 categories = "Emulator"
@@ -31,7 +31,7 @@ is_experimental = "false"
 
 # Firmware / BIOS
 firmware_count = 1
-firmware0_desc = "bios.min (Pokemon Mini BIOS)"
+firmware0_desc = "bios.min (mini BIOS)"
 firmware0_path = "bios.min"
 firmware0_opt = "true"
 notes = "Suggested md5sum:|1e4fb124a3a886865acb574f388c803d = bios.min"

@@ -1,15 +1,15 @@
 # Software Information
-display_name = "J2ME (FreeJ2ME)"
+display_name = "Sun - J2ME (FreeJ2ME)"
 authors = "David Richardson|Saket Dandawate"
 supported_extensions = "jar"
 corename = "FreeJ2ME"
 categories = "Emulator"
-license = "GPLv3"
+license = "GPL-3.0"
 permissions = ""
 display_version = "GIT"
 
 # Hardware Information
-manufacturer = "Java"
+developer = "Sun"
 systemname = "J2ME"
 
 # Libretro Features

@@ -1,15 +1,17 @@
 # Software Information
-display_name = "MSX/SVI/ColecoVision/SG-1000 (blueMSX)"
+display_name = "ASCII/Spectravideo/Coleco/Sega - MSXTurboR/SV/CV/SF (blueMSX)"
 authors = "Daniel Vik"
-supported_extensions = "rom|ri|mx1|mx2|col|dsk|cas|sg|sc|m3u"
+supported_extensions = "rom|ri|mx1|mx2|col|dsk|cas|sg|sc|sf|m3u"
 corename = "blueMSX"
 categories = "Emulator"
-license = "GPLv2"
+license = "GPL-2.0"
 permissions = ""
 display_version = "SVN"
 
 # Hardware Information
-manufacturer = "Spectravideo|Philips|Al Alamiah|Sony|Sanyo|Mitsubishi|Toshiba|Hitachi|Panasonic|Canon|Casio|Pioneer|Fujitsu|Yamaha|JVC|Kyocera|GoldStar|Samsung|Daewoo|Gradiente|Sharp|Talent|NTT|ACVS/CIEL|DDX|AGE Labs"
+developer = "ASCII|Spectravideo|Coleco|Sega"
+manufacturer = "Al Alamiah|Canon|Ciel|Coleco|Daewoo|LG|Gradiente|JVC|Mitsubishi|National|Olympia|Panasonic|Philips|Pioneer|Sanyo|Sega|Sharp|Sony|Spectravideo|Talent|Toshiba|Yamaha|Yashica|Yeno"
+
 systemname = "MSX/SVI/ColecoVision/SG-1000"
 systemid = "msx"
 

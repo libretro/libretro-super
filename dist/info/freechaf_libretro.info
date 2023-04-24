@@ -1,14 +1,15 @@
 # Software Information
-display_name = "Fairchild ChannelF (FreeChaF)"
+display_name = "Fairchild - Channel F (FreeChaF)"
 authors = "David Richardson"
 supported_extensions = "bin|chf"
 corename = "FreeChaF"
-license = "GPLv3"
+license = "GPL-3.0"
 permissions = ""
 display_version = "GIT"
 categories = "Emulator"
 
 # Hardware Information
+developer = "Jerry Lawson"
 manufacturer = "Fairchild"
 systemname = "FreeChaF"
 

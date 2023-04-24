@@ -1,5 +1,5 @@
 # Software Information
-display_name = "Pico-8 (FAKE-08)"
+display_name = "Lexaloffle - P8 (FAKE-08)"
 authors = "jtothebell"
 supported_extensions = "p8|png"
 corename = "FAKE-08"
@@ -9,7 +9,7 @@ permissions = ""
 display_version = "v0.0.2.19"
 
 # Hardware Information
-manufacturer = "Lexaloffle"
+developer = "Lexaloffle"
 systemname = "Pico-8"
 systemid = "pico8"
 

@@ -4,12 +4,11 @@ authors = "Themaister|Agnes Heyer"
 supported_extensions = "game"
 corename = "Dinothawr"
 categories = "Game"
-license = "Non-commercial"
+license = "NC"
 permissions = ""
 display_version = "v1.0"
 
 # Hardware Information
-manufacturer = "N/A"
 systemname = "Dinothawr Game Engine"
 systemid = "dinothawr"
 

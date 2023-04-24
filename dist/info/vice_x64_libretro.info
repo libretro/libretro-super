@@ -1,10 +1,10 @@
 # Software Information
-display_name = "Commodore - C64 (VICE x64, fast)"
+display_name = "Commodore - 64 (VICE x64, fast)"
 categories = "Emulator"
 authors = "VICE Team"
 corename = "VICE x64"
 supported_extensions = "d64|d71|d80|d81|d82|g64|g41|x64|t64|tap|prg|p00|crt|bin|zip|gz|d6z|d7z|d8z|g6z|g4z|x6z|cmd|m3u|vfl|vsf|nib|nbz|d2m|d4m"
-license = "GPLv2"
+license = "GPL-2.0"
 permissions = ""
 display_version = "3.7"
 

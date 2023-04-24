@@ -4,12 +4,11 @@ authors = "Higor Euripedes"
 supported_extensions = "game"
 corename = "Cruzes"
 categories = "Game"
-license = "2-clause BSD"
+license = "BSD-2-Clause"
 permissions = ""
 display_version = "v1.0"
 
 # Hardware Information
-manufacturer = "N/A"
 systemname = "Cruzes"
 systemid = "cruzes"
 

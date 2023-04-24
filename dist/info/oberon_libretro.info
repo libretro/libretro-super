@@ -7,6 +7,7 @@ categories = "Emulator"
 license = "ISC"
 
 # Hardware Information
+developer = "Niklaus Wirth|Jürg Gutknecht"
 systemname = "Oberon RISC machine"
 
 # Libretro Features

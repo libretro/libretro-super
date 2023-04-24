@@ -1,15 +1,16 @@
 # Software Information
-display_name = "Bandai - WonderSwan/Color (Beetle Cygne)"
+display_name = "Bandai/Benesse - WSC/PCV2 (Beetle WonderSwan)"
 authors = "Dox|Mednafen Team"
-supported_extensions = "ws|wsc|pc2"
+supported_extensions = "ws|wsc|pc2|pcv2"
 corename = "Beetle WonderSwan"
-license = "GPLv2"
+license = "GPL-2.0"
 permissions = ""
 display_version = "v0.9.35.1"
 categories = "Emulator"
 
 # Hardware Information
-manufacturer = "Bandai"
+developer = "Koto"
+manufacturer = "Bandai|Benesse"
 systemname = "WonderSwan/Color"
 systemid = "wonderswan"
 

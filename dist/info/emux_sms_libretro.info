@@ -1,9 +1,9 @@
 # Software Information
-display_name = "Sega - Master System (Emux SMS)"
+display_name = "Sega - MS (Emux SMS)"
 authors = "Sebastien Ronsse"
 supported_extensions = "sms|bms|bin|rom"
 corename = "Emux SMS"
-license = "GPLv2"
+license = "GPL-2.0"
 permissions = ""
 display_version = "0.1"
 categories = "Emulator"
@@ -33,7 +33,7 @@ is_experimental = "true"
 
 # BIOS/Firmware
 firmware_count = 1
-firmware0_desc = "bios.sms (Master System BIOS)"
+firmware0_desc = "bios.sms (Sega Master System BIOS)"
 firmware0_path = "bios.sms"
 firmware0_opt = "false"
 notes = "(!) bios.sms (md5): missing"
