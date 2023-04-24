@@ -4,7 +4,7 @@ authors = "Gabriele Cirulli"
 supported_extensions = ""
 corename = "2048"
 categories = "Game"
-license = "PD"
+license = "MIT"
 permissions = ""
 display_version = "1.0"
 
