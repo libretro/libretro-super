@@ -6,7 +6,7 @@ corename = "EasyRPG Player"
 categories = "Game engine"
 license = "GPLv3"
 permissions = ""
-display_version = "0.7.0.0"
+display_version = "0.8.0.0"
 
 # Hardware Information
 systemname = "RPG Maker 2000/2003 Game Engine"
