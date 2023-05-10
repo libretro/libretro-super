@@ -1,7 +1,7 @@
 # Software Information
 display_name = "Nintendo - Game Boy / Color (Emux GB)"
 authors = "Sebastien Ronsse"
-supported_extensions = "gb|bin|rom"
+supported_extensions = "gb|gbc|bin|rom"
 corename = "Emux GB"
 license = "GPLv2"
 permissions = ""

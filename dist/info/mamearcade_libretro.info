@@ -1,5 +1,5 @@
 # Software Information
-display_name = "Arcade (MAME - Current)"
+display_name = "Arcade (MAME)"
 authors = "MAMEdev"
 supported_extensions = "zip|chd|7z|cmd"
 corename = "MAME (Git)"

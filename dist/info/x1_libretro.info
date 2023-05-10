@@ -9,7 +9,7 @@ permissions = ""
 display_version = "0.60"
 
 # Hardware Information
-manufacturer = "Commodore"
+manufacturer = "Sharp"
 systemname = "Sharp X1"
 systemid = "sharp_x1"
 
