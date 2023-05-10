@@ -39,14 +39,6 @@ systemid = "ep128"
 # The number of mandatory/optional firmware files the core needs:
 firmware_count = 22
 
-# Firmware entries should be named from 0
-# Firmware description
-# firmware0_desc = "filename (Description)" ex: firmware0_desc = "bios.gg (GameGear BIOS)"
-# Firmware path
-# firmware0_path = "filename.ext"  ex: firmware0_path = "bios.gg"
-# Is firmware optional or not, if not defined RetroArch will assume it is required
-# firmware0_opt = "true/false"
-
 firmware0_desc = "exos21.rom (Enterprise 128 Expandible OS 2.1)"
 firmware0_path = "ep128emu/roms/exos21.rom"
 firmware0_opt = "true"

@@ -1,7 +1,7 @@
 # Software Information
 display_name = "MSX/SVI/ColecoVision/SG-1000 (blueMSX)"
 authors = "Daniel Vik"
-supported_extensions = "rom|ri|mx1|mx2|col|dsk|cas|sg|sc|m3u"
+supported_extensions = "rom|ri|mx1|mx2|col|dsk|cas|sg|sc|sf|m3u"
 corename = "blueMSX"
 categories = "Emulator"
 license = "GPLv2"
