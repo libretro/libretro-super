@@ -277,6 +277,8 @@ build_libretro_databases() {
 	build_libretro_database "Commodore - 64" "rom.crc"
 	build_libretro_database "Commodore - Amiga" "rom.crc"
 	build_libretro_database "Commodore - PET" "rom.crc"
+	build_libretro_database "Commodore - CD32" "rom.crc"
+	build_libretro_database "Commodore - CDTV" "rom.crc"
 	build_libretro_database "Commodore - Plus-4" "rom.crc"
 	build_libretro_database "Commodore - VIC-20" "rom.crc"
 	build_libretro_database "Dinothawr" "rom.crc"
