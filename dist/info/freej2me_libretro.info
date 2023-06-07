@@ -25,8 +25,8 @@ core_options = "true"
 
 # BIOS / Firmware
 firmware_count = 1
-firmware2_desc = "freej2me-lr.jar"
-firmware2_path = "freej2me-lr.jar"
-firmware2_opt = "false"
+firmware0_desc = "freej2me-lr.jar"
+firmware0_path = "freej2me-lr.jar"
+firmware0_opt = "false"
 
 description = "A port of FreeJ2ME to libretro. This core emulates Java ME applications and games for Java-based mobile phones."
