@@ -125,6 +125,17 @@ include_core_vice_x64() {
 libretro_vice_x64_name="VICE x64"
 libretro_vice_x64_git_url="https://github.com/libretro/vice-libretro.git"
 libretro_vice_x64_build_makefile="Makefile"
+libretro_vice_x64_dir="libretro-vice"
+
+include_core_vice_x64dtv() {
+	register_module core "vice_x64dtv"
+}
+libretro_vice_x64dtv_name="VICE x64dtv"
+libretro_vice_x64dtv_git_url="https://github.com/libretro/vice-libretro.git"
+libretro_vice_x64dtv_build_makefile="Makefile"
+libretro_vice_x64dtv_build_args="EMUTYPE=\"x64dtv\""
+libretro_vice_x64dtv_build_cores="vice_x64dtv"
+libretro_vice_x64dtv_dir="libretro-vice"
 
 include_core_vice_x64sc() {
 	register_module core "vice_x64sc"
@@ -134,6 +145,7 @@ libretro_vice_x64sc_git_url="https://github.com/libretro/vice-libretro.git"
 libretro_vice_x64sc_build_makefile="Makefile"
 libretro_vice_x64sc_build_args="EMUTYPE=\"x64sc\""
 libretro_vice_x64sc_build_cores="vice_x64sc"
+libretro_vice_x64sc_dir="libretro-vice"
 
 include_core_vice_xscpu64() {
 	register_module core "vice_xscpu64"
@@ -143,6 +155,7 @@ libretro_vice_xscpu64_git_url="https://github.com/libretro/vice-libretro.git"
 libretro_vice_xscpu64_build_makefile="Makefile"
 libretro_vice_xscpu64_build_args="EMUTYPE=\"xscpu64\""
 libretro_vice_xscpu64_build_cores="vice_xscpu64"
+libretro_vice_xscpu64_dir="libretro-vice"
 
 include_core_vice_xcbm2() {
 	register_module core "vice_xcbm2"
@@ -152,6 +165,7 @@ libretro_vice_xcbm2_git_url="https://github.com/libretro/vice-libretro.git"
 libretro_vice_xcbm2_build_makefile="Makefile"
 libretro_vice_xcbm2_build_args="EMUTYPE=\"xcbm2\""
 libretro_vice_xcbm2_build_cores="vice_xcbm2"
+libretro_vice_xcbm2_dir="libretro-vice"
 
 include_core_vice_xcbm5x0() {
 	register_module core "vice_xcbm5x0"
@@ -161,6 +175,7 @@ libretro_vice_xcbm5x0_git_url="https://github.com/libretro/vice-libretro.git"
 libretro_vice_xcbm5x0_build_makefile="Makefile"
 libretro_vice_xcbm5x0_build_args="EMUTYPE=\"xcbm5x0\""
 libretro_vice_xcbm5x0_build_cores="vice_xcbm5x0"
+libretro_vice_xcbm5x0_dir="libretro-vice"
 
 include_core_vice_x128() {
 	register_module core "vice_x128"
@@ -170,6 +185,7 @@ libretro_vice_x128_git_url="https://github.com/libretro/vice-libretro.git"
 libretro_vice_x128_build_makefile="Makefile"
 libretro_vice_x128_build_args="EMUTYPE=\"x128\""
 libretro_vice_x128_build_cores="vice_x128"
+libretro_vice_x128_dir="libretro-vice"
 
 include_core_vice_xpet() {
 	register_module core "vice_xpet"
@@ -179,6 +195,7 @@ libretro_vice_xpet_git_url="https://github.com/libretro/vice-libretro.git"
 libretro_vice_xpet_build_makefile="Makefile"
 libretro_vice_xpet_build_args="EMUTYPE=\"xpet\""
 libretro_vice_xpet_build_cores="vice_xpet"
+libretro_vice_xpet_dir="libretro-vice"
 
 include_core_vice_xplus4() {
 	register_module core "vice_xplus4"
@@ -188,6 +205,7 @@ libretro_vice_xplus4_git_url="https://github.com/libretro/vice-libretro.git"
 libretro_vice_xplus4_build_makefile="Makefile"
 libretro_vice_xplus4_build_args="EMUTYPE=\"xplus4\""
 libretro_vice_xplus4_build_cores="vice_xplus4"
+libretro_vice_xplus4_dir="libretro-vice"
 
 include_core_vice_xvic() {
 	register_module core "vice_xvic"
@@ -197,6 +215,7 @@ libretro_vice_xvic_git_url="https://github.com/libretro/vice-libretro.git"
 libretro_vice_xvic_build_makefile="Makefile"
 libretro_vice_xvic_build_args="EMUTYPE=\"xvic\""
 libretro_vice_xvic_build_cores="vice_xvic"
+libretro_vice_xvic_dir="libretro-vice"
 
 include_core_xrick() {
 	register_module core "xrick"
@@ -1552,6 +1571,12 @@ libretro_virtualxt_name="VirtualXT"
 libretro_virtualxt_git_url="https://github.com/andreas-jonsson/virtualxt.git"
 libretro_virtualxt_post_fetch_cmd="git checkout release"
 libretro_virtualxt_build_subdir="tools/package/libretro"
+
+include_core_puzzlescript() {
+	register_module core "puzzlescript"
+}
+libretro_puzzlescript_name="PuzzleScript"
+libretro_puzzlescript_git_url="https://github.com/nwhitehead/pzretro.git"
 
 
 # CORE RULE VARIABLES
