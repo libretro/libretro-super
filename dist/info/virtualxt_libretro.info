@@ -6,7 +6,7 @@ corename = "virtualxt"
 license = "zlib-acknowledgement"
 permissions = ""
 categories = "Emulator"
-display_version = "0.8.0"
+display_version = "0.9.0"
 
 # Hardware Information
 manufacturer = "IBM"
@@ -28,4 +28,4 @@ hw_render = "false"
 needs_fullpath = "true"
 disk_control = "true"
 
-description = "VirtualXT is a IBM PC/XT (8088/V20) emulator that runs on modern hardware and operating systems. It is designed to be simple and lightweight yet still capable enough to run a large library of old application and games."
+description = "VirtualXT is a Turbo PC/XT (8088/V20) emulator that runs on modern hardware and operating systems. It is designed to be simple and lightweight yet still capable enough to run a large library of old application and games."
