@@ -1578,6 +1578,14 @@ include_core_puzzlescript() {
 libretro_puzzlescript_name="PuzzleScript"
 libretro_puzzlescript_git_url="https://github.com/nwhitehead/pzretro.git"
 
+include_core_anarch() {
+	register_module core "anarch"
+}
+libretro_anarch_name="Anarch"
+libretro_anarch_build_subdir="build"
+libretro_anarch_post_fetch_cmd="mkdir -p build && cd build && cmake .."
+libretro_anarch_git_url="https://codeberg.org/iyzsong/anarch-libretro.git"
+libretro_anarch_build_makefile="Makefile"
 
 # CORE RULE VARIABLES
 #
