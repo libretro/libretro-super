@@ -1,6 +1,6 @@
 display_name = "Sony - PlayStation (PCSX ReARMed)"
 authors = "PCSX Team|notaz|Exophase"
-supported_extensions = "bin|cue|img|mdf|pbp|toc|cbn|m3u|ccd|chd"
+supported_extensions = "bin|cue|img|mdf|pbp|toc|cbn|m3u|ccd|chd|iso|exe"
 corename = "PCSX-ReARMed"
 license = "GPLv2"
 permissions = "dynarec"
