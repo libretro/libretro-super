@@ -31,7 +31,7 @@ database_match_archive_member = "false"
 database = "FBNeo - Arcade Games"
 
 # BIOS / Firmware
-firmware_count = 22
+firmware_count = 23
 firmware0_desc = "fbneo/neogeo.zip (Neo Geo BIOS)"
 firmware0_path = "fbneo/neogeo.zip"
 firmware0_opt = "true"
