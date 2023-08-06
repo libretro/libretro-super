@@ -128,7 +128,6 @@ firmware21_path = "ep128emu/roms/zx48.rom"
 firmware21_opt = "true"
 
 # Additional notes:
-# notes = "(!) hash|(!) game rom|(^) continue|[1] notes|[^] continue|[*] list"
 notes = "(!) exos21.rom (md5): f36f24cbb87745fbd2714e4df881db09|(!) basic21.rom (md5): e972fe42b398c9ff1d93ff014786aec6|(!) exdos13.rom (md5): ddff70c014d1958dc75378b6c9aab6f8|(!) exos20.rom (md5): 5ad3baaad3b5156d6b60b34229a676fb|(!) basic20.rom (md5): 8e18edce4a7acb2c33cc0ab18f988482|(!) epfileio.rom (md5): a68ebcbc73a4d2178d755b7755bf18fe|(!) exos24uk.rom (md5): 55af78f877a21ca45eb2df68a74fcc60|(!) hun.rom (md5): 22167938f142c222f40992839aa21a06|(!) epd19hft.rom (md5): 12cfc9c7e48c8a16c2e09edbd926d467|(!) zt19hfnt.rom (md5): 653daaf7b9b29c2c4e577f489580f247|(!) brd.rom (md5): 6af0402906944fd134004b85097c8524|(!) zt19uk.rom (md5): 228540b6be83ae2acd7569c8ff0f91d0|(!) tvc22_sys.rom (md5): 8c54285f541930cde766069942bad0f2|(!) tvc22_ext.rom (md5): 5ce95a26ceed5bec73995d83568da9cf|(!) tvcfileio.rom (md5): a2cf86ba8e7fc58b242137fe59036832|(!) tvc_dos12d.rom (md5): 88dc7876d584f90e4106f91444ab23b7|(!) cpc464.rom (md5): a993f85b88ac4350cf4d41554e87fe4f|(!) cpc664.rom (md5): 5a384a2310f472c7857888371c00ed66|(!) cpc6128.rom (md5): b96280dc6c95a48857b4b8eb931533ae|(!) cpc_amsdos.rom (md5): 25629dfe870d097469c217b95fdc1c95|(!) zx128.rom (md5): 85fede415f4294cc777517d7eada482e|(!) zx48.rom (md5): 4c42a2f075212361c3117015b107ff68"
 
 # Libretro Features - The libretro API features the core supports. Useful for sorting cores
