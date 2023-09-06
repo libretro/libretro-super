@@ -1282,15 +1282,6 @@ include_core_opera() {
 libretro_opera_name="Opera"
 libretro_opera_git_url="https://github.com/libretro/opera-libretro.git"
 
-include_core_stonesoup() {
-	register_module core "stonesoup" -ngc -ps3 -psp1 -qnx -wii
-}
-libretro_stonesoup_name="Dungeon Crawl Stone Soup"
-libretro_stonesoup_git_url="https://github.com/libretro/crawl-ref.git"
-libretro_stonesoup_git_submodules="clone"
-libretro_stonesoup_build_subdir="crawl-ref"
-libretro_stonesoup_build_makefile="Makefile.libretro"
-
 include_core_freechaf() {
 	register_module core "freechaf" -ngc -ps3 -psp1 -qnx -wii
 }

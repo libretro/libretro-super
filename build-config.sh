@@ -274,7 +274,6 @@ include_core_daphne
 include_core_dinothawr
 include_core_3dengine
 include_core_2048
-include_core_stonesoup
 include_core_scummvm
 include_core_chailove
 include_core_thepowdertoy
