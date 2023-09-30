@@ -236,6 +236,53 @@ build_makefile() {
 	fi
 }
 
+# build_cmake
+#
+# $core_build_subdir		Subdir of the makefile (if any)
+# $core_build_args		Extra arguments to cmake
+# $core_build_extradir	Location of the binary under build/
+# $core_build_cores		A list of cores produced by the builds
+build_cmake() {
+	[ -n "$core_build_subdir" ] && core_build_subdir="/$core_build_subdir"
+
+	make_cmdline="cmake"
+
+	build_dir="$WORKDIR/$core_dir$core_build_subdir"
+
+	if build_should_skip $1 "$build_dir"; then
+		echo "Core $1 is already built, skipping..."
+		return
+	fi
+
+
+	if [ -d "$build_dir" ]; then
+		echo_cmd "cd \"$build_dir\""
+
+		$core_build_configure
+
+		if [ -z "$NOCLEAN" ]; then
+			$core_build_preclean
+			echo_cmd "$make_cmdline --build build --target clean"
+		fi
+		make_cmdline1="$make_cmdline  $core_build_args . -Bbuild"
+		make_cmdline2="$make_cmdline --build build/ --target $core_cmake_target --config Release -- "
+  	[ -n "$JOBS" ] && make_cmdline2="$make_cmdline2 -j$JOBS"
+  	[ -n "$DEBUG" ] && make_cmdline2="$make_cmdline2 DEBUG=$DEBUG"
+
+		$core_build_prebuild
+		echo_cmd "$make_cmdline1"
+		echo_cmd "$make_cmdline2"
+
+		# TODO: Make this a separate stage/package rule
+		$core_build_prepkg
+		for a in $core_build_cores; do
+			copy_core_to_dist ${core_build_products:+$core_build_products/}build/${core_build_extradir:-}$a $a
+		done
+	else
+		echo "$1 not fetched, skipping ..."
+	fi
+}
+
 
 # libretro_build_core: Build the given core using its build rules
 #
@@ -308,6 +355,26 @@ libretro_build_core() {
 			eval "core_build_cores=\${libretro_${1}_build_cores:-$1}"
 			eval "core_build_products=\$libretro_${1}_build_products"
 			build_makefile $1 2>&1
+			;;
+
+		cmake)
+			# As of right now, only configure is used for now...
+			if [ "$(type -t libretro_${1}_configure 2> /dev/null)" = "function" ]; then
+				eval "core_configure=libretro_${1}_configure"
+			else
+				eval "core_configure=do_nothing"
+			fi
+			eval "core_build_subdir=\$libretro_${1}_build_subdir"
+			eval "core_build_extradir=\$libretro_${1}_build_extradir"
+			eval "core_build_args=\$libretro_${1}_build_args"
+
+			# TODO: Really, change how all of this is done...
+			eval "core_build_platform=\${libretro_${1}_build_platform:-$FORMAT_COMPILER_TARGET}$opengl_type"
+
+			eval "core_build_cores=\${libretro_${1}_build_cores:-$1}"
+			eval "core_build_products=\$libretro_${1}_build_products"
+      eval "core_cmake_target=${1}_libretro"
+			build_cmake $1 2>&1
 			;;
 
 		legacy)
