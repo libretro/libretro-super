@@ -1,7 +1,7 @@
 # Software Information
 display_name = "Sony - PlayStation Portable (PPSSPP)"
 authors = "Henrik Hrydgard"
-supported_extensions = "elf|iso|cso|prx|pbp"
+supported_extensions = "elf|iso|cso|prx|pbp|chd"
 corename = "PPSSPP"
 license = "GPLv2"
 permissions = ""
