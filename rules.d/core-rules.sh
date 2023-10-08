@@ -58,8 +58,8 @@ include_core_dolphin() {
 }
 libretro_dolphin_name="Dolphin"
 libretro_dolphin_git_url="https://github.com/libretro/dolphin.git"
-libretro_dolphin_build_subdir="Source/Core/DolphinLibretro"
-libretro_dolphin_build_makefile="Makefile"
+libretro_dolphin_build_rule="cmake"
+libretro_dolphin_build_args="-DLIBRETRO=ON"
 
 include_core_dolphin_launcher() {
 	register_module core "dolphin_launcher"
@@ -87,7 +87,8 @@ include_core_swanstation() {
 }
 libretro_swanstation_name="Duckstation"
 libretro_swanstation_git_url="https://github.com/libretro/swanstation.git"
-libretro_swanstation_build_products="bin"
+libretro_swanstation_build_rule="cmake"
+libretro_swanstation_build_args="-DCMAKE_BUILD_TYPE=Release"
 
 include_core_mrboom() {
 	register_module core "mrboom"
@@ -321,7 +322,8 @@ include_core_flycast() {
 }
 libretro_flycast_name="Flycast"
 libretro_flycast_git_url="https://github.com/flyinghead/flycast"
-libretro_flycast_build_makefile="Makefile"
+libretro_flycast_build_rule="cmake"
+libretro_flycast_build_args="-DLIBRETRO=ON -DCMAKE_POSITION_INDEPENDENT_CODE=TRUE -DCMAKE_BUILD_TYPE=Release"
 
 include_core_redream() {
 	register_module core "redream"
@@ -1229,6 +1231,7 @@ libretro_citra2018_name="Citra 2018"
 libretro_citra2018_git_url="https://github.com/libretro/citra2018.git"
 libretro_citra2018_git_submodules="yes"
 libretro_citra2018_build_opengl="yes"
+libretro_citra2018_build_rule="cmake"
 
 include_core_citra_canary() {
 	register_module core "citra_canary" -ios -theos_ios -ngc -ps3 -psp1 -qnx -wii
@@ -1244,6 +1247,9 @@ include_core_thepowdertoy() {
 libretro_thepowdertoy_name="The Powder Toy"
 libretro_thepowdertoy_git_url="https://github.com/libretro/ThePowderToy.git"
 libretro_thepowdertoy_git_submodules="yes"
+libretro_thepowdertoy_build_rule="cmake"
+libretro_thepowdertoy_build_args="-DBUILD_LIBRETRO=ON"
+libretro_thepowdertoy_build_extradir="src/"
 
 include_core_ppsspp() {
 	register_module core "ppsspp" -ios -theos_ios -ngc -ps3 -psp1 -qnx -wii
@@ -1251,8 +1257,9 @@ include_core_ppsspp() {
 libretro_ppsspp_name="PPSSPP"
 libretro_ppsspp_git_url="https://github.com/hrydgard/ppsspp.git"
 libretro_ppsspp_git_submodules="yes"
-libretro_ppsspp_build_subdir="libretro"
-libretro_ppsspp_build_opengl="yes"
+libretro_ppsspp_build_extradir="lib/"
+libretro_ppsspp_build_rule="cmake"
+libretro_ppsspp_build_args="-DLIBRETRO=ON"
 
 include_core_play() {
 	register_module core "play" -ios -theos_ios -ngc -ps3 -psp1 -qnx -wii
@@ -1443,8 +1450,10 @@ include_core_tic80() {
 libretro_tic80_name="TIC-80"
 libretro_tic80_git_url="https://github.com/libretro/TIC-80.git"
 libretro_tic80_git_submodules="yes"
-libretro_tic80_build_makefile="Makefile"
-libretro_tic80_build_subdir="build"
+libretro_tic80_build_subdir="core"
+libretro_tic80_build_extradir="lib/"
+libretro_tic80_build_rule="cmake"
+libretro_tic80_build_args="-DBUILD_PLAYER=OFF -DBUILD_SOKOL=OFF -DBUILD_SDL=OFF -DBUILD_DEMO_CARTS=OFF -DBUILD_LIBRETRO=ON -DBUILD_WITH_MRUBY=OFF -DCMAKE_BUILD_TYPE=Release"
 
 include_core_lowresnx() {
 	register_module core "lowresnx" -theos_ios -ngc -sncps3 -ps3 -psp1 -qnx -wii
