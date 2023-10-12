@@ -72,8 +72,8 @@ include_core_ishiiruka() {
 }
 libretro_ishiiruka_name="Ishiiruka"
 libretro_ishiiruka_git_url="https://github.com/libretro/Ishiiruka.git"
-libretro_ishiiruka_build_subdir="Source/Core/DolphinLibretro"
-libretro_ishiiruka_build_makefile="Makefile"
+libretro_ishiiruka_build_rule="cmake"
+libretro_ishiiruka_build_args="-DLIBRETRO=ON"
 
 include_core_daphne() {
 	register_module core "daphne"
@@ -566,6 +566,7 @@ libretro_sameduck_build_platform="$FORMAT_COMPILER_TARGET_ALT"
 libretro_sameduck_build_subdir="libretro"
 libretro_sameduck_build_makefile="Makefile"
 libretro_sameduck_post_fetch_cmd="git checkout SameDuck"
+libretro_sameduck_build_products="../build/bin"
 
 include_core_meteor() {
 	register_module core "meteor" -ngc -ps3 -psp1 -qnx -wii
@@ -602,7 +603,7 @@ include_core_stella() {
 }
 libretro_stella_name="Stella"
 libretro_stella_git_url="https://github.com/stella-emu/stella.git"
-libretro_stella_build_subdir="src/libretro"
+libretro_stella_build_subdir="src/os/libretro"
 libretro_stella_build_makefile="Makefile"
 
 include_core_stella2014() {
@@ -699,6 +700,16 @@ libretro_boom3_name="boom3"
 libretro_boom3_git_url="https://github.com/libretro/boom3.git"
 libretro_boom3_build_makefile="Makefile"
 libretro_boom3_build_subdir="neo"
+
+include_core_boom3_xp() {
+	register_module core "boom3_xp"
+}
+libretro_boom3_name="boom3"
+libretro_boom3_xp_git_url="https://github.com/libretro/boom3.git"
+libretro_boom3_xp_build_makefile="Makefile"
+libretro_boom3_xp_build_subdir="neo"
+libretro_boom3_xp_build_args="D3XP=1"
+libretro_boom3_xp_dir="libretro-boom3"
 
 include_core_vitaquake2() {
 	register_module core "vitaquake2"
@@ -1000,6 +1011,13 @@ libretro_mame2003_midway_name="MAME 2003 Midway (0.78)"
 libretro_mame2003_midway_git_url="https://github.com/libretro/mame2003_midway.git"
 libretro_mame2003_midway_makefile="Makefile"
 
+include_core_mame2009() {
+	register_module core "mame2009"
+}
+libretro_mame2009_name="MAME 2009 (0.135U4)"
+libretro_mame2009_git_url="https://github.com/libretro/mame2009-libretro.git"
+libretro_mame2009_makefile="Makefile"
+
 include_core_mame2010() {
 	register_module core "mame2010"
 }
@@ -1013,6 +1031,15 @@ include_core_mame2015() {
 libretro_mame2015_name="MAME 2015 (0.160)"
 libretro_mame2015_git_url="https://github.com/libretro/mame2015-libretro.git"
 libretro_mame2015_makefile="Makefile"
+
+include_core_cdi2015() {
+	register_module core "cdi2015" -theos_ios -ngc -psp1 -wii
+}
+libretro_cdi2015_name="CDi 2015"
+libretro_cdi2015_git_url="https://github.com/libretro/mame2015-libretro.git"
+libretro_cdi2015_makefile="Makefile"
+libretro_cdi2015_dir="libretro-mame2015"
+libretro_cdi2015_build_args="SUBTARGET=cdi"
 
 include_core_mame2016() {
 	register_module core "mame2016" -theos_ios -ngc -psp1 -wii
@@ -1562,7 +1589,8 @@ libretro_onscripter_name="ONScripter"
 libretro_onscripter_git_url="https://github.com/iyzsong/onscripter-libretro.git"
 libretro_onscripter_git_submodules="yes"
 libretro_onscripter_post_fetch_cmd="./update-deps.sh"
-libretro_onscripter_build_makefile="Makefile"
+libretro_onscripter_build_rule="cmake"
+libretro_onscripter_build_args="-DCMAKE_BUILD_TYPE=Release"
 
 include_core_virtualxt() {
 	register_module core "virtualxt"
@@ -1586,6 +1614,92 @@ libretro_anarch_build_subdir="build"
 libretro_anarch_post_fetch_cmd="mkdir -p build && cd build && cmake .."
 libretro_anarch_git_url="https://codeberg.org/iyzsong/anarch-libretro.git"
 libretro_anarch_build_makefile="Makefile"
+
+include_core_emuscv() {
+	register_module core "emuscv"
+}
+libretro_emuscv_name="EmuSCV"
+libretro_emuscv_git_url="https://github.com/wzcwzc/emuscv.git"
+
+include_core_ardens() {
+	register_module core "ardens"
+}
+libretro_ardens_name="Ardens"
+libretro_ardens_git_url="https://github.com/tiberiusbrown/Ardens.git"
+libretro_ardens_build_rule="cmake"
+libretro_ardens_build_args="-DCMAKE_BUILD_TYPE=Release -DARDENS_LLVM=0 -DARDENS_DEBUGGER=0 -DARDENS_PLAYER=0 -DARDENS_LIBRETRO=1"
+libretro_ardens_git_submodules="yes"
+
+include_core_arduous() {
+	register_module core "arduous"
+}
+libretro_arduous_name="arduous"
+libretro_arduous_git_url="https://github.com/libretro/arduous.git"
+libretro_arduous_build_rule="cmake"
+libretro_arduous_build_args="-DCMAKE_POSITION_INDEPENDENT_CODE=TRUE -DCMAKE_BUILD_TYPE=Release"
+libretro_arduous_git_submodules="yes"
+
+include_core_dirksimple() {
+	register_module core "dirksimple"
+}
+libretro_dirksimple_name="DirkSimple"
+libretro_dirksimple_git_url="https://github.com/icculus/DirkSimple"
+libretro_dirksimple_build_rule="cmake"
+libretro_dirksimple_build_args="-DLIBRETRO=ON"
+libretro_dirksimple_git_submodules="yes"
+
+include_core_mojozork() {
+	register_module core "mojozork"
+}
+libretro_mojozork_name="MojoZork"
+libretro_mojozork_git_url="https://github.com/icculus/mojozork.git"
+libretro_mojozork_build_rule="cmake"
+libretro_mojozork_build_args="-DLIBRETRO=ON"
+libretro_mojozork_git_submodules="yes"
+
+include_core_nes() {
+	register_module core "nes"
+}
+libretro_nes_name="aiju's nes emu ported to libretro"
+libretro_nes_git_url="https://github.com/kivutar/nes.git"
+
+include_core_retrodream() {
+	register_module core "retrodream"
+}
+libretro_retrodream_name="RetroDream"
+libretro_retrodream_git_url="https://github.com/brooksytech/retrodream-libretro"
+
+include_core_rvvm() {
+	register_module core "rvvm"
+}
+libretro_rvvm_name="RVVM - The RISC-V Virtual Machine"
+libretro_rvvm_git_url="https://github.com/LekKit/RVVM.git"
+libretro_rvvm_build_rule="cmake"
+libretro_rvvm_build_args="-DBUILD_LIBRETRO=ON -DCMAKE_BUILD_TYPE=Release"
+
+include_core_simcp() {
+	register_module core "simcp"
+}
+libretro_simcp_name="SimCoupe"
+libretro_simcp_git_url="https://github.com/libretro/libretro-simcoupe.git"
+
+include_core_vircon32() {
+	register_module core "vircon32"
+}
+libretro_vircon32_name="32-Bit Virtual Console"
+libretro_vircon32_git_url="https://github.com/vircon32/vircon32-libretro.git"
+libretro_vircon32_build_rule="cmake"
+libretro_vircon32_build_args="-DCMAKE_BUILD_TYPE=Release"
+
+include_core_wasm4() {
+	register_module core "wasm4"
+}
+libretro_wasm4_name="WASM-4"
+libretro_wasm4_git_url="https://github.com/aduros/wasm4.git"
+libretro_wasm4_build_rule="cmake"
+libretro_wasm4_build_args="-DCMAKE_BUILD_TYPE=Release -DLIBRETRO=ON -DCMAKE_POSITION_INDEPENDENT_CODE=TRUE"
+libretro_wasm4_build_subdir="runtimes/native"
+libretro_wasm4_git_submodules="yes"
 
 # CORE RULE VARIABLES
 #
