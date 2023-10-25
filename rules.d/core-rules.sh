@@ -1046,7 +1046,7 @@ include_core_mame2016() {
 }
 libretro_mame2016_name="MAME 2016 (0.174)"
 libretro_mame2016_git_url="https://github.com/libretro/mame2016-libretro.git"
-libretro_mame2016_makefile="Makefile"
+libretro_mame2016_makefile="Makefile.libretro"
 
 include_core_hbmame() {
 	register_module core "hbmame"
