@@ -10,6 +10,7 @@ bsnes2014 libretro-bsnes2014 https://github.com/libretro/bsnes2014.git libretro 
 bsnes_mercury libretro-bsnes_mercury https://github.com/libretro/bsnes-mercury.git master YES GENERIC_JNI Makefile target-libretro/jni | bsnes_mercury_accuracy:profile=accuracy bsnes_mercury_balanced:profile=balanced bsnes_mercury_performance:profile=performance
 cannonball libretro-cannonball https://github.com/libretro/cannonball.git master YES GENERIC_JNI Makefile jni
 daphne libretro-daphne https://github.com/libretro/daphne.git master YES GENERIC_JNI Makefile jni
+doublecherrygb libretro-doublecherrygb https://github.com/TimOelrichs/doublecherryGB-libretro.git master YES GENERIC_JNI Makefile jni
 cap32 libretro-cap32 https://github.com/libretro/libretro-cap32.git master YES GENERIC_JNI Makefile.libretro jni
 chailove libretro-chailove https://github.com/libretro/libretro-chailove.git master YES GENERIC_JNI Makefile jni
 craft libretro-craft https://github.com/libretro/Craft.git master YES GENERIC_JNI Makefile.libretro jni
