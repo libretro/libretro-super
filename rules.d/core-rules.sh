@@ -561,12 +561,11 @@ include_core_sameduck() {
 	register_module core "sameduck"
 }
 libretro_sameduck_name="SameDuck"
-libretro_sameduck_git_url="https://github.com/LIJI32/SameBoy.git"
+libretro_sameduck_git_url="https://github.com/libretro/sameduck.git"
 libretro_sameduck_build_platform="$FORMAT_COMPILER_TARGET_ALT"
 libretro_sameduck_build_subdir="libretro"
 libretro_sameduck_build_makefile="Makefile"
-libretro_sameduck_post_fetch_cmd="git checkout SameDuck"
-libretro_sameduck_build_products="../build/bin"
+libretro_sameduck_post_fetch_cmd="git checkout SameDuck-libretro"
 
 include_core_meteor() {
 	register_module core "meteor" -ngc -ps3 -psp1 -qnx -wii
