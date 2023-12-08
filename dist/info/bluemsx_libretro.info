@@ -14,7 +14,7 @@ systemname = "MSX/SVI/ColecoVision/SG-1000"
 systemid = "msx"
 
 # Libretro Features
-database = "Microsoft - MSX|Microsoft - MSX2|Coleco - ColecoVision|Sega - SG-1000|Spectravideo"
+database = "Microsoft - MSX|Microsoft - MSX2|Coleco - ColecoVision|Sega - SG-1000|Spectravideo - SVI-318 - SVI-328"
 supports_no_game = "false"
 savestate = "true"
 savestate_features = "serialized"
