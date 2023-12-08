@@ -376,6 +376,7 @@ build_libretro_databases() {
 	build_libretro_database "PuzzleScript" "rom.crc"
 	build_libretro_database "Vircon32" "rom.crc"
 	build_libretro_database "MicroW8" "rom.crc"
+	build_libretro_database "Spectravideo - SVI-318 - SVI-328" "rom.crc"
 }
 
 build_libretrodb
