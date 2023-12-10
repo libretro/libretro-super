@@ -14,6 +14,7 @@ systemname = "Atari ST/STE/TT/Falcon"
 systemid = "atari_st"
 
 # Libretro Features
+database = "Atari - ST"
 supports_no_game = "false"
 savestate = "true"
 savestate_features = "serialized"
