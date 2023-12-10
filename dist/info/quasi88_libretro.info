@@ -14,6 +14,7 @@ systemname = "PC-8000 / PC-8800 series"
 systemid = "pc_88"
 
 # Libretro Features
+database = "NEC - PC-8001 - PC-8801"
 supports_no_game = "true"
 savestate = "true"
 savestate_features = "deterministic"
