@@ -1614,6 +1614,14 @@ libretro_anarch_post_fetch_cmd="mkdir -p build && cd build && cmake .."
 libretro_anarch_git_url="https://codeberg.org/iyzsong/anarch-libretro.git"
 libretro_anarch_build_makefile="Makefile"
 
+include_core_gam4980() {
+        register_module core "gam4980"
+}
+libretro_gam4980_name="GAM4980"
+libretro_gam4980_git_url="https://codeberg.org/iyzsong/gam4980.git"
+libretro_gam4980_build_rule="cmake"
+libretro_gam4980_build_args="-DCMAKE_BUILD_TYPE=Release"
+
 include_core_emuscv() {
 	register_module core "emuscv"
 }
