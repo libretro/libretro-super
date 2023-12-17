@@ -12,6 +12,7 @@ desmume libretro-desmume https://github.com/libretro/desmume.git master NO GENER
 desmume2015 libretro-desmume2015 https://github.com/libretro/desmume2015.git master NO GENERIC Makefile.libretro desmume
 dosbox_svn libretro-dosbox_svn https://github.com/libretro/dosbox-svn libretro NO GENERIC Makefile.libretro libretro
 dosbox_pure libretro-dosbox_pure https://github.com/libretro/dosbox-pure main YES GENERIC Makefile .
+doublecherrygb libretro-doublecherrygb https://github.com/TimOelrichs/doublecherryGB-libretro.git master YES GENERIC Makefile .
 ecwolf libretro-ecwolf https://github.com/libretro/ecwolf.git master YES GENERIC Makefile src/libretro
 fbalpha2012 libretro-fbalpha2012 https://github.com/libretro/fbalpha2012.git master YES GENERIC makefile.libretro svn-current/trunk
 fbalpha2012_cps1 libretro-fbalpha2012_cps1 https://github.com/libretro/fbalpha2012_cps1.git master YES GENERIC makefile.libretro .

@@ -1128,6 +1128,13 @@ include_core_tgbdual() {
 libretro_tgbdual_name="TGB Dual"
 libretro_tgbdual_git_url="https://github.com/libretro/tgbdual-libretro.git"
 
+include_core_doublecherrygb() {
+	register_module core "doublecherrygb" -ngc -ps3 -wii
+}
+libretro_doublecherrygb_name="Double Cherry GB"
+libretro_doublecherrygb_git_url="https://github.com/TimOelrichs/doublecherryGB-libretro.git"
+
+
 include_core_theodore() {
 	register_module core "theodore"
 }
