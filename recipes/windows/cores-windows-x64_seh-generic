@@ -26,6 +26,7 @@ dolphin libretro-dolphin https://github.com/libretro/dolphin.git master YES CMAK
 dosbox_core libretro-dosbox_core https://github.com/libretro/dosbox-core libretro YES GENERIC Makefile.libretro libretro download_github_windows_x64
 dosbox_svn libretro-dosbox_svn https://github.com/libretro/dosbox-svn libretro YES GENERIC Makefile.libretro libretro
 dosbox_svn_ce libretro-dosbox_svn_ce https://github.com/libretro/dosbox-svn community-patches YES GENERIC Makefile.libretro libretro
+doublecherrygb libretro-doublecherrygb https://github.com/TimOelrichs/doublecherryGB-libretro.git master YES GENERIC Makefile .
 duckstation libretro-duckstation https://github.com/libretro/duckstation.git master YES CMAKE sln build -DCMAKE_BUILD_TYPE=Release -DBUILD_LIBRETRO_CORE=ON -DCMAKE_BUILD_TYPE=Release -G\"Visual Studio 15 2017 Win64\"
 ecwolf libretro-ecwolf https://github.com/libretro/ecwolf.git master YES GENERIC Makefile src/libretro
 easyrpg libretro-easyrpg https://github.com/EasyRPG/Player.git master YES CMAKE Makefile build

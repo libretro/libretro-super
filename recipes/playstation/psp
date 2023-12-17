@@ -4,6 +4,7 @@ atari800 libretro-atari800 https://github.com/libretro/libretro-atari800.git mas
 bk libretro-bk https://github.com/libretro/bk-emulator.git master YES GENERIC Makefile.libretro .
 bluemsx libretro-bluemsx https://github.com/libretro/blueMSX-libretro.git master YES GENERIC Makefile.libretro .
 crocods libretro-crocods https://github.com/libretro/libretro-crocods.git master YES GENERIC Makefile .
+doublecherrygb libretro-doublecherrygb https://github.com/TimOelrichs/doublecherryGB-libretro.git master YES GENERIC Makefile .
 ecwolf libretro-ecwolf https://github.com/libretro/ecwolf.git master YES GENERIC Makefile src/libretro
 fceumm libretro-fceumm https://github.com/libretro/libretro-fceumm.git master YES GENERIC Makefile.libretro .
 fmsx libretro-fmsx https://github.com/libretro/fmsx-libretro.git master YES GENERIC Makefile .

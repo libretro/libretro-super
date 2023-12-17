@@ -1128,6 +1128,13 @@ include_core_tgbdual() {
 libretro_tgbdual_name="TGB Dual"
 libretro_tgbdual_git_url="https://github.com/libretro/tgbdual-libretro.git"
 
+include_core_doublecherrygb() {
+	register_module core "doublecherrygb" -ngc -ps3 -wii
+}
+libretro_doublecherrygb_name="Double Cherry GB"
+libretro_doublecherrygb_git_url="https://github.com/TimOelrichs/doublecherryGB-libretro.git"
+
+
 include_core_theodore() {
 	register_module core "theodore"
 }
@@ -1613,6 +1620,14 @@ libretro_anarch_build_subdir="build"
 libretro_anarch_post_fetch_cmd="mkdir -p build && cd build && cmake .."
 libretro_anarch_git_url="https://codeberg.org/iyzsong/anarch-libretro.git"
 libretro_anarch_build_makefile="Makefile"
+
+include_core_gam4980() {
+        register_module core "gam4980"
+}
+libretro_gam4980_name="GAM4980"
+libretro_gam4980_git_url="https://codeberg.org/iyzsong/gam4980.git"
+libretro_gam4980_build_rule="cmake"
+libretro_gam4980_build_args="-DCMAKE_BUILD_TYPE=Release"
 
 include_core_emuscv() {
 	register_module core "emuscv"
