@@ -9,12 +9,12 @@ permissions = ""
 
 # Hardware Information
 manufacturer = "Atari"
-systemname = "Atari 5200"
+systemname = "Atari 8-bit"
 systemid = "atari_5200"
-database = "Atari - 5200"
 display_version = "3.1.0"
 
 # Libretro Features
+database = "Atari - 5200|Atari - 8-bit"
 supports_no_game = "false"
 savestate = "true"
 savestate_features = "null"
