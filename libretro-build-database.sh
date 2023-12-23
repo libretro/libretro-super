@@ -302,7 +302,7 @@ build_libretro_databases() {
 	build_libretro_database "NEC - PC Engine - TurboGrafx 16" "rom.crc"
 	build_libretro_database "NEC - PC Engine SuperGrafx" "rom.crc"
 	build_libretro_database "NEC - PC-FX" "rom.crc"
-	build_libretro_database "NEC - PC-98" "rom.serial"
+	build_libretro_database "NEC - PC-98" "rom.crc"
 	build_libretro_database "NEC - PC-8001 - PC-8801" "rom.crc"
 	build_libretro_database "Nintendo - Family Computer Disk System" "rom.crc"
 	build_libretro_database "Nintendo - Game Boy" "rom.crc"
