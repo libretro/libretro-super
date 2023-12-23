@@ -14,7 +14,7 @@ systemname = "Sharp X1"
 systemid = "sharp_x1"
 
 # Libretro Features
-database = "Sharp X1"
+database = "Sharp - X1"
 supports_no_game = "false"
 
 # BIOS / Firmware
