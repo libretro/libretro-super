@@ -266,7 +266,7 @@ build_libretro_databases() {
 	build_libretro_database "Atari - 2600" "rom.crc"
 	build_libretro_database "Atari - 5200" "rom.crc"
 	build_libretro_database "Atari - 7800" "rom.crc"
-	build_libretro_database "Atari - 8-bit Family" "rom.crc"
+	build_libretro_database "Atari - 8-bit" "rom.crc"
 	build_libretro_database "Atari - Lynx" "rom.crc"
 	build_libretro_database "Atari - ST" "rom.crc"
 	build_libretro_database "Bandai - WonderSwan" "rom.crc"
