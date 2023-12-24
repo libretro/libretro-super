@@ -15,7 +15,7 @@ systemid = "cdi"
 
 # Libretro Features
 supports_no_game = "false"
-database = "MAME"
+database = "MAME|Philips - CD-i"
 savestate = "false"
 savestate_features = "null"
 cheats = "false"
