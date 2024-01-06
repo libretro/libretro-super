@@ -14,4 +14,4 @@ else
   fi
 fi
 
-platform=ios-arm64 ${BASE_DIR}/libretro-build.sh $@
+platform=ios-arm64 "${BASE_DIR}/libretro-build.sh" $@

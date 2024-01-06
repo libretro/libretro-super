@@ -10,13 +10,13 @@ secho() {
 }
 
 lecho() {
-	[ -n "$LIBRETRO_LOG_SUPER" ] && echo "$@" >> $log_super
+	[ -n "$LIBRETRO_LOG_SUPER" ] && echo "$@" >> "$log_super"
 }
 
 lsecho() {
 	echo "$@"
 	[ -n "$log_file_only" ] && echo "$@" >&6
-	[ -n "$LIBRETRO_LOG_SUPER" ] && echo "$@" >> $log_super
+	[ -n "$LIBRETRO_LOG_SUPER" ] && echo "$@" >> "$log_super"
 }
 
 echo_cmd() {
@@ -39,7 +39,7 @@ libretro_log_init() {
 	if [ -n "$LIBRETRO_LOG_SUPER" ]; then
 		log_super="$LIBRETRO_LOG_DIR/$LIBRETRO_LOG_SUPER"
 		# Redirecting : avoids dependency on trunc(1)
-		[ -z "$LIBRETRO_LOG_APPEND" ] && : > $log_super
+		[ -z "$LIBRETRO_LOG_APPEND" ] && : > "$log_super"
 	fi
 	# Module logs are truncated as they're opened in log_module_start
 }
@@ -52,13 +52,13 @@ log_module_start() {
 		exec 6>&1 7>&2
 
 		# Redirecting : avoids dependency on trunc(1)
-		[ -z "$LIBRETRO_LOG_APPEND" ] && : > $log_module
+		[ -z "$LIBRETRO_LOG_APPEND" ] && : > "$log_module"
 
 		# Output to screen and logfile in developer mode (if possible)
 		if [[ -n "$LIBRETRO_DEVELOPER" && -n "${log_tee:=$(find_tool "tee")}" ]]; then
-			exec >> $($log_tee -a $log_module) 2>&1
+			exec >> $($log_tee -a "$log_module") 2>&1
 		else
-			exec >> $log_module 2>&1
+			exec >> "$log_module" 2>&1
 			log_file_only=1
 		fi
 	fi
