@@ -14,4 +14,4 @@ else
   fi
 fi
 
-platform=tvos-arm64 ${BASE_DIR}/libretro-build.sh $@
+platform=tvos-arm64 "${BASE_DIR}/libretro-build.sh" $@

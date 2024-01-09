@@ -292,7 +292,7 @@ libretro_build_core() {
 
 	if [ -n "${LIBRETRO_LOG_MODULE}" ]; then
 		printf -v log_module "$LIBRETRO_LOG_DIR/$LIBRETRO_LOG_MODULE" "$1"
-		[ -z "$LIBRETRO_LOG_APPEND" ] && : > $log_module
+		[ -z "$LIBRETRO_LOG_APPEND" ] && : > "$log_module"
 	fi
 
 	eval "core_name=\${libretro_${1}_name:-$1}"
@@ -327,13 +327,13 @@ libretro_build_core() {
 	lecho "Building ${1}..."
 	if [ -n "$log_module" ]; then
 		exec 6>&1
-		echo "Building ${1}..." >> $log_module
+		echo "Building ${1}..." >> "$log_module"
 
 		# TODO: Possibly a shell function for tee?
 		if [[ -n "$LIBRETRO_DEVELOPER" && -n "${cmd_tee:=$(find_tool "tee")}" ]]; then
-			exec > >($cmd_tee -a $log_module)
+			exec > >($cmd_tee -a "$log_module")
 		else
-			exec > $log_module
+			exec > "$log_module"
 		fi
 	fi
 
