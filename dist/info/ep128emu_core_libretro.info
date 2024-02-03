@@ -23,14 +23,14 @@ license = "GPLv2"
 permissions = ""
 
 # Version of the core:
-display_version = "v1.2.1"
+display_version = "v1.2.10"
 
 # Hardware Information - Information about the hardware the core supports (when applicable)
 # Name of the manufacturer who produced the emulated system:
 manufacturer = "Enterprise"
 
 # Name of the system that the core targets (optional):
-systemname = "64/128"
+systemname = "128"
 
 # ID of the primary platform the core uses. Use other core info files as guidance if possible.
 # If blank or not used, a standard core platform will be used (optional):
@@ -154,7 +154,7 @@ supports_no_game = "true"
 # Does the core have a single purpose? Does it represent one game or application, requiring predetermined support files or no external data? Used to indicate to a frontend that the core may be presented/handled independently from 'regular' cores that run a variety of content.
 single_purpose = "false"
 # Name of the database that the core supports (optional):
-# database = "Nintendo - Nintendo Entertainment System|Nintendo - Famicom Disk System"
+database = "Amstrad - CPC|Sinclair - ZX Spectrum"
 # Does the core support/require support for libretro-gl or other hardware-acceleration in the frontend?
 hw_render = "false"
 # Which hardware-rendering APIs does the core support? Delimited by pipe characters.
