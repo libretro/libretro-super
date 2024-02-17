@@ -27,6 +27,7 @@ load_subsystem = "false"
 hw_render = "false"
 needs_fullpath = "false"
 disk_control = "false"
+database = "SNK - Neo Geo"
 
 # Firmware / BIOS
 firmware_count = 2
