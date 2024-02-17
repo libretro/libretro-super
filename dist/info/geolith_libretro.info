@@ -6,7 +6,7 @@ corename = "Geolith"
 license = "BSD-3-Clause, MIT"
 permissions = ""
 categories = "Emulator"
-display_version = "0.2.0"
+display_version = "0.2.1"
 
 # Hardware Information
 manufacturer = "SNK"
