@@ -340,6 +340,7 @@ build_libretro_databases() {
 	build_libretro_database "Sinclair - ZX Spectrum" "rom.crc"
 	build_libretro_database "Sinclair - ZX Spectrum +3" "rom.crc"
 	build_libretro_database "Sinclair - ZX 81" "rom.crc"
+ 	build_libretro_database "SNK - Neo Geo" "rom.crc"
 	build_libretro_database "SNK - Neo Geo CD" "rom.crc"
 	build_libretro_database "SNK - Neo Geo Pocket" "rom.crc"
 	build_libretro_database "SNK - Neo Geo Pocket Color" "rom.crc"
