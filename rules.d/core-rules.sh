@@ -1629,6 +1629,16 @@ libretro_gam4980_git_url="https://codeberg.org/iyzsong/gam4980.git"
 libretro_gam4980_build_rule="cmake"
 libretro_gam4980_build_args="-DCMAKE_BUILD_TYPE=Release"
 
+include_core_syobonaction() {
+	register_module core "syobonaction"
+}
+libretro_syobonaction_name="SyobonAction"
+libretro_syobonaction_git_url="https://github.com/iyzsong/syobonaction-libretro.git"
+libretro_syobonaction_git_submodules="yes"
+libretro_syobonaction_post_fetch_cmd="./update-deps.sh"
+libretro_syobonaction_build_rule="cmake"
+libretro_syobonaction_build_args="-DCMAKE_BUILD_TYPE=Release"
+
 include_core_emuscv() {
 	register_module core "emuscv"
 }
