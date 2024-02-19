@@ -1611,6 +1611,7 @@ include_core_puzzlescript() {
 }
 libretro_puzzlescript_name="PuzzleScript"
 libretro_puzzlescript_git_url="https://github.com/nwhitehead/pzretro.git"
+libretro_puzzlescript_git_submodules="yes"
 
 include_core_anarch() {
 	register_module core "anarch"
