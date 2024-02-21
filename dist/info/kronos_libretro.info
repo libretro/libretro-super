@@ -6,7 +6,7 @@ corename = "Kronos"
 categories = "Emulator"
 license = "GPLv2"
 permissions = ""
-display_version = "v2.3.1"
+display_version = "v2.6.0"
 
 # Hardware Information
 manufacturer = "Sega"
