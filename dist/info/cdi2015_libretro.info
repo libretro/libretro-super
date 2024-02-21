@@ -21,7 +21,7 @@ firmware0_opt = "false"
 
 # Libretro Features
 supports_no_game = "false"
-database = ""
+database = "Philips - CD-i"
 savestate = "false"
 savestate_features = "null"
 cheats = "false"

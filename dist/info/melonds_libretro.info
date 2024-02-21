@@ -1,6 +1,6 @@
 display_name = "Nintendo - DS (melonDS)"
 authors = "Arisotura"
-supported_extensions = "nds|dsi"
+supported_extensions = "nds|ids|dsi"
 corename = "melonDS"
 manufacturer = "Nintendo"
 categories = "Emulator"

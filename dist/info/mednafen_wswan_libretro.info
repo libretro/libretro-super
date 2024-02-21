@@ -1,7 +1,7 @@
 # Software Information
 display_name = "Bandai - WonderSwan/Color (Beetle Cygne)"
 authors = "Dox|Mednafen Team"
-supported_extensions = "ws|wsc|pc2"
+supported_extensions = "ws|wsc|pc2|pcv2"
 corename = "Beetle WonderSwan"
 license = "GPLv2"
 permissions = ""

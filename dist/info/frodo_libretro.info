@@ -1,7 +1,7 @@
 # Software Information
 display_name = "Commodore - C64 (Frodo)"
 authors = "Frodo Team Members"
-supported_extensions = "d64|t64|x64|p00|lnx|zip"
+supported_extensions = "d64|t64|x64|p00|lnx|lyx|zip"
 corename = "Frodo"
 license = "GPLv2"
 permissions = ""

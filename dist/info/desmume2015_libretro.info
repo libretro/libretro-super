@@ -1,7 +1,7 @@
 # Software Information
 display_name = "Nintendo - DS (DeSmuME 2015)"
 authors = "YopYop156|Zeromus"
-supported_extensions = "nds|bin"
+supported_extensions = "nds|ids|bin"
 corename = "DeSmuME 2015"
 license = "GPLv2"
 permissions = ""

@@ -1,7 +1,7 @@
 # Software Information
 display_name = "Atari - ST/STE/TT/Falcon (Hatari)"
 authors = "Nicolas Pomarède"
-supported_extensions = "st|msa|zip|stx|dim|ipf|m3u"
+supported_extensions = "st|msa|zip|stx|dim|ipf|vhd|gem|ide|m3u"
 corename = "Hatari"
 license = "GPLv2"
 permissions = ""
@@ -14,6 +14,7 @@ systemname = "Atari ST/STE/TT/Falcon"
 systemid = "atari_st"
 
 # Libretro Features
+database = "Atari - ST"
 supports_no_game = "false"
 savestate = "true"
 savestate_features = "serialized"

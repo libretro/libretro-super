@@ -15,6 +15,7 @@ systemname = "Amiga"
 systemid = "commodore_amiga"
 
 # Libretro Features
+database = "Commodore - Amiga|Commodore - CD32|Commodore - CDTV"
 supports_no_game = "false"
 savestate = "true"
 savestate_features = "serialized"

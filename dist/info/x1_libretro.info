@@ -3,18 +3,18 @@ display_name = "Sharp X1 (X Millennium)"
 authors = "yui"
 supported_extensions = "dx1|zip|2d|2hd|tfd|d88|88d|hdm|xdf|dup|tap|cmd"
 corename = "x1"
-categories = "Computer"
+categories = "Sharp"
 license = "BSD"
 permissions = ""
 display_version = "0.60"
 
 # Hardware Information
-manufacturer = "Commodore"
+manufacturer = "Sharp"
 systemname = "Sharp X1"
 systemid = "sharp_x1"
 
 # Libretro Features
-database = "Sharp X1"
+database = "Sharp - X1"
 supports_no_game = "false"
 
 # BIOS / Firmware
