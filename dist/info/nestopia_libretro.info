@@ -16,7 +16,7 @@ systemid = "nes"
 # Libretro Features
 supports_no_game = "false"
 savestate = "true"
-savestate_features = "deterministic"
+savestate_features = "serialized"
 cheats = "true"
 input_descriptors = "true"
 memory_descriptors = "true"
@@ -33,7 +33,8 @@ database = "Nintendo - Nintendo Entertainment System|Nintendo - Family Computer 
 firmware_count = 1
 firmware0_desc = "disksys.rom (Family Computer Disk System BIOS)"
 firmware0_path = "disksys.rom"
+firmware0_md5 = "ca30b50f880eb660a320674ed365ef7a"
 firmware0_opt = "true"
-notes = "(!) disksys.rom (md5): ca30b50f880eb660a320674ed365ef7a|Press Retropad L1 to switch disk side."
+notes = "Press Retropad L1 to switch disk side."
 
 description = "Nestopia is based on the most up-to-date code from the Nestopia-Undead emulator. This core strikes a good balance between performance and accuracy, with support for a wide variety of games and mappers. In general, this core is a good choice for most users on desktop and mobile platforms."

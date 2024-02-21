@@ -44,11 +44,14 @@
 # firmware0_desc = "filename (Description)" ex: firmware0_desc = "bios.gg (GameGear BIOS)"
 # Firmware path
 # firmware0_path = "filename.ext"  ex: firmware0_path = "bios.gg"
+# Firmware hash
+# firmware0_md5 = "ffffffffffffffffffffffffffffffff"
+# firmware0_sha1 = "ffffffffffffffffffffffffffffffffffffffff"
 # Is firmware optional or not, if not defined RetroArch will assume it is required
 # firmware0_opt = "true/false"
 
 # Additional notes:
-# notes = "(!) hash|(!) game rom|(^) continue|[1] notes|[^] continue|[*] list"
+# notes = "(!) game rom|(^) continue|[1] notes|[^] continue|[*] list"
 
 # Libretro Features - The libretro API features the core supports. Useful for sorting cores
 # Does the core support savestates
