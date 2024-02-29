@@ -48,7 +48,4 @@ firmware0_desc = "squirreljme.sqc (SquirrelJME ROM)"
 firmware0_path = "squirreljme.sqc"
 firmware0_opt = "true"
 
-# Additional notes:
-#notes = "(!) hash|(!) game rom|(^) continue|[1] notes|[^] continue|[*] list"
-
 description = "A port of the SquirrelJME Java ME 8 Virtual Machine emulator to libretro. Intended to be small, fast and maintain high compatibility, the core also supports older J2ME software and games designed for flip-phones."

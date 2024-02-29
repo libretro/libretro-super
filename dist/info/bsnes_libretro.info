@@ -69,13 +69,17 @@ firmware16_opt = "true"
 firmware17_desc = "SGB1.sfc (SGB Boot Image)"
 firmware17_path = "SGB1.sfc"
 firmware17_opt = "true"
+firmware17_md5 = "b15ddb15721c657d82c5bab6db982ee9"
 firmware18_desc = "SGB2.sfc (SGB Boot Image)"
 firmware18_path = "SGB2.sfc"
 firmware18_opt = "true"
+firmware18_md5 = "8ecd73eb4edf7ed7e81aef1be80031d5"
 firmware19_desc = "BS-X.bin (BS-X - Sore wa Namae o Nusumareta Machi no Monogatari (Japan) (Rev 1))"
 firmware19_path = "BS-X.bin"
 firmware19_opt = "true"
-notes = "[1] bsnes uses split ROMS for special chip games.|[*] Notable DSP1/DSP1B Games: Super Mario Kart,  Pilotwings|[*] Notable DSP2 Games: Dungeon Master|[*] Notable DSP3 Games: SD Gundam GX|[*] Notable DSP4 Games: Top Gear 3000|[*] Notable Cx4 Games: Mega Man X2,  Mega Man X3|[2] SGB Emulation needs No-Intro Super Game Boy ROMs renamed to SGB1.sfc or SGB2.sfc|(!) SGB1.sfc (md5): b15ddb15721c657d82c5bab6db982ee9|(!) SGB2.sfc (md5): 8ecd73eb4edf7ed7e81aef1be80031d5|[3] To start BS-X games from the RPG-like interface, go back into the house and select the 1st option.|(!) BS-X.bin (md5): fed4d8242cfbed61343d53d48432aced"
+firmware19_md5 = "fed4d8242cfbed61343d53d48432aced"
+
+notes = "[1] bsnes uses split ROMS for special chip games.|[*] Notable DSP1/DSP1B Games: Super Mario Kart,  Pilotwings|[*] Notable DSP2 Games: Dungeon Master|[*] Notable DSP3 Games: SD Gundam GX|[*] Notable DSP4 Games: Top Gear 3000|[*] Notable Cx4 Games: Mega Man X2,  Mega Man X3|[2] SGB Emulation needs No-Intro Super Game Boy ROMs renamed to SGB1.sfc or SGB2.sfc|[3] To start BS-X games from the RPG-like interface, go back into the house and select the 1st option.
 
 # Libretro Features
 savestate = "true"

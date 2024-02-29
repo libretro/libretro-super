@@ -4,9 +4,11 @@ categories = "Emulator"
 authors = "MAMEdev"
 corename = "MAME"
 supported_extensions = "zip|chd|7z|cmd"
+corename = "MAME (Git)"
 license = "GPLv2+"
 permissions = ""
 display_version = "Git"
+categories = "Emulator"
 
 # Hardware Information
 manufacturer = "Various"

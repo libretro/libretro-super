@@ -33,7 +33,7 @@ is_experimental = "false"
 firmware_count = 1
 firmware0_desc = "bios.min (Pokemon Mini BIOS)"
 firmware0_path = "bios.min"
+firmware0_md5 = "1e4fb124a3a886865acb574f388c803d"
 firmware0_opt = "true"
-notes = "Suggested md5sum:|1e4fb124a3a886865acb574f388c803d = bios.min"
 
 description = "A port of the homebrew PokeMini emulator, which emulates the Pokemon-Mini handheld console, to libretro."

@@ -21,7 +21,7 @@ supports_no_game = "false"
 firmware_count = 1
 firmware0_desc = "gba_bios.bin (Game Boy Advance BIOS)"
 firmware0_path = "gba_bios.bin"
+firmware0_md5 = "a860e8c0b6d573d191e4ec7db1b1e4f6"
 firmware0_opt = "false"
-notes = "(!) gba_bios.bin (md5): a860e8c0b6d573d191e4ec7db1b1e4f6"
 
 description = "A fork of the PSP-specific TempGBA emulator for the Game Boy Advance console, ported to libretro. This core is only intended for use on Playstation Portable hardware, and, as a device-optimized fork of gpSP, it is intended to provide a better, more playable experience for GBA games on this low-powered device. Anyone using any other device should stick with the regular gpSP core or--even better--a more accurate core, such as mGBA."
