@@ -1644,7 +1644,7 @@ include_core_emuscv() {
 	register_module core "emuscv"
 }
 libretro_emuscv_name="EmuSCV"
-libretro_emuscv_git_url="https://github.com/wzcwzc/emuscv.git"
+libretro_emuscv_git_url="https://gitlab.com/MaaaX-EmuSCV/libretro-emuscv"
 
 include_core_ardens() {
 	register_module core "ardens"
@@ -1725,6 +1725,13 @@ libretro_wasm4_build_rule="cmake"
 libretro_wasm4_build_args="-DCMAKE_BUILD_TYPE=Release -DLIBRETRO=ON -DCMAKE_POSITION_INDEPENDENT_CODE=TRUE"
 libretro_wasm4_build_subdir="runtimes/native"
 libretro_wasm4_git_submodules="yes"
+
+include_core_geolith() {
+	register_module core "geolith"
+}
+libretro_geolith_name="Geolith"
+libretro_geolith_git_url="https://github.com/libretro/geolith-libretro.git"
+libretro_geolith_build_subdir="libretro"
 
 # CORE RULE VARIABLES
 #
