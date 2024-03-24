@@ -618,6 +618,14 @@ libretro_melonds_name="melonDS"
 libretro_melonds_git_url="https://github.com/libretro/melonDS.git"
 libretro_melonds_build_makefile="Makefile"
 
+include_core_melondsds() {
+register_module core "melondsds"
+}
+libretro_melondsds_name="melonDS DS"
+libretro_melondsds_git_url="https://github.com/JesseTG/melonds-ds"
+libretro_melondsds_build_rule="cmake"
+libretro_melondsds_build_extradir="src/libretro/"
+
 include_core_openlara() {
 register_module core "openlara" -ngc -ps3 -psp1 -qnx -wii
 }
