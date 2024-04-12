@@ -31,9 +31,9 @@ database = "Vircon32"
 
 # BIOS / Firmware
 firmware_count = 1
-firmware0_desc = "StandardBios.v32 (Vircon32 BIOS 1.1)"
-firmware0_path = "StandardBios.v32"
-firmware0_opt = "false"
-notes = "(!) StandardBios.v32 (md5): 1ad96946bce7bd0422b7d9340735b248 | (!) Check https://github.com/vircon32/ConsoleSoftware/releases/tag/bios-v1.1 | (!) Homepage: http://www.vircon32.com/"
+firmware0_desc = "Vircon32Bios.v32 (alternative BIOS file)"
+firmware0_path = "Vircon32Bios.v32"
+firmware0_opt = "true"
+notes = "Optional alternative BIOS file|Vircon32 Standard BIOS is embedded in the core"
 
 description = "Vircon32 is a virtual game console, inspired by classic 16 & 32 bit systems as well as the arcade era."
