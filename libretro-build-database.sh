@@ -285,6 +285,7 @@ build_libretro_databases() {
 	build_libretro_database "Dinothawr" "rom.crc"
 	build_libretro_database "Emerson - Arcadia 2001" "rom.crc"
 	build_libretro_database "Entex - Adventure Vision" "rom.crc"
+	build_libretro_database "Enterprise - 128" "rom.crc"
 	build_libretro_database "Epoch - Super Cassette Vision" "rom.crc"
 	build_libretro_database "Fairchild - Channel F" "rom.crc"
 	build_libretro_database "Funtech - Super Acan" "rom.crc"
