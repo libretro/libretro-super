@@ -10,12 +10,12 @@ categories = "Emulator"
 
 # Hardware Information
 manufacturer = "Lexaloffle"
-systemname = "PICO8"
+systemname = "PICO-8"
 systemid = "pico8"
 
 # Libretro Features
+database = "PICO-8"
 supports_no_game = "false"
-database = "PICO8"
 savestate = "false"
 
 description = "A port of the Retro8 open-source reimplementation of the PICO-8 fantasy console to libretro. This core can load both p8 'cart' files and embedded png images, and much of the PICO-8 API is working with good performance, including basic sound and music, though it is still missing some obscure Lua extension quirks and fixed arithmetic support."
