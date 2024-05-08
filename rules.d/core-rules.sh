@@ -1741,6 +1741,23 @@ libretro_geolith_name="Geolith"
 libretro_geolith_git_url="https://github.com/libretro/geolith-libretro.git"
 libretro_geolith_build_subdir="libretro"
 
+include_core_m2000() {
+	register_module core "m2000"
+}
+libretro_m2000_name="M2000"
+libretro_m2000_git_url="https://github.com/p2000t/M2000.git"
+libretro_m2000_build_subdir="src/libretro"
+
+include_core_applewin() {
+	register_module core "applewin"
+}
+libretro_applewin_name="AppleWin"
+libretro_applewin_git_url="https://github.com/audetto/AppleWin.git"
+libretro_applewin_git_submodules="yes"
+libretro_applewin_build_rule="cmake"
+libretro_applewin_build_args="-DBUILD_LIBRETRO=ON"
+
+
 # CORE RULE VARIABLES
 #
 # All variables follow the format of libretro_<core>_<setting> where <core> is
