@@ -6,7 +6,7 @@ corename = "ChaiLove"
 categories = "Game engine"
 license = "MIT"
 permissions = ""
-display_version = "1.2.1"
+display_version = "1.3.0"
 
 # Hardware Information
 manufacturer = "N/A"
@@ -30,4 +30,4 @@ needs_fullpath = "true"
 disk_control = "false"
 is_experimental = "false"
 
-description = "A free, open-source framework used to make 2D games in ChaiScript, ported to libretro. The ChaiLove API is roughly inspired by the LOVE API, and a number of simple 2D games are already available for it."
+description = "A free, open-source framework used to make 2D games in ChaiScript and libretro. The ChaiLove API is roughly inspired by the LOVE API, and a number of simple 2D games are already available for it."
