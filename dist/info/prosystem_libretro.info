@@ -33,7 +33,7 @@ is_experimental = "false"
 firmware_count = 1
 firmware0_desc = "7800 BIOS (U).rom (7800 BIOS)"
 firmware0_path = "7800 BIOS (U).rom"
+firmware0_md5 = "0763f1ffb006ddbe32e52d497ee848ae"
 firmware0_opt = "true"
-notes = "(!) 7800 BIOS (U).rom (md5): 0763f1ffb006ddbe32e52d497ee848ae"
 
 description = "A port of the ProSystem Atari 7800 emulator to libretro."

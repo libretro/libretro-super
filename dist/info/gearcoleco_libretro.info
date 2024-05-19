@@ -21,5 +21,5 @@ supports_no_game = "false"
 firmware_count = 1
 firmware0_desc = "colecovision.rom (ColecoVision BIOS)"
 firmware0_path = "colecovision.rom"
+firmware0_md5 = "2c66f5911e5b42b8ebe113403548eee7"
 firmware0_opt = "false"
-notes = "(!) colecovision.rom (md5): 2c66f5911e5b42b8ebe113403548eee7"

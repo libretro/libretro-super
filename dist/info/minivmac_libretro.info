@@ -23,8 +23,7 @@ firmware_count = 1
 
 firmware0_desc = "MacII.ROM"
 firmware0_path = "MacII.ROM"
+firmware0_md5 = "66223be1497460f1e60885eeb35e03cc"
 firmware0_opt = "false"
-
-notes = "(!) MacII.ROM (md5): 66223be1497460f1e60885eeb35e03cc"
 
 description = "MacII variant of minivmac emulator"

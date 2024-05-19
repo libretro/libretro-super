@@ -21,7 +21,7 @@ supports_no_game = "false"
 firmware_count = 1
 firmware0_desc = "pcfx.rom (PC-FX BIOS v1.00 - 2 Sep 1994)"
 firmware0_path = "pcfx.rom"
+firmware0_md5 = "08e36edbea28a017f79f8d4f7ff9b6d7"
 firmware0_opt = "false"
-notes = "(!) pcfx.rom (md5): 08e36edbea28a017f79f8d4f7ff9b6d7"
 
 description = "A fork of Mednafen's PC-FX emulation core, ported to libretro."

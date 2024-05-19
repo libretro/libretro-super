@@ -19,15 +19,14 @@ supports_no_game = "false"
 
 # BIOS / Firmware
 firmware_count = 2
-
 firmware0_desc = "xmil/IPLROM.X1 (Sharp X1 IPL ROM)"
 firmware0_path = "xmil/IPLROM.X1"
 firmware0_opt = "true"
+firmware0_md5 = "eeea1cd29c6e0e8b094790ae969bfa7"
 
 firmware1_desc = "xmil/IPLROM.X1T (Sharp X1 8x8 Font ROM)"
 firmware1_path = "xmil/IPLROM.X1T"
 firmware1_opt = "true"
-
-notes = "(!) xmil/IPLROM.X1 (md5): eeeea1cd29c6e0e8b094790ae969bfa7|(!) xmil/IPLROM.X1T (md5): 851e4a5936f17d13f8c39a980cf00d77"
+firmware1_md5 = "851e4a5936f17d13f8c39a980cf00d77"
 
 description = "A port of the X Millennium Sharp X1 emulator to libretro. IPLROM BIOS images are expected in a subdirectory of 'system' named 'xmil'. Opening disk images from the GUI does not currently work."
