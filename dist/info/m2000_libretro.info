@@ -5,7 +5,7 @@ supported_extensions = "cas|p2000t"
 corename = "M2000"
 license = "GPLv3"
 permissions = ""
-display_version = "0.9.1"
+display_version = "0.9.2"
 categories = "Emulator"
 
 # Hardware Information
