@@ -1,0 +1,24 @@
+# Software Information
+display_name = "CPyMO"
+display_version = "1.1.9"
+authors = "Seng Jik"
+categories = "Game engine"
+license = "AGPLv3+"
+permissions = ""
+supported_extensions = "txt"
+
+# Hardware Information
+manufacturer = "Strrationalism"
+systemname = "CPyMO"
+systemid = "cpymo"
+
+# Libretro Features
+supports_no_game = "false"
+savestate = "false"
+libretro_saves = "false"
+cheats = "false"
+needs_fullpath = "true"
+disk_control = "false"
+notes = "(!) CPyMO requires a font file 'default.ttf' or 'default.otf' to be inside the 'SYSTEMDIR\cpymo' directory."
+
+description = "A port of the CPyMO visual novel games engine to libretro."

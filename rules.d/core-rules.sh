@@ -1648,6 +1648,16 @@ libretro_syobonaction_post_fetch_cmd="./update-deps.sh"
 libretro_syobonaction_build_rule="cmake"
 libretro_syobonaction_build_args="-DCMAKE_BUILD_TYPE=Release"
 
+include_core_cpymo() {
+        register_module core "cpymo"
+}
+libretro_cpymo_name="CPYMO"
+libretro_cpymo_git_url="https://github.com/Strrationalism/CPyMO.git"
+libretro_cpymo_git_submodules="yes"
+libretro_cpymo_build_subdir="cpymo-backends/libretro"
+libretro_cpymo_build_rule="cmake"
+libretro_cpymo_build_args="-DCMAKE_BUILD_TYPE=Release"
+
 include_core_emuscv() {
 	register_module core "emuscv"
 }
