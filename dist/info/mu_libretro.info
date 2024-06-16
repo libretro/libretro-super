@@ -5,7 +5,7 @@ supported_extensions = "prc|pqa|img|pdb|zip"
 corename = "Mu"
 license = "CC BY-NC 3.0 US (Non-commercial)"
 permissions = ""
-display_version = "v1.3.0"
+display_version = "v1.3.2"
 categories = "Emulator"
 
 # Hardware Information
