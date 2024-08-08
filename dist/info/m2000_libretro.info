@@ -1,7 +1,7 @@
 # Core Information
 display_name = "Philips - P2000T (M2000)"
 authors = "Dion Olsthoorn|Marcel de Kogel"
-supported_extensions = "cas|p2000t"
+supported_extensions = "cas"
 corename = "M2000"
 license = "GPLv3"
 permissions = ""
