@@ -5,7 +5,7 @@ supported_extensions = "v32|V32"
 corename = "Vircon32"
 license = "3-clause BSD"
 permissions = ""
-display_version = "2024.04.14"
+display_version = "2024.08.28"
 categories = "Game engine"
 
 # Hardware Information
@@ -14,7 +14,8 @@ systemid = "vircon32"
 
 # Libretro Features
 supports_no_game = "true"
-savestate = "false"
+savestate = "true"
+savestate_features = "deterministic"
 cheats = "false"
 input_descriptors = "false"
 memory_descriptors = "false"
