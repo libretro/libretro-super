@@ -1,12 +1,12 @@
 # Software Information
 display_name = "Arcade (MAME)"
+categories = "Emulator"
 authors = "MAMEdev"
 supported_extensions = "zip|chd|7z|cmd"
 corename = "MAME (Git)"
 license = "GPLv2+"
 permissions = ""
 display_version = "Git"
-categories = "Emulator"
 
 # Hardware Information
 manufacturer = "Various"
@@ -16,8 +16,8 @@ systemid = "mame"
 # Libretro Features
 supports_no_game = "false"
 database = "MAME"
-savestate = "false"
-savestate_features = "null"
+savestate = "true"
+savestate_features = "deterministic"
 cheats = "false"
 input_descriptors = "false"
 memory_descriptors = "false"

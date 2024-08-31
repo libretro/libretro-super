@@ -1,12 +1,12 @@
 # Software Information
 display_name = "Multi (MESS)"
+categories = "Emulator"
 authors = "MAMEdev"
 supported_extensions = "zip|chd|7z|cmd"
 corename = "MESS (Git)"
 license = "GPLv2+"
 permissions = ""
 display_version = "Git"
-categories = "Emulator"
 
 # Hardware Information
 manufacturer = "Various"
