@@ -16,7 +16,7 @@ systemid = "sharp_x68000"
 # Libretro Features
 supports_no_game = "true"
 database = "Sharp - X68000"
-savestate = "false"
+savestate = "true"
 cheats = "false"
 input_descriptors = "true"
 memory_descriptors = "false"
