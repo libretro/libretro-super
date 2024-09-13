@@ -6,7 +6,7 @@ corename = "VICE x128"
 supported_extensions = "d64|d71|d80|d81|d82|g64|g41|x64|t64|tap|prg|p00|crt|bin|zip|gz|d6z|d7z|d8z|g6z|g4z|x6z|cmd|m3u|vfl|vsf|nib|nbz|d2m|d4m"
 license = "GPLv2"
 permissions = ""
-display_version = "3.7"
+display_version = "3.8"
 
 # Hardware Information
 manufacturer = "Commodore"
