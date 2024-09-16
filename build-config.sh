@@ -308,6 +308,7 @@ include_core_theodore
 include_core_vaporspec
 include_core_bk
 include_core_sameduck
+include_core_tamalibretro
 
 # -------------------------------------------------------------------------------------------------
 # Devkits
