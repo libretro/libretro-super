@@ -1519,6 +1519,14 @@ libretro_quasi88_name="QUASI88"
 libretro_quasi88_git_url="https://github.com/libretro/quasi88-libretro.git"
 libretro_quasi88_build_makefile="Makefile"
 
+include_core_tamalibretro() {
+	register_module core "tamalibretro"
+}
+libretro_tamalibretro_name="TamaLIBretro"
+libretro_tamalibretro_git_url="https://github.com/celerizer/tamalibretro.git"
+libretro_tamalibretro_git_submodules="yes"
+libretro_tamalibretro_build_makefile="Makefile"
+
 include_core_ep128emu_core() {
 	register_module core "ep128emu_core"
 }
