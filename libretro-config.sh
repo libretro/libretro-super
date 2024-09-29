@@ -528,8 +528,8 @@ case "$platform" in
 		FORMAT_COMPILER_TARGET=ps2
 		FORMAT_COMPILER_TARGET_ALT=ps2
 
-		CC="ee-gcc${BINARY_EXT}"
-		CXX="ee-g++${BINARY_EXT}"
+		CC="mips64r5900el-ps2-elf-gcc${BINARY_EXT}"
+		CXX="mips64r5900el-ps2-elf-g++${BINARY_EXT}"
 		;;
 
 	ctr)
