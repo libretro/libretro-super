@@ -605,6 +605,14 @@ libretro_stella_git_url="https://github.com/stella-emu/stella.git"
 libretro_stella_build_subdir="src/os/libretro"
 libretro_stella_build_makefile="Makefile"
 
+include_core_stella2023() {
+	register_module core "stella2023" -ngc -wii
+}
+libretro_stella2023_name="Stella 2023"
+libretro_stella2023_git_url="https://github.com/libretro/stella2023.git"
+libretro_stella2023_build_subdir="src/os/libretro"
+libretro_stella2023_build_makefile="Makefile"
+
 include_core_stella2014() {
 	register_module core "stella2014" -ngc -wii
 }
