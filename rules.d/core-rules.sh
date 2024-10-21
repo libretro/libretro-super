@@ -1773,6 +1773,15 @@ libretro_applewin_git_submodules="yes"
 libretro_applewin_build_rule="cmake"
 libretro_applewin_build_args="-DBUILD_LIBRETRO=ON"
 
+include_core_panda3ds() {
+	register_module core "panda3ds"
+}
+libretro_panda3ds_name="Panda3DS"
+libretro_panda3ds_git_url="https://github.com/wheremyfoodat/Panda3DS.git"
+libretro_panda3ds_git_submodules="yes"
+libretro_panda3ds_build_rule="cmake"
+libretro_panda3ds_build_args="-DBUILD_LIBRETRO_CORE=ON -DENABLE_USER_BUILD=ON -DENABLE_VULKAN=OFF -DENABLE_LUAJIT=OFF -DENABLE_DISCORD_RPC=OFF"
+
 
 # CORE RULE VARIABLES
 #
