@@ -1,7 +1,7 @@
 # Software Information
 display_name = "DOS (DOSBox-core)"
 authors = "DOSBox Team|radius|Nikos Chantziaras"
-supported_extensions = "exe|com|bat|conf|cue|iso"
+supported_extensions = "exe|com|bat|conf|cue|iso|img|/"
 corename = "DOSBox-core"
 categories = "Emulator"
 license = "GPLv2"
