@@ -1,7 +1,7 @@
 # Software Information
 display_name = "DOS (DOSBox-SVN)"
 authors = "DOSBox Team|radius"
-supported_extensions = "exe|com|bat|conf|cue|iso"
+supported_extensions = "exe|com|bat|conf|cue|iso|img|/"
 corename = "DOSBox-SVN"
 categories = "Emulator"
 license = "GPLv2"
