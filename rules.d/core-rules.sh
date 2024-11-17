@@ -1782,6 +1782,19 @@ libretro_panda3ds_git_submodules="yes"
 libretro_panda3ds_build_rule="cmake"
 libretro_panda3ds_build_args="-DBUILD_LIBRETRO_CORE=ON -DENABLE_USER_BUILD=ON -DENABLE_VULKAN=OFF -DENABLE_LUAJIT=OFF -DENABLE_DISCORD_RPC=OFF"
 
+include_core_b2() {
+	register_module core "b2"
+}
+libretro_b2_name="b2"
+libretro_b2_git_url="https://github.com/zoltanvb/b2-libretro.git"
+libretro_b2_build_subdir="src/libretro"
+
+include_core_noods() {
+	register_module core "noods"
+}
+libretro_noods_name="noods"
+libretro_noods_git_url="https://github.com/jonian/libretro-noods.git"
+libretro_noods_build_makefile="Makefile.libretro"
 
 # CORE RULE VARIABLES
 #
