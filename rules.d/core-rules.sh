@@ -1796,6 +1796,13 @@ libretro_noods_name="noods"
 libretro_noods_git_url="https://github.com/jonian/libretro-noods.git"
 libretro_noods_build_makefile="Makefile.libretro"
 
+include_core_vidtest() {
+	register_module core "vidtest"
+}
+libretro_vidtest_name="vidtest"
+libretro_vidtest_git_url="https://github.com/schellingb/vidtest_libretro.git"
+
+
 # CORE RULE VARIABLES
 #
 # All variables follow the format of libretro_<core>_<setting> where <core> is
