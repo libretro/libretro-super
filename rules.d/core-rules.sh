@@ -1622,6 +1622,16 @@ libretro_onscripter_post_fetch_cmd="./update-deps.sh"
 libretro_onscripter_build_rule="cmake"
 libretro_onscripter_build_args="-DCMAKE_BUILD_TYPE=Release"
 
+include_core_onsyuri() {
+	register_module core "onsyuri"
+}
+libretro_onsyuri_name="ONScripterYuri"
+libretro_onsyuri_git_url="https://github.com/YuriSizuku/OnscripterYuri.git"
+libretro_onsyuri_git_submodules="yes"
+libretro_onsyuri_build_subdir="src/onsyuri_libretro"
+libretro_onsyuri_build_rule="cmake"
+libretro_onsyuri_build_args="-DCMAKE_BUILD_TYPE=Release"
+
 include_core_virtualxt() {
 	register_module core "virtualxt"
 }
