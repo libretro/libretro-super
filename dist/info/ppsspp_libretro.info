@@ -35,6 +35,6 @@ firmware_count = 1
 firmware0_desc = "ppge_atlas.zim (PPSSPP Data ROM)"
 firmware0_path = "PPSSPP/ppge_atlas.zim"
 firmware0_opt = "false"
-notes = "(!) ppge_atlas.zim (md5): a93fc411c1ce7d001a2a812643c70085|(!) PPSSPP requires the asset files, lang folder, and flash0 folder inside the 'system\PPSSPP' directory.|(!) Check https://docs.libretro.com/library/ppsspp/#bios to find out how to get the assets files."
+notes = "(!) ppge_atlas.zim (md5): 866855cc330b9b95cc69135fb7b41d38|(!) PPSSPP requires the asset files, lang folder, and flash0 folder inside the 'system\PPSSPP' directory.|(!) Check https://docs.libretro.com/library/ppsspp/#bios to find out how to get the assets files."
 
 description = "A port of the excellent and advanced Playstation Portable (PSP) emulator PPSSPP to libretro. This core runs very fast and is usable on every very modest hardware, while still supporting many advanced features and APIs to provide increased resolution, texture filtering, etc. Aside from the normal libretro frontend features, this core also supports its own native cheats and high-res texture packs by placing them in the core's directory structure that gets created in the frontend's 'saves' directory."
