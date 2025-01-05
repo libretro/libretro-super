@@ -1632,6 +1632,16 @@ libretro_onsyuri_build_subdir="src/onsyuri_libretro"
 libretro_onsyuri_build_rule="cmake"
 libretro_onsyuri_build_args="-DCMAKE_BUILD_TYPE=Release"
 
+include_core_sdlpal() {
+	register_module core "sdlpal"
+}
+libretro_sdlpal_name="SDLPAL"
+libretro_sdlpal_git_url="https://github.com/sdlpal/sdlpal.git"
+libretro_sdlpal_git_submodules="yes"
+libretro_sdlpal_post_fetch_cmd="pushd 3rd/SDL; git checkout -f v1.2.15; popd"
+libretro_sdlpal_build_subdir="libretro"
+libretro_sdlpal_build_rule="cmake"
+
 include_core_virtualxt() {
 	register_module core "virtualxt"
 }
