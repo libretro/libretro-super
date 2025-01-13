@@ -2,6 +2,7 @@
 3dengine libretro-3dengine https://github.com/libretro/libretro-3dengine.git master YES GENERIC Makefile .
 bluemsx libretro-bluemsx https://github.com/libretro/blueMSX-libretro.git master YES GENERIC Makefile.libretro .
 craft libretro-craft https://github.com/libretro/craft master YES GENERIC Makefile.libretro .
+dice libretro-dice https://github.com/mittonk/dice-libretro.git main YES GENERIC Makefile .
 doublecherrygb libretro-doublecherrygb https://github.com/TimOelrichs/doublecherryGB-libretro.git master YES GENERIC Makefile .
 fceumm libretro-fceumm https://github.com/libretro/libretro-fceumm.git master YES GENERIC Makefile.libretro .
 fmsx libretro-fmsx https://github.com/libretro/fmsx-libretro.git master YES GENERIC Makefile .

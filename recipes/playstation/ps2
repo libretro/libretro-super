@@ -1,5 +1,6 @@
 2048 libretro-2048 https://github.com/libretro/libretro-2048.git master YES GENERIC Makefile.libretro .
 quicknes libretro-quicknes https://github.com/libretro/QuickNES_Core.git master YES GENERIC Makefile .
+dice libretro-dice https://github.com/mittonk/dice-libretro.git main YES GENERIC Makefile .
 fceumm libretro-fceumm https://github.com/libretro/libretro-fceumm.git master YES GENERIC Makefile.libretro .
 freeintv libretro-freeintv https://github.com/libretro/FreeIntv.git master YES GENERIC Makefile .
 handy libretro-handy https://github.com/libretro/libretro-handy.git master YES GENERIC Makefile .
