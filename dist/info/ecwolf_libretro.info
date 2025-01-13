@@ -14,7 +14,7 @@ permissions = ""
 firmware_count = 1
 firmware0_desc = "ecwolf.pk3 (ECWolf System File)"
 firmware0_path = "ecwolf.pk3"
-notes = "(!) ecwolf.pk3 (md5): d68107770b3ba230d10aa27472a7617b"
+notes = "(!) ecwolf.pk3 (md5): c011b428819eea4a80b455c245a5a04d"
 
 # Libretro Features
 supports_no_game = "false"
