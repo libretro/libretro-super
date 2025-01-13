@@ -8,6 +8,7 @@ bsnes_hd_beta libretro-bsnes_hd_beta https://github.com/DerKoun/bsnes-hd.git mas
 cannonball libretro-cannonball https://github.com/libretro/cannonball.git master YES GENERIC Makefile .
 cap32 libretro-cap32 https://github.com/libretro/libretro-cap32.git master YES GENERIC Makefile .
 crocods libretro-crocods https://github.com/libretro/libretro-crocods.git master YES GENERIC Makefile .
+dice libretro-dice https://github.com/mittonk/dice-libretro.git main YES GENERIC Makefile .
 dosbox_core libretro-dosbox_core https://github.com/libretro/dosbox-core.git libretro YES GENERIC Makefile.libretro libretro CMAKE_GENERATOR="Unix Makefiles"
 dosbox_svn libretro-dosbox_svn https://github.com/libretro/dosbox-svn.git libretro YES GENERIC Makefile.libretro libretro
 desmume libretro-desmume https://github.com/libretro/desmume.git master YES GENERIC Makefile.libretro desmume/src/frontend/libretro
