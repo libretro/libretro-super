@@ -1,6 +1,5 @@
 2048 libretro-2048 https://github.com/libretro/libretro-2048.git master YES GENERIC Makefile.libretro .
 bluemsx libretro-bluemsx https://github.com/libretro/blueMSX-libretro.git master YES GENERIC Makefile.libretro .
-dice libretro-dice https://github.com/mittonk/dice-libretro.git main YES GENERIC Makefile .
 doublecherrygb libretro-doublecherrygb https://github.com/TimOelrichs/doublecherryGB-libretro.git master YES GENERIC Makefile .
 fbalpha2012 libretro-fbalpha2012 https://github.com/libretro/fbalpha2012.git master YES GENERIC makefile.libretro svn-current/trunk
 fbalpha2012_cps1 libretro-fbalpha2012_cps1 https://github.com/libretro/fbalpha2012_cps1.git master YES GENERIC makefile.libretro .
