@@ -6,6 +6,7 @@ bluemsx libretro-bluemsx https://github.com/libretro/blueMSX-libretro.git master
 cannonball libretro-cannonball https://github.com/libretro/cannonball.git master YES GENERIC Makefile .
 cap32 libretro-cap32 https://github.com/libretro/libretro-cap32.git master YES GENERIC Makefile .
 crocods libretro-crocods https://github.com/libretro/libretro-crocods.git master YES GENERIC Makefile .
+dice libretro-dice https://github.com/mittonk/dice-libretro.git main YES GENERIC Makefile .
 dosbox_svn libretro-dosbox_svn https://github.com/libretro/dosbox-svn libretro YES GENERIC Makefile.libretro libretro
 ecwolf libretro-ecwolf https://github.com/libretro/ecwolf.git master YES GENERIC Makefile src/libretro
 fbalpha2012_cps1 libretro-fbalpha2012_cps1 https://github.com/libretro/fbalpha2012_cps1.git master YES GENERIC makefile.libretro .
