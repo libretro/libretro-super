@@ -1,7 +1,7 @@
 # Software Information
 display_name = "Nintendo - DS (melonDS DS)"
-display_version = "1.1.8"
-description = "A remake of the libretro melonDS core that prioritizes standalone parity, reliability, and usability. This core closely follows the feature set of standalone melonDS; it features OpenGL-accelerated upscaling, multiple screen layouts, and Wi-Fi emulation. Based on melonDS commit 824eb37."
+display_version = "1.2.0"
+description = "A remake of the libretro melonDS core that prioritizes standalone parity, reliability, and usability. This core closely follows the feature set of standalone melonDS; it features OpenGL-accelerated upscaling, multiple screen layouts, and Wi-Fi emulation. Based on melonDS commit f6692df."
 authors = "Jesse Talavera|The melonDS Team"
 categories = "Emulator"
 corename = "melonDS DS"
