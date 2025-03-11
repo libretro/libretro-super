@@ -14,18 +14,31 @@ fetch_git() {
 	if [ -d "$fetch_dir/.git" ]; then
 		echo_cmd "cd \"$fetch_dir\""
 		echo_cmd "git pull"
+		if [ $? -ne 0 ]; then
+			return 1
+		fi
 		if [ "$3" = "yes" ]; then
 			echo_cmd "git submodule foreach git pull origin master"
+			if [ $? -ne 0 ]; then
+				return 1
+			fi
 		fi
 	else
 		clone_type=
 		[ -n "$SHALLOW_CLONE" ] && depth="--depth 1 "
 		echo_cmd "git clone $depth\"$1\" \"$WORKDIR/$2\""
+		if [ $? -ne 0 ]; then
+			return 1
+		fi
 		if [[ "$3" = "yes" || "$3" = "clone" ]]; then
 			echo_cmd "cd \"$fetch_dir\""
 			echo_cmd "git submodule update --init --recursive"
+			if [ $? -ne 0 ]; then
+				return 1
+			fi
 		fi
 	fi
+	return $?
 }
 
 # fetch_revision_git: Output the hash of the last commit in a git repository
