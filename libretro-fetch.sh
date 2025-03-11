@@ -28,6 +28,30 @@ fi
 . "$BASE_DIR/rules.d/lutro-rules.sh"
 . "$BASE_DIR/build-config.sh"
 
+
+summary_fetch() {
+	# fmt is external and may not be available
+	fmt_output="$(find_tool "fmt")"
+	local num_success="$(numwords $fetch_success)"
+	local fmt_success="${fmt_output:+$(echo "	$fetch_success" | $fmt_output)}"
+	local num_fail="$(numwords $fetch_fail)"
+	local fmt_fail="${fmt_output:+$(echo "   $fetch_fail" | $fmt_output)}"
+
+	if [[ -z "$fetch_success" && -z "$fetch_fail" ]]; then
+		secho "No fetch actions performed."
+		return
+	fi
+
+	if [ -n "$fetch_success" ]; then
+		secho "$(color 32)$num_success core(s)$(color) successfully processed:"
+		secho "$fmt_success"
+	fi
+	if [ -n "$fetch_fail" ]; then
+		secho "$(color 31)$num_fail core(s)$(color) failed:"
+		secho "$fmt_fail"
+	fi
+}
+
 # libretro_fetch: Download the given core using its fetch rules
 #
 # $1	Name of the core to fetch
@@ -66,6 +90,10 @@ libretro_fetch() {
 			# TODO: Don't depend on fetch_rule being git
 			echo "Fetching ${1}..."
 			fetch_git "$git_url" "$module_dir" "$git_submodules"
+			if [ $? -ne 0 ]; then
+			  return 1
+			fi
+
 			;;
 	
 		*)
@@ -78,6 +106,9 @@ libretro_fetch() {
 	if [ -n "$post_fetch_cmd" ]; then
 		echo_cmd "cd \"$WORKDIR/$module_dir\""
 		echo_cmd "$post_fetch_cmd"
+		if [ $? -ne 0 ]; then
+			exit 1
+		fi
 	fi
 }
 
@@ -126,4 +157,10 @@ done
 
 for a in $fetch_cores; do
 	libretro_fetch "${a%%:*}"
+	if [ $? -eq 0 ]; then
+	    export fetch_success="$fetch_success$a "
+	else
+	    export fetch_fail="$fetch_fail$a "
+	fi
 done
+summary_fetch
