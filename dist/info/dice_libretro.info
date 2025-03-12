@@ -4,7 +4,7 @@ categories = "Emulator"
 authors = "DICE Team|Ken Mitton"
 corename = "DICE"
 # DMY are dummy launcher files for rom-less games.
-supported_extensions = "zip|dmy"
+supported_extensions = "zip|dmy|k1|a1|6c|c6|d2|s1|f4|a4|1da|da1|C4|4c|4d|d7|d4"
 license = "GPLv3"
 # permissions = ""
 display_version = "v0.1.0"
@@ -32,7 +32,7 @@ load_subsystem = "false"
 supports_no_game = "false"
 single_purpose = "false"
 # Name of the database that the core supports (optional):
-# database = "Arcade (DICE)"
+database = "DICE"
 needs_fullpath = "true"
 disk_control = "false"
 # Is the core currently suitable for general use? That is, will regular users find it useful or is it for development/testing only (subject to change over time)?
