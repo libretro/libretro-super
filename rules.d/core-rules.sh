@@ -1822,6 +1822,12 @@ include_core_vidtest() {
 libretro_vidtest_name="vidtest"
 libretro_vidtest_git_url="https://github.com/schellingb/vidtest_libretro.git"
 
+include_core_dice() {
+	register_module core "dice"
+}
+libretro_dice_name="dice"
+libretro_dice_git_url="https://github.com/mittonk/dice-libretro.git"
+
 
 # CORE RULE VARIABLES
 #
