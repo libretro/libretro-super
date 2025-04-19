@@ -7,7 +7,7 @@ corename = "DICE"
 supported_extensions = "zip|dmy|k1|a1|6c|c6|d2|s1|f4|a4|1da|da1|C4|4c|4d|d7|d4"
 license = "GPLv3"
 # permissions = ""
-display_version = "v0.3.0"
+display_version = "v0.4.0"
 
 # Hardware Information
 manufacturer = "Various"
