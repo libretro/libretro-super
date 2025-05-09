@@ -1,0 +1,22 @@
+# Software Information
+display_name = "NEC - PC Engine / SuperGrafx (Geargrafx)"
+authors = "Ignacio Sanchez"
+supported_extensions = "pce|sgx|bin|rom"
+corename = "Geargrafx"
+categories = "Emulator"
+license = "GPLv3"
+permissions = ""
+display_version = "1.4.0"
+
+# Hardware Information
+manufacturer = "NEC"
+systemname = "PC Engine/SuperGrafx"
+systemid = "pc_engine"
+
+# Libretro Features
+supports_no_game = "false"
+database = "NEC - PC Engine SuperGrafx|NEC - PC Engine - TurboGrafx 16"
+savestate = "true"
+savestate_features = "deterministic"
+
+description = "Libretro version of the accurate Geargrafx emulator. This core supports PC Engine, TurboGrafx and SuperGrafx consoles. It faithfully emulates all of the hardware and is an excellent choice for emulating these consoles on a modern system."
