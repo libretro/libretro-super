@@ -17,7 +17,7 @@ systemid = "dreamcast"
 database = "Sega - Dreamcast|Sega - Naomi|Sega - Naomi 2|Atomiswave"
 supports_no_game = "false"
 savestate = "true"
-savestate_features = "basic"
+savestate_features = "serialized"
 
 # BIOS / Firmware
 firmware_count = 8
