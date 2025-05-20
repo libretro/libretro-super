@@ -1,5 +1,5 @@
 # Software Information
-display_name = "Multi (MESS)"
+display_name = "Multi (MAME/MESS)"
 categories = "Emulator"
 authors = "MAMEdev"
 supported_extensions = "cmd|zip|7z"
