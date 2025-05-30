@@ -1,7 +1,7 @@
 # Software Information
 display_name = "Mega Duck / Cougar Boy (SameDuck)"
 authors = "LIJI32"
-supported_extensions = "bin"
+supported_extensions = "bin|duck"
 corename = "SameDuck"
 display_version = "git"
 categories = "Emulator"
