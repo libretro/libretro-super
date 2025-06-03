@@ -678,6 +678,19 @@ case "$platform" in
 		CXX11="clang++ -std=c++11 -stdlib=libc++ -miphoneos-version-min=5.0"
 
 		;;
+        webos)
+		DIST_DIR="webos"
+		FORMAT_EXT=so
+		FORMAT_COMPILER_TARGET=webos
+
+		# Makefile.libretro per core will need a webos section, but for now:
+		WEBOS_CFLAGS="-mcpu=cortex-a9 -mtune=cortex-a53 -mfloat-abi=softfp"
+
+		CC="arm-webos-linux-gnueabi-gcc $WEBOS_CFLAGS"
+		CXX="arm-webos-linux-gnueabi-g++ $WEBOS_CFLAGS"
+		CXX11="arm-webos-linux-gnueabi-g++ -std=c++11 -stdlib=libc++ $WEBOS_CFLAGS"
+		CXX17="arm-webos-linux-gnueabi-g++ -std=c++17 -stdlib=libc++ $WEBOS_CFLAGS"
+		;;
 
 	##
 	## Original libretro-config path
