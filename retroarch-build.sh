@@ -73,7 +73,7 @@ check_deps()
 {
 	if [ $ENABLE_GLES ]; then
 		echo "=== Enabling OpenGL ES ==="
-		export ENABLE_GLES="--enable-gles"
+		export ENABLE_GLES="--enable-opengles"
 	fi
 	if [ $ARM_NEON ]; then
 		echo "=== Enabling ARM NEON support ==="
