@@ -1828,6 +1828,11 @@ include_core_dice() {
 libretro_dice_name="dice"
 libretro_dice_git_url="https://github.com/mittonk/dice-libretro.git"
 
+include_core_doukutsu_rs() {
+	register_module core "doukutsu_rs"
+}
+libretro_doukutsu_rs_name="doukutsu-rs"
+libretro_doukutsu_rs_git_url="https://github.com/DrGlaucous/doukutsu-rs-libretro.git"
 
 # CORE RULE VARIABLES
 #
