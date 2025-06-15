@@ -1684,6 +1684,12 @@ libretro_syobonaction_post_fetch_cmd="./update-deps.sh"
 libretro_syobonaction_build_rule="cmake"
 libretro_syobonaction_build_args="-DCMAKE_BUILD_TYPE=Release"
 
+include_core_uxn() {
+	register_module core "uxn"
+}
+libretro_uxn_name="Uxn"
+libretro_uxn_git_url="https://codeberg.org/iyzsong/uxn-libretro.git"
+
 include_core_emuscv() {
 	register_module core "emuscv"
 }
