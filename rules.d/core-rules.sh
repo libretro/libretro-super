@@ -1840,6 +1840,21 @@ include_core_doukutsu_rs() {
 libretro_doukutsu_rs_name="doukutsu-rs"
 libretro_doukutsu_rs_git_url="https://github.com/DrGlaucous/doukutsu-rs-libretro.git"
 
+include_core_holani() {
+	register_module core "holani"
+}
+libretro_holani_name="holani"
+libretro_holani_git_url="https://github.com/LLeny/holani-retro.git"
+
+include_core_geargrafx() {
+	register_module core "geargrafx"
+}
+libretro_geargrafx_name="geargrafx"
+libretro_geargrafx_git_url="https://github.com/drhelius/Geargrafx.git"
+libretro_geargrafx_build_platform="$FORMAT_COMPILER_TARGET_ALT"
+libretro_geargrafx_build_subdir="platforms/libretro"
+libretro_geargrafx_build_makefile="Makefile"
+
 # CORE RULE VARIABLES
 #
 # All variables follow the format of libretro_<core>_<setting> where <core> is
