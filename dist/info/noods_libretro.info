@@ -1,7 +1,7 @@
 # Software Information
 display_name = "Nintendo - DS (NooDS)"
 authors = "Hydr8gon|Jonian Guveli"
-supported_extensions = "nds"
+supported_extensions = "nds|gba"
 corename = "NooDS"
 license = "GPLv3"
 permissions = "microphone_optional"
