@@ -510,16 +510,16 @@ case "$platform" in
 		CXX="psp-g++${BINARY_EXT}"
 		;;
 
-        psl1ght)
-		DIST_DIR="psl1ght"
-		FORMAT_EXT=a
-		FORMAT=_psl1ght
-		FORMAT_COMPILER_TARGET=psl1ght
-		FORMAT_COMPILER_TARGET_ALT=psl1ght
-
-		CC="powerpc64-ps3-elf-gcc${BINARY_EXT}"
-		CXX="powerpc64-ps3-elf-g++${BINARY_EXT}"
-		;;
+    psl1ght)
+	DIST_DIR="psl1ght"
+	FORMAT_EXT=a
+	FORMAT=_psl1ght
+	FORMAT_COMPILER_TARGET=psl1ght
+	FORMAT_COMPILER_TARGET_ALT=psl1ght
+	
+	CC="powerpc64-ps3-elf-gcc${BINARY_EXT}"
+	CXX="powerpc64-ps3-elf-g++${BINARY_EXT}"
+	;;
 
 	ps2)
 		DIST_DIR="ps2"
