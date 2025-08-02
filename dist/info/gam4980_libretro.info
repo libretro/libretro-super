@@ -1,6 +1,6 @@
 # Software Information
 display_name = "GAM4980"
-display_version = "0.1"
+display_version = "0.2"
 authors = "Anonymous"
 categories = "Emulator"
 license = "GPLv3+"
@@ -18,6 +18,6 @@ libretro_saves = "true"
 cheats = "false"
 needs_fullpath = "false"
 disk_control = "false"
-is_experimental = "true"
+is_experimental = "false"
 
 description = "BBK A4980 game emulator for libretro."
