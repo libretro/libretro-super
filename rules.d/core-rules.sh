@@ -1855,6 +1855,13 @@ libretro_geargrafx_build_platform="$FORMAT_COMPILER_TARGET_ALT"
 libretro_geargrafx_build_subdir="platforms/libretro"
 libretro_geargrafx_build_makefile="Makefile"
 
+include_core_clownmdemu() {
+	register_module core "clownmdemu"
+}
+libretro_clownmdemu_name="ClownMDEmu"
+libretro_clownmdemu_git_url="https://github.com/Clownacy/clownmdemu-libretro.git"
+libretro_clownmdemu_git_submodules="yes"
+
 # CORE RULE VARIABLES
 #
 # All variables follow the format of libretro_<core>_<setting> where <core> is

@@ -5,6 +5,7 @@ bk libretro-bk https://github.com/libretro/bk-emulator.git master YES GENERIC Ma
 bluemsx libretro-bluemsx https://github.com/libretro/blueMSX-libretro.git master YES GENERIC Makefile .
 cannonball libretro-cannonball https://github.com/libretro/cannonball.git master YES GENERIC Makefile .
 cap32 libretro-cap32 https://github.com/libretro/libretro-cap32.git master YES GENERIC Makefile .
+clownmdemu libretro-clownmdemu https://github.com/Clownacy/clownmdemu-libretro.git master YES GENERIC Makefile .
 crocods libretro-crocods https://github.com/libretro/libretro-crocods.git master YES GENERIC Makefile .
 dice libretro-dice https://github.com/mittonk/dice-libretro.git main YES GENERIC Makefile .
 dosbox_svn libretro-dosbox_svn https://github.com/libretro/dosbox-svn libretro YES GENERIC Makefile.libretro libretro
