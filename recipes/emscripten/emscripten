@@ -6,6 +6,7 @@ bluemsx libretro-bluemsx https://github.com/libretro/blueMSX-libretro.git master
 cannonball libretro-cannonball https://github.com/libretro/cannonball.git master YES GENERIC Makefile .
 cap32 libretro-cap32 https://github.com/libretro/libretro-cap32.git master YES GENERIC Makefile .
 chailove libretro-chailove https://github.com/libretro/libretro-chailove.git master YES GENERIC Makefile .
+clownmdemu libretro-clownmdemu https://github.com/Clownacy/clownmdemu-libretro.git master YES GENERIC Makefile .
 craft libretro-craft https://github.com/libretro/craft master YES GENERIC Makefile.libretro .
 crocods libretro-crocods https://github.com/libretro/libretro-crocods.git master YES GENERIC Makefile .
 desmume libretro-desmume https://github.com/libretro/desmume.git master NO GENERIC Makefile.libretro desmume/src/frontend/libretro
