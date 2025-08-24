@@ -18,7 +18,7 @@ fetch_git() {
 			return 1
 		fi
 		if [ "$3" = "yes" ]; then
-			echo_cmd "git submodule foreach git pull origin master"
+			echo_cmd "git submodule update --recursive"
 			if [ $? -ne 0 ]; then
 				return 1
 			fi
