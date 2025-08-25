@@ -252,10 +252,9 @@ include_core_easyrpg() {
 }
 libretro_easyrpg_name="EasyRPG"
 libretro_easyrpg_git_url="https://github.com/EasyRPG/Player.git"
-libretro_easyrpg_build_subdir="build"
 libretro_easyrpg_git_submodules="yes"
-libretro_easyrpg_post_fetch_cmd="cmake . -DPLAYER_TARGET_PLATFORM=libretro -t build"
-libretro_easyrpg_build_makefile="Makefile"
+libretro_easyrpg_build_rule="cmake"
+libretro_easyrpg_build_args="-DPLAYER_TARGET_PLATFORM=libretro -DBUILD_SHARED_LIBS=ON"
 
 include_core_gme() {
 	register_module core "gme" -ngc -ps3 -psp1 -wii
