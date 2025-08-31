@@ -1,5 +1,5 @@
 # Software Information
-display_name = "Fairchild ChannelF (FreeChaF)"
+display_name = "Fairchild - ChannelF (FreeChaF)"
 authors = "David Richardson"
 supported_extensions = "bin|chf"
 corename = "FreeChaF"
