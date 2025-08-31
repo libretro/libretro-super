@@ -1,5 +1,5 @@
 # Software Information
-display_name = "GAM4980"
+display_name = "BBK Electronics - Longman A4980 (GAM4980)"
 display_version = "0.1"
 authors = "Anonymous"
 categories = "Emulator"
@@ -20,4 +20,4 @@ needs_fullpath = "false"
 disk_control = "false"
 is_experimental = "true"
 
-description = "BBK A4980 game emulator for libretro."
+description = "BBK Longman A4980 emulator for libretro. This was a Chinese electronic dictionary, which could also run some games."
