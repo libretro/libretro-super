@@ -1796,7 +1796,8 @@ libretro_applewin_name="AppleWin"
 libretro_applewin_git_url="https://github.com/audetto/AppleWin.git"
 libretro_applewin_git_submodules="yes"
 libretro_applewin_build_rule="cmake"
-libretro_applewin_build_args="-DBUILD_LIBRETRO=ON"
+libretro_applewin_build_args="-DBUILD_LIBRETRO=ON -G Ninja"
+libretro_applewin_build_extradir="source/frontends/libretro/"
 
 include_core_panda3ds() {
 	register_module core "panda3ds"
