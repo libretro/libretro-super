@@ -5,7 +5,7 @@ display_name = "Java ME (SquirrelJME)"
 authors = "Stephanie Gawroriski (Xer Shadow Tail)"
 
 # List of extensions the core supports:
-supported_extensions = "jar|sqc|jam|jad|kjx"
+supported_extensions = "jar|sqc|jam|jad|kjx|adf|sec|sto|sp|sp0|sp1|sp2|sp3|sp4|sp5|sp6|sp7|sp8|sp9"
 
 # Name of the core:
 corename = "SquirrelJME"
@@ -28,27 +28,43 @@ systemid = "J2ME"
 database = "J2ME"
 
 # License of the cores source code:
-license = "GPLv3"
+license = "MPL-2.0"
 
 # Privacy-specific permissions needed for using the core:
 permissions = ""
 
 # Version of the core:
-display_version = "0.4.0"
+display_version = "0.3.0"
 
 # Whether or not the core requires an external file to work:
 supports_no_game = "true"
 
-# Does the core support savestates
-savestate = "false"
-
 # The number of mandatory/optional firmware files the core needs:
-firmware_count = 1
-firmware0_desc = "squirreljme.sqc (SquirrelJME ROM)"
-firmware0_path = "squirreljme.sqc"
+firmware_count = 8
+firmware0_desc = "squirreljme.jar (SquirrelJME Class Library)"
+firmware0_path = "squirreljme.jar"
 firmware0_opt = "true"
+firmware1_desc = "squirreljme-fast.jar (SquirrelJME Class Library)"
+firmware1_path = "squirreljme-fast.jar"
+firmware1_opt = "true"
+firmware2_desc = "squirreljme-slow.jar (SquirrelJME Class Library, Slow)"
+firmware2_path = "squirreljme-slow.jar"
+firmware2_opt = "true"
+firmware3_desc = "squirreljme-slow-test.jar (SquirrelJME Class Library, Slow with tests)"
+firmware3_path = "squirreljme-slow-test.jar"
+firmware3_opt = "true"
+firmware4_desc = "squirreljme-0.3.0.jar (SquirrelJME Class Library)"
+firmware4_path = "squirreljme-0.3.0.jar"
+firmware4_opt = "true"
+firmware5_desc = "squirreljme-0.3.0-fast.jar (SquirrelJME Class Library)"
+firmware5_path = "squirreljme-0.3.0-fast.jar"
+firmware5_opt = "true"
+firmware6_desc = "squirreljme-0.3.0-slow.jar (SquirrelJME Class Library, Slow)"
+firmware6_path = "squirreljme-0.3.0-slow.jar"
+firmware6_opt = "true"
+firmware7_desc = "squirreljme-0.3.0-slow-test.jar (SquirrelJME Class Library, Slow with tests)"
+firmware7_path = "squirreljme-0.3.0-slow-test.jar"
+firmware7_opt = "true"
 
-# Additional notes:
-#notes = "(!) hash|(!) game rom|(^) continue|[1] notes|[^] continue|[*] list"
-
+# Description
 description = "A port of the SquirrelJME Java ME 8 Virtual Machine emulator to libretro. Intended to be small, fast and maintain high compatibility, the core also supports older J2ME software and games designed for flip-phones."

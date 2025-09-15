@@ -107,7 +107,7 @@ build_default_cores() {
 	libretro_build_core 2048
 	libretro_build_core bluemsx
 
-	if [ $platform != "psp1" ] && [ $platform != "ngc" ] && [ $platform != "wii" ] && [ $platform != "ps3" ] && [ $platform != "sncps3" ] && [ $platform != "vita" ]; then
+	if [ $platform != "psp1" ] && [ $platform != "ngc" ] && [ $platform != "wii" ] && [ $platform != "ps3" ] && [ $platform != "sncps3" ] && [ $platform != "psl1ght" ] &&  [ $platform != "vita" ]; then
 		libretro_build_core dosbox
 	fi
 
@@ -158,13 +158,13 @@ build_default_cores() {
 	libretro_build_core gw
 	libretro_build_core prosystem
 
-	if [ $platform != "ps3" ] && [ $platform != "sncps3" ] && [ $platform != "vita" ]; then
+	if [ $platform != "ps3" ] && [ $platform != "sncps3" ] && [ $platform != "psl1ght" ] && [ $platform != "vita" ]; then
 		libretro_build_core 81
 		libretro_build_core fuse
 		libretro_build_core lutro
 	fi
 
-	if [ $platform != "ps3" ] && [ $platform != "sncps3" ] && [ $platform != "wii" ] && [ $platform != "wiiu" ] && [ $platform != "ngc" ] && [ $platform != "vita" ]; then
+	if [ $platform != "ps3" ] && [ $platform != "sncps3" ] && [ $platform != "psl1ght" ] && [ $platform != "wii" ] && [ $platform != "wiiu" ] && [ $platform != "ngc" ] && [ $platform != "vita" ]; then
 		build_default_cores_little_endian_only
 
 		build_default_cores_libretro_gl

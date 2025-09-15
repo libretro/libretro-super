@@ -14,6 +14,7 @@ cap32 libretro-cap32 https://github.com/libretro/libretro-cap32.git master YES G
 chailove libretro-chailove https://github.com/libretro/libretro-chailove.git master YES GENERIC Makefile .
 citra libretro-citra https://github.com/libretro/citra.git master YES CMAKE Makefile build -DENABLE_LIBRETRO=1 -DENABLE_SDL2=0 -DENABLE_QT=0 -DENABLE_WEB_SERVICE=0 -DCMAKE_BUILD_TYPE="Release"
 citra_canary libretro-citra_canary https://github.com/libretro/citra.git canary YES CMAKE Makefile build -DENABLE_LIBRETRO=1 -DENABLE_SDL2=0 -DENABLE_QT=0 -DENABLE_WEB_SERVICE=0 -DCMAKE_BUILD_TYPE="Release"
+clownmdemu libretro-clownmdemu https://github.com/Clownacy/clownmdemu-libretro.git master YES GENERIC Makefile .
 craft libretro-craft https://github.com/libretro/craft master YES GENERIC Makefile.libretro .
 crocods libretro-crocods https://github.com/libretro/libretro-crocods.git master YES GENERIC Makefile .
 daphne libretro-daphne https://github.com/libretro/daphne.git master YES GENERIC Makefile .

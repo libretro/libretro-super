@@ -11,6 +11,7 @@ bsnes_mercury libretro-bsnes_mercury https://github.com/libretro/bsnes-mercury.g
 cannonball libretro-cannonball https://github.com/libretro/cannonball.git master YES GENERIC Makefile .
 cap32 libretro-cap32 https://github.com/libretro/libretro-cap32.git master YES GENERIC Makefile .
 chailove libretro-chailove https://github.com/libretro/libretro-chailove.git master YES GENERIC Makefile .
+clownmdemu libretro-clownmdemu https://github.com/Clownacy/clownmdemu-libretro.git master YES GENERIC Makefile .
 craft libretro-craft https://github.com/libretro/craft master YES GENERIC Makefile.libretro .
 crocods libretro-crocods https://github.com/libretro/libretro-crocods.git master YES GENERIC Makefile .
 daphne libretro-daphne https://github.com/libretro/daphne.git master YES GENERIC Makefile .

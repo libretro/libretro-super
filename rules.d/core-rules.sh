@@ -252,10 +252,9 @@ include_core_easyrpg() {
 }
 libretro_easyrpg_name="EasyRPG"
 libretro_easyrpg_git_url="https://github.com/EasyRPG/Player.git"
-libretro_easyrpg_build_subdir="build"
 libretro_easyrpg_git_submodules="yes"
-libretro_easyrpg_post_fetch_cmd="cmake . -DPLAYER_TARGET_PLATFORM=libretro -t build"
-libretro_easyrpg_build_makefile="Makefile"
+libretro_easyrpg_build_rule="cmake"
+libretro_easyrpg_build_args="-DPLAYER_TARGET_PLATFORM=libretro -DBUILD_SHARED_LIBS=ON"
 
 include_core_gme() {
 	register_module core "gme" -ngc -ps3 -psp1 -wii
@@ -804,7 +803,7 @@ include_core_pcsx2() {
 	register_module core "pcsx2" -theos_ios -ngc -ps3 -psp1 -wii
 }
 libretro_pcsx2_name="PCSX2"
-libretro_pcsx2_git_url="https://github.com/libretro/pcsx2.git"
+libretro_pcsx2_git_url="https://github.com/libretro/ps2.git"
 libretro_pcsx2_git_submodules="yes"
 libretro_pcsx2_build_subdir="libretro"
 libretro_pcsx2_build_makefile="Makefile"
@@ -1797,7 +1796,8 @@ libretro_applewin_name="AppleWin"
 libretro_applewin_git_url="https://github.com/audetto/AppleWin.git"
 libretro_applewin_git_submodules="yes"
 libretro_applewin_build_rule="cmake"
-libretro_applewin_build_args="-DBUILD_LIBRETRO=ON"
+libretro_applewin_build_args="-DBUILD_LIBRETRO=ON -G Ninja"
+libretro_applewin_build_extradir="source/frontends/libretro/"
 
 include_core_panda3ds() {
 	register_module core "panda3ds"
@@ -1854,6 +1854,13 @@ libretro_geargrafx_git_url="https://github.com/drhelius/Geargrafx.git"
 libretro_geargrafx_build_platform="$FORMAT_COMPILER_TARGET_ALT"
 libretro_geargrafx_build_subdir="platforms/libretro"
 libretro_geargrafx_build_makefile="Makefile"
+
+include_core_clownmdemu() {
+	register_module core "clownmdemu"
+}
+libretro_clownmdemu_name="ClownMDEmu"
+libretro_clownmdemu_git_url="https://github.com/Clownacy/clownmdemu-libretro.git"
+libretro_clownmdemu_git_submodules="yes"
 
 # CORE RULE VARIABLES
 #

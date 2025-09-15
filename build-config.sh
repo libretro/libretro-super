@@ -42,6 +42,7 @@ include_core_genesis_plus_gx
 include_core_genesis_plus_gx_wide
 include_core_picodrive
 include_core_blastem
+include_core_clownmdemu
 
 # --- Master System cores ---
 include_core_gearsystem

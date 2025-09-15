@@ -3,6 +3,7 @@ atari800 libretro-atari800 https://github.com/libretro/libretro-atari800.git mas
 bk libretro-bk https://github.com/libretro/bk-emulator.git master YES GENERIC Makefile.libretro .
 bluemsx libretro-bluemsx https://github.com/libretro/blueMSX-libretro.git master YES GENERIC Makefile.libretro .
 cap32 libretro-cap32 https://github.com/libretro/libretro-cap32.git master YES GENERIC Makefile .
+clownmdemu libretro-clownmdemu https://github.com/Clownacy/clownmdemu-libretro.git master YES GENERIC Makefile .
 crocods libretro-crocods https://github.com/libretro/libretro-crocods.git master YES GENERIC Makefile .
 desmume libretro-desmume https://github.com/libretro/desmume.git master NO GENERIC Makefile.libretro desmume
 dice libretro-dice https://github.com/mittonk/dice-libretro.git main YES GENERIC Makefile .

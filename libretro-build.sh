@@ -159,12 +159,13 @@ build_default_cores() {
 	libretro_build_core 2048
 	libretro_build_core bluemsx
 
-	if [ $platform != "psp1" ] && [ $platform != "ngc" ] && [ $platform != "wii" ] && [ $platform != "ps3" ] && [ $platform != "sncps3" ] && [ $platform != "vita" ]; then
+	if [ $platform != "psp1" ] && [ $platform != "ngc" ] && [ $platform != "wii" ] && [ $platform != "ps3" ] && [ $platform != "sncps3" ] && [ $platform != "psl1ght" ] && [ $platform != "vita" ]; then
 		libretro_build_core dosbox
 	fi
 
 	libretro_build_core snes9x2005
 	libretro_build_core chimerasnes
+	libretro_build_core clownmdemu
 	if [ $platform != "psp1" ]; then
 		# Excluded for binary size reasons
 		libretro_build_core fbneo
@@ -173,7 +174,12 @@ build_default_cores() {
 	libretro_build_core fmsx
 	libretro_build_core gambatte
 	libretro_build_core handy
-	libretro_build_core stella
+	if [ $platform != "psl1ght" ]; then
+		# Excluded due to the gcc version PSL1GHT comes with beeing too old
+		libretro_build_core stella
+	else
+		libretro_build_core stella2014
+	fi
 	libretro_build_core nestopia
 	libretro_build_core numero
 	libretro_build_core nxengine
@@ -210,13 +216,13 @@ build_default_cores() {
 	libretro_build_core gw
 	libretro_build_core prosystem
 
-	if [ $platform != "ps3" ] && [ $platform != "sncps3" ] && [ $platform != "vita" ]; then
+	if [ $platform != "ps3" ] && [ $platform != "sncps3" ] && [ $platform != "psl1ght" ] && [ $platform != "vita" ]; then
 		libretro_build_core 81
 		libretro_build_core fuse
 		libretro_build_core lutro
 	fi
 
-	if [ $platform != "ps3" ] && [ $platform != "sncps3" ] && [ $platform != "wii" ] && [ $platform != "wiiu" ] && [ $platform != "ngc" ] && [ $platform != "vita" ]; then
+	if [ $platform != "ps3" ] && [ $platform != "sncps3" ] && [ $platform != "psl1ght" ] && [ $platform != "wii" ] && [ $platform != "wiiu" ] && [ $platform != "ngc" ] && [ $platform != "vita" ]; then
 		build_default_cores_little_endian_only
 
 		build_default_cores_libretro_gl
