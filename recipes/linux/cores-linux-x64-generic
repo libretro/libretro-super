@@ -71,6 +71,7 @@ hbmame libretro-hbmame https://github.com/libretro/hbmame-libretro.git master YE
 higan_sfc libretro-higan https://gitlab.com/higan/higan.git libretro YES GENERIC GNUmakefile higan compiler=g++ target=libretro binary=library
 higan_sfc_balanced libretro-nside https://github.com/libretro/nSide.git master YES GENERIC GNUmakefile nSide compiler=g++ target=libretro binary=library
 ishiiruka libretro-ishiiruka https://github.com/libretro/Ishiiruka.git master YES CMAKE Makefile build -DLIBRETRO=ON -DCMAKE_BUILD_TYPE=Release -DCMAKE_CXX_COMPILER=g++-7 -DCMAKE_C_COMPILER=gcc-7
+jollycv libretro-jollycv https://github.com/libretro/jollycv.git master YES GENERIC Makefile libretro
 jumpnbump libretro-jumpnbump https://github.com/libretro/jumpnbump-libretro.git master YES GENERIC Makefile .
 kronos libretro-kronos https://github.com/libretro/yabause.git kronos YES GENERIC Makefile yabause/src/libretro
 lutro libretro-lutro https://github.com/libretro/libretro-lutro master YES GENERIC Makefile .
