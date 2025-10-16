@@ -1782,6 +1782,13 @@ libretro_geolith_name="Geolith"
 libretro_geolith_git_url="https://github.com/libretro/geolith-libretro.git"
 libretro_geolith_build_subdir="libretro"
 
+include_core_jollycv() {
+	register_module core "jollycv"
+}
+libretro_jollycv_name="JollyCV"
+libretro_jollycv_git_url="https://github.com/libretro/jollycv.git"
+libretro_jollycv_build_subdir="libretro"
+
 include_core_m2000() {
 	register_module core "m2000"
 }
