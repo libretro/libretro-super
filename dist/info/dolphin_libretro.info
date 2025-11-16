@@ -32,10 +32,19 @@ disk_control = "false"
 is_experimental = "false"
 
 # BIOS/Firmware
-firmware_count = 1
+firmware_count = 4
 firmware0_desc = "Dolphin 'Sys' folder"
 firmware0_path = "dolphin-emu/Sys/codehandler.bin"
 firmware0_opt = "false"
-notes = "(!) You need the Dolphin 'Sys' folder in 'system/dolphin-emu'.|(!) Check https://docs.libretro.com/library/dolphin/#setup for more details."
+firmware1_desc = "dolphin-emu/Sys/GC/JAP/IPL.bin (GameCube JP BIOS)"
+firmware1_path = "dolphin-emu/Sys/GC/JAP/IPL.bin"
+firmware1_opt = "true"
+firmware2_desc = "dolphin-emu/Sys/GC/USA/IPL.bin (GameCube US BIOS)"
+firmware2_path = "dolphin-emu/Sys/GC/USA/IPL.bin"
+firmware2_opt = "true"
+firmware3_desc = "dolphin-emu/Sys/GC/EUR/IPL.bin (GameCube EU BIOS)"
+firmware3_path = "dolphin-emu/Sys/GC/EUR/IPL.bin"
+firmware3_opt = "true"
+notes = "(!) You need the Dolphin 'Sys' folder in 'system/dolphin-emu'.|(!) Check https://docs.libretro.com/library/dolphin/#setup for more details.|(!) The GameCube BIOS files can be stored in '<save_dir>/User/GC/<region>/'|[^] as an alternative to '<system_dir>/dolphin-emu/Sys/GC/<region>/',|[^] this information page only checks the system directory however|[^] and will not be able to tell if the files are present from these alternative paths."
 
 description = "A port of the popular Dolphin Gamecube/Wii emulator to libretro. This core exposes only a subset of the many features included in the standalone Dolphin emulator, but it can provide a simplified and libretro-native experience for playing these games. The core needs the 'Sys' directory copied from the standalone emulator's files into the frontend's system directory, as this is where the emulator looks to apply per-game settings/hacks for better compatibility and performance. For Dolphin power-users, the reduced functionality of the core may be stifling, in which case the dolphin-launcher core may be a better fit."
