@@ -26,7 +26,6 @@ core_options = "true"
 core_options_version = "1.0"
 hw_render = "false"
 disk_control = "false"
-database_match_archive_member = "true"
 
 # BIOS/Firmware
 firmware_count = 3
