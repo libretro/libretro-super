@@ -323,7 +323,7 @@ build_libretro_databases() {
 	build_libretro_database "Nintendo - Wii (Digital)" "rom.crc"
 	build_libretro_database "The 3DO Company - 3DO" "rom.crc"
 	build_libretro_database "Philips - Videopac+" "rom.crc"
-	build_libretro_database "Philips - CD-i" "rom.serial"
+	build_libretro_database "Philips - CD-i" "rom.crc"
 	build_libretro_database "RCA - Studio II" "rom.crc"
 	build_libretro_database "Rick Dangerous" "rom.crc"
 	build_libretro_database "Sega - 32X" "rom.crc"
