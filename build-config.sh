@@ -48,6 +48,7 @@ include_core_clownmdemu
 include_core_gearsystem
 
 # --- Arcade emulator cores ---
+include_core_dice
 include_core_fbneo
 include_core_fbalpha2012
 include_core_fbalpha2012_cps1
