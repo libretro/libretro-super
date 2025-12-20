@@ -1519,8 +1519,9 @@ include_core_squirreljme() {
 }
 libretro_squirreljme_name="SquirrelJME"
 libretro_squirreljme_git_url="https://github.com/XerTheSquirrel/SquirrelJME.git"
-libretro_squirreljme_build_makefile="makefilelibretro"
-libretro_squirreljme_build_subdir="ratufacoat"
+libretro_squirreljme_build_rule="cmake"
+libretro_squirreljme_build_args="-DCMAKE_BUILD_TYPE=Release"
+libretro_squirreljme_build_subdir="nanocoat"
 
 include_core_quasi88() {
 	register_module core "quasi88" -theos_ios -ngc -sncps3 -ps3 -psp1 -qnx -wii
