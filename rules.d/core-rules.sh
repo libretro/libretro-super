@@ -907,6 +907,7 @@ include_core_rustation() {
 }
 libretro_rustation_name="Rustation"
 libretro_rustation_git_url="https://github.com/libretro/rustation-libretro.git"
+libretro_rustation_git_submodules="yes"
 
 include_core_scummvm() {
 	register_module core "scummvm" -theos_ios -ngc -ps3 -psp1 -wii
