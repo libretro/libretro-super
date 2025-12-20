@@ -323,6 +323,7 @@ libretro_flycast_name="Flycast"
 libretro_flycast_git_url="https://github.com/flyinghead/flycast"
 libretro_flycast_build_rule="cmake"
 libretro_flycast_build_args="-DLIBRETRO=ON -DCMAKE_POSITION_INDEPENDENT_CODE=TRUE -DCMAKE_BUILD_TYPE=Release"
+libretro_flycast_git_submodules="yes"
 
 include_core_redream() {
 	register_module core "redream"
