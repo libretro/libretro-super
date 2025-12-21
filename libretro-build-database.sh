@@ -384,6 +384,7 @@ build_libretro_databases() {
 	build_libretro_database "Spectravideo - SVI-318 - SVI-328" "rom.crc"
 	build_libretro_database "PICO-8" "rom.crc"
 	build_libretro_database "Videoton - TV-Computer" "rom.crc"
+	build_libretro_database "Apple - II" "rom.crc"
 }
 
 build_libretrodb
