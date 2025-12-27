@@ -1845,6 +1845,14 @@ include_core_dice() {
 libretro_dice_name="dice"
 libretro_dice_git_url="https://github.com/mittonk/dice-libretro.git"
 
+include_core_pd777() {
+	register_module core "pd777"
+}
+libretro_pd777_name="pd777"
+libretro_pd777_git_url="https://github.com/mittonk/PD777.git"
+libretro_pd777_build_makefile="Makefile.libretro"
+libretro_pd777_build_subdir="source/libretro"
+
 include_core_doukutsu_rs() {
 	register_module core "doukutsu_rs"
 }

@@ -303,6 +303,7 @@ include_core_mu
 include_core_squirreljme
 include_core_minivmac
 include_core_oberon
+include_core_pd777
 include_core_x1
 include_core_galaxy
 include_core_jaxe
