@@ -17,7 +17,7 @@ include_core_bsnes_hd_beta() {
 
 libretro_bsnes_hd_beta_name="bsnes-hd beta"
 libretro_bsnes_hd_beta_git_url="https://github.com/DerKoun/bsnes-hd.git"
-libretro_bsnes_hd_beta_build_args="binary=\"library\" compiler=\"${CXX17}\" target=\"libretro\""
+libretro_bsnes_hd_beta_build_args="binary=\"library\" compiler=\"${CXX}\" target=\"libretro\""
 libretro_bsnes_hd_beta_build_subdir="bsnes"
 libretro_bsnes_hd_beta_build_makefile="GNUmakefile"
 libretro_bsnes_hd_beta_build_products="out"
