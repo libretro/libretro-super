@@ -32,7 +32,7 @@ load_subsystem = "false"
 supports_no_game = "false"
 single_purpose = "false"
 # Name of the database that the core supports (optional):
-#database = "epochcv"
+database = "Epoch - Cassette Vision"
 needs_fullpath = "true"
 disk_control = "false"
 # Is the core currently suitable for general use? That is, will regular users find it useful or is it for development/testing only (subject to change over time)?
