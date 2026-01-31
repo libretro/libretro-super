@@ -1881,6 +1881,23 @@ libretro_clownmdemu_name="ClownMDEmu"
 libretro_clownmdemu_git_url="https://github.com/Clownacy/clownmdemu-libretro.git"
 libretro_clownmdemu_git_submodules="yes"
 
+include_core_gearlynx() {
+	register_module core "gearlynx"
+}
+libretro_gearlynx_name="gearlynx"
+libretro_gearlynx_git_url="https://github.com/drhelius/Gearlynx"
+libretro_gearlynx_build_platform="$FORMAT_COMPILER_TARGET_ALT"
+libretro_gearlynx_build_subdir="platforms/libretro"
+libretro_gearlynx_build_makefile="Makefile"
+
+include_core_amiarcadia() {
+	register_module core "amiarcadia"
+}
+libretro_amiarcadia_name="AmiArcadia"
+libretro_amiarcadia_git_url="https://github.com/warmenhoven/amiarcadia"
+
+
+
 # CORE RULE VARIABLES
 #
 # All variables follow the format of libretro_<core>_<setting> where <core> is
