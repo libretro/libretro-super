@@ -1896,6 +1896,13 @@ include_core_amiarcadia() {
 libretro_amiarcadia_name="AmiArcadia"
 libretro_amiarcadia_git_url="https://github.com/warmenhoven/amiarcadia"
 
+include_core_ymir() {
+	register_module core "ymir"
+}
+libretro_ymir_name="Ymir"
+libretro_ymir_git_url="https://github.com/warmenhoven/Ymir"
+libretro_ymir_post_fetch_cmd="git checkout libretro"
+
 
 
 # CORE RULE VARIABLES
