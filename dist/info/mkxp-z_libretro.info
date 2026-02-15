@@ -1,9 +1,9 @@
 # Software Information
 display_name = "RPG Maker XP/VX/VX Ace (mkxp-z)"
 categories = "Game engine"
-authors = "mkxp-z"
+authors = "The mkxp-z authors"
 corename = "mkxp-z"
-supported_extensions = "ini|json|rxproj|rvproj|rvproj2|mkxp|mkxpz|zip|7z"
+supported_extensions = "ini|json|rxproj|rvproj|rvproj2|mkxpz|zip|7z"
 license = "GPLv2"
 permissions = ""
 
@@ -28,7 +28,7 @@ firmware2_opt = "true"
 # Libretro Features
 savestate = "true"
 savestate_features = "deterministic"
-cheats = "false"
+cheats = "true"
 input_descriptors = "false"
 memory_descriptors = "false"
 libretro_saves = "false"
