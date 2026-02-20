@@ -19,7 +19,7 @@ firmware_count = 0
 # Libretro Features
 savestate = "true"
 savestate_features = "deterministic"
-cheats = "false"
+cheats = "true"
 input_descriptors = "true"
 memory_descriptors = "true"
 libretro_saves = "true"
