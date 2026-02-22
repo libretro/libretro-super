@@ -1,5 +1,15 @@
 # vim: set ts=3 sw=3 noet ft=sh : bash
 
+include_core_amiberry() {
+   register_module core "amiberry"
+}
+
+libretro_amiberry_name="amiberry"
+libretro_amiberry_git_url="https://github.com/BlitterStudio/amiberry.git"
+libretro_amiberry_git_submodules="yes"
+libretro_amiberry_build_subdir="libretro"
+libretro_amiberry_build_makefile="Makefile"
+
 include_core_bsnes() {
 	register_module core "bsnes" -theos_ios -ngc -sncps3 -ps3 -psp1 -qnx -wii
 }
