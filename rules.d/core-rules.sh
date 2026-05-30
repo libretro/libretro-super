@@ -1936,6 +1936,13 @@ include_core_tia() {
 libretro_tia_name="Tia"
 libretro_tia_git_url="https://github.com/warmenhoven/tia"
 
+include_core_radio() {
+	register_module core "radio"
+}
+libretro_radio_name="Radio"
+libretro_radio_git_url="https://github.com/fpscan/libretro-radio.git"
+libretro_radio_build_makefile="Makefile"
+
 # CORE RULE VARIABLES
 #
 # All variables follow the format of libretro_<core>_<setting> where <core> is
