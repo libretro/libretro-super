@@ -1,7 +1,7 @@
 # Software Information
 display_name = "Doom (PrBoom)"
 authors = "Florian Schulze"
-supported_extensions = "wad|iwad|pwad"
+supported_extensions = "wad|iwad|pwad|pk3"
 corename = "PrBoom"
 license = "GPLv2"
 permissions = ""
