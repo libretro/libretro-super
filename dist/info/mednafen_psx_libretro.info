@@ -1,7 +1,7 @@
 # Software Information
 display_name = "Sony - PlayStation (Beetle PSX)"
 authors = "Mednafen Team"
-supported_extensions = "cue|toc|m3u|ccd|exe|pbp|chd"
+supported_extensions = "cue|toc|m3u|ccd|exe|pbp|chd|bin"
 corename = "Beetle PSX"
 
 # Hardware Information
