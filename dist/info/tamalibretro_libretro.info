@@ -27,5 +27,5 @@ needs_fullpath = "false"
 disk_control = "false"
 is_experimental = "false"
 
-notes = "TamaLIB Copyright (C) 2021 Jean-Christophe Rona.|TamaLIBretro by Keith Bourdon.|TamaLIB and TamaLIBretro are distributed under the GPLv2 license.
+notes = "TamaLIB Copyright (C) 2021 Jean-Christophe Rona.|TamaLIBretro by Keith Bourdon.|TamaLIB and TamaLIBretro are distributed under the GPLv2 license."
 description = "A port of the TamaLIB emulator for first-generation Tamagotchi handhelds to libretro."
