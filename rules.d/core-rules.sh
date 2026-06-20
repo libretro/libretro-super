@@ -1687,6 +1687,14 @@ libretro_anarch_post_fetch_cmd="mkdir -p build && cd build && cmake .."
 libretro_anarch_git_url="https://codeberg.org/iyzsong/anarch-libretro.git"
 libretro_anarch_build_makefile="Makefile"
 
+include_core_eternal() {
+        register_module core "eternal"
+}
+libretro_eternal_name="Eternal"
+libretro_eternal_git_url="https://codeberg.org/iyzsong/eternal-libretro.git"
+libretro_eternal_build_rule="cmake"
+libretro_eternal_build_args="-DCMAKE_BUILD_TYPE=Release"
+
 include_core_gam4980() {
         register_module core "gam4980"
 }
