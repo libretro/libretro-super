@@ -6,7 +6,7 @@ corename = "native32emu"
 categories = "Emulator"
 license = "BSD-3-Clause"
 permissions = ""
-display_version = "0.1.0"
+display_version = "1.1.0"
 
 # Hardware Information
 manufacturer = "Sunplus"
@@ -17,7 +17,7 @@ systemid = "native32"
 database = "Native32"
 supports_no_game = "false"
 firmware_count = 0
-savestate = "false"
+savestate = "true"
 cheats = "false"
 input_descriptors = "true"
 memory_descriptors = "false"
