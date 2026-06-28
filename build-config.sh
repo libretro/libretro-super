@@ -69,6 +69,7 @@ include_core_mednafen_gba
 include_core_tempgba
 
 # --- NES emulator cores ---
+include_core_rustynes
 include_core_fceumm
 include_core_nestopia
 include_core_quicknes

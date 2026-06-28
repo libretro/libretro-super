@@ -533,6 +533,14 @@ libretro_bnes_name="bnes/higan"
 libretro_bnes_git_url="https://github.com/libretro/bnes-libretro.git"
 libretro_bnes_build_args="compiler=\"${CXX11}\""
 
+
+include_core_rustynes() {
+	register_module core "rustynes"
+}
+libretro_rustynes_name="RustyNES"
+libretro_rustynes_git_url="https://github.com/doublegate/RustyNES.git"
+libretro_rustynes_build_makefile="crates/rustynes-libretro/Makefile"
+
 include_core_fceumm() {
 	register_module core "fceumm"
 }
