@@ -19,7 +19,6 @@ fbalpha2012 libretro-fbalpha2012 https://github.com/libretro/fbalpha2012.git mas
 fbalpha2012_cps1 libretro-fbalpha2012_cps1 https://github.com/libretro/fbalpha2012_cps1.git master YES GENERIC makefile.libretro .
 fbalpha2012_cps2 libretro-fbalpha2012_cps2 https://github.com/libretro/fbalpha2012_cps2.git master YES GENERIC makefile.libretro .
 fbalpha2012_neogeo libretro-fbalpha_neogeo https://github.com/libretro/fbalpha2012_neogeo.git master YES GENERIC Makefile .
-rustynes RustyNES https://github.com/doublegate/RustyNES.git main YES GENERIC crates/rustynes-libretro/Makefile .
 fceumm libretro-fceumm https://github.com/libretro/libretro-fceumm.git master YES GENERIC Makefile.libretro .
 ffmpeg libretro-ffmpeg https://github.com/libretro/FFmpeg.git master YES GENERIC Makefile libretro
 fmsx libretro-fmsx https://github.com/libretro/fmsx-libretro.git master YES GENERIC Makefile .
@@ -73,6 +72,7 @@ px68k libretro-px68k https://github.com/libretro/px68k-libretro.git master YES G
 quasi88 libretro-quasi88 https://github.com/libretro/quasi88-libretro.git master YES GENERIC Makefile .
 quicknes libretro-quicknes https://github.com/libretro/QuickNES_Core.git master YES GENERIC Makefile .
 race libretro-race https://github.com/libretro/RACE.git master YES GENERIC Makefile .
+rustynes RustyNES https://github.com/doublegate/RustyNES.git main YES GENERIC crates/rustynes-libretro/Makefile .
 scummvm libretro-scummvm https://github.com/libretro/scummvm.git master YES GENERIC Makefile backends/platform/libretro/build
 snes9x2005 libretro-snes9x2005 https://github.com/libretro/snes9x2005.git master YES GENERIC Makefile .
 chimerasnes libretro-chimerasnes https://github.com/jamsilva/chimerasnes.git master YES GENERIC Makefile .

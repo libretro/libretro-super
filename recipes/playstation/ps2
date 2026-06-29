@@ -2,7 +2,6 @@
 quicknes libretro-quicknes https://github.com/libretro/QuickNES_Core.git master YES GENERIC Makefile .
 clownmdemu libretro-clownmdemu https://github.com/Clownacy/clownmdemu-libretro.git master YES GENERIC Makefile .
 dice libretro-dice https://github.com/mittonk/dice-libretro.git main YES GENERIC Makefile .
-rustynes RustyNES https://github.com/doublegate/RustyNES.git main YES GENERIC crates/rustynes-libretro/Makefile .
 fceumm libretro-fceumm https://github.com/libretro/libretro-fceumm.git master YES GENERIC Makefile.libretro .
 freeintv libretro-freeintv https://github.com/libretro/FreeIntv.git master YES GENERIC Makefile .
 handy libretro-handy https://github.com/libretro/libretro-handy.git master YES GENERIC Makefile .
@@ -12,6 +11,7 @@ picodrive libretro-picodrive https://github.com/libretro/picodrive.git master YE
 mame2003_plus libretro-mame2003-plus https://github.com/libretro/mame2003-plus-libretro.git master YES GENERIC Makefile .
 mgba libretro-mgba https://github.com/libretro/mgba.git master YES GENERIC Makefile.libretro .
 race libretro-race https://github.com/libretro/RACE.git master YES GENERIC Makefile .
+rustynes RustyNES https://github.com/doublegate/RustyNES.git main YES GENERIC crates/rustynes-libretro/Makefile .
 smsplus libretro-smsplus https://github.com/libretro/smsplus-gx.git master YES GENERIC Makefile.libretro .
 test libretro-samples https://github.com/libretro/libretro-samples.git master YES GENERIC Makefile tests/test
 theodore libretro-theodore https://github.com/Zlika/theodore.git master YES GENERIC Makefile .
