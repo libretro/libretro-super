@@ -31,6 +31,7 @@ lowresnx libretro-lowresnx https://github.com/timoinutilis/lowres-nx.git retroar
 mame2000 libretro-mame2000 https://github.com/libretro/mame2000-libretro.git master YES GENERIC Makefile .
 mame2003 libretro-mame2003 https://github.com/libretro/mame2003-libretro.git master YES GENERIC Makefile .
 mame2003_plus libretro-mame2003-plus https://github.com/libretro/mame2003-plus-libretro.git master YES GENERIC Makefile .
+rustynes RustyNES https://github.com/doublegate/RustyNES.git main YES GENERIC crates/rustynes-libretro/Makefile .
 scummvm libretro-scummvm https://github.com/libretro/scummvm.git master YES GENERIC Makefile backends/platform/libretro/build
 frodo libretro-frodo https://github.com/libretro/frodo-libretro.git  master YES GENERIC Makefile .
 gambatte libretro-gambatte https://github.com/libretro/gambatte-libretro.git master YES GENERIC Makefile .

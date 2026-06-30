@@ -94,6 +94,7 @@ quicknes libretro-quicknes https://github.com/libretro/QuickNES_Core.git master 
 flycast libretro-flycast https://github.com/libretro/flycast.git master YES GENERIC_JNI Makefile jni
 race libretro-race https://github.com/libretro/RACE.git master YES GENERIC_JNI Makefile jni
 reminiscence libretro-reminiscence https://github.com/libretro/REminiscence.git master YES GENERIC_JNI Makefile jni
+rustynes RustyNES https://github.com/doublegate/RustyNES.git main YES GENERIC crates/rustynes-libretro/Makefile .
 sameboy libretro-sameboy https://github.com/libretro/SameBoy.git buildbot YES GENERIC_JNI Makefile libretro/jni
 scummvm libretro-scummvm https://github.com/libretro/scummvm.git master YES GENERIC_JNI Makefile backends/platform/libretro/build/jni
 smsplus libretro-smsplus https://github.com/libretro/smsplus-gx.git master YES GENERIC_JNI Makefile jni

@@ -136,6 +136,7 @@ redbook libretro-redbook https://github.com/libretro/redbook.git master YES GENE
 reminiscence libretro-reminiscence https://github.com/libretro/REminiscence.git master YES GENERIC Makefile .
 remotejoy libretro-remotejoy https://github.com/libretro/libretro-remotejoy.git master YES GENERIC Makefile .
 retro8 libretro-retro8 https://github.com/libretro/retro8.git master YES GENERIC Makefile .
+rustynes RustyNES https://github.com/doublegate/RustyNES.git main YES GENERIC crates/rustynes-libretro/Makefile .
 same_cdi libretro-same_cdi https://github.com/libretro/same_cdi.git master YES GENERIC Makefile.libretro .
 sameboy libretro-sameboy https://github.com/libretro/SameBoy.git buildbot YES GENERIC Makefile libretro
 scummvm libretro-scummvm https://github.com/libretro/scummvm.git master YES GENERIC Makefile backends/platform/libretro/build

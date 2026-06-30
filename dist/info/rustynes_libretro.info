@@ -1,0 +1,38 @@
+# Software Information
+display_name = "Nintendo - NES / Famicom (RustyNES)"
+authors = "DoubleGate"
+supported_extensions = "nes|fds"
+corename = "RustyNES"
+license = "MIT OR Apache-2.0"
+permissions = ""
+display_version = "v1.0.0"
+categories = "Emulator"
+
+# Hardware Information
+manufacturer = "Nintendo"
+systemname = "Nintendo Entertainment System"
+systemid = "nes"
+
+# Libretro Features
+supports_no_game = "false"
+savestate = "true"
+savestate_features = "deterministic"
+cheats = "true"
+input_descriptors = "true"
+memory_descriptors = "true"
+libretro_saves = "true"
+core_options = "false"
+load_subsystem = "false"
+hw_render = "false"
+needs_fullpath = "false"
+disk_control = "false"
+database = "Nintendo - Nintendo Entertainment System|Nintendo - Family Computer Disk System"
+
+# Firmware / BIOS
+firmware_count = 1
+firmware0_desc = "disksys.rom (Family Computer Disk System BIOS)"
+firmware0_path = "disksys.rom"
+firmware0_opt = "true"
+notes = "(!) disksys.rom (md5): ca30b50f880eb660a320674ed365ef7a|RustyNES requires this BIOS in the system directory to boot Famicom Disk System games."
+
+description = "RustyNES is a cycle-accurate Nintendo Entertainment System emulator written entirely in safe Rust. Targeting the higan and Mesen2 accuracy tier, it relies on a strict, lockstep master-clock scheduler at PPU-dot resolution rather than per-game hacks. The core guarantees absolute determinism, making it an exceptional choice for advanced libretro features like run-ahead latency reduction, rollback netplay, and RetroAchievements. With high compatibility spanning over 168 mapper families, full Famicom Disk System support, and true RGB Vs. System arcade boards, RustyNES is ideal for users who seek reference-grade accuracy paired with modern stability."

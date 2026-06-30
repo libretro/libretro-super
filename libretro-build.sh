@@ -170,6 +170,7 @@ build_default_cores() {
 		# Excluded for binary size reasons
 		libretro_build_core fbneo
 	fi
+	libretro_build_core rustynes
 	libretro_build_core fceumm
 	libretro_build_core fmsx
 	libretro_build_core gambatte
