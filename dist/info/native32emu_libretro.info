@@ -6,7 +6,7 @@ corename = "native32emu"
 categories = "Emulator"
 license = "BSD-3-Clause"
 permissions = ""
-display_version = "1.1.0"
+display_version = "1.2.0"
 
 # Hardware Information
 manufacturer = "Sunplus"
