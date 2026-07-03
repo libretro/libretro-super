@@ -1,12 +1,12 @@
 # Software Information
-display_name = "Sega - Saturn (Ymir)"
+display_name = "Sega - Saturn (Emir)"
 authors = "StrikerX3"
 supported_extensions = "cue|chd|mds|ccd|iso|m3u"
-corename = "Ymir"
+corename = "Emir"
 categories = "Emulator"
 license = "GPLv3"
 permissions = ""
-display_version = "v0.3.0"
+display_version = "v0.3.3"
 
 # Hardware Information
 manufacturer = "Sega"
