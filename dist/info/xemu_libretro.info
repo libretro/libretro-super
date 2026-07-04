@@ -1,0 +1,49 @@
+# Software Information
+display_name = "Microsoft - Xbox (xemu)"
+authors = "xemu-project team|Matt Borgerson"
+supported_extensions = "iso|xiso"
+corename = "xemu"
+categories = "Emulator"
+license = "GPLv2"
+permissions = ""
+display_version = "Git"
+
+# Hardware Information
+manufacturer = "Microsoft"
+systemname = "Xbox"
+systemid = "xbox"
+
+# Libretro Features
+database = "Microsoft - Xbox"
+supports_no_game = "false"
+savestate = "false"
+savestate_features = "null"
+cheats = "false"
+input_descriptors = "true"
+memory_descriptors = "false"
+libretro_saves = "false"
+core_options = "true"
+core_options_version = "0"
+load_subsystem = "false"
+hw_render = "false"
+needs_fullpath = "true"
+disk_control = "false"
+is_experimental = "true"
+
+# Firmware / BIOS
+firmware_count = 4
+firmware0_desc = "mcpx_1.0.bin (MCPX Boot ROM)"
+firmware0_path = "mcpx_1.0.bin"
+firmware0_opt = "false"
+firmware1_desc = "Complex_4627.bin (Flash ROM / BIOS)"
+firmware1_path = "Complex_4627.bin"
+firmware1_opt = "false"
+firmware2_desc = "xbox_eeprom.bin (EEPROM)"
+firmware2_path = "xbox_eeprom.bin"
+firmware2_opt = "false"
+firmware3_desc = "xbox_hdd.qcow2 (Hard disk image)"
+firmware3_path = "xbox_hdd.qcow2"
+firmware3_opt = "false"
+
+description = "A port of xemu, the original Xbox emulator built on QEMU, to libretro. The full system is emulated: Pentium III CPU via TCG, NV2A GPU rendered with OpenGL, MCPX audio, and the complete machine. Requires an MCPX boot ROM, flash BIOS, EEPROM and hard disk image in the frontend system directory (filenames configurable via core options), and an OpenGL 4.0 capable driver. Game saves persist inside the hard disk image. Save states, disc swapping and controller ports 2-4 are not implemented yet. This core is highly experimental."
+notes = "(!) Requires mcpx_1.0.bin, Complex_4627.bin, xbox_eeprom.bin and xbox_hdd.qcow2 in the frontend system directory (names configurable via core options).|(!) An OpenGL 4.0 capable GPU driver is required even though the core outputs a software framebuffer.|(!) Content must be a redump-style .iso or an .xiso image; the disc is opened from its full path.|Game saves live inside xbox_hdd.qcow2, not in the frontend save directory.|Save states are not implemented yet.|Only controller port 1 (Duke) is wired.|Experimental core."
