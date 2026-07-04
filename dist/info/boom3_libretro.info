@@ -15,8 +15,8 @@ systemid = "doom_3"
 
 # Libretro Features
 supports_no_game = "false"
-savestate = "false"
-savestate_features = "null"
+savestate = "true"
+savestate_features = "basic"
 cheats = "false"
 input_descriptors = "true"
 memory_descriptors = "false"
@@ -31,4 +31,4 @@ disk_control = "false"
 is_experimental = "false"
 database = "Doom 3"
 
-description = "A source port of the Doom 3 engine to libretro. This release does not contain any game data, which is still covered by the original EULA and must be obeyed as usual. The core requires games to be patched to the latest 1.3.1 version and is compatible with data from the Doom 3 and Doom 3: Resurrection of Evil releases available via Steam and Humble Store."
+description = "A source port of the Doom 3 engine to libretro. This release does not contain any game data, which is still covered by the original EULA and must be obeyed as usual. Unpatched retail 1.0/1.1 disc data, 1.3.1-patched data, the Steam/GOG/Humble releases and the free demo are all supported; Resurrection of Evil data is used by the boom3_xp core."
