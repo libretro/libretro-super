@@ -2,7 +2,7 @@
 display_name = "Nintendo - NES / Famicom (bnes)"
 categories = "Emulator"
 authors = "Near|Ryphecha"
-corename = "bnes/higan"
+corename = "bnes"
 supported_extensions = "nes"
 license = "GPLv3"
 permissions = ""
