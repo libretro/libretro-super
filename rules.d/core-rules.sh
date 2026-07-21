@@ -742,16 +742,6 @@ libretro_boom3_git_url="https://github.com/libretro/boom3.git"
 libretro_boom3_build_makefile="Makefile"
 libretro_boom3_build_subdir="neo"
 
-include_core_boom3_xp() {
-	register_module core "boom3_xp"
-}
-libretro_boom3_name="boom3"
-libretro_boom3_xp_git_url="https://github.com/libretro/boom3.git"
-libretro_boom3_xp_build_makefile="Makefile"
-libretro_boom3_xp_build_subdir="neo"
-libretro_boom3_xp_build_args="D3XP=1"
-libretro_boom3_xp_dir="libretro-boom3"
-
 include_core_vitaquake2() {
 	register_module core "vitaquake2"
 }
