@@ -5,7 +5,7 @@ supported_extensions = "j64|jag|rom|abs|cof|bin|prg|cue|cdi"
 corename = "Virtual Jaguar"
 license = "GPLv3"
 permissions = ""
-display_version = "v3.0.0"
+display_version = "v3.1.0"
 categories = "Emulator"
 
 # Hardware Information
@@ -17,7 +17,7 @@ systemid = "atari_jaguar"
 supports_no_game = "false"
 database = "Atari - Jaguar"
 savestate = "true"
-savestate_features = "2"
+savestate_features = "3"
 cheats = "true"
 input_descriptors = "true"
 memory_descriptors = "true"
@@ -29,4 +29,14 @@ needs_fullpath = "false"
 disk_control = "false"
 is_experimental = "false"
 
-description = "A port of the Virtual Jaguar emulator, originally based on Potato Emulation, to libretro. Supports Jaguar CD (CUE/BIN, CDI) with Memory Track saves, JagLink/CatBox network play over TCP or RetroArch netplay, a high-level BIOS that lets most commercial titles boot without a real BIOS image, save states, SRAM, cheat codes, and RetroAchievements. The accurate blitter is SIMD-accelerated (SSE2 on x86, NEON on ARM); the Blitter core option can be set to 'Fast' to trade some accuracy for additional speed on lower-end hardware."
+# BIOS / Firmware (all optional -- embedded copies are used when absent)
+notes = "(!) No BIOS files are required: the Jaguar boot ROM and CD BIOS images are embedded in the core.|(!) An optional CD BIOS file in the system directory overrides the embedded copy in real-BIOS CD boot mode."
+firmware_count = 2
+firmware0_desc = "[BIOS] Atari Jaguar CD (World).j64 (Jaguar CD BIOS, retail - optional override)"
+firmware0_path = "[BIOS] Atari Jaguar CD (World).j64"
+firmware0_opt = "true"
+firmware1_desc = "[BIOS] Atari Jaguar Developer CD (World).j64 (Jaguar CD BIOS, developer - optional override)"
+firmware1_path = "[BIOS] Atari Jaguar Developer CD (World).j64"
+firmware1_opt = "true"
+
+description = "The actively maintained Atari Jaguar and Jaguar CD emulator for libretro, continuing the Virtual Jaguar project (originally by David Raingeard of Potato Emulation). No BIOS files are required: the Jaguar boot ROM and CD BIOS images are embedded in the core. Supports Jaguar CD (CUE/BIN, CDI) with Memory Track saves, JagLink/CatBox network play over TCP or RetroArch netplay, a high-level BIOS that lets most commercial titles boot without a real BIOS image, save states, SRAM, cheat codes, RetroAchievements, and M68K/RISC clock-scale (overclock) core options for framerate-limited games. The accurate blitter is SIMD-accelerated (SSE2 on x86, NEON on ARM); the Blitter core option can be set to 'Fast' to trade some accuracy for additional speed on lower-end hardware."
