@@ -1174,6 +1174,7 @@ include_core_theodore() {
 }
 libretro_theodore_name="Theodore"
 libretro_theodore_git_url="https://github.com/Zlika/theodore.git"
+libretro_theodore_git_submodules="yes"
 
 include_core_mesen() {
 	register_module core "mesen"
