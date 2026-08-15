@@ -516,7 +516,7 @@ include_core_uae4arm() {
 }
 libretro_uae4arm_name="uae4arm"
 libretro_uae4arm_git_url="https://github.com/libretro/uae4arm-libretro.git"
-libretro_uae4arm_build_makefile="Makefile"
+libretro_uae4arm_build_makefile="Makefile.libretro"
 
 include_core_galaxy() {
 	register_module core "galaxy"
