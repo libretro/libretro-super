@@ -26,7 +26,7 @@ memory_descriptors = "false"
 libretro_saves = "true"
 core_options = "true"
 load_subsystem = "false"
-is_experimental = "true"
+is_experimental = "false"
 
 # Firmware / BIOS
 firmware_count = 0
