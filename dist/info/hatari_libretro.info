@@ -1,7 +1,7 @@
 # Software Information
 display_name = "Atari - ST / STE / TT / Falcon (Hatari)"
 authors = "Nicolas Pomarède, Thomas Huth, Eero Tamminen et al."
-supported_extensions = "st|msa|zip|stx|dim|ipf"
+supported_extensions = "st|msa|zip|stx|dim|ipf|vhd|gem|ide|m3u"
 corename = "hatari"
 license = "GPLv2"
 permissions = "microphone_optional"
