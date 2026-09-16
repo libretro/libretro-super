@@ -1,5 +1,5 @@
 # Software Information
-display_name = "Nintendo - SNES / Famicom (nSide Balanced)"
+display_name = "Nintendo - SNES / SFC (nSide Balanced)"
 authors = "Near|hex-usr"
 supported_extensions = "sfc|smc|gb|gbc|bml|rom"
 corename = "nSide (Super Famicom Balanced)"
