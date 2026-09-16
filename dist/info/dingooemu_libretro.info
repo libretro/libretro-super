@@ -1,12 +1,12 @@
 # Software Information
-display_name = "Dingoo A320 (DingooEmu)"
+display_name = "Dingoo A320 / Gemei A330 (DingooEmu)"
 authors = "Aloys"
-supported_extensions = "app"
+supported_extensions = "app|cc|c2s|c3s"
 corename = "dingooemu"
 categories = "Emulator"
 license = "BSD-3-Clause"
 permissions = ""
-display_version = "0.2.0"
+display_version = "0.3.0"
 
 # Hardware Information
 manufacturer = "Ingenic"
@@ -29,4 +29,4 @@ needs_fullpath = "true"
 disk_control = "false"
 is_experimental = "false"
 
-description = "DingooEmu is an emulator for the Dingoo A320 handheld game console powered by the Ingenic JZ4740 MIPS SoC. This libretro core supports .app game files from the Dingoo ecosystem."
+description = "DingooEmu emulates Dingoo A320 APP games and Gemei A330 CC, C2S, and C3S games."
