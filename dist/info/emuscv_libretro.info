@@ -4,9 +4,9 @@ authors = "Maxime MARCONATO (aka MaaaX) - maxime@maaax.com|Toshiya TAKEDA"
 supported_extensions = "cart|bin|rom|0|zip"
 corename = "EmuSCV"
 categories = "Emulator"
-license = "GPLv3"
+license = "GPLv3+"
 permissions = ""
-display_version = "0.14"
+display_version = "0.15"
 
 # Hardware Information
 manufacturer = "EPOCH"
