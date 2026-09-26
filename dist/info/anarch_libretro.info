@@ -21,4 +21,4 @@ needs_fullpath = "false"
 hw_render = "false"
 disk_control = "false"
 
-description = "A port of Anarch to libretro, which is a small, completely public domain, 90s-style Doom clone shooter game. Please note that the Libretro team does not endorse or condone the actions or words of drummyfish."
+description = "A port of Anarch to libretro, which is a small, completely public domain, 90s-style Doom clone shooter game. The Libretro team does not endorse or condone the actions or words of Anarch's main developer."
