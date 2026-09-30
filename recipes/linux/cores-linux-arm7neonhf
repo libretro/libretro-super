@@ -72,6 +72,7 @@ melonds libretro-melonds https://github.com/libretro/melonDS.git master YES GENE
 mesen libretro-mesen https://github.com/libretro/Mesen.git master YES GENERIC Makefile Libretro
 meteor libretro-meteor https://github.com/libretro/meteor-libretro.git master NO GENERIC Makefile libretro
 mgba libretro-mgba https://github.com/libretro/mgba.git master YES GENERIC Makefile.libretro .
+mgba_splitscreen libretro-mgba-splitscreen https://github.com/Spuds0588/mgba-splitscreen.git master YES CMAKE Makefile build -DLIBMGBA_ONLY=ON -DBUILD_LIBRETRO_SPLITSCREEN=ON
 mrboom libretro-mrboom https://github.com/libretro/mrboom-libretro.git master YES GENERIC Makefile .
 mu libretro-mu https://github.com/libretro/Mu.git master YES GENERIC Makefile libretroBuildSystem
 mupen64plus_next libretro-mupen64plus_next https://github.com/libretro/mupen64plus-libretro-nx.git mupen_next NO GENERIC_GL Makefile . WITH_DYNAREC=arm
