@@ -102,6 +102,7 @@ mesen libretro-mesen https://github.com/libretro/Mesen.git master YES GENERIC Ma
 mesen-s libretro-mesen-s https://github.com/libretro/Mesen-S.git master YES GENERIC Makefile Libretro
 meteor libretro-meteor https://github.com/libretro/meteor-libretro.git master NO GENERIC Makefile libretro
 mgba libretro-mgba https://github.com/libretro/mgba.git master YES GENERIC Makefile.libretro .
+mgba_splitscreen libretro-mgba-splitscreen https://github.com/Spuds0588/mgba-splitscreen.git master YES CMAKE Makefile build -DLIBMGBA_ONLY=ON -DBUILD_LIBRETRO_SPLITSCREEN=ON
 mrboom libretro-mrboom https://github.com/libretro/mrboom-libretro.git master YES GENERIC Makefile .
 mu libretro-mu https://github.com/libretro/Mu.git master YES GENERIC Makefile libretroBuildSystem
 mupen64plus_next libretro-mupen64plus_next https://github.com/libretro/mupen64plus-libretro-nx.git develop YES GENERIC_GL Makefile . WITH_DYNAREC=x86_64 HAVE_PARALLEL_RDP=1 HAVE_PARALLEL_RSP=1 HAVE_THR_AL=1 HAVE_LLE=1
