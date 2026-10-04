@@ -240,6 +240,11 @@ build_libretro_database() {
 			COMMAND+=' "${LIBRETRODATABASE_DAT_DIR}/${1}.dat"'
 		fi
 
+		#Check if generated lookatall DAT is there (last, as it only adds fields no other DAT has)
+		if [ -f "${LIBRETRODATABASE_META_DAT_DIR}/lookatall/${1}.dat" ]; then
+			COMMAND+=' "${LIBRETRODATABASE_META_DAT_DIR}/lookatall/${1}.dat"'
+		fi
+
 		eval ${COMMAND}
 		if [ -f ${DBFILE} ]; then
 			mv ${DBFILE} "${RDB_DIR}/${1}.rdb"
