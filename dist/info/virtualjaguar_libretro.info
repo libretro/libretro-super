@@ -5,7 +5,7 @@ supported_extensions = "j64|jag|rom|abs|cof|bin|prg|cue|cdi|chd"
 corename = "Virtual Jaguar"
 license = "GPLv3"
 permissions = ""
-display_version = "v3.6.1"
+display_version = "v3.7.0"
 categories = "Emulator"
 
 # Hardware Information
