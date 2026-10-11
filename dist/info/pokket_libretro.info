@@ -1,8 +1,8 @@
 # Software Information
-display_name = "Sony - PocketStation (pokketstation)"
+display_name = "Sony - PocketStation (Pokket)"
 authors = "mentalfoundry"
-supported_extensions = "bin|gme|mcr|mcs|pss"
-corename = "pokketstation"
+supported_extensions = "bin|gme|mcd|mcr|mcs|pss"
+corename = "Pokket"
 categories = "Emulator"
 license = "GPLv3"
 permissions = ""
@@ -14,7 +14,7 @@ systemid = "pocketstation"
 
 # Libretro Features
 database = "Sony - PocketStation"
-display_version = "v1.11.0"
+display_version = "v1.14"
 supports_no_game = "false"
 hw_render = "false"
 is_experimental = "false"
