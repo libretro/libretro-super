@@ -1,0 +1,46 @@
+# Software Information
+display_name = "Sony - PlayStation Vita (Vita3K)"
+authors = "Vita3K Team"
+supported_extensions = "vpk|zip|pkg|bin"
+corename = "Vita3K"
+categories = "Emulator"
+license = "GPLv2+"
+permissions = ""
+display_version = "v0.2.1 4123"
+
+# Hardware Information
+manufacturer = "Sony"
+systemname = "PlayStation Vita"
+systemid = "playstation_vita"
+
+# Libretro Features
+database = "Sony - PlayStation Vita"
+supports_no_game = "false"
+needs_fullpath = "true"
+disk_control = "false"
+savestate = "false"
+cheats = "false"
+input_descriptors = "true"
+memory_descriptors = "false"
+libretro_saves = "false"
+core_options = "true"
+core_options_version = "2.0"
+load_subsystem = "false"
+hw_render = "true"
+required_hw_api = "Vulkan >= 1.1"
+needs_kbd_mouse_focus = "false"
+
+# Firmware / BIOS
+firmware_count = 3
+firmware0_desc = "PSP2UPDAT.PUP (PS Vita system firmware)"
+firmware0_path = "vita3k/PSP2UPDAT.PUP"
+firmware0_opt = "false"
+firmware1_desc = "PSP2UPDAT_PREINST.PUP (PS Vita firmware preinst package)"
+firmware1_path = "vita3k/PSP2UPDAT_PREINST.PUP"
+firmware1_opt = "false"
+firmware2_desc = "PSP2UPDAT_FONT.PUP (PS Vita firmware fonts)"
+firmware2_path = "vita3k/PSP2UPDAT_FONT.PUP"
+firmware2_opt = "true"
+notes = "(!) PSP2UPDAT.PUP is the PS Vita system firmware, downloaded from PlayStation's website, and goes in system/vita3k/ in RetroArch's system directory, as do the preinst and font packages (preinst_fresh.pup / font_fresh.pup are accepted too). The core installs them on first start.|(!) Content: a .vpk or .zip of a game, a game folder's eboot.bin, or the folder itself. The game is installed into system/vita3k/ the first time it is started.|(!) The data and shaders-builtin folders from the release go in system/vita3k/."
+
+description = "Vita3K is an experimental PlayStation Vita emulator. It runs commercial games and homebrew, rendering with Vulkan. This core is a libretro port of it: it installs the firmware and the games from RetroArch's system directory and draws into RetroArch's Vulkan device."
