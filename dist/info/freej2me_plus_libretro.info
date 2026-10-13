@@ -33,4 +33,5 @@ firmware0_desc = "freej2me_plus-lr.jar (Main Application)"
 firmware0_path = "freej2me_plus-lr.jar"
 firmware0_opt = "false"
 
+notes = "(!) Not cross-compatible with the FreeJ2ME core: settings and save data made by one do not work in the other.|[*] Save data uses a format shared with SquirrelJME."
 description = "A fork of FreeJ2ME with improved compatibility and better libretro support. This core emulates Java ME applications and games for Java-based mobile phones."
