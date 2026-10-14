@@ -1962,6 +1962,15 @@ libretro_cemu_build_args="-DENABLE_LIBRETRO=ON -DENABLE_BLUEZ=OFF -DENABLE_FERAL
 # CMake writes cemu_libretro.so to <source>/bin, not into the build directory.
 libretro_cemu_build_extradir="../bin/"
 
+include_core_geartowns() {
+	register_module core "geartowns"
+}
+libretro_geartowns_name="geartowns"
+libretro_geartowns_git_url="https://github.com/drhelius/Geartowns.git"
+libretro_geartowns_build_platform="$FORMAT_COMPILER_TARGET_ALT"
+libretro_geartowns_build_subdir="platforms/libretro"
+libretro_geartowns_build_makefile="Makefile"
+
 # CORE RULE VARIABLES
 #
 # All variables follow the format of libretro_<core>_<setting> where <core> is

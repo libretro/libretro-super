@@ -1,0 +1,51 @@
+# Software Information
+display_name = "Fujitsu - FM Towns (Geartowns)"
+authors = "Nacho Sanchez"
+supported_extensions = "cue|chd|iso|zip|d77|d88|hdm|xdf|img|m3u"
+corename = "Geartowns"
+categories = "Emulator"
+license = "GPLv3"
+permissions = ""
+
+# Hardware Information
+manufacturer = "Fujitsu"
+systemname = "FM Towns"
+systemid = "fm_towns"
+
+# Libretro Features
+database = "Fujitsu - FM Towns"
+supports_no_game = "true"
+savestate = "true"
+savestate_features = "deterministic"
+libretro_saves = "true"
+cheats = "false"
+input_descriptors = "true"
+memory_descriptors = "true"
+core_options = "true"
+core_options_version = "2.0"
+load_subsystem = "false"
+hw_render = "false"
+needs_fullpath = "true"
+disk_control = "true"
+is_experimental = "false"
+
+# BIOS / Firmware
+firmware_count = 5
+firmware0_desc = "FMT_SYS.ROM (FM Towns System ROM)"
+firmware0_path = "geartowns/FMT_SYS.ROM"
+firmware0_opt = "false"
+firmware1_desc = "FMT_DOS.ROM (FM Towns OS ROM)"
+firmware1_path = "geartowns/FMT_DOS.ROM"
+firmware1_opt = "false"
+firmware2_desc = "FMT_FNT.ROM (FM Towns Font ROM)"
+firmware2_path = "geartowns/FMT_FNT.ROM"
+firmware2_opt = "false"
+firmware3_desc = "FMT_DIC.ROM (FM Towns Dictionary ROM)"
+firmware3_path = "geartowns/FMT_DIC.ROM"
+firmware3_opt = "false"
+firmware4_desc = "FMT_F20.ROM (FM Towns 20-dot Font ROM)"
+firmware4_path = "geartowns/FMT_F20.ROM"
+firmware4_opt = "true"
+notes = "(!) FMT_SYS.ROM (md5): feaf8c5675151e00cfe3ad27673bff29|(!) FMT_DOS.ROM (md5): 0585b19930d4a7f4c71bcc8a33746588|(!) FMT_FNT.ROM (md5): eb44f2093f51eb7159f03e170b13af76|(!) FMT_DIC.ROM (md5): 34847786d7de94b5d1133c956ab1d75d|These are the FM Towns Model 1/2 ROMs; lowercase names (fmt_sys.rom...) are also accepted.|Place the ROMs in system/geartowns/; a complete set in system/ is used as a fallback.|ROM sets from later models load with a warning.|FMT_F20.ROM is optional; a blank ROM is used if it is missing.|Free FM Towns Project replacement ROMs are also supported."
+
+description = "A port of the Geartowns Fujitsu FM Towns emulator to libretro. This core emulates the FM Towns Model 1/2 with CD-ROM and floppy disk drives, disc swapping, gamepads, mouse and keyboard."
