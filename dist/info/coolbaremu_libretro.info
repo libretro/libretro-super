@@ -6,7 +6,7 @@ corename = "coolbaremu"
 categories = "Emulator"
 license = "BSD-3-Clause"
 permissions = ""
-display_version = "0.1.0"
+display_version = "0.2.0"
 
 # Hardware Information
 manufacturer = "Shanghai Coolbar"
