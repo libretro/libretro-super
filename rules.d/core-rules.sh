@@ -1971,6 +1971,12 @@ libretro_geartowns_build_platform="$FORMAT_COMPILER_TARGET_ALT"
 libretro_geartowns_build_subdir="platforms/libretro"
 libretro_geartowns_build_makefile="Makefile"
 
+include_core_gametank() {
+	register_module core "gametank"
+}
+libretro_gametank_name="GameTank"
+libretro_gametank_git_url="https://github.com/SundownerSport/gametank-libretro.git"
+
 # CORE RULE VARIABLES
 #
 # All variables follow the format of libretro_<core>_<setting> where <core> is
