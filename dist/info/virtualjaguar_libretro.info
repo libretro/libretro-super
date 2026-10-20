@@ -15,7 +15,7 @@ systemid = "atari_jaguar"
 
 # Libretro Features
 supports_no_game = "true"
-database = "Atari - Jaguar"
+database = "Atari - Jaguar|Atari - Jaguar CD"
 savestate = "true"
 savestate_features = "deterministic"
 cheats = "true"
