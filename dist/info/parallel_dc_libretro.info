@@ -47,6 +47,6 @@ firmware7_path = "dc/awbios.zip"
 firmware7_opt  = "true"
 notes = "(!) dc_boot.bin (md5): e10c53c2f8b90bab96ead2d368858623"
 hw_render = "true"
-required_hw_api = "OpenGL >= 3.0 | OpenGL Core >= 3.1 | OpenGL ES >= 2.0 | Vulkan >= 1.1 | Direct3D >= 9.0"
+required_hw_api = "OpenGL >= 3.0 | OpenGL Core >= 3.1 | OpenGL ES >= 2.0 | Vulkan >= 1.0 | Direct3D >= 9.0"
 
 description = "A fork of the Flycast Dreamcast emulator to libretro. In addition to Dreamcast, the core also supports the NAOMI, NAOMI 2, and Atomiswave arcade platforms (with appropriate BIOS images) and will load these games from the latest MAME ROMset. There is also a compute renderer implemented for both Direct3D12 and Vulkan."
