@@ -1372,6 +1372,14 @@ libretro_hatari_name="Hatari"
 libretro_hatari_git_url="https://github.com/libretro/hatari.git"
 libretro_hatari_build_makefile="Makefile.libretro"
 
+include_core_hatari2014() {
+	register_module core "hatari2014" -theos_ios -ngc -ps3 -psp1 -qnx -wii
+}
+libretro_hatari2014_name="Hatari2014"
+libretro_hatari2014_git_url="https://github.com/libretro/hatari.git"
+libretro_hatari2014_build_makefile="Makefile.libretro"
+libretro_hatari2014_post_fetch_cmd="git checkout hitari2014-mercurial"
+
 include_core_tempgba() {
 	register_module core "tempgba" -psp1
 }
@@ -1976,6 +1984,23 @@ include_core_gametank() {
 }
 libretro_gametank_name="GameTank"
 libretro_gametank_git_url="https://github.com/SundownerSport/gametank-libretro.git"
+
+include_core_anygm() {
+	register_module core "anygm"
+}
+libretro_anygm_name="AnyGM"
+libretro_anygm_git_url="https://github.com/retrodiv/AnyGM-libretro.git"
+
+include_core_eka2l1() {
+	register_module core "eka2l1"
+}
+
+ibretro_eka2l1_name="Cemu"
+libretro_eka2l1_git_url="https://github.com/WizzardSK/eka2l1-libretro.git"
+libretro_eka2l1_git_submodules="yes"
+libretro_eka2l1_build_rule="cmake"
+libretro_eka2l1_build_opengl="yes"
+libretro_eka2l1_build_args="-G Ninja -DCI=ON -DEKA2L1_BUILD_LIBRETRO=ON -DEKA2L1_SCRIPTING_LUA=OFF"
 
 # CORE RULE VARIABLES
 #
