@@ -1,10 +1,10 @@
 # Software Information
 display_name = "Nintendo - 3DS (Azahar)"
 authors = "Azahar Emulator"
-supported_extensions = "3ds|3dsx|z3dsx|elf|axf|cci|zcci|cxi|zcxi|app"
+supported_extensions = "3ds|3dsx|app|axf|bcci|bcxi|cci|cxi|elf|z3dsx|zcci|zcxi"
 corename = "Azahar"
 categories = "Emulator"
-license = "GPLv2+"
+license = "GPLv3+"
 permissions = ""
 display_version = "Git"
 
