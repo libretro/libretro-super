@@ -1,0 +1,32 @@
+# Software Information
+display_name = "Nicai (NicaiEmu)"
+authors = "Aloys"
+supported_extensions = "cbe"
+corename = "nicaiemu"
+categories = "Emulator"
+license = "BSD-3-Clause"
+permissions = ""
+display_version = "0.1.0"
+
+# Hardware Information
+manufacturer = "MStar"
+systemname = "Nicai"
+systemid = "nicai"
+
+# Libretro Features
+database = "Nicai"
+supports_no_game = "false"
+firmware_count = 0
+savestate = "true"
+cheats = "false"
+input_descriptors = "true"
+memory_descriptors = "true"
+libretro_saves = "false"
+core_options = "true"
+load_subsystem = "false"
+hw_render = "false"
+needs_fullpath = "true"
+disk_control = "false"
+is_experimental = "false"
+
+description = "NicaiEmu is an emulator for the Nicai/MStar CBE game format. This libretro core supports .cbe content files."
