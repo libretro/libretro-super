@@ -29,7 +29,7 @@ hw_render = "true"
 required_hw_api = "Vulkan >= 1.1 | Direct3D >= 12.0"
 needs_fullpath = "true"
 disk_control = "false"
-is_experimental = "true"
+is_experimental = "false"
 
 # Firmware / BIOS
 firmware_count = 0
