@@ -1148,6 +1148,13 @@ libretro_smsplus_name="SMSPlus GX"
 libretro_smsplus_git_url="https://github.com/libretro/smsplus-gx.git"
 libretro_smsplus_build_makefile="Makefile.libretro"
 
+include_core_jgenesis() {
+	register_module core "jgenesis" -theos_ios -ngc -wii -psp1 -ps2 -ps3 -sncps3 -qnx
+}
+libretro_jgenesis_name="jgenesis"
+libretro_jgenesis_git_url="https://github.com/RobLoach/libretro-jgenesis.git"
+libretro_jgenesis_build_makefile="Makefile.libretro"
+
 include_core_picodrive() {
 	register_module core "picodrive" -theos_ios -ngc -ps3 -wii
 }

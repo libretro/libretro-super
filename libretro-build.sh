@@ -166,6 +166,7 @@ build_default_cores() {
 	libretro_build_core snes9x2005
 	libretro_build_core chimerasnes
 	libretro_build_core clownmdemu
+	libretro_build_core jgenesis
 	if [ $platform != "psp1" ]; then
 		# Excluded for binary size reasons
 		libretro_build_core fbneo
