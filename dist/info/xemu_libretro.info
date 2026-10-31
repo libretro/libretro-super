@@ -1,5 +1,5 @@
 # Software Information
-display_name = "Microsoft - Xbox (xemu)"
+display_name = "Microsoft - Xbox / Sega Chihiro (xemu)"
 authors = "xemu-project team|Matt Borgerson"
 supported_extensions = "iso|xiso|bin"
 corename = "xemu"
