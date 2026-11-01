@@ -297,6 +297,7 @@ build_libretro_databases() {
 	build_libretro_database "Epoch - Cassette Vision" "rom.crc"
 	build_libretro_database "Epoch - Super Cassette Vision" "rom.crc"
 	build_libretro_database "Fairchild - Channel F" "rom.crc"
+	build_libretro_database "Fujitsu - FM Towns" "rom.crc"
 	build_libretro_database "Funtech - Super Acan" "rom.crc"
 	build_libretro_database "Handheld Electronic Game" "rom.crc"
 	build_libretro_database "GamePark - GP32" "rom.crc"
