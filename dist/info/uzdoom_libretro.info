@@ -27,7 +27,7 @@ load_subsystem = "false"
 hw_render = "true"
 needs_fullpath = "true"
 disk_control = "false"
-is_experimental = "true"
+is_experimental = "false"
 notes = "(!) UZDoom requires a compatible DOOM IWAD such as doom.wad, doom2.wad, plutonia.wad or tnt.wad.|(!) Supports advanced mods and custom content in WAD, PK3 and PK7 formats.|(!) Hardware rendering requires a compatible graphics backend."
 
 description = "A libretro port of UZDoom, a modern, feature-rich source port of the classic DOOM engine and a continuation of ZDoom and GZDoom. UZDoom supports DOOM, DOOM II, Final DOOM and numerous custom games and modifications. Features include high-resolution graphics, dynamic lighting, 3D floors, advanced scripting, extensive modding capabilities and modern OpenGL and Vulkan rendering."
