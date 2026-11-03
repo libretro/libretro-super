@@ -14,6 +14,7 @@ systemid = "anarch"
 # Libretro Features
 supports_no_game = "true"
 single_purpose = "true"
+database = "Anarch"
 cheats = "false"
 savestate = "false"
 savestate_features = "null"
