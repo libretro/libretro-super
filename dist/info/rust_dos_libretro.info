@@ -6,7 +6,7 @@ corename = "rust-dos"
 categories = "Emulator"
 license = "GPLv2+"
 permissions = ""
-display_version = "1.8.1"
+display_version = "1.8.2"
 
 # Hardware Information
 manufacturer = "IBM"
