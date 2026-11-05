@@ -1,8 +1,8 @@
 # Software Information
-display_name = "Nintendo - GameCube / Wii (ParaLLEl GameCube/Wii)"
+display_name = "Nintendo - GameCube / Wii (ParaLLEl GX1)"
 authors = "Libretro"
 supported_extensions = "gcm|iso|wbfs|ciso|gcz|elf|dol|dff|tgc|wad|rvz|m3u|wia"
-corename = "ParaLLEl GameCube/Wii"
+corename = "ParaLLEl GX1"
 categories = "Emulator"
 license = "GPLv2+"
 permissions = ""
