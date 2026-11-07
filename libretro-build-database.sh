@@ -327,6 +327,7 @@ build_libretro_databases() {
 	build_libretro_database "Nintendo - Nintendo DS" "rom.crc"
 	build_libretro_database "Nintendo - Nintendo DSi" "rom.crc"
 	build_libretro_database "Nintendo - Nintendo Entertainment System" "rom.crc"
+	build_libretro_database "Nintendo - Nintendo Switch" "rom.serial"
 	build_libretro_database "Nintendo - Pokemon Mini" "rom.crc"
 	build_libretro_database "Nintendo - Satellaview" "rom.crc"
 	build_libretro_database "Nintendo - Sufami Turbo" "rom.crc"
