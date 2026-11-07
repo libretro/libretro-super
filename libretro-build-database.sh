@@ -331,6 +331,7 @@ build_libretro_databases() {
 	build_libretro_database "Nintendo - Satellaview" "rom.crc"
 	build_libretro_database "Nintendo - Sufami Turbo" "rom.crc"
 	build_libretro_database "Nintendo - Wii" "rom.serial"
+	build_libretro_database "Nintendo - Wii U" "rom.serial"
 	build_libretro_database "Nintendo - Wii (Digital)" "rom.crc"
 	build_libretro_database "The 3DO Company - 3DO" "rom.crc"
 	build_libretro_database "Philips - Videopac+" "rom.crc"
