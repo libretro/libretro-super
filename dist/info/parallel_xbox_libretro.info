@@ -1,7 +1,7 @@
 # Software Information
 display_name = "Microsoft - Xbox / Sega Chihiro (ParaLLEl Xbox)"
 authors = "xemu-project team|Matt Borgerson"
-supported_extensions = "iso|xiso|bin"
+supported_extensions = "iso|xiso|bin|chd"
 corename = "ParaLLEl Xbox"
 categories = "Emulator"
 license = "GPLv2"
