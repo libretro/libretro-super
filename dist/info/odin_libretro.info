@@ -1,5 +1,5 @@
 # Software Information
-display_name = "Sega - Hikaru / Gaelco (Odin)"
+display_name = "Sega - Hikaru / Gaelco PowerVR (Odin)"
 authors = "Réda Chérif-Touil|Stefano Teso|WizzardSK"
 supported_extensions = "zip|7z"
 corename = "Odin"
@@ -10,7 +10,7 @@ display_version = "v0.1.1"
 
 # Hardware Information
 manufacturer = "Sega / Gaelco"
-systemname = "Hikaru / Gaelco ATV Track"
+systemname = "Hikaru / Gaelco PowerVR"
 systemid = "hikaru"
 
 # Libretro Features
