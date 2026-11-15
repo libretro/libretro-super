@@ -1,7 +1,7 @@
 # Software Information
 display_name = "Doom (OG/2/FD) / Heretic / Hexen / Strife (UZDoom)"
 authors = "UZDoom Team"
-supported_extensions = "wad|iwad|pwad|pk3"
+supported_extensions = "wad|iwad|pwad|pk3|ipk3|pkz|pk7|ipk7"
 corename = "UZDoom"
 license = "GPLv3+"
 permissions = ""
