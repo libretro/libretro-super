@@ -1,0 +1,1 @@
+mame libretro-mame https://github.com/libretro/mame.git master NO GENERIC makefile . OSD=retro verbose=1 RETRO=1 NOWERROR=1 NOASM=1 gcc=android-arm OS=linux TARGETOS=android-arm CONFIG=libretro NO_USE_MIDI=1 TARGET=mame

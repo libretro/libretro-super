@@ -1,0 +1,3 @@
+*.sh eol=lf
+recipes/** eol=lf
+dist/** eol=lf

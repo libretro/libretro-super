@@ -1,0 +1,4 @@
+citra libretro-citra https://github.com/libretro/citra.git master YES CMAKE Makefile build -G "MSYS Makefiles" -DENABLE_LIBRETRO=1 -DENABLE_SDL2=0 -DENABLE_QT=0 -DENABLE_WEB_SERVICE=0 -DCMAKE_BUILD_TYPE="Release"
+citra_canary libretro-citra_canary https://github.com/libretro/citra.git canary YES CMAKE Makefile build -G "MSYS Makefiles" -DENABLE_LIBRETRO=1 -DENABLE_SDL2=0 -DENABLE_QT=0 -DENABLE_WEB_SERVICE=0 -DCMAKE_BUILD_TYPE="Release"
+px68k libretro-px68k https://github.com/libretro/px68k-libretro.git master YES GENERIC Makefile.libretro .
+thepowdertoy libretro-thepowdertoy https://github.com/libretro/ThePowderToy.git master YES CMAKE Makefile build -G "MSYS Makefiles" -DCMAKE_BUILD_TYPE="Release"

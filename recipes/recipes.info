@@ -1,0 +1,14 @@
+RECIPE FORMAT:
+{CORENAME} {COREDIR} {URL} {BRANCH} {ENABLED} {COMMAND} {MAKEFILE} {SUBDIR} {ARGS}
+or
+{CORENAME} {COREDIR} {URL} {BRANCH} {ENABLED} {COMMAND} {MAKEFILE} {SUBDIR} {ARGS} | core1:arg=1 core2:arg=2 core3:arg3
+
+Ex:
+2048 libretro-2048 https://github.com/libretro/libretro-2048.git master YES GENERIC Makefile.libretro .
+bsnes libretro-bsnes https://github.com/libretro/bsnes-libretro.git libretro YES GENERIC Makefile . | bsnes_accuracy:profile=accuracy bsnes_balanced:profile=balanced bsnes_performance:profile=performance
+
+Command should usually be GENERIC and REPOTYPE should usually be project.
+Notable exceptions are PPSSPP and PICODRIVE. Those are submodule repos.
+
+When adding multiple recipes for the same repo make sure they use different
+directories.

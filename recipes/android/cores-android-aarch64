@@ -1,0 +1,5 @@
+dice libretro-dice https://github.com/mittonk/dice-libretro.git main YES GENERIC Makefile .
+dolphin libretro-dolphin-aarch64 https://github.com/libretro/dolphin.git master YES CMAKE Makefile build -DLIBRETRO=ON
+ishiiruka libretro-ishiiruka-aarch64 https://github.com/libretro/Ishiiruka.git master YES CMAKE Makefile build -DLIBRETRO=ON
+duckstation libretro-duckstation-aarch64 https://github.com/libretro/duckstation.git master YES CMAKE Makefile build -DBUILD_LIBRETRO_CORE=ON -DANDROID_ABI=arm64-v8a -DCMAKE_BUILD_TYPE=Release
+trident libretro-trident https://github.com/DanAlexMorton/3dsTrident.git main YES CMAKE Makefile build -DBUILD_LIBRETRO_CORE=ON -DUSE_LIBRETRO_AUDIO=ON -DENABLE_USER_BUILD=ON -DENABLE_VULKAN=OFF -DENABLE_LUAJIT=OFF -DENABLE_DISCORD_RPC=OFF -DENABLE_QT_GUI=OFF -DENABLE_OPENGL=ON -DENABLE_HTTP_SERVER=OFF -DENABLE_TESTS=OFF -DENABLE_METAL=OFF

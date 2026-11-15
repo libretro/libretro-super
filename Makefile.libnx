@@ -1,0 +1,12 @@
+default: upgrade fetch build
+
+upgrade:
+	@./libretro-upgrade.sh
+
+fetch:
+	@./libretro-fetch.sh $(echo "retroarch"; grep -Eo '^[^ ]+' ./recipes/nintendo/libnx)
+
+build:
+	@platform=libnx ./libretro-build.sh $(grep -Eo '^[^ ]+' ./recipes/nintendo/libnx)
+
+.PHONY: default

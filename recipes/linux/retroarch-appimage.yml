@@ -1,0 +1,15 @@
+app: RetroArch
+
+ingredients:
+  dist: xenial
+  sources:
+    - deb http://archive.ubuntu.com/ubuntu/ xenial main universe
+    - deb http://us.archive.ubuntu.com/ubuntu/ xenial main restricted
+    - deb http://us.archive.ubuntu.com/ubuntu/ xenial multiverse
+    - deb http://us.archive.ubuntu.com/ubuntu/ xenial-backports main restricted universe multiverse
+    - deb http://us.archive.ubuntu.com/ubuntu/ xenial-updates main restricted
+  ppas:
+    - libretro/testing
+
+script:
+  - touch retroarch.png
