@@ -1,0 +1,33 @@
+# Core info for libretro-super: dist/info/azahar_splitscreen_libretro.info
+# Kept here so the metadata lives beside the core it describes.
+# Software Information
+display_name = "Nintendo - 3DS (Azahar Splitscreen)"
+authors = "Spuds0588|Azahar contributors"
+supported_extensions = "3ds|cci|cxi|app"
+corename = "Azahar Splitscreen"
+categories = "Emulator"
+license = "GPLv3+"
+permissions = ""
+display_version = "0.1.0"
+
+# Hardware Information
+manufacturer = "Nintendo"
+systemname = "3DS"
+systemid = "3ds"
+
+# Libretro Information
+supports_no_game = "false"
+savestate = "false"
+cheats = "false"
+input_descriptors = "false"
+memory_descriptors = "false"
+libretro_saves = "true"
+core_options = "true"
+core_options_version = "1.0"
+load_subsystem = "false"
+hw_render = "false"
+needs_fullpath = "true"
+disk_control = "false"
+is_experimental = "true"
+
+description = "Couch split-screen for the 3DS: one ROM on 2-6 headless Azahar consoles in one picture. RetroPad port N drives player N. Launcher core - it starts azahar and azahar-room from the folder above itself, or from AZAHAR_SPLITS_ROOT, and says so on screen when they are missing."
