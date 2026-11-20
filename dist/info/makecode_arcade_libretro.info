@@ -1,0 +1,30 @@
+# Upstream-ready core info for libretro-super:
+#   dist/info/makecode_arcade_libretro.info
+# Identical to tools/core.info.in with @VERSION@ resolved to 0.3.11;
+# regenerate on version bumps (source of truth: tools/core.info.in).
+display_name = "MakeCode Arcade (unofficial)"
+authors = "whmzsu and contributors"
+supported_extensions = "pxt64"
+corename = "MakeCode Arcade"
+manufacturer = "Microsoft"
+categories = "Game engine"
+systemname = "MakeCode Arcade"
+systemid = "makecode_arcade"
+license = "MIT"
+permissions = ""
+display_version = "0.3.11"
+supports_no_game = "false"
+savestate = "false"
+cheats = "false"
+input_descriptors = "true"
+libretro_saves = "false"
+core_options = "false"
+load_subsystem = "false"
+single_purpose = "false"
+hw_render = "false"
+needs_fullpath = "false"
+disk_control = "false"
+is_experimental = "false"
+firmware_count = 0
+description = "MakeCode Arcade games run as .pxt64 bytecode cartridges in the original MakeCode Arcade VM and C++ runtime, with no JavaScript engine. Gamepad buttons can be remapped under Quick Menu > Controls; savestates, rewind and core options are intentionally unsupported."
+notes = "Unofficial core: not affiliated with or endorsed by Microsoft. Cartridge images are PXT64-only (the official pxt compiler has no other bytecode output); 32-bit builds run the same PXT64 images via the GC tag side-table scheme (docs/PXT32-A-SCHEME.md). Plays ONLY .pxt64 bytecode images - the file browser lists .pxt64 files only. MakeCode Arcade .png cartridges contain source code only, NOT a playable game: get a .pxt64 first - export it from the official IDE's experimental VM target, or batch-convert with cartconv (both documented at github.com/whmzsu/makecode-arcade-cartconv). Buttons are remappable under Quick Menu > Controls (Start = in-game menu, Select = reset); the core exposes no options. Cartridges with a VM section >= 32000 bytes are rejected with an explicit 'VM error 1014' message instead of a black screen; get a VM-compatible export or split the large data arrays in the game source."
