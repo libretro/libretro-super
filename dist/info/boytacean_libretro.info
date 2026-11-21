@@ -4,9 +4,9 @@ authors = "João Magalhães"
 supported_extensions = "gb|gbc"
 corename = "Boytacean"
 categories = "Emulator"
-license = "Apache-2."
+license = "Apache-2.0"
 permissions = ""
-display_version = "0.10.13"
+display_version = "0.14.0"
 
 # Hardware Information
 manufacturer = "Nintendo"
