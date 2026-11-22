@@ -1,11 +1,11 @@
 # Software Information
 display_name = "Sega - MS/GG/MD/CD/32X (BlastEm)"
 authors = "Mike Pavone"
-supported_extensions = "md|gen|smd|68k|sgd|32x|sms|gg|sg|sg1|sc|sc3|sf7|col|cue|toc|iso|chd|vgm|vgz|flac|wav|bin|rom|gz"
+supported_extensions = "md|gen|smd|32x|sms|gg|sg|sg1|sc|sc3|sf7|col|cue|toc|iso|chd|vgm|vgz|flac|wav|bin|rom|gz"
 corename = "BlastEm"
 license = "GPLv3"
 permissions = ""
-display_version = "v0.6.3-pre"
+display_version = "v1.0.1-pre"
 categories = "Emulator"
 
 # Hardware Information
@@ -23,7 +23,7 @@ input_descriptors = "true"
 memory_descriptors = "false"
 libretro_saves = "true"
 core_options = "true"
-core_options_version = "0"
+core_options_version = "2.0"
 load_subsystem = "false"
 hw_render = "false"
 needs_fullpath = "true"
