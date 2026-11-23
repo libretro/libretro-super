@@ -1685,6 +1685,15 @@ libretro_virtualxt_git_url="https://codeberg.org/virtualxt/virtualxt.git"
 libretro_virtualxt_post_fetch_cmd="git checkout edge"
 libretro_virtualxt_build_subdir="tools/package/libretro"
 
+include_core_my386() {
+	register_module core "my386"
+}
+libretro_my386_name="My386"
+libretro_my386_git_url="https://codeberg.org/my386/my386.git"
+libretro_my386_post_fetch_cmd="git checkout edge"
+libretro_my386_build_subdir="tools/package/libretro"
+libretro_my386_build_makefile="Makefile"
+
 include_core_puzzlescript() {
 	register_module core "puzzlescript"
 }
