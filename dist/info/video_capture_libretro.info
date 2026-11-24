@@ -1,0 +1,30 @@
+# Software Information
+display_name = "Video Capture Device"
+authors = "Laurent LaSalle"
+supported_extensions = "vidcap"
+corename = "Video Capture Device"
+categories = "Video"
+license = "MIT"
+permissions = ""
+display_version = "0.5.3"
+
+# Hardware Information
+manufacturer = "N/A"
+systemname = "Video Capture Device"
+systemid = "video_capture"
+
+# Libretro Features
+supports_no_game = "true"
+savestate = "false"
+cheats = "false"
+input_descriptors = "false"
+memory_descriptors = "false"
+libretro_saves = "false"
+core_options = "true"
+load_subsystem = "false"
+hw_render = "false"
+needs_fullpath = "true"
+disk_control = "false"
+is_experimental = "true"
+
+description = "Displays a live video capture device (capture card, HDMI grabber) so RetroArch shaders can be applied to external sources such as an original console hardware or VCR."
