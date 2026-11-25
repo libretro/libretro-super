@@ -925,6 +925,15 @@ libretro_rustation_name="Rustation"
 libretro_rustation_git_url="https://github.com/libretro/rustation-libretro.git"
 libretro_rustation_git_submodules="yes"
 
+include_core_riverhorse() {
+	register_module core "riverhorse"
+}
+libretro_riverhorse_name="Riverhorse"
+libretro_riverhorse_git_url="https://github.com/thenotoriousfox/riverhorse.git"
+libretro_riverhorse_git_submodules="yes"
+libretro_riverhorse_build_rule="cmake"
+libretro_riverhorse_build_args="-DCMAKE_BUILD_TYPE=Release -DBUILD_QT_FRONTEND=OFF -DBUILD_LIBRETRO_CORE=ON -DENABLE_DESKTOP_INTEGRATION=OFF -DUSE_BUNDLED_DEPENDENCIES=ON"
+
 include_core_scummvm() {
 	register_module core "scummvm" -theos_ios -ngc -ps3 -psp1 -wii
 }
