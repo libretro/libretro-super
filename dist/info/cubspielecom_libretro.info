@@ -1,0 +1,45 @@
+# Software Information
+display_name = "Tiger - Game.com (Cub Spiele.Com)"
+authors = "AJ Ryan (ONLYUSEmeFEET)"
+supported_extensions = "tgc|bin|rom"
+corename = "Cub Spiele.Com"
+categories = "Emulator"
+license = "BSD-3-Clause"
+permissions = ""
+display_version = "0.1.0"
+database = "Tiger - Game.com"
+description = "Cycle-accurate Sharp SM8521 (Tiger Game.com) handheld emulator with 200x160 2-bpp STN LCD rendering, 28mm internal speaker DSP, touchscreen & right-stick virtual stylus support, and dual-cartridge subsystem."
+
+# Hardware Information
+manufacturer = "Tiger Electronics"
+systemname = "Game.com"
+systemid = "gamecom"
+
+# Libretro Features
+supports_no_game = "true"
+savestate = "true"
+savestate_features = "serialized"
+cheats = "false"
+input_descriptors = "true"
+memory_descriptors = "true"
+libretro_saves = "true"
+core_options = "true"
+core_options_version = "2.0"
+load_subsystem = "true"
+hw_render = "false"
+needs_fullpath = "false"
+disk_control = "false"
+is_experimental = "true"
+
+# Firmware / BIOS
+firmware_count = 3
+firmware0_desc = "gamecom.zip (Game.com BIOS Archive)"
+firmware0_path = "gamecom.zip"
+firmware0_opt = "true"
+firmware1_desc = "internal.bin (Game.com 4KB Internal BIOS)"
+firmware1_path = "gamecom/internal.bin"
+firmware1_opt = "true"
+firmware2_desc = "external.bin (Game.com 256KB External Kernel BIOS)"
+firmware2_path = "gamecom/external.bin"
+firmware2_opt = "true"
+notes = "Place gamecom.zip (or loose internal.bin + external.bin) in RetroArch's system/ or system/gamecom/ directory."
