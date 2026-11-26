@@ -1,0 +1,43 @@
+# Software Information
+display_name = "VTech - V.Flash (FlashEm)"
+authors = "WizzardSK|deadman96385"
+supported_extensions = "cue|bin|iso"
+corename = "FlashEm"
+categories = "Emulator"
+license = "MIT"
+permissions = ""
+display_version = "0.6"
+
+# Hardware Information
+manufacturer = "VTech"
+systemname = "V.Flash"
+systemid = "vflash"
+
+# Libretro Features
+database = "VTech - V.Flash"
+supports_no_game = "false"
+savestate = "false"
+savestate_features = "null"
+cheats = "false"
+input_descriptors = "true"
+memory_descriptors = "false"
+libretro_saves = "false"
+core_options = "true"
+load_subsystem = "false"
+hw_render = "false"
+needs_fullpath = "true"
+block_extract = "true"
+disk_control = "false"
+is_experimental = "true"
+
+# Firmware / BIOS
+firmware_count = 2
+firmware0_desc = "70004.bin (V.Flash boot ROM, German)"
+firmware0_path = "flashem/70004.bin"
+firmware0_opt = "true"
+firmware1_desc = "vflash_us.bin (V.Flash boot ROM, US)"
+firmware1_path = "flashem/vflash_us.bin"
+firmware1_opt = "true"
+
+notes = "(!) One boot ROM is needed, either of them.|(!) 70004.bin (md5): f19e090723accb3353a7c4bef342af71|(!) vflash_us.bin (md5): 60b1ef08a7f3a795d66f2cf41140901b|(!) Open the game's .cue, with its .bin beside it. An .iso lacks the raw sector bytes the console checks and may not boot.|(!) Controls: d-pad is the stick, A red, B yellow, X green, Y blue, Start is Enter."
+description = "Emulator for the VTech V.Flash, also sold as the V.Smile Pro: a 2006 educational console built on an LSI ZEVIO 1020 (ARM926EJ-S) that plays CD-ROMs. It models the real hardware, from the CD drive to the graphics engine and the ZSP400 DSP that decodes the movies, and games boot to their menus and 3D gameplay. Still under active reverse engineering: compatibility is not complete, and save states are not implemented."
