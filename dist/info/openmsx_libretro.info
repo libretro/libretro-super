@@ -1,7 +1,7 @@
 # Software Information
 display_name = "Microsoft - MSX/MSX2/MSX2+/turbo R (openMSX)"
 authors = "openMSX team|WizzardSK"
-supported_extensions = "rom|ri|mx1|mx2|col|sg|sc|dsk|di1|di2|dmk|xsa|cas|wav|m3u|zip|gz"
+supported_extensions = "rom|ri|mx1|mx2|col|sg|sc|dsk|di1|di2|dmk|xsa|cas|wav|m3u|zip|7z|gz"
 corename = "openMSX"
 categories = "Emulator"
 license = "GPLv2"
@@ -27,7 +27,7 @@ core_options_version = "2.0"
 load_subsystem = "false"
 hw_render = "false"
 needs_fullpath = "true"
-block_extract = "true"
+block_extract = "false"
 disk_control = "true"
 is_experimental = "true"
 
