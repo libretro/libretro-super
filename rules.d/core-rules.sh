@@ -2018,6 +2018,12 @@ libretro_eka2l1_build_rule="cmake"
 libretro_eka2l1_build_opengl="yes"
 libretro_eka2l1_build_args="-G Ninja -DCI=ON -DEKA2L1_BUILD_LIBRETRO=ON -DEKA2L1_SCRIPTING_LUA=OFF"
 
+include_core_boytacean() {
+	register_module core "boytacean"
+}
+libretro_boytacean_name="Boytacean"
+libretro_boytacean_git_url="https://github.com/joamag/boytacean.git"
+
 # CORE RULE VARIABLES
 #
 # All variables follow the format of libretro_<core>_<setting> where <core> is
