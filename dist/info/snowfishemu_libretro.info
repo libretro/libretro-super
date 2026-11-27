@@ -1,0 +1,32 @@
+# Software Information
+display_name = "SnowFish (SnowFishEmu)"
+authors = "Aloys"
+supported_extensions = "app"
+corename = "snowfishemu"
+categories = "Emulator"
+license = "BSD-3-Clause"
+permissions = ""
+display_version = "0.1.0"
+
+# Hardware Information
+manufacturer = "Shanghai SnowFish"
+systemname = "SnowFish"
+systemid = "snowfish"
+
+# Libretro Features
+database = ""
+supports_no_game = "false"
+firmware_count = 0
+savestate = "true"
+cheats = "false"
+input_descriptors = "true"
+memory_descriptors = "true"
+libretro_saves = "false"
+core_options = "true"
+load_subsystem = "false"
+hw_render = "false"
+needs_fullpath = "true"
+disk_control = "false"
+is_experimental = "false"
+
+description = "SnowFishEmu is an emulator for the SnowFish/SFA application format. This libretro core supports .app content files."
