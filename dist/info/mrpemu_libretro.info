@@ -1,0 +1,32 @@
+# Software Information
+display_name = "MRP (MrpEmu)"
+authors = "MrpEmu contributors"
+supported_extensions = "mrp"
+corename = "mrpemu"
+categories = "Emulator"
+license = "GPL-3.0-or-later"
+permissions = ""
+display_version = "0.1.0"
+
+# Hardware Information
+manufacturer = "Sky-mobi / MTK feature phones"
+systemname = "Sky MRP (Mythroad)"
+systemid = "mrp"
+
+# Libretro Features
+database = "MRP"
+supports_no_game = "false"
+firmware_count = 0
+savestate = "false"
+cheats = "false"
+input_descriptors = "true"
+memory_descriptors = "false"
+libretro_saves = "false"
+core_options = "false"
+load_subsystem = "false"
+hw_render = "false"
+needs_fullpath = "true"
+disk_control = "false"
+is_experimental = "false"
+
+description = "MrpEmu runs Sky-mobi mythroad (MRP) applications with MiniJ and native ARM/Thumb execution, RGB565 video, and phone keypad controls."
