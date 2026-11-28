@@ -27,6 +27,6 @@ load_subsystem = "false"
 hw_render = "false"
 needs_fullpath = "true"
 disk_control = "false"
-is_experimental = "true"
+is_experimental = "false"
 
 description = "MrpEmu runs Sky-mobi mythroad (MRP) applications with MiniJ and native ARM/Thumb execution, RGB565 video, and phone keypad controls."
